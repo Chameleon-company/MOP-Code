@@ -22,7 +22,8 @@
             dataType: tableau.dataTypeEnum.string
         },{
             id: "date",
-            dataType: tableau.dataTypeEnum.datetime
+            dataType: tableau.dataTypeEnum.string,
+            alias:"Date"
         },{
             id: "latitude",
             dataType: tableau.dataTypeEnum.float
@@ -42,7 +43,7 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://api.openaq.org/v1/measurements?parameter=pm25&date_from=2020-06-01&date_to=2020-07-01&coordinates=-37.808,144.97&radius=20000", function(resp) {
+        $.getJSON("https://api.openaq.org/v1/measurements?parameter=pm25&date_from=2020-01-01&coordinates=-37.808,144.97&radius=10000", function(resp) {
             var feat = resp.results,
                 tableData = [];
 
@@ -54,7 +55,7 @@
                     "parameter": feat[i].parameter,
                     "value": feat[i].value,
                     "unit": feat[i].unit,
-                    "date": new Date(feat[i].date.local),
+                    "date": feat[i].date.utc,
                     "longitude": feat[i].coordinates.longitude,
                     "latitude": feat[i].coordinates.latitude
                 });
