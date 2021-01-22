@@ -7,6 +7,7 @@ import datetime
 from flask import Flask, render_template, request
 from datetime import datetime, timedelta
 import os
+from pathlib import Path
 
 #Reading data/ needs to be replaced by SQL server
 sensor_data_df = pd.read_csv("TidyPedL.csv")
@@ -15,19 +16,24 @@ sensor_data_df = sensor_data_df.set_index("date_time")
 
 app = Flask(__name__)
 
-@app.route('/form')
+@app.route('/')
 def form():
-    return render_template('form.html')
+    for p in Path("templates.").glob("2020*.html"):
+        p.unlink()
+    return render_template('index.html')
 
-@app.route('/data', methods=['POST', 'GET'])
+
+
+@app.route('/output', methods=['POST', 'GET'])
 def data():
     if request.method == 'GET':
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
         data = []
-        #timevalue = request.form
-        timevalue = '2020-11-20 08'
-        for index, row in sensor_data_df.loc[timevalue].iterrows():
+        timeString = str(request.form.get("Year"))+str(' ')+str(request.form.get("Month"))+str(' ')+str(request.form.get("Day"))+str(' ')+str(request.form.get("Hour"))
+        timeStriped = datetime.strptime(timeString, '%Y %m %d %H')
+        timevalue = str(timeStriped.date())+ str(" ")+ str(timeStriped.time())
+        for index, row in sensor_data_df.loc[timevalue[:13]].iterrows():
             #folium.Marker(location=[row['latitude'], row['longitude']], popup=row['sensor_name']).add_to(melb_city)
             data.append([row['latitude'], row['longitude'], row['hourly_counts']])
 
@@ -38,8 +44,15 @@ def data():
                     <h3 align="left" style="font-size:22px"><b>{}</b></h3>
                     '''.format('Year: ' + str(timevalue))   
         melb_city.get_root().html.add_child(folium.Element(title_html))
-        melb_city.save(os.path.join('./templates', 'output.html'))
-        return render_template('output.html')
+        melb_city.save(os.path.join('./templates', str(timevalue[:13])+'.html'))
+        return render_template(str(timevalue[:13])+'.html')
+
+@app.route('/test', methods=['POST'])
+def test():
+    timeString = str(request.form.get("Year"))+str(' ')+str(request.form.get("Month"))+str(' ')+str(request.form.get("Day"))+str(' ')+str(request.form.get("Hour"))
+    timeStriped = datetime.strptime(timeString, '%Y %m %d %H')
+    timevalue = str(timeStriped.date())+ str(" ")+ str(timeStriped.time())
+    return render_template('test.html', timevalue=timevalue)
 
 if __name__ == '__main__':
     app.run()
