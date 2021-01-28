@@ -8,6 +8,7 @@ from flask import Flask, render_template, request
 from datetime import datetime, timedelta
 import os
 from pathlib import Path
+import waitress
 
 #Reading data/ needs to be replaced by SQL server
 sensor_data_df = pd.read_csv("TidyPedL.csv")
@@ -45,7 +46,9 @@ def data():
                     '''.format('Year: ' + str(timevalue))   
         melb_city.get_root().html.add_child(folium.Element(title_html))
         melb_city.save(os.path.join('./templates', str(timevalue[:13])+'.html'))
-        return render_template(str(timevalue[:13])+'.html')
+        link = str(timevalue[:13])+'.html'
+        return render_template("output.html", link=link)
+        #return render_template(str(timevalue[:13])+'.html')
 
 @app.route('/test', methods=['POST'])
 def test():
