@@ -1,0 +1,12 @@
+    <header>
+        <nav>
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="{{url_for ('index')}}" class="nav-link {%if index %} active {%endif%}">Home</a></li>
+                <li class="nav-item"><a href="{{url_for ('Pedestrian_forecast')}}" class="nav-link {%if Pedestrian_forecast %} active {%endif%}">Pedestrian forecast</a></li>
+                <li class="nav-item"><a href="{{url_for ('Pedestrian_prediction')}}" class="nav-link {%if Pedestrian_prediction %} active {%endif%}">Pedestrian prediction</a></li>
+                <li class="nav-item"><a href="{{url_for ('contributions')}}" class="nav-link {%if contributions %} active {%endif%}">Team Member's Contributions</a></li>
+                
+            </ul>
+        </nav>
+        <hr style="clear:both">
+    </header>
