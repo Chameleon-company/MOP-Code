@@ -1,4 +1,6 @@
-
+### MAIN EXECUTION ##################################################
+OUTPUT_DIR = 'op'
+#####################################################################
 
 ### Extraction ######################################################
 
@@ -21,28 +23,33 @@ FEAT_PC_CODES = {
 
 }
 
-
 # BOM DOWNLOAD URL PATTERN
 BOM_DOWNLOAD_BASE_URL = 'http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=dailyZippedDataFile&p_stn_num={}&p_c={}&p_nccObsCode={}&p_startYear='
-
-
 
 EXTRACTION_DIR = 'extraction'
 #####################################################################
 
 
 
+### Tranform ########################################################
 
+TRANSFORMATION_DIR = 'transform'
 
+FEAT_COL_NAME = {
+	'rainfall': 'Rainfall amount (millimetres)',
+	'max_temp' : 'Maximum temperature (Degree C)',
+	'min_temp' : 'Minimum temperature (Degree C)',
+	'solar_exposure' : 'Daily global solar exposure (MJ/m*m)'
+}
 
+DATE_COLUMN = 'date'
 
+MERGED_FEATURES_FILE = 'features_merged.csv'
 
-
-
-
-
-
-### EXECUTION #######################################################
-
-OUTPUT_DIR = 'op'
+# USE BOM DATA AFTER THIS DATE
+BOM_CUTOFF_DATE = '2013-06-03'
 #####################################################################
+
+
+
+

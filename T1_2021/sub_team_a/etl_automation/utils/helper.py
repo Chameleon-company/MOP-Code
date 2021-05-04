@@ -3,6 +3,8 @@ import os
 import zipfile
 import glob
 from shutil import move, rmtree
+import pandas as pd
+
 
 def download_file(url, save_path, chunk_size=128):
 	"""
@@ -46,3 +48,27 @@ def move_file(src_path, dest_path):
 
 def remove_dir(dir_path):
 	rmtree(dir_path)
+
+
+def read_csv_file(file_path, delim=','):
+	return pd.read_csv(file_path, delim)
+
+
+def convert_to_datetime(df, feat_cols, date_col):
+	columns_update_dict = {
+							'year':'Year','month':'Month','mdate':'Day'
+						}
+	df.rename(
+				columns=columns_update_dict, 
+				inplace=True
+			)
+
+	df[date_col] = df['Year'].astype(str) + '-' + df['Month'].astype(str) + '-' + df['Day'].astype(str) 
+	df[date_col] = pd.to_datetime(df[date_col])
+	required_feat_cols = list(set(feat_cols).intersection(set(df.columns.tolist())))
+	df = df[[date_col,required_feat_cols[0]]]
+	return df
+
+
+def merge_files(df1, df2, merge_type, left_on, right_on):
+	return pd.merge(df1, df2, how=merge_type, left_on=left_on, right_on=right_on)
