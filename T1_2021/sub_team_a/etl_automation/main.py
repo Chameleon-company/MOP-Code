@@ -1,6 +1,6 @@
 from extraction import download_datasets
+import config as cfg
 
-OUTPUT_DIR = 'op'
 
 if __name__ == '__main__':
-	download_datasets.main(OUTPUT_DIR)
+	download_datasets.main(cfg.OUTPUT_DIR, cfg)
