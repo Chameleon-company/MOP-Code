@@ -1,41 +1,12 @@
 {% extends "layout.html" %} 
 {%block content %}
-  
 
-<head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-</head>
-<body>
- 
-<h3>Rainfall EDA - Iteration 1 </h3>
 
 <body>
-	<div>
+	
 
-		<h2><p style="text-align: justify;">Exploratory Data Analysis on Minimum Temperature</p></h2>
-
-		<p style="text-align: justify;"This is some sample text. I will add more here soon!</p>
-         
-	</div>	
-
-		
-	<div id={{ chartID|safe }} class="chart" style="height: 500px; width: 1100px"></div>
+		<h2><p style="text-align: justify;">Exploratory Data Analysis on Minimum Temperature</p></h2>    
+		<div id={{ chartID|safe }} class="chart" style="height: 800px; width: 1100px"; color: '#efefef'></div>
 		<script>
 			var chart_id = {{ chartID|safe }}
 			var series = {{ series|safe }}
@@ -50,4 +21,9 @@ tr:nth-child(even) {
 
 </body>
 	
+	
+
+
+<script type = "text/javascript" src = "/static/bootstrap.min.js"></script>
+
 {% endblock %}
