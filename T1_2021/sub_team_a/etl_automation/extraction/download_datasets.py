@@ -26,14 +26,15 @@ def get_pedestrian_count(output_dir, cfg):
 	client = Socrata(cfg.MP_URI_ENDPOINT, None)
 	results = client.get('b2ak-trbp', limit=3482938)
 	ped_df = helper.get_dataframe_from_json(results)
-	ped_df[cfg.DATE_COLUMN] = ped_df['year'] + '-' + ped_df['month'] + '-' + ped_df['mdate']
-	ped_df[cfg.DATE_COLUMN] = helper.get_datetime_column(ped_df, cfg.DATE_COLUMN)
+	# for testing
+	# ped_df = helper.read_csv_file('test.tsv', delim='\t')
+	ped_df[cfg.DATE_COLUMN] = ped_df['year'].astype(str)  + '-' + ped_df['month']  + '-' + ped_df['mdate'].astype(str) 
+	ped_df = helper.get_datetime_column(ped_df, cfg.DATE_COLUMN)
 	# converting hourly data to daily count
 	ped_df['hourly_counts'] = ped_df['hourly_counts'].astype('int')
 	ped_df = ped_df.groupby([cfg.DATE_COLUMN], as_index=False)['hourly_counts'].sum()
 	ped_df.rename(columns={'hourly_counts':'Total_Pedestrian_Count'}, inplace=True)
-	ped_df = ped_df[[cfg.DATE_COLUMN, 'Total_Pedestrian_Count']]
-	ped_df.to_csv(os.path.join(output_dir, cfg.MP_DOWNLOAD_FILE),index=False,sep='\t')
+	ped_df.to_csv(os.path.join(output_dir, cfg.MP_DOWNLOAD_FILE), index=False, sep='\t')
 
 
 def main(output_dir, cfg):

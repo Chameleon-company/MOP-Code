@@ -16,21 +16,21 @@ FEAT_NCCOBS_CODES = {
 }
 
 FEAT_PC_CODES = {
-	'rainfall': -1490874013,
-	'max_temp' : -1490871123,
-	'min_temp' : -1490871319,
-	'solar_exposure' : -1490889015
+	'rainfall': -1490874913,
+	'max_temp' : -1490872023,
+	'min_temp' : -1490872219,
+	'solar_exposure' : -1490889915
 
 }
 
 # BOM DOWNLOAD URL PATTERN
-BOM_DOWNLOAD_BASE_URL = 'http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=dailyZippedDataFile&p_stn_num={}&p_c={}&p_nccObsCode={}&p_startYear='
+BOM_DOWNLOAD_BASE_URL = 'http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=dailyZippedDataFile&p_stn_num={}&p_c={}&p_nccObsCode={}&p_startYear=2021'
 
 EXTRACTION_DIR = 'extraction'
 
 # Melbourne Portal Resource
 MP_URI_ENDPOINT = 'data.melbourne.vic.gov.au'
-MP_DOWNLOAD_FILE = 'pedestrian.csv'
+MP_DOWNLOAD_FILE = 'pedestrian.tsv'
 #####################################################################
 
 

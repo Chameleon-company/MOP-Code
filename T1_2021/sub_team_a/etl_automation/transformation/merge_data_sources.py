@@ -38,10 +38,11 @@ def main(output_dir, cfg):
 		base_df = helper.read_csv_file(features_file_list[0])
 		base_df = helper.convert_to_datetime(base_df, list(cfg.FEAT_COL_NAME.values()), cfg.DATE_COLUMN)
 		for feat_file in features_file_list[1:]:
-			print(feat_file)
-			feat_df = helper.read_csv_file(feat_file)
-			feat_df = helper.convert_to_datetime(feat_df, list(cfg.FEAT_COL_NAME.values()),cfg.DATE_COLUMN)
-			base_df = helper.merge_files(base_df, feat_df, merge_type='inner', left_on=cfg.DATE_COLUMN, right_on=cfg.DATE_COLUMN)
+			if cfg.MP_DOWNLOAD_FILE not in feat_file:
+				print(feat_file)
+				feat_df = helper.read_csv_file(feat_file)
+				feat_df = helper.convert_to_datetime(feat_df, list(cfg.FEAT_COL_NAME.values()),cfg.DATE_COLUMN)
+				base_df = helper.merge_files(base_df, feat_df, merge_type='inner', left_on=cfg.DATE_COLUMN, right_on=cfg.DATE_COLUMN)
 
 	# dataset date cutoff point
 	base_df = base_df[base_df[cfg.DATE_COLUMN] >= cfg.BOM_CUTOFF_DATE]
@@ -49,4 +50,4 @@ def main(output_dir, cfg):
 	base_df = merge_holiday_data(base_df, cfg)
 	base_df = merge_restriction_data(base_df, cfg)
 	base_df = merge_pedestrian_count(extraction_dir, base_df, cfg)
-	base_df.to_csv(os.path.join(output_dir, cfg.MERGED_FEATURES_FILE), index=False)
+	base_df.to_csv(os.path.join(output_dir, cfg.MERGED_FEATURES_FILE), index=False, sep='\t')
