@@ -27,6 +27,10 @@ FEAT_PC_CODES = {
 BOM_DOWNLOAD_BASE_URL = 'http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=dailyZippedDataFile&p_stn_num={}&p_c={}&p_nccObsCode={}&p_startYear='
 
 EXTRACTION_DIR = 'extraction'
+
+# Melbourne Portal Resource
+MP_URI_ENDPOINT = 'data.melbourne.vic.gov.au'
+MP_DOWNLOAD_FILE = 'pedestrian.csv'
 #####################################################################
 
 

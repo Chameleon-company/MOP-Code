@@ -6,6 +6,11 @@ from shutil import move, rmtree
 import pandas as pd
 
 
+COLUMNS_UPDATE_DICT = {
+						'year':'Year','month':'Month','mdate':'Day'
+					}
+
+
 def download_file(url, save_path, chunk_size=128):
 	"""
 	Download file from param
@@ -60,11 +65,9 @@ def get_datetime_column(df, col):
 
 
 def convert_to_datetime(df, feat_cols, date_col):
-	columns_update_dict = {
-							'year':'Year','month':'Month','mdate':'Day'
-						}
+
 	df.rename(
-				columns=columns_update_dict, 
+				columns=COLUMNS_UPDATE_DICT, 
 				inplace=True
 			)
 
@@ -77,3 +80,7 @@ def convert_to_datetime(df, feat_cols, date_col):
 
 def merge_files(df1, df2, merge_type, left_on, right_on):
 	return pd.merge(df1, df2, how=merge_type, left_on=left_on, right_on=right_on)
+
+
+def get_dataframe_from_json(data):
+	return pd.DataFrame.from_records(data)
