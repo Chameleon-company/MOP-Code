@@ -19,10 +19,19 @@ def merge_restriction_data(df, cfg):
 	return df
 	
 
+def merge_pedestrian_count(extraction_dir, df, cfg):
+	ped_df = helper.read_csv_file(os.path.join(extraction_dir, cfg.MP_DOWNLOAD_FILE), '\t')
+	ped_df = helper.get_datetime_column(ped_df, cfg.DATE_COLUMN)
+	df = helper.merge_files(df, ped_df, merge_type='inner', left_on=cfg.DATE_COLUMN, right_on=cfg.DATE_COLUMN)
+	return df
+
+
 def main(output_dir, cfg):
 	extraction_dir = os.path.join(output_dir, cfg.EXTRACTION_DIR) 
 	output_dir = os.path.join(output_dir, cfg.TRANSFORMATION_DIR)
 	helper.create_dir(output_dir)
+
+	# Merging feature data
 	features_file_list = helper.get_file_list_from_dir(extraction_dir, 'csv')
 	if len(features_file_list)>1:
 		# Merge Feature flat files
@@ -39,4 +48,5 @@ def main(output_dir, cfg):
 
 	base_df = merge_holiday_data(base_df, cfg)
 	base_df = merge_restriction_data(base_df, cfg)
+	base_df = merge_pedestrian_count(extraction_dir, base_df, cfg)
 	base_df.to_csv(os.path.join(output_dir, cfg.MERGED_FEATURES_FILE), index=False)

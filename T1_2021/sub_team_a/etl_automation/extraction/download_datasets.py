@@ -22,21 +22,22 @@ def get_csv_file_from_dir(dir_path):
 	return helper.get_file_list_from_dir(dir_path, '.csv')[0]
 
 
-def get_pedestrian_count(cfg):
+def get_pedestrian_count(output_dir, cfg):
 	client = Socrata(cfg.MP_URI_ENDPOINT, None)
 	results = client.get('b2ak-trbp', limit=3482938)
 	ped_df = helper.get_dataframe_from_json(results)
 	ped_df[cfg.DATE_COLUMN] = ped_df['year'] + '-' + ped_df['month'] + '-' + ped_df['mdate']
-	ped_df[cfg.DATE_COLUMN] = helper.get_datetime_column(ped_df[cfg.DATE_COLUMN])
-	ped_df.drop(columns=['id','date_time','year','month','mdate','day','time' ], inplace = True)
+	ped_df[cfg.DATE_COLUMN] = helper.get_datetime_column(ped_df, cfg.DATE_COLUMN)
 	# converting hourly data to daily count
 	ped_df['hourly_counts'] = ped_df['hourly_counts'].astype('int')
-	daily_df = df.groupby(['date'], as_index=False)['hourly_counts'].sum()
-	daily_df.rename(columns={'hourly_counts':'Total_Pedestrian_Count'}, inplace=True)
-	daily_df.to_csv(os.path.join(cfg.EXTRACTION_DIR, cfg.MP_DOWNLOAD_FILE),index=False,sep='\t')
+	ped_df = ped_df.groupby([cfg.DATE_COLUMN], as_index=False)['hourly_counts'].sum()
+	ped_df.rename(columns={'hourly_counts':'Total_Pedestrian_Count'}, inplace=True)
+	ped_df = ped_df[[cfg.DATE_COLUMN, 'Total_Pedestrian_Count']]
+	ped_df.to_csv(os.path.join(output_dir, cfg.MP_DOWNLOAD_FILE),index=False,sep='\t')
 
 
 def main(output_dir, cfg):
+	# downloading feature data
 	output_dir = os.path.join(output_dir, cfg.EXTRACTION_DIR)
 	for feat in cfg.FEAT_NCCOBS_CODES:
 		print(feat)
@@ -50,6 +51,7 @@ def main(output_dir, cfg):
 		helper.move_file(feat_csv_file_path, os.path.join(output_dir, '{}.csv'.format(feat)))
 		helper.remove_dir(feat_dir_path)
 
+	get_pedestrian_count(output_dir, cfg)
 
 if __name__=='__main__':
 	main()
