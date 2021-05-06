@@ -47,7 +47,16 @@ DATE_COLUMN = 'date'
 MERGED_FEATURES_FILE = 'features_merged.csv'
 
 # USE BOM DATA AFTER THIS DATE
-BOM_CUTOFF_DATE = '2013-06-03'
+BOM_CUTOFF_DATE = '2015-01-01'
+
+
+
+HOLIDAY_FILE_PATH = 'user_input/holidays.tsv'
+HOLIDAY_COLUMN_NAME = 'Public_Holiday'
+
+
+COVID_RESTRICTION_FILE_PATH = 'user_input/restriction.tsv'
+COVID_RESTRICTION_COLUMN_NAME = 'Covid Restrictions'
 #####################################################################
 
 

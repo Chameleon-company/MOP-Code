@@ -54,6 +54,11 @@ def read_csv_file(file_path, delim=','):
 	return pd.read_csv(file_path, delim)
 
 
+def get_datetime_column(df, col):
+	df[col] = pd.to_datetime(df[col])
+	return df
+
+
 def convert_to_datetime(df, feat_cols, date_col):
 	columns_update_dict = {
 							'year':'Year','month':'Month','mdate':'Day'
@@ -64,7 +69,7 @@ def convert_to_datetime(df, feat_cols, date_col):
 			)
 
 	df[date_col] = df['Year'].astype(str) + '-' + df['Month'].astype(str) + '-' + df['Day'].astype(str) 
-	df[date_col] = pd.to_datetime(df[date_col])
+	df = get_datetime_column(df,date_col)
 	required_feat_cols = list(set(feat_cols).intersection(set(df.columns.tolist())))
 	df = df[[date_col,required_feat_cols[0]]]
 	return df
