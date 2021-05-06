@@ -163,12 +163,62 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 
 @app.route("/Mini_Temperature")
 def Mini_Temperature():
+
+#
+#Below are Jason's Inputs to be tested on the main website.
+#
+#
+#
+
+#	with open('Min_Max_Temp.csv') as csv_file:
+#		data = csv.reader(csv_file, delimiter=',')
+#		first_line = True
+#		places = []
+#		for row in data:
+#			if not first_line:
+#				places.append({"Date": row[0], "Min": float(row[8])})
+#			else:
+#				first_line = False
+
+#	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+#	series = [{"name": 'Daily Minimum Temperature °C', "data": [d['Max'] for d in places]}]
+#	title = {"text": 'Daily Minimum Temperature from January 2015 to 4 April 2021'}
+#	xAxis = { "categories":  [d['Date'] for d in places]}
+#	yAxis = {"title": {"text": 'Daily Minimum Temperature °C'}}				
+#	
+#	
+#	
+	return render_template("Mini_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+
     return render_template("Mini_Temperature.html", us = True)
 	
 @app.route("/Maximum_Temperature")
 def Maximum_Temperature():
+#
+#Below are Jason's Inputs to be tested on the main website.
+#
+#
+#
 
-    return render_template("Maximum_Temperature.html", Maximum_Temperature = True)
+#	with open('Min_Max_Temp.csv') as csv_file:
+#		data = csv.reader(csv_file, delimiter=',')
+#		first_line = True
+#		places = []
+#		for row in data:
+#			if not first_line:
+#				places.append({"Date": row[0], "Max": float(row[9])})
+#			else:
+#				first_line = False
+
+#	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+#	series = [{"name": 'Daily Maximum Temperature °C', "data": [d['Max'] for d in places]}]
+#	title = {"text": 'Daily Maximum Temperature from January 2015 to 4 April 2021'}
+#	xAxis = { "categories":  [d['Date'] for d in places]}
+#	yAxis = {"title": {"text": 'Daily Maximum Temperature °C'}}				
+#	
+#	
+
+	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Rainfall")
 def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
