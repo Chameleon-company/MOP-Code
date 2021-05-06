@@ -171,8 +171,26 @@ def Maximum_Temperature():
     return render_template("Maximum_Temperature.html", Maximum_Temperature = True)
 	
 @app.route("/Rainfall")
-def Rainfall():
-    return render_template("Rainfall.html", Rainfall = True)
+def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+
+	with open('rainfall_dataset.csv') as csv_file:
+		data = csv.reader(csv_file, delimiter=',')
+		first_line = True
+		places = []
+		for row in data:
+			if not first_line:
+				places.append({"Date": row[0], "Rainfall_amount_(millimetres)": float(row[4])})
+			else:
+				first_line = False
+
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	series = [{"name": 'Daily rainfall', "data": [d['Rainfall_amount_(millimetres)'] for d in places]}]
+	title = {"text": 'Daily rainfall from January 2015 to Febuary 2021'}
+	xAxis = { "categories":  [d['Date'] for d in places]}
+	yAxis = {"title": {"text": 'Daily rainfall'}}				
+	
+	
+	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Solar_Exposure")
 def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
