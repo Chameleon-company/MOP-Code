@@ -212,7 +212,7 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Rainfall")
-def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'scatter', chart_height_2 = 500):
 
 	with open('rainfall_dataset.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -224,14 +224,20 @@ def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
 			else:
 				first_line = False
 
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Daily rainfall', "data": [d['Rainfall_amount_(millimetres)'] for d in places]}]
 	title = {"text": 'Daily rainfall from January 2015 to Febuary 2021'}
 	xAxis = { "categories":  [d['Date'] for d in places]}
-	yAxis = {"title": {"text": 'Daily rainfall'}}				
+	yAxis = {"title": {"text": 'Daily rainfall'}}
 	
-	
-	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
+	series2 = [{"name": 'Daily rainfall', "data": [d['Rainfall_amount_(millimetres)'] for d in places] }]
+	title2 = {"text": 'Daily rainfall from January 2025 to Febuary 2022'}
+	xAxis2 = { "categories":  [d['Date'] for d in places], 'type': 'datetime'}
+	yAxis2 = {"title": {"text": 'Daily rainfall (millimetres)'}}	
+	    
+
+	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2)
 	
 @app.route("/Solar_Exposure")
 def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
