@@ -69,7 +69,7 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": [d['daily_count'] for d in places]}]
 	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to Febuary 2021'}
-	xAxis = {"categories":  [d['date'] for d in places], "tickInterval": 90}
+	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
 	return render_template("Bourke_Street_Mall_South.html", Bourke_Street_Mall_South = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
@@ -91,7 +91,7 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
 	title = {"text": 'Victoria Point Daily Pedestrian Count from January 2015 to Febuary 2021'}
-	xAxis = {"categories":  [d['date'] for d in places], "tickInterval": 90}
+	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
 	return render_template('Victoria_Point.html', Victoria_Point = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
@@ -113,7 +113,7 @@ def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
 	title = {"text": 'Collins Place North Daily Pedestrian Count from January 2015 to Febuary 2021'}
-	xAxis = {"categories":  [d['date'] for d in places], "tickInterval": 90}
+	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
 	return render_template("Collins_Place_North.html", Collins_Place_North = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
@@ -134,7 +134,7 @@ def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_hei
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
 	title = {"text": 'Flinders_St_Spark_La Daily Pedestrian Count from January 2015 to Febuary 2021'}
-	xAxis = {"categories":  [d['date'] for d in places], "tickInterval": 90}
+	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
 	return render_template("Flinders_St_Spark_La.html", Flinders_St_Spark_La = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
@@ -156,7 +156,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
 	title = {"text": 'Southern Cross Station Daily Pedestrian Count from January 2015 to Febuary 2021'}
-	xAxis = {"categories":  [d['date'] for d in places], "tickInterval": 90}
+	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
 	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis )
@@ -179,7 +179,7 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height 
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily Minimum Temperature °C', "data": [d['Min'] for d in places]}]
 	title = {"text": 'Daily Minimum Temperature from January 2015 to 4 April 2021'}
-	xAxis = { "categories":  [d['Date'] for d in places]}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Minimum Temperature °C'}}				
 	
 	
@@ -190,7 +190,7 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height 
 @app.route("/Maximum_Temperature")
 def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
 
-#Below are Jason's Inputs to be tested on the main website.
+ 
 
 	with open('Min_Max_Temp.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -205,14 +205,14 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily Maximum Temperature °C', "data": [d['Max'] for d in places]}]
 	title = {"text": 'Daily Maximum Temperature from January 2015 to 4 April 2021'}
-	xAxis = { "categories":  [d['Date'] for d in places]}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Maximum Temperature °C'}}				
 
 
 	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Rainfall")
-def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'scatter', chart_height_2 = 500):
+def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
 
 	with open('rainfall_dataset.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -227,17 +227,35 @@ def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, c
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Daily rainfall', "data": [d['Rainfall_amount_(millimetres)'] for d in places]}]
 	title = {"text": 'Daily rainfall from January 2015 to Febuary 2021'}
-	xAxis = { "categories":  [d['Date'] for d in places]}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily rainfall'}}
 	
 	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
-	series2 = [{"name": 'Daily rainfall', "data": [d['Rainfall_amount_(millimetres)'] for d in places] }]
-	title2 = {"text": 'Daily rainfall from January 2025 to Febuary 2022'}
-	xAxis2 = { "categories":  [d['Date'] for d in places], 'type': 'datetime'}
-	yAxis2 = {"title": {"text": 'Daily rainfall (millimetres)'}}	
-	    
+	series2 = [{"name": 'Rainfall Amount', "data": [30.6, 22.6, 43.8, 41.2, 15.4, 54.6, 43.2] }]
+	title2 = {"text": 'Maximum rainfall Amount per year from 2015 to 2021'}
+	xAxis2 = {"title": {"text": 'Year'}, "categories":  [2015, 2016, 2017, 2018, 2019, 2020, 2021]}
+	yAxis2 = {"title": {"text": 'Rainfall (millimetres)'}}
 
-	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2)
+	chart3 = {"renderTo": chartID_3, "type": chart_type_3, "height": chart_height_3}
+	series3 = [{"name": 'Daily rainfall', "data": [43.8, 32.4, 44, 38, 54.6, 25.2, 43.2]}]
+	title3 = {"text": 'Maximum rainfall Amount per day of the week for 2015 to 2021'}
+	xAxis3 = { "title": {"text": 'Day of the week'}, "categories":  ["Sunday" ,"Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ,  "Saturday"  ]}
+	yAxis3 = {"title": {"text": 'Daily rainfall'}}	
+
+	chart4 = {"renderTo": chartID_4, "type": chart_type_4, "height": chart_height_4}
+	series4 = [{"name": 'Maximum rainfall', "data": [44, 38, 54.6, 35.2, 18.6, 15.6, 28.4, 25.6, 21.4, 32.2, 35.8, 43.8 ]}]
+	title4 = {"text": 'Maximum rainfall per month for 2015 to 2021'}
+	xAxis4 = {"title": {"text": 'Month'}, "categories":  ["Jan", "Feb" , "Mar" , "Apr" , "May" ,  "Jun" ,  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]}
+	yAxis4 = {"title": {"text": 'Daily rainfall'}}
+
+	
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily rainfall', "data": [2164, 55, 19 , 8, 4 ,1 ]}]
+	title5 = {"text": 'Daily rainfall Distribution (January 2015 to Febuary 2021)'}
+	xAxis5 = {"title": {"text": 'Daily rainfall range (mm)'}, "categories":  [ "0-10", "10-20" , "20-30" , "30-40" , "40-50" ,  "50-60"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}
+
+	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
 	
 @app.route("/Solar_Exposure")
 def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
@@ -255,11 +273,38 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily global solar exposure', "data": [d['Daily_global_solar_exposure'] for d in places]}]
 	title = {"text": 'Daily solar_exposure from January 2015 to Febuary 2021'}
-	xAxis = { "categories":  [d['Date'] for d in places]}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	
 	yAxis = {"title": {"text": 'Daily solar_exposure'}}
 	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
+@app.route("/RRP")
+def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
+
+	with open('electricity_demand.csv') as csv_file:
+		data = csv.reader(csv_file, delimiter=',')
+		first_line = True
+		places = []
+		for row in data:
+			if not first_line:
+				places.append({"Date": row[0], "RRP": np.round(float(row[2]),2)})
+			else:
+				first_line = False
+		
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	series = [{"name": 'Daily Recommended Retail Price', "data": [d['RRP'] for d in places]}]
+	title = {"text": 'Daily Recommended Retail Price from January 2015 to Febuary 2021'}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
+	yAxis = {"title": {"text": 'Daily Daily Recommended Retail Price'}}
+	
+	
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily rainfall', "data": [1228, 986, 25 , 3, 1 ,2 ,1,1,1,1,1,1]}]
+	title5 = {"text": 'Daily rainfall Distribution (January 2015 to Febuary 2021)'}
+	xAxis5 = {"title": {"text": 'Daily rainfall range (mm)'}, "categories":  [ "-31.15-68.85", "68.85-168.85" , "168.85-268.85" , "268.85-368.85" , "468.85-568.85" ,  "568.85-668.85", "868.85-968.85","968.85-1068.85" , "1168.85-1268.85", "1268.85-1368.85", "2768.85-2868.85", "14468.85-4568.85"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}
+
+	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
 	
 
 
