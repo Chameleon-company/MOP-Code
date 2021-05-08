@@ -279,7 +279,7 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
 @app.route("/RRP")
-def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
+def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
 
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -296,15 +296,31 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500, chartID_5
 	title = {"text": 'Daily Recommended Retail Price from January 2015 to Febuary 2021'}
 	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Daily Recommended Retail Price'}}
-	
+
+	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
+	series2 = [{"name": 'Average RRP per month', "data": [112.95, 63.59, 72.45 ,66.74, 69.27,81.25 ,75.48,72.73,68.58,65.99,64.20,59.15]}]
+	title2 = {"text": 'Average RRP per month from January 2015 to Febuary 2021'}
+	xAxis2 = {"title": {"text": 'Month'} ,"categories":  ["Jan", "Feb" , "Mar" , "Apr" , "May" ,  "Jun" ,  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]}
+	yAxis2 = {"title": {"text": 'Average RRP Amount'}}		
+
+	chart3 = {"renderTo": chartID_3, "type": chart_type_3, "height": chart_height_3}
+	series3 = [{"name": 'Average RRP per day of week', "data": [56.62,69.92,72.31,76.43,91.99,85.69, 59.67]}]
+	title3 = {"text": 'Average RRP per day of week from January 2015 to Febuary 2021'}
+	xAxis3 = { "title": {"text": 'Day of week'},"categories":  ["Sunday", "Monday", "Tuesday" , "Wednesday" , "Thursday" , "May" ,  "Friday" ,  "Saturday"]}
+	yAxis3 = {"title": {"text": 'Average RRP Amount'}}	
+
 	
 	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
 	series5 = [{"name": 'Daily rainfall', "data": [1228, 986, 25 , 3, 1 ,2 ,1,1,1,1,1,1]}]
-	title5 = {"text": 'Daily rainfall Distribution (January 2015 to Febuary 2021)'}
-	xAxis5 = {"title": {"text": 'Daily rainfall range (mm)'}, "categories":  [ "-31.15-68.85", "68.85-168.85" , "168.85-268.85" , "268.85-368.85" , "468.85-568.85" ,  "568.85-668.85", "868.85-968.85","968.85-1068.85" , "1168.85-1268.85", "1268.85-1368.85", "2768.85-2868.85", "14468.85-4568.85"]}
+	title5 = {"text": 'Daily RRP Distribution (January 2015 to Febuary 2021)'}
+	xAxis5 = {"title": {"text": 'Daily RRP range (AUD$)'}, "categories":  [ "-31.15-68.85", "68.85-168.85" , "168.85-268.85" , "268.85-368.85" , "468.85-568.85" ,  "568.85-668.85", "868.85-968.85","968.85-1068.85" , "1168.85-1268.85", "1268.85-1368.85", "2768.85-2868.85", "14468.85-4568.85"]}
 	yAxis5 = {"title": {"text": 'Frequency'}}
+	
+	
+	
+	
 
-	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
+	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
 	
 
 
