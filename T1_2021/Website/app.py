@@ -273,11 +273,38 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily global solar exposure', "data": [d['Daily_global_solar_exposure'] for d in places]}]
 	title = {"text": 'Daily solar_exposure from January 2015 to Febuary 2021'}
-	xAxis = { "categories":  [d['Date'] for d in places]}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	
 	yAxis = {"title": {"text": 'Daily solar_exposure'}}
 	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
+@app.route("/RRP")
+def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
+
+	with open('electricity_demand.csv') as csv_file:
+		data = csv.reader(csv_file, delimiter=',')
+		first_line = True
+		places = []
+		for row in data:
+			if not first_line:
+				places.append({"Date": row[0], "RRP": np.round(float(row[2]),2)})
+			else:
+				first_line = False
+		
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	series = [{"name": 'Daily Recommended Retail Price', "data": [d['RRP'] for d in places]}]
+	title = {"text": 'Daily Recommended Retail Price from January 2015 to Febuary 2021'}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
+	yAxis = {"title": {"text": 'Daily Daily Recommended Retail Price'}}
+	
+	
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily rainfall', "data": [1228, 986, 25 , 3, 1 ,2 ,1,1,1,1,1,1]}]
+	title5 = {"text": 'Daily rainfall Distribution (January 2015 to Febuary 2021)'}
+	xAxis5 = {"title": {"text": 'Daily rainfall range (mm)'}, "categories":  [ "-31.15-68.85", "68.85-168.85" , "168.85-268.85" , "268.85-368.85" , "468.85-568.85" ,  "568.85-668.85", "868.85-968.85","968.85-1068.85" , "1168.85-1268.85", "1268.85-1368.85", "2768.85-2868.85", "14468.85-4568.85"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}
+
+	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
 	
 
 

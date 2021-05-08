@@ -63,8 +63,9 @@ $(document).ready(function() {
 		yAxis: yAxis5,
 		series: series5,
 		tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true ,         formatter: function () {
-            return 'The count of rainfall between for <b>' + this.x +
-                'mm range</b> is <b>' + this.y + '</b>';
+            return 'The frequency of rainfall between <b>' + this.x +
+                ' mm range</b> is <b>' + this.y + '</b>';
+
         }},
 	});
 });
