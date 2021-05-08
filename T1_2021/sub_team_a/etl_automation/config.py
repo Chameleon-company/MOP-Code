@@ -48,7 +48,6 @@ FEAT_COL_NAME = {
 
 DATE_COLUMN = 'date'
 
-MERGED_FEATURES_FILE = 'features_merged.csv'
 
 # USE BOM DATA AFTER THIS DATE
 BOM_CUTOFF_DATE = '2015-01-01'
@@ -61,6 +60,33 @@ HOLIDAY_COLUMN_NAME = 'Public_Holiday'
 
 COVID_RESTRICTION_FILE_PATH = 'user_input/restriction.tsv'
 COVID_RESTRICTION_COLUMN_NAME = 'Covid Restrictions'
+
+# STAGES OUTPUT FILES IN CHRONOLOGICAL ORDER
+MERGED_FEATURES_FILE = 'features_merged.tsv'
+CLEANED_FEATURES_FILE = 'clean_features.tsv'
+#####################################################################
+
+
+
+### Model ###########################################################
+
+MODEL_DIR = 'model'
+FE_PAST_N_DAYS = 300
+PREDICT_NEXT_N_DAYS = 7
+
+# Test your data on the last N days
+TEST_N_DAYS = 30
+
+# TRAINING PARAMS
+RANDOM_SEED = 36
+TENSORBOARD_DIR = 'logs'
+LEARNING_RATE = 1e-4
+EPOCHS = 200 
+MODEL_CHECKPOINT = 'best_rnn_model.hdf5'
+TRAIN_LOSS = 'mae'
+TRAIN_VAL_METRIC = 'val_loss'
+VALIDATION_SPLIT = .2
+BATCH_SIZE = 32
 #####################################################################
 
 
