@@ -69,3 +69,19 @@ $(document).ready(function() {
         }},
 	});
 });
+
+
+$(document).ready(function() {
+	$(chart_id_6).highcharts({
+		chart: chart6,
+		title: title6,
+		xAxis: xAxis6,
+		yAxis: yAxis6,
+		series: series6,
+		tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true ,         formatter: function () {
+            return 'Demand of <b>' + this.y +
+                '  </b>MWh has RRP of <b>' + this.x + '</b> dollars';
+
+        }},
+	});
+});
