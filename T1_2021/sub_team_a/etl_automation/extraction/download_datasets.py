@@ -37,9 +37,9 @@ def get_pedestrian_count(output_dir, cfg):
 	ped_df.to_csv(os.path.join(output_dir, cfg.MP_DOWNLOAD_FILE), index=False, sep='\t')
 
 
-def main(output_dir, cfg):
+def main(cfg):
 	# downloading feature data
-	output_dir = os.path.join(output_dir, cfg.EXTRACTION_DIR)
+	output_dir = os.path.join(cfg.OUTPUT_DIR, cfg.EXTRACTION_DIR)
 	for feat in cfg.FEAT_NCCOBS_CODES:
 		print(feat)
 		feat_dir_path = os.path.join(output_dir, feat)
