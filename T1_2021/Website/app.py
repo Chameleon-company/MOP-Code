@@ -331,6 +331,26 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_6 = chartID_6, chart6=chart6, series6=series6, title6=title6, xAxis6=xAxis6, yAxis6=yAxis6)
 	
 
+@app.route("/Energy_forecast")
+def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+
+	with open('electricity_demand.csv') as csv_file:
+		data = csv.reader(csv_file, delimiter=',')
+		first_line = True
+		places = []
+		for row in data:
+			if not first_line:
+				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
+			else:
+				first_line = False
+		
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
+	series = [{"name": 'Energy Forecast', "data": [d['Demand'] for d in places]}]
+	title = {"text": 'Energy consumption forecast from January 2015 to August 2021'}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
+	
+	yAxis = {"title": {"text": 'Energy Consumption'}}
+	return render_template("Energy_forecast.html", Energy_Forecast= True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
 	
 	
