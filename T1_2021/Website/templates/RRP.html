@@ -1,0 +1,114 @@
+{% extends "layout.html" %} 
+{%block content %}
+
+
+<body>
+	<h2><p style="text-align: justify;">Exploratory Data Analysis on Recommended Retail Price</p></h2>  
+	<div>
+
+		<p style="text-align: justify;">Below are various graphs to help interpret the trends of the predictor variable “Recommended Retail Price” (RRP). Australian Energy Market Operator (AEMO) manages the electricity distribution across Australia, helping to ensure Australians have access to affordable and reliable energy. RRP is the Australian recommended retail price of the electricity per megawatt which is set by AEMO. The RRP value changes on the half-hourly basis. From the below graph, it can be seen that during some intervals of the day, the RRP was negative. This means the energy producers were paying consumers rather than vice versa. The COVID-19 lockdown and work-from-home restrictions during the pandemic has increased the energy consumption and the retail price of electricity.</p>
+		 
+	</div>	
+
+		  
+		<div id={{ chartID|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		<script>
+			var chart_id = {{ chartID|safe }}
+			var series = {{ series|safe }}
+			var title = {{ title|safe }}
+			var xAxis = {{ xAxis|safe }}
+			var yAxis = {{ yAxis|safe }}
+			var chart = {{ chart|safe }}
+		</script>
+	<div>
+
+		<p style="text-align: justify;">The above graph showcases the average retail price that the AEMO regulates per month. It can be observed that January has the highest RRP value. In January, the daytime temperature is typically higher and climate change has a significant impact on the activities Australians engage in. AEMO operates the electricity markets by allowing energy related services to be bought and sold in a competitive environment. The organization schedules the energy at the lowest available prices and settles trades.</p>
+		 
+	</div>	
+		<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
+		<script>
+			var chart_id_5 = {{ chartID_5|safe }}
+			var series5 = {{ series5|safe }}
+			var title5 = {{ title5|safe }}
+			var xAxis5 = {{ xAxis5|safe }}
+			var yAxis5 = {{ yAxis5|safe }}
+			var chart5 = {{ chart5|safe }}
+		</script>
+
+	<div>
+
+		<p style="text-align: justify;">Below are various graphs to help interpret what is happening to the predictor variable “Maximum Temperature”.  We believe that maximum temperature affects how many people will be in the city (the variable to which we want to find out).  In the first scatter plot maximum temperature tends to follow a sin trend but heavily weighted towards maximum values.  To find out more the box plots by month shows this in detail.</p>
+		 
+	</div>
+			<div id={{ chartID_2|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		
+		<script>
+			var chart_id_2 = {{ chartID_2|safe }}
+			var series2 = {{ series2|safe }}
+			var title2 = {{ title2|safe }}
+			var xAxis2 = {{ xAxis2|safe }}
+			var yAxis2 = {{ yAxis2|safe }}
+			var chart2 = {{ chart2|safe }}
+		</script>
+	<div>
+
+		<p style="text-align: justify;">The above graph showcases the average retail price that the AEMO regulates per month. It can be observed that January has the highest RRP value. In January, the daytime temperature is typically higher and climate change has a significant impact on the activities Australians engage in. AEMO operates the electricity markets by allowing energy related services to be bought and sold in a competitive environment. The organization schedules the energy at the lowest available prices and settles trades.</p>
+		 
+	</div>	
+		
+		<div id={{ chartID_3|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+	
+		<script>
+			var chart_id_3 = {{ chartID_3|safe }}
+			var series3 = {{ series3|safe }}
+			var title3 = {{ title3|safe }}
+			var xAxis3 = {{ xAxis3|safe }}
+			var yAxis3 = {{ yAxis3|safe }}
+			var chart3 = {{ chart3|safe }}
+		</script>
+	<div>		
+		
+		<p style="text-align: justify;">The above graph showcases the average retail price the AEMO regulates per week. From the graph, the highest retail price is calculated on Thursday. The spike in the retail price means that the organization generates large amount of electricity on Thursday, which has a significant impact on the retail price. The retail price is directly proportional to the wholesale price, i.e., as the production cost increases, so does the retail price.</p>
+	</div>	
+
+	<div>
+
+			
+		<p style="text-align: justify;">The prediction of the Recommended Retail Price follows the same trend as the actual values. As such, it will be reliable when forecasting the energy consumption. </p>
+				 
+	</div>	
+	<div>
+
+			
+		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.86 this shows the clear skew towards higher temperatures.</p>
+				 
+	</div>	
+		<div id={{ chartID_6|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
+		<script>
+			var chart_id_6 = {{ chartID_6|safe }}
+			var series6 = {{ series6|safe }}
+			var title6 = {{ title6|safe }}
+			var xAxis6 = {{ xAxis6|safe }}
+			var yAxis6 = {{ yAxis6|safe }}
+			var chart6 = {{ chart6|safe }}
+		</script>
+	<div>
+
+			
+		<p style="text-align: justify;">The prediction neatly follows the same trend as the actual values.  As such it will be reliable when calculating the pedestrian counts. </p>
+				 
+	</div>	
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script src="http://code.highcharts.com/highcharts.js"></script>
+			<script src="../static/rrp.js"></script>
+			<script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+			<script src="https://code.highcharts.com/modules/exporting.js"></script>
+			<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</body>
+	
+	
+
+
+<script type = "text/javascript" src = "/static/bootstrap.min.js"></script>
+
+{% endblock %}

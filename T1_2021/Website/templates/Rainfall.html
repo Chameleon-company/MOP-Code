@@ -1,41 +1,12 @@
 {% extends "layout.html" %} 
 {%block content %}
-  
 
-<head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-</head>
-<body>
- 
-<h3>Rainfall EDA - Iteration 1 </h3>
 
 <body>
-	<div>
 
-		<h2><p style="text-align: justify;">Exploratory Data Analysis on Rainfall</p></h2>
 
-		<p style="text-align: justify;">The purpose of this page is to explore the trends in one of the predictor variables the solar exposure, we believe this variable impacts pedestrian count which our client intends to make appropriate decisions to promote. The cumulative amount of solar energy that falls on a horizontal surface is referred to as the global solar exposure. Daily global sun exposure is the cumulative amount of solar energy received during a single day. Regular global exposure levels are usually between 1 and 35MJ/m2 (megajoules per square metre). For mid-latitudes, values are typically higher during summer's bright sun and lowest during winter or very cloudy days. The Dataset was sourced from the bureau of metrology website. The data from BOM website ranges from 1990 to date however we are only considering a subset of the dataset from 2015 to date as one of our predictor variables.</p>
-         
-	</div>	
-
-		
-	<div id={{ chartID|safe }} class="chart" style="height: 500px; width: 1100px"></div>
+		<h2><p style="text-align: justify;">Exploratory Data Analysis on Rainfall</p></h2>    
+	<div id={{ chartID|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
 		<script>
 			var chart_id = {{ chartID|safe }}
 			var series = {{ series|safe }}
@@ -44,106 +15,98 @@ tr:nth-child(even) {
 			var yAxis = {{ yAxis|safe }}
 			var chart = {{ chart|safe }}
 		</script>
-			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-			<script src="http://code.highcharts.com/highcharts.js"></script>
-			<script src="../static/Victoria_Point.js"></script>
-
-</body>
+	<div>
+			
+		<p style="text-align: justify;">The box plots of minimum temperature by month show a clear trend between each month.  The coldest minimum temperatures as expected in Winter (June, July and August) and the hottest minimum temperatures in Summer (Especially January and February).  What is interesting is visually confirming the outliers that were suspected in the previous graph.  There are three minimum outliers in July whilst there are many more maximum outliers throughout the year (especially in the summer months).  This may suggest more heat events (heat waves) than cold ones. </p>
+		 
+	</div>	
 	
+	<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		
+		<script>
+			var chart_id_5 = {{ chartID_5|safe }}
+			var series5 = {{ series5|safe }}
+			var title5 = {{ title5|safe }}
+			var xAxis5 = {{ xAxis5|safe }}
+			var yAxis5 = {{ yAxis5|safe }}
+			var chart5 = {{ chart5|safe }}
+		</script>
+
+						
+	<div>
+
+			
+		<p style="text-align: justify;">The box plots of minimum temperature by month show a clear trend between each month.  The coldest minimum temperatures as expected in Winter (June, July and August) and the hottest minimum temperatures in Summer (Especially January and February).  What is interesting is visually confirming the outliers that were suspected in the previous graph.  There are three minimum outliers in July whilst there are many more maximum outliers throughout the year (especially in the summer months).  This may suggest more heat events (heat waves) than cold ones. </p>
+		 
+	</div>	
+		
+		
+		
+		<div id={{ chartID_2|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		
+		<script>
+			var chart_id_2 = {{ chartID_2|safe }}
+			var series2 = {{ series2|safe }}
+			var title2 = {{ title2|safe }}
+			var xAxis2 = {{ xAxis2|safe }}
+			var yAxis2 = {{ yAxis2|safe }}
+			var chart2 = {{ chart2|safe }}
+		</script>
+		
+	<div>
+
+			
+		<p style="text-align: justify;">The box plots of minimum temperature by month show a clear trend between each month.  The coldest minimum temperatures as expected in Winter (June, July and August) and the hottest minimum temperatures in Summer (Especially January and February).  What is interesting is visually confirming the outliers that were suspected in the previous graph.  There are three minimum outliers in July whilst there are many more maximum outliers throughout the year (especially in the summer months).  This may suggest more heat events (heat waves) than cold ones. </p>
+		 
+	</div>	
 
 
-
-
-
-
-
-
-
-
-
-
-
-<table>
-  <tr>
-    <th>Activity</th>
-    <th>Visual(s)</th>
-    <th> Comments  </th>
-  </tr>
-  <tr>
-    <td>Datasets inspect</td>
-    <td><img src="{{ url_for('static',filename='images/Picture1.png')}}" align=  "right" width=600, height = 500></td>
-    <td>
+		<div id={{ chartID_3|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
 	
- 	</td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture2.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> <ul>- The rainfall dataset date is range from 2015-01-01 to 2021-02-28. The rainfall amount with mean 1.51 millimetres. </ul>
-		<ul>- The rainfall amount is range from 54 to 0 (max and min). </ul>
-		<ul>- The median is less than mean, the dataset is skewed to the right, most of data spread on the right side </ul>
- 	</td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture3.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> <ul>- The total of rainfall amount on Saturday is largest, while rainfall amount on Wednesday is lowest </ul>
+		<script>
+			var chart_id_3 = {{ chartID_3|safe }}
+			var series3 = {{ series3|safe }}
+			var title3 = {{ title3|safe }}
+			var xAxis3 = {{ xAxis3|safe }}
+			var yAxis3 = {{ yAxis3|safe }}
+			var chart3 = {{ chart3|safe }}
+		</script>
+	<div>
 
- 	</td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture4.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> 
- 	</td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture5.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> <ul>- If check the error, the difference between Saturday and other day of week is significant. </ul>  
-		 <ul>- The days of week (except Saturday) are not significant.  </ul>  
+			
+		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.23 this shows more outliers on the maximum end than on the minimum end.  </p>
+		 
+	</div>	
+		
 
- 	</td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture6.png')}}" align=  "right" width=400, height = 300> </td>
-    <td>  <ul>- The Feb and Mar are significant from rest of month. </ul> 
- 
- 	</td>
-  </tr>
-    <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture7.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> <ul>- It was particularly wet in April; averaged across all reporting sites in Greater Melbourne, it was the wettest April since 1974. </ul>  
- 
- 	</td>
-  </tr>
-    <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture8.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> <ul>-  There are a lot of outliers in rainfall dataset, resulting in missing fit the rainfall trend. The R square is relatively low.</ul>
-         <ul>-  The KNN fit rainfall best among these five models  </ul>
+		<div id={{ chartID_4|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+	
+		<script>
+			var chart_id_4 = {{ chartID_4|safe }}
+			var series4 = {{ series4|safe }}
+			var title4 = {{ title4|safe }}
+			var xAxis4 = {{ xAxis4|safe }}
+			var yAxis4 = {{ yAxis4|safe }}
+			var chart4 = {{ chart4|safe }}
+		</script>
+				
+	<div>
 
- 	</td>
-  </tr>
-    <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture9.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> 
- 	</td>
-  </tr>
-    <tr>
-    <td> </td>
-    <td><img src="{{ url_for('static',filename='images/Picture10.png')}}" align=  "right" width=400, height = 300> </td>
-    <td> 
- 	</td>
-  </tr>
-</table>
+			
+		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.23 this shows more outliers on the maximum end than on the minimum end.  </p>
+		 
+	</div>					
+				
 
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="../static/rainfall_new.js"></script>
+		<script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
            
-</body> 
- 
- 
+</body>  
+
+
 {% endblock %}

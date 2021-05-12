@@ -1,9 +1,55 @@
 {% extends "layout.html" %} 
 {%block content %}
-  
-    
-<div>	
 
-<div class='tableauPlaceholder' id='viz1619567073285' style='position: relative'><noscript><a href='#'><img alt='Colins Place North ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;ColinsPlaceNorth&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='ColinsPlaceNorth&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;ColinsPlaceNorth&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1619567073285');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-  </div>	
+
+<body>
+	<div>
+
+		<h2><p style="text-align: justify;">Exploratory Data Analysis on Minimum Temperature</p></h2>
+	
+		<p style="text-align: justify;">Below are various graphs to help interpret what is happening to the predictor variable “Minimum Temperature”.  We believe that minimum temperature affects how many people will be in the city (the variable to which we want to find out).  In the first scatter plot minimum temperature tends to follow a sin graph with some gaussian noise.  There are seemingly some outliers on the warmer end and fewer outliers on the colder end.  To find out more the box plots by month shows this in detail.</p>
+		 
+	</div>	
+
+		<h2><p style="text-align: justify;">Exploratory Data Analysis on Minimum Temperature</p></h2>    
+		<div id={{ chartID|safe }} class="chart" style="height: 800px; width: 1100px"; color: '#efefef'></div>
+		<script>
+			var chart_id = {{ chartID|safe }}
+			var series = {{ series|safe }}
+			var title = {{ title|safe }}
+			var xAxis = {{ xAxis|safe }}
+			var yAxis = {{ yAxis|safe }}
+			var chart = {{ chart|safe }}
+		</script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script src="http://code.highcharts.com/highcharts.js"></script>
+			<script src="../static/Victoria_Point.js"></script>
+
+	<div>
+
+			
+		<p style="text-align: justify;">The box plots of minimum temperature by month show a clear trend between each month.  The coldest minimum temperatures as expected in Winter (June, July and August) and the hottest minimum temperatures in Summer (Especially January and February).  What is interesting is visually confirming the outliers that were suspected in the previous graph.  There are three minimum outliers in July whilst there are many more maximum outliers throughout the year (especially in the summer months).  This may suggest more heat events (heat waves) than cold ones. </p>
+		 
+	</div>	
+	<div>
+
+			
+		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.23 this shows more outliers on the maximum end than on the minimum end.  </p>
+		 
+	</div>	
+
+	<div>
+
+			
+		<p style="text-align: justify;">The prediction neatly follows the same trend as the actual values.  As such it will be reliable when calculating the pedestrian counts. </p>
+		 
+	</div>	
+
+</body>
+	
+	
+
+
+<script type = "text/javascript" src = "/static/bootstrap.min.js"></script>
+
 {% endblock %}
