@@ -343,11 +343,28 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
 			else:
 				first_line = False
-		
+	
+	with open('dataset_for_prediction.csv') as csv_file:
+		data = csv.reader(csv_file, delimiter=',')
+		first_line = True
+		forecast = []
+		for row in data:
+			if not first_line:
+				forecast.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
+			else:
+				first_line = False		
+	lst = []
+	for k in places:
+		lst.append([k['Date']])
+	for k in forecast:
+		lst.append([k['Date']])
+
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Energy Forecast', "data": [d['Demand'] for d in places]}]
+	series = [{"name": 'Energy Consumption', color: 'rgba(223, 83, 83, .5)', "data": [d['Demand'] for d in places]},
+		  {"name": 'Energy Consumption Forecast', color: 'rgba(119, 152, 191, .5)', "data": [d['Demand'] for d in forecast]}
+		 ]
 	title = {"text": 'Energy consumption forecast from January 2015 to August 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
+	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in lst], "tickInterval": 90}
 	
 	yAxis = {"title": {"text": 'Energy Consumption'}}
 	return render_template("Energy_forecast.html", Energy_Forecast= True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
