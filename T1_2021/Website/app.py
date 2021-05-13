@@ -373,6 +373,10 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 
 	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_6 = chartID_6, chart6=chart6, series6=series6, title6=title6, xAxis6=xAxis6, yAxis6=yAxis6, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
 	
+
+
+	
+	
 @app.route("/Pedestrian_forecast")
 def Pedestrian_forecast():
     return render_template("Pedestrian_forecast.html", Pedestrian_forecast = True)
