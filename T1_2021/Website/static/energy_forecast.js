@@ -4,10 +4,7 @@ $(document).ready(function() {
 		title: title,
 		xAxis: xAxis,
 		yAxis: yAxis,
-		series: series,
-		tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true,          formatter: function () {
-            return 'Electricity forecast <b>' + this.x +
-                '</b> is <b>' + this.y + ' MWH </b>';
+		series:[{name: 'Actual Demand', data: data1,  pointStart: Date.UTC(2015, 0, 1) , pointInterval: 24 * 3600 * 1000 },{name: 'Predicted Demand', data: data1_2,  pointStart: Date.UTC(2021, 2, 1) , pointInterval: 24 * 3600 * 1000 }]
         } },
 	});
 });
