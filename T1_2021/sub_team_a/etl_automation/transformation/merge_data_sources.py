@@ -30,7 +30,6 @@ def main(cfg):
 	extraction_dir = os.path.join(output_dir, cfg.EXTRACTION_DIR) 
 	output_dir = os.path.join(output_dir, cfg.TRANSFORMATION_DIR)
 	helper.create_dir(output_dir)
-
 	# Merging feature data
 	features_file_list = helper.get_file_list_from_dir(extraction_dir, 'csv')
 	if len(features_file_list)>1:
@@ -46,7 +45,6 @@ def main(cfg):
 
 	# dataset date cutoff point
 	base_df = base_df[base_df[cfg.DATE_COLUMN] >= cfg.BOM_CUTOFF_DATE]
-
 	base_df = merge_holiday_data(base_df, cfg)
 	base_df = merge_restriction_data(base_df, cfg)
 	base_df = merge_pedestrian_count(extraction_dir, base_df, cfg)

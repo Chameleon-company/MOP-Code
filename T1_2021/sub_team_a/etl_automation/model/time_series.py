@@ -9,6 +9,7 @@ from keras.utils import plot_model
 from keras.callbacks import ReduceLROnPlateau,TensorBoard,ModelCheckpoint,EarlyStopping
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
+from datetime import datetime, timedelta
 
 
 def normalize_data(df):
@@ -67,38 +68,67 @@ def train_model(cfg, model_filepath, train_x, train_y):
 	model.compile(optimizer=opt, loss=cfg.TRAIN_LOSS)
 
 	model_history = model.fit(
-                            train_x, train_y, 
-                            epochs=EPOCH, 
-                            batch_size=cfg.BATCH_SIZE, 
-                            validation_split=cfg.VALIDATION_SPLI,
-                            callbacks = [reduce_lr_on_plateau, tensorboard, model_check_point,early_stopping]
-                        )
+	                            train_x, train_y, 
+	                            epochs=EPOCH, 
+	                            batch_size=cfg.BATCH_SIZE, 
+	                            validation_split=cfg.VALIDATION_SPLI,
+	                            callbacks = [reduce_lr_on_plateau, tensorboard, model_check_point,early_stopping]
+	                         )
 
 
-def make_prediction(cfg, model_filepath, train_x, train_y, test_x, test_y, scaler):
+def evaluate_model(cfg, model_filepath, train_x, train_y, test_x, test_y, scaler):
 	# load best rnn model
 	rnn_best_model = keras.models.load_model(model_filepath)
 	# report error. Benchmark for reference
-	train_pred = model.predict(train_x)
+	train_pred = rnn_best_model.predict(train_x)
 	err = np.mean(np.abs(train_y-train_pred))
 	print('train MAE error for standard averaging:', err)
 
-	test_pred = model.predict(test_x)
+	test_pred = rnn_best_model.predict(test_x)
 	err = np.mean(np.abs(test_y-test_pred))
 	print('test MAE error for standard averaging:', err)
+	return rnn_best_model
 
+
+def make_prediction(cfg, rnn_best_model, df, df_norm, test_x, scaler):
+	# predict next n days
+	to_pred = np.expand_dims(test_x[-1],axis=0)
+	prediction = model.predict(to_pred)
+
+	# Denormalize the scaled values
+	n_pred_scaled = df_norm.iloc[-1:,1:-1]
+	# repeat the dataframe n times to align with n days prediction
+	n_pred_scaled = n_pred_scaled.loc[n_pred_scaled.index.repeat(cfg.PREDICT_NEXT_N_DAYS)].reset_index(drop=True)
+	n_pred_scaled['target'] = prediction[0]
+	n_pred_scaled_predicted_denorm = scaler.inverse_transform(n_pred_scaled)[:,-1]
+
+	# dataframe for visualization
+	pred_df = pd.DataFrame(data={'Prediction':n_pred_scaled_predicted_denorm})
+	pred_df['Prediction'] = pred_df['Prediction'].astype(int)
+	last_date = df.iloc[-1,0]
+	last_date_obj = datetime.strptime(last_date, '%Y-%m-%d')
+	today = datetime.now()
+	date_list = []
+	for i in range(cfg.PREDICT_NEXT_N_DAYS):
+	  next_n_days = last_date_obj - timedelta(days=-i-1)
+	  date_list.append(next_n_days.strftime('%Y-%m-%d'))
+	pred_df['Date'] = date_list
+	pred_df = pred_df[['Date','Prediction']]
+	pred_df.rename(columns={'Prediction':'Total_Pedestrian_Count_per_day'}, inplace=True)
+	final_df = df[['Date','Total_Pedestrian_Count_per_day']].append(pred_df)
+	final_df.to_csv(os.path.join(output_dir, cfg.TRANSFORMATION_DIR, cfg.PREDICTION_FILE), index=False, sep='\t')
 
 def main(cfg):
 	output_dir = os.path.join(cfg.OUTPUT_DIR, cfg.MODEL_DIR)
 	helper.create_dir(output_dir)
 
-	prev_stage_output = os.path.join(output_dir, cfg.TRANSFORMATION_DIR, cfg.MERGED_FEATURES_FILE)
+	prev_stage_output = os.path.join(output_dir, cfg.TRANSFORMATION_DIR, cfg.CLEANED_FEATURES_FILE)
 	df = helper.read_csv_file(prev_stage_output, delim='\t')
 
 	df_norm = df.copy()
 
 	# normalize data
-	print('Data Normalization')
+	print('Performing Data Normalization')
 	scaler, df_norm = normalize_data(df_norm)
 
 	x_train, y_train = perform_feature_engineering(cfg, df_norm)
@@ -107,4 +137,6 @@ def main(cfg):
 
 	model_filepath = os.path.join(output_dir, cfg.MODEL_CHECKPOINT)
 	train_model(cfg, model_filepath, train_x, train_y)
-	make_prediction(cfg, model_filepath, test_x, test_y, scaler)
+	model = evaluate_model(cfg, model_filepath, test_x, test_y, scaler)
+
+	make_prediction(cfg, model, df, df_norm, test_x, scaler)

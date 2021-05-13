@@ -15,11 +15,11 @@ FEAT_NCCOBS_CODES = {
 
 }
 
-FEAT_PC_CODES = {
-	'rainfall': -1490874913,
-	'max_temp' : -1490872023,
-	'min_temp' : -1490872219,
-	'solar_exposure' : -1490889915
+FEAT_PC_CODES = { 
+	'rainfall': -1490877699,
+	'max_temp' : -1490874810,
+	'min_temp' : -1490875006,
+	'solar_exposure' : -1490892702
 
 }
 
@@ -46,7 +46,7 @@ FEAT_COL_NAME = {
 	'solar_exposure' : 'Daily global solar exposure (MJ/m*m)'
 }
 
-DATE_COLUMN = 'date'
+DATE_COLUMN = 'Date'
 
 
 # USE BOM DATA AFTER THIS DATE
@@ -71,8 +71,9 @@ CLEANED_FEATURES_FILE = 'clean_features.tsv'
 ### Model ###########################################################
 
 MODEL_DIR = 'model'
-FE_PAST_N_DAYS = 300
-PREDICT_NEXT_N_DAYS = 7
+FE_PAST_N_DAYS = 350
+# Because the data is 2 weeks late, we predict the next 3 weeks.
+PREDICT_NEXT_N_DAYS = 21
 
 # Test your data on the last N days
 TEST_N_DAYS = 30
@@ -87,6 +88,8 @@ TRAIN_LOSS = 'mae'
 TRAIN_VAL_METRIC = 'val_loss'
 VALIDATION_SPLIT = .2
 BATCH_SIZE = 32
+
+PREDICTION_FILE = 'time_series_prediction.tsv'
 #####################################################################
 
 
