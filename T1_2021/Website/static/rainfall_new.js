@@ -69,3 +69,14 @@ $(document).ready(function() {
         }},
 	});
 });
+
+$(document).ready(function() {
+	$(chart_id_7).highcharts({
+		chart: chart7,
+		title: title7,
+		xAxis: xAxis7,
+		yAxis: yAxis7,
+		series:[{name: 'Actual Rainfall', data: data7,  pointStart: Date.UTC(2015, 0, 1) , pointInterval: 24 * 3600 * 1000 },{name: 'Predicted rainfall', data: data7_2,  pointStart: Date.UTC(2021, 2, 1) , pointInterval: 24 * 3600 * 1000 }],
+	});
+})
+

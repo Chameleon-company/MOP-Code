@@ -210,7 +210,7 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Rainfall")
-def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500):
+def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500,):
 
 	with open('rainfall_dataset.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -253,7 +253,25 @@ def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, c
 	xAxis5 = {"title": {"text": 'Daily rainfall range (mm)'}, "categories":  [ "0-10", "10-20" , "20-30" , "30-40" , "40-50" ,  "50-60"]}
 	yAxis5 = {"title": {"text": 'Frequency'}}
 
-	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5)
+	with open('rainfall_predicting.csv') as csv_file2:
+		data2 = csv.reader(csv_file2, delimiter=',')
+		first_line2 = True
+		places2 = []
+		for row2 in data2:
+			if not first_line2:
+				places2.append({"predict_rainfall": np.round(float(row2[5]),2)})
+
+			else:
+				first_line2 = False
+	data7 = [d['Rainfall_amount_(millimetres)'] for d in places]
+	data7_2 = [d['predict_rainfall'] for d in places2]
+
+	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
+	title7 = {"text": 'Daily rainfall amount from January 2015 to August 2021'}
+	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis7 = {"title": {"text": 'Daily rainfall amount'}}
+	
+	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
 	
 @app.route("/Solar_Exposure")
 def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
@@ -301,7 +319,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	series = [{"name": 'Daily Recommended Retail Price', "data": [d['RRP'] for d in places]}]
 	title = {"text": 'Daily Recommended Retail Price from January 2015 to February 2021'}
 	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Daily Recommended Retail Price'}}
+	yAxis = {"title": {"text": 'Daily Recommended Retail Price'}}
 
 	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
 	series2 = [{"name": 'Average RRP per month', "data": [112.95, 63.59, 72.45 ,66.74, 69.27,81.25 ,75.48,72.73,68.58,65.99,64.20,59.15]}]
@@ -364,7 +382,6 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	data7 = [d['RRP'] for d in places]
 	data7_2 = [d['RRP'] for d in places2]
 	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
-	series7 = [{"name": 'Actual RRP', "data": [d['RRP'] for d in places]}]
 	title7 = {"text": 'Daily Recommended Retail Price from January 2015 to August 2021'}
 	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis7 = {"title": {"text": 'Daily Recommended Retail Price'}}
