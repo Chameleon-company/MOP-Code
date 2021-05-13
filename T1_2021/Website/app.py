@@ -160,11 +160,11 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis )
 
 @app.route("/Mini_Temperature")
-def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Mini_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
 
 #Below are Jason's Inputs to be tested on the main website.
 
-	with open('Min_Max_Temp.csv') as csv_file:
+	with open('Min_Max_Temp_Jan_2015_to_Feb_2021.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
 		places = []
@@ -174,23 +174,29 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height 
 			else:
 				first_line = False
 
+	data = [d['Min'] for d in places]
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Daily Minimum Temperature °C', "data": [d['Min'] for d in places]}]
-	title = {"text": 'Daily Minimum Temperature from January 2015 to 4 April 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Minimum Temperature °C'}}				
+	title = {"text": 'Daily Minimum Temperature from January 2015 to February 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily Minimum Temperature °C'}}			
+
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily Minimum Temperature', "data": [35, 214, 498 , 571, 480 ,317,107,22,5, 2]}]
+	title5 = {"text": 'Daily Minimum Temperature Distribution (January 2015 to February 2021)'}
+	xAxis5 = {"title": {"text": 'Daily Minimum Temperature range (mm)'}, "categories":  [ "0.6-3.6", "3.6-6.6" , "6.6-9.6" , "9.6-12.6" , "12.6-15.6" ,  "15.6-18.6", "18.6-21.6" ,"21.6-24.6","24.6-27.6","27.6-30.6"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}
+
 	
-	
-	return render_template("Mini_Temperature.html", Mini_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	return render_template("Mini_Temperature.html", Mini_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
 
 
 	
 @app.route("/Maximum_Temperature")
-def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
 
  
 
-	with open('Min_Max_Temp.csv') as csv_file:
+	with open('Min_Max_Temp_Jan_2015_to_Feb_2021.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
 		places = []
@@ -200,14 +206,19 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 			else:
 				first_line = False
 
+	data = [d['Max'] for d in places]
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Daily Maximum Temperature °C', "data": [d['Max'] for d in places]}]
-	title = {"text": 'Daily Maximum Temperature from January 2015 to 4 April 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Maximum Temperature °C'}}				
+	title = {"text": 'Daily Maximum Temperature from January 2015 to February 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily Maximum Temperature °C'}}
+	
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily Maximum Temperature', "data": [258, 814, 597, 320, 174 ,71, 17]}]
+	title5 = {"text": 'Daily Maximum Temperature Distribution (January 2015 to February 2021)'}
+	xAxis5 = {"title": {"text": 'Daily Maximum Temperature range (°C)'}, "categories":  [ "9-14", "14-19" , "19-24" , "24-29" , "29-34" ,  "34-39",  "39-44"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}
 
-
-	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
 	
 @app.route("/Rainfall")
 def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500,):
