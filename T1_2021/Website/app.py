@@ -279,7 +279,7 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
 
 @app.route("/RRP")
-def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500,):
+def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500, ):
 
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -292,8 +292,12 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 			else:
 				first_line = False
 	lst = []
+ 
 	for k in places:
 		lst.append([k['RRP'],k['Demand']])
+		 
+	
+
 		
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily Recommended Retail Price', "data": [d['RRP'] for d in places]}]
@@ -325,49 +329,51 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	title6 = {"text": 'Scatter plot of RRP against Demand)'}
 	xAxis6 = {"title": {"text": 'Daily RRP in (AUD$)'}}
 	yAxis6 = {"title": {"text": 'Demand (megawatt per hour)'}}	
-	
-	
 
-	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_6 = chartID_6, chart6=chart6, series6=series6, title6=title6, xAxis6=xAxis6, yAxis6=yAxis6)
-	
 
-@app.route("/Energy_forecast")
-def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+	with open('Dataset_for_scatterplot_RRP.csv') as csv_file1:
+		data1 = csv.reader(csv_file1, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"RRP": np.round(float(row1[2]),2), "Demand": np.round(float(row1[1]),2)})
 
-	with open('electricity_demand.csv') as csv_file:
-		data = csv.reader(csv_file, delimiter=',')
-		first_line = True
-		places = []
-		for row in data:
-			if not first_line:
-				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
 			else:
-				first_line = False
-	
-	with open('dataset_for_prediction.csv') as csv_file:
-		data = csv.reader(csv_file, delimiter=',')
-		first_line = True
-		forecast = []
-		for row in data:
-			if not first_line:
-				forecast.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
-			else:
-				first_line = False		
-	lst = []
-	for k in places:
-		lst.append([k['Date']])
-	for k in forecast:
-		lst.append([k['Date']])
+				first_line1 = False
+	lst1 = []
+	for k1 in places1:
+		lst1.append([k1['RRP'],k1['Demand']])	
 
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Energy Consumption', color: 'rgba(223, 83, 83, .5)', "data": [d['Demand'] for d in places]},
-		  {"name": 'Energy Consumption Forecast', color: 'rgba(119, 152, 191, .5)', "data": [d['Demand'] for d in forecast]}
-		 ]
-	title = {"text": 'Energy consumption forecast from January 2015 to August 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in lst], "tickInterval": 90}
+	chart4 = {"renderTo": chartID_4, "type": chart_type_4, "height": chart_height_4}
+	series4 = [{"name": 'Demand (megawatt per hour)', "data": lst1 }]
+	title4 = {"text": 'Scatter plot of RRP against Demand without outliers'}
+	xAxis4 = {"title": {"text": 'Daily RRP in (AUD$)'}}
+	yAxis4 = {"title": {"text": 'Demand (megawatt per hour)'}}		
 	
-	yAxis = {"title": {"text": 'Energy Consumption'}}
-	return render_template("Energy_forecast.html", Energy_Forecast= True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	with open('dataset_for_prediction.csv') as csv_file2:
+		data2 = csv.reader(csv_file2, delimiter=',')
+		first_line2 = True
+		places2 = []
+		for row2 in data2:
+			if not first_line2:
+				places2.append({"Date": row2[0],"RRP": np.round(float(row2[2]),2)})
+
+			else:
+				first_line2 = False
+			
+				
+	data7 = [d['RRP'] for d in places]
+	data7_2 = [d['RRP'] for d in places2]
+	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
+	series7 = [{"name": 'Actual RRP', "data": [d['RRP'] for d in places]}]
+	title7 = {"text": 'Daily Recommended Retail Price from January 2015 to August 2021'}
+	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis7 = {"title": {"text": 'Daily Recommended Retail Price'}}
+
+	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_6 = chartID_6, chart6=chart6, series6=series6, title6=title6, xAxis6=xAxis6, yAxis6=yAxis6, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
+	
+
 
 	
 	
