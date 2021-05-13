@@ -271,10 +271,10 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
 	series = [{"name": 'Daily global solar exposure', "data": [d['Daily_global_solar_exposure'] for d in places]}]
 	title = {"text": 'Daily solar_exposure from January 2015 to February 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
+	xAxis_ = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
 	
 	yAxis = {"title": {"text": 'Daily solar_exposure'}}
-	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis_, yAxis=yAxis)
 
 @app.route("/RRP")
 def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500, ):
@@ -373,7 +373,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	
 
 @app.route("/Energy_forecast")
-def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 500):
 
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -382,9 +382,10 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height =
 		for row in data:
 			if not first_line:
 				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
+				
 			else:
 				first_line = False
-	
+				
 	with open('dataset_for_prediction.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
@@ -394,17 +395,15 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height =
 				forecast.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
 			else:
 				first_line = False		
+                
+                
 	data1 = [d['Demand'] for d in places]
 	data1_2 = [d['Demand'] for d in forecast]
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Energy Consumption', color: 'rgba(223, 83, 83, .5)', "data": [d['Demand'] for d in places]},
-		  {"name": 'Energy Consumption Forecast', color: 'rgba(119, 152, 191, .5)', "data": [d['Demand'] for d in forecast]}
-		 ]
 	title = {"text": 'Energy consumption forecast from January 2015 to August 2021'}
 	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
-	
 	yAxis = {"title": {"text": 'Energy Consumption'}}
-	return render_template("Energy_forecast.html", Energy_forecast= True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, data1 = data1, data1_2 = data1_2)
+	return render_template("Energy_forecast.html", Energy_forecast= True,chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, data1=data1, data1_2=data1_2)
 
 	
 	
