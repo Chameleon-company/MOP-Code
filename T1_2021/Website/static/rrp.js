@@ -40,19 +40,19 @@ $(document).ready(function() {
 	});
 });
 
-// $(document).ready(function() {
-	// $(chart_id_4).highcharts({
-		// chart: chart4,
-		// title: title4,
-		// xAxis: xAxis4,
-		// yAxis: yAxis4,
-		// series: series4,
-		// tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true ,         formatter: function () {
-            // return 'Maximum rainfall amount for <b>' + this.x +
-                // '</b> is <b>' + this.y + 'mm</b>';
-        // }},
-	// });
-// });
+$(document).ready(function() {
+	$(chart_id_4).highcharts({
+		chart: chart4,
+		title: title4,
+		xAxis: xAxis4,
+		yAxis: yAxis4,
+		series: series4,
+		tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true ,         formatter: function () {
+            return 'Demand of <b>' + this.y +
+                '  </b>MWh has RRP of <b>' + this.x + '</b> dollars';
+        }},
+	});
+});
 
 
 $(document).ready(function() {
@@ -85,3 +85,30 @@ $(document).ready(function() {
         }},
 	});
 });
+
+
+$(document).ready(function() {
+	$(chart_id_6).highcharts({
+		chart: chart6,
+		title: title6,
+		xAxis: xAxis6,
+		yAxis: yAxis6,
+		series: series6,
+		tooltip: {headerFormat: '{point.key:%b\'%y}<br/>', shared: true ,         formatter: function () {
+            return 'Demand of <b>' + this.y +
+                '  </b>MWh has RRP of <b>' + this.x + '</b> dollars';
+
+        }},
+	});
+});
+
+
+$(document).ready(function() {
+	$(chart_id_7).highcharts({
+		chart: chart7,
+		title: title7,
+		xAxis: xAxis7,
+		yAxis: yAxis7,
+		series:[{name: 'Actual RRP', data: data7,  pointStart: Date.UTC(2015, 0, 1) , pointInterval: 24 * 3600 * 1000 },{name: 'Predicted RRP', data: data7_2,  pointStart: Date.UTC(2021, 2, 1) , pointInterval: 24 * 3600 * 1000 }],
+	});
+})
