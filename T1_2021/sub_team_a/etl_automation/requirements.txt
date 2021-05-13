@@ -1,0 +1,5 @@
+sodapy
+pandas
+keras
+numpy
+scikit-learn
