@@ -43,7 +43,9 @@ def Pedestrian_Trend():
 
 
 	
-
+@app.route("/Energy_forecast")
+def Energy_forecast():
+    return render_template("Energy_forecast.html", Energy_forecast = True)
 
 	
 @app.route("/Bourke_Street_Mall_South")
@@ -370,39 +372,11 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	yAxis7 = {"title": {"text": 'Daily Recommended Retail Price'}}
 
 	return render_template("RRP.html", RRP = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_6 = chartID_6, chart6=chart6, series6=series6, title6=title6, xAxis6=xAxis6, yAxis6=yAxis6, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
-
-@app.route("/Energy_forecast")
-def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
-
-	with open('electricity_demand.csv') as csv_file:
-		data = csv.reader(csv_file, delimiter=',')
-		first_line = True
-		places = []
-		for row in data:
-			if not first_line:
-				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
-			else:
-				first_line = False
 	
-
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Energy Consumption', color: 'rgba(223, 83, 83, .5)', "data": [d['Demand'] for d in places]}
-		 ]
-	title = {"text": 'Energy consumption forecast from January 2015 to August 2021'}
-	xAxis = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
-	
-<<<<<<< HEAD
 
 
 	
 	
-=======
-	yAxis = {"title": {"text": 'Energy Consumption'}}
-	return render_template("Energy_forecast.html", Energy_forecast= True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
-
-	
-		
->>>>>>> fa68e38d0f569ef90870d1b7f525e6b16422e866
 @app.route("/Pedestrian_forecast")
 def Pedestrian_forecast():
     return render_template("Pedestrian_forecast.html", Pedestrian_forecast = True)
