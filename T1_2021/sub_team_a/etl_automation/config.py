@@ -94,4 +94,9 @@ PREDICTION_FILE = 'time_series_prediction.tsv'
 
 
 
-
+### Model ###########################################################
+REMOTE_FILE_PATH = '/home/ubuntu/time_series'
+FTP_LOCATION = '13.250.31.141'
+FTP_USER = 'ubuntu'
+FTP_KEY_PATH = '/home/rohan/Desktop/d2i.pem'
+#####################################################################

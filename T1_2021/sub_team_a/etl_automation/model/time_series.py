@@ -118,6 +118,7 @@ def make_prediction(cfg, rnn_best_model, df, df_norm, test_x, scaler):
 	final_df = df[['Date','Total_Pedestrian_Count_per_day']].append(pred_df)
 	final_df.to_csv(os.path.join(output_dir, cfg.TRANSFORMATION_DIR, cfg.PREDICTION_FILE), index=False, sep='\t')
 
+
 def main(cfg):
 	output_dir = os.path.join(cfg.OUTPUT_DIR, cfg.MODEL_DIR)
 	helper.create_dir(output_dir)
