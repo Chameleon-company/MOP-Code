@@ -353,7 +353,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	
 	chart6 = {"renderTo": chartID_6, "type": chart_type_6, "height": chart_height_6}
 	series6 = [{"name": 'Demand (megawatt per hour)', "data": lst }]
-	title6 = {"text": 'Scatter plot of RRP against Demand)'}
+	title6 = {"text": 'Scatter plot of RRP against Demand'}
 	xAxis6 = {"title": {"text": 'Daily RRP in (AUD$)'}}
 	yAxis6 = {"title": {"text": 'Demand (megawatt per hour)'}}	
 
