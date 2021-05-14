@@ -341,7 +341,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	chart3 = {"renderTo": chartID_3, "type": chart_type_3, "height": chart_height_3}
 	series3 = [{"name": 'Average RRP per day of week', "data": [56.62,69.92,72.31,76.43,91.99,85.69, 59.67]}]
 	title3 = {"text": 'Average RRP per day of week from January 2015 to February 2021'}
-	xAxis3 = { "title": {"text": 'Day of week'},"categories":  ["Sunday", "Monday", "Tuesday" , "Wednesday" , "Thursday" , "May" ,  "Friday" ,  "Saturday"]}
+	xAxis3 = { "title": {"text": 'Day of week'},"categories":  ["Sunday", "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday" ,  "Saturday"]}
 	yAxis3 = {"title": {"text": 'Average RRP Amount'}}	
 
 	
