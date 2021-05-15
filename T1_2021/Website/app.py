@@ -450,7 +450,19 @@ def Pedestrian_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	current_date_obj = get_datetime_object()
 	last_pred_month = df.iloc[-1]['Date'].split('-')[1]
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": df['Total_Pedestrian_Count_per_day'].tolist()}]
+	# series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": df['Total_Pedestrian_Count_per_day'].tolist()}]
+
+
+	daily_pedestrian_list = df['Total_Pedestrian_Count_per_day'].tolist()
+
+	daily_pedestrian_hist_list = daily_pedestrian_list[:-21]
+	daily_pedestrian_forecasted_list = [0]*len(daily_pedestrian_list[:-21])+daily_pedestrian_list[-21:]			# first apart is to align with the dates
+
+	series = [
+			  {"name": 'Pedestrian Count', "color" : '#4572A7', "data": daily_pedestrian_hist_list},
+			  {"name": 'Pedestrian Count Forecasted', "color" : '#FFA500', "data": daily_pedestrian_forecasted_list}
+			  ]
+
 	title = {"text": 'Melbourne City Daily Pedestrian Count from January 2015 to {}'.format(current_date_obj.strftime('%B %Y'))}
 	xAxis = {"title": {"text": 'Date'}, "categories":  df['Date'].tolist(), "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
