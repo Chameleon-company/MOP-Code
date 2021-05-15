@@ -9,7 +9,8 @@ import pandas as pd
 from pandas import DataFrame as df, Series as se
 import pickle
 import csv
- 
+import os
+
 scaler = pickle.load(open('newscaler.pkl', 'rb'))
 model = pickle.load(open('pedestriant_ml_prediction_model_rf.pkl', 'rb'))
 
@@ -66,6 +67,7 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 				
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": [d['daily_count'] for d in places]}]
+	print(series)
 	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
 	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
@@ -402,7 +404,6 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 
 @app.route("/Energy_forecast")
 def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 500):
-
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
@@ -410,10 +411,8 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 50
 		for row in data:
 			if not first_line:
 				places.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
-				
 			else:
 				first_line = False
-				
 	with open('dataset_for_prediction.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
@@ -423,7 +422,6 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 50
 				forecast.append({"Date": row[0], "Demand": np.round(float(row[1]),2)})
 			else:
 				first_line = False		
-                
                 
 	data1 = [d['Demand'] for d in places]
 	data1_2 = [d['Demand'] for d in forecast]
@@ -435,17 +433,30 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 50
 
 	
 	
-	
 @app.route("/Pedestrian_forecast")
-def Pedestrian_forecast():
-    return render_template("Pedestrian_forecast.html", Pedestrian_forecast = True)
- 
+def Pedestrian_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+	file_path = os.path.join('time_series','FinalPedestrianPrediction.tsv')
+	df = pd.read_csv(file_path, sep='\t')
+	places = df.to_dict(orient='list')
+
+	def get_datetime_object():
+		return datetime.now()
+
+	current_date_obj = get_datetime_object()
+	last_pred_month = df.iloc[-1]['Date'].split('-')[1]
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
+	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": df['Total_Pedestrian_Count_per_day'].tolist()}]
+	title = {"text": 'Melbourne City Daily Pedestrian Count from January 2015 to {}'.format(current_date_obj.strftime('%B %Y'))}
+	xAxis = {"title": {"text": 'Date'}, "categories":  df['Date'].tolist(), "tickInterval": 90}
+	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
+	return render_template("Pedestrian_forecast.html", Bourke_Street_Mall_South = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+
+
 @app.route("/Pedestrian_prediction", methods=['GET','POST'])
 def Pedestrian_prediction():
     form = Pedestrian_prediction_Form()
     # 
     if form.is_submitted():
- 
         independent_variables = request.form
         date_time_obj = datetime.strptime(independent_variables['date'], '%Y-%m-%d')
         X_test = [date_time_obj.timetuple().tm_wday+1,date_time_obj.month,  date_time_obj.year, date_time_obj.timetuple().tm_yday,  int(independent_variables['restriction']),  int(independent_variables['public_holiday']), float(independent_variables['rainfall']), float(independent_variables['minimum_temperature']), float(independent_variables['maximum_temperature']), float(independent_variables['solar_exposure'])]
@@ -454,15 +465,15 @@ def Pedestrian_prediction():
         X_test_scaled = scaler.transform(new_X_test_)
         prediction = model.predict(X_test_scaled)
         output = round(prediction[0])
- 
         return render_template("user.html", independent_variables = independent_variables, independent_variables_year = date_time_obj.year , independent_variables_day_of_year = date_time_obj.timetuple().tm_yday, independent_variables_month = date_time_obj.month, independent_variables_week_index = date_time_obj.timetuple().tm_wday+1, prediction_text = 'The Total Expected Pedestrian for {} is {}'.format(independent_variables['date'], output) )
-                    
     return render_template( "Pedestrian_prediction.html",title = "Pedestrian prediction",  form = form,  Pedestrian_prediction = True)
+
 	
 @app.route("/about_us")
 def about_us():
     return render_template("about_us.html", about_us = True)
     
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0',port = 8080)
 
