@@ -55,6 +55,7 @@ $(document).ready(function() {
 
             [8.8,12.3,14.1,16.375,21.9]
         ],
+		
         tooltip: { headerFormat: '<em>Experiment No {point.key}</em><br/>'      }
     }, {
         name: 'Outliers',
