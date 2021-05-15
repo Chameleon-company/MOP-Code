@@ -67,8 +67,7 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 				
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": [d['daily_count'] for d in places]}]
-	print(series)
-	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
+ 	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
 	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
