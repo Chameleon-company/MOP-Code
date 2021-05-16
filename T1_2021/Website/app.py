@@ -67,7 +67,7 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 				
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
 	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": [d['daily_count'] for d in places]}]
- 	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
+	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
 	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
@@ -87,17 +87,29 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 			else:
 				first_line = False
 		
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
-	title = {"text": 'Victoria Point Daily Pedestrian Count from January 2015 to February 2021'}
-	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
+	with open('SouthernCrossCount_VictoriaPointCount_prediction.csv') as csv_file:
+		data1 = csv.reader(csv_file, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"date": row1[1], "daily_count": round(float(row1[10]))})
+			else:
+				first_line1 = False
 	
-	return render_template('Victoria_Point.html', Victoria_Point = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	
+	
+	data1 = [d['daily_count'] for d in places]
+	data1_2 = [d['daily_count'] for d in places1]	
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	title = {"text": 'Victoria Point Daily Pedestrian Count from January 2015 to February 2021'} 
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}		
+	return render_template('Victoria_Point.html', Victoria_Point = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2)
 
 	
 @app.route("/Collins_Place_North")
-def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Collins_Place_North(chartID = 'chart_ID', chart_type = 'line', chart_height = 800):
 
 	with open('Collins_Place_North.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -108,17 +120,36 @@ def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 				places.append({"date": row[1], "daily_count": int(row[4])})
 			else:
 				first_line = False
-		
+	
+	with open('flinder_and_collin_prediction.csv') as csv_file:
+		data1 = csv.reader(csv_file, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"date": row1[1], "daily_count": round(float(row1[12]))})
+			else:
+				first_line1 = False
+				
+	
+	data1 = [d['daily_count'] for d in places]
+	data1_2 = [d['daily_count'] for d in places1]	
+	
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
-	title = {"text": 'Collins Place North Daily Pedestrian Count from January 2015 to February 2021'}
-	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
+	title = {"text": 'Collins Place North Daily Pedestrian Count from January 2015 to August 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
-	return render_template("Collins_Place_North.html", Collins_Place_North = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+
+
+
+	
+
+	
+	return render_template("Collins_Place_North.html", Collins_Place_North = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2)
 	
 @app.route("/Flinders_St_Spark_La")
-def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'line', chart_height = 800):
 
 	with open('Flinders_St_Spark_La.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -130,13 +161,27 @@ def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_hei
 			else:
 				first_line = False
 		
+	with open('flinder_and_collin_prediction.csv') as csv_file:
+		data1 = csv.reader(csv_file, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"date": row1[1], "daily_count": round(float(row1[11]))})
+			else:
+				first_line1 = False
+	
+	
+	
+	data1 = [d['daily_count'] for d in places]
+	data1_2 = [d['daily_count'] for d in places1]	
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
-	title = {"text": 'Flinders_St_Spark_La Daily Pedestrian Count from January 2015 to February 2021'}
-	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
+	title = {"text": 'Collins Place North Daily Pedestrian Count from January 2015 to August 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
-	return render_template("Flinders_St_Spark_La.html", Flinders_St_Spark_La = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	
+	return render_template("Flinders_St_Spark_La.html", Flinders_St_Spark_La = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, data1=data1,data1_2=data1_2)
 
 	
 @app.route("/Southern_Cross_Station")
@@ -158,7 +203,25 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
-	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis )
+	with open('SouthernCrossCount_VictoriaPointCount_prediction.csv') as csv_file:
+		data1 = csv.reader(csv_file, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"date": row1[1], "daily_count": round(float(row1[9]))})
+			else:
+				first_line1 = False
+	
+	
+	
+	data1 = [d['daily_count'] for d in places]
+	data1_2 = [d['daily_count'] for d in places1]	
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	title = {"text": 'Southern Cross Station Daily Pedestrian Count from January 2015 to February 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}	
+	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2 )
 
 @app.route("/Mini_Temperature")
 def Mini_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):

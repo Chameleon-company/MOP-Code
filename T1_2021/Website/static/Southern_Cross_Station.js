@@ -4,7 +4,7 @@ $(document).ready(function() {
 		title: title,
 		xAxis: xAxis,
 		yAxis: yAxis,
-		series:[{name: 'Actual Demand', data: data1,  pointStart: Date.UTC(2015, 0, 1), pointInterval: 24 * 3600 * 1000  },{name: 'Predicted Demand', data: data1_2,  pointStart: Date.UTC(2021, 2, 1) , pointInterval: 24 * 3600 * 1000 }],
+		series:[{name: 'Actual Pedestrian Count', data: data1,  pointStart: Date.UTC(2015, 0, 1), pointInterval: 24 * 3600 * 1000  },{name: 'Predicted Pedestrian Count', data: data1_2,  pointStart: Date.UTC(2021, 2, 1) , pointInterval: 24 * 3600 * 1000 }],
 		tooltip: {pointFormat: 'x: <b>{point.x:%d/%m/%y}</b><br>y: <b>{point.y}</b>' }
 	});
 })
