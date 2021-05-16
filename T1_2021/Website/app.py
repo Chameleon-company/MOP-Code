@@ -65,13 +65,27 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 			else:
 				first_line = False
 				
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-	series = [{"name": 'Pedestrian Count', "color" : '#4572A7', "data": [d['daily_count'] for d in places]}]
-	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to February 2021'}
-	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
+
 	
-	return render_template("Bourke_Street_Mall_South.html", Bourke_Street_Mall_South = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis)
+	with open('BourkeStPredictionOnly.csv') as csv_file:
+		data1 = csv.reader(csv_file, delimiter=',')
+		first_line1 = True
+		places1 = []
+		for row1 in data1:
+			if not first_line1:
+				places1.append({"date": row1[1], "daily_count": round(float(row1[10]))})
+			else:
+				first_line1 = False
+	
+	
+	
+	data1 = [d['daily_count'] for d in places]
+	data1_2 = [d['daily_count'] for d in places1]	
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	title = {"text": 'Bourke Street Mall South Daily Pedestrian Count from January 2015 to August 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}		
+	return render_template("Bourke_Street_Mall_South.html", Bourke_Street_Mall_South = True, chartID=chartID, chart=chart, data1=data1,data1_2=data1_2, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Victoria_Point")
 def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
@@ -102,7 +116,7 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	data1 = [d['daily_count'] for d in places]
 	data1_2 = [d['daily_count'] for d in places1]	
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	title = {"text": 'Victoria Point Daily Pedestrian Count from January 2015 to February 2021'} 
+	title = {"text": 'Victoria Point Daily Pedestrian Count from January 2015 to August 2021'} 
 	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}		
 	return render_template('Victoria_Point.html', Victoria_Point = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2)
@@ -197,11 +211,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 			else:
 				first_line = False
 		
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Pedestrian Count', "data": [d['daily_count'] for d in places]}]
-	title = {"text": 'Southern Cross Station Daily Pedestrian Count from January 2015 to February 2021'}
-	xAxis = {"title": {"text": 'Date'}, "categories":  [d['date'] for d in places], "tickInterval": 90}
-	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
+
 	
 	with open('SouthernCrossCount_VictoriaPointCount_prediction.csv') as csv_file:
 		data1 = csv.reader(csv_file, delimiter=',')
@@ -218,7 +228,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	data1 = [d['daily_count'] for d in places]
 	data1_2 = [d['daily_count'] for d in places1]	
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	title = {"text": 'Southern Cross Station Daily Pedestrian Count from January 2015 to February 2021'}
+	title = {"text": 'Southern Cross Station Daily Pedestrian Count from January 2015 to August 2021'}
 	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}	
 	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2 )
