@@ -21,23 +21,6 @@
 			var yAxis = {{ yAxis|safe }}
 			var chart = {{ chart|safe }}
 		</script>
-	<div>
-
-		<p style="text-align: justify;">Below are various graphs to help interpret what is happening to the predictor variable “Maximum Temperature”.  We believe that maximum temperature affects how many people will be in the city (the variable to which we want to find out).  In the first scatter plot maximum temperature tends to follow a sin trend but heavily weighted towards maximum values.  To find out more the box plots by month shows this in detail.</p>
-		 
-	</div>	
-		
-		<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
-		
-		<script>
-			var chart_id_5 = {{ chartID_5|safe }}
-			var series5 = {{ series5|safe }}
-			var title5 = {{ title5|safe }}
-			var xAxis5 = {{ xAxis5|safe }}
-			var yAxis5 = {{ yAxis5|safe }}
-			var chart5 = {{ chart5|safe }}
-		 </script>
-	
 	<div>		
 		<p style="text-align: justify;">The box plots of maximum temperature by month show a clear trend between each month.  What is interesting to note is that there are large maximum whiskers meaning that there are quite large temperature variations leaning towards the hotter side.  For example, in January one quarter of the temperatures lie between 30 °C and 43 °C.  This confirms the observation from the previous graph that there is a skew towards higher temperatures, which may suggest that heatwaves are frequent.  </p>			 
 	</div>	
@@ -186,6 +169,20 @@
 		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.86 this shows the clear skew towards higher temperatures.</p>
 				 
 	</div>	
+		
+		<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		
+		<script>
+			var chart_id_5 = {{ chartID_5|safe }}
+			var series5 = {{ series5|safe }}
+			var title5 = {{ title5|safe }}
+			var xAxis5 = {{ xAxis5|safe }}
+			var yAxis5 = {{ yAxis5|safe }}
+			var chart5 = {{ chart5|safe }}
+		 </script>
+	
+	
+
 
 	<div>
 		

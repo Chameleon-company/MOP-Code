@@ -44,7 +44,7 @@
 <body>
 	<div>
 		<h2><p style="text-align: justify;">Exploratory Data Analysis on Minimum Temperature</p> </h2>
-		<p style="text-align: justify;">Below are various graphs to help interpret what is happening to the predictor variable “Minimum Temperature”.  We believe that maximum temperature affects how many people will be in the city (the variable to which we want to find out).  In the first scatter plot maximum temperature tends to follow a sin trend but heavily weighted towards maximum values.  To find out more the box plots by month shows this in detail.</p>		 
+		<p style="text-align: justify;">Below are various graphs to help interpret what is happening to the predictor variable “Minimum Temperature”.  We believe that minimum temperature affects how many people will be in the city (the variable to which we want to find out).  In the first scatter plot, the minimum temperature tends to follow a sin graph with some Gaussian noise.  There are seemingly some outliers on the warmer end and fewer outliers on the colder end.  To find out more, the box plots by month shows this in detail.</p>		 
 	</div>	
 
 		<div id={{ chartID|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
@@ -57,32 +57,34 @@
 			var chart = {{ chart|safe }}
 		</script>
 	<div>	
-		<p style="text-align: justify;">When looking at the histogram it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.86 this shows the clear skew towards higher temperatures.</p>		 
+		<p style="text-align: justify;">The box plots of minimum temperature by month show a clear trend between each month.  The coldest minimum temperatures as expected in Winter (June, July and August) and the hottest minimum temperatures in Summer (Especially January and February).  What is interesting is visually confirming the outliers that were suspected in the previous graph.  There are three minimum outliers in July, whilst there are many more maximum outliers throughout the year (especially in the summer months).  This may suggest more heat events (heat waves) than cold ones.</p>		 
 	</div>	
-		<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
-		<script>
-			var chart_id_5 = {{ chartID_5|safe }}
-			var series5 = {{ series5|safe }}
-			var title5 = {{ title5|safe }}
-			var xAxis5 = {{ xAxis5|safe }}
-			var yAxis5 = {{ yAxis5|safe }}
-			var chart5 = {{ chart5|safe }}
-		</script>
+
+	<div id={{ chartID_2|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
+		
+	<script>
+		var chart_id_2 = {{ chartID_2|safe }}
+		var title2 = {{ title2|safe }}
+		var xAxis2 = {{ xAxis2|safe }}
+		var yAxis2 = {{ yAxis2|safe }}
+		var chart2 = {{ chart2|safe }}
+	</script>
+	
+
+
 	
 	<div>	
-		<p style="text-align: justify;">The box plots of Minimum  temperature by month show a clear trend between each month.  What is interesting to note is that there are large maximum whiskers meaning that there are quite large temperature variations leaning towards the hotter side.  For example, in January one quarter of the temperatures lie between 30 °C and 43 °C.  This confirms the observation from the previous graph that there is a skew towards higher temperatures, which may suggest that heatwaves are frequent.</p>			 
+		<p style="text-align: justify;">When looking at the histogram, it is clear that our observations from the previous two graphs are substantiated.  With a skew of 0.23, this shows more outliers on the maximum end than the minimum end.</p>			 
 	</div>
-
-		<div id={{ chartID_2|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>
-		
-		<script>
-			var chart_id_2 = {{ chartID_2|safe }}
-			var title2 = {{ title2|safe }}
-			var xAxis2 = {{ xAxis2|safe }}
-			var yAxis2 = {{ yAxis2|safe }}
-			var chart2 = {{ chart2|safe }}
-		</script>
-		
+	<div id={{ chartID_5|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
+	<script>
+		var chart_id_5 = {{ chartID_5|safe }}
+		var series5 = {{ series5|safe }}
+		var title5 = {{ title5|safe }}
+		var xAxis5 = {{ xAxis5|safe }}
+		var yAxis5 = {{ yAxis5|safe }}
+		var chart5 = {{ chart5|safe }}
+	</script>
 
 
 
