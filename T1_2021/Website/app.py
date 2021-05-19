@@ -368,7 +368,7 @@ def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, c
 	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
 	
 @app.route("/Solar_Exposure")
-def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'scatter', chart_height_7 = 500,):
 
 	with open('solar_exposure.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -387,8 +387,52 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily solar_exposure'}}
     
+	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
+	series2 = [{"name": 'Solar exposure', "data": [15.26, 14.70, 15.00, 15.02, 15.38, 14.54, 20.61] }]
+	title2 = {"text": 'Mean solar exposure per year from 2015 to 2021'}
+	xAxis2 = {"title": {"text": 'Year'}, "categories":  [2015, 2016, 2017, 2018, 2019, 2020, 2021]}
+	yAxis2 = {"title": {"text": 'Daily solar exposure'}}
     
-	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, data = data)
+	chart3 = {"renderTo": chartID_3, "type": chart_type_3, "height": chart_height_3}
+	series3 = [{"name": 'Solar exposure', "data": [15.10, 15.09, 15.39, 15.50, 15.23, 14.71, 14.88]}]
+	title3 = {"text": 'Mean solar exposure  per day of the week for 2015 to 2021'}
+	xAxis3 = { "title": {"text": 'Day of the week'}, "categories":  ["Sunday" ,"Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ,  "Saturday"  ]}
+	yAxis3 = {"title": {"text": 'Daily solar exposure'}}	
+    
+	chart4 = {"renderTo": chartID_4, "type": chart_type_4, "height": chart_height_4}
+	series4 = [{"name": 'Solar exposure', "data": [23.19, 20.19, 15.81, 10.94, 7.86, 7.06, 7.60, 9.99, 13.90, 18.43, 20.78, 23.88 ]}]
+	title4 = {"text": 'Mean solar exposure per month for 2015 to 2021'}
+	xAxis4 = {"title": {"text": 'Month'}, "categories":  ["Jan", "Feb" , "Mar" , "Apr" , "May" ,  "Jun" ,  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]}
+	yAxis4 = {"title": {"text": 'Daily solar exposure'}}
+    
+	chart5 = {"renderTo": chartID_5, "type": chart_type_5, "height": chart_height_5}
+	series5 = [{"name": 'Daily Solar exposure', "data": [74, 416, 528 , 316, 267 ,236, 195, 195, 24]}]
+	title5 = {"text": 'Daily Solar exposure Distribution (January 2015 to February 2021)'}
+	xAxis5 = {"title": {"text": 'Daily Solar exposure'}, "categories":  [ "0-4", "4-8" , "8-12" , "12-16" , "16-20" ,  "20-24", "24-28", "28-32", "32-36"]}
+	yAxis5 = {"title": {"text": 'Frequency'}}   
+
+	with open('predicted_solar_exposure.csv') as csv_file2:
+    
+		data2 = csv.reader(csv_file2, delimiter=',')
+		first_line2 = True
+		places2 = []
+		for row2 in data2:
+			if not first_line2:
+				places2.append({"Solar_exp": np.round(float(row2[7]),2)})
+			else:
+				first_line2 = False
+
+	data7_2 = [d['Solar_exp'] for d in places2]
+
+	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
+	title7 = {"text": 'Daily Solar exposure amount from January 2015 to August 2021'}
+	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis7 = {"title": {"text": 'Daily rainfall amount'}}
+    
+
+
+	return render_template("Solar_Exposure.html", Solar_Exposure = True, chartID=chartID, chart=chart, title=title, data= data, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, yAxis7=yAxis7)
+
 @app.route("/RRP")
 def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500, ):
 
