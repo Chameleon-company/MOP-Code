@@ -107,7 +107,7 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 		places1 = []
 		for row1 in data1:
 			if not first_line1:
-				places1.append({"date": row1[1], "daily_count": round(float(row1[10]))})
+				places1.append({"date": row1[1], "daily_count": round(float(row1[9]))})
 			else:
 				first_line1 = False
 	
@@ -219,7 +219,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 		places1 = []
 		for row1 in data1:
 			if not first_line1:
-				places1.append({"date": row1[1], "daily_count": round(float(row1[9]))})
+				places1.append({"date": row1[1], "daily_count": round(float(row1[10]))})
 			else:
 				first_line1 = False
 	
