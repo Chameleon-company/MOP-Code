@@ -263,14 +263,14 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 8
 	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
 	title2 = {"text": 'Box Plots of Minimum Temperature by Month'}
 	xAxis2 = {"title": {"text": 'Month'}, "categories":  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
-	yAxis2 = {"title": {"text": 'Daily Maximum Temperature °C'}}
+	yAxis2 = {"title": {"text": 'Daily Minimum Temperature °C'}}
 	
 	return render_template("Mini_Temperature.html", Mini_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
 
 
 	
 @app.route("/Maximum_Temperature")
-def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
+def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
 
  
 
@@ -295,10 +295,14 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height 
 	title5 = {"text": 'Daily Maximum Temperature Distribution (January 2015 to February 2021)'}
 	xAxis5 = {"title": {"text": 'Daily Maximum Temperature range (°C)'}, "categories":  [ "9-14", "14-19" , "19-24" , "24-29" , "29-34" ,  "34-39",  "39-44"]}
 	yAxis5 = {"title": {"text": 'Frequency'}}
-	
+
+	chart2 = {"renderTo": chartID_2, "type": chart_type_2, "height": chart_height_2}
+	title2 = {"text": 'Box Plots of Maximum Temperature by Month'}
+	xAxis2 = {"title": {"text": 'Month'}, "categories":  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
+	yAxis2 = {"title": {"text": 'Daily Maximum Temperature °C'}}	
 
 	
-	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
+	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
 	
 @app.route("/Rainfall")
 def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500,):
