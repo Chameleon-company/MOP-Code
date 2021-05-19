@@ -234,7 +234,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2 )
 
 @app.route("/Mini_Temperature")
-def Mini_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
+def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
 
 #Below are Jason's Inputs to be tested on the main website.
 
@@ -270,7 +270,7 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 8
 
 	
 @app.route("/Maximum_Temperature")
-def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'line', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
+def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
 
  
 
@@ -484,7 +484,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	
 
 @app.route("/Energy_forecast")
-def Energy_forecast(chartID = 'chart_ID', chart_type = 'line', chart_height = 500):
+def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True

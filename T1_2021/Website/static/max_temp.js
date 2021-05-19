@@ -5,6 +5,7 @@ $(document).ready(function() {
 		xAxis: xAxis,
 		yAxis: yAxis,
 		series:[{name: 'Maximum Temperature', data: data,  pointStart: Date.UTC(2015, 0, 1) , pointInterval: 24 * 3600 * 1000 }],
+		tooltip: {pointFormat: 'x: <b>{point.x:%d/%m/%y}</b><br>y: <b>{point.y}</b>' }
 	});
 })
 
