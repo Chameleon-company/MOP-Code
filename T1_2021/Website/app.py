@@ -101,8 +101,8 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 			else:
 				first_line = False
 		
-	with open('SouthernCrossCount_VictoriaPointCount_prediction.csv') as csv_file:
-		data1 = csv.reader(csv_file, delimiter=',')
+	with open('SouthernCrossCount_VictoriaPointCount_prediction.csv') as csv_file1:
+		data1 = csv.reader(csv_file1, delimiter=',')
 		first_line1 = True
 		places1 = []
 		for row1 in data1:
@@ -123,7 +123,7 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 
 	
 @app.route("/Collins_Place_North")
-def Collins_Place_North(chartID = 'chart_ID', chart_type = 'line', chart_height = 800):
+def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
 
 	with open('Collins_Place_North.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -163,7 +163,7 @@ def Collins_Place_North(chartID = 'chart_ID', chart_type = 'line', chart_height 
 	return render_template("Collins_Place_North.html", Collins_Place_North = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2)
 	
 @app.route("/Flinders_St_Spark_La")
-def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'line', chart_height = 800):
+def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
 
 	with open('Flinders_St_Spark_La.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -190,7 +190,7 @@ def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'line', chart_height
 	data1 = [d['daily_count'] for d in places]
 	data1_2 = [d['daily_count'] for d in places1]	
 	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	title = {"text": 'Collins Place North Daily Pedestrian Count from January 2015 to August 2021'}
+	title = {"text": 'Flinders St Spark Lane Daily Pedestrian Count from January 2015 to August 2021'}
 	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
 	yAxis = {"title": {"text": 'Daily Pedestrian Count'}}
 	
@@ -379,15 +379,16 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 				places.append({"Date": row[0], "Daily_global_solar_exposure": float(row[6])})
 			else:
 				first_line = False
-		
-	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
-	series = [{"name": 'Daily global solar exposure', "data": [d['Daily_global_solar_exposure'] for d in places]}]
-	title = {"text": 'Daily solar_exposure from January 2015 to February 2021'}
-	xAxis_ = { "title": {"text": 'Date'}, "categories":  [d['Date'] for d in places], "tickInterval": 90}
-	
-	yAxis = {"title": {"text": 'Daily solar_exposure'}}
-	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis_, yAxis=yAxis)
 
+
+	data = [d['Daily_global_solar_exposure'] for d in places]
+	chart = {"renderTo": chartID, "type": chart_type, "height": chart_height,}
+	title = {"text": 'Daily solar_exposure from January 2015 to February 2021'}
+	xAxis = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis = {"title": {"text": 'Daily solar_exposure'}}
+    
+    
+	return render_template("Solar_Exposure.html", Solar_Exposure = True,chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis, data = data)
 @app.route("/RRP")
 def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500, ):
 
