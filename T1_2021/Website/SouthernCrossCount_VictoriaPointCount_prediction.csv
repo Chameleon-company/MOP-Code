@@ -1,4 +1,4 @@
-date_new,month,dayofweek,dayofyear,year,Min,Max,Daily global solar exposure (MJ/m*m),Rainfall amount (millimetres),SouthernCrossCount,VictoriaPointCount,Class
+date_new,month,dayofweek,dayofyear,year,Min,Max,Daily global solar exposure (MJ/m*m),Rainfall amount (millimetres),VictoriaPointCount,SouthernCrossCount,Class
 01-03-2021,3,1,60,2021,13.8,21.7,17.50028801,1.672,4691.346237,16314.56,predict
 02-03-2021,3,2,61,2021,13.3,18.1,17.02347755,0.184,3820.631649,17638.52,predict
 03-03-2021,3,3,62,2021,14.2,17.7,16.96634483,0.016,2240.396307,14802.48,predict
