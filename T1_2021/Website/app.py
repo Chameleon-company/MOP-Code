@@ -12,11 +12,11 @@ import pickle
 import csv
 import os
 
-scaler = pickle.load(open('newscaler.pkl', 'rb'))
-model = pickle.load(open('pedestriant_ml_prediction_model_rf.pkl', 'rb'))
+scaler_ = pickle.load(open('newscaler.pkl', 'rb'))
+model_ = pickle.load(open('pedestriant_ml_prediction_model_rf.pkl', 'rb'))
 
-scaler_ = pickle.load(open('scaler_ST_A.pkl', 'rb'))
-model_ = pickle.load(open('RF_model_ST_A.pkl', 'rb'))
+#scaler_ = pickle.load(open('scaler_ST_A.pkl', 'rb'))
+#model_ = pickle.load(open('RF_model_ST_A.pkl', 'rb'))
 
 app = Flask(__name__)
  
@@ -51,7 +51,7 @@ def Pedestrian_Trend():
 
 	
 @app.route("/Bourke_Street_Mall_South")
-def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 
 	with open('Bourke_Street_Mall_South.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -91,7 +91,7 @@ def Bourke_Street_Mall_South(chartID = 'chart_ID', chart_type = 'scatter', chart
 	return render_template("Bourke_Street_Mall_South.html", Bourke_Street_Mall_South = True, chartID=chartID, chart=chart, data1=data1,data1_2=data1_2, title=title, xAxis=xAxis, yAxis=yAxis)
 	
 @app.route("/Victoria_Point")
-def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 
 	
 	with open('Victoria_Point.csv') as csv_file:
@@ -126,7 +126,7 @@ def Victoria_Point(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 
 	
 @app.route("/Collins_Place_North")
-def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 
 	with open('Collins_Place_North.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -166,7 +166,7 @@ def Collins_Place_North(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	return render_template("Collins_Place_North.html", Collins_Place_North = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2)
 	
 @app.route("/Flinders_St_Spark_La")
-def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 
 	with open('Flinders_St_Spark_La.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -202,7 +202,7 @@ def Flinders_St_Spark_La(chartID = 'chart_ID', chart_type = 'scatter', chart_hei
 
 	
 @app.route("/Southern_Cross_Station")
-def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 
 	with open('Southern_Cross_Station.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -237,9 +237,7 @@ def Southern_Cross_Station(chartID = 'chart_ID', chart_type = 'scatter', chart_h
 	return render_template("Southern_Cross_Station.html", Southern_Cross_Station = True, chartID=chartID, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,data1=data1,data1_2=data1_2 )
 
 @app.route("/Mini_Temperature")
-def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
-
-#Below are Jason's Inputs to be tested on the main website.
+def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 600, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 600,chartID_7 = 'chartID_7', chart_type_7 = 'scatter', chart_height_7 = 600,):
 
 	with open('Min_Max_Temp_Jan_2015_to_Feb_2021.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -267,13 +265,31 @@ def Mini_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height 
 	title2 = {"text": 'Box Plots of Minimum Temperature by Month'}
 	xAxis2 = {"title": {"text": 'Month'}, "categories":  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
 	yAxis2 = {"title": {"text": 'Daily Minimum Temperature °C'}}
+
+	with open('Max_Min_Temp_predicted_values.csv') as csv_file2:
+		data2 = csv.reader(csv_file2, delimiter=',')
+		first_line2 = True
+		places2 = []
+		for row2 in data2:
+			if not first_line2:
+				places2.append({"min_temp": np.round(float(row2[5]),2)})
+
+			else:
+				first_line2 = False
+
+	data7_2 = [d['min_temp'] for d in places2]
+
+	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
+	title7 = {"text": 'Daily minimum temperature amount from January 2015 to August 2021'}
+	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis7 = {"title": {"text": 'Daily minimum temperature amount'}}
 	
-	return render_template("Mini_Temperature.html", Mini_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
+	return render_template("Mini_Temperature.html", Mini_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7 = chartID_7, chart7=chart7, data7_2=data7_2, title7=title7, xAxis7=xAxis7, yAxis7=yAxis7,)
 
 
 	
 @app.route("/Maximum_Temperature")
-def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,):
+def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600,chartID_2 = 'chartID_2', chart_type_2 = 'boxplot', chart_height_2 = 600, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 600,chartID_7 = 'chartID_7', chart_type_7 = 'scatter', chart_height_7 = 600,):
 
  
 
@@ -304,11 +320,28 @@ def Maximum_Temperature(chartID = 'chart_ID', chart_type = 'scatter', chart_heig
 	xAxis2 = {"title": {"text": 'Month'}, "categories":  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
 	yAxis2 = {"title": {"text": 'Daily Maximum Temperature °C'}}	
 
+	with open('Max_Min_Temp_predicted_values.csv') as csv_file2:
+		data2 = csv.reader(csv_file2, delimiter=',')
+		first_line2 = True
+		places2 = []
+		for row2 in data2:
+			if not first_line2:
+				places2.append({"max_temp": np.round(float(row2[4]),2)})
+
+			else:
+				first_line2 = False
+
+	data7_2 = [d['max_temp'] for d in places2]
+
+	chart7 = {"renderTo": chartID_7, "type": chart_type_7, "height": chart_height_7,}
+	title7 = {"text": 'Daily maximum temperature from January 2015 to August 2021'}
+	xAxis7 = { "title": {"text": 'Date'} , "type": 'datetime', "dateTimeLabelFormats": {"day": '%e %b' }}
+	yAxis7 = {"title": {"text": 'Daily maximum_temperature'}}
 	
-	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,)
+	return render_template("Maximum_Temperature.html", Maximum_Temperature = True, chartID=chartID, data = data, chart=chart, title=title, xAxis=xAxis, yAxis=yAxis,chartID_2=chartID_2, chart2=chart2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2,  chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7 = chartID_7, chart7=chart7, data7_2=data7_2, title7=title7, xAxis7=xAxis7, yAxis7=yAxis7,)
 	
 @app.route("/Rainfall")
-def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500,):
+def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 600, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 600, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 600, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 600, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 600,):
 
 	with open('rainfall_dataset.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -371,7 +404,7 @@ def Rainfall(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, c
 	return render_template("Rainfall.html", Rainfall = True, chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, data7=data7, yAxis7=yAxis7)
 	
 @app.route("/Solar_Exposure")
-def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 500, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'scatter', chart_height_7 = 500,):
+def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600, chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 600, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 600, chartID_4 = 'chart_ID_4', chart_type_4 = 'column', chart_height_4 = 600, chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 600, chartID_7 = 'chartID_7', chart_type_7 = 'scatter', chart_height_7 = 600,):
 
 	with open('solar_exposure.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -437,7 +470,7 @@ def Solar_Exposure(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 
 	return render_template("Solar_Exposure.html", Solar_Exposure = True, chartID=chartID, chart=chart, title=title, data= data, xAxis=xAxis, yAxis=yAxis, chartID_2=chartID_2, chart2=chart2, series2=series2, title2=title2, xAxis2=xAxis2, yAxis2=yAxis2, chartID_3=chartID_3, chart3=chart3, series3=series3, title3=title3, xAxis3=xAxis3, yAxis3=yAxis3, chartID_4 = chartID_4, chart4=chart4, series4=series4, title4=title4, xAxis4=xAxis4, yAxis4=yAxis4, chartID_5 = chartID_5, chart5=chart5, series5=series5, title5=title5, xAxis5=xAxis5, yAxis5=yAxis5,chartID_7=chartID_7, chart7=chart7, title7=title7, xAxis7=xAxis7,data7_2=data7_2, yAxis7=yAxis7)
 
 @app.route("/RRP")
-def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 500, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 500,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 500,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 500, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 500, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 500, ):
+def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 600,chartID_2 = 'chartID_2', chart_type_2 = 'column', chart_height_2 = 600, chartID_3 = 'chart_ID_3', chart_type_3 = 'column', chart_height_3 = 600,  chartID_5 = 'chart_ID_5', chart_type_5 = 'histogram', chart_height_5 = 600,chartID_6 = 'chartID_6', chart_type_6 = 'scatter', chart_height_6 = 600, chartID_4 = 'chartID_4', chart_type_4 = 'scatter', chart_height_4 = 600, chartID_7 = 'chartID_7', chart_type_7 = 'line', chart_height_7 = 600, ):
 
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
@@ -532,7 +565,7 @@ def RRP(chartID = 'chart_ID', chart_type = 'line', chart_height = 500,chartID_2 
 	
 
 @app.route("/Energy_forecast")
-def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 500):
+def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 	with open('electricity_demand.csv') as csv_file:
 		data = csv.reader(csv_file, delimiter=',')
 		first_line = True
@@ -563,7 +596,7 @@ def Energy_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height =
 	
 	
 @app.route("/Pedestrian_forecast")
-def Pedestrian_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 800):
+def Pedestrian_forecast(chartID = 'chart_ID', chart_type = 'scatter', chart_height = 600):
 	file_path = os.path.join('time_series','FinalPedestrianPrediction.tsv')
 	df = pd.read_csv(file_path, sep='\t')
 	places = df.to_dict(orient='list')
