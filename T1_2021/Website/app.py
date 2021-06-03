@@ -12,8 +12,8 @@ import pickle
 import csv
 import os
 
-scaler_ = pickle.load(open('newscaler.pkl', 'rb'))
-model_ = pickle.load(open('pedestriant_ml_prediction_model_rf.pkl', 'rb'))
+scaler = pickle.load(open('newscaler.pkl', 'rb'))
+model = pickle.load(open('pedestriant_ml_prediction_model_rf.pkl', 'rb'))
 
 #scaler_ = pickle.load(open('scaler_ST_A.pkl', 'rb'))
 #model_ = pickle.load(open('RF_model_ST_A.pkl', 'rb'))
@@ -633,12 +633,12 @@ def Pedestrian_prediction():
     if form.is_submitted():
         independent_variables = request.form
         date_time_obj = datetime.strptime(independent_variables['date'], '%Y-%m-%d')
-        #X_test = [date_time_obj.timetuple().tm_wday+1,date_time_obj.month,  date_time_obj.year, date_time_obj.timetuple().tm_yday,  int(independent_variables['restriction']),  int(independent_variables['public_holiday']), float(independent_variables['rainfall']), float(independent_variables['minimum_temperature']), float(independent_variables['maximum_temperature']), float(independent_variables['solar_exposure'])]
-        X_test = [float(independent_variables['solar_exposure']), int(independent_variables['restriction']), float(independent_variables['rainfall']), int(independent_variables['public_holiday']), float(independent_variables['maximum_temperature']) , float(independent_variables['minimum_temperature'])]        
+        X_test = [date_time_obj.timetuple().tm_wday+1,date_time_obj.month,  date_time_obj.year, date_time_obj.timetuple().tm_yday,  int(independent_variables['restriction']),  int(independent_variables['public_holiday']), float(independent_variables['rainfall']), float(independent_variables['minimum_temperature']), float(independent_variables['maximum_temperature']), float(independent_variables['solar_exposure'])]
+        #X_test = [float(independent_variables['solar_exposure']), int(independent_variables['restriction']), float(independent_variables['rainfall']), int(independent_variables['public_holiday']), float(independent_variables['maximum_temperature']) , float(independent_variables['minimum_temperature'])]        
         new_X_test = np.array(X_test)
         new_X_test_ = new_X_test.reshape(1,-1)
-        X_test_scaled = scaler_.transform(new_X_test_)
-        prediction = model_.predict(X_test_scaled)
+        X_test_scaled = scaler.transform(new_X_test_)
+        prediction = model.predict(X_test_scaled)
         output = round(prediction[0])
         return render_template("user.html", independent_variables = independent_variables, independent_variables_year = date_time_obj.year , independent_variables_day_of_year = date_time_obj.timetuple().tm_yday, independent_variables_month = date_time_obj.month, independent_variables_week_index = date_time_obj.timetuple().tm_wday+1, prediction_text = 'The Total Expected Pedestrian for {} is {}'.format(independent_variables['date'], output) )
     return render_template( "Pedestrian_prediction.html",title = "Pedestrian prediction",  form = form,  Pedestrian_prediction = True)
