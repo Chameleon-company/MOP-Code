@@ -57,7 +57,16 @@
 				 
 	</div>
 	
-		
+				<div id={{ chartID_7|safe }} class="chart" style="width: 1100px"; color: '#efefef'></div>	
+		<script>
+			var chart_id_7 = {{ chartID_7|safe }}
+			var data = {{data |safe}}
+			var data7_2 = {{data7_2|safe}}
+			var title7 = {{ title7|safe }}
+			var xAxis7 = {{ xAxis7|safe }}
+			var yAxis7 = {{ yAxis7|safe }}
+			var chart7 = {{ chart7|safe }}
+		</script>
 		
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 			<script src="http://code.highcharts.com/highcharts.js"></script>
