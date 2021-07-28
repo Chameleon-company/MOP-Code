@@ -1,4 +1,4 @@
-# Demo Code
+#  **Melbourne Open Data**
 
 __Author__: Squad of City of Melbourne
 
@@ -7,13 +7,31 @@ __Deakin University__
 __T2/2021__
 
 ---
-## Demonstrating how to use **Melbourne Open Data**
+# About Melbourne Data
+Welcome to Melbourne Data - the City of Melbourne’s open data platform, where you can access and use a wide variety of publicly accessible council data. By publishing this data, we aim to increase transparency, improve public services and support new economic and social initiatives.
+We would love to see how you’re using our data.
 
-* Example Dataset: [On-street Parking Bay Sensors](https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs)
+* Example Dataset: [On-street Parking Bay Sensors](https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs) 
 
 * Machine Language: Python
 
-**Note** You can choose other dataset based on your need
+* [App Token](https://dev.socrata.com/docs/app-tokens.html) (Optional)
+
+* Package Need: `$1, $2, $3`
+
+* Perquisite knowledge: `add something...`
+* `Add more desciption (oscar)`  
+  
+
+
+
+
+
+
+---
+*
+
+![image](images/summarytable.jpg)
 
 ---
 
@@ -37,45 +55,62 @@ In the diagram below, we have assigned Matplotlib visualizations to different ca
 
 
 
+
 ## 1. Reading dataset
 
-* Find API show as below:
-* Install necessary packages: __uncomment__ code of __line 2,3__ if you do not have install.
-![Image](images/api.jpg)
+`Oscar has worked up here:`
+
+>replace this section with new function. 
+Showing summary table of 222 datasets
+
 
 
 
 ```python
-# make sure to install these packages before running:
-# pip install pandas
-# pip install sodapy
-
-import pandas as pd
-from sodapy import Socrata
-
-# Unauthenticated client only works with public data sets. Note 'None'
-# in place of application token, and no username or password:
-client = Socrata("data.melbourne.vic.gov.au", None)
-
-# Example authenticated client (needed for non-public datasets):
-# client = Socrata(data.melbourne.vic.gov.au,
-#                  MyAppToken,
-#                  userame="user@example.com",
-#                  password="AFakePassword")
-
-# First 2000 results, returned as JSON from API / converted to Python list of
-# dictionaries by sodapy.
-results = client.get("vh2v-4nfs", limit=2000)
-
-# Convert to pandas DataFrame
-results_df = pd.DataFrame.from_records(results)
-
+>>> from sodapy import Socrata
+>>> client = Socrata(
+        "sandbox.demo.socrata.com",
+        "FakeAppToken",
+        username="fakeuser@somedomain.com",
+        password="mypassword",
+        timeout=10
+    )
 ```
+
+* [Click here]() to see how to apply **App Token**
+* [Click here]() to see how to use our function to get summaized overview dataset
+* [Clcik here]() ....
+* ....
+* ....
+
+
 ---
 ## 2. Exploiting information from dataset
 
-### See as [example code](example.ipynb)
+* [Click here] to see [example code](example.ipynb) for **Data Description**.
 
 
 ---
+
+
+`Mirriam is working here`
+
+>Create EDA Code:
+Plz create file with your EDA code.
+Do not merge your code into **example.ipynb** file)
+
+
+
 ## 3. Analysis of result  
+
+* [Click here]() to see example code for **EDA**
+
+`Mirriam is working here`
+
+>please replace this image with your geo fig
+
+
+![image](images/parking.jpg)
+
+
+
