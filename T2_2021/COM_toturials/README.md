@@ -102,6 +102,7 @@ Showing summary table of 222 datasets
 
 ---
 
+![image](images/merge.png)
 
 `Mirriam is working here`
 
@@ -117,8 +118,7 @@ Do not merge your code into **example.ipynb** file)
 
 `Mirriam is working here`
 
->please replace this image with your geo fig
-
+Open the link ["Geo_Map.html"](Geo_Map.html) with your browser to check the parking status. Red means the parking space is occupied, and blue means the parking space is available. The screenshot below:
 
 ![image](images/geo_map.jpg)
 
