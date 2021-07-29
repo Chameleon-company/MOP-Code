@@ -1,3 +1,5 @@
+__verison__ = 1.0
+
 import pandas as pd
 from sodapy import Socrata
 
