@@ -1,4 +1,5 @@
-#  **Melbourne Open Data**
+**Melbourne Open Data**
+=========================
 
 __Author__: Squad of City of Melbourne
 
@@ -6,8 +7,13 @@ __Deakin University__
 
 __T2/2021__
 
----
+.
+
+
+
+----
 # About Melbourne Data
+
 Welcome to Melbourne Data - the City of Melbourne’s open data platform, where you can access and use a wide variety of publicly accessible council data. By publishing this data, we aim to increase transparency, improve public services and support new economic and social initiatives.
 We would love to see how you’re using our data.
 
@@ -27,15 +33,19 @@ We would love to see how you’re using our data.
 
 
 
-
 ---
-*
+
+
+Summary Table for Open Data
+=====
 
 ![image](images/summarytable.jpg)
 
 ---
 
-## Knowledge Refreshing: 
+Knowledge Refreshing: 
+=======================
+
 According to __Codecademy__, we give some description:
 
 During your brainstorming phase, you should consider two things:
@@ -85,7 +95,7 @@ Showing summary table of 222 datasets
 
 
 ---
-## 2. Exploiting information from dataset
+## 2. Manipulation
 
 * [Click here] to see [example code](example.ipynb) for **Data Description**.
 
@@ -101,16 +111,16 @@ Do not merge your code into **example.ipynb** file)
 
 
 
-## 3. Analysis of result  
+## 3. Analysis  
 
-* [Click here]() to see example code for **EDA**
+* [Click here](EDA.ipynb) to see example code for **EDA**
 
 `Mirriam is working here`
 
 >please replace this image with your geo fig
 
 
-![image](images/parking.jpg)
+![image](images/geo_map.jpg)
 
 
 
