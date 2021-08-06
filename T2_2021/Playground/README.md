@@ -1,7 +1,7 @@
 **Melbourne Open Data**
 =========================
 
-__Author__: Oscar
+__Author__: Oscar, Mirriam, Albert
 
 __Deakin University__ 
 
