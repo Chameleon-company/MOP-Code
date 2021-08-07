@@ -47,8 +47,8 @@ def summary_table():
                     'id': id_,
                     'updatead_At':_updatedAt,
                     'createAt':_createAt,
-                    'pageViews':_page_views,
-                    "attributes":_features,
+                 #   'pageViews':_page_views,
+               #     "attributes":_features,
                     "downloadCount":_downloadCount
                     })
     return sum_df, client
