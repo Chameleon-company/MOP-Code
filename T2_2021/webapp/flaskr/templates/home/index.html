@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+<!-- {% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %} -->
+
+{% block content %}
+<div class="container">
+    <section class="hero">
+        <h1 class="title">Melbourne Open Data Playground</h1>
+        <p class="subtitle">
+            Explore real business use cases in order to learn how the City of Melbourne's Open Data platform <br/>
+            has been able to benefit businesses in the city of Melbourne and abroad.</p>
+    </section>
+    <div class="block"></div>
+    <section class="panel">
+        <div class="panel-block is-dark">
+            <div class="control has-icons-left has-icons-right">
+                <input class="input is-large search" type="text" placeholder="Search use cases..." />
+                <span class="icon is-medium is-left"><i class="fas fa-search"></i></span>
+                </span>
+            </div>
+        </div>
+        <div class="panel-block">
+            <div class="tile is-ancestor">
+            </div>
+        </div>
+    </section>
+</div>
+<template id="article_tile_template">
+    <div class="tile is-parent is-4">
+        <article class="tile is-child notification is-dark box">
+            <p class="title"><!-- title --></p>
+            <div class="block description"><!-- description--></div>
+            <div class="block">
+                <table class="table">
+                    <thead>
+                        <td>Tech</td>
+                        <td>Code</td>
+                    </thead>
+                </table>
+            </div>
+        </article>
+    </div>
+</template>
+<template id="technology_row_template">
+    <tr>
+        <td class="technology"></td>
+        <td class="code"></td>
+    </tr>
+</template>
+<template id="icon_template">
+    <span class="icon"></span>
+</template>
+<script type="text/javascript">
+    var searchUrl = "{{url_for('static', filename='search.json')}}"
+</script>
+<script src="{{url_for('static', filename='search.js')}}"></script>
+{% endblock %}
