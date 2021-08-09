@@ -1,0 +1,26 @@
+[
+    { 
+        "title": "Parking Availability", 
+        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
+        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
+        "technology": [{
+            "name": "mapbox",
+            "code": "javascript"
+        },{
+            "name": "pandas",
+            "code": "python"
+        }]
+    },
+    { 
+        "title": "Pedestrian Traffic", 
+        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
+        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
+        "technology": [{
+            "name": "mapbox",
+            "code": "javascript"
+        },{
+            "name": "sklearn",
+            "code": "python"
+        }]
+    }
+]
