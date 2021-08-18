@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Open Data Playground</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    {% block head %}{% endblock %}
 </head>
 
 <body>
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson }};
+    </script>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://bulma.io">
@@ -35,9 +39,12 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary">
-                            <strong>Github</strong>
-                        </a>
+                        <button class="button">
+                            <span class="icon">
+                              <i class="fab fa-github"></i>
+                            </span>
+                            <span>GitHub</span>
+                          </button>
                     </div>
                 </div>
             </div>
