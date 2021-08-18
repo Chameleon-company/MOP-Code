@@ -5,43 +5,92 @@
 {% endblock %} -->
 
 {% block content %}
-<div class="container">
-    <section class="hero">
+<section class="hero">
+    <div class="hero-body has-text-centered">
         <h1 class="title">Melbourne Open Data Playground</h1>
         <p class="subtitle">
-            Explore real business use cases in order to learn how the City of Melbourne's Open Data platform <br/>
-            has been able to benefit businesses in the city of Melbourne and abroad.</p>
-    </section>
-    <div class="block"></div>
+            Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
+        </p>
+    </div>
+</section>
+<div class="container">
     <section class="panel">
         <div class="panel-block is-dark">
-            <div class="control has-icons-left has-icons-right">
+            <div class="search-control control is-large has-icons-left has-icons-right">
                 <input class="input is-large search" type="text" placeholder="Search use cases..." />
                 <span class="icon is-medium is-left"><i class="fas fa-search"></i></span>
-                </span>
             </div>
         </div>
         <div class="panel-block">
-            <div class="tile is-ancestor">
+            <div class="block">
+                <div class="subtitle">
+                    <i class="fas fa-wrench"></i> Use Cases
+                </div>
+                <div class="tile is-ancestor" style="background-color: #f5f5f5;">
+                    <div class="tile is-parent is-vertical">
+                        <div class="tile is-parent article-tile-parent">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-block">
+            <div class="block">
+                <div class="block">
+                    <div class="subtitle">
+                        <i class="fas fa-database"></i> Datasets
+                    </div>
+                </div>
+                <div class="tile is-ancestor" style="background-color: #f5f5f5;">
+                    <div class="tile is-parent is-vertical">
+                        <div class="tile is-parent dataset-tile-parent">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </div>
 <template id="article_tile_template">
-    <div class="tile is-parent is-4">
-        <article class="tile is-child notification is-dark box">
-            <p class="title"><!-- title --></p>
-            <div class="block description"><!-- description--></div>
-            <div class="block">
-                <table class="table">
-                    <thead>
-                        <td>Tech</td>
-                        <td>Code</td>
-                    </thead>
-                </table>
+    <article class="tile is-4 is-child">
+        <div class="block" style="padding: 12px;">
+            <div class="box">
+                <a href="playground" class="title">
+                    <!-- title -->
+                </a>
+                <div class="block description">
+                    <!-- description-->
+                </div>
+                <div class="block">
+                    <table class="table">
+                        <thead>
+                            <td>Tech</td>
+                            <td>Code</td>
+                        </thead>
+                    </table>
+                </div>
             </div>
-        </article>
-    </div>
+        </div>
+    </article>
+</template>
+<template id="dataset_tile_template">
+    <article class="tile is-child is-2">
+        <div class="block" style="padding: 12px;">
+            <div class="box">
+                <a href="#" class="subtitle">
+                    <!-- title -->
+                </a>
+                <div class="block">
+                    <p><b>Downloads:</b>
+                        <span class="description">
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
 </template>
 <template id="technology_row_template">
     <tr>
@@ -52,8 +101,13 @@
 <template id="icon_template">
     <span class="icon"></span>
 </template>
-<script type="text/javascript">
-    var searchUrl = "{{url_for('static', filename='search.json')}}"
-</script>
+<style type="text/css">
+    .article-tile-parent .box:hover {
+        box-shadow: none
+    }
+    .dataset-tile-parent .box:hover {
+        box-shadow: none
+    }
+</style>
 <script src="{{url_for('static', filename='search.js')}}"></script>
 {% endblock %}
