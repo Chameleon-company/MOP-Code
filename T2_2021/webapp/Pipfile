@@ -7,6 +7,8 @@ name = "pypi"
 zappa = "==0.52.0"
 flask = "*"
 geopandas = "*"
+pandas = "*"
+sodapy = "*"
 
 [dev-packages]
 
