@@ -21,7 +21,7 @@ def run(event, context):
     # add another number to the csv
     df1 = pd.DataFrame(client.get("vh2v-4nfs", limit=200000))
     df1.drop(columns = ['location', 'lat', 'lon', ':@computed_region_evbi_jbp8'], inplace = True)
-    df1['datetime'] = datetime.datetime.today() + datetime.timedelta(hours = 10) #Melbourne Time
+    df1['datetime'] = datetime.datetime.today().replace(microsecond=0) + datetime.timedelta(hours = 10) #Melbourne Time
     df = df.append(df1)
 
 
