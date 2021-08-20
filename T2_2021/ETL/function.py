@@ -20,13 +20,8 @@ def run(event, context):
     df = pd.read_csv(read_file['Body'])
     # add another number to the csv
     df1 = pd.DataFrame(client.get("vh2v-4nfs", limit=200000))
-    #df1.drop(columns = ['st_marker_id', 'location', 'lat', 'lon', ':@computed_region_evbi_jbp8'], inplace = True)
-    time = datetime.datetime.now().strftime
-    df1['datetime'] = datetime.datetime.today()
-    df1['hour'] = time("%H")
-    df1['minute'] = time("%M")
-    df1['dayofweek'] = time("%A")
-    df1['date'] = datetime.date.today()
+    df1.drop(columns = ['location', 'lat', 'lon', ':@computed_region_evbi_jbp8'], inplace = True)
+    df1['datetime'] = datetime.datetime.today() + datetime.timedelta(hours = 10) #Melbourne Time
     df = df.append(df1)
 
 
