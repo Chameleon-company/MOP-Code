@@ -1,32 +1,82 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
-  <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' />
+<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' />
 {% endblock %} -->
 {% block content %}
-
-<figure class="highlight">
-    <pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+<section class="container">
+  <figure class="highlight">
+    <pre><code class="language-js" data-lang="javascript">
+      function showParkingSensorsOnMap() {
+        let occupiedImage = loadMapImage('/static/occupied_parking_sensor_25px.png')
+            .then((image) => map.addImage('occupied_marker', image));
+        let unoccupiedImage = loadMapImage('/static/unoccupied_parking_sensor_25px.png')
+        .then((image) => map.addImage('unoccupied_marker', image));
+        let unknownImage = loadMapImage('/static/unknown_parking_sensor_25px.png')
+        .then((image) => map.addImage('unknown_marker', image));
+        let imagesPromise = Promise.all([occupiedImage, unoccupiedImage, unknownImage])
+    
+        fetch($SCRIPT_ROOT + "/playground/parking-sensors/now")
+        .then(result => result.json())
+        .then((data) => {
+            // after all the images have been added
+            // create the markers for the map
+            // make sure each status uses a different image
+            return imagesPromise.then(() => {
+                return data
+                .reduce((features, parkingSensor) => {
+                    let {lat, lng, status} = parkingSensor
+                    let feature = {
+                        // feature for Mapbox DC
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [
+                                lng, lat
+                            ]
+                        },
+                        'properties': {
+                            'title': status
+                        }
+                    }
+    
+                    features[status].push(feature)
+                    return features
+                }, {'Present': [], 'Unoccupied': [], 'Unknown': []})
+            })
+            .then(features => {
+                let {Present, Unoccupied, Unknown} = features
+                
+                addLayer(Unknown, 'unknown_marker')
+                addLayer(Present, 'occupied_marker')
+                addLayer(Unoccupied, 'unoccupied_marker')
+            })
+        })
+    }
+      <!-- <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"notification is-primary"</span><span class="nt">&gt;</span>
       This container is <span class="nt">&lt;strong&gt;</span>centered<span class="nt">&lt;/strong&gt;</span> on desktop and larger viewports.
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span></code></pre><button class="button bd-copy">Copy</button>
-</figure>
-<!-- mapbox map -->
-<div id='map' style='width: 100%; height: 600px;'></div>
+    <span class="nt">&lt;/div&gt;</span> -->
+  <!-- <span class="nt">&lt;/div&gt;</span> -->
+</code></pre><button class="button bd-copy">Copy</button>
+  </figure>
+  <!-- mapbox map -->
+  <div id='map' style='width: 100%; height: 600px;'></div>
+</section>
+
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [151.205170344, -33.8425953978], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
+  mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
+  const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [151.205170344, -33.8425953978], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+  });
 </script>
 <script>hljs.highlightAll();</script>
-<script src="{{url_for('static', filename='traffic_lights.js')}}"></script>
+<script src="{{url_for('static', filename='playground.js')}}"></script>
 
 {% endblock %}
