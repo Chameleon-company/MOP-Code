@@ -63,10 +63,6 @@ def top_table(top = 10):
     sum_df = sum_df.reset_index().drop('index', axis=1)
     return sum_df, client
 
-
-
-
-
 def keyword_search(keywords= None):
     if keywords is None:
         print('Please typing valid dataset name')
@@ -76,7 +72,7 @@ def keyword_search(keywords= None):
         for each_dataset in client.datasets():
         #for key_name in each_dataset['resource']:
             #    print(key_name,":" ,each_dataset['resource'][str(key_name)])    
-            if each_dataset['resource']['name'].lower().find(keywords.lower()) != -1:
+            if each_dataset['resource']['name'].lower().find("street".lower()) != -1:
             # print('name: ' , each_dataset['resource']['name'],', id:' , each_dataset['resource']['id'])
                 rows.append([each_dataset['resource']['name'], 
                 each_dataset['resource']['id'],
