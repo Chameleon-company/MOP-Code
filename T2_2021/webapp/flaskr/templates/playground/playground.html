@@ -8,61 +8,169 @@
 {% endblock %} -->
 {% block content %}
 <section class="container">
-  <figure class="highlight">
-    <pre><code class="language-js" data-lang="javascript">
+  <div class="block">
+    <h2 class="title">Step 1 - Access Data</h2>
+    <p>
+      To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a
+        target="_blank"
+        href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking sensor
+        information.</a><br />
+      This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.<br />
+      Below is the python script that will access the data and write it to a json file.
+    </p>
+  </div>
+  <div class="block">
+    <figure class="highlight">
+      <pre>
+    <code class="language-python" data-lang="python">
+    # find the parking dataset @ https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs
+    parking_dataset_id = 'vh2v-4nfs'
+    # app tokens are just used to manage throttling (not authentication)
+    app_token = '[your app token]' #find out about app tokens @ https://dev.socrata.com/docs/app-tokens.html
+    bucket = 'opendataplayground.deakin'
+
+    # Access open data through Socrata client
+    client = Socrata(
+        "data.melbourne.vic.gov.au",
+        app_token,
+        timeout=120
+    )
+
+    # read snapshot of parking sensors status
+    api_results = client.get_all(parking_dataset_id)
+    parking_sensors = pd.DataFrame.from_dict(api_results)
+    parking_sensors = parking_sensors.astype({'lat':'float64', 'lon':'float64'})
+    # remove duplicates found in the parking sensor data    
+    parking_sensors = parking_sensors.drop_duplicates()
+    parking_sensors[['lat', 'lon', 'status']].to_json('./latest_parking_sensors.json')
+    </code>
+    </pre>
+    </figure>
+    <div class="buttons">
+      <a href="#" class="resource-download-link button is-text">
+        <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
+      </a>
+      <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="resource-download-link button is-text">
+        <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
+      </a>
+    </div>
+  </div>
+  <div class="block">
+    <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a
+        href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.</p>
+  </div>
+  <div class="block">
+    <figure class="highlight">
+    <pre>
+    <code class="language-html" data-lang="html">
+      &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+      &lt;script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'&gt;&lt;/script&gt;
+      &lt;link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /&gt;
+    </code>
+    <code class="language-js" data-lang="javascript">
+      mapboxgl.accessToken = '[your mapbox access token]';
+      
+      const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
+        zoom: 13 // starting zoom
+      });
+      
+      map.on('load', () => {
+          showParkingSensorsOnMap()
+      });
+      
+      var presentMarkerName = 'occupied_marker'
+      var unoccupiedMarkerName = 'unoccupied_marker'
+      
       function showParkingSensorsOnMap() {
-        let occupiedImage = loadMapImage('/static/occupied_parking_sensor_25px.png')
-            .then((image) => map.addImage('occupied_marker', image));
-        let unoccupiedImage = loadMapImage('/static/unoccupied_parking_sensor_25px.png')
-        .then((image) => map.addImage('unoccupied_marker', image));
-        let unknownImage = loadMapImage('/static/unknown_parking_sensor_25px.png')
-        .then((image) => map.addImage('unknown_marker', image));
-        let imagesPromise = Promise.all([occupiedImage, unoccupiedImage, unknownImage])
-    
-        fetch($SCRIPT_ROOT + "/playground/parking-sensors/now")
-        .then(result => result.json())
-        .then((data) => {
-            // after all the images have been added
-            // create the markers for the map
-            // make sure each status uses a different image
-            return imagesPromise.then(() => {
-                return data
-                .reduce((features, parkingSensor) => {
-                    let {lat, lng, status} = parkingSensor
-                    let feature = {
-                        // feature for Mapbox DC
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [
-                                lng, lat
-                            ]
-                        },
-                        'properties': {
-                            'title': status
-                        }
-                    }
-    
-                    features[status].push(feature)
-                    return features
-                }, {'Present': [], 'Unoccupied': [], 'Unknown': []})
-            })
-            .then(features => {
-                let {Present, Unoccupied, Unknown} = features
-                
-                addLayer(Unknown, 'unknown_marker')
-                addLayer(Present, 'occupied_marker')
-                addLayer(Unoccupied, 'unoccupied_marker')
-            })
-        })
-    }
-      <!-- <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"notification is-primary"</span><span class="nt">&gt;</span>
-      This container is <span class="nt">&lt;strong&gt;</span>centered<span class="nt">&lt;/strong&gt;</span> on desktop and larger viewports.
-    <span class="nt">&lt;/div&gt;</span> -->
-  <!-- <span class="nt">&lt;/div&gt;</span> -->
-</code></pre><button class="button bd-copy">Copy</button>
-  </figure>
+          // add the markers for different statuses to our available images
+          let imagesPromise = loadMarkers()
+          let latestSensors = fetch("[location of latest_parking_sensors.json]")
+              .then(result => result.json())
+      
+          Promise.all([imagesPromise, latestSensors])
+              .then(([_, data]) => {
+                  // convert sensor information into geojson
+                  return data
+                      .reduce((features, parkingSensor) => {
+                          let { lat, lon, status } = parkingSensor
+                          let lng = lon
+                          let feature = {
+      
+                              'type': 'Feature',
+                              'geometry': {
+                                  'type': 'Point',
+                                  'coordinates': [
+                                      lng, lat
+                                  ]
+                              },
+                              'properties': {
+                                  'title': status
+                              }
+                          }
+                          // add next parking sensor to the geojson features
+                          // with respect to status
+                          features[status].push(feature)
+                          return features
+                      }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
+              })
+              .then(features => {
+                  // add each status type to the map
+                  // as new marker mapbox layer
+                  let { Present, Unoccupied, Unknown } = features
+      
+                  addLayer(Unknown, unknownMakerName)
+                  addLayer(Present, presentMarkerName)
+                  addLayer(Unoccupied, unoccupiedMarkerName)
+              })
+      }
+      
+      function loadMapImage(image) {
+          return new Promise((resolve, reject) => map.loadImage(image,
+              (error, image) => error && reject(error) || resolve(image)))
+      }
+      
+      function loadMarkers() {
+          return Promise.all([
+              loadMapImage('/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
+              loadMapImage('/static/unoccupied_parking_sensor_25px.png'),
+          ]).then(([occupied, unoccupied, unknown]) => {
+              map.addImage(presentMarkerName, occupied)
+              map.addImage(unoccupiedMarkerName, unoccupied)
+          })
+      }
+      
+      function addLayer(features, markerName) {
+          map.addSource(markerName, {
+              'type': 'geojson',
+              'data': {
+                  'type': 'FeatureCollection',
+                  'features': features
+              }
+          });
+          map.addLayer({
+              'id': markerName,
+              'type': 'symbol',
+              'source': markerName,
+              'layout': {
+                  'icon-image': markerName,
+                  // get the title name from the source's "title" property
+                  'text-field': ['get', 'title'],
+                  'text-font': [
+                      'Open Sans Semibold',
+                      'Arial Unicode MS Bold'
+                  ],
+                  'text-offset': [0, 1.25],
+                  'text-anchor': 'top'
+              }
+          });
+      }
+    </code>
+    </pre>
+    </figure>
+  </div>
   <!-- mapbox map -->
   <div id='map' style='width: 100%; height: 600px;'></div>
 </section>
@@ -72,8 +180,8 @@
   const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
-    center: [151.205170344, -33.8425953978], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
+    zoom: 13 // starting zoom
   });
 </script>
 <script>hljs.highlightAll();</script>

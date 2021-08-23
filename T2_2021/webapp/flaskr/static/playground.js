@@ -2,68 +2,79 @@ map.on('load', () => {
     showParkingSensorsOnMap()
 });
 
-
-map.on('click', function(e) {
+map.on('click', function (e) {
     fetch($SCRIPT_ROOT + `/playground/query_location?lng=${e.lngLat.lng}&lat=${e.lngLat.lat}`)
-    .then(request => request.json())
-    .then(data => console.dir(data))
+        .then(request => request.json())
+        .then(data => console.dir(data))
 })
 
+var unknownMakerName = 'unknown_marker'
+var presentMarkerName = 'occupied_marker'
+var unoccupiedMarkerName = 'unoccupied_marker'
+
 function showParkingSensorsOnMap() {
-    let occupiedImage = loadMapImage('/static/occupied_parking_sensor_25px.png')
-        .then((image) => map.addImage('occupied_marker', image));
-    let unoccupiedImage = loadMapImage('/static/unoccupied_parking_sensor_25px.png')
-    .then((image) => map.addImage('unoccupied_marker', image));
-    let unknownImage = loadMapImage('/static/unknown_parking_sensor_25px.png')
-    .then((image) => map.addImage('unknown_marker', image));
-    let imagesPromise = Promise.all([occupiedImage, unoccupiedImage, unknownImage])
+    // add the markers for different statuses to our available images
+    let imagesPromise = loadMarkers()
+    let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/now")
+        .then(result => result.json())
 
-    fetch($SCRIPT_ROOT + "/playground/parking-sensors/now")
-    .then(result => result.json())
-    .then((data) => {
-        // after all the images have been added
-        // create the markers for the map
-        // make sure each status uses a different image
-        return imagesPromise.then(() => {
+    Promise.all([imagesPromise, latestSensors])
+        .then(([_, data]) => {
+            // convert sensor information into geojson
             return data
-            .reduce((features, parkingSensor) => {
-                let {lat, lng, status} = parkingSensor
-                let feature = {
-                    // feature for Mapbox DC
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [
-                            lng, lat
-                        ]
-                    },
-                    'properties': {
-                        'title': status
-                    }
-                }
+                .reduce((features, parkingSensor) => {
+                    let { lat, lon, status } = parkingSensor
+                    let lng = lon
+                    let feature = {
 
-                features[status].push(feature)
-                return features
-            }, {'Present': [], 'Unoccupied': [], 'Unknown': []})
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [
+                                lng, lat
+                            ]
+                        },
+                        'properties': {
+                            'title': status
+                        }
+                    }
+                    // add next parking sensor to the geojson features
+                    // with respect to status
+                    features[status].push(feature)
+                    return features
+                }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
         })
         .then(features => {
-            let {Present, Unoccupied, Unknown} = features
-            
-            addLayer(Unknown, 'unknown_marker')
-            addLayer(Present, 'occupied_marker')
-            addLayer(Unoccupied, 'unoccupied_marker')
+            // add each status type to the map
+            // as new marker mapbox layer
+            let { Present, Unoccupied, Unknown } = features
+
+            addLayer(Unknown, unknownMakerName)
+            addLayer(Present, presentMarkerName)
+            addLayer(Unoccupied, unoccupiedMarkerName)
         })
-    })
 }
 
 function loadMapImage(image) {
-    return new Promise((resolve, reject) => map.loadImage($SCRIPT_ROOT + image, 
-    (error, image) => {
-        if(error)
-            reject(error)
-        else
-            resolve(image)
-    }))
+    return new Promise((resolve, reject) => map.loadImage($SCRIPT_ROOT + image,
+        (error, image) => {
+            if (error)
+                reject(error)
+            else
+                resolve(image)
+        }))
+}
+
+function loadMarkers() {
+    return Promise.all([
+        loadMapImage('/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
+        loadMapImage('/static/unoccupied_parking_sensor_25px.png'),
+        loadMapImage('/static/unknown_parking_sensor_25px.png')
+    ]).then(([occupied, unoccupied, unknown]) => {
+        map.addImage(presentMarkerName, occupied)
+        map.addImage(unoccupiedMarkerName, unoccupied)
+        map.addImage(unknownMakerName, unknown)
+    })
 }
 
 function addLayer(features, markerName) {
@@ -90,64 +101,4 @@ function addLayer(features, markerName) {
             'text-anchor': 'top'
         }
     });
-}
-
-function showTrafficLightsOnMap() {
-    fetch($SCRIPT_ROOT + "/playground/traffic_lights")
-    .then(response => response.json())
-    .then((data) => {
-        // Add an image to use as a custom marker
-        map.loadImage(
-            'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-            (error, image) => {
-                if (error) throw error;
-                map.addImage('custom-marker', image);
-                let features = data.map(lnglat => {
-                    let [lng, lat] = lnglat
-                    return {
-                        // feature for Mapbox DC
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [
-                                lng, lat
-                            ]
-                        },
-                        'properties': {
-                            'title': 'Traffic Light'
-                        }
-                    }
-
-                })
-
-                // Add a GeoJSON source with 2 points
-                map.addSource('points', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
-                        'features': features
-                    }
-                });
-
-                // Add a symbol layer
-                map.addLayer({
-                    'id': 'points',
-                    'type': 'symbol',
-                    'source': 'points',
-                    'layout': {
-                        'icon-image': 'custom-marker',
-                        // get the title name from the source's "title" property
-                        'text-field': ['get', 'title'],
-                        'text-font': [
-                            'Open Sans Semibold',
-                            'Arial Unicode MS Bold'
-                        ],
-                        'text-offset': [0, 1.25],
-                        'text-anchor': 'top'
-                    }
-                });
-            }
-        );
-
-    })
 }

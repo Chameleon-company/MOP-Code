@@ -1,0 +1,5 @@
+{
+    "python.autoComplete.extraPaths": [
+     "~/.local/share/virtualenvs/webapp-diW6GEzg/bin/python"
+    ],
+}
