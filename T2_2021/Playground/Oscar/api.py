@@ -7,8 +7,13 @@ import requests
 
 parser = argparse.ArgumentParser(description='''Play with datasets from https://data.melbourne.vic.gov.au/''')
 parser.add_argument('-filter',type=int, help='0: inspect popular datasets, 1:search dataset, 2: download type_I, 3: download type_II')
-parser.add_argument('-n', type=str, help="Like search query function, typing a keyword. If filter is download type, it should be id")
-parser.add_argument('-limit',type=int, help='limit datasets or data size')
+parser.add_argument('-n', type=str, help='''filter=0, no input;
+                                            filter=1, typing keyword;
+                                            filter=2, typing id;
+                                            filter=3, typing multiple dataset names.
+                                            ''')
+parser.add_argument('-limit',type=int, help='''filter=0, #_of datasets;
+                                                filter= 2 or 3, #of data size''')
 
 args = parser.parse_args()
 

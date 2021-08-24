@@ -1,6 +1,0 @@
-bay_id,st_marker_id,status,location,lat,lon
-5752,12442N,Unoccupied,"{'latitude': '-37.811847531344036', 'longitude': '144.9758455824391', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}",-37.811847531344036,144.9758455824391
-856,671W,Unoccupied,"{'latitude': '-37.81445691781761', 'longitude': '144.96873486337353', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}",-37.81445691781761,144.96873486337353
-5524,11981W,Unoccupied,"{'latitude': '-37.81427144972767', 'longitude': '144.98277676593383', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}",-37.81427144972767,144.98277676593383
-3147,5329W,Unoccupied,"{'latitude': '-37.81066116658156', 'longitude': '144.95581668430805', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}",-37.81066116658156,144.95581668430805
-4384,C7202,Unoccupied,"{'latitude': '-37.807619066478324', 'longitude': '144.95279678011752', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}",-37.807619066478324,144.95279678011752
