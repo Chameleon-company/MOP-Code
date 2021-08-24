@@ -11,3 +11,11 @@
     justify-content: flex-end;
     padding: 10px;
 }
+
+pre {
+    padding: 0px;
+}
+
+.download-links .level-right {
+    flex-grow: 1;
+}

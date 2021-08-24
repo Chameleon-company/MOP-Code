@@ -2,4 +2,7 @@
     "python.autoComplete.extraPaths": [
      "~/.local/share/virtualenvs/webapp-diW6GEzg/bin/python"
     ],
+    "python.analysis.extraPaths": [
+        "~/.local/share/virtualenvs/webapp-diW6GEzg/bin/python"
+    ],
 }

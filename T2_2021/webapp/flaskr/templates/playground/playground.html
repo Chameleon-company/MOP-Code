@@ -10,6 +10,10 @@
 <section class="container">
   <div class="block">
     <h2 class="title">Step 1 - Access Data</h2>
+    <div class="block">
+      <!-- mapbox map -->
+      <div id='map' style='width: 100%; height: 600px;'></div>
+    </div>
     <p>
       To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a
         target="_blank"
@@ -25,8 +29,7 @@
   </div>
   <div class="block">
     <figure class="highlight">
-      <pre>
-    <code class="language-python" data-lang="python">
+      <pre><code class="language-python" data-lang="python">
     # find the parking dataset @ https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs
     parking_dataset_id = 'vh2v-4nfs'
     # app tokens are just used to manage throttling (not authentication)
@@ -47,16 +50,24 @@
     # remove duplicates found in the parking sensor data    
     parking_sensors = parking_sensors.drop_duplicates()
     parking_sensors[['lat', 'lon', 'status']].to_json('./latest_parking_sensors.json')
-    </code>
-    </pre>
+    </code></pre>
     </figure>
-    <div class="buttons">
-      <a href="#" class="resource-download-link button is-text">
-        <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
-      </a>
-      <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="resource-download-link button is-text">
-        <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
-      </a>
+    <div class="level download-links">
+      <div class="level-right">
+        <div class="level-item">
+          <strong>Download:</strong>
+        </div>
+        <div class="level-item">
+          <div class="buttons">
+            <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="button is-text">
+              <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
+            </a>
+            <a href="#" class="button is-text">
+              <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="block">
@@ -69,13 +80,16 @@
       <span class=>JavaScript</span>
     </div>
     <figure class="highlight">
-    <pre>
-    <code class="language-html" data-lang="html">
-      &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+    <pre><code class="language-html" data-lang="html">
+      &lt;!-- Include Mapbox GL --&gt;
       &lt;script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'&gt;&lt;/script&gt;
       &lt;link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /&gt;
-    </code>
-    <code class="language-js" data-lang="javascript">
+      &lt;!-- Map HTML --&gt;
+      &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+    </code><code class="language-js" data-lang="javascript">
+      /**
+      * Fetch json file & Render to Mapbox
+      */
       mapboxgl.accessToken = '[your mapbox access token]';
       
       const map = new mapboxgl.Map({
@@ -175,12 +189,12 @@
               }
           });
       }
-    </code>
-    </pre>
+    </code></pre>
     </figure>
   </div>
-  <!-- mapbox map -->
-  <div id='map' style='width: 100%; height: 600px;'></div>
+  <div class="block">
+    <h2 class="title">Step 2 - Visualize Trends</h2>
+  </div>
 </section>
 
 <script>
