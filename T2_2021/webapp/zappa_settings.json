@@ -5,7 +5,6 @@
         "profile_name": "default",
         "project_name": "webapp",
         "runtime": "python3.7",
-        "slim_handler": true,
         "s3_bucket": "opendataplayground.deakin"
     }
 }
