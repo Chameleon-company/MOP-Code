@@ -20,7 +20,7 @@ def get_live_parking_json():
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
     key = 'static_datasets/006_crvt-b4kt_dl_at__20210808_manual.geojson'
-    read_file = s3_resource.Object(bucket, key).get()
+    # read_file = s3_resource.Object(bucket, key).get()
 
     client = Socrata(
         "data.melbourne.vic.gov.au",
@@ -28,15 +28,15 @@ def get_live_parking_json():
         timeout=120
     )
 
-    historic_df = gpd.read_file(read_file['Body'])
-    # use the centroid of the polygon to estimate the sensor location
-    historic_df['centroid'] = historic_df.centroid
-    historic_df['lati'] = historic_df['centroid'].y
-    historic_df['long'] = historic_df['centroid'].x
-    historic_df = historic_df.drop(columns=['bay_id','meter_id','last_edit'])
-    historic_df = historic_df.fillna(value=np.nan)
-    historic_df = historic_df[historic_df['marker_id'].notna()]
-    historic_df = historic_df.drop_duplicates('marker_id')
+    # historic_df = gpd.read_file(read_file['Body'])
+    # # use the centroid of the polygon to estimate the sensor location
+    # historic_df['centroid'] = historic_df.centroid
+    # historic_df['lati'] = historic_df['centroid'].y
+    # historic_df['long'] = historic_df['centroid'].x
+    # historic_df = historic_df.drop(columns=['bay_id','meter_id','last_edit'])
+    # historic_df = historic_df.fillna(value=np.nan)
+    # historic_df = historic_df[historic_df['marker_id'].notna()]
+    # historic_df = historic_df.drop_duplicates('marker_id')
 
     ## 003 read current snapshot of parking sensors' status
     api_results = client.get_all(parking_dataset_id)
@@ -48,14 +48,14 @@ def get_live_parking_json():
     parking_sensors = parking_sensors.drop_duplicates()
 
     # merge with historically available parking sensors
-    parking_sensors = historic_df.merge(parking_sensors, how='outer', on="marker_id")
-    parking_sensors['lati'] = parking_sensors['lati'].fillna(parking_sensors['lat'])
-    parking_sensors['long'] = parking_sensors['long'].fillna(parking_sensors['lon'])
-    parking_sensors = parking_sensors.fillna(value=np.nan)
-    parking_sensors['lat'] = parking_sensors['lati']
-    parking_sensors['lon'] = parking_sensors['long']
+    # parking_sensors = historic_df.merge(parking_sensors, how='outer', on="marker_id")
+    # parking_sensors['lati'] = parking_sensors['lati'].fillna(parking_sensors['lat'])
+    # parking_sensors['long'] = parking_sensors['long'].fillna(parking_sensors['lon'])
+    # parking_sensors = parking_sensors.fillna(value=np.nan)
+    # parking_sensors['lat'] = parking_sensors['lati']
+    # parking_sensors['lon'] = parking_sensors['long']
     parking_sensors['status'] = parking_sensors['status'].fillna('Unknown')
-    parking_sensors = parking_sensors.drop(columns=['centroid', 'lati', 'long'])
+    # parking_sensors = parking_sensors.drop(columns=['centroid', 'lati', 'long'])
     
     results = parking_sensors[['lat', 'lon', 'status']].to_dict('records')
     

@@ -13,17 +13,17 @@ function toString(article) {
         article.description + " " +
         article.tags.join(" ") +
         article.technology
-            .map(technology => technology.name + " " + technology.code)
-            .join(" ")
+        .map(technology => technology.name + " " + technology.code)
+        .join(" ")
 
-    return combined.toLowerCase()// to lower for case-insensitive search results
+    return combined.toLowerCase() // to lower for case-insensitive search results
 }
 
 var timeout = undefined
 
 function insertSearchResults(event) {
 
-    if (timeout) {// debounce the updates for better performance
+    if (timeout) { // debounce the updates for better performance
         clearTimeout(timeout)
     }
 
@@ -39,19 +39,19 @@ function insertSearchResults(event) {
 
         //remove old results
         let articleTileParents = document.querySelectorAll(".article-tile-parent");
-        for(let index in articleTileParents) {
-            if(index > 0)
+        for (let index in articleTileParents) {
+            if (index > 0)
                 articleTileParents[index].remove()
         }
         let articleTileParent = articleTileParents[0]
         articleTileParent.innerHTML = ""
-        // get new results
+            // get new results
         let articlePromise = searchArticles(searchTerms)
             .then((results) => {
                 let tileParent = articleTileParent
-                for (let index in results.slice(0,42)) {
+                for (let index in results.slice(0, 42)) {
                     // should only have 3 nodes per row
-                    if(index > 0 && index % 3 ==  0) {
+                    if (index > 0 && index % 3 == 0) {
                         let newTileParent = tileParent.cloneNode(false)
                         tileParent.parentElement.appendChild(newTileParent)
                         tileParent = newTileParent
@@ -59,26 +59,27 @@ function insertSearchResults(event) {
 
                     let article = results[index]
                     let articleNode = createArticle(article)
+                        // articleNode.querySelector('.box').style.backgroundColor = getColor(Math.floor(Math.random()*10) % 4)
                     tileParent.appendChild(articleNode)
                 }
             })
 
         // remove old results
         let datasetTileParents = document.querySelectorAll(".dataset-tile-parent");
-        
-        for(let index in datasetTileParents) {
-            if(index > 0)
+
+        for (let index in datasetTileParents) {
+            if (index > 0)
                 datasetTileParents[index].remove()
         }
         let datasetTileParent = datasetTileParents[0]
         datasetTileParent.innerHTML = ""
-        // lookup datasets
+            // lookup datasets
         let datasetPromise = searchDatasets(searchTerms)
             .then((results) => {
                 let tileParent = datasetTileParent
                 for (let index in results.slice(0, 42)) {
                     // should only have 6 nodes per row
-                    if(index > 0 && index % 6 ==  0) {
+                    if (index > 0 && index % 4 == 0) {
                         let newTileParent = tileParent.cloneNode(false)
                         tileParent.parentElement.appendChild(newTileParent)
                         tileParent = newTileParent
@@ -86,6 +87,7 @@ function insertSearchResults(event) {
 
                     let dataset = results[index]
                     let datasetNode = createDataset(dataset)
+                        // datasetNode.querySelector('.box').style.backgroundColor = getColor(Math.floor(Math.random() * 10) % 4)
                     tileParent.appendChild(datasetNode)
                 }
             })
@@ -119,7 +121,7 @@ function createArticle(article) {
     let technologyTable = articleTile.querySelectorAll('.table')[0]
     for (let techIndex in article.technology) {
         let technology = article.technology[techIndex]
-        // set the technology name
+            // set the technology name
         let technologyRow = technologyRowTemplate.content.cloneNode(true)
         let td = technologyRow.querySelectorAll("td");
         td[0].textContent = technology.name;
@@ -162,11 +164,11 @@ function searchArticles(searchTerms) {
         .then((searchResults) => {
             let results = searchResults.filter(article => {
                 let articleSearch = toString(article)
-                // if we have a search term, then we search based on that term
+                    // if we have a search term, then we search based on that term
                 if (searchTerms.some(x => x.length))
                     return searchTerms.some(term => articleSearch.includes(term))
                 else
-                    // if we have no search term, then we show all
+                // if we have no search term, then we show all
                     return true
             })
             return results

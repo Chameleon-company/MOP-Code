@@ -2,3 +2,42 @@
     max-height: 500px;
     overflow-y: scroll;
 }
+
+.snippet-language {
+    background-color: #f5f5f5;
+    position: relative;
+    display: flex;
+    flex-shrink: 1;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+pre {
+    padding: 0px;
+}
+
+.download-links .level-right {
+    flex-grow: 1;
+}
+
+.table {
+    border-radius: 6px;
+}
+
+.hero-background-container {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+}
+
+.hero-background {
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/melbourne_skyline.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+}

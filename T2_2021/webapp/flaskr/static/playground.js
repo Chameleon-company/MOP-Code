@@ -1,8 +1,16 @@
+mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/light-v10', // style URL
+    center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
+    zoom: 13 // starting zoom
+});
+
 map.on('load', () => {
     showParkingSensorsOnMap()
 });
 
-map.on('click', function (e) {
+map.on('click', function(e) {
     fetch($SCRIPT_ROOT + `/playground/query_location?lng=${e.lngLat.lng}&lat=${e.lngLat.lat}`)
         .then(request => request.json())
         .then(data => console.dir(data))
@@ -27,19 +35,19 @@ function showParkingSensorsOnMap() {
                     let lng = lon
                     let feature = {
 
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [
-                                lng, lat
-                            ]
-                        },
-                        'properties': {
-                            'title': status
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [
+                                    lng, lat
+                                ]
+                            },
+                            'properties': {
+                                'title': status
+                            }
                         }
-                    }
-                    // add next parking sensor to the geojson features
-                    // with respect to status
+                        // add next parking sensor to the geojson features
+                        // with respect to status
                     features[status].push(feature)
                     return features
                 }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
