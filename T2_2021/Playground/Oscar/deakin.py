@@ -82,8 +82,8 @@ def keyword_search(keywords= None):
                 rows.append([each_dataset['resource']['name'], 
                 each_dataset['resource']['id'],
                 each_dataset['resource']['download_count'],
-                each_dateset['classification']['domain_category'],
-                each_dateset['classification']['domain_tags']
+                each_dataset['classification']['domain_category'],
+                each_dataset['classification']['domain_tags']
             ])
         df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads','Categorical','Tags'])
         df = df.sort_values(['Downloads'], ascending=False)
