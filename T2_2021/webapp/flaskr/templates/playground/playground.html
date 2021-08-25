@@ -1,35 +1,27 @@
-{% extends 'base.html' %}
-
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
 <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' />
-{% endblock %} -->
-{% block content %}
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
 <section class="container">
-  <div class="block">
-    <h2 class="title">Step 1 - Access Data</h2>
     <div class="block">
-      <!-- mapbox map -->
-      <div id='map' style='width: 100%; height: 600px;'></div>
+        <h2 class="title">Step 1 - Access Data</h2>
+        <div class="block">
+            <!-- mapbox map -->
+            <div id='map' style='width: 100%; height: 600px;'></div>
+        </div>
+        <p>
+            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a target="_blank" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking sensor
+        information.</a><br /> This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.<br /> Below is the python script that will access the data and write it to a json file.
+        </p>
     </div>
-    <p>
-      To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a
-        target="_blank"
-        href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking sensor
-        information.</a><br />
-      This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.<br />
-      Below is the python script that will access the data and write it to a json file.
-    </p>
-  </div>
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
-  </div>
-  <div class="block">
-    <figure class="highlight">
-      <pre><code class="language-python" data-lang="python">
+    <div class="snippet-language">
+        <span class="icon"><i class="fab fa-python"></i></span>
+        <span class=>Python</span>
+    </div>
+    <div class="block">
+        <figure class="highlight">
+            <pre><code class="language-python" data-lang="python">
     # find the parking dataset @ https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs
     parking_dataset_id = 'vh2v-4nfs'
     # app tokens are just used to manage throttling (not authentication)
@@ -51,36 +43,35 @@
     parking_sensors = parking_sensors.drop_duplicates()
     parking_sensors[['lat', 'lon', 'status']].to_json('./latest_parking_sensors.json')
     </code></pre>
-    </figure>
-    <div class="level download-links">
-      <div class="level-right">
-        <div class="level-item">
-          <strong>Download:</strong>
+        </figure>
+        <div class="level download-links">
+            <div class="level-right">
+                <div class="level-item">
+                    <strong>Download:</strong>
+                </div>
+                <div class="level-item">
+                    <div class="buttons">
+                        <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="button is-text">
+                            <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
+                        </a>
+                        <a href="#" class="button is-text">
+                            <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="level-item">
-          <div class="buttons">
-            <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="button is-text">
-              <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
-            </a>
-            <a href="#" class="button is-text">
-              <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
-            </a>
-          </div>
+    </div>
+    <div class="block">
+        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.</p>
+    </div>
+    <div class="block">
+        <div class="snippet-language">
+            <span class="icon"><i class="fab fa-js"></i></span>
+            <span class=>JavaScript</span>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a
-        href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.</p>
-  </div>
-  <div class="block">
-    <div class="snippet-language">
-      <span class="icon"><i class="fab fa-js"></i></span>
-      <span class=>JavaScript</span>
-    </div>
-    <figure class="highlight">
-    <pre><code class="language-html" data-lang="html">
+        <figure class="highlight">
+            <pre><code class="language-html" data-lang="html">
       &lt;!-- Include Mapbox GL --&gt;
       &lt;script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'&gt;&lt;/script&gt;
       &lt;link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /&gt;
@@ -190,23 +181,15 @@
           });
       }
     </code></pre>
-    </figure>
-  </div>
-  <div class="block">
-    <h2 class="title">Step 2 - Visualize Trends</h2>
-  </div>
+        </figure>
+    </div>
+    <div class="block">
+        <h2 class="title">Step 2 - Visualize Trends</h2>
+    </div>
 </section>
-
 <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
-  const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
-    center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
-    zoom: 13 // starting zoom
-  });
+    hljs.highlightAll();
 </script>
-<script>hljs.highlightAll();</script>
 <script src="{{url_for('static', filename='playground.js')}}"></script>
 
 {% endblock %}

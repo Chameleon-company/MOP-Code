@@ -19,3 +19,25 @@ pre {
 .download-links .level-right {
     flex-grow: 1;
 }
+
+.table {
+    border-radius: 6px;
+}
+
+.hero-background-container {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+}
+
+.hero-background {
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/melbourne_skyline.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+}

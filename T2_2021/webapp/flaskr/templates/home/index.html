@@ -4,17 +4,22 @@
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %} -->
 
+
 {% block content %}
-<section class="hero">
-    <div class="hero-body has-text-centered">
-        <h1 class="title">Melbourne Open Data Playground</h1>
-        <p class="subtitle">
-            Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
-        </p>
+<div class="hero-background-container">
+    <div class="hero-background">
     </div>
-</section>
+</div>
 <div class="container">
-    <section class="panel">
+    <section class="hero">
+        <div class="hero-body has-text-centered">
+            <h1 class="title has-text-white">Melbourne Open Data Playground</h1>
+            <p class="subtitle has-text-white">
+                Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
+            </p>
+        </div>
+    </section>
+    <section class="panel has-background-white">
         <div class="panel-block is-dark">
             <div class="search-control control is-large has-icons-left has-icons-right">
                 <input class="input is-large search" type="text" placeholder="Search use cases..." />
@@ -76,7 +81,7 @@
     </article>
 </template>
 <template id="dataset_tile_template">
-    <article class="tile is-child is-2">
+    <article class="tile is-child is-3">
         <div class="block" style="padding: 12px;">
             <div class="box">
                 <a href="#" class="subtitle">
@@ -105,6 +110,7 @@
     .article-tile-parent .box:hover {
         box-shadow: none
     }
+    
     .dataset-tile-parent .box:hover {
         box-shadow: none
     }
