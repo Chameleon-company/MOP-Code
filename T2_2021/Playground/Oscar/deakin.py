@@ -19,6 +19,8 @@ def top_table(top = 20):
     _features = []
     _link = []
     _view = []
+    _categorial = []
+    _tag = []
     
     
     for a in client.datasets(): #222
@@ -33,12 +35,10 @@ def top_table(top = 20):
     
         #print('createAt', a['resource']['createdAt'])
         _createAt.append(a['resource']['createdAt'])
-        
-        #print('page_views', a['resource']['page_views'])
+
         _page_views.append(a['resource']['page_views'])
         
         #print('features name', a['resource']['columns_name'])
-    
         _link.append(a['permalink'])
         #print('download count',a['resource']['download_count'])
         _downloadCount.append(a['resource']['download_count'])
@@ -46,18 +46,22 @@ def top_table(top = 20):
         _features.append(a['resource']['columns_name'])
         
         _view.append(a['resource']['page_views']['page_views_last_month'])
+        _categorial.append(a['classification']['domain_category'])
+        _tag.append(a['classification']['domain_tags'])
+
     sum_df = pd.DataFrame({'Name':_name,
                     'id': id_,
                     #'updatead_At':_updatedAt,
                     #'createAt':_createAt,
-                    "link": _link,
-            #   'pageViews':_page_views,
+            #        "link": _link,
+            #       'pageViews':_page_views,
             #     "attributes":_features,
                     "downloadCount":_downloadCount,
-                    'page_views_last_month':_view
+                    'page_views_last_month':_view,
+                    'categorical':_categorial
                     })
 
-    sum_df = sum_df.sort_values(['page_views_last_month'], ascending=False).head(top)
+    sum_df = sum_df.sort_values(['downloadCount'], ascending=False).head(top)
     sum_df = sum_df.reset_index().drop('index', axis=1)
     return sum_df, client
 
@@ -77,9 +81,11 @@ def keyword_search(keywords= None):
             if any(check_list):
                 rows.append([each_dataset['resource']['name'], 
                 each_dataset['resource']['id'],
-                each_dataset['resource']['download_count']
+                each_dataset['resource']['download_count'],
+                each_dateset['classification']['domain_category'],
+                each_dateset['classification']['domain_tags']
             ])
-        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads'])
+        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads','Categorical','Tags'])
         df = df.sort_values(['Downloads'], ascending=False)
         df = df.reset_index().drop('index', axis=1)
         return df
@@ -99,9 +105,11 @@ def data_inspect(keywords= None, client=None):
             if any(check_list):
                 rows.append([each_dataset['resource']['name'], 
                 each_dataset['resource']['id'],
-                each_dataset['resource']['download_count']
+                each_dataset['resource']['download_count'],
+                each_dataset['classification']['domain_category'],
+                each_dataset['classification']['domain_tags']
             ])
-        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads'])
+        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads','Categorical','Tags'])
         df = df.sort_values(['Downloads'], ascending=False)
         df = df.reset_index().drop('index', axis=1)
         return df

@@ -26,6 +26,7 @@ if args.filter == 0:
     print(table)
     print('\n\n********Note********')
     print('https://data.melbourne.vic.gov.au/d/$id')
+    print('https://data.melbourne.vic.gov.au/api/catalog/v1?ids=$id')
     print('''We encourage users to check dataset according to the link of each data.
 There are many detailed descriptions on the official website of city of melbourne.''')
 
@@ -35,6 +36,7 @@ if args.filter == 1:
     print(data_table)
     print('\n\n********Note********')
     print('https://data.melbourne.vic.gov.au/d/$id')
+    print('https://data.melbourne.vic.gov.au/api/catalog/v1?ids=$id')
     print('''We encourage users to check dataset according to the link of each data.
 There are many detailed descriptions on the official website of city of melbourne.''')
 
