@@ -4,6 +4,31 @@
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
 <section class="container">
+    <div class="block" style="padding: 1.3rem 0px">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">Parking Availability</h1>
+                <p class="subtitle">
+                    As a business that requires parking to be available for your employees or customers, the <span style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make these business critical decisions with
+                    down-to-the-minute precision.
+                </p>
+                <div class="content">
+                    <h3>Business Problem</h3>
+                    <p>Due to Covid-19, businesses wanting to return to normal operations will need to open their premises at strategic locations in the city. One of the key characteristics that a business needs to consider when choosing a location is the
+                        parking availability for their customers.</p>
+                    <p>This Playground will walk you through finding parking, showing the activity of parking bays and giving statistics with respect to the last 4 weeks of data (thus considering recent trends like Covid-19). With this information businesses
+                        can make an informed decision on the location of their new premises.</p>
+                </div>
+            </div>
+            <div class="column">
+                <div style="display: flex; height:350px; justify-content: center">
+                    <div style="flex-grow:1; justify-content: center; align-items: center; display: flex;color: #333; font-size: large; text-transform: uppercase; background-image: url('{{url_for('static', filename='images/mock_tool.png')}}'); background-size: contain; background-position:center; background-repeat: no-repeat; font-weight:bold;">
+                        DEMO
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="block">
         <h2 class="title">Step 1 - Access Data</h2>
         <div class="block">
@@ -11,8 +36,10 @@
             <div id='map' style='width: 100%; height: 600px;'></div>
         </div>
         <p>
-            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a target="_blank" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking sensor
-        information.</a><br /> This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.<br /> Below is the python script that will access the data and write it to a json file.
+            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a target="_blank" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking
+                sensor
+                information.</a><br /> This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.
+            <br /> Below is the python script that will access the data and write it to a json file.
         </p>
     </div>
     <div class="snippet-language">
@@ -52,10 +79,12 @@
                 <div class="level-item">
                     <div class="buttons">
                         <a href="{{ request.script_root + '/playground/parking-sensors/now'}}" target="_blank" class="button is-text">
-                            <span class="icon"><i class="far fa-file-code"></i></span> <span>latest_parking_sensors.json</span>
+                            <span class="icon"><i class="far fa-file-code"></i></span>
+                            <span>latest_parking_sensors.json</span>
                         </a>
                         <a href="#" class="button is-text">
-                            <span class="icon"><i class="fas fa-book"></i></span> <span>parking_sensor_analysis.ipynb</span>
+                            <span class="icon"><i class="fas fa-book"></i></span>
+                            <span>parking_sensor_analysis.ipynb</span>
                         </a>
                     </div>
                 </div>
@@ -63,7 +92,8 @@
         </div>
     </div>
     <div class="block">
-        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.</p>
+        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.
+        </p>
     </div>
     <div class="block">
         <div class="snippet-language">
