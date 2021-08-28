@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from functools import partial
 import pyproj
 from shapely.ops import transform
+from random import sample
 
 # 001
 
@@ -85,7 +86,7 @@ def filterById(ids_list, id_col_name, df):
 
     Args:
         ids_list (list): list of ids to filter
-        id_col_name (string): name of id column to filter on
+        id_col_name (string): name of id column to filter on (e.g. 'bay_id' or 'st_marker_id')
         df (dataframe): pandas dataframe to filter from
 
     Returns:
@@ -101,8 +102,125 @@ def filterById(ids_list, id_col_name, df):
     return df[df[id_col_name].isin(ids_list)]
 
 
-# next
-# [1] dummy data generator with choice of random distribution
-#   return df with some randomly drop records to simulate real data
-# [2] time filters
-#   keep to a minimum, and make sure it's useful for resampling and visualising time data
+# 005
+
+def genPSdata(endTime, fq, period, bayFr, bayTo, dropRate=0):
+    """Generate random status for a specified range of parking bays over specified period of time.
+    Options are provided to specify frequency (fq) of time interval of status reads,
+    and a dropRate to specify a portion of records to be dropped randomly to simulate what we observed in real data.
+
+    Args:
+        endTime (date time string): end time of specified period (e.g. "2021-09-02 15:01:23")
+        fq (string): specifies time interval between status reads (e.g. "15min")
+        period (integer): number of fq time intervals (e.g. for fq="15min", 4*24*7 is for one week's data at 15min intervals)
+        bayFr (integer): lower range of specified bay ids
+        bayTo (integer): upper range of specified bay ids
+        dropRate (int, optional): Defaults to 0. This is portion (between 0 and 1) of data to drop by random sample
+
+    Returns:
+        pandas dataframe: of randomly generated status data as specified by the parameters
+    """
+    w = pd.Series(pd.date_range(end=endTime, periods=period, freq=fq))
+    baysList = list(range(bayFr, (bayTo+1)))
+    randomisedBaysList = sample(baysList, k=len(baysList))
+    lst = []
+    for bay in randomisedBaysList:
+        a = pd.Series(np.repeat((bay), len(w)))
+        aw = pd.concat([a, w], axis='columns')
+        aw = aw.sample(frac=(1-dropRate))
+        lst.append(aw)
+
+    _df = pd.concat(lst, axis='index')
+    _df.columns = ['bay_id', 'db_read_time']
+
+    _df['status'] = np.random.randint(0, 2, size=len(_df))
+    _df['status'] = _df['status'].replace({0: "Unoccupied", 1: "Present"})
+    _df = _df.sort_values(by=['db_read_time']).reset_index(drop=True)
+
+    startdt = _df['db_read_time'].min()
+    enddt = _df['db_read_time'].max()
+    print(
+        f"Generated {_df.db_read_time.count()} records between {startdt} and {enddt}")
+    print(
+        f"(with drop rate of {dropRate}, to simulate missing status records in real data).")
+    print(
+        f"There are {_df.db_read_time.nunique()} time periods over {_df.db_read_time.dt.date.nunique()} days")
+    print(f"(frequency of time period = {fq}).")
+
+    return _df
+
+
+# 006
+
+def getCurrentPSstatus(df):
+    """Check supplied df, then print and return occupied and unoccupied parking bay status
+
+    Args:
+        df (pandas dataframe): containing full or subset of current status records of parking sensors read
+
+    Returns:
+        tuple: of total number of parking bays in df, number of available and unavailable parking bays in df
+    """
+    no_bays = df.shape[0]
+    no_pres = (df["status"] == "Present").sum()
+    no_unoc = (df["status"] == "Unoccupied").sum()
+    print(
+        f"Number of current status records of parking sensors read : {no_bays}")
+    print(
+        f"Number of current available parking bays : {no_pres} ({round((100*no_pres/no_bays),1)}% of total)")
+    print(
+        f"Number of current unavailable parking bays : {no_unoc} ({round((100*no_unoc/no_bays),1)}% of total)")
+    return no_bays, no_pres, no_unoc
+
+
+# 007
+
+def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_read_time"):
+    """Takes a dataframe of periodically read (assume every 15min) status data of parking sensors,
+    then filters it based on supplied start and end date times,
+    then resamples  this filtered data using supplied bin size for the specified bin statistic.
+    The timestamp column name of the input dataframe can be specified (if different from the default).
+
+    Args:
+        df (pandas dataframe): of periodically read (assume read at 15min intervals) status data of parking sensors
+        startdt (date time string): "yyyy-mm-dd HH:MM:SS" (e.g. "2021-08-28 15:00:00")
+        enddt (date time string): "yyyy-mm-dd HH:MM:SS" (e.g. "2021-08-28 15:00:00")
+        bin (str, optional): Defaults to "15min". Other appropriate values are "1H", "1D", "1W", "1M"
+        bin_stat (str, optional): Defaults to "median". Other optons are "mean", "min", "max", "count"
+        tindex (str, optional): Defaults to "db_read_time".
+
+    Returns:
+        pandas dataframe: that is a pivot table of the original df, time filtered, and resampled for specified statistics
+    """
+    df[tindex] = pd.to_datetime(df[tindex])
+    dfpv = pd.pivot_table(df, index=tindex, columns="status", aggfunc='count')
+    dfpv = dfpv.fillna(0)
+    dfpv.columns = ["P", "U"]
+
+    dfpv = dfpv.loc[startdt: enddt]  # filter between specified date times
+
+    if bin_stat == 'median':
+        aa = dfpv['P'].resample(bin).median()
+        bb = dfpv['U'].resample(bin).median()
+    elif bin_stat == 'mean':
+        aa = dfpv['P'].resample(bin).mean()
+        bb = dfpv['U'].resample(bin).mean()
+    elif bin_stat == 'min':
+        aa = dfpv['P'].resample(bin).min()
+        bb = dfpv['U'].resample(bin).min()
+    elif bin_stat == 'max':
+        aa = dfpv['P'].resample(bin).max()
+        bb = dfpv['U'].resample(bin).max()
+    elif bin_stat == 'count':
+        aa = dfpv['P'].resample(bin).count()
+        bb = dfpv['U'].resample(bin).count()
+    else:
+        ValueError: print("Invalid 'bin_stat' parameter entered !!")
+    # NOTE that I did not include .sum() as we may be resampling
+    # (e.g. 4x 15min intervals resample under 1x 60min interval, and it's inappropriate to sum in that case)
+    # The .count() included as more of a check the records in a time interval, it shouldn't be used like mean or median
+
+    df = pd.concat([aa, bb], axis='columns')
+    df.columns = ['Present', 'Unoccupied']
+    df.index.name = 'time_interval'
+    return df
