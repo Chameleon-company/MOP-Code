@@ -10,6 +10,7 @@ import pandas as pd
 from flask import jsonify
 import numpy as np
 
+# Step 1 - Access Data
 def get_live_parking_json():
     # start_index = request.args['start'] if request.args['stop'] is not None else 0
     # stop_index = request.args['stop'] if request.args['stop'] is not None else 100
