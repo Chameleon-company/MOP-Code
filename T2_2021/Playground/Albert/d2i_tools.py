@@ -7,6 +7,7 @@ from functools import partial
 import pyproj
 from shapely.ops import transform
 from random import sample
+from geopy.distance import geodesic
 
 # 001
 
@@ -103,7 +104,6 @@ def filterById(ids_list, id_col_name, df):
 
 
 # 005
-
 def genPSdata(endTime, fq, period, bayFr, bayTo, dropRate=0):
     """Generate random status for a specified range of parking bays over specified period of time.
     Options are provided to specify frequency (fq) of time interval of status reads,
@@ -151,7 +151,6 @@ def genPSdata(endTime, fq, period, bayFr, bayTo, dropRate=0):
 
 
 # 006
-
 def getCurrentPSstatus(df):
     """Check supplied df, then print and return occupied and unoccupied parking bay status
 
@@ -174,7 +173,6 @@ def getCurrentPSstatus(df):
 
 
 # 007
-
 def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_read_time"):
     """Takes a dataframe of periodically read (assume every 15min) status data of parking sensors,
     then filters it based on supplied start and end date times,
@@ -223,4 +221,39 @@ def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_
     df = pd.concat([aa, bb], axis='columns')
     df.columns = ['Present', 'Unoccupied']
     df.index.name = 'time_interval'
+
+    # can add below columns to help visualisation labeling (also re-index, but index need to be unique)
+    # df['year'] = df.index.year
+    # df['qtr'] = df.index.quarter
+    # df['mth'] = df.index.month
+    # df['wk'] = df.index.week  # week ordinal of the year
+    # df['dayOfWk'] = df.index.dayofweek  # day of week, 0=Mon, 6=Sun
+    # df['dayOfMth'] = df.index.day  # day of month
+    # df['dayOfYr'] = df.index.dayofyear
+
     return df
+
+
+# 008
+# adapted from Miriam's geo filter
+def geoCirFilter(gdf, pin, radius):
+    """Takes geopandas dataframe with records of lat lon and marker ids, and filters those records within the cicle set by pin and radius
+
+    Args:
+        gdf (geopandas dataframe): base list with lat, lon, and marker ids
+        pin (tuple of lat lon): pin that is centre of circle centre
+        radius (number): radius of circle (in metres)
+
+    Returns:
+        [list]: of filtered marker ids that is within the specified circle
+    """
+    lst_marker_ids = []
+    j = 0
+    for i in np.arange(0, gdf.shape[0]):
+        d = geodesic(pin, (gdf.lati[i], gdf.long[i])).meters
+        if d <= radius:
+            lst_marker_ids.append(gdf.marker_id[i])
+            j = j+1
+        else:
+            continue
+    return lst_marker_ids
