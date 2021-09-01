@@ -1,4 +1,4 @@
-from flaskr.parking_sensor.steps import get_live_parking_json
+from flaskr.parking_sensor.steps import get_current_collection, get_live_parking_json
 import functools
 import json
 import numpy as np
@@ -13,7 +13,17 @@ bp = Blueprint('playground', __name__, url_prefix='/playground')
 
 @bp.route("/", methods=('GET',))
 def home():
-    return render_template('playground/playground.html')
+    s3_client = boto3.client('s3')
+
+    # get a public link for the parking_sensor.csv
+    presigned_url = s3_client.generate_presigned_url('get_object',
+        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parkingsensor.csv'},
+        ExpiresIn=3600 # 60 minutes
+    )
+
+    view_model = {'parking_sensor_collection': presigned_url}
+
+    return render_template('playground/playground.html', view_model = view_model)
 
 @bp.route("/traffic_lights", methods=('GET',))
 def get_traffic_lights():
@@ -21,8 +31,8 @@ def get_traffic_lights():
     locations = [[lng, lat] for lng, lat in zip(df['Longitude'], df['Latitude'])]
     return jsonify(locations)
 
-@bp.route("/parking-sensors/now", methods=('GET',))
-def get_parking_sensor_latest():
+@bp.route("/parking-sensors/latest.json", methods=('GET',))
+def get_parking_sensor_now():
     return get_live_parking_json()
 
 @bp.route("/query_location", methods=('GET',))
