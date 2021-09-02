@@ -125,6 +125,12 @@ section::after {
     display: table;
     clear: both;
   }
+.chart {
+    height: 200px;
+}
 
+.spacer {
+    height: 20px;
+}
   
  

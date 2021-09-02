@@ -1,0 +1,290 @@
+{% extends 'base.html' %} {% block head %}
+<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
+<section class="container">
+    <div class="block" style="padding: 1.3rem 0px">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">Parking Availability</h1>
+                <p class="subtitle">
+                    As a business that requires parking to be available for your employees or customers, the <span style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make these business critical decisions with
+                    down-to-the-minute precision.
+                </p>
+                <div class="content">
+                    <h3>Business Problem</h3>
+                    <p>Due to Covid-19, businesses wanting to return to normal operations will need to open their premises at strategic locations in the city. One of the key characteristics that a business needs to consider when choosing a location is the
+                        parking availability for their customers.</p>
+                    <p>This Playground will walk you through finding parking, showing the activity of parking bays and giving statistics with respect to the last 4 weeks of data (thus considering recent trends like Covid-19). With this information businesses
+                        can make an informed decision on the location of their new premises.</p>
+                </div>
+            </div>
+            <div class="column">
+                <div style="display: flex; height:350px; justify-content: center">
+                    <div style="flex-grow:1; justify-content: center; align-items: center; display: flex;color: #333; font-size: large; text-transform: uppercase; background-image: url('{{url_for('static', filename='images/mock_tool.png')}}'); background-size: contain; background-position:center; background-repeat: no-repeat; font-weight:bold;">
+                        DEMO
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <h2 class="title">Step 1 - Access Data</h2>
+        <div class="block">
+            <!-- mapbox map -->
+            <div id='map' style='width: 100%; height: 600px;'></div>
+        </div>
+        <p>
+            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a target="_blank" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking
+                sensor
+                information.</a><br /> This dataset is replaced every <b>2 minutes</b> with latest parking sensor information.
+            <br /> Below is the python script that will access the data and write it to a json file.
+        </p>
+    </div>
+    <div class="snippet-language">
+        <span class="icon"><i class="fab fa-python"></i></span>
+        <span class=>Python</span>
+    </div>
+    <div class="block">
+        <figure class="highlight">
+            <pre><code class="language-python" data-lang="python">
+    import pandas as pd
+    from sodapy import Socrata
+
+    # find the parking dataset @ https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs
+    parking_dataset_id = 'vh2v-4nfs'
+    # app tokens are just used to manage throttling (not authentication)
+    app_token = '[your app token]' #find out about app tokens @ https://dev.socrata.com/docs/app-tokens.html
+    bucket = 'opendataplayground.deakin'
+
+    # Access open data through Socrata client
+    client = Socrata(
+        "data.melbourne.vic.gov.au",
+        app_token,
+        timeout=120
+    )
+
+    # read snapshot of parking sensors status
+    api_results = client.get_all(parking_dataset_id)
+    parking_sensors = pd.DataFrame.from_dict(api_results)
+    parking_sensors = parking_sensors.astype({'lat':'float64', 'lon':'float64'})
+    # remove duplicates found in the parking sensor data    
+    parking_sensors = parking_sensors.drop_duplicates()
+    parking_sensors[['lat', 'lon', 'status']].to_json('./latest_parking_sensors.json')
+    </code></pre>
+        </figure>
+        <div class="level download-links">
+            <div class="level-right">
+                <div class="level-item">
+                    <strong>Download:</strong>
+                </div>
+                <div class="level-item">
+                    <div class="buttons">
+                        <a href="{{ request.script_root + '/playground/parking-sensors/latest.json'}}" download="latest_parking_sensor.json" class="button is-text">
+                            <span class="icon"><i class="far fa-file-code"></i></span>
+                            <span>latest_parking_sensors.json</span>
+                        </a>
+                        <a href="#" download="Parking Sensor Analysis" class="button is-text">
+                            <span class="icon"><i class="fas fa-book"></i></span>
+                            <span>parking_sensor_analysis.ipynb</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.
+        </p>
+    </div>
+    <div class="block">
+        <div class="snippet-language">
+            <span class="icon"><i class="fab fa-js"></i></span>
+            <span class=>JavaScript</span>
+        </div>
+        <figure class="highlight">
+            <pre><code class="language-html" data-lang="html">
+    &lt;!-- Include Mapbox GL --&gt;
+    &lt;script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'&gt;&lt;/script&gt;
+    &lt;link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /&gt;
+    &lt;!-- Map HTML --&gt;
+    &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+    </code><code class="language-js" data-lang="javascript">
+    /**
+    * Fetch json file & Render to Mapbox
+    */
+    mapboxgl.accessToken = '[your mapbox access token]';
+    
+    const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
+    zoom: 13 // starting zoom
+    });
+    
+    map.on('load', () => {
+        showParkingSensorsOnMap()
+    });
+    
+    var presentMarkerName = 'occupied_marker'
+    var unoccupiedMarkerName = 'unoccupied_marker'
+    
+    function showParkingSensorsOnMap() {
+        // add the markers for different statuses to our available images
+        let imagesPromise = loadMarkers()
+        let latestSensors = fetch("[location of latest_parking_sensors.json]")
+            .then(result => result.json())
+    
+        Promise.all([imagesPromise, latestSensors])
+            .then(([_, data]) => {
+                // convert sensor information into geojson
+                return data
+                    .reduce((features, parkingSensor) => {
+                        let { lat, lon, status } = parkingSensor
+                        let lng = lon
+                        let feature = {
+    
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [
+                                    lng, lat
+                                ]
+                            },
+                            'properties': {
+                                'title': status
+                            }
+                        }
+                        // add next parking sensor to the geojson features
+                        // with respect to status
+                        features[status].push(feature)
+                        return features
+                    }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
+            })
+            .then(features => {
+                // add each status type to the map
+                // as new marker mapbox layer
+                let { Present, Unoccupied, Unknown } = features
+    
+                addLayer(Unknown, unknownMakerName)
+                addLayer(Present, presentMarkerName)
+                addLayer(Unoccupied, unoccupiedMarkerName)
+            })
+    }
+    
+    function loadMapImage(image) {
+        return new Promise((resolve, reject) => map.loadImage(image,
+            (error, image) => error && reject(error) || resolve(image)))
+    }
+    
+    function loadMarkers() {
+        return Promise.all([
+            loadMapImage('/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
+            loadMapImage('/static/unoccupied_parking_sensor_25px.png'),
+        ]).then(([occupied, unoccupied, unknown]) => {
+            map.addImage(presentMarkerName, occupied)
+            map.addImage(unoccupiedMarkerName, unoccupied)
+        })
+    }
+    
+    function addLayer(features, markerName) {
+        map.addSource(markerName, {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': features
+            }
+        });
+        map.addLayer({
+            'id': markerName,
+            'type': 'symbol',
+            'source': markerName,
+            'layout': {
+                'icon-image': markerName,
+                // get the title name from the source's "title" property
+                'text-field': ['get', 'title'],
+                'text-font': [
+                    'Open Sans Semibold',
+                    'Arial Unicode MS Bold'
+                ],
+                'text-offset': [0, 1.25],
+                'text-anchor': 'top'
+            }
+        });
+    }
+    </code></pre>
+        </figure>
+    </div>
+    <div class="block">
+        <h2 class="title">Step 2 - Collect Data</h2>
+        <p>
+            Because we are trying to make decisions based on the parking availability trends, we are going to store a record of the parking sensor information over time. To do this we are going to create a python function to perform a little bit of ETL (Extraction,
+            Transformation, Loading). We are then going to run this function in a loop with some 'sleeps' over several days to collect enough data for us to be able to generate some insights.
+        </p>
+    </div>
+    <div class="snippet-language">
+        <span class="icon"><i class="fab fa-python"></i></span>
+        <span class=>Python</span>
+    </div>
+    <div class="block">
+        <figure class="highlight">
+            <pre><code class="language-python" data-lang="python">
+    import datetime
+    from os.path import isfile
+
+    # fetch the latest parkign data and append to parking sensor file collection
+    def update_latest_parking_data():
+        # connect to melbourne open data apis
+        client = Socrata(
+            "data.melbourne.vic.gov.au",
+            "EC65cHicC3xqFXHHvAUICVXEr", # app token, just used to reduce throttling, not authentication
+            timeout=120
+        )
+        
+        # add another number to the csv
+        df = pd.DataFrame(client.get("vh2v-4nfs", limit=200000))
+        df.drop(columns = ['location', 'lat', 'lon', ':@computed_region_evbi_jbp8'], inplace = True)
+        df['datetime'] = datetime.datetime.today().replace(microsecond=0) + datetime.timedelta(hours = 10) #Melbourne Time
+        
+        # if file already exists than we just want to append to the file
+        # else we want to write a new file
+        write_mode = 'w' if isfile('parking_sensor_data.csv') else 'a'
+        
+        df.to_csv('parking_sensor_data.csv', mode=write_mode, index = False)
+
+    import time
+
+    # simply press keys `ctrl + c` to stop the loop
+    try:
+        while True:
+            update_latest_parking_data()
+            # wait for 15 minutes before fetching next latest
+            time.sleep(15*60)
+    except KeyboardInterrupt:
+        print('Finished fetching parking data.')
+    </code></pre>
+        </figure>
+        <div class="level download-links">
+            <div class="level-right">
+                <div class="level-item">
+                    <strong>Download:</strong>
+                </div>
+                <div class="level-item">
+                    <div class="buttons">
+                        <a href="{{view_model.parking_sensor_collection}}" download="parking_sensor_data.csv" class="button is-text">
+                            <span class="icon"><i class="far fa-file-code"></i></span>
+                            <span>parking_sensor_data.csv</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    hljs.highlightAll();
+</script>
+<script src="{{url_for('static', filename='playground.js')}}"></script>
+
+{% endblock %}
