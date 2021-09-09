@@ -9,8 +9,11 @@ flask = "*"
 geopandas = "*"
 pandas = "*"
 sodapy = "*"
+matplotlib = "*"
+seaborn = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.7"
