@@ -23,7 +23,7 @@ var unoccupiedMarkerName = 'unoccupied_marker'
 function showParkingSensorsOnMap() {
     // add the markers for different statuses to our available images
     let imagesPromise = loadMarkers()
-    let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/now")
+    let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/latest.json")
         .then(result => result.json())
 
     Promise.all([imagesPromise, latestSensors])
