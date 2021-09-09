@@ -1,6 +1,7 @@
 import pandas as pd
 from sodapy import Socrata
-
+import seaborn as sns 
+from matplotlib import pyplot as plt 
 
 def top_table(top = 20):
 
@@ -65,6 +66,7 @@ def top_table(top = 20):
     sum_df = sum_df.reset_index().drop('index', axis=1)
     return sum_df, client
 
+# for web.app use
 def keyword_search(keywords= None):
     if keywords is None:
         print('Please typing valid dataset name')
@@ -83,12 +85,22 @@ def keyword_search(keywords= None):
                 each_dataset['resource']['id'],
                 each_dataset['resource']['download_count'],
                 each_dataset['classification']['domain_category'],
-                each_dataset['classification']['domain_tags']
+                each_dataset['classification']['domain_tags'],
+                each_dataset['resource']['page_views']['page_views_last_month']
             ])
-        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads','Categorical','Tags'])
-        df = df.sort_values(['Downloads'], ascending=False)
+        df = pd.DataFrame(rows, columns=["Name", "Id", 'Downloads','Categorical','Tags','page_views_last_month'])
+        df = df.sort_values(['page_views_last_month'], ascending=False)
         df = df.reset_index().drop('index', axis=1)
-        return df
+        
+        fig, ax = plt.subplots(dpi=60, figsize=(9,11))
+        
+        ax = sns.barplot(y = df['Name'], x = df['page_views_last_month'], palette=sns.color_palette("vlag"))
+        ax.set_xlabel('page_views_last_month', fontsize = 18)
+        ax.set_ylabel('Name', fontsize = 18)
+        ax.set(xlim=(0,df['page_views_last_month'].max()))
+        plt.close()
+        
+        return fig, df
 
 def data_inspect(keywords= None, client=None):
     if keywords is None:
