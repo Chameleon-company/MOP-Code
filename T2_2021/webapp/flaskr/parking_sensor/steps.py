@@ -72,6 +72,32 @@ def get_live_parking_json():
 
 import io
 
+
+''' This function will also fetch the latest parking sensor data, but will perform less reformatting than above
+    it also adds datetime.now information to a datetime column
+'''
+def get_live_parking():
+    # find the parking dataset @ https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs
+    parking_dataset_id = 'vh2v-4nfs'
+
+    client = Socrata(
+        "data.melbourne.vic.gov.au",
+        "EC65cHicC3xqFXHHvAUICVXEr", # app token, just used to reduce throttling, not authentication
+        timeout=120
+    )
+
+    api_results = client.get_all(parking_dataset_id)
+    parking_sensors = pd.DataFrame.from_dict(api_results)
+    parking_sensors = parking_sensors[['bay_id','st_marker_id','status','lat','lon']]
+    parking_sensors = parking_sensors.astype({'lat':'float64', 'lon':'float64'})
+    parking_sensors = parking_sensors.rename(columns={'st_marker_id':'marker_id'})
+
+    parking_sensors = parking_sensors.drop_duplicates()
+    parking_sensors['status'] = parking_sensors['status'].fillna('Unknown')
+    parking_sensors['datetime'] = datetime.now()
+    parking_sensors['datetime'] = pd.to_datetime(parking_sensors['datetime'], infer_datetime_format=True, utc=True)
+
+    return parking_sensors
 '''
 This function will take in a data frame with entries for each sensor with respective day of week, and status columns
 and return a dataframe of the form [{'DayOfWeek': string, 'Percentage': float32}]
@@ -127,13 +153,13 @@ def visualize_daily_latest():
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
     key = 'parkingsensor/parkingsensor.csv'
-    # read_file = s3_resource.Object(bucket, key).get()
+    read_file = s3_resource.Object(bucket, key).get()
 
     # load data from csv file
-    # df = pd.read_csv(read_file['Body'], parse_dates=['datetime'])
-    df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=['datetime'])
-
-    current_df = df[df['datetime'].dt.date == datetime.now().date()]
+    df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+    current_df = get_live_parking()
     # perform analysis
     daily_percentage = get_daily_percentage_availability(df)
     # perform analysis limited to today
@@ -150,10 +176,11 @@ def visualize_hourly_latest():
     read_file = s3_resource.Object(bucket, key).get()
 
     # load data from csv file
-    df = pd.read_csv(read_file['Body'], parse_dates=['datetime'])
+    df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
     # subset of data for only todays date
-    current_hour_df = df[df['datetime'].dt.hour == datetime.now().hour]
+    current_hour_df = get_live_parking()
 
     expected_hourly = get_hourly_availability_trend(df)
     current_hourly = get_hourly_availability_trend(current_hour_df)
