@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block head %}
 <link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='styles/parking_tool.css') }}" rel="stylesheet" />
 <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
+<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
 <section class="container">
     <div class="block" style="padding: 1.3rem 0px">
@@ -372,8 +374,8 @@
         </figure>
         <div class="block">
             <div class="columns">
-                <div class="column"><img src="{{url_for('playground.get_daily_visualization')}}" /></div>
-                <div class="column"><img src="{{url_for('playground.get_hourly_visualization')}}" /></div>
+                <!-- <div class="column"><img src="{{url_for('playground.get_daily_visualization')}}" /></div>
+                <div class="column"><img src="{{url_for('playground.get_hourly_visualization')}}" /></div> -->
             </div>
         </div>
         <div class="block">
@@ -447,10 +449,31 @@
         </code></pre>
             </figure>
         </div>
+        <div class="block" style="position: relative">
+            <div style="width: 100%; height: 600px;" id="tool_map"></div>
+            <div class="parking_tool_graph box" style="display: none;"></div>
+            <div class="parking_tool_radius_slider">
+                <input type="range" class="slider" min="1" max="100" value="30" />
+                <span class="radius_value">300m</span>
+            </div>
+        </div>
 </section>
 <script>
     hljs.highlightAll();
 </script>
 <script src="{{url_for('static', filename='playground.js')}}"></script>
+<script src="{{url_for('static', filename='parking_tool.js')}}"></script>
 
-{% endblock %}
+
+<template id="parking_tool_graph">
+    <div class="block">
+        <div class="parking_tool_close">
+            <span class="icon"><i class="far fa-times-circle"></i></span>
+        </div>
+        <p class="graph_title"></p>
+        <div class="graph_container">
+            <img class="graph_img" src="#" />
+            <img class="graph_img" src="#" />
+        </div>
+    </div>
+</template> {% endblock %}

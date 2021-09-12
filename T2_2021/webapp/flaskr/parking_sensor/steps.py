@@ -186,3 +186,46 @@ def visualize_hourly_latest():
     current_hourly = get_hourly_availability_trend(current_hour_df)
     #visualize results
     return visualize_trend(expected_hourly, current_hourly, 'Hours', 'Availability')
+
+
+##### STEP - Geofiltered Visualization of Data ######
+
+def visualize_filtered_daily_latest():
+    bucket = 'opendataplayground.deakin'
+    # get existing dataframe from csv on S3
+    s3_resource = boto3.resource('s3')
+    key = 'parkingsensor/parkingsensor.csv'
+    # read_file = s3_resource.Object(bucket, key).get()
+
+    # load data from csv file
+    # df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
+    # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+    current_df = get_live_parking()
+    # perform analysis
+    daily_percentage = get_daily_percentage_availability(df)
+    # perform analysis limited to today
+    current_daily_percentage = get_daily_percentage_availability(current_df)
+    #visualize results
+    return visualize_trend(daily_percentage, current_daily_percentage)
+
+def visualize_filtered_hourly_latest():
+    bucket = 'opendataplayground.deakin'
+    # get existing dataframe from csv on S3
+    s3_resource = boto3.resource('s3')
+    key = 'parkingsensor/parkingsensor.csv'
+    # read_file = s3_resource.Object(bucket, key).get()
+
+    # load data from csv file
+    # df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+
+    # subset of data for only todays date
+    current_hour_df = get_live_parking()
+
+    expected_hourly = get_hourly_availability_trend(df)
+    current_hourly = get_hourly_availability_trend(current_hour_df)
+    #visualize results
+    return visualize_trend(expected_hourly, current_hourly, 'Hours', 'Availability')

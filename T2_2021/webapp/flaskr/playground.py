@@ -1,5 +1,5 @@
 from flask.helpers import send_file
-from flaskr.parking_sensor.steps import get_live_parking_json, visualize_daily_latest, visualize_hourly_latest
+from flaskr.parking_sensor.steps import get_live_parking_json, visualize_daily_latest, visualize_filtered_daily_latest, visualize_filtered_hourly_latest, visualize_hourly_latest
 import functools
 import json
 import numpy as np
@@ -44,6 +44,16 @@ def get_daily_visualization():
 @bp.route("/parking-sensors/hourly.png", methods=('GET',))
 def get_hourly_visualization():
     buffer = visualize_hourly_latest()
+    return send_file(buffer, mimetype='image/png')
+
+@bp.route("/parking-sensors/daily_filtered.png", methods=('GET',))
+def get_filtered_daily_visualization():
+    buffer = visualize_filtered_daily_latest()
+    return send_file(buffer, mimetype='image/png')
+
+@bp.route("/parking-sensors/hourly_filtered.png", methods=('GET',))
+def get_filtered_hourly_visualization():
+    buffer = visualize_filtered_hourly_latest()
     return send_file(buffer, mimetype='image/png')
 
 @bp.route("/query_location", methods=('GET',))

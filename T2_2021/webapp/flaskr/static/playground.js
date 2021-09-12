@@ -7,7 +7,7 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', () => {
-    showParkingSensorsOnMap()
+    showParkingSensorsOnMap(map)
 });
 
 map.on('click', function(e) {
@@ -16,13 +16,13 @@ map.on('click', function(e) {
         .then(data => console.dir(data))
 })
 
-var unknownMakerName = 'unknown_marker'
+var unknownMarkerName = 'unknown_marker'
 var presentMarkerName = 'occupied_marker'
 var unoccupiedMarkerName = 'unoccupied_marker'
 
-function showParkingSensorsOnMap() {
+function showParkingSensorsOnMap(map) {
     // add the markers for different statuses to our available images
-    let imagesPromise = loadMarkers()
+    let imagesPromise = loadMarkers(map)
     let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/latest.json")
         .then(result => result.json())
 
@@ -57,13 +57,13 @@ function showParkingSensorsOnMap() {
             // as new marker mapbox layer
             let { Present, Unoccupied, Unknown } = features
 
-            addLayer(Unknown, unknownMakerName)
-            addLayer(Present, presentMarkerName)
-            addLayer(Unoccupied, unoccupiedMarkerName)
+            addLayer(map, Unknown, unknownMarkerName)
+            addLayer(map, Present, presentMarkerName)
+            addLayer(map, Unoccupied, unoccupiedMarkerName)
         })
 }
 
-function loadMapImage(image) {
+function loadMapImage(map, image) {
     return new Promise((resolve, reject) => map.loadImage($SCRIPT_ROOT + image,
         (error, image) => {
             if (error)
@@ -73,19 +73,19 @@ function loadMapImage(image) {
         }))
 }
 
-function loadMarkers() {
+function loadMarkers(map) {
     return Promise.all([
-        loadMapImage('/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
-        loadMapImage('/static/unoccupied_parking_sensor_25px.png'),
-        loadMapImage('/static/unknown_parking_sensor_25px.png')
+        loadMapImage(map, '/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
+        loadMapImage(map, '/static/unoccupied_parking_sensor_25px.png'),
+        loadMapImage(map, '/static/unknown_parking_sensor_25px.png')
     ]).then(([occupied, unoccupied, unknown]) => {
         map.addImage(presentMarkerName, occupied)
         map.addImage(unoccupiedMarkerName, unoccupied)
-        map.addImage(unknownMakerName, unknown)
+        map.addImage(unknownMarkerName, unknown)
     })
 }
 
-function addLayer(features, markerName) {
+function addLayer(map, features, markerName) {
     map.addSource(markerName, {
         'type': 'geojson',
         'data': {
