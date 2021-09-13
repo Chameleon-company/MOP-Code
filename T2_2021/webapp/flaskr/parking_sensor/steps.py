@@ -195,11 +195,11 @@ def visualize_filtered_daily_latest():
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
     key = 'parkingsensor/parkingsensor.csv'
-    # read_file = s3_resource.Object(bucket, key).get()
+    read_file = s3_resource.Object(bucket, key).get()
 
     # load data from csv file
-    # df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
-    df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
+    df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
     current_df = get_live_parking()
@@ -215,11 +215,11 @@ def visualize_filtered_hourly_latest():
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
     key = 'parkingsensor/parkingsensor.csv'
-    # read_file = s3_resource.Object(bucket, key).get()
+    read_file = s3_resource.Object(bucket, key).get()
 
     # load data from csv file
-    # df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
-    df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
+    df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
+    # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
     # subset of data for only todays date

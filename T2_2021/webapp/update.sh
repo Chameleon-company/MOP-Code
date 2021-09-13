@@ -1,1 +1,1 @@
-zappa update dev
+sam build && yes "y" | sam deploy

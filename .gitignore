@@ -46,3 +46,6 @@ T2_2021/webapp/handler_venv/lib/python3.7/site-packages/zappa-0.52.0.dist-info/t
 T2_2021/webapp/handler_venv/lib/python3.7/site-packages/zappa-0.52.0.dist-info/WHEEL
 T2_2021/webapp/flaskr/__pycache__/playground.cpython-37.pyc
 T2_2021/webapp/flaskr/parking_sensor/__pycache__/steps.cpython-37.pyc
+T2_2021/webapp/__pycache__/app.cpython-37.pyc
+T2_2021/webapp/flaskr/__pycache__/__init__.cpython-37.pyc
+.gitignore
