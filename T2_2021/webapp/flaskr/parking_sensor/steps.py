@@ -7,7 +7,7 @@ import numpy as np
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+from geopy.distance import geodesic
 
 ###### STEP - Access Data ######
 
@@ -209,8 +209,22 @@ def visualize_filtered_daily_latest(lat, lng, radius):
     # lat, lng are floats, radius is string integer (convert to integer to use below)
 
     # read in base list of 5895 parking bays with marker id's and lati long
-    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv")
-
+    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv')
+    df_merge = pd.merge(df_baselist, df, on='marker_id', how='inner')
+    
+    j=0
+    pin = {'lat':lat, 'lon':lng}
+    
+    for i in np.arange(0,df_merge.shape[0]):
+        list = [('lat',df_merge.iloc[i]['lati']), ('lon', df_merge.iloc[i]['long'])]
+        d = geodesic(pin[0],dict(list)).m
+        if d<=radius:
+            filter.loc[j]= df_merge.iloc[i]
+            j=j+1
+        else:
+            continue
+    filter.to_csv('Geofilter_Pin[{}]_Distance[{}].csv'.
+                 format(lat, lng, radius))
     # Miriam's circle filter to filter base list of marker id's
     # use filter list of marker ids to filter df
     # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
@@ -243,8 +257,22 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
     # lat, lng are floats, radius is string integer (convert to integer to use below)
 
     # read in base list of 5895 parking bays with marker id's and lati long
-    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv")
-
+    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv')
+    df_merge = pd.merge(df_baselist, df, on='marker_id', how='inner')
+    
+    j=0
+    pin = {'lat':lat, 'lon':lng}
+    
+    for i in np.arange(0,df_merge.shape[0]):
+        list = [('lat',df_merge.iloc[i]['lati']), ('lon', df_merge.iloc[i]['long'])]
+        d = geodesic(pin[0],dict(list)).m
+        if d<=radius:
+            filter.loc[j]= df_merge.iloc[i]
+            j=j+1
+        else:
+            continue
+    filter.to_csv('Geofilter_Pin[{}]_Distance[{}].csv'.
+                 format(lat, lng, radius))    
     # Miriam's circle filter to filter base list of marker id's
     # use filter list of marker ids to filter df
     # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
