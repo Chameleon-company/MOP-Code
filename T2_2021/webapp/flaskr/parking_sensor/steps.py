@@ -190,7 +190,7 @@ def visualize_hourly_latest():
 
 ##### STEP - Geofiltered Visualization of Data ######
 
-def visualize_filtered_daily_latest():
+def visualize_filtered_daily_latest(lat, lng, radius):
     bucket = 'opendataplayground.deakin'
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
@@ -202,6 +202,10 @@ def visualize_filtered_daily_latest():
     # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+
+    #### PUT YOUR CODE HERE ####
+    # geo filtering based on lat,lng, radius parameters
+
     current_df = get_live_parking()
     # perform analysis
     daily_percentage = get_daily_percentage_availability(df)
@@ -210,7 +214,7 @@ def visualize_filtered_daily_latest():
     #visualize results
     return visualize_trend(daily_percentage, current_daily_percentage)
 
-def visualize_filtered_hourly_latest():
+def visualize_filtered_hourly_latest(lat, lng, radius):
     bucket = 'opendataplayground.deakin'
     # get existing dataframe from csv on S3
     s3_resource = boto3.resource('s3')
@@ -221,6 +225,10 @@ def visualize_filtered_hourly_latest():
     df = pd.read_csv(read_file['Body'], parse_dates=True, infer_datetime_format=True)
     # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+
+    #### PUT YOUR CODE HERE ####
+    # geo filtering based on lat,lng, radius parameters
+    
 
     # subset of data for only todays date
     current_hour_df = get_live_parking()
