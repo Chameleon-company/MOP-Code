@@ -48,12 +48,18 @@ def get_hourly_visualization():
 
 @bp.route("/parking-sensors/daily_filtered.png", methods=('GET',))
 def get_filtered_daily_visualization():
-    buffer = visualize_filtered_daily_latest()
+    dict = json.loads(request.args['latlng'])
+    radius = request.args['radius']
+
+    buffer = visualize_filtered_daily_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
 
 @bp.route("/parking-sensors/hourly_filtered.png", methods=('GET',))
 def get_filtered_hourly_visualization():
-    buffer = visualize_filtered_hourly_latest()
+    dict = json.loads(request.args['latlng'])
+    radius = request.args['radius']
+
+    buffer = visualize_filtered_hourly_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
 
 @bp.route("/query_location", methods=('GET',))
