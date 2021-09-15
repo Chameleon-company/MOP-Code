@@ -203,33 +203,25 @@ def visualize_filtered_daily_latest(lat, lng, radius):
     # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
-
-    #### PUT YOUR CODE HERE ####
-    # geo filtering based on lat,lng, radius parameters
-    # lat, lng are floats, radius is string integer (convert to integer to use below)
-
+    ### geo filtering based on lat,lng, radius parameters ###
+    # lat, lng are floats, radius is string integer
     # read in base list of 5895 parking bays with marker id's and lati long
     df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv')
-    df_merge = pd.merge(df_baselist, df, on='marker_id', how='inner')
-    
-    j=0
-    pin = {'lat':lat, 'lon':lng}
-    
-    for i in np.arange(0,df_merge.shape[0]):
-        list = [('lat',df_merge.iloc[i]['lati']), ('lon', df_merge.iloc[i]['long'])]
-        d = geodesic(pin[0],dict(list)).m
-        if d<=radius:
-            filter.loc[j]= df_merge.iloc[i]
+    # initialisation of filter loop
+    pin = (lat,lng)
+    r = int(radius)
+    j = 0
+    lst_marker_ids = []
+    # filter loop
+    for i in np.arange(0,df_baselist.shape[0]):
+        d =  geodesic(pin, (df_baselist.lati[i], df_baselist.long[i])).meters
+        if d<=r:
+            lst_marker_ids.append(df_baselist.st_marker_id[i])
             j=j+1
         else:
             continue
-    filter.to_csv('Geofilter_Pin[{}]_Distance[{}].csv'.
-                 format(lat, lng, radius))
-    # Miriam's circle filter to filter base list of marker id's
-    # use filter list of marker ids to filter df
-    # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
-    # the filtered df inside Miriam's circle is used below to give graph visualisation
-
+    # df below is result of filter by circle
+    df = df[df["st_marker_id"].isin(lst_marker_ids)] 
 
     current_df = get_live_parking()
     # perform analysis
@@ -251,33 +243,25 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
     # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
-
-    #### PUT YOUR CODE HERE ####
-    # geo filtering based on lat,lng, radius parameters
-    # lat, lng are floats, radius is string integer (convert to integer to use below)
-
+    ### geo filtering based on lat,lng, radius parameters ###
+    # lat, lng are floats, radius is string integer
     # read in base list of 5895 parking bays with marker id's and lati long
     df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv')
-    df_merge = pd.merge(df_baselist, df, on='marker_id', how='inner')
-    
-    j=0
-    pin = {'lat':lat, 'lon':lng}
-    
-    for i in np.arange(0,df_merge.shape[0]):
-        list = [('lat',df_merge.iloc[i]['lati']), ('lon', df_merge.iloc[i]['long'])]
-        d = geodesic(pin[0],dict(list)).m
-        if d<=radius:
-            filter.loc[j]= df_merge.iloc[i]
+    # initialisation of filter loop
+    pin = (lat,lng)
+    r = int(radius)
+    j = 0
+    lst_marker_ids = []
+    # filter loop
+    for i in np.arange(0,df_baselist.shape[0]):
+        d =  geodesic(pin, (df_baselist.lati[i], df_baselist.long[i])).meters
+        if d<=r:
+            lst_marker_ids.append(df_baselist.st_marker_id[i])
             j=j+1
         else:
             continue
-    filter.to_csv('Geofilter_Pin[{}]_Distance[{}].csv'.
-                 format(lat, lng, radius))    
-    # Miriam's circle filter to filter base list of marker id's
-    # use filter list of marker ids to filter df
-    # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
-    # the filtered df inside Miriam's circle is used below to give graph visualisation
-
+    # df below is result of filter by circle
+    df = df[df["st_marker_id"].isin(lst_marker_ids)] 
 
     # subset of data for only todays date
     current_hour_df = get_live_parking()
