@@ -203,8 +203,19 @@ def visualize_filtered_daily_latest(lat, lng, radius):
     # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
+
     #### PUT YOUR CODE HERE ####
     # geo filtering based on lat,lng, radius parameters
+    # lat, lng are floats, radius is string integer (convert to integer to use below)
+
+    # read in base list of 5895 parking bays with marker id's and lati long
+    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv")
+
+    # Miriam's circle filter to filter base list of marker id's
+    # use filter list of marker ids to filter df
+    # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
+    # the filtered df inside Miriam's circle is used below to give graph visualisation
+
 
     current_df = get_live_parking()
     # perform analysis
@@ -226,9 +237,19 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
     # df = pd.read_csv('flaskr/parking_sensor/data/parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
+
     #### PUT YOUR CODE HERE ####
     # geo filtering based on lat,lng, radius parameters
-    
+    # lat, lng are floats, radius is string integer (convert to integer to use below)
+
+    # read in base list of 5895 parking bays with marker id's and lati long
+    df_baselist = pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv")
+
+    # Miriam's circle filter to filter base list of marker id's
+    # use filter list of marker ids to filter df
+    # df has columns of marker ids ("marker_id" or "st_marker_id"), status, time column(s)
+    # the filtered df inside Miriam's circle is used below to give graph visualisation
+
 
     # subset of data for only todays date
     current_hour_df = get_live_parking()
