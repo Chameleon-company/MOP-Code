@@ -11,6 +11,10 @@ from geopy.distance import geodesic
 
 ###### STEP - Access Data ######
 
+a = datetime.datetime.today().replace(microsecond=0)
+ts = pd.Timestamp(a, tz = "UTC")
+d = ts.tz_convert(tz='Australia/Victoria')
+
 '''
   Fetch the latest parking information and return json
 '''
@@ -94,8 +98,7 @@ def get_live_parking():
 
     parking_sensors = parking_sensors.drop_duplicates()
     parking_sensors['status'] = parking_sensors['status'].fillna('Unknown')
-    parking_sensors['datetime'] = datetime.now()
-    parking_sensors['datetime'] = pd.to_datetime(parking_sensors['datetime'], infer_datetime_format=True, utc=True)
+    parking_sensors['datetime'] = d
 
     return parking_sensors
 '''
