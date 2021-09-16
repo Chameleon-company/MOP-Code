@@ -11,3 +11,4 @@ Shapely==1.7.1
 sodapy==2.1.0
 werkzeug==2.0.1
 serverless-wsgi==1.7.6
+geopy==2.2.0
