@@ -22,7 +22,9 @@ def geoPolyClip(gdf, polygon):
     Returns:
         filtered geopandas dataframe containing only rows within the supplied polygon
     """
-    return geopandas.clip(gdf, polygon)
+    ngdf = geopandas.clip(gdf, polygon)
+    print(f"{ngdf.shape[0]} parking sensors filtered.")
+    return ngdf
 
 # 002
 
@@ -41,7 +43,9 @@ def geoCirClip(gdf, lat, lon, radius):
         gdf (geopandas dataframe): filtered gdf containing only rows within the described circle
     """
     circle = cirp(lat, lon, radius)
-    return geopandas.clip(gdf, circle)
+    ngdf = geopandas.clip(gdf, circle)
+    print(f"{ngdf.shape[0]} parking sensors filtered.")
+    return ngdf
 
 # 003
 
@@ -166,9 +170,9 @@ def getCurrentPSstatus(df):
     print(
         f"Number of current status records of parking sensors read : {no_bays}")
     print(
-        f"Number of current available parking bays : {no_pres} ({round((100*no_pres/no_bays),1)}% of total)")
+        f"Number of current available parking bays : {no_unoc} ({round((100*no_unoc/no_bays),1)}% of total)")
     print(
-        f"Number of current unavailable parking bays : {no_unoc} ({round((100*no_unoc/no_bays),1)}% of total)")
+        f"Number of current unavailable parking bays : {no_pres} ({round((100*no_pres/no_bays),1)}% of total)")
     return no_bays, no_pres, no_unoc
 
 
@@ -190,8 +194,10 @@ def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_
     Returns:
         pandas dataframe: that is a pivot table of the original df, time filtered, and resampled for specified statistics
     """
-    df[tindex] = pd.to_datetime(df[tindex])
-    dfpv = pd.pivot_table(df, index=tindex, columns="status", aggfunc='count')
+    df1 = df.copy()
+    # in case timestamp column is string --> convert to datetime
+    df1[tindex] = pd.to_datetime(df[tindex])
+    dfpv = pd.pivot_table(df1, index=tindex, columns="status", aggfunc='count')
     dfpv = dfpv.fillna(0)
     dfpv.columns = ["P", "U"]
 
@@ -218,9 +224,9 @@ def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_
     # (e.g. 4x 15min intervals resample under 1x 60min interval, and it's inappropriate to sum in that case)
     # The .count() included as more of a check the records in a time interval, it shouldn't be used like mean or median
 
-    df = pd.concat([aa, bb], axis='columns')
-    df.columns = ['Present', 'Unoccupied']
-    df.index.name = 'time_interval'
+    ndf = pd.concat([aa, bb], axis='columns')
+    ndf.columns = ['Present', 'Unoccupied']
+    ndf.index.name = 'time_interval'
 
     # can add below columns to help visualisation labeling (also re-index, but index need to be unique)
     # df['year'] = df.index.year
@@ -230,8 +236,8 @@ def timeIntStats(df, startdt, enddt, bin="15min", bin_stat="median", tindex="db_
     # df['dayOfWk'] = df.index.dayofweek  # day of week, 0=Mon, 6=Sun
     # df['dayOfMth'] = df.index.day  # day of month
     # df['dayOfYr'] = df.index.dayofyear
-
-    return df
+    print(f"{ndf.shape[0]} time intervals in resampled data")
+    return ndf
 
 
 # 008
@@ -256,4 +262,5 @@ def geoCirFilter(gdf, pin, radius):
             j = j+1
         else:
             continue
+    print(f"{len(lst_marker_ids)} parking sensors filtered.")
     return lst_marker_ids
