@@ -5,10 +5,6 @@
   - [Function](#function)
   - [Output](#output)
   - [Environment and Package Dependency](#environment-and-package-dependency)
-  - [Tutorial](#tutorial)
-    - [Download Repository](#download-repository)
-    - [Parameters Describe](#parameters-describe)
-  - [How to obtain APP Token](#how-to-obtain-app-token)
 
 # Open Data API
 
@@ -85,18 +81,6 @@ $python api.py -filter 2 -n vh2v-4nfs -limit 20
 - pandas
 - argparse
 ***
-## Tutorial
-
-***
-### Download Repository
-
-***
-### Parameters Describe
-
-
-
-
-## How to obtain APP Token
 
 
 
