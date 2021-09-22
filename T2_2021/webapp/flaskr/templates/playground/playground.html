@@ -6,13 +6,17 @@
 <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
 <section class="container">
-    <div class="block">
-        <h1 class="title">Parking Availability</h1>
-        <p class="subtitle">
-            As a business that requires parking to be available for your employees or customers, the <span style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make business critical decisions with down-to-the-minute
-            accuracy.
-        </p>
-    </div>
+    <section class="hero playground-hero">
+        <div class="hero-body">
+            <h1 class="title">
+                Parking Availability
+            </h1>
+            <p class="subtitle">
+                As a business that requires parking to be available for your employees or customers, the <span style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make business critical decisions with down-to-the-minute
+                accuracy.
+            </p>
+        </div>
+    </section>
     <div class="block">
         <h2 class="title">Step 0 - Problem & Solution</h2>
         <p>Due to Covid-19, businesses wanting to return to normal operations will need to open their premises at strategic locations in the city. One of the key characteristics that a business needs to consider when choosing a location is the parking availability
@@ -562,6 +566,8 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
                 <span class="radius_value">300m</span>
             </div>
         </div>
+        <br/>
+        <br/>
 </section>
 <script>
     hljs.highlightAll();
