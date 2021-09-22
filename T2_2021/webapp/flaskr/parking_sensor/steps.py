@@ -79,7 +79,7 @@ def get_daily_percentage_availability(df):
     df['DayOfWeek'] = df['datetime'].dt.day_of_week
     DailyParkingCounts = df.groupby('DayOfWeek').status.value_counts()
     DailyParkingCounts = DailyParkingCounts.unstack().reset_index()
-    DailyParkingCounts['Percentage'] = (DailyParkingCounts['Unoccupied'] / (DailyParkingCounts['Unoccupied'] + DailyParkingCounts['Present']))
+    DailyParkingCounts['Percentage'] = 100 * (DailyParkingCounts['Unoccupied'] / (DailyParkingCounts['Unoccupied'] + DailyParkingCounts['Present']))
     DailyParkingCounts.reset_index(drop=True)
     return DailyParkingCounts[['DayOfWeek', 'Percentage']]
 
@@ -90,7 +90,7 @@ def get_hourly_availability_trend(df):
     df['Hours'] = df['datetime'].dt.hour
     DailyAvailability = df.groupby('Hours').status.value_counts()
     DailyAvailability = DailyAvailability.unstack().reset_index()
-    DailyAvailability['Availability'] = DailyAvailability['Unoccupied'] / (DailyAvailability['Present'] + DailyAvailability['Unoccupied'])
+    DailyAvailability['Availability'] = 100 * DailyAvailability['Unoccupied'] / (DailyAvailability['Present'] + DailyAvailability['Unoccupied'])
     DailyAvailability = DailyAvailability.reset_index(drop=True)
     return DailyAvailability[['Hours', 'Availability']]
 
