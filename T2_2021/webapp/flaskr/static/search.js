@@ -152,7 +152,8 @@ function createDataset(dataset) {
     let title = datasetTile.querySelectorAll('.subtitle')[0]
     title.textContent = dataset.Name
     let downloadCount = datasetTile.querySelectorAll('.description')[0]
-    downloadCount.textContent = dataset.Downloads
+
+    downloadCount.textContent = numeral(dataset.Downloads).format('0,0')
 
     return datasetTile;
 }
