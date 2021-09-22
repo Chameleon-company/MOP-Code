@@ -191,37 +191,43 @@ def visualize_hourly_latest():
 
 ##### STEP - Geofiltered Visualization of Data ######
 
-def visualize_filtered_daily_latest(lat, lng, radius):
-
-    df = get_parking_sensor_data()
-    # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
-    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
-
-    ### geo filtering based on lat,lng, radius parameters ###
-    # lat, lng are floats, radius is string integer
-    # read in base list of 5895 parking bays with marker id's and lati long
+def get_filtered_ids(lat,lng,radius):
+    # read in the base list of parking sensors
     df_baselist = (DataFrame)(pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv'))
     # initialisation of filter loop
     pin = (lat,lng)
     r = int(radius)
     j = 0
-    lst_marker_ids = []
+    # create 
+    marker_ids = []
     # filter loop
     for i in np.arange(0,df_baselist.shape[0]):
         d =  geodesic(pin, (df_baselist.lati[i], df_baselist.long[i])).meters
         if d<=r:
-            lst_marker_ids.append(df_baselist.st_marker_id[i])
+            marker_ids.append(df_baselist.st_marker_id[i])
             j=j+1
         else:
             continue
+    
+    return marker_ids
+
+def visualize_filtered_daily_latest(lat, lng, radius):
+    df = get_parking_sensor_data()
+
+    # df = pd.read_csv('data/parkingsensor_collection.csv', parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
+
+    marker_ids = get_filtered_ids(lat,lng, radius)
+    
     # df below is result of filter by circle
-    df = df[df["st_marker_id"].isin(lst_marker_ids)] 
+    df = df[df["st_marker_id"].isin(marker_ids)]
 
     current_df = get_live_parking()
     # perform analysis
     daily_percentage = get_daily_percentage_availability(df)
     # perform analysis limited to today
     current_daily_percentage = get_daily_percentage_availability(current_df)
+
     #visualize results
     return visualize_trend(daily_percentage, current_daily_percentage, plot_params={
         'title': 'Daily Parking Availability', 
@@ -236,31 +242,17 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
 
     df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
 
-    ### geo filtering based on lat,lng, radius parameters ###
-    # lat, lng are floats, radius is string integer
-    # read in base list of 5895 parking bays with marker id's and lati long
-    df_baselist = (DataFrame)(pd.read_csv('flaskr/parking_sensor/data/ps_baselist.csv'))
-    # initialisation of filter loop
-    pin = (lat,lng)
-    r = int(radius)
-    j = 0
-    lst_marker_ids = []
-    # filter loop
-    for i in np.arange(0,df_baselist.shape[0]):
-        d =  geodesic(pin, (df_baselist.lati[i], df_baselist.long[i])).meters
-        if d<=r:
-            lst_marker_ids.append(df_baselist.st_marker_id[i])
-            j=j+1
-        else:
-            continue
+    marker_ids = get_filtered_ids(lat, lng, radius)
+
     # df below is result of filter by circle
-    df = df[df["st_marker_id"].isin(lst_marker_ids)] 
+    df = df[df["st_marker_id"].isin(marker_ids)] 
 
     # subset of data for only todays date
     current_hour_df = get_live_parking()
 
     expected_hourly = get_hourly_availability_trend(df)
     current_hourly = get_hourly_availability_trend(current_hour_df)
+
     #visualize results
     return visualize_trend(expected_hourly, current_hourly, 'Hours', 'Availability', plot_params={
         'ylabel': '% Availability',

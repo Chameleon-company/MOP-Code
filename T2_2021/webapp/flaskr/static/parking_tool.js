@@ -1,6 +1,6 @@
-function initMap() {
+function initMap(id) {
     return new mapboxgl.Map({
-        container: 'tool_map', // container ID
+        container: id, // container ID
         style: 'mapbox://styles/mapbox/light-v10', // style URL
         center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
         zoom: 13 // starting zoom
@@ -161,7 +161,7 @@ function onRangeChange(r, f) {
 var rangeUpdatedDelay = undefined
 
 window.addEventListener("load", () => {
-    const map = initMap()
+    const map = initMap("tool_map")
 
     // a layer onto which the search radius is eventually drawn
     map.on('style.load', () => {
@@ -171,8 +171,38 @@ window.addEventListener("load", () => {
 
     map.on('click', (e) => onMapSelected(map, e))
 
-    let radiusSlider = document.querySelector('.parking_tool_radius_slider > .slider')
-    let radiusValue = document.querySelector('.parking_tool_radius_slider > .radius_value')
+    let radiusSlider = document.querySelector('.final_step .parking_tool_radius_slider > .slider')
+    let radiusValue = document.querySelector('.final_step .parking_tool_radius_slider > .radius_value')
+
+
+    onRangeChange(radiusSlider, (e) => {
+        radius = e.target.value * 10
+        radiusValue.innerHTML = `${radius}m`
+
+        if (rangeUpdatedDelay)
+            clearTimeout(rangeUpdatedDelay)
+
+        // redo the map selection event
+        // with new radius setting
+        if (latestMapClickEvent) {
+            rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
+        }
+    })
+})
+
+window.addEventListener("load", () => {
+    const map = initMap("solution_map")
+
+    // a layer onto which the search radius is eventually drawn
+    map.on('style.load', () => {
+        addSearchRadiusLayer(map)
+        showParkingSensorsOnMap(map)
+    })
+
+    map.on('click', (e) => onMapSelected(map, e))
+
+    let radiusSlider = document.querySelector('.solution_demo .parking_tool_radius_slider > .slider')
+    let radiusValue = document.querySelector('.solution_demo .parking_tool_radius_slider > .radius_value')
 
 
     onRangeChange(radiusSlider, (e) => {
