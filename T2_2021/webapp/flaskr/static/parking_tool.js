@@ -39,28 +39,37 @@ var presentMarkers = undefined
 var unoccupiedMarkers = undefined
 
 function filterSensors(map, filterFeature) {
-    unknownMarkers = unknownMarkers || map.getSource(unknownMarkerName)._data
-    presentMarkers = presentMarkers || map.getSource(presentMarkerName)._data
-    unoccupiedMarkers = unoccupiedMarkers || map.getSource(unoccupiedMarkerName)._data
+    return new Promise((resolve) => {
+        unknownMarkers = unknownMarkers || map.getSource(unknownMarkerName)._data
+        presentMarkers = presentMarkers || map.getSource(presentMarkerName)._data
+        unoccupiedMarkers = unoccupiedMarkers || map.getSource(unoccupiedMarkerName)._data
 
-    let markerNames = [unknownMarkerName, presentMarkerName, unoccupiedMarkerName]
-    let allMarkers = [unknownMarkers, presentMarkers, unoccupiedMarkers]
-    let index = 0
-    for (const markers of allMarkers) {
-        let featureBuffer = spatialJoin(markers, filterFeature)
+        let markerNames = [unknownMarkerName, presentMarkerName, unoccupiedMarkerName]
+        let allMarkers = [unknownMarkers, presentMarkers, unoccupiedMarkers]
+        let index = 0
 
-        // update map to only show data within search radius
-        map.getSource(markerNames[index]).setData(turf.featureCollection(featureBuffer))
+        let featureBuffers = []
+        for (const markers of allMarkers) {
+            let featureBuffer = spatialJoin(markers, filterFeature)
 
-        index += 1
-    }
+            // update map to only show data within search radius
+            map.getSource(markerNames[index]).setData(turf.featureCollection(featureBuffer))
+            featureBuffers.push(featureBuffer)
+            index += 1
+        }
+
+        resolve(featureBuffers)
+    })
 }
 
 
-function renderGraphContent(map, eventLatLng, radius) {
+function renderGraphContent(map, eventLatLng, radius, data) {
     let graphTemplate = document.querySelector('#parking_tool_graph').content.cloneNode(true)
     let graphClose = graphTemplate.querySelector('.parking_tool_close')
     let graphTitle = graphTemplate.querySelector('.graph_title')
+    let graphTotalParks = graphTemplate.querySelector('.graph_total_parks')
+    let graphAvailableParks = graphTemplate.querySelector('.graph_available_parks')
+    let graphUnavailableParks = graphTemplate.querySelector('.graph_unavailable_parks')
 
     graphClose.addEventListener('click', () => {
         removeSearch(map)
@@ -68,6 +77,10 @@ function renderGraphContent(map, eventLatLng, radius) {
 
     // set the visualization title
     graphTitle.textContent = eventLatLng.toString()
+    graphTotalParks.textContent = data.reduceRight((current, next) => current + next.length, 0)
+
+    graphUnavailableParks.textContent = data[1].length
+    graphAvailableParks.textContent = data[2].length
 
     let graphImages = graphTemplate.querySelectorAll('.graph_img')
 
@@ -104,8 +117,11 @@ function onMapSelected(map, e) {
 
     map.getSource('search-radius').setData(searchRadius)
 
-    renderGraphContent(map, eventLatLng, radius)
+
     filterSensors(map, searchRadius)
+        .then((data) => {
+            renderGraphContent(map, eventLatLng, radius, data)
+        })
 }
 
 function removeSearch(map) {

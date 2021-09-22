@@ -302,9 +302,8 @@
     from matplotlib.pyplot import figure
     import seaborn as sns
     # load data from csv file
-    df = pd.read_csv('parkingsensor.csv', parse_dates=['datetime'])
-    # add 'DayOfWeek' column
-    df['DayOfWeek'] = df['datetime'].dt.day_name()
+    df = pd.read_csv('parkingsensor.csv', parse_dates=True, infer_datetime_format=True)
+    df['datetime'] = pd.to_datetime(df['datetime'], infer_datetime_format=True, utc=True)
     
     # subset of data for only todays date
     current_df = df[df['datetime'].dt.date == datetime.now().date()]
@@ -317,15 +316,15 @@
     and return a dataframe of the form [{'DayOfWeek': string, 'Percentage': float32}]
     '''
     def get_daily_percentage_availability(df):
+        df['DayOfWeek'] = df['datetime'].dt.day_of_week
         DailyParkingCounts = df.groupby('DayOfWeek').status.value_counts()
         DailyParkingCounts = DailyParkingCounts.unstack().reset_index()
         DailyParkingCounts['Percentage'] = (DailyParkingCounts['Unoccupied'] / (DailyParkingCounts['Unoccupied'] + DailyParkingCounts['Present']))
         DailyParkingCounts.reset_index(drop=True)
-        return DailyParkingCounts
+        return DailyParkingCounts[['DayOfWeek', 'Percentage']]
     
     '''
-    This function will take our DataFrame of parking sensor records,
-    and it will return a DataFrame of Availability with respect to hours
+    Same as above function except deal with hourly availability as opposed to daily
     '''
     def get_hourly_availability_trend(df):
         df['Hours'] = df['datetime'].dt.hour
@@ -396,56 +395,56 @@
         <div class="block">
             <figure class="highlight">
                 <pre><code class="language-python" data-lang="python">
-        import matplotlib.pyplot as plt
-        from matplotlib.pyplot import figure
-        import seaborn as sns
-        # load data from csv file
-        df = pd.read_csv('parkingsensor.csv', parse_dates=['datetime'])
-        # add 'DayOfWeek' column
-        df['DayOfWeek'] = df['datetime'].dt.day_name()
-        
-        # subset of data for only todays date
-        current_df = df[df['datetime'].dt.date == datetime.now().date()]
-        
-        '''
-        This function will take in a data frame with entries for each sensor with respective day of week, and status columns
-        and return a dataframe of the form [{'DayOfWeek': string, 'Percentage': float32}]
-        '''
-        def get_daily_percentage_availability(df):
-            DailyParkingCounts = df.groupby('DayOfWeek').status.value_counts()
-            DailyParkingCounts = DailyParkingCounts.unstack().reset_index()
-            DailyParkingCounts['Percentage'] = (DailyParkingCounts['Unoccupied'] / (DailyParkingCounts['Unoccupied'] + DailyParkingCounts['Present']))
-            DailyParkingCounts.reset_index(drop=True)
-            return DailyParkingCounts
-        
-        '''
-            This function takes in an expected daily trend DataFrame as produced by the function above,
-            and also a smaller 'current' DataFrame which has the same schema but with data only covering the current day
-            of parking sensor activity.
-            
-            The output will be a visualization of the expected and current trends
-        '''
-        def visualize_trend(expected, current, x_column='DayOfWeek', y_column = 'Percentage'):
-            # Visualize the results
-            sns.set(font_scale=1.5)
-            plt.figure(figsize=(12, 6), dpi=80)
-            sns.set_style("whitegrid")
-        
-            plt.ylabel("% Available", labelpad=14)
-            plt.title("Parking Availability", y=1)
-        
-            plt.bar(expected[x_column], expected[y_column], alpha=0.4 , label="Expected")
-            plt.bar(current[x_column], current[y_column], alpha=0.4 , label="Current")
-            # plt.bar(WednesdayCount['Day_Of_Week'], WednesdayCount['Parking_Availabilities'],alpha=0.4, label="Available Now")
-            plt.legend(loc ="lower left", borderaxespad=1)
-            plt.show()
+    import matplotlib.pyplot as plt
+    from matplotlib.pyplot import figure
+    import seaborn as sns
+    # load data from csv file
+    df = pd.read_csv('parkingsensor.csv', parse_dates=['datetime'])
+    # add 'DayOfWeek' column
+    df['DayOfWeek'] = df['datetime'].dt.day_name()
     
-        # perform analysis
-        daily_percentage = get_daily_percentage_availability(df)
-        # perform analysis limited to today
-        current_daily_percentage = get_daily_percentage_availability(current_df)
-        #visualize results
-        visualize_trend(daily_percentage, current_daily_percentage)
+    # subset of data for only todays date
+    current_df = df[df['datetime'].dt.date == datetime.now().date()]
+    
+    '''
+    This function will take in a data frame with entries for each sensor with respective day of week, and status columns
+    and return a dataframe of the form [{'DayOfWeek': string, 'Percentage': float32}]
+    '''
+    def get_daily_percentage_availability(df):
+        DailyParkingCounts = df.groupby('DayOfWeek').status.value_counts()
+        DailyParkingCounts = DailyParkingCounts.unstack().reset_index()
+        DailyParkingCounts['Percentage'] = (DailyParkingCounts['Unoccupied'] / (DailyParkingCounts['Unoccupied'] + DailyParkingCounts['Present']))
+        DailyParkingCounts.reset_index(drop=True)
+        return DailyParkingCounts
+    
+    '''
+        This function takes in an expected daily trend DataFrame as produced by the function above,
+        and also a smaller 'current' DataFrame which has the same schema but with data only covering the current day
+        of parking sensor activity.
+        
+        The output will be a visualization of the expected and current trends
+    '''
+    def visualize_trend(expected, current, x_column='DayOfWeek', y_column = 'Percentage'):
+        # Visualize the results
+        sns.set(font_scale=1.5)
+        plt.figure(figsize=(12, 6), dpi=80)
+        sns.set_style("whitegrid")
+    
+        plt.ylabel("% Available", labelpad=14)
+        plt.title("Parking Availability", y=1)
+    
+        plt.bar(expected[x_column], expected[y_column], alpha=0.4 , label="Expected")
+        plt.bar(current[x_column], current[y_column], alpha=0.4 , label="Current")
+        # plt.bar(WednesdayCount['Day_Of_Week'], WednesdayCount['Parking_Availabilities'],alpha=0.4, label="Available Now")
+        plt.legend(loc ="lower left", borderaxespad=1)
+        plt.show()
+
+    # perform analysis
+    daily_percentage = get_daily_percentage_availability(df)
+    # perform analysis limited to today
+    current_daily_percentage = get_daily_percentage_availability(current_df)
+    #visualize results
+    visualize_trend(daily_percentage, current_daily_percentage)
         </code></pre>
             </figure>
         </div>
@@ -471,6 +470,10 @@
             <span class="icon"><i class="far fa-times-circle"></i></span>
         </div>
         <p class="graph_title"></p>
+        <p><b>Total: </b><span class="graph_total_parks"></span></p>
+        <p><b>Available: </b><span class="graph_available_parks"></span></p>
+        <p><b>Unavailable: </b><span class="graph_unavailable_parks"></span></p>
+        <br/>
         <div class="graph_container">
             <img class="graph_img" src="#" />
             <img class="graph_img" src="#" />
