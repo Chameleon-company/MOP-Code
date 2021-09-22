@@ -11,9 +11,7 @@ from geopy.distance import geodesic
 
 ###### STEP - Access Data ######
 
-a = datetime.datetime.today().replace(microsecond=0)
-ts = pd.Timestamp(a, tz = "UTC")
-d = ts.tz_convert(tz='Australia/Victoria')
+
 
 '''
   Fetch the latest parking information and return json
@@ -98,6 +96,9 @@ def get_live_parking():
 
     parking_sensors = parking_sensors.drop_duplicates()
     parking_sensors['status'] = parking_sensors['status'].fillna('Unknown')
+    a = datetime.datetime.today().replace(microsecond=0)
+    ts = pd.Timestamp(a, tz = "UTC")
+    d = ts.tz_convert(tz='Australia/Victoria')
     parking_sensors['datetime'] = d
 
     return parking_sensors
@@ -137,11 +138,20 @@ def visualize_trend(expected, current, x_column='DayOfWeek', y_column = 'Percent
     plt.figure(figsize=(12, 6), dpi=80)
     sns.set_style("whitegrid")
 
-    plt.ylabel("% Available", labelpad=14)
-    plt.title("Parking Availability", y=1)
+    plt.ylabel("Parking Availability", labelpad=14)
+    plt.title(f"Parking Availability on {datetime.datetime.today().weekday()} vs Other Days", y=1)
+    plt.xlabel("Day of the Week")
+
 
     plt.bar(expected[x_column], expected[y_column], alpha=0.4 , label="Expected")
     plt.bar(current[x_column], current[y_column], alpha=0.4 , label="Current")
+    plt.xticks({0 : "Monday",
+              1: "Tuesday",
+              2: "Wednesday",
+              3: "Thursday",
+              4: "Friday",
+              5: "Saturday",
+              6: "Sunday"})
     # plt.bar(WednesdayCount['Day_Of_Week'], WednesdayCount['Parking_Availabilities'],alpha=0.4, label="Available Now")
     plt.legend(loc ="lower left", borderaxespad=1)
     # save plot to buffer

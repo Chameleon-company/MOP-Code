@@ -7,10 +7,6 @@ __Deakin University__
 
 __T2/2021__
 
-.
-
-
-
 ----
 # About Melbourne Data
 
