@@ -67,14 +67,3 @@ def get_filtered_hourly_visualization():
 
     buffer = visualize_filtered_hourly_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
-
-@bp.route("/query_location", methods=('GET',))
-def query_location():
-    lng = request.args["lng"]
-    lat = request.args["lat"]
-
-    # do some location query
-
-    return jsonify((lng,lat))
-
-

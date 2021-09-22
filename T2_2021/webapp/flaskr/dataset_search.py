@@ -1,8 +1,5 @@
-
-
 import pandas as pd
 from sodapy import Socrata
-
 
 def summary_table(top = 10):
 
