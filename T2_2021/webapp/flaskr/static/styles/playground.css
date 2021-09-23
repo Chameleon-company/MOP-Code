@@ -41,3 +41,9 @@ pre {
     filter: blur(4px);
     -webkit-filter: blur(4px);
 }
+
+.playground-hero {
+    background-color: #f3f3f3;
+    margin: 10px 0px;
+    border-radius: 9px;
+}

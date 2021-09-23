@@ -17,12 +17,18 @@ def home():
     s3_client = boto3.client('s3')
 
     # get a public link for the parking_sensor.csv
-    presigned_url = s3_client.generate_presigned_url('get_object',
+    parking_sensor_collection_url = s3_client.generate_presigned_url('get_object',
         Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parkingsensor.csv'},
         ExpiresIn=3600 # 60 minutes
     )
 
-    view_model = {'parking_sensor_collection': presigned_url}
+    # get a public link for the parking_sensor.csv
+    parking_sensor_list_url = s3_client.generate_presigned_url('get_object',
+        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parking_sensors_list.csv'},
+        ExpiresIn=3600 # 60 minutes
+    )
+
+    view_model = {'parking_sensor_collection': parking_sensor_collection_url, 'parking_sensors_list': parking_sensor_list_url}
 
     return render_template('playground/playground.html', view_model = view_model)
 
@@ -61,14 +67,3 @@ def get_filtered_hourly_visualization():
 
     buffer = visualize_filtered_hourly_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
-
-@bp.route("/query_location", methods=('GET',))
-def query_location():
-    lng = request.args["lng"]
-    lat = request.args["lat"]
-
-    # do some location query
-
-    return jsonify((lng,lat))
-
-
