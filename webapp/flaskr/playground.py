@@ -1,14 +1,10 @@
 from flask.helpers import send_file
 from flaskr.parking_sensor.steps import get_live_parking_json, visualize_daily_latest, visualize_filtered_daily_latest, visualize_filtered_hourly_latest, visualize_hourly_latest
-import functools
 import json
-import numpy as np
-from sodapy import Socrata
 import boto3
 import pandas as pd
-import geopandas as gpd
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
+    Blueprint, render_template, request, jsonify
 )
 bp = Blueprint('playground', __name__, url_prefix='/playground')
 

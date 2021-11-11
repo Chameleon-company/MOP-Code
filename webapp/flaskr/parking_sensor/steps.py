@@ -1,7 +1,6 @@
 from pandas.core.frame import DataFrame
 from flaskr.parking_sensor.parking_sensor_data import get_parking_sensor_data
 from sodapy.socrata import Socrata
-import geopandas as gpd
 import pandas as pd
 from flask import jsonify
 import numpy as np
