@@ -23,8 +23,8 @@ Jupyter Notebook and Jupyter Lab (an improved version of the notebook) are inclu
 2. Switch to the dev environment: ```conda activate melbourne_playground_webapp```
 3. Install the Jupyter kernel (should be already installed though): ```conda install ipykernel```
 4. Register kernel with Jupyter in base environment:
-- ```install --user --name=melbourne_playground_webapp``` (for user-wide conda installations) **OR**
-- ```install --name=melbourne_playground_webapp``` (for system-wide conda installations)
+- ```ipython kernel install --user --name=melbourne_playground_webapp``` (for user-wide conda installations) **OR**
+- ```ipython kernel install --name=melbourne_playground_webapp``` (for system-wide conda installations)
 5. Switch back to the base environment: ```conda deactivate```
 6. Run Jupyter Lab/Notebook, go to the 'Kernel' menu at the top, then 'Change Kernel' and select '*melbourne_playground_webapp*'
 
