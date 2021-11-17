@@ -10,6 +10,14 @@ bp = Blueprint('home', __name__, url_prefix='/')
 def home():
     return render_template('home/index.html')
 
+@bp.route("/about", methods=('GET', 'POST'))
+def about():
+    return render_template('home/about.html')
+
+@bp.route("/contact", methods=('GET', 'POST'))
+def contact():
+    return render_template('home/contact.html')
+
 @bp.route("/search/datasets")
 def datasets():
     search_result = keyword_search(request.args['query'])

@@ -29,10 +29,15 @@
 
         <div id="navbar_menu" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" href="{{url_for('home.home')}}" target="_self">
                     Home
                 </a>
-                <a class="navbar-item">About</a>
+                <a class="navbar-item" href="{{url_for('home.about')}}" target="_self">
+                    About
+                </a>
+                <a class="navbar-item" href="{{url_for('home.contact')}}" target="_self">
+                    Contact
+                </a>
             </div>
 
             <div class="navbar-end">
