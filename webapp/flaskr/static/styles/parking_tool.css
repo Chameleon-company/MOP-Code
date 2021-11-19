@@ -26,6 +26,13 @@
     right: 5px;
 }
 
+.parking_tool_expand {
+    position: absolute;
+    font-size: 1.6em;
+    bottom: 30px;
+    right: 20px;
+}
+
 .parking_tool_radius_slider {
     position: absolute;
     left: 20px;
