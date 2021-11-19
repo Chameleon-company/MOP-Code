@@ -16,8 +16,8 @@ def create_app(test_config=None):
     from . import playground
     app.register_blueprint(playground.bp)
 
-    from . import util
-    app.register_blueprint(util.bp)
+    from . import utils
+    app.register_blueprint(utils.bp)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

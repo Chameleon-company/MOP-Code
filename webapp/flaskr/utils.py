@@ -1,7 +1,7 @@
 
 from flask import Blueprint
 
-bp = Blueprint('util', __name__, url_prefix='/util')
+bp = Blueprint('utils', __name__, url_prefix='/utils')
 
 
 @bp.route("/ping", methods=('GET',))
