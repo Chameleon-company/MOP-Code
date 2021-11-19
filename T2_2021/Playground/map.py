@@ -26,18 +26,31 @@ def mark_map(data):
             icon=folium.Icon(color='blue', icon='ok-sign')
         
         folium.Marker([data.iloc[i]['lat'], data.iloc[i]['lon']], popup=popup,icon=icon).add_to(myMap)
+        
+    return myMap
+        
 
-    # Save the map
-    geo_name = 'Geo_Map.html'
-    #to save it in a file
-    myMap.save('images/'+geo_name)
-    #webbrowser.open('images/'+geo_name)
 
-    image_path = "file://"+os.getcwd()+ '/'+ 'images/'+geo_name
-    webbrowser.open(image_path)
-
-    
-    #myMap.save('testMap.html')
 
 #if __name__ == '__main__':
 #mark_map(df)
+
+
+
+from geopy.distance import geodesic
+import numpy as np
+
+
+def geofilter(data,pin,n):
+    filter=pd.DataFrame(columns=data.columns.values)
+    j=0
+    for i in np.arange(0,data.shape[0]):
+        d = geodesic(pin[0],data.iloc[i]['location'].values()).km
+        if d<=n:
+            filter.loc[j]= data.iloc[i]
+            j=j+1
+        else:
+            continue
+    filter.to_csv('Geofilter_Pin[{}]_Distance[{}].csv'.
+                 format(pin, n))
+    return mark_map(filter)

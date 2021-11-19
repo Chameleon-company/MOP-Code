@@ -1,0 +1,1 @@
+sam build && yes "y" | sam deploy
