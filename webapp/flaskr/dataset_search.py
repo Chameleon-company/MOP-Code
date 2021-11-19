@@ -7,7 +7,7 @@ def summary_table(top = 10):
     client = Socrata("data.melbourne.vic.gov.au", #domain
                 'z99BiHe97JrarLpbpqRISffyr',  #app token
                 username="4l7fysec6unzmqbs1n9ulbdsz", #api id
-                password="21kqwm0898v3yjkskdd2i940fc0g7quvr6rg80zalcyuhc1v4n") #api secrete
+                password="21kqwm0898v3yjkskdd2i940fc0g7quvr6rg80zalcyuhc1v4n") #api secret
 
     _name = []
     id_ = []
