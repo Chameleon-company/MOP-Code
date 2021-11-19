@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   melbourne_city_playground
@@ -8,7 +8,7 @@ Globals:
     Timeout: 120 # some things take at least 2 minutes to return (like data visualizations)
   Api:
     BinaryMediaTypes:
-    - '*~1*' # all images to be returned via API gateway
+      - "*~1*" # all images to be returned via API gateway
 
 Resources:
   FlaskEntryPointFunction:
@@ -30,11 +30,37 @@ Resources:
             Path: /
             Method: any
 
+  KeepWarmRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: "Hits the /utils/ping endpoint to keep the serverless function alive"
+      ScheduleExpression: "rate(5 minutes)"
+      State: Enabled
+      Targets:
+        - !Ref KeepWarmApiDestination
+
+  KeepWarmConnection:
+    Type: AWS::Events::Connection
+    Properties:
+      AuthorizationType: Basic
+      AuthParameters: ""
+      Description: Connection required for Http Api Destination Resource
+      Name: BasicUnauthenticatedConnection
+
+  KeepWarmApiDestination:
+    Type: AWS::Events::ApiDestination
+    Properties:
+      ConnectionArn: !Ref KeepWarmConnection
+      Description: "Endpoint for keeping lambda function warm"
+      HttpMethod: GET
+      InvocationEndpoint: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/utils/ping"
+      InvocationRateLimitPerSecond: 5
+      Name: KeepWarmAPIDestination
+
     Metadata:
       DockerTag: python3.7-v1
       DockerContext: ./
       Dockerfile: Dockerfile
-
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
