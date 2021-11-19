@@ -29,38 +29,66 @@ Resources:
           Properties:
             Path: /
             Method: any
+    Metadata:
+      DockerTag: python3.7-v1
+      DockerContext: ./
+      Dockerfile: Dockerfile
+
+  KeepWarmRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "KeepWarmEventsRuleRole"
+      Policies:
+        - PolicyName: InvokeApiDestination
+          PolicyDocument:
+            "Version": "2012-10-17"
+            "Statement":
+              - "Effect": "Allow"
+                "Action": ["events:InvokeApiDestination"]
+                "Resource": ["arn:aws:events:::api-destination/*"]
+      AssumeRolePolicyDocument:
+        "Version": "2012-10-17"
+        "Statement":
+          - "Effect": "Allow"
+            "Principal": { "Service": ["events.amazonaws.com"] }
+            "Action": ["sts:AssumeRole"]
 
   KeepWarmRule:
     Type: AWS::Events::Rule
+    DependsOn:
+      - KeepWarmApiDestination
+      - KeepWarmRole
     Properties:
       Description: "Hits the /utils/ping endpoint to keep the serverless function alive"
       ScheduleExpression: "rate(5 minutes)"
-      State: Enabled
+      State: ENABLED
       Targets:
-        - !Ref KeepWarmApiDestination
+        - Arn: !GetAtt KeepWarmApiDestination.Arn
+          RoleArn: !GetAtt KeepWarmRole.Arn
+          Id: "KeepWarmTarget"
 
   KeepWarmConnection:
     Type: AWS::Events::Connection
     Properties:
-      AuthorizationType: Basic
-      AuthParameters: ""
+      AuthorizationType: BASIC
+      AuthParameters:
+        BasicAuthParameters:
+          Username: "EventBridge"
+          Password: "None"
+
       Description: Connection required for Http Api Destination Resource
       Name: BasicUnauthenticatedConnection
 
   KeepWarmApiDestination:
     Type: AWS::Events::ApiDestination
+    DependsOn: KeepWarmConnection
     Properties:
-      ConnectionArn: !Ref KeepWarmConnection
+      ConnectionArn: !GetAtt KeepWarmConnection.Arn
       Description: "Endpoint for keeping lambda function warm"
       HttpMethod: GET
-      InvocationEndpoint: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/utils/ping"
+      InvocationEndpoint: !Sub "https://6pdglgxshl.execute-api.ap-southeast-2.amazonaws.com/Prod/utils/ping"
       InvocationRateLimitPerSecond: 5
       Name: KeepWarmAPIDestination
-
-    Metadata:
-      DockerTag: python3.7-v1
-      DockerContext: ./
-      Dockerfile: Dockerfile
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
