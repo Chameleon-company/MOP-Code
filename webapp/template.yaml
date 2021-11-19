@@ -34,6 +34,8 @@ Resources:
       DockerContext: ./
       Dockerfile: Dockerfile
 
+  # Role is required to give the event bridge
+  # permission to activate the target (API Destination)
   KeepWarmRole:
     Type: AWS::IAM::Role
     Properties:
@@ -53,6 +55,9 @@ Resources:
             "Principal": { "Service": ["events.amazonaws.com"] }
             "Action": ["sts:AssumeRole"]
 
+  # Ensure that the website is touched
+  # according to a schedule that should reduce the cold start
+  # problem frequency
   KeepWarmRule:
     Type: AWS::Events::Rule
     DependsOn:
@@ -66,7 +71,8 @@ Resources:
         - Arn: !GetAtt KeepWarmApiDestination.Arn
           RoleArn: !GetAtt KeepWarmRole.Arn
           Id: "KeepWarmTarget"
-
+  # Connection is required by Api Destination,
+  # but as you can see is not set to anything meaningful
   KeepWarmConnection:
     Type: AWS::Events::Connection
     Properties:
@@ -79,6 +85,8 @@ Resources:
       Description: Connection required for Http Api Destination Resource
       Name: BasicUnauthenticatedConnection
 
+  # Using an API destination because it's the cleanest to implement
+  # as opposed to the other lambda specific event targets
   KeepWarmApiDestination:
     Type: AWS::Events::ApiDestination
     DependsOn: KeepWarmConnection
@@ -86,7 +94,7 @@ Resources:
       ConnectionArn: !GetAtt KeepWarmConnection.Arn
       Description: "Endpoint for keeping lambda function warm"
       HttpMethod: GET
-      InvocationEndpoint: !Sub "https://6pdglgxshl.execute-api.ap-southeast-2.amazonaws.com/Prod/utils/ping"
+      InvocationEndpoint: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/utils/ping"
       InvocationRateLimitPerSecond: 5
       Name: KeepWarmAPIDestination
 
