@@ -3,7 +3,7 @@ from datetime import datetime
 import pandas as pd
 from sodapy import Socrata
 
-apptoken = "wMEkdLbVuXIpLiCFVic1PgiZ3"
+apptoken = None
 domain = "data.melbourne.vic.gov.au"
 client = Socrata(domain, apptoken, timeout=120)
 
