@@ -17,6 +17,9 @@ Resources:
       Role: arn:aws:iam::119291007423:role/PlaygroundLambdaWebApp # role defined in AWS console, has necessary permissions
       PackageType: Image
       MemorySize: 512
+      AutoPublishAlias: live
+      ProvisionedConcurrencyConfig:
+        ProvisionedConcurrentExecutions: "1"
       Events:
         FlaskEntryPoint:
           Type: Api
@@ -33,70 +36,6 @@ Resources:
       DockerTag: python3.7-v1
       DockerContext: ./
       Dockerfile: Dockerfile
-
-  # Role is required to give the event bridge
-  # permission to activate the target (API Destination)
-  KeepWarmRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: "KeepWarmEventsRuleRole"
-      Policies:
-        - PolicyName: InvokeApiDestination
-          PolicyDocument:
-            "Version": "2012-10-17"
-            "Statement":
-              - "Effect": "Allow"
-                "Action": ["events:InvokeApiDestination"]
-                "Resource": ["arn:aws:events:::api-destination/*"]
-      AssumeRolePolicyDocument:
-        "Version": "2012-10-17"
-        "Statement":
-          - "Effect": "Allow"
-            "Principal": { "Service": ["events.amazonaws.com"] }
-            "Action": ["sts:AssumeRole"]
-
-  # Ensure that the website is touched
-  # according to a schedule that should reduce the cold start
-  # problem frequency
-  KeepWarmRule:
-    Type: AWS::Events::Rule
-    DependsOn:
-      - KeepWarmApiDestination
-      - KeepWarmRole
-    Properties:
-      Description: "Hits the /utils/ping endpoint to keep the serverless function alive"
-      ScheduleExpression: "rate(5 minutes)"
-      State: ENABLED
-      Targets:
-        - Arn: !GetAtt KeepWarmApiDestination.Arn
-          RoleArn: !GetAtt KeepWarmRole.Arn
-          Id: "KeepWarmTarget"
-  # Connection is required by Api Destination,
-  # but as you can see is not set to anything meaningful
-  KeepWarmConnection:
-    Type: AWS::Events::Connection
-    Properties:
-      AuthorizationType: BASIC
-      AuthParameters:
-        BasicAuthParameters:
-          Username: "EventBridge"
-          Password: "None"
-
-      Description: Connection required for Http Api Destination Resource
-      Name: BasicUnauthenticatedConnection
-
-  # Using an API destination because it's the cleanest to implement
-  # as opposed to the other lambda specific event targets
-  KeepWarmApiDestination:
-    Type: AWS::Events::ApiDestination
-    DependsOn: KeepWarmConnection
-    Properties:
-      ConnectionArn: !GetAtt KeepWarmConnection.Arn
-      Description: "Endpoint for keeping lambda function warm"
-      HttpMethod: GET
-      InvocationEndpoint: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/utils/ping"
-      InvocationRateLimitPerSecond: 5
-      Name: KeepWarmAPIDestination
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
