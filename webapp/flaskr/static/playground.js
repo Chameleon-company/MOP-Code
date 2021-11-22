@@ -1,66 +1,63 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
-const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/light-v10', // style URL
-    center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
-    zoom: 13 // starting zoom
-});
 
-map.on('load', () => {
-    showParkingSensorsOnMap(map)
-});
+function setupParkingSensorStep() {
+    return new Promise((resolve, _) => {
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/light-v10', // style URL
+            center: [144.95460780722914, -37.81422463241198], // starting position [lng, lat]
+            zoom: 13 // starting zoom
+        });
 
-map.on('click', function(e) {
-    fetch($SCRIPT_ROOT + `/playground/query_location?lng=${e.lngLat.lng}&lat=${e.lngLat.lat}`)
-        .then(request => request.json())
-        .then(data => console.dir(data))
-})
+        map.on('load', async () => {
+            await showParkingSensorsOnMap(map)
+            resolve() // after this step, we consider the mapbox setup, completed
+        });
+    })
+}
 
 var unknownMarkerName = 'unknown_marker'
 var presentMarkerName = 'occupied_marker'
 var unoccupiedMarkerName = 'unoccupied_marker'
 
-function showParkingSensorsOnMap(map) {
+async function showParkingSensorsOnMap(map) {
     // add the markers for different statuses to our available images
     let imagesPromise = loadMarkers(map)
     let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/latest.json")
         .then(result => result.json())
 
-    Promise.all([imagesPromise, latestSensors])
-        .then(([_, data]) => {
-            // convert sensor information into geojson
-            return data
-                .reduce((features, parkingSensor) => {
-                    let { lat, lon, status } = parkingSensor
-                    let lng = lon
-                    let feature = {
+    let [_, data] = await Promise.all([imagesPromise, latestSensors])
+    // convert sensor information into geojson
+    let features = data
+        .reduce((features, parkingSensor) => {
+            let { lat, lon, status } = parkingSensor
+            let lng = lon
+            let feature = {
 
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [
-                                    lng, lat
-                                ]
-                            },
-                            'properties': {
-                                'title': status
-                            }
-                        }
-                        // add next parking sensor to the geojson features
-                        // with respect to status
-                    features[status].push(feature)
-                    return features
-                }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
-        })
-        .then(features => {
-            // add each status type to the map
-            // as new marker mapbox layer
-            let { Present, Unoccupied, Unknown } = features
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [
+                        lng, lat
+                    ]
+                },
+                'properties': {
+                    'title': status
+                }
+            }
+            // add next parking sensor to the geojson features
+            // with respect to status
+            features[status].push(feature)
+            return features
+        }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
 
-            addLayer(map, Unknown, unknownMarkerName)
-            addLayer(map, Present, presentMarkerName)
-            addLayer(map, Unoccupied, unoccupiedMarkerName)
-        })
+    // add each status type to the map
+    // as new marker mapbox layer
+    let { Present, Unoccupied, Unknown } = features
+
+    addLayer(map, Unknown, unknownMarkerName)
+    addLayer(map, Present, presentMarkerName)
+    addLayer(map, Unoccupied, unoccupiedMarkerName)
 }
 
 function loadMapImage(map, image) {
@@ -110,3 +107,14 @@ function addLayer(map, features, markerName) {
         }
     });
 }
+
+function delete_placeholder(id) {
+    document.getElementById(id).remove()
+}
+
+window.addEventListener('load', async () => {
+    // Load the maps in the order in which they are rendered on the playground screen
+    await setupParkingAvailabilityMap('solutionMap', '.solution_demo')
+    await setupParkingSensorStep()
+    await setupParkingAvailabilityMap('toolMap', '.final_step')
+})

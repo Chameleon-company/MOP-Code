@@ -29,7 +29,7 @@ function makeRadius([lat, lng], radiusInMeters) {
 }
 
 function spatialJoin(geojson, filterFeature) {
-    return geojson.features.filter(function(feature) {
+    return geojson.features.filter(function (feature) {
         return turf.booleanPointInPolygon(feature, filterFeature);
     });
 }
@@ -148,74 +148,55 @@ function removeSearch(map) {
 // source: https://stackoverflow.com/questions/18544890/onchange-event-on-input-type-range-is-not-triggering-in-firefox-while-dragging
 function onRangeChange(r, f) {
     var n, c, m;
-    r.addEventListener("input", function(e) {
+    r.addEventListener("input", function (e) {
         n = 1;
         c = e.target.value;
         if (c != m) f(e);
         m = c;
     });
-    r.addEventListener("change", function(e) { if (!n) f(e); });
+    r.addEventListener("change", function (e) { if (!n) f(e); });
 }
 
 
 var rangeUpdatedDelay = undefined
 
-window.addEventListener("load", () => {
-    const map = initMap("tool_map")
+/**
+ * This method will setup a new parking availability map given a map id, and a container class
+ * @param {*} mapId 
+ * @param {*} containerClass 
+ * @returns Promise<void>
+ */
+function setupParkingAvailabilityMap(mapId, containerClass) {
 
-    // a layer onto which the search radius is eventually drawn
-    map.on('style.load', () => {
-        addSearchRadiusLayer(map)
-        showParkingSensorsOnMap(map)
+    return new Promise((resolve, reject) => {
+
+        const map = initMap(mapId)
+
+        // a layer onto which the search radius is eventually drawn
+        map.on('style.load', async () => {
+            addSearchRadiusLayer(map)
+            await showParkingSensorsOnMap(map)
+            resolve() // consider map loaded once this step is complete
+        })
+
+        map.on('click', (e) => onMapSelected(map, e))
+
+        let radiusSlider = document.querySelector(containerClass + ' .parking_tool_radius_slider > .slider')
+        let radiusValue = document.querySelector(containerClass + ' .parking_tool_radius_slider > .radius_value')
+
+
+        onRangeChange(radiusSlider, (e) => {
+            radius = e.target.value * 10
+            radiusValue.innerHTML = `${radius}m`
+
+            if (rangeUpdatedDelay)
+                clearTimeout(rangeUpdatedDelay)
+
+            // redo the map selection event
+            // with new radius setting
+            if (latestMapClickEvent) {
+                rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
+            }
+        })
     })
-
-    map.on('click', (e) => onMapSelected(map, e))
-
-    let radiusSlider = document.querySelector('.final_step .parking_tool_radius_slider > .slider')
-    let radiusValue = document.querySelector('.final_step .parking_tool_radius_slider > .radius_value')
-
-
-    onRangeChange(radiusSlider, (e) => {
-        radius = e.target.value * 10
-        radiusValue.innerHTML = `${radius}m`
-
-        if (rangeUpdatedDelay)
-            clearTimeout(rangeUpdatedDelay)
-
-        // redo the map selection event
-        // with new radius setting
-        if (latestMapClickEvent) {
-            rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
-        }
-    })
-})
-
-window.addEventListener("load", () => {
-    const map = initMap("solution_map")
-
-    // a layer onto which the search radius is eventually drawn
-    map.on('style.load', () => {
-        addSearchRadiusLayer(map)
-        showParkingSensorsOnMap(map)
-    })
-
-    map.on('click', (e) => onMapSelected(map, e))
-
-    let radiusSlider = document.querySelector('.solution_demo .parking_tool_radius_slider > .slider')
-    let radiusValue = document.querySelector('.solution_demo .parking_tool_radius_slider > .radius_value')
-
-
-    onRangeChange(radiusSlider, (e) => {
-        radius = e.target.value * 10
-        radiusValue.innerHTML = `${radius}m`
-
-        if (rangeUpdatedDelay)
-            clearTimeout(rangeUpdatedDelay)
-
-        // redo the map selection event
-        // with new radius setting
-        if (latestMapClickEvent) {
-            rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
-        }
-    })
-})
+}
