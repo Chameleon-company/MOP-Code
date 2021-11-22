@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   melbourne_city_playground
@@ -8,7 +8,7 @@ Globals:
     Timeout: 120 # some things take at least 2 minutes to return (like data visualizations)
   Api:
     BinaryMediaTypes:
-    - '*~1*' # all images to be returned via API gateway
+      - "*~1*" # all images to be returned via API gateway
 
 Resources:
   FlaskEntryPointFunction:
@@ -17,6 +17,9 @@ Resources:
       Role: arn:aws:iam::119291007423:role/PlaygroundLambdaWebApp # role defined in AWS console, has necessary permissions
       PackageType: Image
       MemorySize: 512
+      AutoPublishAlias: live
+      ProvisionedConcurrencyConfig:
+        ProvisionedConcurrentExecutions: "1"
       Events:
         FlaskEntryPoint:
           Type: Api
@@ -29,12 +32,10 @@ Resources:
           Properties:
             Path: /
             Method: any
-
     Metadata:
       DockerTag: python3.7-v1
       DockerContext: ./
       Dockerfile: Dockerfile
-
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
