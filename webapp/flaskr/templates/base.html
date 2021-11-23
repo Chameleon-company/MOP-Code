@@ -15,9 +15,8 @@
     </script>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{url_for('home.home')}}">
-                <!-- width="112" height="28" -->
-                <img src="{{url_for('static', filename='City_Of_Melbourne_Logo.png')}}">
+            <a href="{{url_for('home.home')}}">
+                <img src="{{url_for('static', filename='images/moplogo.png')}}" style="width: 80px; height: 80px; margin-right: 10px; margin-left: 10px;">
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar_menu">
@@ -39,8 +38,11 @@
                     Contact
                 </a>
             </div>
-
+            
             <div class="navbar-end">
+                <a class="navbar-item" href="https://data.melbourne.vic.gov.au/" target="_blank">
+                    <img src="{{url_for('static', filename='City_Of_Melbourne_Logo.png')}}">
+                </a>
                 <div class="navbar-item">
                     <div class="buttons">
                         <a href="https://github.com/D2I-Melbourne/POCOM" target="_blank" class="button">
