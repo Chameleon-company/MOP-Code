@@ -1,1 +1,1 @@
-sam build && yes "y" | sam deploy
+sam build && yes "y" | sam deploy --capabilities CAPABILITY_NAMED_IAM
