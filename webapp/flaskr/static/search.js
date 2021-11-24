@@ -148,11 +148,15 @@ function createDataset(dataset) {
     // create new article tile
     let datasetTile = datasetTemplate.content.cloneNode(true);
 
+    // set permalink
+    let link = datasetTile.querySelectorAll('.perma')[0]
+    link.href = dataset.Permalink
+
     // set the title & description
     let title = datasetTile.querySelectorAll('.subtitle')[0]
     title.textContent = dataset.Name
-    let downloadCount = datasetTile.querySelectorAll('.description')[0]
 
+    let downloadCount = datasetTile.querySelectorAll('.description')[0]
     downloadCount.textContent = numeral(dataset.Downloads).format('0,0')
 
     return datasetTile;
