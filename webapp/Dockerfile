@@ -11,9 +11,9 @@ COPY app.py requirements.txt  ./
 RUN python3.7 -m pip install -r requirements.txt -t .
 RUN pip install awslambdaric
 
-RUN chmod +x entry.sh
+RUN chmod +rx entry.sh
 
 ADD flaskr ./flaskr/
 
-ENTRYPOINT [ "./entry.sh" ]
+ENTRYPOINT [ "/bin/bash", "./entry.sh" ]
 CMD [ "wsgi_handler.handler" ]
