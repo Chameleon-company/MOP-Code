@@ -5,9 +5,11 @@
 <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
 <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %}
+
+{% block content %}
 <div class="block solution_demo" style="position: relative">
-    <div style="width: 100%; height: 100%;" id="solution_map"></div>
+    <div style="width: 100%; height: 100%;" class="map" id="solutionMap"></div>
     <div class="parking_tool_graph box" style="display: none;"></div>
     <div class="parking_tool_radius_slider">
         <input type="range" class="slider" min="1" max="100" value="30" />
@@ -30,7 +32,7 @@
         <p><b>Total: </b><span class="graph_total_parks"></span></p>
         <p><b>Available: </b><span class="graph_available_parks"></span></p>
         <p><b>Unavailable: </b><span class="graph_unavailable_parks"></span></p>
-        <br/>
+        <br />
         <div class="graph_container">
             <img class="graph_img" src="#" />
             <img class="graph_img" src="#" />

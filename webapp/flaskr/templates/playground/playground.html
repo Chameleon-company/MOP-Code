@@ -4,7 +4,9 @@
 <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
 <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %} --> {% block content %}
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' /> {% endblock %}
+
+{% block content %}
 <section class="container">
     <section class="hero playground-hero">
         <div class="hero-body">
@@ -12,7 +14,9 @@
                 Parking Availability
             </h1>
             <p class="subtitle">
-                As a business that requires parking to be available for your employees or customers, the <span style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make business critical decisions with down-to-the-minute
+                As a business that requires parking to be available for your employees or customers, the <span
+                    style="text-decoration:underline;">City of Melbourne's Open Data Platform</span> can help you make
+                business critical decisions with down-to-the-minute
                 accuracy.
             </p>
         </div>
@@ -21,7 +25,7 @@
         <h2 class="title">Step 0 - Problem & Solution</h2>
     </div>
     <div class="block solution_demo" style="position: relative">
-        <div style="width: 100%; height: 600px;" id="solution_map"></div>
+        <div style="width: 100%; height: 600px;" class="map" id="solutionDemoMap"></div>
         <div class="parking_tool_graph box" style="display: none;"></div>
         <div class="parking_tool_radius_slider">
             <input type="range" class="slider" min="1" max="100" value="30" />
@@ -33,18 +37,26 @@
     </div>
     <div class="block">
 
-        <p>Due to Covid-19, businesses wanting to return to normal operations will need to open their premises at strategic locations in the city. One of the key characteristics that a business needs to consider when choosing a location is the parking availability
+        <p>Due to Covid-19, businesses wanting to return to normal operations will need to open their premises at
+            strategic locations in the city. One of the key characteristics that a business needs to consider when
+            choosing a location is the parking availability
             for their customers.</p>
-        <p>This Playground will walk you through finding parking, showing the activity of parking bays, and giving statistics with respect to the last 4 weeks of data (thus considering recent trends like Covid-19). With this information businesses can make
+        <p>This Playground will walk you through finding parking, showing the activity of parking bays, and giving
+            statistics with respect to the last 4 weeks of data (thus considering recent trends like Covid-19). With
+            this information businesses can make
             an informed decision on the location of their new premises.</p>
-        <p>Above is the proposed solution and below are the steps involved in using City of Melbourne's Open Data Platform to build it.</p>
+        <p>Above is the proposed solution and below are the steps involved in using City of Melbourne's Open Data
+            Platform to build it.</p>
     </div>
     <div class="block">
         <h2 class="title">Step 1 - Access Data</h2>
         <p>
-            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a target="_blank" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking
+            To understand the parking availability in Melbourne, we have opted to use the City of Melbourne's live <a
+                target="_blank"
+                href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">parking
                 sensor
-                information.</a><br /> This dataset is replaced every <b>2 minutes</b> with the latest parking sensor information.
+                information.</a><br /> This dataset is replaced every <b>2 minutes</b> with the latest parking sensor
+            information.
             <br /> Below is the python script that will access the data and write it to a json file.
         </p>
     </div>
@@ -87,7 +99,8 @@
                 </div>
                 <div class="level-item">
                     <div class="buttons">
-                        <a href="{{ request.script_root + '/playground/parking-sensors/latest.json'}}" download="latest_parking_sensor.json" class="button is-text">
+                        <a href="{{ request.script_root + '/playground/parking-sensors/latest.json'}}"
+                            download="latest_parking_sensor.json" class="button is-text">
                             <span class="icon"><i class="far fa-file-code"></i></span>
                             <span>latest_parking_sensors.json</span>
                         </a>
@@ -101,7 +114,9 @@
         </div>
     </div>
     <div class="block">
-        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the browser.
+        <p>Now, in order to visualize our results on a map, we fetch our 'latest_parking_sensors.json' file and use <a
+                href="https://www.mapbox.com/mapbox-gljs" target="_blank">mapbox</a> to draw it onto a map in the
+            browser.
         </p>
     </div>
     <div class="block">
@@ -230,8 +245,11 @@
     <div class="block">
         <h2 class="title">Step 2 - Collect Data</h2>
         <p>
-            Because we are trying to make decisions based on the parking availability trends, we are going to store a record of the parking sensor information over time. To do this we are going to create a python function to perform a little bit of ETL (Extraction,
-            Transformation, Loading). We are then going to run this function in a loop with some 'sleeps' over several days to collect enough data for us to be able to generate some insights.
+            Because we are trying to make decisions based on the parking availability trends, we are going to store a
+            record of the parking sensor information over time. To do this we are going to create a python function to
+            perform a little bit of ETL (Extraction,
+            Transformation, Loading). We are then going to run this function in a loop with some 'sleeps' over several
+            days to collect enough data for us to be able to generate some insights.
         </p>
     </div>
     <div class="snippet-language">
@@ -283,11 +301,13 @@
                 </div>
                 <div class="level-item">
                     <div class="buttons">
-                        <a href="https://github.com/wuyoscar/POCOM/blob/master/Jason/UsingSodapyandBuildingETL.ipynb" target="_blank" class="button is-text">
+                        <a href="https://github.com/wuyoscar/POCOM/blob/master/Jason/UsingSodapyandBuildingETL.ipynb"
+                            target="_blank" class="button is-text">
                             <span class="icon"><i class="fas fa-book"></i></span>
                             <span>UsingSodapyandBuildingETL.ipynb</span>
                         </a>
-                        <a href="{{view_model.parking_sensor_collection}}" download="parking_sensor_collection.csv" class="button is-text">
+                        <a href="{{view_model.parking_sensor_collection}}" download="parking_sensor_collection.csv"
+                            class="button is-text">
                             <span class="icon"><i class="far fa-file-code"></i></span>
                             <span>parking_sensor_collection.csv</span>
                         </a>
@@ -299,8 +319,11 @@
     <div class="block">
         <h2 class="title">Step 3 - Visualize Trends</h2>
         <p>
-            Now that we have enough data to get an idea for the parking availability trends over time, let's take some time to generate trend statistics.<br />
-            <br /> Lets write some code to produce some visualizations that will help us understand the expected availability of parking in Melbourne. We can also include some information with respect to the current day and hour to give us a little more
+            Now that we have enough data to get an idea for the parking availability trends over time, let's take some
+            time to generate trend statistics.<br />
+            <br /> Lets write some code to produce some visualizations that will help us understand the expected
+            availability of parking in Melbourne. We can also include some information with respect to the current day
+            and hour to give us a little more
             insight into what's happening today.
         </p>
     </div>
@@ -386,25 +409,38 @@
         </figure>
         <div class="block">
             <div class="columns">
-                <div class="column"><img src="{{url_for('playground.get_daily_visualization')}}" /></div>
-                <div class="column"><img src="{{url_for('playground.get_hourly_visualization')}}" /></div>
+                <div class="column">
+                    <img id="daily_image_viz" style="margin: auto; display: flex;"
+                        src="{{ request.script_root + '/static/images/loading.svg' }}" loading="lazy" />
+                    <img onload="delete_placeholder('daily_image_viz')"
+                        src="{{url_for('playground.get_daily_visualization')}}" loading="lazy" />
+                </div>
+                <!-- style="min-height: 100%; min-width: 100%;background-position: center;background-image: url({{ request.script_root + '/static/images/loading.svg' }}); background-size: cover;" -->
+                <div class="column">
+                    <img id="hourly_image_viz" style="margin: auto; display: flex;"
+                        src="{{ request.script_root + '/static/images/loading.svg' }}" loading="lazy" />
+                    <img onload="delete_placeholder('hourly_image_viz')"
+                        src="{{url_for('playground.get_hourly_visualization')}}" loading="lazy" />
+                    <!--                         style="min-height: 100%;min-width: 100%;background-position: center;background-image: url({{ request.script_root + '/static/images/loading.svg' }}); background-size: cover;" -->
+                </div>
             </div>
         </div>
         <div class="block">
             <h2 class="title">Step 4 - Geographic Filters</h2>
             <p>
                 Next, we would like to understand the parking availability trends with more geographic granularity.
-                <br/> For this we will need two new functional pieces:
+                <br /> For this we will need two new functional pieces:
             </p>
             <p class="block">
-                <ol style="padding-left: 20px">
-                    <li>Ability to specify a location of interest on a map.</li>
-                    <li>Filter the considered parking bays to those within the location of interest selected above.</li>
-                </ol>
+            <ol style="padding-left: 20px">
+                <li>Ability to specify a location of interest on a map.</li>
+                <li>Filter the considered parking bays to those within the location of interest selected above.</li>
+            </ol>
             </p>
-            <br/>
+            <br />
             <p>
-                Below is Javascript that will add the selection radius to the map created earlier, and return the coordinates selected on the map to the user:
+                Below is Javascript that will add the selection radius to the map created earlier, and return the
+                coordinates selected on the map to the user:
             </p>
         </div>
         <div class="snippet-language">
@@ -473,8 +509,10 @@ window.addEventListener("load", () => {
             </figure>
         </div>
         <div class="block">
-            <p>Next, we will use the <a href="https://pypi.org/project/geopy/">geopy</a> python library library to filter a list of parking bays.</p>
-            <p>The list of parking bays was created from the parking bay sensor csv file from step 2 (You can download this list below).</p>
+            <p>Next, we will use the <a href="https://pypi.org/project/geopy/">geopy</a> python library library to
+                filter a list of parking bays.</p>
+            <p>The list of parking bays was created from the parking bay sensor csv file from step 2 (You can download
+                this list below).</p>
         </div>
         <div class="snippet-language">
             <span class="icon"><i class="fab fa-python"></i></span>
@@ -556,11 +594,13 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
                     </div>
                     <div class="level-item">
                         <div class="buttons">
-                            <a href="{{view_model.parking_sensors_list}}" download="parking_sensors_list.csv" class="button is-text">
+                            <a href="{{view_model.parking_sensors_list}}" download="parking_sensors_list.csv"
+                                class="button is-text">
                                 <span class="icon"><i class="far fa-file-code"></i></span>
                                 <span>parking_sensors_list.csv</span>
                             </a>
-                            <a href="https://github.com/wuyoscar/POCOM/blob/master/Albert/8lb_geo_filters.ipynb" target="_blank" class="button is-text">
+                            <a href="https://github.com/wuyoscar/POCOM/blob/master/Albert/8lb_geo_filters.ipynb"
+                                target="_blank" class="button is-text">
                                 <span class="icon"><i class="fas fa-book"></i></span>
                                 <span>8lb_geo_filters.ipynb</span>
                             </a>
@@ -570,18 +610,20 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
             </div>
         </div>
         <div class="block">
-            <p>Below, you can see the results of all the different pieces above integrated together into a tool that any Melbourne business or citizen can leverage to make better decisions about parking within the City of Melbourne.</p>
+            <p>Below, you can see the results of all the different pieces above integrated together into a tool that any
+                Melbourne business or citizen can leverage to make better decisions about parking within the City of
+                Melbourne.</p>
         </div>
         <div class="block final_step" style="position: relative">
-            <div style="width: 100%; height: 600px;" id="tool_map"></div>
+            <div style="width: 100%; height: 600px;" class="map" id="finalMap"></div>
             <div class="parking_tool_graph box" style="display: none;"></div>
             <div class="parking_tool_radius_slider">
                 <input type="range" class="slider" min="1" max="100" value="30" />
                 <span class="radius_value">300m</span>
             </div>
         </div>
-        <br/>
-        <br/>
+        <br />
+        <br />
 </section>
 <script>
     hljs.highlightAll();
@@ -599,10 +641,10 @@ def visualize_filtered_hourly_latest(lat, lng, radius):
         <p><b>Total: </b><span class="graph_total_parks"></span></p>
         <p><b>Available: </b><span class="graph_available_parks"></span></p>
         <p><b>Unavailable: </b><span class="graph_unavailable_parks"></span></p>
-        <br/>
+        <br />
         <div class="graph_container">
-            <img class="graph_img" src="#" />
-            <img class="graph_img" src="#" />
+            <img class="graph_img" loading="lazy" src="#" />
+            <img class="graph_img" loading="lazy" src="#" />
         </div>
     </div>
 </template> {% endblock %}
