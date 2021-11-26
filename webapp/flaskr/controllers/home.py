@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request
 
-from flaskr.dataset_search import keyword_search
+from flaskr.logic.search import keyword_search
 
 bp = Blueprint('home', __name__, url_prefix='/')
 

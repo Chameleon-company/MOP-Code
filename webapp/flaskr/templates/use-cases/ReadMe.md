@@ -1,6 +1,6 @@
-## How to translate Jupyter Notebooks to Use Cases
+# Translate Jupyter Notebooks to Use Cases
 
-1. First execute ```jupyter nbconvert `file.ipynb` --to HTML```
+1. First execute ```jupyter nbconvert `file.ipynb` --to html```
 1. Copy the converted HTML file into a new flask template file
 1. Place the `{% extends 'base.html' %}` preprocessor at the top of the file
 1. Place the styles and script tags in the header content block `{% block head %}...{% endblock %}`. Be sure to remove any `<head>` tags from the content.
@@ -34,3 +34,4 @@
     1. Replace `<div` with class `highlight` with a figure with only a `highlight` class
     1. Add a parent node `<code class="language-python" data-lang="python">...</code>` around the content in the `<pre>...</pre>` tag.  
     Result should be `<pre><code ...>...</code></pre>` block.
+    1. LAST STEP - Add the search information / tile information to the `flaskr/static/search.json` file so that the new use cases shows up in the search results in the home page.

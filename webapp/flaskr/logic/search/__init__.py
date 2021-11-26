@@ -2,6 +2,13 @@ import pandas as pd
 from sodapy import Socrata
 
 
+"""
+ Will search through all datasets available
+ in Melbourne Open Data platform
+ based on keyword matches in title, description...etc
+
+ Returns a dataframe with the results
+"""
 def keyword_search(keywords=None):
     client = Socrata("data.melbourne.vic.gov.au",  # domain
                      'z99BiHe97JrarLpbpqRISffyr',  # app token
