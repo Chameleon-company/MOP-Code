@@ -1,12 +1,18 @@
-from flask.helpers import send_file
-from flaskr.parking_sensor.steps import get_live_parking_json, visualize_daily_latest, visualize_filtered_daily_latest, visualize_filtered_hourly_latest, visualize_hourly_latest
 import json
+
 import boto3
 import pandas as pd
-from flask import (
-    Blueprint, render_template, request, jsonify
-)
+from flask import Blueprint, jsonify, render_template, request
+from flask.helpers import send_file
+
+from flaskr.parking_sensor.steps import (get_live_parking_json,
+                                         visualize_daily_latest,
+                                         visualize_filtered_daily_latest,
+                                         visualize_filtered_hourly_latest,
+                                         visualize_hourly_latest)
+
 bp = Blueprint('playground', __name__, url_prefix='/playground')
+
 
 @bp.route("/", methods=('GET',))
 def home():
@@ -14,39 +20,48 @@ def home():
 
     # get a public link for the parking_sensor.csv
     parking_sensor_collection_url = s3_client.generate_presigned_url('get_object',
-        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parkingsensor.csv'},
-        ExpiresIn=3600 # 60 minutes
-    )
+                                                                     Params={
+                                                                         'Bucket': 'opendataplayground.deakin', 'Key': 'parkingsensor/parkingsensor.csv'},
+                                                                     ExpiresIn=3600  # 60 minutes
+                                                                     )
 
     # get a public link for the parking_sensor.csv
     parking_sensor_list_url = s3_client.generate_presigned_url('get_object',
-        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parking_sensors_list.csv'},
-        ExpiresIn=3600 # 60 minutes
-    )
+                                                               Params={
+                                                                   'Bucket': 'opendataplayground.deakin', 'Key': 'parkingsensor/parking_sensors_list.csv'},
+                                                               ExpiresIn=3600  # 60 minutes
+                                                               )
 
-    view_model = {'parking_sensor_collection': parking_sensor_collection_url, 'parking_sensors_list': parking_sensor_list_url}
+    view_model = {'parking_sensor_collection': parking_sensor_collection_url,
+                  'parking_sensors_list': parking_sensor_list_url}
 
-    return render_template('playground/playground.html', view_model = view_model)
+    return render_template('playground/playground.html', view_model=view_model)
+
 
 @bp.route("/traffic_lights", methods=('GET',))
 def get_traffic_lights():
     df = pd.read_csv('./data/traffic_lights.csv')
-    locations = [[lng, lat] for lng, lat in zip(df['Longitude'], df['Latitude'])]
+    locations = [[lng, lat]
+                 for lng, lat in zip(df['Longitude'], df['Latitude'])]
     return jsonify(locations)
+
 
 @bp.route("/parking-sensors/latest.json", methods=('GET',))
 def get_parking_sensor_now():
     return get_live_parking_json()
+
 
 @bp.route("/parking-sensors/daily.png", methods=('GET',))
 def get_daily_visualization():
     buffer = visualize_daily_latest()
     return send_file(buffer, mimetype='image/png')
 
+
 @bp.route("/parking-sensors/hourly.png", methods=('GET',))
 def get_hourly_visualization():
     buffer = visualize_hourly_latest()
     return send_file(buffer, mimetype='image/png')
+
 
 @bp.route("/parking-sensors/daily_filtered.png", methods=('GET',))
 def get_filtered_daily_visualization():
@@ -56,6 +71,7 @@ def get_filtered_daily_visualization():
     buffer = visualize_filtered_daily_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
 
+
 @bp.route("/parking-sensors/hourly_filtered.png", methods=('GET',))
 def get_filtered_hourly_visualization():
     dict = json.loads(request.args['latlng'])
@@ -64,22 +80,31 @@ def get_filtered_hourly_visualization():
     buffer = visualize_filtered_hourly_latest(dict['lat'], dict['lng'], radius)
     return send_file(buffer, mimetype='image/png')
 
+
 @bp.route("parking-sensors/tool", methods=("GET",))
 def parking_sensor_tool():
 
     s3_client = boto3.client('s3')
     # get a public link for the parking_sensor.csv
     parking_sensor_collection_url = s3_client.generate_presigned_url('get_object',
-        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parkingsensor.csv'},
-        ExpiresIn=3600 # 60 minutes
-    )
+                                                                     Params={
+                                                                         'Bucket': 'opendataplayground.deakin', 'Key': 'parkingsensor/parkingsensor.csv'},
+                                                                     ExpiresIn=3600  # 60 minutes
+                                                                     )
 
     # get a public link for the parking_sensor.csv
     parking_sensor_list_url = s3_client.generate_presigned_url('get_object',
-        Params={'Bucket': 'opendataplayground.deakin','Key': 'parkingsensor/parking_sensors_list.csv'},
-        ExpiresIn=3600 # 60 minutes
-    )
-    
-    view_model = {'parking_sensor_collection': parking_sensor_collection_url, 'parking_sensors_list': parking_sensor_list_url}
+                                                               Params={
+                                                                   'Bucket': 'opendataplayground.deakin', 'Key': 'parkingsensor/parking_sensors_list.csv'},
+                                                               ExpiresIn=3600  # 60 minutes
+                                                               )
 
-    return render_template('playground/parking_sensor_tool.html', view_model = view_model)
+    view_model = {'parking_sensor_collection': parking_sensor_collection_url,
+                  'parking_sensors_list': parking_sensor_list_url}
+
+    return render_template('playground/parking_sensor_tool.html', view_model=view_model)
+
+
+@bp.route("parking-sensors/pedestrian", methods=("GET",))
+def pedestrian_analysis():
+    return render_template('playground/Pedestrian_Analysis.html')
