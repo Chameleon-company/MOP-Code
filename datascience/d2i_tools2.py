@@ -8,6 +8,7 @@ import pyproj
 from shapely.ops import transform
 from random import sample
 from geopy.distance import geodesic
+from sodapy import Socrata
 
 # 001
 
@@ -265,13 +266,13 @@ def geoCirFilter(gdf, pin, radius):
     print(f"{len(lst_marker_ids)} parking sensors filtered.")
     return lst_marker_ids
 
-##################################################################################################################
-# 009
-# added metadata functions here to streamline Exploratory data analysis
-# METADATA RELATED FUNCTIIONS
 
-# Extract specific attributes from the resource definition into a Pandas Series
+##################### below added during 2021.T3 ######################
+# 009
 def dseries(df, col, attrib, attrib_sub=None, count=False):  
+    """
+    Extracts specified column and nested attribute and sub attribute of dataframe (meta data dictationary of CoM's datasets)
+    """
     ls = []
     if attrib_sub == None:
         for d in df[col]:
@@ -287,40 +288,50 @@ def dseries(df, col, attrib, attrib_sub=None, count=False):
                 ls.append(d[attrib][attrib_sub])
     return pd.Series(ls)
 
-# Extract specific metadata attributes as pandas Series and concatenate into a single dataframe
+# 010
 def interesteddf(rdf):
-    a = dseries(rdf, 'resource', 'name')
+    """
+    Extracts interested meta data from dataframe of meta data dictationary for CoM's datasets
+    Where possible, strings are converted to lower case (in prep for NLP or text search matching)
+    """
+    a = dseries(rdf, 'resource', 'name').str.lower()
     b = dseries(rdf, 'resource', 'id')
     c = dseries(rdf, 'resource', 'parent_fxf')
-    d = dseries(rdf, 'resource', 'description')
-    e = dseries(rdf, 'resource', 'data_updated_at')
-    f = dseries(rdf, 'resource', 'page_views', 'page_views_last_week')
-    g = dseries(rdf, 'resource', 'page_views', 'page_views_last_month')
-    h = dseries(rdf, 'resource', 'page_views', 'page_views_total')
-    i = dseries(rdf, 'resource', 'download_count')
-    j = dseries(rdf, 'classification', 'categories')
-    k = dseries(rdf, 'classification', 'domain_category')
-    l = dseries(rdf, 'classification', 'domain_tags')
-    m = dseries(rdf, 'classification', 'domain_metadata')
-#     n = dseries(rdf, 'resource', 'columns_name', True)  # count=True, not working yet
-    col =  ['name', 'id', 'parent_fxf', 'description', 'data_upd_at', 'pv_last_wk', 'pv_last_mth', 'pv_total',
-            'download_count', 'categories', 'domain_category', 'domain_tags', 'domain_metadata']
-#             'no_cols']
-    df = pd.concat([a,b,c,d,e,f,g,h,i,j,k,l,m], axis='columns')
+    d = rdf.permalink
+    e = dseries(rdf, 'resource', 'description').str.lower()
+    f = dseries(rdf, 'resource', 'data_updated_at')
+    f = pd.to_datetime(f, infer_datetime_format=True)
+    g = dseries(rdf, 'resource', 'page_views', 'page_views_last_week')
+    h = dseries(rdf, 'resource', 'page_views', 'page_views_last_month')
+    i = dseries(rdf, 'resource', 'page_views', 'page_views_total')
+    j = dseries(rdf, 'resource', 'download_count')
+    k = dseries(rdf, 'classification', 'categories')
+    l = dseries(rdf, 'classification', 'domain_category').str.lower()
+    m = dseries(rdf, 'classification', 'domain_tags')
+    n = dseries(rdf, 'classification', 'domain_metadata')
+    col =  ['name', 'id', 'parent_fxf', 'permalink', 'description', 'data_upd_at', 'pv_last_wk', 
+            'pv_last_mth', 'pv_total', 'download_count', 'categories', 'domain_category', 
+            'domain_tags', 'domain_metadata']
+    df = pd.concat([a,b,c,d,e,f,g,h,i,j,k,l,m,n], axis='columns')
     df.columns = col
     return df
 
-# load Client Datasets Metadata using a SOCRATA connection into a single dataframe
-def loadClientDatasetsMetadata(ODSConnection):
-    rds = ODSConnection.datasets()
-    rdf = pd.DataFrame.from_dict(rds)
+# 011
+# load Metadata for all City of Melbourne (CoM) datasets using a SOCRATA connection into a single dataframe.
+# Supplying an App Token for the connection is optional.
+def getMeta(apptoken=None):
+    """
+    Final extraction of interested meta data of City of Melbourne(CoM) datasets that returns a dataframe
+    """
+    client = Socrata("data.melbourne.vic.gov.au", apptoken)
+    rdf = pd.DataFrame.from_dict(client.datasets())
     ds_df = interesteddf(rdf)
     df = ds_df.copy()
 
     keys = []
     for record in ds_df['domain_metadata']:
-        for kv in record:
-            keys.append(kv['key'])
+            for kv in record:
+                keys.append(kv['key'])
     keys_ds = pd.Series(keys).drop_duplicates().reset_index(drop=True)
 
     for key in keys_ds:
@@ -328,14 +339,14 @@ def loadClientDatasetsMetadata(ODSConnection):
         for i in range(df.shape[0]):
             for kv in df['domain_metadata'][i]:
                 if kv['key'] == key:
-                    df[key][i] = kv['value']
+                    df[key][i] = kv['value'].lower()
 
-    # Drop metadata that may not be of interest
+    # disinterested domain_metadata to drop
     dis = ['How-to-use_Applicable-standard-(URL)',\
            'Internal-management_Source-system-(GIS,-AssetMaster,-etc)',
            'Internal-management_Update-mechanism',
            'Internal-management_IMGF-risk-level',
            'Melbourne-Metadata_Further-Information',
-           'Quality_Source-data-update-frequency']
-    df = df.drop(columns=dis)
-    return df
+           'Quality_Source-data-update-frequency',
+           'domain_metadata']
+    return df.drop(columns=dis) 
