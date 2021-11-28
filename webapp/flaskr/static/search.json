@@ -3,7 +3,7 @@
         "title": "Parking Availability", 
         "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
         "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
-        "difficulty": "Advanced",
+        "difficulty": "Intermediate",
         "technology": [{
             "name": "mapbox",
             "code": "javascript"
