@@ -107,6 +107,7 @@ function createArticle(article) {
     let articleTemplate = document.querySelector('#article_tile_template');
     let technologyRowTemplate = document.querySelector('#technology_row_template')
     let iconTemplate = document.querySelector('#icon_template')
+    let tagsTemplate = document.querySelector('#tags_template')
 
     // create new article tile
     let articleTile = articleTemplate.content.cloneNode(true);
@@ -117,11 +118,15 @@ function createArticle(article) {
     let description = articleTile.querySelectorAll('.description')[0]
     description.textContent = article.description
 
+    // set the difficulty
+    let difficulty = articleTile.querySelectorAll('.difficulty')[0]
+    difficulty.textContent = article.difficulty
+
     // add technolgy information to the article tile
     let technologyTable = articleTile.querySelectorAll('.table')[0]
     for (let techIndex in article.technology) {
         let technology = article.technology[techIndex]
-            // set the technology name
+        // set the technology name
         let technologyRow = technologyRowTemplate.content.cloneNode(true)
         let td = technologyRow.querySelectorAll("td");
         td[0].textContent = technology.name;
@@ -136,6 +141,18 @@ function createArticle(article) {
 
         // add row to table
         technologyTable.appendChild(technologyRow)
+    }
+
+    // add tags to article tile
+    let tagButtons = articleTile.querySelectorAll('.buttons')[0]
+    for (let tagsIndex in article.tags) {
+        let tag = article.tags[tagsIndex]
+        
+        let tagButton = tagsTemplate.content.cloneNode(true)
+        let btn = tagButton.querySelector("button")
+        btn.textContent = tag
+
+        tagButtons.appendChild(tagButton)
     }
 
     //return the article
