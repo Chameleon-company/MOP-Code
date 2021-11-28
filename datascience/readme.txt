@@ -1,0 +1,1 @@
+d2i_tools.py	Collection of utility methods to assist with retrieving metadata from Socrata Open data Source.
