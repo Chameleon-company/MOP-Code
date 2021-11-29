@@ -1,9 +1,6 @@
 import boto3
 import botocore
 import pandas as pd
-import concurrent.futures
-from datetime import datetime, timedelta
-import threading
 
 def get():
     bucket = 'opendataplayground.deakin'
