@@ -1,8 +1,9 @@
 [
     { 
-        "title": "Pedestrian Traffic", 
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
-        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
+        "title": "Pedestrian Analysis",
+        "name": "pedestrian-analysis", 
+        "description": "Pedestrian activity in any country is a symbol of vibrancy and vitality. An automated pedestrian counting system developed by the City of Melbourne enabled the development of an information repository that can be utilized to analyze the activity of residents across different parts of the city.",
+        "tags": ["python", "py", "notebook", "mapbox", "selenium"],
         "difficulty": "Beginner",
         "technology": [{
             "name": "mapbox",
@@ -14,7 +15,8 @@
     },
     { 
         "title": "New Business Location", 
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems. I would like to know where similar businesses are located and the density of residents and office workers in comparison. I want to know the number of seats I should provide based on seating capacity at other similar establishments in the same area and understand how this may have changed over time. If on street or off-street parking is available nearby this may help me decide where to locate my venue.",
+        "name": "new-business-location", 
+        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue.",
         "tags": ["CLUE", "residential", "employee", "business", "dwellings", "cafe", "restaurant", "mapbox", "API", "Socrata", "visualisation", "geospatial", "chloropleth", "GeoJSON"],
         "difficulty": "Intermediate",
         "technology": [{
@@ -32,6 +34,17 @@
             "name": "mapbox",
             "code": "javascript"
         },{
+            "name": "pandas",
+            "code": "python"
+        }]
+    },
+    { 
+        "title": "PDA for Target Locations", 
+        "name": "pda-target-locations",
+        "description": "Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times and different days of the week. Relying on this information, they can choose the best area to place their business workplace.",
+        "tags": ["pedestrian", "geocoding API", "socrata", "ipyleaflet"],
+        "difficulty": "Advanced",
+        "technology": [{
             "name": "pandas",
             "code": "python"
         }]

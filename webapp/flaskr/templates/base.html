@@ -37,6 +37,9 @@
                 <a class="navbar-item{% if about %} is-active{% endif %}" href="{{url_for('home.about')}}" target="_self">
                     About
                 </a>
+                <a class="navbar-item{% if contact %} is-active{% endif %}" href="{{url_for('home.faq')}}" target="_self">
+                    FAQ
+                </a>
                 <a class="navbar-item{% if contact %} is-active{% endif %}" href="{{url_for('home.contact')}}" target="_self">
                     Contact
                 </a>
@@ -63,6 +66,11 @@
     <script src="https://kit.fontawesome.com/4fcbe1bfe4.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='colors.js')}}"></script>
     {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+        </div>
+    </footer>
 </body>
 
 </html>
