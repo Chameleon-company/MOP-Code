@@ -10,11 +10,11 @@ def create_app(test_config=None):
         SECRET_KEY='dev'
     )
 
-    from . import home
+    from .controllers import use_cases, tools, parking_availability, home
+    app.register_blueprint(use_cases.bp)
+    app.register_blueprint(tools.bp)
+    app.register_blueprint(parking_availability.bp)
     app.register_blueprint(home.bp)
-
-    from . import playground
-    app.register_blueprint(playground.bp)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

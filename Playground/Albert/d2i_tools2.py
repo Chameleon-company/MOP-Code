@@ -317,9 +317,11 @@ def interesteddf(rdf):
     return df
 
 # 011
+# load Metadata for all City of Melbourne (CoM) datasets using a SOCRATA connection into a single dataframe.
+# Supplying an App Token for the connection is optional.
 def getMeta(apptoken=None):
     """
-    Final extraction of interested meta data of CoM datasets that returns a dataframe
+    Final extraction of interested meta data of City of Melbourne(CoM) datasets that returns a dataframe
     """
     client = Socrata("data.melbourne.vic.gov.au", apptoken)
     rdf = pd.DataFrame.from_dict(client.datasets())

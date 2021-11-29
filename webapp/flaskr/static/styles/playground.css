@@ -47,3 +47,36 @@ pre {
     margin: 10px 0px;
     border-radius: 9px;
 }
+
+/* Style overrides for jupyter notebooks */
+.jp-InputPrompt {
+    display: none
+}
+
+.jp-OutputPrompt {
+    display: none
+}
+
+.jp-RenderedText {
+    display: none
+}
+
+.jp-InputArea-editor {
+    border: none
+}
+
+.jp-CodeMirrorEditor figure.highlight {
+    margin: 0px;
+}
+
+.jp-CodeMirrorEditor .snippet-language {
+    margin: 0px;
+}
+
+.jp-RenderedHTMLCommon {
+    padding-right: 0px
+}
+
+.jp-Cell-outputWrapper {
+    margin-top: 15px !important
+}
