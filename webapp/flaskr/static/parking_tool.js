@@ -86,7 +86,7 @@ var unoccupiedMarkerName = 'unoccupied_marker'
 async function showParkingSensorsOnMap(map) {
     // add the markers for different statuses to our available images
     let imagesPromise = loadMarkers(map)
-    let latestSensors = fetch($SCRIPT_ROOT + "/playground/parking-sensors/latest.json")
+    let latestSensors = fetch($SCRIPT_ROOT + "/parking-availability/latest.json")
         .then(result => result.json())
 
     let [_, data] = await Promise.all([imagesPromise, latestSensors])
@@ -230,7 +230,7 @@ function renderGraphContent(map, eventLatLng, radius, data) {
     let index = 0
     const base_graph = ['daily', 'hourly']
     for (const graphImage of graphImages) {
-        graphImage.src = `${$SCRIPT_ROOT}/playground/parking-sensors/${base_graph[index]}_filtered.png?${filter}`
+        graphImage.src = `${$SCRIPT_ROOT}/parking-availability/${base_graph[index]}_filtered.png?${filter}`
         index += 1
     }
 
