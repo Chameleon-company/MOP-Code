@@ -1,5 +1,28 @@
 [
     { 
+        "title": "Pedestrian Traffic", 
+        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
+        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
+        "difficulty": "Beginner",
+        "technology": [{
+            "name": "mapbox",
+            "code": "python"
+        },{
+            "name": "selenium",
+            "code": "python"
+        }]
+    },
+    { 
+        "title": "New Business Location", 
+        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems. I would like to know where similar businesses are located and the density of residents and office workers in comparison. I want to know the number of seats I should provide based on seating capacity at other similar establishments in the same area and understand how this may have changed over time. If on street or off-street parking is available nearby this may help me decide where to locate my venue.",
+        "tags": ["CLUE", "residential", "employee", "business", "dwellings", "cafe", "restaurant", "mapbox", "API", "Socrata", "visualisation", "geospatial", "chloropleth", "GeoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "mapbox",
+            "code": "python"
+        }]
+    },
+    { 
         "title": "Parking Availability", 
         "name": "parking-availability",
         "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
@@ -10,19 +33,6 @@
             "code": "javascript"
         },{
             "name": "pandas",
-            "code": "python"
-        }]
-    },
-    { 
-        "title": "Pedestrian Traffic", 
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
-        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
-        "difficulty": "Beginner",
-        "technology": [{
-            "name": "mapbox",
-            "code": "python"
-        },{
-            "name": "selenium",
             "code": "python"
         }]
     }
