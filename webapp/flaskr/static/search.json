@@ -1,6 +1,7 @@
 [
     { 
         "title": "Parking Availability", 
+        "name": "parking-availability",
         "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
         "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
         "difficulty": "expert",
@@ -13,15 +14,16 @@
         }]
     },
     { 
-        "title": "Pedestrian Traffic", 
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
-        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
+        "title": "Pedestrian Analysis",
+        "name": "pedestrian-analysis",
+        "description": "Pedestrian activity in any country is a symbol of vibrancy and vitality. An automated pedestrian counting system developed by the City of Melbourne enabled the development of an information repository that can be utilized to analyze the activity of residents across different parts of the city. ",
+        "tags": ["python", "py", "notebook", "mapbox", "selenium"],
         "difficult": "beginner",
         "technology": [{
             "name": "mapbox",
-            "code": "javascript"
+            "code": "python"
         },{
-            "name": "sklearn",
+            "name": "selenium",
             "code": "python"
         }]
     }

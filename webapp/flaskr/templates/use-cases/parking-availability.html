@@ -32,7 +32,7 @@
             <span class="radius_value">300m</span>
         </div>
         <div class="parking_tool_expand">
-            <a href="{{url_for('playground.parking_sensor_tool')}}" target="_blank"><i class="fas fa-expand"></i></a>
+            <a href="{{url_for('tools.tools', name='parking-availability')}}" target="_blank"><i class="fas fa-expand"></i></a>
         </div>
     </div>
     <div class="block">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="level-item">
                     <div class="buttons">
-                        <a href="{{ request.script_root + '/playground/parking-sensors/latest.json'}}"
+                        <a href="{{ request.script_root + '/parking-availability/latest.json'}}"
                             download="latest_parking_sensor.json" class="button is-text">
                             <span class="icon"><i class="far fa-file-code"></i></span>
                             <span>latest_parking_sensors.json</span>
@@ -413,14 +413,14 @@
                     <img id="daily_image_viz" style="margin: auto; display: flex;"
                         src="{{ request.script_root + '/static/images/loading.svg' }}" loading="lazy" />
                     <img onload="delete_placeholder('daily_image_viz')"
-                        src="{{url_for('playground.get_daily_visualization')}}" loading="lazy" />
+                        src="{{url_for('parking_availability.get_daily_visualization')}}" loading="lazy" />
                 </div>
                 <!-- style="min-height: 100%; min-width: 100%;background-position: center;background-image: url({{ request.script_root + '/static/images/loading.svg' }}); background-size: cover;" -->
                 <div class="column">
                     <img id="hourly_image_viz" style="margin: auto; display: flex;"
                         src="{{ request.script_root + '/static/images/loading.svg' }}" loading="lazy" />
                     <img onload="delete_placeholder('hourly_image_viz')"
-                        src="{{url_for('playground.get_hourly_visualization')}}" loading="lazy" />
+                        src="{{url_for('parking_availability.get_hourly_visualization')}}" loading="lazy" />
                     <!--                         style="min-height: 100%;min-width: 100%;background-position: center;background-image: url({{ request.script_root + '/static/images/loading.svg' }}); background-size: cover;" -->
                 </div>
             </div>

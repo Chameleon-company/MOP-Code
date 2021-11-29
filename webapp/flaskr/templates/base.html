@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Open Data Playground</title>
     <link rel="shortcut icon" type="image/png" href="static/images/moplogo.png"/>
+    
+    {% block head %}{% endblock %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/playground.css')}}"> {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/playground.css')}}"> 
 </head>
 
 <body>
