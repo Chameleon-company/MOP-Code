@@ -1,19 +1,5 @@
 [
     { 
-        "title": "Pedestrian Analysis",
-        "name": "pedestrian-analysis", 
-        "description": "Pedestrian activity in any country is a symbol of vibrancy and vitality. An automated pedestrian counting system developed by the City of Melbourne enabled the development of an information repository that can be utilized to analyze the activity of residents across different parts of the city.",
-        "tags": ["python", "py", "notebook", "mapbox", "selenium"],
-        "difficulty": "Beginner",
-        "technology": [{
-            "name": "mapbox",
-            "code": "python"
-        },{
-            "name": "selenium",
-            "code": "python"
-        }]
-    },
-    { 
         "title": "New Business Location", 
         "name": "new-business-location", 
         "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue.",
