@@ -112,10 +112,12 @@ function createArticle(article) {
     // create new article tile
     let articleTile = articleTemplate.content.cloneNode(true);
 
+    // get the anchor that wraps the tile
+    let anchor = articleTile.querySelectorAll('.article-anchor')[0]
+    anchor.href = $SCRIPT_ROOT + "/use-cases/" + article.name
     // set the title & description
     let title = articleTile.querySelectorAll('.title')[0]
     title.textContent = article.title
-    title.href = $SCRIPT_ROOT + "/use-cases/" + article.name
     let description = articleTile.querySelectorAll('.description')[0]
     description.textContent = article.description
 
