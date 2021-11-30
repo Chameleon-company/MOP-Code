@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>3_1_4_Deep_PDA_use_case</title>
+<title>usecase-PDAforTargetLocations</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -12947,13 +12947,8 @@ ul.typeahead-list  > li > a.pull-right {
 /*# sourceMappingURL=style.min.css.map */
     </style>
 <style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.highlight .hll { background-color: #ffffcc }
-.highlight { background: #f8f8f8; }
+    .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
@@ -13082,23 +13077,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Step-1---Problem-&amp;-Solution">Step 1 - Problem &amp; Solution<a class="anchor-link" href="#Step-1---Problem-&amp;-Solution">&#182;</a></h1>
+<h1 id="Step-1---Story">Step 1 - Story<a class="anchor-link" href="#Step-1---Story">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Problem:</em></strong> Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times and different days of the week. Relying on this information, they can choose the best area to place their business workplace.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Solution</em></strong>:</p>
-<p>We will take the specific area that a business wants to analyze foot traffic as the input, then we will create a live Pedestrian Map and mark the business area. Next, we will show some near pedestrian sensors in a specific radius such as 200 meters. The business can choose multiple sensors. After that, A window will appear and compare the pedestrian data of the current date and 4-weeks average data by showing a line chart that visualizes pedestrian volume at different times of the day of those sensors.</p>
+<p>Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times of the day. First, we will take some specific areas that a business wants to analyze foot traffic as the input, then we will create a live Pedestrian Map and mark the business areas. In addition, we create a trend line chart to compare the pedestrian traffic of these addresses at different times of today and one month average. Finally, relying on this information, they can choose the best area to place their business workplace.</p>
 
 </div>
 </div>
@@ -13883,7 +13869,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
     <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
         <span class="n">row</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">))]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Sensor Description&quot;</span><span class="p">])]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
         <span class="n">locations</span> <span class="o">+=</span> <span class="n">location</span>
         
     <span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">basemap</span><span class="o">=</span><span class="n">basemaps</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">37.8167</span><span class="p">,</span> <span class="mf">144.967</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
@@ -13926,10 +13912,10 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 
  
  
-<div id="76c93c4f-1067-42a9-9f59-654d0b1a112c"></div>
+<div id="7e4f56ce-12e4-4fed-b53b-30d88fb6e749"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
+var element = $('#7e4f56ce-12e4-4fed-b53b-30d88fb6e749');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "b14c25df1cb44a18a2a373c7d9d98ff4", "version_major": 2, "version_minor": 0}
@@ -14111,7 +14097,7 @@ var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
         <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
             <span class="n">row</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">))]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">),</span><span class="n">title</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Sensor Description&quot;</span><span class="p">])]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
             <span class="n">locations</span> <span class="o">+=</span> <span class="n">location</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">basemap</span><span class="o">=</span><span class="n">basemaps</span><span class="o">.</span><span class="n">OpenStreetMap</span><span class="o">.</span><span class="n">Mapnik</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
         <span class="n">marker_cluster</span> <span class="o">=</span> <span class="n">MarkerCluster</span><span class="p">(</span><span class="n">markers</span><span class="o">=</span><span class="n">locations</span><span class="p">)</span>
@@ -14128,9 +14114,9 @@ var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
             <span class="n">data_filter</span><span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Sensor ID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">sensor_ids</span><span class="p">)]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_filter</span><span class="p">)):</span>
                 <span class="n">row</span> <span class="o">=</span><span class="n">data_filter</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="n">location_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">))]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
+                <span class="n">location_i</span> <span class="o">=</span> <span class="p">[</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Sensor Description&quot;</span><span class="p">])]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
                 <span class="n">locations</span> <span class="o">+=</span> <span class="n">location_i</span>
-                <span class="n">marker</span> <span class="o">=</span> <span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">center_i</span><span class="p">),</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">marker</span> <span class="o">=</span> <span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">center_i</span><span class="p">),</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span><span class="n">location</span> <span class="o">+</span> <span class="s2">&quot;, Melbourne, Victoria, Australia&quot;</span><span class="p">)</span>
                 <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">center_i</span><span class="p">),</span><span class="n">weight</span> <span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">radius_value</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">fill_color</span> <span class="o">=</span> <span class="s2">&quot;#ffffff00&quot;</span><span class="p">)</span>
                 <span class="n">m</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
                 <span class="n">m</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
@@ -14295,10 +14281,10 @@ var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
 
  
  
-<div id="38c43953-a879-4165-bd0f-ac9bd6cc354a"></div>
+<div id="b918c4d8-3781-4cd3-8d6e-526ec236246d"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#38c43953-a879-4165-bd0f-ac9bd6cc354a');
+var element = $('#b918c4d8-3781-4cd3-8d6e-526ec236246d');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "f70c4dee1aa34dde99e0d16b26bcd38a", "version_major": 2, "version_minor": 0}
@@ -14374,10 +14360,10 @@ var element = $('#38c43953-a879-4165-bd0f-ac9bd6cc354a');
 
  
  
-<div id="7ade27fd-f34c-4cfa-af62-9f6f59d59bed"></div>
+<div id="a255e406-88ea-409f-b34b-af49c08f17cb"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#7ade27fd-f34c-4cfa-af62-9f6f59d59bed');
+var element = $('#a255e406-88ea-409f-b34b-af49c08f17cb');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "b4e942a29eb947b38071424b30b0e8e1", "version_major": 2, "version_minor": 0}
@@ -14453,10 +14439,10 @@ var element = $('#7ade27fd-f34c-4cfa-af62-9f6f59d59bed');
 
  
  
-<div id="af9b47fd-9aa8-4fc6-90a9-fd8fc8d82265"></div>
+<div id="815ff2a6-9c79-40f4-85fb-880ebd13bd96"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#af9b47fd-9aa8-4fc6-90a9-fd8fc8d82265');
+var element = $('#815ff2a6-9c79-40f4-85fb-880ebd13bd96');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "2e04cf3c2f894c28a61f73cafa2cd429", "version_major": 2, "version_minor": 0}
