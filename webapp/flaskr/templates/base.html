@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Open Data Playground</title>
+    <link rel="shortcut icon" type="image/png" href="static/images/moplogo.png"/>
+    
+    {% block head %}{% endblock %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/playground.css')}}"> {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/playground.css')}}"> 
 </head>
 
 <body>
@@ -15,9 +18,8 @@
     </script>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{url_for('home.home')}}">
-                <!-- width="112" height="28" -->
-                <img src="{{url_for('static', filename='City_Of_Melbourne_Logo.png')}}">
+            <a href="{{url_for('home.home')}}">
+                <img src="{{url_for('static', filename='images/moplogo.png')}}" style="width: 50px; height: 50px; margin-right: 5px; margin-left: 5px; margin-top: 5px; margin-bottom: 0px;">
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar_menu">
@@ -39,8 +41,11 @@
                     Contact
                 </a>
             </div>
-
+            
             <div class="navbar-end">
+                <a class="navbar-item" href="https://data.melbourne.vic.gov.au/" target="_blank">
+                    <img src="{{url_for('static', filename='City_Of_Melbourne_Logo.png')}}">
+                </a>
                 <div class="navbar-item">
                     <div class="buttons">
                         <a href="https://github.com/D2I-Melbourne/POCOM" target="_blank" class="button">

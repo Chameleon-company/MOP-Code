@@ -1,3 +1,47 @@
+mapboxgl.accessToken = 'pk.eyJ1IjoianNhbnNvbXNoZXJ3aWxsIiwiYSI6ImNrc2Y4Z255MjE4NXAydXBpbGs5bHlha3IifQ.dgv4c4Gl2v_K0TN_RpYfKg';
+
+/**
+ * This method will setup a new parking availability map given a container class
+ * - where a container class contains the necessary html for the parking available tool
+ * @param {*} containerClass 
+ * @returns Promise<void>
+ */
+function setupParkingAvailabilityMap(containerClass) {
+
+    return new Promise((resolve, reject) => {
+        const container = document.getElementsByClassName(containerClass)[0]
+        const mapId = container.getElementsByClassName('map')[0].id
+
+        const map = initMap(mapId)
+
+        // a layer onto which the search radius is eventually drawn
+        map.on('style.load', async () => {
+            addSearchRadiusLayer(map)
+            await showParkingSensorsOnMap(map)
+            resolve() // consider map loaded once this step is complete
+        })
+
+        map.on('click', (e) => onMapSelected(map, e))
+
+        let radiusSlider = document.querySelector('.' + containerClass + ' .parking_tool_radius_slider > .slider')
+        let radiusValue = document.querySelector('.' + containerClass + ' .parking_tool_radius_slider > .radius_value')
+
+        onRangeChange(radiusSlider, (e) => {
+            radius = e.target.value * 10
+            radiusValue.innerHTML = `${radius}m`
+
+            if (rangeUpdatedDelay)
+                clearTimeout(rangeUpdatedDelay)
+
+            // redo the map selection event
+            // with new radius setting
+            if (latestMapClickEvent) {
+                rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
+            }
+        })
+    })
+}
+
 function initMap(id) {
     return new mapboxgl.Map({
         container: id, // container ID
@@ -29,8 +73,102 @@ function makeRadius([lat, lng], radiusInMeters) {
 }
 
 function spatialJoin(geojson, filterFeature) {
-    return geojson.features.filter(function(feature) {
+    return geojson.features.filter(function (feature) {
         return turf.booleanPointInPolygon(feature, filterFeature);
+    });
+}
+
+
+var unknownMarkerName = 'unknown_marker'
+var presentMarkerName = 'occupied_marker'
+var unoccupiedMarkerName = 'unoccupied_marker'
+
+async function showParkingSensorsOnMap(map) {
+    // add the markers for different statuses to our available images
+    let imagesPromise = loadMarkers(map)
+    let latestSensors = fetch($SCRIPT_ROOT + "/parking-availability/latest.json")
+        .then(result => result.json())
+
+    let [_, data] = await Promise.all([imagesPromise, latestSensors])
+    // convert sensor information into geojson
+    let features = data
+        .reduce((features, parkingSensor) => {
+            let { lat, lon, status } = parkingSensor
+            let lng = lon
+            let feature = {
+
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [
+                        lng, lat
+                    ]
+                },
+                'properties': {
+                    'title': status
+                }
+            }
+            // add next parking sensor to the geojson features
+            // with respect to status
+            features[status].push(feature)
+            return features
+        }, { 'Present': [], 'Unoccupied': [], 'Unknown': [] })
+
+    // add each status type to the map
+    // as new marker mapbox layer
+    let { Present, Unoccupied, Unknown } = features
+
+    addLayer(map, Unknown, unknownMarkerName)
+    addLayer(map, Present, presentMarkerName)
+    addLayer(map, Unoccupied, unoccupiedMarkerName)
+}
+
+function loadMarkers(map) {
+    return Promise.all([
+        loadMapImage(map, '/static/occupied_parking_sensor_25px.png'), // url of custom png markers to represent status
+        loadMapImage(map, '/static/unoccupied_parking_sensor_25px.png'),
+        loadMapImage(map, '/static/unknown_parking_sensor_25px.png')
+    ]).then(([occupied, unoccupied, unknown]) => {
+        map.addImage(presentMarkerName, occupied)
+        map.addImage(unoccupiedMarkerName, unoccupied)
+        map.addImage(unknownMarkerName, unknown)
+    })
+}
+
+function loadMapImage(map, image) {
+    return new Promise((resolve, reject) => map.loadImage($SCRIPT_ROOT + image,
+        (error, image) => {
+            if (error)
+                reject(error)
+            else
+                resolve(image)
+        }))
+}
+
+
+function addLayer(map, features, markerName) {
+    map.addSource(markerName, {
+        'type': 'geojson',
+        'data': {
+            'type': 'FeatureCollection',
+            'features': features
+        }
+    });
+    map.addLayer({
+        'id': markerName,
+        'type': 'symbol',
+        'source': markerName,
+        'layout': {
+            'icon-image': markerName,
+            // get the title name from the source's "title" property
+            // 'text-field': ['get', 'title'],
+            // 'text-font': [
+            //     'Open Sans Semibold',
+            //     'Arial Unicode MS Bold'
+            // ],
+            // 'text-offset': [0, 1.25],
+            // 'text-anchor': 'top'
+        }
     });
 }
 
@@ -92,7 +230,7 @@ function renderGraphContent(map, eventLatLng, radius, data) {
     let index = 0
     const base_graph = ['daily', 'hourly']
     for (const graphImage of graphImages) {
-        graphImage.src = `${$SCRIPT_ROOT}/playground/parking-sensors/${base_graph[index]}_filtered.png?${filter}`
+        graphImage.src = `${$SCRIPT_ROOT}/parking-availability/${base_graph[index]}_filtered.png?${filter}`
         index += 1
     }
 
@@ -148,74 +286,14 @@ function removeSearch(map) {
 // source: https://stackoverflow.com/questions/18544890/onchange-event-on-input-type-range-is-not-triggering-in-firefox-while-dragging
 function onRangeChange(r, f) {
     var n, c, m;
-    r.addEventListener("input", function(e) {
+    r.addEventListener("input", function (e) {
         n = 1;
         c = e.target.value;
         if (c != m) f(e);
         m = c;
     });
-    r.addEventListener("change", function(e) { if (!n) f(e); });
+    r.addEventListener("change", function (e) { if (!n) f(e); });
 }
 
 
 var rangeUpdatedDelay = undefined
-
-window.addEventListener("load", () => {
-    const map = initMap("tool_map")
-
-    // a layer onto which the search radius is eventually drawn
-    map.on('style.load', () => {
-        addSearchRadiusLayer(map)
-        showParkingSensorsOnMap(map)
-    })
-
-    map.on('click', (e) => onMapSelected(map, e))
-
-    let radiusSlider = document.querySelector('.final_step .parking_tool_radius_slider > .slider')
-    let radiusValue = document.querySelector('.final_step .parking_tool_radius_slider > .radius_value')
-
-
-    onRangeChange(radiusSlider, (e) => {
-        radius = e.target.value * 10
-        radiusValue.innerHTML = `${radius}m`
-
-        if (rangeUpdatedDelay)
-            clearTimeout(rangeUpdatedDelay)
-
-        // redo the map selection event
-        // with new radius setting
-        if (latestMapClickEvent) {
-            rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
-        }
-    })
-})
-
-window.addEventListener("load", () => {
-    const map = initMap("solution_map")
-
-    // a layer onto which the search radius is eventually drawn
-    map.on('style.load', () => {
-        addSearchRadiusLayer(map)
-        showParkingSensorsOnMap(map)
-    })
-
-    map.on('click', (e) => onMapSelected(map, e))
-
-    let radiusSlider = document.querySelector('.solution_demo .parking_tool_radius_slider > .slider')
-    let radiusValue = document.querySelector('.solution_demo .parking_tool_radius_slider > .radius_value')
-
-
-    onRangeChange(radiusSlider, (e) => {
-        radius = e.target.value * 10
-        radiusValue.innerHTML = `${radius}m`
-
-        if (rangeUpdatedDelay)
-            clearTimeout(rangeUpdatedDelay)
-
-        // redo the map selection event
-        // with new radius setting
-        if (latestMapClickEvent) {
-            rangeUpdatedDelay = setTimeout(() => onMapSelected(map, latestMapClickEvent), 200)
-        }
-    })
-})
