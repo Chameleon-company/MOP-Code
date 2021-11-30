@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>3_1_4_Deep_PDA_use_case</title>
+<title>usecase-PDAforTargetLocations</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -12947,13 +12947,8 @@ ul.typeahead-list  > li > a.pull-right {
 /*# sourceMappingURL=style.min.css.map */
     </style>
 <style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.highlight .hll { background-color: #ffffcc }
-.highlight { background: #f8f8f8; }
+    .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
@@ -13089,7 +13084,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Problem:</em></strong> Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times and different days of the week. Relying on this information, they can choose the best area to place their business workplace.</p>
+<p><strong><em>Problem:</em></strong>
+Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times of the day.they can choose the best area to place their business workplace.</p>
 
 </div>
 </div>
@@ -13097,8 +13093,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><em>Solution</em></strong>:</p>
-<p>We will take the specific area that a business wants to analyze foot traffic as the input, then we will create a live Pedestrian Map and mark the business area. Next, we will show some near pedestrian sensors in a specific radius such as 200 meters. The business can choose multiple sensors. After that, A window will appear and compare the pedestrian data of the current date and 4-weeks average data by showing a line chart that visualizes pedestrian volume at different times of the day of those sensors.</p>
+<p><strong><em>Solution:</em></strong></p>
+<p>First, we will take some specific areas that a business wants to analyze foot traffic as the input, then we will create a live Pedestrian Map and mark the business areas. In addition, we create a trend line chart to compare the pedestrian traffic of these addresses at different times of today and one month average. Finally, relying on this information, they can choose the best area to place their business workplace.</p>
 
 </div>
 </div>
@@ -13926,10 +13922,10 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 
  
  
-<div id="76c93c4f-1067-42a9-9f59-654d0b1a112c"></div>
+<div id="105db762-587f-4c01-9570-1319e683bbb2"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
+var element = $('#105db762-587f-4c01-9570-1319e683bbb2');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "b14c25df1cb44a18a2a373c7d9d98ff4", "version_major": 2, "version_minor": 0}
@@ -14295,10 +14291,10 @@ var element = $('#76c93c4f-1067-42a9-9f59-654d0b1a112c');
 
  
  
-<div id="38c43953-a879-4165-bd0f-ac9bd6cc354a"></div>
+<div id="a9d1937f-ae34-4948-8840-1f6881027a56"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#38c43953-a879-4165-bd0f-ac9bd6cc354a');
+var element = $('#a9d1937f-ae34-4948-8840-1f6881027a56');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "f70c4dee1aa34dde99e0d16b26bcd38a", "version_major": 2, "version_minor": 0}
@@ -14374,10 +14370,10 @@ var element = $('#38c43953-a879-4165-bd0f-ac9bd6cc354a');
 
  
  
-<div id="7ade27fd-f34c-4cfa-af62-9f6f59d59bed"></div>
+<div id="3c3f6590-4b09-4057-8d14-47c1ef33151f"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#7ade27fd-f34c-4cfa-af62-9f6f59d59bed');
+var element = $('#3c3f6590-4b09-4057-8d14-47c1ef33151f');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "b4e942a29eb947b38071424b30b0e8e1", "version_major": 2, "version_minor": 0}
@@ -14453,10 +14449,10 @@ var element = $('#7ade27fd-f34c-4cfa-af62-9f6f59d59bed');
 
  
  
-<div id="af9b47fd-9aa8-4fc6-90a9-fd8fc8d82265"></div>
+<div id="957ba856-9f19-4cad-9e30-bc551e6b6935"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#af9b47fd-9aa8-4fc6-90a9-fd8fc8d82265');
+var element = $('#957ba856-9f19-4cad-9e30-bc551e6b6935');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "2e04cf3c2f894c28a61f73cafa2cd429", "version_major": 2, "version_minor": 0}
