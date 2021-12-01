@@ -1,11 +1,19 @@
 import os
 
 from flask import Flask
-
+from flask_talisman import Talisman
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    # Talisman is a small Flask extension that handles setting HTTP headers that can help protect
+    # against a few common web application security issues (https://github.com/GoogleCloudPlatform/flask-talisman).
+    # In particular, this sets the 'x-frame-options=SAMEORIGIN' flag in the HTTP response header to prevent clickjacking.
+    # The 'content_security_policy' argument is set to allow content from anywhere or it is too restrictive.
+    Talisman(app,
+             content_security_policy = {'default-src': '*'},
+             content_security_policy_report_only = True,
+             content_security_policy_report_uri = '/tools/csp-report')
     app.config.from_mapping(
         SECRET_KEY='dev'
     )
