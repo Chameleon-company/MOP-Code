@@ -13931,7 +13931,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black; text-align:right">
 <b>Duration:</b> 40 mins</p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:black; background-color: #DDDDDD; text-align:justify">
-<b>Level:</b> Advanced&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b>Pre-requisite Skills:</b>Python</p>
+<b>Level:</b> Advanced&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b>Pre-requisite Skills: </b>Python</p>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -13997,7 +13997,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong><em>Note:</em></strong> We use the package <strong><em>sodapy</em></strong> to extract from Melbourne Open Data directly. This package is a python client for the <strong><a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API.">Socrata Open Data API</a></strong>. To extract the data from Melbourne Open Data, you must have a dataset id. It can be found as follows:</p>
-<p><img src="images/data_api.png"> [Picture is not coming up]</p>
+<p><img src="{{url_for('static', filename='data_api.png')}}"></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14009,7 +14009,7 @@ a.anchor-link {
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">sodapy</span> <span class="kn">import</span> <span class="n">Socrata</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -14072,7 +14072,7 @@ a.anchor-link {
 <span class="n">counting_data</span> <span class="o">=</span> <span class="n">fifty_minute_count</span><span class="p">(</span><span class="n">location_data</span><span class="p">)</span>
 <span class="c1">#Show 5 first columns</span>
 <span class="n">counting_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -14118,7 +14118,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 <div>
-<style scoped>
+<!-- <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -14130,8 +14130,8 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
+</style> -->
+<table border="1" class="dataframe" style="margin-left:auto;margin-right:auto;">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -14186,7 +14186,6 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
   </tbody>
 </table>
 </div>
-</div>
 
 </div>
 
@@ -14195,8 +14194,13 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 </div>
+
+</div>
+
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div>
+
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <table>
 <thead><tr>
 <th>Columns</th>
@@ -14248,7 +14252,7 @@ Using Selenium to Crawl Data</b></p>
 <p>This means we can compare pedestrian foot traffic in two separate locations over different periods of the current date, as well as over a 4-week period.</p>
 <p>However, in order to get this data, we need to crawl the data from <a href="http://www.pedestrian.melbourne.vic.gov.au">http://www.pedestrian.melbourne.vic.gov.au</a>.</p>
 <p><strong><em>Note</em></strong> Because we cannot use <strong><em>Sodapy</em></strong> to crawl the data from this website, We use another package <strong><a href="https://pypi.org/project/selenium/"><strong><em>Selenium</em></strong></a></strong> to extract the data.</p>
-<p><img src="images/pedestrian_hourly.png"> [Picture is not showing]</p>
+<p><img src="{{url_for('static', filename='pedestrian_hourly.png')}}"></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14256,11 +14260,12 @@ Using Selenium to Crawl Data</b></p>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+
   <div class="snippet-language">
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Set up Selenium</span>
 <span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
@@ -14357,10 +14362,10 @@ Using Selenium to Crawl Data</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
 <span class="n">daily_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -14563,10 +14568,10 @@ Using Selenium to Crawl Data</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"></code><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
 <span class="n">monthly_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -14784,7 +14789,7 @@ Basic Map Visualisation</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">ipyleaflet</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">Marker</span><span class="p">,</span> <span class="n">MarkerCluster</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">basemaps</span>
 <span class="c1">#Make the output space to be larger</span>
 <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
@@ -14805,7 +14810,7 @@ Basic Map Visualisation</b></p>
     <span class="n">m</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s1">&#39;1000px&#39;</span>
     <span class="k">return</span> <span class="n">m</span>
 <span class="n">map_visualization</span><span class="p">(</span><span class="n">counting_data</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -14887,7 +14892,7 @@ Basic Trend Visualisation</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Function to plot a line chart.</span>
 <span class="k">def</span> <span class="nf">line_chart</span><span class="p">(</span><span class="n">daily_data_sensor_1</span> <span class="p">,</span> <span class="n">monthly_data_sensor_1</span><span class="p">,</span> <span class="n">daily_data_sensor_2</span><span class="p">,</span> <span class="n">monthly_data_sensor_2</span><span class="p">,</span> <span class="n">sensor_1</span><span class="p">,</span> <span class="n">sensor_2</span><span class="p">):</span>
     <span class="n">hours</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;0</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:00&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:00&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">24</span><span class="p">)]</span>  
@@ -14916,7 +14921,7 @@ Basic Trend Visualisation</b></p>
 
 <span class="c1">#Show line chart of sensor 1 and 4</span>
 <span class="n">trend_visualization</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -15001,7 +15006,7 @@ Geographic Filter</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">googlemaps</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -15147,7 +15152,7 @@ Geographic Filter</b></p>
         <span class="n">m</span> <span class="o">=</span> <span class="n">map_visualization</span><span class="p">(</span><span class="n">live_counting_data</span><span class="p">,</span><span class="n">locations</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">fitler_address_values</span><span class="p">,</span> <span class="n">radius_value</span><span class="p">)</span>
         <span class="n">line_chart</span><span class="p">(</span><span class="n">daily_data</span><span class="p">,</span> <span class="n">monthly_data</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="n">fitler_address_values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">m</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -15169,11 +15174,11 @@ Geographic Filter</b></p>
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;div.output_scroll { height: 1600px; }&lt;/style&gt;&quot;</span><span class="p">))</span>
 <span class="n">fitler_address_values</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">visualization</span><span class="p">(</span><span class="n">fitler_address_values</span> <span class="p">,</span> <span class="n">live_counting_data</span> <span class="o">=</span> <span class="n">counting_data</span><span class="p">,</span><span class="n">radius_value</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -15255,11 +15260,11 @@ var element = document.getElementById('03cfb2b1-752a-4c82-bc9d-7f8d02548a9f');
     <span class="icon"><i class="fab fa-python"></i></span>
     <span class=>Python</span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;div.output_scroll { height: 1600px; }&lt;/style&gt;&quot;</span><span class="p">))</span>
 <span class="n">fitler_address_values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Flinder Station&quot;</span><span class="p">,</span> <span class="s2">&quot;southcross station&quot;</span><span class="p">,</span> <span class="s2">&quot;melbourne central station&quot;</span><span class="p">]</span>
 <span class="n">visualization</span><span class="p">(</span><span class="n">fitler_address_values</span><span class="p">,</span> <span class="n">live_counting_data</span> <span class="o">=</span> <span class="n">counting_data</span><span class="p">,</span><span class="n">radius_value</span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -15339,13 +15344,12 @@ var element = document.getElementById('114f5945-82a6-453d-89b0-ccc7c58677fd');
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
   <div class="snippet-language">
     <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+    <span class=Python></span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
-<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;div.output_scroll { height: 1600px; }&lt;/style&gt;&quot;</span><span class="p">))</span>
+<figure class="highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;div.output_scroll { height: 1600px; }&lt;/style&gt;&quot;</span><span class="p">))</span>
 <span class="n">fitler_address_values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;100 Litte Collin Street&quot;</span><span class="p">,</span> <span class="s2">&quot;50 Collin Sreet&quot;</span><span class="p">,</span> <span class="s2">&quot;10 elizabeth street&quot;</span><span class="p">,</span> <span class="s2">&quot;10 Swanston Street&quot;</span><span class="p">]</span>
 <span class="n">visualization</span><span class="p">(</span><span class="n">fitler_address_values</span><span class="p">,</span> <span class="n">live_counting_data</span> <span class="o">=</span> <span class="n">counting_data</span><span class="p">,</span><span class="n">radius_value</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
@@ -15433,11 +15437,11 @@ Congratulations!
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
   <div class="snippet-language">
     <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+    <span class=Python></span>
   </div>
-     <div class="CodeMirror cm-s-jupyter">
+     
 <figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="o">!</span>jupyter nbconvert --to html 3_1_4_Deep_PDA_use_case.ipynb
-</code></pre></div>
+</code></pre>
 
      </div>
 </div>
