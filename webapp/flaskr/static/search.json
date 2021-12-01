@@ -3,7 +3,7 @@
         "title": "New Business Location", 
         "name": "new-business-location", 
         "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue. I would like to know where similar businesses along, with their seating capacity, are located plus the density of residents and office workers in comparison.",
-        "tags": ["CLUE", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
+        "tags": ["clue", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
         "difficulty": "Intermediate",
         "technology": [{
             "name": "mapbox",
