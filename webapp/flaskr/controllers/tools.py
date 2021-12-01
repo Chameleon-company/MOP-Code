@@ -1,5 +1,5 @@
 from markupsafe import escape
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, current_app
 from flaskr.logic.parking_availability.view_model import build_view_model
 import json
 
