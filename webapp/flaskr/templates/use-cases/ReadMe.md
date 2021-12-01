@@ -4,7 +4,7 @@
 1. Copy the converted HTML file into a new flask template file
 1. Place the `{% extends 'base.html' %}` preprocessor at the top of the file
 1. Remove `Doctype` & `html` tags
-1. Find and replace `{{` with `{` and vice versa for `}}` (CAREFUL: only do this in code beginning with **var**, e.g. **var gd** or **var x**. If you accidentally replace *all* `{{` and `}}` will break other parts of the code, for example the mapbox interactivity).
+1. Find and replace `{{` with `{` and vice versa for `}}` (CAREFUL: only do this in code beginning with **var**, e.g. **var gd** or **var x**. If you accidentally replace *all* `{{` and `}}`, it will break other parts of the code). You can also enclose these **var** code blocks containing '{{ }}' in `{% raw %} ... {% endraw %}` blocks.
 1. Place the styles and script tags in the header content block `{% block head %}...{% endblock %}`. Be sure to remove any `<head>`, `<meta>`, and `<title>` tags from the content.
 1. Place the playground libraries into the head content block
     ```<!-- Load in the highlight js -->
