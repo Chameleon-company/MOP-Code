@@ -2,11 +2,20 @@
     { 
         "title": "New Business Location", 
         "name": "new-business-location", 
-        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue.",
-        "tags": ["CLUE", "residential", "employee", "business", "dwellings", "cafe", "restaurant", "mapbox", "API", "Socrata", "visualisation", "geospatial", "chloropleth", "GeoJSON"],
+        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue. I would like to know where similar businesses along, with their seating capacity, are located plus the density of residents and office workers in comparison.",
+        "tags": ["clue", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
         "difficulty": "Intermediate",
         "technology": [{
             "name": "mapbox",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "plotly",
             "code": "python"
         }]
     },
@@ -20,17 +29,6 @@
             "name": "mapbox",
             "code": "javascript"
         },{
-            "name": "pandas",
-            "code": "python"
-        }]
-    },
-    { 
-        "title": "PDA for Target Locations", 
-        "name": "pda-target-locations",
-        "description": "Businesses such as potential restaurant owners want to explore and compare foot traffic at locations they are interested in and compare their recent daily pedestrian volume at different times and different days of the week. Relying on this information, they can choose the best area to place their business workplace.",
-        "tags": ["pedestrian", "geocoding API", "socrata", "ipyleaflet"],
-        "difficulty": "Advanced",
-        "technology": [{
             "name": "pandas",
             "code": "python"
         }]
