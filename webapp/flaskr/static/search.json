@@ -1,5 +1,25 @@
 [
     { 
+        "title": "New Business Location", 
+        "name": "new-business-location", 
+        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue. I would like to know where similar businesses along, with their seating capacity, are located plus the density of residents and office workers in comparison.",
+        "tags": ["clue", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "mapbox",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "plotly",
+            "code": "python"
+        }]
+    },
+    { 
         "title": "Parking Availability", 
         "name": "parking-availability",
         "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
@@ -10,19 +30,6 @@
             "code": "javascript"
         },{
             "name": "pandas",
-            "code": "python"
-        }]
-    },
-    { 
-        "title": "Pedestrian Traffic", 
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
-        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "sklearn"],
-        "difficulty": "Beginner",
-        "technology": [{
-            "name": "mapbox",
-            "code": "python"
-        },{
-            "name": "selenium",
             "code": "python"
         }]
     }
