@@ -32,5 +32,17 @@
             "name": "pandas",
             "code": "python"
         }]
+    },
+    { 
+        "title": "Pedestrian Traffic Analysis", 
+        "name": "pedestrian-traffic-analysis",
+        "description": "As a business owner, I want to know how much pedestrian foot traffic occurs in a potential new business location. I would like to be able to compare pedestrian traffic through the day, week and month. I would like to see visualisations that can help in deciding where I can start my new venture",
+        "tags": ["pedestrian", "traffic", "location", "geocoding API", "socrata", "ipyleaflet"],
+        "difficulty": "Advanced",
+        "technology": [{
+            "name": "sodapy",
+            "code": "python"
+        }]
     }
 ]
+
