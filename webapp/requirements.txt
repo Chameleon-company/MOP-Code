@@ -2,6 +2,7 @@
 boto3==1.18.11
 botocore==1.21.11
 Flask==2.0.1
+flask-talisman==0.8.1
 geopandas==0.9.0
 matplotlib==3.4.3
 numpy==1.21.1
