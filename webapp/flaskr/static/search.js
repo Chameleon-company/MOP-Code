@@ -13,8 +13,8 @@ function toString(article) {
         article.description + " " +
         article.tags.join(" ") +
         article.technology
-        .map(technology => technology.name + " " + technology.code)
-        .join(" ")
+            .map(technology => technology.name + " " + technology.code)
+            .join(" ")
 
     return combined.toLowerCase() // to lower for case-insensitive search results
 }
@@ -45,7 +45,7 @@ function insertSearchResults(event) {
         }
         let articleTileParent = articleTileParents[0]
         articleTileParent.innerHTML = ""
-            // get new results
+        // get new results
         let articlePromise = searchArticles(searchTerms)
             .then((results) => {
                 let tileParent = articleTileParent
@@ -59,7 +59,6 @@ function insertSearchResults(event) {
 
                     let article = results[index]
                     let articleNode = createArticle(article)
-                        // articleNode.querySelector('.box').style.backgroundColor = getColor(Math.floor(Math.random()*10) % 4)
                     tileParent.appendChild(articleNode)
                 }
             })
@@ -73,7 +72,7 @@ function insertSearchResults(event) {
         }
         let datasetTileParent = datasetTileParents[0]
         datasetTileParent.innerHTML = ""
-            // lookup datasets
+        // lookup datasets
         let datasetPromise = searchDatasets(searchTerms)
             .then((results) => {
                 let tileParent = datasetTileParent
@@ -87,7 +86,6 @@ function insertSearchResults(event) {
 
                     let dataset = results[index]
                     let datasetNode = createDataset(dataset)
-                        // datasetNode.querySelector('.box').style.backgroundColor = getColor(Math.floor(Math.random() * 10) % 4)
                     tileParent.appendChild(datasetNode)
                 }
             })
@@ -107,22 +105,29 @@ function createArticle(article) {
     let articleTemplate = document.querySelector('#article_tile_template');
     let technologyRowTemplate = document.querySelector('#technology_row_template')
     let iconTemplate = document.querySelector('#icon_template')
+    let tagsTemplate = document.querySelector('#tags_template')
 
     // create new article tile
     let articleTile = articleTemplate.content.cloneNode(true);
 
+    // get the anchor that wraps the tile
+    let anchor = articleTile.querySelectorAll('.article-anchor')[0]
+    anchor.href = $SCRIPT_ROOT + "/use-cases/" + article.name
     // set the title & description
     let title = articleTile.querySelectorAll('.title')[0]
     title.textContent = article.title
-    title.href = $SCRIPT_ROOT + "/use-cases/" + article.name
     let description = articleTile.querySelectorAll('.description')[0]
     description.textContent = article.description
+
+    // set the difficulty
+    let difficulty = articleTile.querySelectorAll('.difficulty')[0]
+    difficulty.textContent = article.difficulty
 
     // add technolgy information to the article tile
     let technologyTable = articleTile.querySelectorAll('.table')[0]
     for (let techIndex in article.technology) {
         let technology = article.technology[techIndex]
-            // set the technology name
+        // set the technology name
         let technologyRow = technologyRowTemplate.content.cloneNode(true)
         let td = technologyRow.querySelectorAll("td");
         td[0].textContent = technology.name;
@@ -137,6 +142,18 @@ function createArticle(article) {
 
         // add row to table
         technologyTable.appendChild(technologyRow)
+    }
+
+    // add tags to article tile
+    let tagButtons = articleTile.querySelectorAll('.buttons')[0]
+    for (let tagsIndex in article.tags) {
+        let tag = article.tags[tagsIndex]
+
+        let tagButton = tagsTemplate.content.cloneNode(true)
+        let btn = tagButton.querySelector("button")
+        btn.textContent = tag
+
+        tagButtons.appendChild(tagButton)
     }
 
     //return the article
@@ -170,11 +187,11 @@ function searchArticles(searchTerms) {
         .then((searchResults) => {
             let results = searchResults.filter(article => {
                 let articleSearch = toString(article)
-                    // if we have a search term, then we search based on that term
+                // if we have a search term, then we search based on that term
                 if (searchTerms.some(x => x.length))
                     return searchTerms.some(term => articleSearch.includes(term))
                 else
-                // if we have no search term, then we show all
+                    // if we have no search term, then we show all
                     return true
             })
             return results

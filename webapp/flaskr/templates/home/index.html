@@ -58,28 +58,59 @@
         </div>
     </section>
 </div>
+
+<!-- template for use cases tile -->
 <template id="article_tile_template">
     <article class="tile is-4 is-child">
         <div class="block" style="padding: 12px;">
-            <div class="box">
-                <a href="{{url_for('use_cases.use_cases', name='parking-availability')}}" class="title">
-                    <!-- title -->
-                </a>
-                <div class="block description">
-                    <!-- description-->
+            <a href="{{url_for('home.home')}}" class="article-anchor">
+                <div class="box">
+                    <div class="title">
+                        <!-- title -->
+                    </div>
+                    <div class="block description">
+                        <!-- description-->
+                    </div>
+                    <div>
+                        <b> Level: </b> 
+                        <span class="difficulty">
+                        <!-- difficulty-->
+                        </span>
+                    </div>
+                    <div class="block">
+                        <table class="table">
+                            <thead>
+                                <td><b>Tech</b></td>
+                                <td></td>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="buttons">
+                    </div>
                 </div>
-                <div class="block">
-                    <table class="table">
-                        <thead>
-                            <td>Tech</td>
-                            <td></td>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+            </a>    
         </div>
     </article>
 </template>
+
+<!-- template for technology and icons in use cases tile -->
+<template id="technology_row_template">
+    <tr>
+        <td class="technology"></td>
+        <td class="code"></td>
+    </tr>
+</template> 
+<template id="icon_template">
+    <span class="icon"></span>
+</template>
+
+<!-- template for tags in use cases tile -->
+<template id="tags_template">
+    <button class="tag button is-info">
+    </button>
+</template>
+
+<!-- template for datasets -->
 <template id="dataset_tile_template">
     <article class="tile is-child is-3">
         <div class="block" style="padding: 12px;">
@@ -87,8 +118,7 @@
                 <div class="box">
                     <span class="subtitle">
                     <!-- title -->
-                    </span>
-                        
+                    </span>                       
                     <div class="block">
                         <p><b>Downloads:</b>
                             <span class="description">
@@ -100,15 +130,7 @@
         </div>
     </article>
 </template>
-<template id="technology_row_template">
-    <tr>
-        <td class="technology"></td>
-        <td class="code"></td>
-    </tr>
-</template>
-<template id="icon_template">
-    <span class="icon"></span>
-</template>
+
 <style type="text/css">
     .article-tile-parent .box:hover {
         box-shadow: none

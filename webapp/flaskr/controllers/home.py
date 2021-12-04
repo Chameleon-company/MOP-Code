@@ -15,6 +15,10 @@ def about():
     return render_template('home/about.html', about=True)
 
 
+@bp.route("/faq", methods=('GET', 'POST'))
+def faq():
+    return render_template('home/faq.html', faq=True)
+
 @bp.route("/contact", methods=('GET', 'POST'))
 def contact():
     return render_template('home/contact.html', contact=True)

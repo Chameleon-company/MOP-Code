@@ -1,10 +1,30 @@
 [
     { 
+        "title": "New Business Location", 
+        "name": "new-business-location", 
+        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue. I would like to know where similar businesses along, with their seating capacity, are located plus the density of residents and office workers in comparison.",
+        "tags": ["clue", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "mapbox",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "plotly",
+            "code": "python"
+        }]
+    },
+    { 
         "title": "Parking Availability", 
         "name": "parking-availability",
         "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
         "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
-        "difficulty": "expert",
+        "difficulty": "Intermediate",
         "technology": [{
             "name": "mapbox",
             "code": "javascript"
@@ -14,17 +34,15 @@
         }]
     },
     { 
-        "title": "Pedestrian Analysis",
-        "name": "pedestrian-analysis",
-        "description": "Pedestrian activity in any country is a symbol of vibrancy and vitality. An automated pedestrian counting system developed by the City of Melbourne enabled the development of an information repository that can be utilized to analyze the activity of residents across different parts of the city. ",
-        "tags": ["python", "py", "notebook", "mapbox", "selenium"],
-        "difficult": "beginner",
+        "title": "Pedestrian Traffic Analysis", 
+        "name": "pedestrian-traffic-analysis",
+        "description": "As a business owner, I want to know how much pedestrian foot traffic occurs in a potential new business location. I would like to be able to compare pedestrian traffic through the day, week and month. I would like to see visualisations that can help in deciding where I can start my new venture",
+        "tags": ["pedestrian", "traffic", "location", "geocoding API", "socrata", "ipyleaflet"],
+        "difficulty": "Advanced",
         "technology": [{
-            "name": "mapbox",
-            "code": "python"
-        },{
-            "name": "selenium",
+            "name": "sodapy",
             "code": "python"
         }]
     }
 ]
+
