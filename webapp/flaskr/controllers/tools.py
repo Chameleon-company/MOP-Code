@@ -25,15 +25,4 @@ def get_view_model(name):
 @bp.route('/csp-report', methods=['POST'])
 def csp_report():
     report = request.get_data()
-    logged_report_dict = {}
-    try:
-        logged_report_dict['extra_data'] = json.loads(report)
-    except json.decoder.JSONDecodeError:
-        current_app.logger.warning('Invalid csp-report payload: %s', str(report))
-    else:
-        current_app.logger.critical(
-            'Invalid script detected: %s',
-            logged_report_dict['extra_data']['csp-report']['blocked-uri'],
-            extra=logged_report_dict
-        )
     return report
