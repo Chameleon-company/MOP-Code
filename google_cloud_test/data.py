@@ -1,11 +1,8 @@
 import io
 
-import boto3
-from google.cloud import storage
-
 
 class DataStorageFactory:
-    def get(self, env):
+    def create(self, env):
         if env == 'aws':
             return AWSS3Repo()
         elif env == 'google':
@@ -21,6 +18,7 @@ class StorageRepo:
 
 class AWSS3Repo(StorageRepo):
     def get(self, file):
+        import boto3
         bucket = 'opendataplayground.deakin'
         s3 = boto3.resource('s3', region_name='ap-southeast-2')
         bucket = s3.Bucket(bucket)
@@ -32,6 +30,8 @@ class AWSS3Repo(StorageRepo):
 
 class GoogleCloudRepo(StorageRepo):
     def get(self, file):
+        from google.cloud import storage
+
         """Downloads a blob from the bucket."""
         # The ID of your GCS bucket
         # bucket_name = "your-bucket-name"
@@ -68,7 +68,7 @@ class GoogleCloudRepo(StorageRepo):
 
 
 if __name__ == "__main__":
-    repo = DataStorageFactory().get('aws')
+    repo = DataStorageFactory().create('google')
     file = repo.get('parkingsensor/parkingsensor.csv')
     read_file = file.read()
     for byte in read_file:

@@ -21,7 +21,7 @@ def create_order():
 @app.route("/download", methods=["GET"])
 def download_test():
     from data import DataStorageFactory
-    repo = DataStorageFactory().get('google')
+    repo = DataStorageFactory().create('google')
     filename = 'parkingsensor.csv'
     stream = repo.get(f"parkingsensor/{filename}")
     return send_file(stream, download_name=filename)
