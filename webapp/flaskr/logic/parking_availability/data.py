@@ -1,15 +1,10 @@
 import boto3
-import botocore
 import pandas as pd
 
 
 def get():
     bucket = 'opendataplayground.deakin'
-    client_config = botocore.config.Config(
-        max_pool_connections=50,
-    )
-    s3_client = boto3.client(
-        's3', region_name="ap-southeast-2", config=client_config)
+    s3_client = boto3.client('s3', region_name="ap-southeast-2")
 
     def getter(key):
         return s3_client.get_object(Bucket=bucket, Key=key)
