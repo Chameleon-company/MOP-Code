@@ -7,3 +7,8 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+### Jupyter Notebooks
+datascience/usecases/.ipynb_checkpoints/*.ipynb
+datascience/usecases/.ipynb_checkpoints/usecase-TEMPLATE-checkpoint.ipynb
+datascience/usecases/.ipynb_checkpoints/Pedestrian_Traffic_Analysis_Final-checkpoint.ipynb
