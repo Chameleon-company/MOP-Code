@@ -20,16 +20,22 @@
         }]
     },
     { 
-        "title": "Parking Availability", 
-        "name": "parking-availability",
-        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
-        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
+        "title": "Spot Parking Problem", 
+        "name": "spot-parking-problem",
+        "description": "A city planner or goverment may want to locate the potential areas or city blocks where parking availability is underweight against the employment numbers and residetial dwellings, and plan to tackle the problem by extending public transportation.",
+        "tags": ["parking", "off street", "public transportation", "employment", "residential dwellings", "parking trend"],
         "difficulty": "Intermediate",
         "technology": [{
-            "name": "mapbox",
-            "code": "javascript"
+            "name": "numpy",
+            "code": "python"
         },{
             "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "scikit-learn",
             "code": "python"
         }]
     },
@@ -43,6 +49,19 @@
             "name": "sodapy",
             "code": "python"
         }]
+    },
+    { 
+        "title": "Parking Availability", 
+        "name": "parking-availability",
+        "description": "As a business that requires parking being available to either you or your customers, this will give you a great introduction to how a local business was able to solve their parking problems.",
+        "tags": ["javascript", "js", "python", "py", "notebook", "mapbox", "pandas"],
+        "difficulty": "Advanced",
+        "technology": [{
+            "name": "mapbox",
+            "code": "javascript"
+        },{
+            "name": "pandas",
+            "code": "python"
+        }]
     }
 ]
-
