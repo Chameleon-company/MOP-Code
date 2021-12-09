@@ -11208,3 +11208,1873 @@
 2021-11-27 14:00:25.291213, [parking sensors status] updated to parquet
 2021-11-30 15:31:11.711048, [parking sensors status] appended and [unique bays] updated to files
 2021-11-30 15:31:40.192793, [parking sensors status] updated to parquet
+2021-11-30 15:45:35.305987, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 15:45:45.070634, [parking sensors status] updated to parquet
+2021-11-30 16:45:25.196589, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 16:45:47.084719, [parking sensors status] updated to parquet
+2021-11-30 17:00:33.651558, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 17:00:49.228208, [parking sensors status] updated to parquet
+2021-11-30 17:15:05.800569, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 17:15:14.627838, [parking sensors status] updated to parquet
+2021-11-30 17:30:40.114065, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 17:30:50.080159, [parking sensors status] updated to parquet
+2021-11-30 17:45:35.375016, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 17:45:46.431980, [parking sensors status] updated to parquet
+2021-11-30 18:00:11.306964, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 18:00:23.443612, [parking sensors status] updated to parquet
+2021-11-30 18:15:07.088687, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 18:15:17.803516, [parking sensors status] updated to parquet
+2021-11-30 18:30:34.117745, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 18:30:44.816348, [parking sensors status] updated to parquet
+2021-11-30 18:45:24.066235, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 18:45:32.985626, [parking sensors status] updated to parquet
+2021-11-30 19:00:50.053888, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 19:01:01.119611, [parking sensors status] updated to parquet
+2021-11-30 19:15:17.533642, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 19:15:27.613778, [parking sensors status] updated to parquet
+2021-11-30 19:30:19.058866, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 19:30:28.819761, [parking sensors status] updated to parquet
+2021-11-30 19:45:18.239499, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 19:45:27.276384, [parking sensors status] updated to parquet
+2021-11-30 20:00:17.240791, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 20:00:26.579025, [parking sensors status] updated to parquet
+2021-11-30 20:15:09.525656, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 20:15:18.409098, [parking sensors status] updated to parquet
+2021-11-30 20:30:17.040927, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 20:30:27.005792, [parking sensors status] updated to parquet
+2021-11-30 20:45:19.212883, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 20:45:31.712837, [parking sensors status] updated to parquet
+2021-11-30 21:00:16.491599, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 21:00:27.923027, [parking sensors status] updated to parquet
+2021-11-30 21:15:07.029413, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 21:15:19.676783, [parking sensors status] updated to parquet
+2021-11-30 21:30:12.957673, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 21:30:23.850673, [parking sensors status] updated to parquet
+2021-11-30 21:45:17.665703, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 21:45:28.086714, [parking sensors status] updated to parquet
+2021-11-30 22:00:14.353046, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 22:00:24.988689, [parking sensors status] updated to parquet
+2021-11-30 22:15:03.268768, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 22:15:12.169817, [parking sensors status] updated to parquet
+2021-11-30 22:30:05.791269, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 22:30:14.281858, [parking sensors status] updated to parquet
+2021-11-30 22:45:07.348305, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 22:45:16.128096, [parking sensors status] updated to parquet
+2021-11-30 23:00:10.633809, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 23:00:20.139389, [parking sensors status] updated to parquet
+2021-11-30 23:15:02.856693, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 23:15:11.835135, [parking sensors status] updated to parquet
+2021-11-30 23:30:09.751335, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 23:30:20.263991, [parking sensors status] updated to parquet
+2021-11-30 23:45:09.721732, [parking sensors status] appended and [unique bays] updated to files
+2021-11-30 23:45:18.640892, [parking sensors status] updated to parquet
+2021-12-01 00:00:12.043056, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 00:00:21.546305, [parking sensors status] updated to parquet
+2021-12-01 00:15:02.797552, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 00:15:11.540630, [parking sensors status] updated to parquet
+2021-12-01 00:30:10.242368, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 00:30:19.008730, [parking sensors status] updated to parquet
+2021-12-01 00:45:10.803983, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 00:45:21.072435, [parking sensors status] updated to parquet
+2021-12-01 01:00:08.752152, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 01:00:17.303668, [parking sensors status] updated to parquet
+2021-12-01 01:15:03.085307, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 01:15:12.078038, [parking sensors status] updated to parquet
+2021-12-01 01:30:10.518847, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 01:30:19.627598, [parking sensors status] updated to parquet
+2021-12-01 01:45:10.663589, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 01:45:19.107022, [parking sensors status] updated to parquet
+2021-12-01 02:00:10.776083, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 02:00:19.203201, [parking sensors status] updated to parquet
+2021-12-01 02:15:02.446380, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 02:15:11.325962, [parking sensors status] updated to parquet
+2021-12-01 02:30:10.919014, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 02:30:20.629928, [parking sensors status] updated to parquet
+2021-12-01 02:45:10.614650, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 02:45:19.056042, [parking sensors status] updated to parquet
+2021-12-01 03:00:10.054264, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 03:00:19.048481, [parking sensors status] updated to parquet
+2021-12-01 03:15:02.856047, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 03:15:11.714923, [parking sensors status] updated to parquet
+2021-12-01 03:30:10.596602, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 03:30:24.989165, [parking sensors status] updated to parquet
+2021-12-01 03:45:11.716844, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 03:45:22.798394, [parking sensors status] updated to parquet
+2021-12-01 04:00:09.604528, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 04:00:18.873614, [parking sensors status] updated to parquet
+2021-12-01 04:15:04.205741, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 04:15:11.869165, [parking sensors status] updated to parquet
+2021-12-01 04:30:10.711898, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 04:30:21.282676, [parking sensors status] updated to parquet
+2021-12-01 04:45:12.408503, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 04:45:23.188955, [parking sensors status] updated to parquet
+2021-12-01 05:00:10.013413, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 05:00:20.759106, [parking sensors status] updated to parquet
+2021-12-01 05:15:03.130185, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 05:15:13.636625, [parking sensors status] updated to parquet
+2021-12-01 05:30:10.439982, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 05:30:19.604955, [parking sensors status] updated to parquet
+2021-12-01 05:45:10.522051, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 05:45:19.570763, [parking sensors status] updated to parquet
+2021-12-01 06:00:10.413496, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 06:00:20.045166, [parking sensors status] updated to parquet
+2021-12-01 06:15:03.433355, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 06:15:13.698292, [parking sensors status] updated to parquet
+2021-12-01 06:30:13.562411, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 06:30:25.230180, [parking sensors status] updated to parquet
+2021-12-01 06:45:16.061643, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 06:45:25.641169, [parking sensors status] updated to parquet
+2021-12-01 07:00:11.151820, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 07:00:21.302568, [parking sensors status] updated to parquet
+2021-12-01 07:15:02.835217, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 07:15:12.022367, [parking sensors status] updated to parquet
+2021-12-01 07:30:12.539456, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 07:30:22.102572, [parking sensors status] updated to parquet
+2021-12-01 07:45:09.184772, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 07:45:17.899308, [parking sensors status] updated to parquet
+2021-12-01 08:00:14.472384, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 08:00:25.928601, [parking sensors status] updated to parquet
+2021-12-01 08:15:03.635822, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 08:15:13.202906, [parking sensors status] updated to parquet
+2021-12-01 08:30:14.827800, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 08:30:24.674885, [parking sensors status] updated to parquet
+2021-12-01 08:45:17.486514, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 08:45:28.218384, [parking sensors status] updated to parquet
+2021-12-01 09:00:24.510789, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 09:00:34.621892, [parking sensors status] updated to parquet
+2021-12-01 09:15:03.574180, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 09:15:12.106766, [parking sensors status] updated to parquet
+2021-12-01 09:30:18.015509, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 09:30:30.084159, [parking sensors status] updated to parquet
+2021-12-01 09:45:16.154923, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 09:45:25.973320, [parking sensors status] updated to parquet
+2021-12-01 10:00:09.470056, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 10:00:22.069515, [parking sensors status] updated to parquet
+2021-12-01 10:15:03.124195, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 10:15:12.031131, [parking sensors status] updated to parquet
+2021-12-01 10:30:17.558750, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 10:30:27.694214, [parking sensors status] updated to parquet
+2021-12-01 10:45:17.917803, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 10:45:28.517663, [parking sensors status] updated to parquet
+2021-12-01 11:00:23.066488, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 11:00:34.319592, [parking sensors status] updated to parquet
+2021-12-01 11:15:04.868865, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 11:15:13.197247, [parking sensors status] updated to parquet
+2021-12-01 11:30:11.193972, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 11:30:21.152156, [parking sensors status] updated to parquet
+2021-12-01 11:45:18.229532, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 11:45:28.615160, [parking sensors status] updated to parquet
+2021-12-01 12:00:15.510037, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 12:00:24.516184, [parking sensors status] updated to parquet
+2021-12-01 12:15:02.721362, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 12:15:10.910262, [parking sensors status] updated to parquet
+2021-12-01 12:30:09.819257, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 12:30:21.485040, [parking sensors status] updated to parquet
+2021-12-01 12:45:16.741355, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 12:45:26.857882, [parking sensors status] updated to parquet
+2021-12-01 13:00:16.301605, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 13:00:24.870721, [parking sensors status] updated to parquet
+2021-12-01 13:15:04.330151, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 13:15:13.088195, [parking sensors status] updated to parquet
+2021-12-01 13:30:13.124558, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 13:30:25.841197, [parking sensors status] updated to parquet
+2021-12-01 13:45:17.013376, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 13:45:27.236332, [parking sensors status] updated to parquet
+2021-12-01 14:00:14.756490, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 14:00:24.861623, [parking sensors status] updated to parquet
+2021-12-01 14:15:05.576649, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 14:15:15.391200, [parking sensors status] updated to parquet
+2021-12-01 14:30:10.993384, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 14:30:21.641322, [parking sensors status] updated to parquet
+2021-12-01 14:45:16.826129, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 14:45:25.788912, [parking sensors status] updated to parquet
+2021-12-01 15:00:14.862427, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 15:00:26.177567, [parking sensors status] updated to parquet
+2021-12-01 15:15:05.946958, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 15:15:16.382602, [parking sensors status] updated to parquet
+2021-12-01 15:30:16.022283, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 15:30:25.483243, [parking sensors status] updated to parquet
+2021-12-01 15:45:14.797886, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 15:45:23.839963, [parking sensors status] updated to parquet
+2021-12-01 16:00:08.925773, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 16:00:17.182517, [parking sensors status] updated to parquet
+2021-12-01 16:15:06.384989, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 16:15:16.637049, [parking sensors status] updated to parquet
+2021-12-01 16:30:11.927966, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 16:30:22.746280, [parking sensors status] updated to parquet
+2021-12-01 16:45:15.308110, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 16:45:23.778015, [parking sensors status] updated to parquet
+2021-12-01 17:00:15.176832, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 17:00:24.289434, [parking sensors status] updated to parquet
+2021-12-01 17:15:05.159333, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 17:15:16.438877, [parking sensors status] updated to parquet
+2021-12-01 17:30:14.714856, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 17:30:25.656462, [parking sensors status] updated to parquet
+2021-12-01 17:45:17.696912, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 17:45:27.693832, [parking sensors status] updated to parquet
+2021-12-01 18:00:15.920194, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 18:00:26.335236, [parking sensors status] updated to parquet
+2021-12-01 18:15:05.917141, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 18:15:14.822503, [parking sensors status] updated to parquet
+2021-12-01 18:30:12.498384, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 18:30:22.575811, [parking sensors status] updated to parquet
+2021-12-01 18:45:15.324047, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 18:45:26.669111, [parking sensors status] updated to parquet
+2021-12-01 19:00:16.601314, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 19:00:27.506902, [parking sensors status] updated to parquet
+2021-12-01 19:15:05.536392, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 19:15:17.745679, [parking sensors status] updated to parquet
+2021-12-01 19:30:14.829723, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 19:30:26.110806, [parking sensors status] updated to parquet
+2021-12-01 19:45:18.164066, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 19:45:32.120538, [parking sensors status] updated to parquet
+2021-12-01 20:00:16.463109, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 20:00:26.558162, [parking sensors status] updated to parquet
+2021-12-01 20:15:05.909982, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 20:15:20.499240, [parking sensors status] updated to parquet
+2021-12-01 20:30:15.381264, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 20:30:25.965592, [parking sensors status] updated to parquet
+2021-12-01 20:45:18.787886, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 20:45:29.016700, [parking sensors status] updated to parquet
+2021-12-01 21:00:16.773677, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 21:00:27.745261, [parking sensors status] updated to parquet
+2021-12-01 21:15:06.182412, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 21:15:15.833478, [parking sensors status] updated to parquet
+2021-12-01 21:30:20.528666, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 21:30:33.575721, [parking sensors status] updated to parquet
+2021-12-01 21:45:16.502348, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 21:45:26.298492, [parking sensors status] updated to parquet
+2021-12-01 22:00:17.582302, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 22:00:28.326591, [parking sensors status] updated to parquet
+2021-12-01 22:15:04.272647, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 22:15:13.558159, [parking sensors status] updated to parquet
+2021-12-01 22:30:16.548890, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 22:30:29.108975, [parking sensors status] updated to parquet
+2021-12-01 22:45:15.271604, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 22:45:27.486573, [parking sensors status] updated to parquet
+2021-12-01 23:00:17.567705, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 23:00:27.859174, [parking sensors status] updated to parquet
+2021-12-01 23:15:04.766525, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 23:15:13.877759, [parking sensors status] updated to parquet
+2021-12-01 23:30:13.628869, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 23:30:26.915081, [parking sensors status] updated to parquet
+2021-12-01 23:45:16.243532, [parking sensors status] appended and [unique bays] updated to files
+2021-12-01 23:45:24.771135, [parking sensors status] updated to parquet
+2021-12-02 00:00:18.640918, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 00:00:32.038397, [parking sensors status] updated to parquet
+2021-12-02 00:15:05.785846, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 00:15:18.678481, [parking sensors status] updated to parquet
+2021-12-02 00:30:17.135484, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 00:30:27.449666, [parking sensors status] updated to parquet
+2021-12-02 00:45:18.415431, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 00:45:28.593857, [parking sensors status] updated to parquet
+2021-12-02 01:00:16.781057, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 01:00:27.522193, [parking sensors status] updated to parquet
+2021-12-02 01:15:06.200288, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 01:15:16.604344, [parking sensors status] updated to parquet
+2021-12-02 01:30:17.735495, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 01:30:31.295960, [parking sensors status] updated to parquet
+2021-12-02 01:45:19.776361, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 01:45:34.728329, [parking sensors status] updated to parquet
+2021-12-02 02:00:25.857329, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 02:00:38.228583, [parking sensors status] updated to parquet
+2021-12-02 02:15:04.807870, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 02:15:16.590427, [parking sensors status] updated to parquet
+2021-12-02 02:30:15.424707, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 02:30:25.083251, [parking sensors status] updated to parquet
+2021-12-02 02:45:17.782830, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 02:45:27.427374, [parking sensors status] updated to parquet
+2021-12-02 03:00:15.688260, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 03:00:26.018933, [parking sensors status] updated to parquet
+2021-12-02 03:15:04.517119, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 03:15:14.076517, [parking sensors status] updated to parquet
+2021-12-02 03:30:12.092485, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 03:30:24.993793, [parking sensors status] updated to parquet
+2021-12-02 03:45:17.657447, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 03:45:27.599512, [parking sensors status] updated to parquet
+2021-12-02 04:00:10.899519, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 04:00:21.028827, [parking sensors status] updated to parquet
+2021-12-02 04:15:03.115885, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 04:15:10.856648, [parking sensors status] updated to parquet
+2021-12-02 04:30:16.383054, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 04:30:27.090459, [parking sensors status] updated to parquet
+2021-12-02 04:45:13.456154, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 04:45:23.589730, [parking sensors status] updated to parquet
+2021-12-02 05:00:11.924773, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 05:00:20.903393, [parking sensors status] updated to parquet
+2021-12-02 05:15:03.286284, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 05:15:12.379540, [parking sensors status] updated to parquet
+2021-12-02 05:30:13.494859, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 05:30:25.176654, [parking sensors status] updated to parquet
+2021-12-02 05:45:14.879810, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 05:45:27.048760, [parking sensors status] updated to parquet
+2021-12-02 06:00:15.294019, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 06:00:28.874061, [parking sensors status] updated to parquet
+2021-12-02 06:15:06.006593, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 06:15:16.111012, [parking sensors status] updated to parquet
+2021-12-02 06:30:08.885190, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 06:30:18.261523, [parking sensors status] updated to parquet
+2021-12-02 06:45:13.058117, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 06:45:24.019969, [parking sensors status] updated to parquet
+2021-12-02 07:00:12.367641, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 07:00:22.554483, [parking sensors status] updated to parquet
+2021-12-02 07:15:05.977429, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 07:15:16.207214, [parking sensors status] updated to parquet
+2021-12-02 07:30:07.974891, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 07:30:17.155084, [parking sensors status] updated to parquet
+2021-12-02 07:45:12.391907, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 07:45:21.772374, [parking sensors status] updated to parquet
+2021-12-02 08:00:15.720120, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 08:00:25.007159, [parking sensors status] updated to parquet
+2021-12-02 08:15:03.838322, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 08:15:15.259642, [parking sensors status] updated to parquet
+2021-12-02 08:30:20.196710, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 08:30:30.725577, [parking sensors status] updated to parquet
+2021-12-02 08:45:07.336239, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 08:45:16.244854, [parking sensors status] updated to parquet
+2021-12-02 09:00:12.560982, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 09:00:22.582850, [parking sensors status] updated to parquet
+2021-12-02 09:15:03.160059, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 09:15:12.516880, [parking sensors status] updated to parquet
+2021-12-02 09:30:12.767251, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 09:30:23.811203, [parking sensors status] updated to parquet
+2021-12-02 09:45:06.690103, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 09:45:16.297913, [parking sensors status] updated to parquet
+2021-12-02 10:00:11.110444, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 10:00:22.561420, [parking sensors status] updated to parquet
+2021-12-02 10:15:05.912649, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 10:15:16.936251, [parking sensors status] updated to parquet
+2021-12-02 10:30:08.303333, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 10:30:18.634067, [parking sensors status] updated to parquet
+2021-12-02 10:45:14.207983, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 10:45:24.136919, [parking sensors status] updated to parquet
+2021-12-02 11:00:15.191628, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 11:00:25.222125, [parking sensors status] updated to parquet
+2021-12-02 11:15:03.801218, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 11:15:12.728281, [parking sensors status] updated to parquet
+2021-12-02 11:30:13.348154, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 11:30:23.372772, [parking sensors status] updated to parquet
+2021-12-02 11:45:13.599629, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 11:45:24.055785, [parking sensors status] updated to parquet
+2021-12-02 12:00:11.711117, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 12:00:23.414088, [parking sensors status] updated to parquet
+2021-12-02 12:15:04.234291, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 12:15:12.830532, [parking sensors status] updated to parquet
+2021-12-02 12:30:10.991725, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 12:30:20.619543, [parking sensors status] updated to parquet
+2021-12-02 12:45:15.052198, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 12:45:23.809474, [parking sensors status] updated to parquet
+2021-12-02 13:00:11.519296, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 13:00:22.795825, [parking sensors status] updated to parquet
+2021-12-02 13:15:05.614836, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 13:15:17.086816, [parking sensors status] updated to parquet
+2021-12-02 13:30:10.981871, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 13:30:20.145156, [parking sensors status] updated to parquet
+2021-12-02 13:45:13.047504, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 13:45:21.573110, [parking sensors status] updated to parquet
+2021-12-02 14:00:12.893205, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 14:00:21.695616, [parking sensors status] updated to parquet
+2021-12-02 14:15:05.343315, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 14:15:13.794047, [parking sensors status] updated to parquet
+2021-12-02 14:30:08.615652, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 14:30:17.344973, [parking sensors status] updated to parquet
+2021-12-02 14:45:12.401784, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 14:45:21.045451, [parking sensors status] updated to parquet
+2021-12-02 15:00:10.908217, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 15:00:19.679047, [parking sensors status] updated to parquet
+2021-12-02 15:15:03.166579, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 15:15:14.251347, [parking sensors status] updated to parquet
+2021-12-02 15:30:09.550856, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 15:30:22.541339, [parking sensors status] updated to parquet
+2021-12-02 15:45:09.438949, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 15:45:19.567326, [parking sensors status] updated to parquet
+2021-12-02 16:00:18.772454, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 16:00:31.293444, [parking sensors status] updated to parquet
+2021-12-02 16:15:05.733748, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 16:15:19.344164, [parking sensors status] updated to parquet
+2021-12-02 16:30:30.108064, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 16:30:48.091158, [parking sensors status] updated to parquet
+2021-12-02 16:45:12.979315, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 16:45:22.573337, [parking sensors status] updated to parquet
+2021-12-02 17:00:14.581219, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 17:00:24.941094, [parking sensors status] updated to parquet
+2021-12-02 17:15:02.967886, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 17:15:14.040906, [parking sensors status] updated to parquet
+2021-12-02 17:30:13.335609, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 17:30:24.016489, [parking sensors status] updated to parquet
+2021-12-02 17:45:16.147878, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 17:45:26.360652, [parking sensors status] updated to parquet
+2021-12-02 18:00:23.151662, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 18:00:34.105984, [parking sensors status] updated to parquet
+2021-12-02 18:15:03.987457, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 18:15:15.737857, [parking sensors status] updated to parquet
+2021-12-02 18:30:10.658034, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 18:30:20.493222, [parking sensors status] updated to parquet
+2021-12-02 18:45:13.888900, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 18:45:28.315124, [parking sensors status] updated to parquet
+2021-12-02 19:00:06.762487, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 19:00:16.316138, [parking sensors status] updated to parquet
+2021-12-02 19:15:04.442718, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 19:15:13.057267, [parking sensors status] updated to parquet
+2021-12-02 19:30:06.872458, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 19:30:16.145700, [parking sensors status] updated to parquet
+2021-12-02 19:45:06.767856, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 19:45:17.403144, [parking sensors status] updated to parquet
+2021-12-02 20:00:10.905570, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 20:00:19.166458, [parking sensors status] updated to parquet
+2021-12-02 20:15:03.086713, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 20:15:12.426746, [parking sensors status] updated to parquet
+2021-12-02 20:30:11.781101, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 20:30:21.195767, [parking sensors status] updated to parquet
+2021-12-02 20:45:15.394608, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 20:45:24.826148, [parking sensors status] updated to parquet
+2021-12-02 21:00:16.934059, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 21:00:27.162556, [parking sensors status] updated to parquet
+2021-12-02 21:15:05.495788, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 21:15:16.928882, [parking sensors status] updated to parquet
+2021-12-02 21:30:08.929097, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 21:30:19.059407, [parking sensors status] updated to parquet
+2021-12-02 21:45:12.377999, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 21:45:22.154739, [parking sensors status] updated to parquet
+2021-12-02 22:00:12.905615, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 22:00:23.855869, [parking sensors status] updated to parquet
+2021-12-02 22:15:05.484674, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 22:15:15.533104, [parking sensors status] updated to parquet
+2021-12-02 22:30:15.250878, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 22:30:26.304046, [parking sensors status] updated to parquet
+2021-12-02 22:45:14.282186, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 22:45:23.625437, [parking sensors status] updated to parquet
+2021-12-02 23:00:19.960015, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 23:00:31.121246, [parking sensors status] updated to parquet
+2021-12-02 23:15:05.789809, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 23:15:15.997270, [parking sensors status] updated to parquet
+2021-12-02 23:30:09.035152, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 23:30:18.037817, [parking sensors status] updated to parquet
+2021-12-02 23:45:12.152991, [parking sensors status] appended and [unique bays] updated to files
+2021-12-02 23:45:22.326835, [parking sensors status] updated to parquet
+2021-12-03 00:00:15.058868, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 00:00:31.272649, [parking sensors status] updated to parquet
+2021-12-03 00:15:04.607774, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 00:15:16.797532, [parking sensors status] updated to parquet
+2021-12-03 00:30:12.671165, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 00:30:24.845747, [parking sensors status] updated to parquet
+2021-12-03 00:45:14.280646, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 00:45:26.510445, [parking sensors status] updated to parquet
+2021-12-03 01:00:13.533542, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 01:00:24.269259, [parking sensors status] updated to parquet
+2021-12-03 01:15:05.077155, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 01:15:14.468718, [parking sensors status] updated to parquet
+2021-12-03 01:30:12.410897, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 01:30:21.532762, [parking sensors status] updated to parquet
+2021-12-03 01:45:06.919092, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 01:45:16.183904, [parking sensors status] updated to parquet
+2021-12-03 02:00:11.972761, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 02:00:20.639964, [parking sensors status] updated to parquet
+2021-12-03 02:15:04.421092, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 02:15:15.839220, [parking sensors status] updated to parquet
+2021-12-03 02:30:10.094917, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 02:30:19.847736, [parking sensors status] updated to parquet
+2021-12-03 02:45:15.532480, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 02:45:29.176425, [parking sensors status] updated to parquet
+2021-12-03 03:00:13.969120, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 03:00:23.804900, [parking sensors status] updated to parquet
+2021-12-03 03:15:05.318457, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 03:15:13.970433, [parking sensors status] updated to parquet
+2021-12-03 03:30:14.475476, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 03:30:24.310177, [parking sensors status] updated to parquet
+2021-12-03 03:45:06.797277, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 03:45:15.387412, [parking sensors status] updated to parquet
+2021-12-03 04:00:11.077476, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 04:00:19.888309, [parking sensors status] updated to parquet
+2021-12-03 04:15:03.546707, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 04:15:14.639122, [parking sensors status] updated to parquet
+2021-12-03 04:30:13.098549, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 04:30:24.808824, [parking sensors status] updated to parquet
+2021-12-03 04:45:14.114661, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 04:45:24.714431, [parking sensors status] updated to parquet
+2021-12-03 05:00:13.175559, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 05:00:22.987360, [parking sensors status] updated to parquet
+2021-12-03 05:15:04.841213, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 05:15:15.213451, [parking sensors status] updated to parquet
+2021-12-03 05:30:07.304335, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 05:30:17.416679, [parking sensors status] updated to parquet
+2021-12-03 05:45:12.316414, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 05:45:21.615841, [parking sensors status] updated to parquet
+2021-12-03 06:00:11.505771, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 06:00:20.255883, [parking sensors status] updated to parquet
+2021-12-03 06:15:04.994700, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 06:15:16.921526, [parking sensors status] updated to parquet
+2021-12-03 06:30:08.833855, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 06:30:19.168458, [parking sensors status] updated to parquet
+2021-12-03 06:45:13.178161, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 06:45:24.397516, [parking sensors status] updated to parquet
+2021-12-03 07:00:13.522845, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 07:00:25.349006, [parking sensors status] updated to parquet
+2021-12-03 07:15:04.998855, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 07:15:14.172949, [parking sensors status] updated to parquet
+2021-12-03 07:30:08.276314, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 07:30:16.781866, [parking sensors status] updated to parquet
+2021-12-03 07:45:11.331811, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 07:45:20.089901, [parking sensors status] updated to parquet
+2021-12-03 08:00:12.520656, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 08:00:21.348516, [parking sensors status] updated to parquet
+2021-12-03 08:15:05.840663, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 08:15:15.829321, [parking sensors status] updated to parquet
+2021-12-03 08:30:08.666144, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 08:30:18.886637, [parking sensors status] updated to parquet
+2021-12-03 08:45:11.582422, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 08:45:21.825839, [parking sensors status] updated to parquet
+2021-12-03 09:00:11.933905, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 09:00:20.751079, [parking sensors status] updated to parquet
+2021-12-03 09:15:05.650804, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 09:15:14.669730, [parking sensors status] updated to parquet
+2021-12-03 09:30:08.475715, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 09:30:17.783457, [parking sensors status] updated to parquet
+2021-12-03 09:45:13.025634, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 09:45:25.384677, [parking sensors status] updated to parquet
+2021-12-03 10:00:12.999342, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 10:00:22.193311, [parking sensors status] updated to parquet
+2021-12-03 10:15:07.263059, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 10:15:16.577223, [parking sensors status] updated to parquet
+2021-12-03 10:30:08.677672, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 10:30:19.449561, [parking sensors status] updated to parquet
+2021-12-03 10:45:12.478115, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 10:45:25.152534, [parking sensors status] updated to parquet
+2021-12-03 11:00:15.811197, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 11:00:24.726307, [parking sensors status] updated to parquet
+2021-12-03 11:15:05.411915, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 11:15:14.239092, [parking sensors status] updated to parquet
+2021-12-03 11:30:08.395251, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 11:30:19.198686, [parking sensors status] updated to parquet
+2021-12-03 11:45:15.901475, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 11:45:27.025477, [parking sensors status] updated to parquet
+2021-12-03 12:00:13.802526, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 12:00:24.501614, [parking sensors status] updated to parquet
+2021-12-03 12:15:04.222900, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 12:15:15.506139, [parking sensors status] updated to parquet
+2021-12-03 12:30:08.116248, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 12:30:17.359552, [parking sensors status] updated to parquet
+2021-12-03 12:45:12.070914, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 12:45:21.321802, [parking sensors status] updated to parquet
+2021-12-03 13:00:12.536012, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 13:00:21.519052, [parking sensors status] updated to parquet
+2021-12-03 13:15:04.849777, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 13:15:13.509475, [parking sensors status] updated to parquet
+2021-12-03 13:30:09.707314, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 13:30:18.384494, [parking sensors status] updated to parquet
+2021-12-03 13:45:12.662429, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 13:45:21.241158, [parking sensors status] updated to parquet
+2021-12-03 14:00:06.765345, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 14:00:19.257413, [parking sensors status] updated to parquet
+2021-12-03 14:15:05.085059, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 14:15:16.524262, [parking sensors status] updated to parquet
+2021-12-03 14:30:09.836101, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 14:30:20.145414, [parking sensors status] updated to parquet
+2021-12-03 14:45:13.003121, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 14:45:22.692060, [parking sensors status] updated to parquet
+2021-12-03 15:00:15.773660, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 15:00:25.701049, [parking sensors status] updated to parquet
+2021-12-03 15:15:07.257573, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 15:15:16.611528, [parking sensors status] updated to parquet
+2021-12-03 15:30:15.808840, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 15:30:26.686279, [parking sensors status] updated to parquet
+2021-12-03 15:45:07.090950, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 15:45:21.259149, [parking sensors status] updated to parquet
+2021-12-03 16:00:11.447694, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 16:00:20.858689, [parking sensors status] updated to parquet
+2021-12-03 16:15:04.643993, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 16:15:15.658069, [parking sensors status] updated to parquet
+2021-12-03 16:30:11.279715, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 16:30:22.388537, [parking sensors status] updated to parquet
+2021-12-03 16:45:14.144677, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 16:45:25.336378, [parking sensors status] updated to parquet
+2021-12-03 17:00:12.927489, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 17:00:24.565226, [parking sensors status] updated to parquet
+2021-12-03 17:15:05.143047, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 17:15:17.207070, [parking sensors status] updated to parquet
+2021-12-03 17:30:07.713628, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 17:30:16.717669, [parking sensors status] updated to parquet
+2021-12-03 17:45:12.075439, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 17:45:23.959269, [parking sensors status] updated to parquet
+2021-12-03 18:00:11.846134, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 18:00:21.829675, [parking sensors status] updated to parquet
+2021-12-03 18:15:05.287714, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 18:15:15.021803, [parking sensors status] updated to parquet
+2021-12-03 18:30:07.592078, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 18:30:16.458839, [parking sensors status] updated to parquet
+2021-12-03 18:45:07.823501, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 18:45:17.137949, [parking sensors status] updated to parquet
+2021-12-03 19:00:10.978959, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 19:00:20.088982, [parking sensors status] updated to parquet
+2021-12-03 19:15:05.058020, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 19:15:13.210041, [parking sensors status] updated to parquet
+2021-12-03 19:30:07.527504, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 19:30:16.596970, [parking sensors status] updated to parquet
+2021-12-03 19:45:11.053643, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 19:45:20.670099, [parking sensors status] updated to parquet
+2021-12-03 20:00:12.564945, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 20:00:21.251339, [parking sensors status] updated to parquet
+2021-12-03 20:15:04.048862, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 20:15:18.178017, [parking sensors status] updated to parquet
+2021-12-03 20:30:11.939702, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 20:30:24.564164, [parking sensors status] updated to parquet
+2021-12-03 20:45:12.975750, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 20:45:22.927650, [parking sensors status] updated to parquet
+2021-12-03 21:00:14.546249, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 21:00:25.062341, [parking sensors status] updated to parquet
+2021-12-03 21:15:05.364998, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 21:15:16.331849, [parking sensors status] updated to parquet
+2021-12-03 21:30:08.913453, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 21:30:19.974200, [parking sensors status] updated to parquet
+2021-12-03 21:45:11.462294, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 21:45:21.305919, [parking sensors status] updated to parquet
+2021-12-03 22:00:07.464228, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 22:00:16.536076, [parking sensors status] updated to parquet
+2021-12-03 22:15:04.968488, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 22:15:15.737786, [parking sensors status] updated to parquet
+2021-12-03 22:30:10.720092, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 22:30:20.926081, [parking sensors status] updated to parquet
+2021-12-03 22:45:12.600486, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 22:45:24.097672, [parking sensors status] updated to parquet
+2021-12-03 23:00:12.987560, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 23:00:23.063829, [parking sensors status] updated to parquet
+2021-12-03 23:15:06.037897, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 23:15:15.785418, [parking sensors status] updated to parquet
+2021-12-03 23:30:08.044107, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 23:30:19.154898, [parking sensors status] updated to parquet
+2021-12-03 23:45:14.072895, [parking sensors status] appended and [unique bays] updated to files
+2021-12-03 23:45:26.959432, [parking sensors status] updated to parquet
+2021-12-04 00:00:17.105892, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 00:00:28.226394, [parking sensors status] updated to parquet
+2021-12-04 00:15:07.813075, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 00:15:18.409138, [parking sensors status] updated to parquet
+2021-12-04 00:30:12.191195, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 00:30:23.430937, [parking sensors status] updated to parquet
+2021-12-04 00:45:06.391347, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 00:45:17.888570, [parking sensors status] updated to parquet
+2021-12-04 01:00:11.657784, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 01:00:20.788175, [parking sensors status] updated to parquet
+2021-12-04 01:15:05.512900, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 01:15:14.815202, [parking sensors status] updated to parquet
+2021-12-04 01:30:04.849566, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 01:30:13.677048, [parking sensors status] updated to parquet
+2021-12-04 01:45:13.588458, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 01:45:24.451950, [parking sensors status] updated to parquet
+2021-12-04 02:00:12.429349, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 02:00:22.153937, [parking sensors status] updated to parquet
+2021-12-04 02:15:05.425924, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 02:15:14.073972, [parking sensors status] updated to parquet
+2021-12-04 02:30:08.491241, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 02:30:16.986472, [parking sensors status] updated to parquet
+2021-12-04 02:45:11.357943, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 02:45:26.757844, [parking sensors status] updated to parquet
+2021-12-04 03:00:21.958582, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 03:00:32.564498, [parking sensors status] updated to parquet
+2021-12-04 03:15:04.748269, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 03:15:14.306891, [parking sensors status] updated to parquet
+2021-12-04 03:30:15.122009, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 03:30:26.428837, [parking sensors status] updated to parquet
+2021-12-04 03:45:06.387426, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 03:45:15.978485, [parking sensors status] updated to parquet
+2021-12-04 04:00:12.018947, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 04:00:20.750000, [parking sensors status] updated to parquet
+2021-12-04 04:15:05.716887, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 04:15:17.970953, [parking sensors status] updated to parquet
+2021-12-04 04:30:14.476629, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 04:30:25.771583, [parking sensors status] updated to parquet
+2021-12-04 04:45:11.046676, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 04:45:21.989121, [parking sensors status] updated to parquet
+2021-12-04 05:00:22.195538, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 05:00:34.411353, [parking sensors status] updated to parquet
+2021-12-04 05:15:05.611497, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 05:15:14.690278, [parking sensors status] updated to parquet
+2021-12-04 05:30:11.776471, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 05:30:23.653268, [parking sensors status] updated to parquet
+2021-12-04 05:45:11.013171, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 05:45:20.273388, [parking sensors status] updated to parquet
+2021-12-04 06:00:11.440999, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 06:00:21.981046, [parking sensors status] updated to parquet
+2021-12-04 06:15:05.303225, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 06:15:17.279995, [parking sensors status] updated to parquet
+2021-12-04 06:30:08.332555, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 06:30:20.968297, [parking sensors status] updated to parquet
+2021-12-04 06:45:13.381703, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 06:45:23.600113, [parking sensors status] updated to parquet
+2021-12-04 07:00:15.296562, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 07:00:25.684803, [parking sensors status] updated to parquet
+2021-12-04 07:15:03.430455, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 07:15:12.496000, [parking sensors status] updated to parquet
+2021-12-04 07:30:11.786439, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 07:30:22.963084, [parking sensors status] updated to parquet
+2021-12-04 07:45:12.183909, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 07:45:21.547542, [parking sensors status] updated to parquet
+2021-12-04 08:00:13.276663, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 08:00:22.936946, [parking sensors status] updated to parquet
+2021-12-04 08:15:04.751070, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 08:15:15.298397, [parking sensors status] updated to parquet
+2021-12-04 08:30:09.283488, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 08:30:20.907486, [parking sensors status] updated to parquet
+2021-12-04 08:45:15.503950, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 08:45:27.375388, [parking sensors status] updated to parquet
+2021-12-04 09:00:12.060718, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 09:00:22.999853, [parking sensors status] updated to parquet
+2021-12-04 09:15:04.302418, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 09:15:13.731891, [parking sensors status] updated to parquet
+2021-12-04 09:30:07.936473, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 09:30:19.660316, [parking sensors status] updated to parquet
+2021-12-04 09:45:08.410934, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 09:45:17.113292, [parking sensors status] updated to parquet
+2021-12-04 10:00:11.729793, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 10:00:21.817765, [parking sensors status] updated to parquet
+2021-12-04 10:15:06.322362, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 10:15:20.202664, [parking sensors status] updated to parquet
+2021-12-04 10:30:11.747620, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 10:30:22.109172, [parking sensors status] updated to parquet
+2021-12-04 10:45:07.085784, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 10:45:16.937588, [parking sensors status] updated to parquet
+2021-12-04 11:00:15.093469, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 11:00:24.674661, [parking sensors status] updated to parquet
+2021-12-04 11:15:03.544505, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 11:15:12.480046, [parking sensors status] updated to parquet
+2021-12-04 11:30:11.326326, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 11:30:21.441421, [parking sensors status] updated to parquet
+2021-12-04 11:45:07.251454, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 11:45:17.154323, [parking sensors status] updated to parquet
+2021-12-04 12:00:14.400150, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 12:00:26.554218, [parking sensors status] updated to parquet
+2021-12-04 12:15:05.339350, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 12:15:14.476561, [parking sensors status] updated to parquet
+2021-12-04 12:30:08.432707, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 12:30:17.650757, [parking sensors status] updated to parquet
+2021-12-04 12:45:12.314245, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 12:45:21.464364, [parking sensors status] updated to parquet
+2021-12-04 13:00:13.195028, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 13:00:23.678847, [parking sensors status] updated to parquet
+2021-12-04 13:15:04.669467, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 13:15:13.813446, [parking sensors status] updated to parquet
+2021-12-04 13:30:11.451980, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 13:30:22.061309, [parking sensors status] updated to parquet
+2021-12-04 13:45:06.389109, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 13:45:15.093508, [parking sensors status] updated to parquet
+2021-12-04 14:00:19.230959, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 14:00:30.556770, [parking sensors status] updated to parquet
+2021-12-04 14:15:05.583417, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 14:15:15.432562, [parking sensors status] updated to parquet
+2021-12-04 14:30:09.720471, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 14:30:20.253437, [parking sensors status] updated to parquet
+2021-12-04 14:45:12.375492, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 14:45:23.174949, [parking sensors status] updated to parquet
+2021-12-04 15:00:12.180731, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 15:00:25.153895, [parking sensors status] updated to parquet
+2021-12-04 15:15:05.155284, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 15:15:14.711183, [parking sensors status] updated to parquet
+2021-12-04 15:30:12.559475, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 15:30:23.343038, [parking sensors status] updated to parquet
+2021-12-04 15:45:06.290478, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 15:45:19.746734, [parking sensors status] updated to parquet
+2021-12-04 16:00:12.146631, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 16:00:23.346619, [parking sensors status] updated to parquet
+2021-12-04 16:15:04.703904, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 16:15:19.017914, [parking sensors status] updated to parquet
+2021-12-04 16:30:05.240161, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 16:30:14.562396, [parking sensors status] updated to parquet
+2021-12-04 16:45:08.881367, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 16:45:18.368622, [parking sensors status] updated to parquet
+2021-12-04 17:00:12.011108, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 17:00:22.139268, [parking sensors status] updated to parquet
+2021-12-04 17:15:06.374732, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 17:15:18.042788, [parking sensors status] updated to parquet
+2021-12-04 17:30:14.909452, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 17:30:26.686540, [parking sensors status] updated to parquet
+2021-12-04 17:45:06.538173, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 17:45:15.760837, [parking sensors status] updated to parquet
+2021-12-04 18:00:10.705224, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 18:00:22.123810, [parking sensors status] updated to parquet
+2021-12-04 18:15:06.165123, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 18:15:14.793255, [parking sensors status] updated to parquet
+2021-12-04 18:30:11.473963, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 18:30:25.384737, [parking sensors status] updated to parquet
+2021-12-04 18:45:12.182382, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 18:45:27.472976, [parking sensors status] updated to parquet
+2021-12-04 19:00:12.094915, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 19:00:24.866709, [parking sensors status] updated to parquet
+2021-12-04 19:15:05.502642, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 19:15:16.421256, [parking sensors status] updated to parquet
+2021-12-04 19:30:15.244353, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 19:30:28.295201, [parking sensors status] updated to parquet
+2021-12-04 19:45:13.390941, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 19:45:23.560534, [parking sensors status] updated to parquet
+2021-12-04 20:00:06.885026, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 20:00:17.245857, [parking sensors status] updated to parquet
+2021-12-04 20:15:03.833888, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 20:15:13.203454, [parking sensors status] updated to parquet
+2021-12-04 20:30:13.177521, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 20:30:25.129051, [parking sensors status] updated to parquet
+2021-12-04 20:45:11.714628, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 20:45:26.362142, [parking sensors status] updated to parquet
+2021-12-04 21:00:12.392394, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 21:00:22.207116, [parking sensors status] updated to parquet
+2021-12-04 21:15:03.908402, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 21:15:13.444301, [parking sensors status] updated to parquet
+2021-12-04 21:30:11.663696, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 21:30:25.043106, [parking sensors status] updated to parquet
+2021-12-04 21:45:07.053370, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 21:45:17.498949, [parking sensors status] updated to parquet
+2021-12-04 22:00:14.674268, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 22:00:25.542848, [parking sensors status] updated to parquet
+2021-12-04 22:15:05.206370, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 22:15:15.014657, [parking sensors status] updated to parquet
+2021-12-04 22:30:08.514786, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 22:30:24.562739, [parking sensors status] updated to parquet
+2021-12-04 22:45:12.064432, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 22:45:24.813382, [parking sensors status] updated to parquet
+2021-12-04 23:00:12.814881, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 23:00:23.812637, [parking sensors status] updated to parquet
+2021-12-04 23:15:04.840934, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 23:15:19.542399, [parking sensors status] updated to parquet
+2021-12-04 23:30:14.105446, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 23:30:25.834766, [parking sensors status] updated to parquet
+2021-12-04 23:45:13.560730, [parking sensors status] appended and [unique bays] updated to files
+2021-12-04 23:45:24.450523, [parking sensors status] updated to parquet
+2021-12-05 00:00:16.753153, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 00:00:28.739111, [parking sensors status] updated to parquet
+2021-12-05 00:15:05.210526, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 00:15:16.494536, [parking sensors status] updated to parquet
+2021-12-05 00:30:14.322707, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 00:30:28.186663, [parking sensors status] updated to parquet
+2021-12-05 00:45:07.442366, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 00:45:18.718983, [parking sensors status] updated to parquet
+2021-12-05 01:00:12.261435, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 01:00:26.585489, [parking sensors status] updated to parquet
+2021-12-05 01:15:04.016970, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 01:15:13.928448, [parking sensors status] updated to parquet
+2021-12-05 01:30:17.236597, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 01:30:32.647338, [parking sensors status] updated to parquet
+2021-12-05 01:45:14.533382, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 01:45:28.235072, [parking sensors status] updated to parquet
+2021-12-05 02:00:07.349225, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 02:00:18.354755, [parking sensors status] updated to parquet
+2021-12-05 02:15:02.637818, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 02:15:11.802781, [parking sensors status] updated to parquet
+2021-12-05 02:30:15.298282, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 02:30:25.995751, [parking sensors status] updated to parquet
+2021-12-05 02:45:13.709518, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 02:45:23.808176, [parking sensors status] updated to parquet
+2021-12-05 03:00:11.453298, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 03:00:22.903339, [parking sensors status] updated to parquet
+2021-12-05 03:15:05.227519, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 03:15:14.712439, [parking sensors status] updated to parquet
+2021-12-05 03:30:14.768662, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 03:30:26.274307, [parking sensors status] updated to parquet
+2021-12-05 03:45:07.204303, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 03:45:16.640728, [parking sensors status] updated to parquet
+2021-12-05 04:00:11.388518, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 04:00:23.384653, [parking sensors status] updated to parquet
+2021-12-05 04:15:02.624032, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 04:15:12.061807, [parking sensors status] updated to parquet
+2021-12-05 04:30:07.850086, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 04:30:17.690960, [parking sensors status] updated to parquet
+2021-12-05 04:45:11.193679, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 04:45:22.420363, [parking sensors status] updated to parquet
+2021-12-05 05:00:07.845811, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 05:00:18.603972, [parking sensors status] updated to parquet
+2021-12-05 05:15:03.597855, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 05:15:14.118985, [parking sensors status] updated to parquet
+2021-12-05 05:30:11.655297, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 05:30:23.781528, [parking sensors status] updated to parquet
+2021-12-05 05:45:10.905904, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 05:45:20.179068, [parking sensors status] updated to parquet
+2021-12-05 06:00:14.115680, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 06:00:23.600457, [parking sensors status] updated to parquet
+2021-12-05 06:15:03.118081, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 06:15:15.198499, [parking sensors status] updated to parquet
+2021-12-05 06:30:11.868239, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 06:30:25.653773, [parking sensors status] updated to parquet
+2021-12-05 06:45:16.662657, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 06:45:27.597129, [parking sensors status] updated to parquet
+2021-12-05 07:00:07.541561, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 07:00:17.083104, [parking sensors status] updated to parquet
+2021-12-05 07:15:03.542530, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 07:15:13.506804, [parking sensors status] updated to parquet
+2021-12-05 07:30:10.899677, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 07:30:20.294940, [parking sensors status] updated to parquet
+2021-12-05 07:45:07.476870, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 07:45:27.376028, [parking sensors status] updated to parquet
+2021-12-05 08:00:11.790390, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 08:00:21.175195, [parking sensors status] updated to parquet
+2021-12-05 08:15:02.994830, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 08:15:17.144597, [parking sensors status] updated to parquet
+2021-12-05 08:30:13.804227, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 08:30:25.956551, [parking sensors status] updated to parquet
+2021-12-05 08:45:11.371712, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 08:45:27.736918, [parking sensors status] updated to parquet
+2021-12-05 09:00:13.024522, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 09:00:25.320814, [parking sensors status] updated to parquet
+2021-12-05 09:15:04.999305, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 09:15:19.032359, [parking sensors status] updated to parquet
+2021-12-05 09:30:11.589600, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 09:30:20.904852, [parking sensors status] updated to parquet
+2021-12-05 09:45:12.378681, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 09:45:25.407575, [parking sensors status] updated to parquet
+2021-12-05 10:00:12.330046, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 10:00:21.914957, [parking sensors status] updated to parquet
+2021-12-05 10:15:05.567872, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 10:15:15.313790, [parking sensors status] updated to parquet
+2021-12-05 10:30:08.412958, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 10:30:17.487471, [parking sensors status] updated to parquet
+2021-12-05 10:45:12.972809, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 10:45:22.392595, [parking sensors status] updated to parquet
+2021-12-05 11:00:08.027033, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 11:00:17.491293, [parking sensors status] updated to parquet
+2021-12-05 11:15:03.981258, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 11:15:17.303811, [parking sensors status] updated to parquet
+2021-12-05 11:30:12.060188, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 11:30:24.582897, [parking sensors status] updated to parquet
+2021-12-05 11:45:11.391172, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 11:45:21.652158, [parking sensors status] updated to parquet
+2021-12-05 12:00:12.740576, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 12:00:22.486831, [parking sensors status] updated to parquet
+2021-12-05 12:15:05.757993, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 12:15:14.765065, [parking sensors status] updated to parquet
+2021-12-05 12:30:10.199876, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 12:30:19.244942, [parking sensors status] updated to parquet
+2021-12-05 12:45:12.991332, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 12:45:22.523292, [parking sensors status] updated to parquet
+2021-12-05 13:00:13.820869, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 13:00:25.234943, [parking sensors status] updated to parquet
+2021-12-05 13:15:05.046887, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 13:15:16.020101, [parking sensors status] updated to parquet
+2021-12-05 13:30:15.210032, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 13:30:30.584814, [parking sensors status] updated to parquet
+2021-12-05 13:45:13.825794, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 13:45:24.997434, [parking sensors status] updated to parquet
+2021-12-05 14:00:13.164022, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 14:00:22.756836, [parking sensors status] updated to parquet
+2021-12-05 14:15:05.956167, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 14:15:17.941578, [parking sensors status] updated to parquet
+2021-12-05 14:30:12.819401, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 14:30:22.776777, [parking sensors status] updated to parquet
+2021-12-05 14:45:11.658773, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 14:45:21.665243, [parking sensors status] updated to parquet
+2021-12-05 15:00:14.439118, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 15:00:26.224973, [parking sensors status] updated to parquet
+2021-12-05 15:15:03.319654, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 15:15:13.658837, [parking sensors status] updated to parquet
+2021-12-05 15:30:12.129010, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 15:30:22.613085, [parking sensors status] updated to parquet
+2021-12-05 15:45:07.996372, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 15:45:19.438927, [parking sensors status] updated to parquet
+2021-12-05 16:00:12.372347, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 16:00:23.938012, [parking sensors status] updated to parquet
+2021-12-05 16:15:06.517056, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 16:15:17.148341, [parking sensors status] updated to parquet
+2021-12-05 16:30:14.705882, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 16:30:27.779366, [parking sensors status] updated to parquet
+2021-12-05 16:45:11.877216, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 16:45:21.600234, [parking sensors status] updated to parquet
+2021-12-05 17:00:08.023477, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 17:00:18.400526, [parking sensors status] updated to parquet
+2021-12-05 17:15:03.120958, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 17:15:14.288214, [parking sensors status] updated to parquet
+2021-12-05 17:30:12.508443, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 17:30:21.565655, [parking sensors status] updated to parquet
+2021-12-05 17:45:07.298669, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 17:45:17.831215, [parking sensors status] updated to parquet
+2021-12-05 18:00:14.704990, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 18:00:26.983486, [parking sensors status] updated to parquet
+2021-12-05 18:15:03.448881, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 18:15:14.648497, [parking sensors status] updated to parquet
+2021-12-05 18:30:16.247115, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 18:30:29.340350, [parking sensors status] updated to parquet
+2021-12-05 18:45:15.999525, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 18:45:27.118106, [parking sensors status] updated to parquet
+2021-12-05 19:00:13.550535, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 19:00:22.769830, [parking sensors status] updated to parquet
+2021-12-05 19:15:03.172672, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 19:15:14.405970, [parking sensors status] updated to parquet
+2021-12-05 19:30:08.028460, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 19:30:18.205025, [parking sensors status] updated to parquet
+2021-12-05 19:45:12.323382, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 19:45:24.662518, [parking sensors status] updated to parquet
+2021-12-05 20:00:13.852964, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 20:00:25.766590, [parking sensors status] updated to parquet
+2021-12-05 20:15:05.619936, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 20:15:16.342088, [parking sensors status] updated to parquet
+2021-12-05 20:30:10.327877, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 20:30:21.721759, [parking sensors status] updated to parquet
+2021-12-05 20:45:16.990890, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 20:45:27.217302, [parking sensors status] updated to parquet
+2021-12-05 21:00:07.069528, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 21:00:17.463574, [parking sensors status] updated to parquet
+2021-12-05 21:15:06.820791, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 21:15:17.365924, [parking sensors status] updated to parquet
+2021-12-05 21:30:08.412950, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 21:30:20.721058, [parking sensors status] updated to parquet
+2021-12-05 21:45:11.862113, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 21:45:21.790167, [parking sensors status] updated to parquet
+2021-12-05 22:00:14.675766, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 22:00:26.864412, [parking sensors status] updated to parquet
+2021-12-05 22:15:04.945153, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 22:15:14.591641, [parking sensors status] updated to parquet
+2021-12-05 22:30:15.509315, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 22:30:26.930372, [parking sensors status] updated to parquet
+2021-12-05 22:45:12.488269, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 22:45:22.312829, [parking sensors status] updated to parquet
+2021-12-05 23:00:11.556253, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 23:00:21.669871, [parking sensors status] updated to parquet
+2021-12-05 23:15:06.033959, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 23:15:16.154143, [parking sensors status] updated to parquet
+2021-12-05 23:30:08.442681, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 23:30:19.142512, [parking sensors status] updated to parquet
+2021-12-05 23:45:13.033412, [parking sensors status] appended and [unique bays] updated to files
+2021-12-05 23:45:23.000516, [parking sensors status] updated to parquet
+2021-12-06 00:00:19.024776, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 00:00:32.408582, [parking sensors status] updated to parquet
+2021-12-06 00:15:07.245275, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 00:15:17.315073, [parking sensors status] updated to parquet
+2021-12-06 00:30:09.518996, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 00:30:18.927108, [parking sensors status] updated to parquet
+2021-12-06 00:45:13.763076, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 00:45:24.209801, [parking sensors status] updated to parquet
+2021-12-06 01:00:14.128564, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 01:00:29.179996, [parking sensors status] updated to parquet
+2021-12-06 01:15:04.260217, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 01:15:13.556479, [parking sensors status] updated to parquet
+2021-12-06 01:30:17.927785, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 01:30:28.693291, [parking sensors status] updated to parquet
+2021-12-06 01:45:10.810940, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 01:45:21.610580, [parking sensors status] updated to parquet
+2021-12-06 02:00:14.738189, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 02:00:27.062192, [parking sensors status] updated to parquet
+2021-12-06 02:15:05.147950, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 02:15:16.946339, [parking sensors status] updated to parquet
+2021-12-06 02:30:12.426443, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 02:30:22.698815, [parking sensors status] updated to parquet
+2021-12-06 02:45:14.189657, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 02:45:29.694750, [parking sensors status] updated to parquet
+2021-12-06 03:00:13.727789, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 03:00:25.688963, [parking sensors status] updated to parquet
+2021-12-06 03:15:04.864819, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 03:15:16.229000, [parking sensors status] updated to parquet
+2021-12-06 03:30:20.418654, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 03:30:33.637475, [parking sensors status] updated to parquet
+2021-12-06 03:45:11.342196, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 03:45:25.788353, [parking sensors status] updated to parquet
+2021-12-06 04:00:08.666780, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 04:00:18.420330, [parking sensors status] updated to parquet
+2021-12-06 04:15:04.569075, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 04:15:14.023714, [parking sensors status] updated to parquet
+2021-12-06 04:30:12.839271, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 04:30:23.375022, [parking sensors status] updated to parquet
+2021-12-06 04:45:12.816635, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 04:45:25.885987, [parking sensors status] updated to parquet
+2021-12-06 05:00:11.791044, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 05:00:23.067017, [parking sensors status] updated to parquet
+2021-12-06 05:15:05.022611, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 05:15:17.788200, [parking sensors status] updated to parquet
+2021-12-06 05:30:12.138774, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 05:30:22.139485, [parking sensors status] updated to parquet
+2021-12-06 05:45:07.291014, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 05:45:19.276631, [parking sensors status] updated to parquet
+2021-12-06 06:00:12.832994, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 06:00:22.931174, [parking sensors status] updated to parquet
+2021-12-06 06:15:04.886601, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 06:15:16.467237, [parking sensors status] updated to parquet
+2021-12-06 06:30:10.327115, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 06:30:21.455937, [parking sensors status] updated to parquet
+2021-12-06 06:45:12.466070, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 06:45:22.991983, [parking sensors status] updated to parquet
+2021-12-06 07:00:13.050010, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 07:00:24.443246, [parking sensors status] updated to parquet
+2021-12-06 07:15:05.581672, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 07:15:15.327347, [parking sensors status] updated to parquet
+2021-12-06 07:30:13.989072, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 07:30:27.580365, [parking sensors status] updated to parquet
+2021-12-06 07:45:12.289808, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 07:45:25.508802, [parking sensors status] updated to parquet
+2021-12-06 08:00:14.162098, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 08:00:28.819534, [parking sensors status] updated to parquet
+2021-12-06 08:15:03.519453, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 08:15:18.342599, [parking sensors status] updated to parquet
+2021-12-06 08:30:12.179499, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 08:30:20.951063, [parking sensors status] updated to parquet
+2021-12-06 08:45:13.113484, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 08:45:25.384546, [parking sensors status] updated to parquet
+2021-12-06 09:00:15.169594, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 09:00:26.655048, [parking sensors status] updated to parquet
+2021-12-06 09:15:04.446367, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 09:15:14.253303, [parking sensors status] updated to parquet
+2021-12-06 09:30:09.048213, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 09:30:18.149301, [parking sensors status] updated to parquet
+2021-12-06 09:45:11.994418, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 09:45:27.451915, [parking sensors status] updated to parquet
+2021-12-06 10:00:14.986578, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 10:00:28.903433, [parking sensors status] updated to parquet
+2021-12-06 10:15:06.028304, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 10:15:17.988276, [parking sensors status] updated to parquet
+2021-12-06 10:30:12.231296, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 10:30:23.973237, [parking sensors status] updated to parquet
+2021-12-06 10:45:14.214499, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 10:45:24.827743, [parking sensors status] updated to parquet
+2021-12-06 11:00:13.414183, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 11:00:28.431264, [parking sensors status] updated to parquet
+2021-12-06 11:30:03.968960, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 11:30:15.942524, [parking sensors status] updated to parquet
+2021-12-06 11:45:13.816638, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 11:45:27.530387, [parking sensors status] updated to parquet
+2021-12-06 12:00:12.473897, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 12:00:22.292585, [parking sensors status] updated to parquet
+2021-12-06 12:15:05.115256, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 12:15:14.236046, [parking sensors status] updated to parquet
+2021-12-06 12:30:08.742669, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 12:30:19.511800, [parking sensors status] updated to parquet
+2021-12-06 12:45:12.500855, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 12:45:22.872003, [parking sensors status] updated to parquet
+2021-12-06 13:00:12.831966, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 13:00:23.603233, [parking sensors status] updated to parquet
+2021-12-06 13:15:04.761165, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 13:15:17.768460, [parking sensors status] updated to parquet
+2021-12-06 13:30:13.168687, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 13:30:25.392774, [parking sensors status] updated to parquet
+2021-12-06 13:45:13.543797, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 13:45:24.636339, [parking sensors status] updated to parquet
+2021-12-06 14:00:07.173358, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 14:00:16.828644, [parking sensors status] updated to parquet
+2021-12-06 14:15:10.124415, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 14:15:22.330058, [parking sensors status] updated to parquet
+2021-12-06 14:30:10.753963, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 14:30:22.365635, [parking sensors status] updated to parquet
+2021-12-06 14:45:12.776200, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 14:45:21.862679, [parking sensors status] updated to parquet
+2021-12-06 15:00:12.562160, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 15:00:25.646892, [parking sensors status] updated to parquet
+2021-12-06 15:15:04.247555, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 15:15:13.111924, [parking sensors status] updated to parquet
+2021-12-06 15:30:15.436313, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 15:30:26.185367, [parking sensors status] updated to parquet
+2021-12-06 15:45:14.054384, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 15:45:27.830528, [parking sensors status] updated to parquet
+2021-12-06 16:00:07.823404, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 16:00:20.604830, [parking sensors status] updated to parquet
+2021-12-06 16:15:04.136385, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 16:15:13.867429, [parking sensors status] updated to parquet
+2021-12-06 16:30:10.942687, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 16:30:20.568967, [parking sensors status] updated to parquet
+2021-12-06 16:45:13.072226, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 16:45:25.998366, [parking sensors status] updated to parquet
+2021-12-06 17:00:14.331571, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 17:00:25.762751, [parking sensors status] updated to parquet
+2021-12-06 17:15:04.699050, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 17:15:14.483298, [parking sensors status] updated to parquet
+2021-12-06 17:30:10.368907, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 17:30:24.391066, [parking sensors status] updated to parquet
+2021-12-06 17:45:14.008410, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 17:45:26.679320, [parking sensors status] updated to parquet
+2021-12-06 18:00:12.476441, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 18:00:25.157054, [parking sensors status] updated to parquet
+2021-12-06 18:15:02.903775, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 18:15:18.176207, [parking sensors status] updated to parquet
+2021-12-06 18:30:13.718377, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 18:30:25.990984, [parking sensors status] updated to parquet
+2021-12-06 18:45:12.432956, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 18:45:26.015478, [parking sensors status] updated to parquet
+2021-12-06 19:00:14.150192, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 19:00:23.898243, [parking sensors status] updated to parquet
+2021-12-06 19:15:05.760443, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 19:15:16.912398, [parking sensors status] updated to parquet
+2021-12-06 19:30:10.547777, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 19:30:21.509899, [parking sensors status] updated to parquet
+2021-12-06 19:45:13.403634, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 19:45:24.038620, [parking sensors status] updated to parquet
+2021-12-06 20:00:11.650197, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 20:00:24.660090, [parking sensors status] updated to parquet
+2021-12-06 20:15:03.161770, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 20:15:14.564077, [parking sensors status] updated to parquet
+2021-12-06 20:30:12.734288, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 20:30:22.952407, [parking sensors status] updated to parquet
+2021-12-06 20:45:14.638087, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 20:45:29.685305, [parking sensors status] updated to parquet
+2021-12-06 21:00:18.881492, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 21:00:30.692221, [parking sensors status] updated to parquet
+2021-12-06 21:15:03.696944, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 21:15:15.619567, [parking sensors status] updated to parquet
+2021-12-06 21:30:13.543106, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 21:30:25.127401, [parking sensors status] updated to parquet
+2021-12-06 21:45:12.543037, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 21:45:22.463278, [parking sensors status] updated to parquet
+2021-12-06 22:00:08.843756, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 22:00:20.243114, [parking sensors status] updated to parquet
+2021-12-06 22:15:03.820011, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 22:15:14.468067, [parking sensors status] updated to parquet
+2021-12-06 22:30:12.396776, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 22:30:23.306893, [parking sensors status] updated to parquet
+2021-12-06 22:45:13.856761, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 22:45:28.475115, [parking sensors status] updated to parquet
+2021-12-06 23:00:14.933776, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 23:00:29.920113, [parking sensors status] updated to parquet
+2021-12-06 23:15:05.595817, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 23:15:21.049697, [parking sensors status] updated to parquet
+2021-12-06 23:30:08.889581, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 23:30:20.203778, [parking sensors status] updated to parquet
+2021-12-06 23:45:12.346155, [parking sensors status] appended and [unique bays] updated to files
+2021-12-06 23:45:22.157916, [parking sensors status] updated to parquet
+2021-12-07 00:00:15.893304, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 00:00:26.491841, [parking sensors status] updated to parquet
+2021-12-07 00:15:05.823365, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 00:15:17.704879, [parking sensors status] updated to parquet
+2021-12-07 00:30:09.618552, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 00:30:21.726632, [parking sensors status] updated to parquet
+2021-12-07 00:45:15.418317, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 00:45:31.192685, [parking sensors status] updated to parquet
+2021-12-07 01:00:12.632538, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 01:00:22.637331, [parking sensors status] updated to parquet
+2021-12-07 01:15:05.740276, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 01:15:15.637878, [parking sensors status] updated to parquet
+2021-12-07 01:30:08.788498, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 01:30:18.944810, [parking sensors status] updated to parquet
+2021-12-07 01:45:13.306576, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 01:45:23.108599, [parking sensors status] updated to parquet
+2021-12-07 02:00:06.780609, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 02:00:17.190068, [parking sensors status] updated to parquet
+2021-12-07 02:15:03.441252, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 02:15:11.763352, [parking sensors status] updated to parquet
+2021-12-07 02:30:10.634135, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 02:30:21.672390, [parking sensors status] updated to parquet
+2021-12-07 02:45:11.848292, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 02:45:21.434904, [parking sensors status] updated to parquet
+2021-12-07 03:00:12.753037, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 03:00:21.999049, [parking sensors status] updated to parquet
+2021-12-07 03:15:03.901213, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 03:15:13.038096, [parking sensors status] updated to parquet
+2021-12-07 03:30:07.187136, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 03:30:20.642039, [parking sensors status] updated to parquet
+2021-12-07 03:45:14.086526, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 03:45:26.126016, [parking sensors status] updated to parquet
+2021-12-07 04:00:06.418560, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 04:00:16.214885, [parking sensors status] updated to parquet
+2021-12-07 04:15:03.703307, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 04:15:13.071611, [parking sensors status] updated to parquet
+2021-12-07 04:30:06.237183, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 04:30:14.697569, [parking sensors status] updated to parquet
+2021-12-07 04:45:06.625993, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 04:45:16.481014, [parking sensors status] updated to parquet
+2021-12-07 05:00:11.709552, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 05:00:21.603123, [parking sensors status] updated to parquet
+2021-12-07 05:15:03.648141, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 05:15:13.782338, [parking sensors status] updated to parquet
+2021-12-07 05:30:13.417601, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 05:30:23.206061, [parking sensors status] updated to parquet
+2021-12-07 05:45:15.447254, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 05:45:25.698115, [parking sensors status] updated to parquet
+2021-12-07 06:00:07.146762, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 06:00:17.373089, [parking sensors status] updated to parquet
+2021-12-07 06:15:04.828875, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 06:15:15.116446, [parking sensors status] updated to parquet
+2021-12-07 06:30:12.093073, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 06:30:22.225663, [parking sensors status] updated to parquet
+2021-12-07 06:45:06.951750, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 06:45:18.290002, [parking sensors status] updated to parquet
+2021-12-07 07:00:12.696730, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 07:00:26.755972, [parking sensors status] updated to parquet
+2021-12-07 07:15:06.143460, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 07:15:20.604820, [parking sensors status] updated to parquet
+2021-12-07 07:30:13.644573, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 07:30:25.180442, [parking sensors status] updated to parquet
+2021-12-07 07:45:11.538642, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 07:45:23.730251, [parking sensors status] updated to parquet
+2021-12-07 08:00:15.078022, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 08:00:24.987483, [parking sensors status] updated to parquet
+2021-12-07 08:15:03.650341, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 08:15:15.574213, [parking sensors status] updated to parquet
+2021-12-07 08:30:12.769780, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 08:30:24.483777, [parking sensors status] updated to parquet
+2021-12-07 08:45:14.640288, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 08:45:25.281899, [parking sensors status] updated to parquet
+2021-12-07 09:00:13.323856, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 09:00:24.809452, [parking sensors status] updated to parquet
+2021-12-07 09:15:04.502842, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 09:15:17.467903, [parking sensors status] updated to parquet
+2021-12-07 09:30:09.610518, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 09:30:22.180790, [parking sensors status] updated to parquet
+2021-12-07 09:45:12.957909, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 09:45:22.590068, [parking sensors status] updated to parquet
+2021-12-07 10:00:14.304475, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 10:00:24.875168, [parking sensors status] updated to parquet
+2021-12-07 10:15:07.956184, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 10:15:19.039889, [parking sensors status] updated to parquet
+2021-12-07 10:30:08.467817, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 10:30:19.681377, [parking sensors status] updated to parquet
+2021-12-07 10:45:12.180725, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 10:45:23.371063, [parking sensors status] updated to parquet
+2021-12-07 11:00:14.486279, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 11:00:25.155028, [parking sensors status] updated to parquet
+2021-12-07 11:15:06.153460, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 11:15:18.040987, [parking sensors status] updated to parquet
+2021-12-07 11:30:08.560125, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 11:30:23.173907, [parking sensors status] updated to parquet
+2021-12-07 11:45:15.377233, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 11:45:28.752361, [parking sensors status] updated to parquet
+2021-12-07 12:00:14.382577, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 12:00:26.136513, [parking sensors status] updated to parquet
+2021-12-07 12:15:05.576480, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 12:15:15.816692, [parking sensors status] updated to parquet
+2021-12-07 12:30:08.849911, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 12:30:19.280049, [parking sensors status] updated to parquet
+2021-12-07 12:45:14.268803, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 12:45:25.564837, [parking sensors status] updated to parquet
+2021-12-07 13:15:05.034418, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 13:15:20.277774, [parking sensors status] updated to parquet
+2021-12-07 13:30:09.269277, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 13:30:22.757403, [parking sensors status] updated to parquet
+2021-12-07 13:45:13.987932, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 13:45:27.557391, [parking sensors status] updated to parquet
+2021-12-07 14:00:08.868304, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 14:00:19.889086, [parking sensors status] updated to parquet
+2021-12-07 14:15:04.793436, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 14:15:15.007709, [parking sensors status] updated to parquet
+2021-12-07 14:30:09.284621, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 14:30:20.002643, [parking sensors status] updated to parquet
+2021-12-07 14:45:14.479292, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 14:45:28.890143, [parking sensors status] updated to parquet
+2021-12-07 15:00:08.601638, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 15:00:23.135940, [parking sensors status] updated to parquet
+2021-12-07 15:15:03.839906, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 15:15:15.360095, [parking sensors status] updated to parquet
+2021-12-07 15:30:11.592156, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 15:30:25.086460, [parking sensors status] updated to parquet
+2021-12-07 15:45:10.386037, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 15:45:24.664679, [parking sensors status] updated to parquet
+2021-12-07 16:00:16.288791, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 16:00:28.825069, [parking sensors status] updated to parquet
+2021-12-07 16:15:05.577068, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 16:15:16.730563, [parking sensors status] updated to parquet
+2021-12-07 16:30:15.137587, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 16:30:27.690243, [parking sensors status] updated to parquet
+2021-12-07 16:45:11.318014, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 16:45:22.596098, [parking sensors status] updated to parquet
+2021-12-07 17:00:08.166523, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 17:00:19.086133, [parking sensors status] updated to parquet
+2021-12-07 17:15:04.520743, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 17:15:15.707782, [parking sensors status] updated to parquet
+2021-12-07 17:30:10.243795, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 17:30:22.862618, [parking sensors status] updated to parquet
+2021-12-07 17:45:13.421592, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 17:45:25.873610, [parking sensors status] updated to parquet
+2021-12-07 18:00:14.157888, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 18:00:24.441726, [parking sensors status] updated to parquet
+2021-12-07 18:15:04.526515, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 18:15:15.903088, [parking sensors status] updated to parquet
+2021-12-07 18:30:07.142241, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 18:30:19.724485, [parking sensors status] updated to parquet
+2021-12-07 18:45:14.152522, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 18:45:26.252082, [parking sensors status] updated to parquet
+2021-12-07 19:00:11.592213, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 19:00:24.346723, [parking sensors status] updated to parquet
+2021-12-07 19:15:05.578607, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 19:15:16.105725, [parking sensors status] updated to parquet
+2021-12-07 19:30:07.635478, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 19:30:17.668147, [parking sensors status] updated to parquet
+2021-12-07 19:45:14.021450, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 19:45:24.883032, [parking sensors status] updated to parquet
+2021-12-07 20:00:13.256738, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 20:00:26.744549, [parking sensors status] updated to parquet
+2021-12-07 20:15:06.095594, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 20:15:20.846876, [parking sensors status] updated to parquet
+2021-12-07 20:30:11.893358, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 20:30:22.502721, [parking sensors status] updated to parquet
+2021-12-07 20:45:11.290532, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 20:45:24.614444, [parking sensors status] updated to parquet
+2021-12-07 21:00:20.558976, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 21:00:31.362704, [parking sensors status] updated to parquet
+2021-12-07 21:15:06.146893, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 21:15:15.790363, [parking sensors status] updated to parquet
+2021-12-07 21:30:12.612492, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 21:30:22.189001, [parking sensors status] updated to parquet
+2021-12-07 21:45:06.861262, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 21:45:17.415474, [parking sensors status] updated to parquet
+2021-12-07 22:00:20.630065, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 22:00:32.266390, [parking sensors status] updated to parquet
+2021-12-07 22:15:04.421766, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 22:15:17.235272, [parking sensors status] updated to parquet
+2021-12-07 22:30:11.786774, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 22:30:23.760862, [parking sensors status] updated to parquet
+2021-12-07 22:45:07.587382, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 22:45:19.727121, [parking sensors status] updated to parquet
+2021-12-07 23:00:14.017290, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 23:00:26.842486, [parking sensors status] updated to parquet
+2021-12-07 23:15:05.254092, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 23:15:17.215580, [parking sensors status] updated to parquet
+2021-12-07 23:30:08.986392, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 23:30:19.681109, [parking sensors status] updated to parquet
+2021-12-07 23:45:16.010078, [parking sensors status] appended and [unique bays] updated to files
+2021-12-07 23:45:25.504293, [parking sensors status] updated to parquet
+2021-12-08 00:00:10.963777, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 00:00:24.265262, [parking sensors status] updated to parquet
+2021-12-08 00:15:08.050303, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 00:15:20.495522, [parking sensors status] updated to parquet
+2021-12-08 00:30:08.876927, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 00:30:21.932609, [parking sensors status] updated to parquet
+2021-12-08 00:45:14.208220, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 00:45:24.547295, [parking sensors status] updated to parquet
+2021-12-08 01:00:13.743169, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 01:00:25.365693, [parking sensors status] updated to parquet
+2021-12-08 01:15:06.363213, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 01:15:19.305434, [parking sensors status] updated to parquet
+2021-12-08 01:30:12.259160, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 01:30:22.619481, [parking sensors status] updated to parquet
+2021-12-08 01:45:10.380944, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 01:45:24.225216, [parking sensors status] updated to parquet
+2021-12-08 02:00:15.333214, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 02:00:28.390584, [parking sensors status] updated to parquet
+2021-12-08 02:15:02.996998, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 02:15:14.649770, [parking sensors status] updated to parquet
+2021-12-08 02:30:14.413816, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 02:30:29.307174, [parking sensors status] updated to parquet
+2021-12-08 02:45:11.490202, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 02:45:28.638283, [parking sensors status] updated to parquet
+2021-12-08 03:00:12.535527, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 03:00:22.635281, [parking sensors status] updated to parquet
+2021-12-08 03:15:03.292906, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 03:15:19.829071, [parking sensors status] updated to parquet
+2021-12-08 03:30:10.619186, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 03:30:22.481726, [parking sensors status] updated to parquet
+2021-12-08 03:45:05.849064, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 03:45:16.045943, [parking sensors status] updated to parquet
+2021-12-08 04:00:14.246654, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 04:00:27.545379, [parking sensors status] updated to parquet
+2021-12-08 04:15:02.701849, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 04:15:13.899541, [parking sensors status] updated to parquet
+2021-12-08 04:30:06.096080, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 04:30:17.208573, [parking sensors status] updated to parquet
+2021-12-08 04:45:06.258786, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 04:45:14.976643, [parking sensors status] updated to parquet
+2021-12-08 05:00:10.508410, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 05:00:21.869916, [parking sensors status] updated to parquet
+2021-12-08 05:15:04.507826, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 05:15:15.338787, [parking sensors status] updated to parquet
+2021-12-08 05:30:07.968820, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 05:30:18.269954, [parking sensors status] updated to parquet
+2021-12-08 05:45:09.775006, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 05:45:20.117916, [parking sensors status] updated to parquet
+2021-12-08 06:00:15.352315, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 06:00:28.338081, [parking sensors status] updated to parquet
+2021-12-08 06:15:05.052513, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 06:15:14.731114, [parking sensors status] updated to parquet
+2021-12-08 06:30:15.822351, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 06:30:26.913859, [parking sensors status] updated to parquet
+2021-12-08 06:45:07.152353, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 06:45:16.488024, [parking sensors status] updated to parquet
+2021-12-08 07:00:12.228377, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 07:00:24.527356, [parking sensors status] updated to parquet
+2021-12-08 07:15:05.195137, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 07:15:15.173574, [parking sensors status] updated to parquet
+2021-12-08 07:30:07.897768, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 07:30:18.213921, [parking sensors status] updated to parquet
+2021-12-08 07:45:12.956436, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 07:45:24.880230, [parking sensors status] updated to parquet
+2021-12-08 08:00:15.697795, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 08:00:26.532447, [parking sensors status] updated to parquet
+2021-12-08 08:15:05.368167, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 08:15:15.201305, [parking sensors status] updated to parquet
+2021-12-08 08:30:09.154743, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 08:30:21.155662, [parking sensors status] updated to parquet
+2021-12-08 08:45:11.260708, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 08:45:23.713871, [parking sensors status] updated to parquet
+2021-12-08 09:00:11.488757, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 09:00:24.027791, [parking sensors status] updated to parquet
+2021-12-08 09:15:04.792472, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 09:15:15.193063, [parking sensors status] updated to parquet
+2021-12-08 09:30:09.474108, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 09:30:19.847453, [parking sensors status] updated to parquet
+2021-12-08 09:45:12.354675, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 09:45:23.020631, [parking sensors status] updated to parquet
+2021-12-08 10:00:12.241683, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 10:00:22.333880, [parking sensors status] updated to parquet
+2021-12-08 10:15:04.462011, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 10:15:14.866956, [parking sensors status] updated to parquet
+2021-12-08 10:30:14.469641, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 10:30:27.585364, [parking sensors status] updated to parquet
+2021-12-08 10:45:10.596057, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 10:45:22.312080, [parking sensors status] updated to parquet
+2021-12-08 11:00:09.552922, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 11:00:22.934582, [parking sensors status] updated to parquet
+2021-12-08 11:15:02.943629, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 11:15:15.802082, [parking sensors status] updated to parquet
+2021-12-08 11:30:12.107411, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 11:30:27.561721, [parking sensors status] updated to parquet
+2021-12-08 11:45:11.774160, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 11:45:23.125535, [parking sensors status] updated to parquet
+2021-12-08 12:00:11.332977, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 12:00:20.450276, [parking sensors status] updated to parquet
+2021-12-08 12:15:04.296196, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 12:15:15.011404, [parking sensors status] updated to parquet
+2021-12-08 12:30:09.100202, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 12:30:20.744667, [parking sensors status] updated to parquet
+2021-12-08 12:45:13.615020, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 12:45:23.715028, [parking sensors status] updated to parquet
+2021-12-08 13:00:12.559840, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 13:00:22.571099, [parking sensors status] updated to parquet
+2021-12-08 13:15:03.172013, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 13:15:12.873514, [parking sensors status] updated to parquet
+2021-12-08 13:30:14.172762, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 13:30:27.141827, [parking sensors status] updated to parquet
+2021-12-08 13:45:10.487959, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 13:45:20.743619, [parking sensors status] updated to parquet
+2021-12-08 14:00:11.745592, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 14:00:21.293344, [parking sensors status] updated to parquet
+2021-12-08 14:15:02.263666, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 14:15:11.519690, [parking sensors status] updated to parquet
+2021-12-08 14:30:11.808658, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 14:30:23.681842, [parking sensors status] updated to parquet
+2021-12-08 14:45:10.809098, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 14:45:23.084347, [parking sensors status] updated to parquet
+2021-12-08 15:00:12.444122, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 15:00:24.555415, [parking sensors status] updated to parquet
+2021-12-08 15:15:05.590087, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 15:15:19.953333, [parking sensors status] updated to parquet
+2021-12-08 15:30:12.838936, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 15:30:25.167098, [parking sensors status] updated to parquet
+2021-12-08 15:45:09.448387, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 15:45:19.210846, [parking sensors status] updated to parquet
+2021-12-08 16:00:09.161424, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 16:00:19.467668, [parking sensors status] updated to parquet
+2021-12-08 16:15:03.464600, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 16:15:12.811305, [parking sensors status] updated to parquet
+2021-12-08 16:30:11.871923, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 16:30:22.066333, [parking sensors status] updated to parquet
+2021-12-08 16:45:06.417708, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 16:45:17.134068, [parking sensors status] updated to parquet
+2021-12-08 17:00:11.669449, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 17:00:21.865730, [parking sensors status] updated to parquet
+2021-12-08 17:15:04.522336, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 17:15:14.391863, [parking sensors status] updated to parquet
+2021-12-08 17:30:16.385564, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 17:30:26.275700, [parking sensors status] updated to parquet
+2021-12-08 17:45:08.229704, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 17:45:17.480773, [parking sensors status] updated to parquet
+2021-12-08 18:00:17.088224, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 18:00:29.943943, [parking sensors status] updated to parquet
+2021-12-08 18:15:04.862931, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 18:15:15.100760, [parking sensors status] updated to parquet
+2021-12-08 18:30:10.095943, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 18:30:22.449232, [parking sensors status] updated to parquet
+2021-12-08 18:45:12.788962, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 18:45:26.335848, [parking sensors status] updated to parquet
+2021-12-08 19:00:14.860800, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 19:00:24.780460, [parking sensors status] updated to parquet
+2021-12-08 19:15:05.165405, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 19:15:17.162326, [parking sensors status] updated to parquet
+2021-12-08 19:30:12.820889, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 19:30:25.923426, [parking sensors status] updated to parquet
+2021-12-08 19:45:11.129503, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 19:45:22.668882, [parking sensors status] updated to parquet
+2021-12-08 20:00:06.884508, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 20:00:16.046558, [parking sensors status] updated to parquet
+2021-12-08 20:15:04.039276, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 20:15:14.065033, [parking sensors status] updated to parquet
+2021-12-08 20:30:14.177911, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 20:30:27.077278, [parking sensors status] updated to parquet
+2021-12-08 20:45:11.380604, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 20:45:25.275224, [parking sensors status] updated to parquet
+2021-12-08 21:00:14.990755, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 21:00:28.599343, [parking sensors status] updated to parquet
+2021-12-08 21:15:06.350291, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 21:15:18.105006, [parking sensors status] updated to parquet
+2021-12-08 21:30:15.667668, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 21:30:27.920476, [parking sensors status] updated to parquet
+2021-12-08 21:45:12.156426, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 21:45:22.993908, [parking sensors status] updated to parquet
+2021-12-08 22:00:13.945034, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 22:00:26.787367, [parking sensors status] updated to parquet
+2021-12-08 22:15:05.855892, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 22:15:15.712431, [parking sensors status] updated to parquet
+2021-12-08 22:30:08.235200, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 22:30:18.834993, [parking sensors status] updated to parquet
+2021-12-08 22:45:13.219260, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 22:45:22.918796, [parking sensors status] updated to parquet
+2021-12-08 23:00:14.757393, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 23:00:25.092850, [parking sensors status] updated to parquet
+2021-12-08 23:15:05.997840, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 23:15:17.216371, [parking sensors status] updated to parquet
+2021-12-08 23:30:08.277437, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 23:30:19.569523, [parking sensors status] updated to parquet
+2021-12-08 23:45:15.988095, [parking sensors status] appended and [unique bays] updated to files
+2021-12-08 23:45:30.597478, [parking sensors status] updated to parquet
+2021-12-09 00:00:24.202788, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 00:00:42.952545, [parking sensors status] updated to parquet
+2021-12-09 00:15:03.756671, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 00:15:13.890023, [parking sensors status] updated to parquet
+2021-12-09 00:30:11.930145, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 00:30:22.332493, [parking sensors status] updated to parquet
+2021-12-09 00:45:11.700887, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 00:45:22.510196, [parking sensors status] updated to parquet
+2021-12-09 01:00:13.192453, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 01:00:27.958362, [parking sensors status] updated to parquet
+2021-12-09 01:15:02.943397, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 01:15:13.261877, [parking sensors status] updated to parquet
+2021-12-09 01:30:20.018725, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 01:30:32.160011, [parking sensors status] updated to parquet
+2021-12-09 01:45:06.859962, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 01:45:17.178806, [parking sensors status] updated to parquet
+2021-12-09 02:00:12.468580, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 02:00:23.672483, [parking sensors status] updated to parquet
+2021-12-09 02:15:05.021285, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 02:15:14.042705, [parking sensors status] updated to parquet
+2021-12-09 02:30:09.219940, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 02:30:18.547754, [parking sensors status] updated to parquet
+2021-12-09 02:45:13.556311, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 02:45:24.393752, [parking sensors status] updated to parquet
+2021-12-09 03:00:13.278226, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 03:00:23.909522, [parking sensors status] updated to parquet
+2021-12-09 03:15:02.735541, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 03:15:16.635618, [parking sensors status] updated to parquet
+2021-12-09 03:30:12.193966, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 03:30:26.462925, [parking sensors status] updated to parquet
+2021-12-09 03:45:06.779822, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 03:45:17.151852, [parking sensors status] updated to parquet
+2021-12-09 04:00:12.540144, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 04:00:24.492475, [parking sensors status] updated to parquet
+2021-12-09 04:15:04.394205, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 04:15:13.103634, [parking sensors status] updated to parquet
+2021-12-09 04:30:04.759281, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 04:30:14.402311, [parking sensors status] updated to parquet
+2021-12-09 04:45:10.883117, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 04:45:21.619386, [parking sensors status] updated to parquet
+2021-12-09 05:00:08.257482, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 05:00:20.398758, [parking sensors status] updated to parquet
+2021-12-09 05:15:03.327416, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 05:15:14.705154, [parking sensors status] updated to parquet
+2021-12-09 05:30:15.372452, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 05:30:28.510381, [parking sensors status] updated to parquet
+2021-12-09 05:45:12.107791, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 05:45:25.908701, [parking sensors status] updated to parquet
+2021-12-09 06:00:17.082086, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 06:00:29.785862, [parking sensors status] updated to parquet
+2021-12-09 06:15:03.565032, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 06:15:12.205177, [parking sensors status] updated to parquet
+2021-12-09 06:30:06.779268, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 06:30:15.662740, [parking sensors status] updated to parquet
+2021-12-09 06:45:08.903726, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 06:45:20.452166, [parking sensors status] updated to parquet
+2021-12-09 07:00:13.950667, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 07:00:23.023315, [parking sensors status] updated to parquet
+2021-12-09 07:15:05.275999, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 07:15:16.538765, [parking sensors status] updated to parquet
+2021-12-09 07:30:08.182972, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 07:30:17.990593, [parking sensors status] updated to parquet
+2021-12-09 07:45:16.569370, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 07:45:29.594992, [parking sensors status] updated to parquet
+2021-12-09 08:00:16.657944, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 08:00:27.323348, [parking sensors status] updated to parquet
+2021-12-09 08:15:06.791704, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 08:15:17.304726, [parking sensors status] updated to parquet
+2021-12-09 08:30:08.511939, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 08:30:18.613741, [parking sensors status] updated to parquet
+2021-12-09 08:45:10.640148, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 08:45:19.464213, [parking sensors status] updated to parquet
+2021-12-09 09:00:07.308975, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 09:00:16.701874, [parking sensors status] updated to parquet
+2021-12-09 09:15:03.822384, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 09:15:14.754307, [parking sensors status] updated to parquet
+2021-12-09 09:30:11.518741, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 09:30:21.767101, [parking sensors status] updated to parquet
+2021-12-09 09:45:08.186390, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 09:45:19.590226, [parking sensors status] updated to parquet
+2021-12-09 10:00:16.602211, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 10:00:27.997367, [parking sensors status] updated to parquet
+2021-12-09 10:15:05.330482, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 10:15:17.430603, [parking sensors status] updated to parquet
+2021-12-09 10:30:08.617919, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 10:30:18.299184, [parking sensors status] updated to parquet
+2021-12-09 10:45:13.666672, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 10:45:24.055937, [parking sensors status] updated to parquet
+2021-12-09 11:00:18.175031, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 11:00:28.835619, [parking sensors status] updated to parquet
+2021-12-09 11:15:04.870563, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 11:15:15.341538, [parking sensors status] updated to parquet
+2021-12-09 11:30:09.652223, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 11:30:21.158037, [parking sensors status] updated to parquet
+2021-12-09 11:45:10.840948, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 11:45:23.202165, [parking sensors status] updated to parquet
+2021-12-09 12:00:06.754496, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 12:00:17.948868, [parking sensors status] updated to parquet
+2021-12-09 12:15:03.607211, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 12:15:14.578262, [parking sensors status] updated to parquet
+2021-12-09 12:30:11.793660, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 12:30:24.700205, [parking sensors status] updated to parquet
+2021-12-09 12:45:06.890681, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 12:45:19.120313, [parking sensors status] updated to parquet
+2021-12-09 13:00:12.991013, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 13:00:26.060932, [parking sensors status] updated to parquet
+2021-12-09 13:15:04.931010, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 13:15:15.718607, [parking sensors status] updated to parquet
+2021-12-09 13:30:08.613062, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 13:30:20.290746, [parking sensors status] updated to parquet
+2021-12-09 13:45:12.833332, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 13:45:26.095825, [parking sensors status] updated to parquet
+2021-12-09 14:00:13.745407, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 14:00:23.900786, [parking sensors status] updated to parquet
+2021-12-09 14:15:06.152708, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 14:15:18.721988, [parking sensors status] updated to parquet
+2021-12-09 14:30:09.465948, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 14:30:20.379599, [parking sensors status] updated to parquet
+2021-12-09 14:45:12.980884, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 14:45:25.846424, [parking sensors status] updated to parquet
+2021-12-09 15:00:13.075562, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 15:00:26.217175, [parking sensors status] updated to parquet
+2021-12-09 15:15:04.734687, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 15:15:16.640266, [parking sensors status] updated to parquet
+2021-12-09 15:30:13.880401, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 15:30:24.753663, [parking sensors status] updated to parquet
+2021-12-09 15:45:11.998667, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 15:45:22.787203, [parking sensors status] updated to parquet
+2021-12-09 16:00:11.566548, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 16:00:25.577810, [parking sensors status] updated to parquet
+2021-12-09 16:15:05.980899, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 16:15:23.297446, [parking sensors status] updated to parquet
+2021-12-09 16:30:12.846035, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 16:30:26.112928, [parking sensors status] updated to parquet
+2021-12-09 16:45:11.362256, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 16:45:23.012825, [parking sensors status] updated to parquet
+2021-12-09 17:00:08.314621, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 17:00:21.483235, [parking sensors status] updated to parquet
+2021-12-09 17:15:03.398925, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 17:15:13.288527, [parking sensors status] updated to parquet
+2021-12-09 17:30:13.428252, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 17:30:23.725585, [parking sensors status] updated to parquet
+2021-12-09 17:45:12.672152, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 17:45:25.907162, [parking sensors status] updated to parquet
+2021-12-09 18:00:08.482556, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 18:00:19.389612, [parking sensors status] updated to parquet
+2021-12-09 18:15:05.196128, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 18:15:17.965547, [parking sensors status] updated to parquet
+2021-12-09 18:30:08.586402, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 18:30:19.046763, [parking sensors status] updated to parquet
+2021-12-09 18:45:11.964652, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 18:45:22.777222, [parking sensors status] updated to parquet
+2021-12-09 19:00:14.692858, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 19:00:27.264379, [parking sensors status] updated to parquet
+2021-12-09 19:15:03.212638, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 19:15:13.026251, [parking sensors status] updated to parquet
+2021-12-09 19:30:11.866880, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 19:30:22.625931, [parking sensors status] updated to parquet
+2021-12-09 19:45:12.403600, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 19:45:22.835249, [parking sensors status] updated to parquet
+2021-12-09 20:00:11.090043, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 20:00:24.287038, [parking sensors status] updated to parquet
+2021-12-09 20:15:05.627353, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 20:15:20.022366, [parking sensors status] updated to parquet
+2021-12-09 20:30:08.910681, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 20:30:23.937149, [parking sensors status] updated to parquet
+2021-12-09 20:45:13.316574, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 20:45:23.440577, [parking sensors status] updated to parquet
+2021-12-09 21:00:06.473175, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 21:00:15.635079, [parking sensors status] updated to parquet
+2021-12-09 21:15:03.808561, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 21:15:16.569790, [parking sensors status] updated to parquet
+2021-12-09 21:30:16.589011, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 21:30:28.750259, [parking sensors status] updated to parquet
+2021-12-09 21:45:12.297898, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 21:45:24.507890, [parking sensors status] updated to parquet
+2021-12-09 22:00:09.214105, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 22:00:20.600818, [parking sensors status] updated to parquet
+2021-12-09 22:15:04.701273, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 22:15:16.585478, [parking sensors status] updated to parquet
+2021-12-09 22:30:10.532304, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 22:30:21.452315, [parking sensors status] updated to parquet
+2021-12-09 22:45:13.253583, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 22:45:26.079972, [parking sensors status] updated to parquet
+2021-12-09 23:00:06.845085, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 23:00:17.250824, [parking sensors status] updated to parquet
+2021-12-09 23:15:03.731545, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 23:15:13.820773, [parking sensors status] updated to parquet
+2021-12-09 23:30:12.124009, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 23:30:24.981097, [parking sensors status] updated to parquet
+2021-12-09 23:45:11.956673, [parking sensors status] appended and [unique bays] updated to files
+2021-12-09 23:45:26.537918, [parking sensors status] updated to parquet
+2021-12-10 00:00:10.554912, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 00:00:22.941106, [parking sensors status] updated to parquet
+2021-12-10 00:15:03.700269, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 00:15:16.157825, [parking sensors status] updated to parquet
+2021-12-10 00:30:14.192059, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 00:30:24.778364, [parking sensors status] updated to parquet
+2021-12-10 00:45:18.145552, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 00:45:29.210872, [parking sensors status] updated to parquet
+2021-12-10 01:00:11.094829, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 01:00:20.817266, [parking sensors status] updated to parquet
+2021-12-10 01:15:05.426776, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 01:15:15.316724, [parking sensors status] updated to parquet
+2021-12-10 01:30:07.526479, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 01:30:16.481607, [parking sensors status] updated to parquet
+2021-12-10 01:45:11.545567, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 01:45:24.601810, [parking sensors status] updated to parquet
+2021-12-10 02:00:12.268180, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 02:00:24.814738, [parking sensors status] updated to parquet
+2021-12-10 02:15:02.398708, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 02:15:12.893909, [parking sensors status] updated to parquet
+2021-12-10 02:30:13.807723, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 02:30:26.690777, [parking sensors status] updated to parquet
+2021-12-10 02:45:10.420371, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 02:45:24.174282, [parking sensors status] updated to parquet
+2021-12-10 03:00:13.094281, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 03:00:22.992367, [parking sensors status] updated to parquet
+2021-12-10 03:15:05.284768, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 03:15:16.418981, [parking sensors status] updated to parquet
+2021-12-10 03:30:10.623476, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 03:30:28.776147, [parking sensors status] updated to parquet
+2021-12-10 03:45:06.647099, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 03:45:20.844938, [parking sensors status] updated to parquet
+2021-12-10 04:00:11.696846, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 04:00:22.184003, [parking sensors status] updated to parquet
+2021-12-10 04:15:02.550382, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 04:15:12.217713, [parking sensors status] updated to parquet
+2021-12-10 04:30:06.565623, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 04:30:18.435527, [parking sensors status] updated to parquet
+2021-12-10 04:45:06.449102, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 04:45:16.377275, [parking sensors status] updated to parquet
+2021-12-10 05:00:06.286333, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 05:00:15.664536, [parking sensors status] updated to parquet
+2021-12-10 05:15:03.022360, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 05:15:12.457836, [parking sensors status] updated to parquet
+2021-12-10 05:30:07.186966, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 05:30:20.684159, [parking sensors status] updated to parquet
+2021-12-10 05:45:11.466330, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 05:45:22.467563, [parking sensors status] updated to parquet
+2021-12-10 06:00:08.022386, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 06:00:19.785968, [parking sensors status] updated to parquet
+2021-12-10 06:15:04.537562, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 06:15:15.166128, [parking sensors status] updated to parquet
+2021-12-10 06:30:12.687057, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 06:30:24.908476, [parking sensors status] updated to parquet
+2021-12-10 06:45:06.819335, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 06:45:16.416618, [parking sensors status] updated to parquet
+2021-12-10 07:00:15.426540, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 07:00:27.731307, [parking sensors status] updated to parquet
+2021-12-10 07:15:05.643047, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 07:15:17.299077, [parking sensors status] updated to parquet
+2021-12-10 07:30:07.920818, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 07:30:18.919304, [parking sensors status] updated to parquet
+2021-12-10 07:45:13.512259, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 07:45:24.084212, [parking sensors status] updated to parquet
+2021-12-10 08:00:05.840831, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 08:00:16.062286, [parking sensors status] updated to parquet
+2021-12-10 08:15:04.561603, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 08:15:14.215225, [parking sensors status] updated to parquet
+2021-12-10 08:30:09.052516, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 08:30:19.529962, [parking sensors status] updated to parquet
+2021-12-10 08:45:13.269593, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 08:45:28.549949, [parking sensors status] updated to parquet
+2021-12-10 09:00:15.404147, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 09:00:29.108332, [parking sensors status] updated to parquet
+2021-12-10 09:15:04.147447, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 09:15:17.239692, [parking sensors status] updated to parquet
+2021-12-10 09:30:09.842603, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 09:30:25.542075, [parking sensors status] updated to parquet
+2021-12-10 09:45:09.277930, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 09:45:22.236255, [parking sensors status] updated to parquet
+2021-12-10 10:00:12.089408, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 10:00:22.187262, [parking sensors status] updated to parquet
+2021-12-10 10:15:05.182047, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 10:15:15.269315, [parking sensors status] updated to parquet
+2021-12-10 10:30:07.731129, [parking sensors status] appended and [unique bays] updated to files
+2021-12-10 10:30:18.998977, [parking sensors status] updated to parquet
