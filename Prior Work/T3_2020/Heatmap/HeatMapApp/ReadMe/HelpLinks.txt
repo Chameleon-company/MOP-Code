@@ -1,7 +1,0 @@
-https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/
-https://www.askpython.com/python-modules/flask/flask-forms
-https://www.twilio.com/blog/deploy-flask-python-app-aws
-https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/
-https://ubuntu.com/tutorials/install-and-configure-apache#1-overview
-https://www.edureka.co/community/2722/amazon-aws-filezilla-transfer-says-permission-denied
-https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
