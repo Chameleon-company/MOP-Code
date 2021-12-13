@@ -1,5 +1,0 @@
-,sensor_id,sensor_description,sensor_name,installation_date,status,note,direction_1,direction_2,latitude,longitude,location
-59,63,231 Bourke St,Bou231_T,2020/01/07,A,,East,West,-37.81333081,144.96675572,"(-37.81333081, 144.96675572)"
-60,64,Royal Pde - Grattan St,Grat292_T,2020/01/16,A,,North,South,-37.79949544,144.95792282,"(-37.79949544, 144.95792282)"
-63,65,Swanston St - City Square,SwaCs_T,2020/03/12,A,,North,South,-37.81569416,144.96680641,"(-37.81569416, 144.96680641)"
-64,66,State Library - New,QVN_T,2020/04/06,A,,South,North,-37.81057845,144.96444294,"(-37.81057845, 144.96444294)"
