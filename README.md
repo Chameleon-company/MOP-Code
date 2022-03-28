@@ -1,5 +1,5 @@
 # Melbourne Open Data Playground
-A delivarable of the Chameleon comapny's Melbourne City Open Data project and part of the Deakin Industry Student Capstone (DISC) Project.
+A deliverable of the Chameleon company's Melbourne City Open Data project and part of the Deakin Industry Student Capstone (DISC) Project.
 
 ## Previous members (T3 2021)
 | **Seniors** | **Juniors** |
