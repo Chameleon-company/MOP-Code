@@ -1,7 +1,7 @@
 # D2I (Melbourne City)
 A Squad in the Data 2 Intelligence Consulting Tribe as part of the Deakin Industry Student Capstone (DISC) Project.
 
-## Current members (T3 2021)
+## Previous members (T3 2021)
 | **Seniors** | **Juniors** |
 | --- | --- |
 | Albert Hon (**Team Lead**) |  Alex Vuong |
@@ -10,13 +10,7 @@ A Squad in the Data 2 Intelligence Consulting Tribe as part of the Deakin Indust
 | Tithra Chap | Steven James Tuften |
 | | William Hebblewhite |
 
-## Previous members (T2 2021)
-| **Seniors** | **Juniors** |
-| --- | --- |
-| Jason Tsitsopoulos | Joshua Sansom-Sherwill |
-| Neet Patel | Albert Hon |
-| Miriam Zhu | |
-| Oscar Wu | |
+
 ## Project Scope
 ### Background
 Since Covid there is more demand for data and the business community having access to data to support their decision making. There are two strategic documents that this project aligns to:​
