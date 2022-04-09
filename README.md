@@ -1,16 +1,6 @@
 # Melbourne Open Data Playground
 A deliverable of the Chameleon company's Melbourne City Open Data project and part of the Deakin Industry Student Capstone (DISC) Project.
 
-## Previous members (T3 2021)
-| **Seniors** | **Juniors** |
-| --- | --- |
-| Albert Hon (**Team Lead**) |  Alex Vuong |
-| Josh Sansom-Sherwill | Angus Maiden |
-| Ngoc (Andy) Dung Huynh | Shalom Chin |
-| Tithra Chap | Steven James Tuften |
-| | William Hebblewhite |
-
-
 ## Project Scope
 ### Background
 Since Covid there is more demand for data and the business community having access to data to support their decision making. There are two strategic documents that this project aligns to:​
