@@ -1,14 +1,14 @@
 steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp', '.']
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp','.']
   # Push the container image to Container Registry
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp']
-   # Deploy container image to Cloud Run
- - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-   entrypoint: gcloud
-   args:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp']
+  # Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
    - 'run'
    - 'deploy'
    - 'MOP-Code-Webapp'
@@ -16,6 +16,6 @@ steps:
    - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp'
    - '--region'
    - 'australia-southeast1'
- images:
+images:
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/MOP-Code-Webapp'
 
