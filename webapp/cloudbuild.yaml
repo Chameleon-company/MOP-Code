@@ -1,21 +1,21 @@
 steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/MOP-Code-Webapp', '.']
   # Push the container image to Container Registry
  - name: 'gcr.io/cloud-builders/docker'
-   args: ['push', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA']
+   args: ['push', 'gcr.io/$PROJECT_ID/MOP-Code-Webapp']
    # Deploy container image to Cloud Run
  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
    entrypoint: gcloud
    args:
    - 'run'
    - 'deploy'
-   - 'SERVICE-NAME'
+   - 'MOP-Code-Webapp'
    - '--image'
-   - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+   - 'gcr.io/$PROJECT_ID/MOP-Code-Webapp'
    - '--region'
-   - 'REGION'
+   - 'australia-southeast1'
  images:
- - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+ - 'gcr.io/$PROJECT_ID/MOP-Code-Webapp'
 
