@@ -7,6 +7,8 @@ FROM python:3.9-slim
 ENV PYTHONUNBUFFERED True
 
 # Set working environment
+
+
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
