@@ -1,0 +1,2865 @@
+header {
+  gtfs_realtime_version: "2.0"
+  incrementality: FULL_DATASET
+  timestamp: 1652593443
+}
+entity {
+  id: "2022-05-15-6329"
+  vehicle {
+    trip {
+      trip_id: "100.UJ.2-WMN-B-mjp-1.2.H"
+      start_time: "15:16:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.842010498046875
+      longitude: 144.883544921875
+      bearing: -1.0629832744598389
+    }
+    timestamp: 1652593366
+    vehicle {
+      id: "2543T-2557T-785M-786M-813M-814M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6330"
+  vehicle {
+    trip {
+      trip_id: "105.UJ.2-WMN-B-mjp-1.4.R"
+      start_time: "16:16:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.8097038269043
+      longitude: 144.9438018798828
+      bearing: -32.91853713989258
+    }
+    timestamp: 1652593342
+    vehicle {
+      id: "1322T-1632T-43M-44M-863M-864M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6331"
+  vehicle {
+    trip {
+      trip_id: "107.UJ.2-WMN-B-mjp-1.2.H"
+      start_time: "15:36:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.8097038269043
+      longitude: 144.9438018798828
+      bearing: -32.91853713989258
+    }
+    timestamp: 1652593342
+    vehicle {
+      id: "1322T-1632T-43M-44M-863M-864M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6728"
+  vehicle {
+    trip {
+      trip_id: "1127.UJ.2-SYM-C-mjp-1.21.R"
+      start_time: "15:27:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.79848861694336
+      longitude: 144.8556671142578
+      bearing: 95.39497375488281
+    }
+    timestamp: 1652593388
+    vehicle {
+      id: "2552T-2558T-803M-804M-815M-816M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6730"
+  vehicle {
+    trip {
+      trip_id: "1129.UJ.2-SYM-C-mjp-1.21.R"
+      start_time: "16:07:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.7906379699707
+      longitude: 144.83453369140625
+      bearing: -32.29707336425781
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1137T-1183T-573M-574M-665M-666M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6333"
+  vehicle {
+    trip {
+      trip_id: "117.UJ.2-WMN-B-mjp-1.2.H"
+      start_time: "15:56:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81816482543945
+      longitude: 144.96755981445312
+      bearing: 248.9087677001953
+    }
+    timestamp: 1652593352
+    vehicle {
+      id: "2542T-2571T-783M-784M-841M-842M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6335"
+  vehicle {
+    trip {
+      trip_id: "125.UJ.2-WMN-B-mjp-1.2.H"
+      start_time: "16:16:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.94661331176758
+      longitude: 145.04058837890625
+      bearing: -30.106477737426758
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1027T-1093T-353M-354M-485M-486M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6337"
+  vehicle {
+    trip {
+      trip_id: "133.UJ.2-WMN-B-mjp-1.2.H"
+      start_time: "16:36:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.03710174560547
+      longitude: 145.10791015625
+      bearing: -26.184839248657227
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "train35304"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1055"
+  vehicle {
+    trip {
+      trip_id: "2667.UJ.2-MER-B-mjp-1.4.R"
+      start_time: "14:51:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.642173767089844
+      longitude: 145.09381103515625
+      bearing: 14.701510429382324
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "1371T-141M-142M-1444T-287M-288M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1057"
+  vehicle {
+    trip {
+      trip_id: "2674.UJ.2-MER-B-mjp-1.4.R"
+      start_time: "15:11:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.727691650390625
+      longitude: 145.00289916992188
+      bearing: 8.601486206054688
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1374T-147M-148M-1673T-945M-946M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1058"
+  vehicle {
+    trip {
+      trip_id: "2675.UJ.2-MER-B-mjp-1.1.H"
+      start_time: "15:04:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.78317642211914
+      longitude: 144.9923858642578
+      bearing: 129.85752868652344
+    }
+    timestamp: 1652593372
+    vehicle {
+      id: "1438T-1440T-275M-276M-279M-280M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1059"
+  vehicle {
+    trip {
+      trip_id: "2681.UJ.2-MER-B-mjp-1.4.R"
+      start_time: "15:31:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.80976486206055
+      longitude: 144.9925994873047
+      bearing: 6.340191841125488
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "1326T-51M-52M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1060"
+  vehicle {
+    trip {
+      trip_id: "2682.UJ.2-MER-B-mjp-1.1.H"
+      start_time: "15:24:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.692317962646484
+      longitude: 145.01219177246094
+      bearing: 183.52186584472656
+    }
+    timestamp: 1652593374
+    vehicle {
+      id: "1397T-1686T-193M-194M-971M-972M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1064"
+  vehicle {
+    trip {
+      trip_id: "2698.UJ.2-MER-B-mjp-1.1.H"
+      start_time: "16:04:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.642173767089844
+      longitude: 145.09381103515625
+      bearing: 14.701510429382324
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "1371T-141M-142M-1444T-287M-288M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1066"
+  vehicle {
+    trip {
+      trip_id: "2705.UJ.2-MER-B-mjp-1.1.H"
+      start_time: "16:24:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.727691650390625
+      longitude: 145.00289916992188
+      bearing: 8.601486206054688
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1374T-147M-148M-1673T-945M-946M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1068"
+  vehicle {
+    trip {
+      trip_id: "2712.UJ.2-MER-B-mjp-1.1.H"
+      start_time: "16:44:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.80976486206055
+      longitude: 144.9925994873047
+      bearing: 6.340191841125488
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "1326T-51M-52M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X057"
+  vehicle {
+    trip {
+      trip_id: "2995.UJ.2-SDM-B-mjp-1.1.H"
+      start_time: "15:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.92839431762695
+      longitude: 144.98988342285156
+      bearing: 144.53012084960938
+    }
+    timestamp: 1652593370
+    vehicle {
+      id: "1041T-1066T-381M-382M-431M-432M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X059"
+  vehicle {
+    trip {
+      trip_id: "3003.UJ.2-SDM-B-mjp-1.1.H"
+      start_time: "15:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.83647918701172
+      longitude: 144.99261474609375
+      bearing: 189.05535888671875
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "1031T-324M-342M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X060"
+  vehicle {
+    trip {
+      trip_id: "3007.UJ.2-SDM-B-mjp-1.5.R"
+      start_time: "15:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.824371337890625
+      longitude: 144.99017333984375
+      bearing: -72.18376922607422
+    }
+    timestamp: 1652593383
+    vehicle {
+      id: "2549T-2564T-797M-798M-827M-828M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X061"
+  vehicle {
+    trip {
+      trip_id: "3010.UJ.2-SDM-B-mjp-1.1.H"
+      start_time: "15:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.845191955566406
+      longitude: 145.00303649902344
+      bearing: -66.05982971191406
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "2509T-2534T-717M-718M-767M-768M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X062"
+  vehicle {
+    trip {
+      trip_id: "3014.UJ.2-SDM-B-mjp-1.5.R"
+      start_time: "15:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.919124603271484
+      longitude: 144.9933319091797
+      bearing: 24.493303298950195
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1071T-1074T-441M-442M-447M-448M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X063"
+  vehicle {
+    trip {
+      trip_id: "3018.UJ.2-SDM-B-mjp-1.1.H"
+      start_time: "16:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.919124603271484
+      longitude: 144.9933319091797
+      bearing: 24.493303298950195
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1071T-1074T-441M-442M-447M-448M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X064"
+  vehicle {
+    trip {
+      trip_id: "3023.UJ.2-SDM-B-mjp-1.5.R"
+      start_time: "15:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.92839431762695
+      longitude: 144.98988342285156
+      bearing: 144.53012084960938
+    }
+    timestamp: 1652593370
+    vehicle {
+      id: "1041T-1066T-381M-382M-431M-432M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-X066"
+  vehicle {
+    trip {
+      trip_id: "3031.UJ.2-SDM-B-mjp-1.5.R"
+      start_time: "16:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.83647918701172
+      longitude: 144.99261474609375
+      bearing: 189.05535888671875
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "1031T-324M-342M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1253"
+  vehicle {
+    trip {
+      trip_id: "3177.UJ.2-HBG-B-mjp-1.1.H"
+      start_time: "14:41:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.67313003540039
+      longitude: 145.15966796875
+      bearing: 77.17559814453125
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "1302T-1443T-285M-286M-3M-4M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1255"
+  vehicle {
+    trip {
+      trip_id: "3184.UJ.2-HBG-B-mjp-1.9.H"
+      start_time: "15:01:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.703819274902344
+      longitude: 145.0904541015625
+      bearing: 25.44312286376953
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1320T-1646T-39M-40M-891M-892M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1257"
+  vehicle {
+    trip {
+      trip_id: "3191.UJ.2-HBG-B-mjp-1.1.H"
+      start_time: "15:21:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.779170989990234
+      longitude: 145.0120086669922
+      bearing: 88.63848114013672
+    }
+    timestamp: 1652593386
+    vehicle {
+      id: "1349T-1392T-183M-184M-97M-98M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1258"
+  vehicle {
+    trip {
+      trip_id: "3192.UJ.2-HBG-B-mjp-1.19.R"
+      start_time: "14:40:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.816650390625
+      longitude: 144.98509216308594
+      bearing: -83.19698333740234
+    }
+    timestamp: 1652593388
+    vehicle {
+      id: "115M-116M-1337T-1358T-73M-74M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1259"
+  vehicle {
+    trip {
+      trip_id: "3198.UJ.2-HBG-B-mjp-1.9.H"
+      start_time: "15:41:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81568908691406
+      longitude: 144.97633361816406
+      bearing: 96.7196273803711
+    }
+    timestamp: 1652593399
+    vehicle {
+      id: "1303T-1379T-157M-158M-5M-6M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1260"
+  vehicle {
+    trip {
+      trip_id: "3201.UJ.2-HBG-B-mjp-1.23.R"
+      start_time: "15:21:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.76880645751953
+      longitude: 145.04571533203125
+      bearing: 244.29837036132812
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "1425T-1427T-249M-250M-253M-254M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1262"
+  vehicle {
+    trip {
+      trip_id: "3204.UJ.2-HBG-B-mjp-1.19.R"
+      start_time: "15:20:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.714622497558594
+      longitude: 145.136474609375
+      bearing: -74.32047271728516
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1328T-1402T-203M-204M-55M-56M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1264"
+  vehicle {
+    trip {
+      trip_id: "3211.UJ.2-HBG-B-mjp-1.23.R"
+      start_time: "16:01:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.703819274902344
+      longitude: 145.0904541015625
+      bearing: 25.44312286376953
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1320T-1646T-39M-40M-891M-892M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1266"
+  vehicle {
+    trip {
+      trip_id: "3218.UJ.2-HBG-B-mjp-1.19.R"
+      start_time: "16:00:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.67313003540039
+      longitude: 145.15966796875
+      bearing: 77.17559814453125
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "1302T-1443T-285M-286M-3M-4M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1268"
+  vehicle {
+    trip {
+      trip_id: "3225.UJ.2-HBG-B-mjp-1.23.R"
+      start_time: "16:41:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81568908691406
+      longitude: 144.97633361816406
+      bearing: 96.7196273803711
+    }
+    timestamp: 1652593399
+    vehicle {
+      id: "1303T-1379T-157M-158M-5M-6M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-1270"
+  vehicle {
+    trip {
+      trip_id: "3232.UJ.2-HBG-B-mjp-1.19.R"
+      start_time: "16:40:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.779170989990234
+      longitude: 145.0120086669922
+      bearing: 88.63848114013672
+    }
+    timestamp: 1652593386
+    vehicle {
+      id: "1349T-1392T-183M-184M-97M-98M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2060"
+  vehicle {
+    trip {
+      trip_id: "4354.UJ.2-GLW-B-mjp-1.11.R"
+      start_time: "15:25:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.84988021850586
+      longitude: 145.0424346923828
+      bearing: -52.23921203613281
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1370T-139M-140M-1682T-963M-964M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2064"
+  vehicle {
+    trip {
+      trip_id: "4366.UJ.2-GLW-B-mjp-1.11.R"
+      start_time: "16:05:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.876277923583984
+      longitude: 145.15005493164062
+      bearing: 98.9842529296875
+    }
+    timestamp: 1652593214
+    vehicle {
+      id: "129M-1307T-130M-1365T-13M-14M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2066"
+  vehicle {
+    trip {
+      trip_id: "4371.UJ.2-GLW-B-mjp-1.12.R"
+      start_time: "16:25:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.839683532714844
+      longitude: 145.03250122070312
+      bearing: 98.9668197631836
+    }
+    timestamp: 1652593374
+    vehicle {
+      id: "1404T-1672T-207M-208M-943M-944M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2363"
+  vehicle {
+    trip {
+      trip_id: "4866.UJ.2-ALM-B-mjp-1.1.H"
+      start_time: "15:29:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86308670043945
+      longitude: 145.08084106445312
+      bearing: 17.836719512939453
+    }
+    timestamp: 1652593271
+    vehicle {
+      id: "1441T-281M-282M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2364"
+  vehicle {
+    trip {
+      trip_id: "4870.UJ.2-ALM-B-mjp-1.8.R"
+      start_time: "15:47:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86308670043945
+      longitude: 145.08084106445312
+      bearing: 17.836719512939453
+    }
+    timestamp: 1652593271
+    vehicle {
+      id: "1441T-281M-282M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2365"
+  vehicle {
+    trip {
+      trip_id: "4874.UJ.2-ALM-B-mjp-1.1.H"
+      start_time: "15:49:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.82505416870117
+      longitude: 145.05404663085938
+      bearing: -38.61381149291992
+    }
+    timestamp: 1652593305
+    vehicle {
+      id: "1321T-41M-42M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2367"
+  vehicle {
+    trip {
+      trip_id: "4882.UJ.2-ALM-B-mjp-1.1.H"
+      start_time: "16:09:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86308670043945
+      longitude: 145.08084106445312
+      bearing: 17.836719512939453
+    }
+    timestamp: 1652593271
+    vehicle {
+      id: "1441T-281M-282M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6460"
+  vehicle {
+    trip {
+      trip_id: "499.UJ.2-WBE-B-mjp-1.10.R"
+      start_time: "15:05:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.79958724975586
+      longitude: 144.92544555664062
+      bearing: 99.26116943359375
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "100M-111M-112M-1350T-1356T-99M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6462"
+  vehicle {
+    trip {
+      trip_id: "507.UJ.2-WBE-B-mjp-1.10.R"
+      start_time: "15:25:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.866676330566406
+      longitude: 144.82492065429688
+      bearing: 95.87256622314453
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1029T-1068T-357M-358M-435M-436M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6463"
+  vehicle {
+    trip {
+      trip_id: "511.UJ.2-WBE-B-mjp-1.2.H"
+      start_time: "15:26:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81639099121094
+      longitude: 144.8896942138672
+      bearing: 196.29568481445312
+    }
+    timestamp: 1652593344
+    vehicle {
+      id: "1330T-1665T-59M-60M-929M-930M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2657"
+  vehicle {
+    trip {
+      trip_id: "5112.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "14:59:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.876277923583984
+      longitude: 145.15005493164062
+      bearing: 98.9842529296875
+    }
+    timestamp: 1652593214
+    vehicle {
+      id: "129M-1307T-130M-1365T-13M-14M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2659"
+  vehicle {
+    trip {
+      trip_id: "5114.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "15:19:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.839683532714844
+      longitude: 145.03250122070312
+      bearing: 98.9668197631836
+    }
+    timestamp: 1652593374
+    vehicle {
+      id: "1404T-1672T-207M-208M-943M-944M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2661"
+  vehicle {
+    trip {
+      trip_id: "5118.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "15:39:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81806945800781
+      longitude: 144.95172119140625
+      bearing: -29.35775375366211
+    }
+    timestamp: 1652593373
+    vehicle {
+      id: "1311T-1416T-21M-22M-231M-232M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2663"
+  vehicle {
+    trip {
+      trip_id: "5123.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "15:59:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.822509765625
+      longitude: 145.0453643798828
+      bearing: -82.58670043945312
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1406T-1683T-211M-212M-965M-966M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2665"
+  vehicle {
+    trip {
+      trip_id: "5131.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "16:19:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.82120895385742
+      longitude: 145.17120361328125
+      bearing: 257.9701232910156
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1666T-1671T-931M-932M-941M-942M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-2667"
+  vehicle {
+    trip {
+      trip_id: "5136.UJ.2-GLW-B-mjp-1.2.H"
+      start_time: "16:39:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.77778244018555
+      longitude: 145.3258056640625
+      bearing: 219.18003845214844
+    }
+    timestamp: 1652593389
+    vehicle {
+      id: "1377T-1389T-153M-154M-177M-178M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6466"
+  vehicle {
+    trip {
+      trip_id: "522.UJ.2-WBE-B-mjp-1.10.R"
+      start_time: "16:05:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.89980697631836
+      longitude: 144.6601104736328
+      bearing: 0.0
+    }
+    timestamp: 1652593173
+    vehicle {
+      id: "1100T-1104T-499M-507M-508M-534M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6467"
+  vehicle {
+    trip {
+      trip_id: "527.UJ.2-WBE-B-mjp-1.2.H"
+      start_time: "16:06:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.889892578125
+      longitude: 145.04200744628906
+      bearing: 7.40467643737793
+    }
+    timestamp: 1652593319
+    vehicle {
+      id: "2513T-2516T-725M-726M-731M-732M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6468"
+  vehicle {
+    trip {
+      trip_id: "531.UJ.2-WBE-B-mjp-1.10.R"
+      start_time: "16:25:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86476135253906
+      longitude: 144.80946350097656
+      bearing: -81.73909759521484
+    }
+    timestamp: 1652593380
+    vehicle {
+      id: "1059T-1098T-417M-418M-495M-496M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6469"
+  vehicle {
+    trip {
+      trip_id: "535.UJ.2-WBE-B-mjp-1.2.H"
+      start_time: "16:26:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.98099899291992
+      longitude: 145.0645294189453
+      bearing: -30.043611526489258
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "2527T-2551T-753M-754M-801M-802M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3044"
+  vehicle {
+    trip {
+      trip_id: "5385.UJ.2-LIL-C-mjp-1.44.R"
+      start_time: "15:08:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.827537536621094
+      longitude: 145.00709533691406
+      bearing: -83.40084838867188
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1335T-1690T-69M-70M-979M-980M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3046"
+  vehicle {
+    trip {
+      trip_id: "5387.UJ.2-LIL-C-mjp-1.44.R"
+      start_time: "15:28:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.818992614746094
+      longitude: 145.11947631835938
+      bearing: -79.28577423095703
+    }
+    timestamp: 1652593391
+    vehicle {
+      id: "1369T-137M-138M-1418T-235M-236M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3048"
+  vehicle {
+    trip {
+      trip_id: "5389.UJ.2-LIL-C-mjp-1.44.R"
+      start_time: "15:48:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.815635681152344
+      longitude: 145.22964477539062
+      bearing: 60.07484817504883
+    }
+    timestamp: 1652593376
+    vehicle {
+      id: "1304T-1432T-263M-264M-7M-8M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3050"
+  vehicle {
+    trip {
+      trip_id: "5390.UJ.2-LIL-C-mjp-1.42.R"
+      start_time: "16:08:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.824462890625
+      longitude: 145.09767150878906
+      bearing: 66.03751373291016
+    }
+    timestamp: 1652593400
+    vehicle {
+      id: "1345T-1687T-89M-90M-973M-974M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3052"
+  vehicle {
+    trip {
+      trip_id: "5393.UJ.2-LIL-C-mjp-1.44.R"
+      start_time: "16:28:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81836700439453
+      longitude: 144.9779815673828
+      bearing: 125.37916564941406
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "123M-124M-1362T-1434T-267M-268M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3246"
+  vehicle {
+    trip {
+      trip_id: "5620.UJ.2-LIL-C-mjp-1.43.R"
+      start_time: "14:59:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.822509765625
+      longitude: 145.0453643798828
+      bearing: -82.58670043945312
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1406T-1683T-211M-212M-965M-966M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3248"
+  vehicle {
+    trip {
+      trip_id: "5626.UJ.2-LIL-C-mjp-1.43.R"
+      start_time: "15:19:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.82120895385742
+      longitude: 145.17120361328125
+      bearing: 257.9701232910156
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1666T-1671T-931M-932M-941M-942M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3252"
+  vehicle {
+    trip {
+      trip_id: "5629.UJ.2-LIL-C-mjp-1.40.R"
+      start_time: "15:59:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.784690856933594
+      longitude: 145.31329345703125
+      bearing: 82.05868530273438
+    }
+    timestamp: 1652593388
+    vehicle {
+      id: "1317T-1395T-189M-190M-33M-34M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3254"
+  vehicle {
+    trip {
+      trip_id: "5632.UJ.2-LIL-C-mjp-1.43.R"
+      start_time: "16:19:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.82011413574219
+      longitude: 145.15097045898438
+      bearing: 90.0
+    }
+    timestamp: 1652593386
+    vehicle {
+      id: "1405T-1689T-209M-210M-977M-978M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3256"
+  vehicle {
+    trip {
+      trip_id: "5634.UJ.2-LIL-C-mjp-1.43.R"
+      start_time: "16:39:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.827720642089844
+      longitude: 145.00906372070312
+      bearing: 97.14007568359375
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1393T-1411T-185M-186M-221M-222M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3641"
+  vehicle {
+    trip {
+      trip_id: "5990.UJ.2-LIL-C-mjp-1.5.H"
+      start_time: "14:52:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.815635681152344
+      longitude: 145.22964477539062
+      bearing: 60.07484817504883
+    }
+    timestamp: 1652593376
+    vehicle {
+      id: "1304T-1432T-263M-264M-7M-8M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3643"
+  vehicle {
+    trip {
+      trip_id: "5996.UJ.2-LIL-C-mjp-1.5.H"
+      start_time: "15:12:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.824462890625
+      longitude: 145.09767150878906
+      bearing: 66.03751373291016
+    }
+    timestamp: 1652593400
+    vehicle {
+      id: "1345T-1687T-89M-90M-973M-974M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3645"
+  vehicle {
+    trip {
+      trip_id: "6000.UJ.2-LIL-C-mjp-1.5.H"
+      start_time: "15:32:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81836700439453
+      longitude: 144.9779815673828
+      bearing: 125.37916564941406
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "123M-124M-1362T-1434T-267M-268M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3647"
+  vehicle {
+    trip {
+      trip_id: "6008.UJ.2-LIL-C-mjp-1.5.H"
+      start_time: "15:52:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.827537536621094
+      longitude: 145.00709533691406
+      bearing: -83.40084838867188
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1335T-1690T-69M-70M-979M-980M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3649"
+  vehicle {
+    trip {
+      trip_id: "6016.UJ.2-LIL-C-mjp-1.5.H"
+      start_time: "16:12:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.818992614746094
+      longitude: 145.11947631835938
+      bearing: -79.28577423095703
+    }
+    timestamp: 1652593391
+    vehicle {
+      id: "1369T-137M-138M-1418T-235M-236M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3841"
+  vehicle {
+    trip {
+      trip_id: "6244.UJ.2-LIL-C-mjp-1.4.H"
+      start_time: "14:42:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.784690856933594
+      longitude: 145.31329345703125
+      bearing: 82.05868530273438
+    }
+    timestamp: 1652593388
+    vehicle {
+      id: "1317T-1395T-189M-190M-33M-34M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3843"
+  vehicle {
+    trip {
+      trip_id: "6248.UJ.2-LIL-C-mjp-1.4.H"
+      start_time: "15:02:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.82011413574219
+      longitude: 145.15097045898438
+      bearing: 90.0
+    }
+    timestamp: 1652593386
+    vehicle {
+      id: "1405T-1689T-209M-210M-977M-978M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3845"
+  vehicle {
+    trip {
+      trip_id: "6258.UJ.2-LIL-C-mjp-1.4.H"
+      start_time: "15:22:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.827720642089844
+      longitude: 145.00906372070312
+      bearing: 97.14007568359375
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1393T-1411T-185M-186M-221M-222M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3847"
+  vehicle {
+    trip {
+      trip_id: "6264.UJ.2-LIL-C-mjp-1.4.H"
+      start_time: "15:42:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.8186149597168
+      longitude: 144.96522521972656
+      bearing: 248.61175537109375
+    }
+    timestamp: 1652593379
+    vehicle {
+      id: "1312T-1649T-23M-24M-897M-898M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-3849"
+  vehicle {
+    trip {
+      trip_id: "6266.UJ.2-LIL-C-mjp-1.4.H"
+      start_time: "16:02:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.84988021850586
+      longitude: 145.0424346923828
+      bearing: -52.23921203613281
+    }
+    timestamp: 1652593390
+    vehicle {
+      id: "1370T-139M-140M-1682T-963M-964M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4045"
+  vehicle {
+    trip {
+      trip_id: "6492.UJ.2-PKM-B-mjp-1.2.H"
+      start_time: "15:07:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.02312088012695
+      longitude: 145.29510498046875
+      bearing: 122.50789642333984
+    }
+    timestamp: 1652593367
+    vehicle {
+      id: "9027M-9927M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4047"
+  vehicle {
+    trip {
+      trip_id: "6498.UJ.2-PKM-B-mjp-1.2.H"
+      start_time: "15:27:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.937347412109375
+      longitude: 145.13734436035156
+      bearing: 132.54515075683594
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "1024T-1111T-347M-348M-521M-522M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4049"
+  vehicle {
+    trip {
+      trip_id: "6504.UJ.2-PKM-B-mjp-1.2.H"
+      start_time: "15:47:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.87769317626953
+      longitude: 145.0430450439453
+      bearing: 128.5516357421875
+    }
+    timestamp: 1652593298
+    vehicle {
+      id: "9012M-9912M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4051"
+  vehicle {
+    trip {
+      trip_id: "6510.UJ.2-PKM-B-mjp-1.2.H"
+      start_time: "16:07:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.96296310424805
+      longitude: 145.17123413085938
+      bearing: -51.31790542602539
+    }
+    timestamp: 1652593394
+    vehicle {
+      id: "1149T-1180T-597M-598M-659M-660M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4053"
+  vehicle {
+    trip {
+      trip_id: "6516.UJ.2-PKM-B-mjp-1.2.H"
+      start_time: "16:27:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.033145904541016
+      longitude: 145.32058715820312
+      bearing: -74.89404296875
+    }
+    timestamp: 1652593380
+    vehicle {
+      id: "9003M-9903M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4239"
+  vehicle {
+    trip {
+      trip_id: "6877.UJ.2-CRB-B-mjp-1.2.H"
+      start_time: "14:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.100093841552734
+      longitude: 145.2811737060547
+      bearing: 0.0
+    }
+    timestamp: 1652593349
+    vehicle {
+      id: "1039T-1082T-327M-349M-377M-378M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4241"
+  vehicle {
+    trip {
+      trip_id: "6884.UJ.2-CRB-B-mjp-1.2.H"
+      start_time: "15:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.98530578613281
+      longitude: 145.2020263671875
+      bearing: 130.40499877929688
+    }
+    timestamp: 1652593394
+    vehicle {
+      id: "9011M-9911M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4243"
+  vehicle {
+    trip {
+      trip_id: "6889.UJ.2-CRB-B-mjp-1.2.H"
+      start_time: "15:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.89381790161133
+      longitude: 145.07550048828125
+      bearing: 118.2180404663086
+    }
+    timestamp: 1652593341
+    vehicle {
+      id: "2505T-2538T-709M-710M-775M-776M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4245"
+  vehicle {
+    trip {
+      trip_id: "6896.UJ.2-CRB-B-mjp-1.2.H"
+      start_time: "15:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.90076446533203
+      longitude: 145.0887908935547
+      bearing: -47.82118606567383
+    }
+    timestamp: 1652593383
+    vehicle {
+      id: "1167T-1176T-628M-633M-634M-652M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4247"
+  vehicle {
+    trip {
+      trip_id: "6904.UJ.2-CRB-B-mjp-1.2.H"
+      start_time: "16:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.987056732177734
+      longitude: 145.20437622070312
+      bearing: -49.68552780151367
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1135T-1152T-570M-603M-604M-661M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4381"
+  vehicle {
+    trip {
+      trip_id: "7346.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "14:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.13990020751953
+      longitude: 145.12747192382812
+      bearing: 197.79409790039062
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "2506T-2515T-711M-712M-729M-730M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4383"
+  vehicle {
+    trip {
+      trip_id: "7356.UJ.2-FKN-B-mjp-1.2.H"
+      start_time: "14:47:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.076656341552734
+      longitude: 145.12295532226562
+      bearing: 168.31187438964844
+    }
+    timestamp: 1652593400
+    vehicle {
+      id: "1141T-1155T-581M-584M-609M-610M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4385"
+  vehicle {
+    trip {
+      trip_id: "7364.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "14:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.025997161865234
+      longitude: 145.10140991210938
+      bearing: 153.90708923339844
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "2544T-2561T-787M-788M-821M-822M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4387"
+  vehicle {
+    trip {
+      trip_id: "7372.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "15:07:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.962890625
+      longitude: 145.0519561767578
+      bearing: 150.17897033691406
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1010T-1061T-343M-384M-421M-422M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4389"
+  vehicle {
+    trip {
+      trip_id: "7380.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "15:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.919334411621094
+      longitude: 145.03659057617188
+      bearing: 190.16835021972656
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "127M-128M-1364T-1442T-283M-284M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4391"
+  vehicle {
+    trip {
+      trip_id: "7387.UJ.2-FKN-B-mjp-1.2.H"
+      start_time: "15:27:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86503982543945
+      longitude: 145.02798461914062
+      bearing: 140.5626983642578
+    }
+    timestamp: 1652593321
+    vehicle {
+      id: "1151T-1171T-601M-602M-642M-673M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4393"
+  vehicle {
+    trip {
+      trip_id: "7396.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "15:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.83710861206055
+      longitude: 144.9925994873047
+      bearing: 187.8685760498047
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "1067T-1121T-433M-434M-541M-542M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4394"
+  vehicle {
+    trip {
+      trip_id: "7400.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "14:38:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.818382263183594
+      longitude: 144.966796875
+      bearing: 68.80487060546875
+    }
+    timestamp: 1652593380
+    vehicle {
+      id: "2542T-2571T-783M-784M-841M-842M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4395"
+  vehicle {
+    trip {
+      trip_id: "7404.UJ.2-FKN-B-mjp-1.2.H"
+      start_time: "15:47:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.824371337890625
+      longitude: 144.99017333984375
+      bearing: -72.18376922607422
+    }
+    timestamp: 1652593383
+    vehicle {
+      id: "2549T-2564T-797M-798M-827M-828M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4396"
+  vehicle {
+    trip {
+      trip_id: "7408.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "14:48:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.845191955566406
+      longitude: 145.00303649902344
+      bearing: -66.05982971191406
+    }
+    timestamp: 1652593384
+    vehicle {
+      id: "2509T-2534T-717M-718M-767M-768M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4397"
+  vehicle {
+    trip {
+      trip_id: "7412.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "15:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.79958724975586
+      longitude: 144.92544555664062
+      bearing: 99.26116943359375
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "100M-111M-112M-1350T-1356T-99M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4398"
+  vehicle {
+    trip {
+      trip_id: "7416.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "14:58:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.8907585144043
+      longitude: 145.0418701171875
+      bearing: 4.089102745056152
+    }
+    timestamp: 1652593319
+    vehicle {
+      id: "2513T-2516T-725M-726M-731M-732M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4399"
+  vehicle {
+    trip {
+      trip_id: "7420.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "16:07:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.842010498046875
+      longitude: 144.883544921875
+      bearing: -1.0629832744598389
+    }
+    timestamp: 1652593366
+    vehicle {
+      id: "2543T-2557T-785M-786M-813M-814M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4400"
+  vehicle {
+    trip {
+      trip_id: "7424.UJ.2-FKN-B-mjp-1.13.R"
+      start_time: "15:08:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.94661331176758
+      longitude: 145.04058837890625
+      bearing: -30.106477737426758
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1027T-1093T-353M-354M-485M-486M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4401"
+  vehicle {
+    trip {
+      trip_id: "7428.UJ.2-FKN-B-mjp-1.1.H"
+      start_time: "16:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.866676330566406
+      longitude: 144.82492065429688
+      bearing: 95.87256622314453
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1029T-1068T-357M-358M-435M-436M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4402"
+  vehicle {
+    trip {
+      trip_id: "7432.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "15:18:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.98099899291992
+      longitude: 145.0645294189453
+      bearing: -30.043611526489258
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "2527T-2551T-753M-754M-801M-802M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4404"
+  vehicle {
+    trip {
+      trip_id: "7440.UJ.2-FKN-B-mjp-1.13.R"
+      start_time: "15:28:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.03710174560547
+      longitude: 145.10791015625
+      bearing: -26.184839248657227
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "train35304"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4406"
+  vehicle {
+    trip {
+      trip_id: "7448.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "15:38:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.120853424072266
+      longitude: 145.13568115234375
+      bearing: 17.081317901611328
+    }
+    timestamp: 1652593400
+    vehicle {
+      id: "1017T-1108T-314M-334M-515M-516M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4410"
+  vehicle {
+    trip {
+      trip_id: "7464.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "15:58:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.13990020751953
+      longitude: 145.12747192382812
+      bearing: 197.79409790039062
+    }
+    timestamp: 1652593397
+    vehicle {
+      id: "2506T-2515T-711M-712M-729M-730M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4412"
+  vehicle {
+    trip {
+      trip_id: "7472.UJ.2-FKN-B-mjp-1.13.R"
+      start_time: "16:08:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.076656341552734
+      longitude: 145.12295532226562
+      bearing: 168.31187438964844
+    }
+    timestamp: 1652593400
+    vehicle {
+      id: "1141T-1155T-581M-584M-609M-610M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4414"
+  vehicle {
+    trip {
+      trip_id: "7480.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "16:18:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.025997161865234
+      longitude: 145.10140991210938
+      bearing: 153.90708923339844
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "2544T-2561T-787M-788M-821M-822M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4416"
+  vehicle {
+    trip {
+      trip_id: "7488.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "16:28:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.962890625
+      longitude: 145.0519561767578
+      bearing: 150.17897033691406
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1010T-1061T-343M-384M-421M-422M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4418"
+  vehicle {
+    trip {
+      trip_id: "7496.UJ.2-FKN-B-mjp-1.12.R"
+      start_time: "16:38:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.919334411621094
+      longitude: 145.03659057617188
+      bearing: 190.16835021972656
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "127M-128M-1364T-1442T-283M-284M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4646"
+  vehicle {
+    trip {
+      trip_id: "8047.UJ.2-PKM-B-mjp-1.20.R"
+      start_time: "15:00:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.87769317626953
+      longitude: 145.0430450439453
+      bearing: 128.5516357421875
+    }
+    timestamp: 1652593298
+    vehicle {
+      id: "9012M-9912M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4648"
+  vehicle {
+    trip {
+      trip_id: "8053.UJ.2-PKM-B-mjp-1.20.R"
+      start_time: "15:20:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.96296310424805
+      longitude: 145.17123413085938
+      bearing: -51.31790542602539
+    }
+    timestamp: 1652593394
+    vehicle {
+      id: "1149T-1180T-597M-598M-659M-660M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4650"
+  vehicle {
+    trip {
+      trip_id: "8059.UJ.2-PKM-B-mjp-1.20.R"
+      start_time: "15:40:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.033145904541016
+      longitude: 145.32058715820312
+      bearing: -74.89404296875
+    }
+    timestamp: 1652593380
+    vehicle {
+      id: "9003M-9903M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4656"
+  vehicle {
+    trip {
+      trip_id: "8081.UJ.2-PKM-B-mjp-1.20.R"
+      start_time: "16:40:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.02312088012695
+      longitude: 145.29510498046875
+      bearing: 122.50789642333984
+    }
+    timestamp: 1652593367
+    vehicle {
+      id: "9027M-9927M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6324"
+  vehicle {
+    trip {
+      trip_id: "81.UJ.2-WMN-B-mjp-1.4.R"
+      start_time: "15:16:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81905746459961
+      longitude: 144.96441650390625
+      bearing: 76.1177749633789
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1430T-1681T-259M-260M-961M-962M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4766"
+  vehicle {
+    trip {
+      trip_id: "8377.UJ.2-CRB-B-mjp-1.9.R"
+      start_time: "15:09:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.90076446533203
+      longitude: 145.0887908935547
+      bearing: -47.82118606567383
+    }
+    timestamp: 1652593383
+    vehicle {
+      id: "1167T-1176T-628M-633M-634M-652M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4768"
+  vehicle {
+    trip {
+      trip_id: "8385.UJ.2-CRB-B-mjp-1.9.R"
+      start_time: "15:29:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.987056732177734
+      longitude: 145.20437622070312
+      bearing: -49.68552780151367
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1135T-1152T-570M-603M-604M-661M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4772"
+  vehicle {
+    trip {
+      trip_id: "8400.UJ.2-CRB-B-mjp-1.9.R"
+      start_time: "16:09:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -38.100093841552734
+      longitude: 145.2811737060547
+      bearing: 0.0
+    }
+    timestamp: 1652593349
+    vehicle {
+      id: "1039T-1082T-327M-349M-377M-378M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-4774"
+  vehicle {
+    trip {
+      trip_id: "8407.UJ.2-CRB-B-mjp-1.9.R"
+      start_time: "16:29:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.98530578613281
+      longitude: 145.2020263671875
+      bearing: 130.40499877929688
+    }
+    timestamp: 1652593394
+    vehicle {
+      id: "9011M-9911M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5059"
+  vehicle {
+    trip {
+      trip_id: "8646.UJ.2-UFD-B-mjp-1.2.H"
+      start_time: "15:12:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.70066452026367
+      longitude: 144.95875549316406
+      bearing: -7.014805793762207
+    }
+    timestamp: 1652593365
+    vehicle {
+      id: "2512T-2528T-723M-724M-755M-756M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5061"
+  vehicle {
+    trip {
+      trip_id: "8650.UJ.2-UFD-B-mjp-1.2.H"
+      start_time: "15:32:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.787750244140625
+      longitude: 144.9400177001953
+      bearing: 59.31377410888672
+    }
+    timestamp: 1652593399
+    vehicle {
+      id: "2569T-837M-838M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5063"
+  vehicle {
+    trip {
+      trip_id: "8654.UJ.2-UFD-B-mjp-1.2.H"
+      start_time: "15:52:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.816612243652344
+      longitude: 144.97280883789062
+      bearing: 247.9909210205078
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1078T-1099T-455M-456M-497M-498M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5065"
+  vehicle {
+    trip {
+      trip_id: "8658.UJ.2-UFD-B-mjp-1.2.H"
+      start_time: "16:12:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.79848861694336
+      longitude: 144.8556671142578
+      bearing: 95.39497375488281
+    }
+    timestamp: 1652593388
+    vehicle {
+      id: "2552T-2558T-803M-804M-815M-816M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5067"
+  vehicle {
+    trip {
+      trip_id: "8660.UJ.2-UFD-B-mjp-1.2.H"
+      start_time: "16:32:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.64548873901367
+      longitude: 144.73057556152344
+      bearing: 146.7203826904297
+    }
+    timestamp: 1652593391
+    vehicle {
+      id: "1160T-1164T-619M-620M-627M-648M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5259"
+  vehicle {
+    trip {
+      trip_id: "8887.UJ.2-B31-B-mjp-1.3.H"
+      start_time: "15:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.72006607055664
+      longitude: 144.9221954345703
+      bearing: -19.872812271118164
+    }
+    timestamp: 1652593343
+    vehicle {
+      id: "2526T-2535T-751M-752M-769M-770M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5261"
+  vehicle {
+    trip {
+      trip_id: "8889.UJ.2-B31-B-mjp-1.3.H"
+      start_time: "15:37:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.80213928222656
+      longitude: 144.93568420410156
+      bearing: -59.081321716308594
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "2510T-2519T-719M-720M-737M-738M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5263"
+  vehicle {
+    trip {
+      trip_id: "8895.UJ.2-B31-B-mjp-1.3.H"
+      start_time: "15:57:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.7944450378418
+      longitude: 144.9361572265625
+      bearing: 187.1866912841797
+    }
+    timestamp: 1652593389
+    vehicle {
+      id: "1028T-1051T-355M-356M-401M-402M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6326"
+  vehicle {
+    trip {
+      trip_id: "89.UJ.2-WMN-B-mjp-1.4.R"
+      start_time: "15:36:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.86497116088867
+      longitude: 144.89688110351562
+      bearing: 111.5796127319336
+    }
+    timestamp: 1652593383
+    vehicle {
+      id: "1036T-1040T-371M-372M-379M-380M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5265"
+  vehicle {
+    trip {
+      trip_id: "8901.UJ.2-B31-B-mjp-1.3.H"
+      start_time: "16:17:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.703250885009766
+      longitude: 144.9591522216797
+      bearing: 173.43531799316406
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "1064T-1124T-428M-483M-547M-548M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5660"
+  vehicle {
+    trip {
+      trip_id: "9202.UJ.2-UFD-B-mjp-1.8.R"
+      start_time: "15:18:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.7944450378418
+      longitude: 144.9361572265625
+      bearing: 187.1866912841797
+    }
+    timestamp: 1652593389
+    vehicle {
+      id: "1028T-1051T-355M-356M-401M-402M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5662"
+  vehicle {
+    trip {
+      trip_id: "9206.UJ.2-UFD-B-mjp-1.8.R"
+      start_time: "15:38:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.703250885009766
+      longitude: 144.9591522216797
+      bearing: 173.43531799316406
+    }
+    timestamp: 1652593398
+    vehicle {
+      id: "1064T-1124T-428M-483M-547M-548M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5664"
+  vehicle {
+    trip {
+      trip_id: "9208.UJ.2-UFD-B-mjp-1.8.R"
+      start_time: "15:58:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.70066452026367
+      longitude: 144.95875549316406
+      bearing: -7.014805793762207
+    }
+    timestamp: 1652593365
+    vehicle {
+      id: "2512T-2528T-723M-724M-755M-756M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5666"
+  vehicle {
+    trip {
+      trip_id: "9210.UJ.2-UFD-B-mjp-1.8.R"
+      start_time: "16:18:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.787750244140625
+      longitude: 144.9400177001953
+      bearing: 59.31377410888672
+    }
+    timestamp: 1652593399
+    vehicle {
+      id: "2569T-837M-838M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5862"
+  vehicle {
+    trip {
+      trip_id: "9430.UJ.2-B31-B-mjp-1.11.R"
+      start_time: "15:35:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.668704986572266
+      longitude: 144.924560546875
+      bearing: 187.64877319335938
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1044T-1116T-344M-390M-531M-532M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5864"
+  vehicle {
+    trip {
+      trip_id: "9436.UJ.2-B31-B-mjp-1.11.R"
+      start_time: "15:55:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.60224914550781
+      longitude: 144.94317626953125
+      bearing: 17.73546600341797
+    }
+    timestamp: 1652593354
+    vehicle {
+      id: "1159T-1179T-617M-618M-657M-658M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5866"
+  vehicle {
+    trip {
+      trip_id: "9442.UJ.2-B31-B-mjp-1.11.R"
+      start_time: "16:15:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.72006607055664
+      longitude: 144.9221954345703
+      bearing: -19.872812271118164
+    }
+    timestamp: 1652593343
+    vehicle {
+      id: "2526T-2535T-751M-752M-769M-770M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6634"
+  vehicle {
+    trip {
+      trip_id: "945.UJ.2-SYM-C-mjp-1.19.R"
+      start_time: "14:56:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.816612243652344
+      longitude: 144.97280883789062
+      bearing: 247.9909210205078
+    }
+    timestamp: 1652593396
+    vehicle {
+      id: "1078T-1099T-455M-456M-497M-498M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-5868"
+  vehicle {
+    trip {
+      trip_id: "9450.UJ.2-B31-B-mjp-1.11.R"
+      start_time: "16:35:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.80213928222656
+      longitude: 144.93568420410156
+      bearing: -59.081321716308594
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "2510T-2519T-719M-720M-737M-738M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6636"
+  vehicle {
+    trip {
+      trip_id: "951.UJ.2-SYM-C-mjp-1.19.R"
+      start_time: "15:36:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.64548873901367
+      longitude: 144.73057556152344
+      bearing: 146.7203826904297
+    }
+    timestamp: 1652593391
+    vehicle {
+      id: "1160T-1164T-619M-620M-627M-648M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6638"
+  vehicle {
+    trip {
+      trip_id: "956.UJ.2-SYM-C-mjp-1.19.R"
+      start_time: "16:16:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.653385162353516
+      longitude: 144.73670959472656
+      bearing: -33.302120208740234
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "1150T-1170T-599M-600M-639M-640M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6029"
+  vehicle {
+    trip {
+      trip_id: "9613.UJ.2-SYM-C-mjp-1.3.H"
+      start_time: "15:02:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.653385162353516
+      longitude: 144.73670959472656
+      bearing: -33.302120208740234
+    }
+    timestamp: 1652593387
+    vehicle {
+      id: "1150T-1170T-599M-600M-639M-640M"
+    }
+    occupancy_status: MANY_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6031"
+  vehicle {
+    trip {
+      trip_id: "9619.UJ.2-SYM-C-mjp-1.3.H"
+      start_time: "15:42:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.81956481933594
+      longitude: 144.96127319335938
+      bearing: 259.8457336425781
+    }
+    timestamp: 1652593399
+    vehicle {
+      id: "1065T-1091T-429M-430M-481M-482M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6033"
+  vehicle {
+    trip {
+      trip_id: "9625.UJ.2-SYM-C-mjp-1.3.H"
+      start_time: "16:22:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.668704986572266
+      longitude: 144.924560546875
+      bearing: 187.64877319335938
+    }
+    timestamp: 1652593395
+    vehicle {
+      id: "1044T-1116T-344M-390M-531M-532M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6129"
+  vehicle {
+    trip {
+      trip_id: "9793.UJ.2-SYM-C-mjp-1.5.H"
+      start_time: "15:22:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.7906379699707
+      longitude: 144.83453369140625
+      bearing: -32.29707336425781
+    }
+    timestamp: 1652593393
+    vehicle {
+      id: "1137T-1183T-573M-574M-665M-666M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
+entity {
+  id: "2022-05-15-6133"
+  vehicle {
+    trip {
+      trip_id: "9803.UJ.2-SYM-C-mjp-1.5.H"
+      start_time: "16:42:00"
+      start_date: "20220515"
+    }
+    position {
+      latitude: -37.60224914550781
+      longitude: 144.94317626953125
+      bearing: 17.73546600341797
+    }
+    timestamp: 1652593354
+    vehicle {
+      id: "1159T-1179T-617M-618M-657M-658M"
+    }
+    occupancy_status: FEW_SEATS_AVAILABLE
+  }
+}
