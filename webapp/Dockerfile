@@ -1,19 +1,18 @@
-FROM public.ecr.aws/lambda/python:3.7
+# Use the official lightweight Python image.
+# https://hub.docker.com/_/python
+FROM python:3.9-slim
 
-COPY devops/serverless_wsgi.py ./
-COPY devops/wsgi_handler.py ./
-COPY devops/wsgi.py ./ 
-COPY devops/.serverless-wsgi ./
-COPY devops/entry.sh ./
 
-COPY app.py requirements.txt  ./
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
 
-RUN python3.7 -m pip install -r requirements.txt -t .
-RUN pip install awslambdaric
+# Set working environment
 
-RUN chmod +rx entry.sh
 
-ADD flaskr ./flaskr/
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
 
-ENTRYPOINT [ "/bin/bash", "./entry.sh" ]
-CMD [ "wsgi_handler.handler" ]
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
