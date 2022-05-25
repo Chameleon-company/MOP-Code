@@ -13948,9 +13948,9 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The City of Melbourne provides comprehensive pedestrian traffic data, as well as sensor location data. In this use case we will utilise the <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Past-Hour-counts-per-mi/d6mv-s43h">Pedestrian Counting System - Past Hour (counts per minute)</a></strong> dataset</p>
+<p>The City of Melbourne provides comprehensive pedestrian traffic data, as well as sensor location data. In this use case we will utilise the <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Past-Hour-counts-per-mi/d6mv-s43h"target="_blank">Pedestrian Counting System - Past Hour (counts per minute)</a></strong> dataset</p>
 <p>This dataset contains minute-by-minute directional pedestrian counts from the last over from pedestrain sensor devices located across the city. The data is updated every 15 minutes and can be used to determinate variations in pedestrian activity throughout the day.</p>
-<p>We also utilise the City of Melbourne's <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234">Sensor Locations</a></strong> dataset. This data will be used to extract the location of these sensors which helps with visualisation.</p>
+<p>We also utilise the City of Melbourne's <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">Sensor Locations</a></strong> dataset. This data will be used to extract the location of these sensors which helps with visualisation.</p>
 
 </div>
 </div>
@@ -13971,7 +13971,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong><em>Note:</em></strong> We use the package <strong><em>sodapy</em></strong> to extract from Melbourne Open Data directly. This package is a python client for the <strong><a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API.">Socrata Open Data API</a></strong>. To extract the data from Melbourne Open Data, you must have a dataset id. It can be found as follows:</p>
+<p><strong><em>Note:</em></strong> We use the package <strong><em>sodapy</em></strong> to extract from Melbourne Open Data directly. This package is a python client for the <strong><a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API."target="_blank">Socrata Open Data API</a></strong>. To extract the data from Melbourne Open Data, you must have a dataset id. It can be found as follows:</p>
 <p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/data_api.png') }}"></p>
 
 </div>
@@ -14215,8 +14215,8 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>To help drive insight to informing our business scenario, we can compare the data from two different sensor locations.</p>
 <p>This means we can compare pedestrian foot traffic in two separate locations over different periods of the current date, as well as over a 4-week period.</p>
-<p>However, in order to get this data, we need to crawl the data from <a href="http://www.pedestrian.melbourne.vic.gov.au">http://www.pedestrian.melbourne.vic.gov.au</a>.</p>
-<p><strong><em>Note</em></strong> Because we cannot use <strong><em>Sodapy</em></strong> to crawl the data from this website, We use another package <strong><a href="https://pypi.org/project/selenium/"><strong><em>Selenium</em></strong></a></strong> to extract the data.</p>
+<p>However, in order to get this data, we need to crawl the data from <a href="http://www.pedestrian.melbourne.vic.gov.au"target="_blank"">http://www.pedestrian.melbourne.vic.gov.au</a>.</p>
+<p><strong><em>Note</em></strong> Because we cannot use <strong><em>Sodapy</em></strong> to crawl the data from this website, We use another package <strong><a href="https://pypi.org/project/selenium/"target="_blank"><strong><em>Selenium</em></strong></a></strong> to extract the data.</p>
 <p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_hourly.png') }}"></p>
 
 </div>
@@ -14726,7 +14726,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Visualising data provides an easy way for us to detect patterns within the data. Using the python library <strong><a href="http://python-visualization.github.io/folium/">folium</a></strong>, we can create a live pedestrian traffic map of the City of Melbourne.</p>
+<p>Visualising data provides an easy way for us to detect patterns within the data. Using the python library <strong><a href="http://python-visualization.github.io/folium/"target="_blank">folium</a></strong>, we can create a live pedestrian traffic map of the City of Melbourne.</p>
 <p>This map will represent all of the data of the pedestrian sensor locations within the City of Melbourne.</p>
 <p>This map is updated every 15 minutes for up-to-date pedestrian traffic information.</p>
 
@@ -15301,11 +15301,11 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>1: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp</a></p>
-<p>2: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234</a></p>
-<p>3: <a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API">https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API</a>.</p>
-<p>4: <a href="http://python-visualization.github.io/folium/">http://python-visualization.github.io/folium/</a></p>
-<p>5: <a href="https://pypi.org/project/selenium/">https://pypi.org/project/selenium/</a></p>
+<p>1: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp</a></p>
+<p>2: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234</a></p>
+<p>3: <a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API"target="_blank">https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API</a>.</p>
+<p>4: <a href="http://python-visualization.github.io/folium/"target="_blank">http://python-visualization.github.io/folium/</a></p>
+<p>5: <a href="https://pypi.org/project/selenium/"target="_blank">https://pypi.org/project/selenium/</a></p>
 
 </div>
 </div>
