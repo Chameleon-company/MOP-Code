@@ -1,5 +1,5 @@
 /*!
-  Highlight.js v11.0.1 (git: 1cf31f015d)
+  .js v11.0.1 (git: 1cf31f015d)
   (c) 2006-2021 Ivan Sagalaev and other contributors
   License: BSD-3-Clause
  */
@@ -40,7 +40,7 @@ var hljs = (function () {
     var deepFreeze$1 = deepFreezeEs6.exports;
 
     
-    /** @typedef {import('highlight.js').CompiledMode} CompiledMode */
+    /** @typedef {import('.js').CompiledMode} CompiledMode */
     /** @implements CallbackResponse */
 
     class Response {
@@ -202,7 +202,7 @@ var hljs = (function () {
 
     /** @typedef {{kind?: string, sublanguage?: boolean, children: Node[]} | string} Node */
     /** @typedef {{kind?: string, sublanguage?: boolean, children: Node[]} } DataNode */
-    /** @typedef {import('highlight.js').Emitter} Emitter */
+    /** @typedef {import('.js').Emitter} Emitter */
     /**  */
 
     class TokenTree {
@@ -492,8 +492,8 @@ var hljs = (function () {
       }).map(re => `(${re})`).join(joinWith);
     }
 
-    /** @typedef {import('highlight.js').Mode} Mode */
-    /** @typedef {import('highlight.js').ModeCallback} ModeCallback */
+    /** @typedef {import('.js').Mode} Mode */
+    /** @typedef {import('.js').ModeCallback} ModeCallback */
 
     // Common regexps
     const MATCH_NOTHING_RE = /\b\B/;
@@ -610,7 +610,7 @@ var hljs = (function () {
           // false match and not a comment.
           //
           // for a visual example please see:
-          // https://github.com/highlightjs/highlight.js/issues/2827
+          // https://github.com/js/.js/issues/2827
 
           begin: concat(
             /[ ]+/, // necessary to prevent us gobbling up doctags like /* @author Bob Mcgill */
@@ -726,12 +726,12 @@ var hljs = (function () {
     });
 
     /**
-    @typedef {import('highlight.js').CallbackResponse} CallbackResponse
-    @typedef {import('highlight.js').CompilerExt} CompilerExt
+    @typedef {import('.js').CallbackResponse} CallbackResponse
+    @typedef {import('.js').CompilerExt} CompilerExt
     */
 
     // Grammar extensions / plugins
-    // See: https://github.com/highlightjs/highlight.js/issues/2833
+    // See: https://github.com/js/.js/issues/2833
 
     // Grammar extensions allow "syntactic sugar" to be added to the grammar modes
     // without requiring any underlying changes to the compiler internals.
@@ -946,7 +946,7 @@ var hljs = (function () {
     /*
 
     For the reasoning behind this please see:
-    https://github.com/highlightjs/highlight.js/issues/2880#issuecomment-747275419
+    https://github.com/js/.js/issues/2880#issuecomment-747275419
 
     */
 
@@ -984,7 +984,7 @@ var hljs = (function () {
     /* eslint-disable no-throw-literal */
 
     /**
-    @typedef {import('highlight.js').CompiledMode} CompiledMode
+    @typedef {import('.js').CompiledMode} CompiledMode
     */
 
     const MultiClassError = new Error();
@@ -1113,11 +1113,11 @@ var hljs = (function () {
     }
 
     /**
-    @typedef {import('highlight.js').Mode} Mode
-    @typedef {import('highlight.js').CompiledMode} CompiledMode
-    @typedef {import('highlight.js').Language} Language
-    @typedef {import('highlight.js').HLJSPlugin} HLJSPlugin
-    @typedef {import('highlight.js').CompiledLanguage} CompiledLanguage
+    @typedef {import('.js').Mode} Mode
+    @typedef {import('.js').CompiledMode} CompiledMode
+    @typedef {import('.js').Language} Language
+    @typedef {import('.js').HLJSPlugin} HLJSPlugin
+    @typedef {import('.js').CompiledLanguage} CompiledLanguage
     */
 
     // compilation
@@ -1126,7 +1126,7 @@ var hljs = (function () {
      * Compiles a language definition result
      *
      * Given the raw result of a language definition (Language), compiles this so
-     * that it is ready for highlighting code.
+     * that it is ready for ing code.
      * @param {Language} language
      * @returns {CompiledLanguage}
      */
@@ -1535,28 +1535,28 @@ var hljs = (function () {
     var version = "11.0.1";
 
     /*
-    Syntax highlighting with language autodetection.
-    https://highlightjs.org/
+    Syntax ing with language autodetection.
+    https://js.org/
     */
 
     /**
-    @typedef {import('highlight.js').Mode} Mode
-    @typedef {import('highlight.js').CompiledMode} CompiledMode
-    @typedef {import('highlight.js').Language} Language
-    @typedef {import('highlight.js').HLJSApi} HLJSApi
-    @typedef {import('highlight.js').HLJSPlugin} HLJSPlugin
-    @typedef {import('highlight.js').PluginEvent} PluginEvent
-    @typedef {import('highlight.js').HLJSOptions} HLJSOptions
-    @typedef {import('highlight.js').LanguageFn} LanguageFn
-    @typedef {import('highlight.js').HighlightedHTMLElement} HighlightedHTMLElement
-    @typedef {import('highlight.js').BeforeHighlightContext} BeforeHighlightContext
-    @typedef {import('highlight.js/private').MatchType} MatchType
-    @typedef {import('highlight.js/private').KeywordData} KeywordData
-    @typedef {import('highlight.js/private').EnhancedMatch} EnhancedMatch
-    @typedef {import('highlight.js/private').AnnotatedError} AnnotatedError
-    @typedef {import('highlight.js').AutoHighlightResult} AutoHighlightResult
-    @typedef {import('highlight.js').HighlightOptions} HighlightOptions
-    @typedef {import('highlight.js').HighlightResult} HighlightResult
+    @typedef {import('.js').Mode} Mode
+    @typedef {import('.js').CompiledMode} CompiledMode
+    @typedef {import('.js').Language} Language
+    @typedef {import('.js').HLJSApi} HLJSApi
+    @typedef {import('.js').HLJSPlugin} HLJSPlugin
+    @typedef {import('.js').PluginEvent} PluginEvent
+    @typedef {import('.js').HLJSOptions} HLJSOptions
+    @typedef {import('.js').LanguageFn} LanguageFn
+    @typedef {import('.js').edHTMLElement} edHTMLElement
+    @typedef {import('.js').BeforeContext} BeforeContext
+    @typedef {import('.js/private').MatchType} MatchType
+    @typedef {import('.js/private').KeywordData} KeywordData
+    @typedef {import('.js/private').EnhancedMatch} EnhancedMatch
+    @typedef {import('.js/private').AnnotatedError} AnnotatedError
+    @typedef {import('.js').AutoResult} AutoResult
+    @typedef {import('.js').Options} Options
+    @typedef {import('.js').Result} Result
     */
 
 
@@ -1570,7 +1570,7 @@ var hljs = (function () {
      * @returns {HLJSApi}
      */
     const HLJS = function(hljs) {
-      // Global internal variables used within the highlight.js library.
+      // Global internal variables used within the .js library.
       /** @type {Record<string, Language>} */
       const languages = Object.create(null);
       /** @type {Record<string, string>} */
@@ -1590,28 +1590,28 @@ var hljs = (function () {
       /** @type HLJSOptions */
       let options = {
         ignoreUnescapedHTML: false,
-        noHighlightRe: /^(no-?highlight)$/i,
+        noRe: /^(no-?)$/i,
         languageDetectRe: /\blang(?:uage)?-([\w-]+)\b/i,
         classPrefix: 'hljs-',
         cssSelector: 'pre code',
         languages: null,
         // beta configuration options, subject to change, welcome to discuss
-        // https://github.com/highlightjs/highlight.js/issues/1086
+        // https://github.com/js/.js/issues/1086
         __emitter: TokenTreeEmitter
       };
 
       /* Utility functions */
 
       /**
-       * Tests a language name to see if highlighting should be skipped
+       * Tests a language name to see if ing should be skipped
        * @param {string} languageName
        */
-      function shouldNotHighlight(languageName) {
-        return options.noHighlightRe.test(languageName);
+      function shouldNot(languageName) {
+        return options.noRe.test(languageName);
       }
 
       /**
-       * @param {HighlightedHTMLElement} block - the HTML element to determine language for
+       * @param {edHTMLElement} block - the HTML element to determine language for
        */
       function blockLanguage(block) {
         let classes = block.className + ' ';
@@ -1624,39 +1624,39 @@ var hljs = (function () {
           const language = getLanguage(match[1]);
           if (!language) {
             warn(LANGUAGE_NOT_FOUND.replace("{}", match[1]));
-            warn("Falling back to no-highlight mode for this block.", block);
+            warn("Falling back to no- mode for this block.", block);
           }
-          return language ? match[1] : 'no-highlight';
+          return language ? match[1] : 'no-';
         }
 
         return classes
           .split(/\s+/)
-          .find((_class) => shouldNotHighlight(_class) || getLanguage(_class));
+          .find((_class) => shouldNot(_class) || getLanguage(_class));
       }
 
       /**
-       * Core highlighting function.
+       * Core ing function.
        *
        * OLD API
-       * highlight(lang, code, ignoreIllegals, continuation)
+       * (lang, code, ignoreIllegals, continuation)
        *
        * NEW API
-       * highlight(code, {lang, ignoreIllegals})
+       * (code, {lang, ignoreIllegals})
        *
-       * @param {string} codeOrLanguageName - the language to use for highlighting
-       * @param {string | HighlightOptions} optionsOrCode - the code to highlight
+       * @param {string} codeOrLanguageName - the language to use for ing
+       * @param {string | Options} optionsOrCode - the code to 
        * @param {boolean} [ignoreIllegals] - whether to ignore illegal matches, default is to bail
        * @param {CompiledMode} [continuation] - current continuation mode, if any
        *
-       * @returns {HighlightResult} Result - an object that represents the result
+       * @returns {Result} Result - an object that represents the result
        * @property {string} language - the language name
        * @property {number} relevance - the relevance score
-       * @property {string} value - the highlighted HTML code
+       * @property {string} value - the ed HTML code
        * @property {string} code - the original raw code
        * @property {CompiledMode} top - top of the current mode stack
        * @property {boolean} illegal - indicates whether any illegal matches were found
       */
-      function highlight(codeOrLanguageName, optionsOrCode, ignoreIllegals, continuation) {
+      function (codeOrLanguageName, optionsOrCode, ignoreIllegals, continuation) {
         let code = "";
         let languageName = "";
         if (typeof optionsOrCode === "object") {
@@ -1668,48 +1668,48 @@ var hljs = (function () {
           continuation = undefined;
         } else {
           // old API
-          deprecated("10.7.0", "highlight(lang, code, ...args) has been deprecated.");
-          deprecated("10.7.0", "Please use highlight(code, options) instead.\nhttps://github.com/highlightjs/highlight.js/issues/2277");
+          deprecated("10.7.0", "(lang, code, ...args) has been deprecated.");
+          deprecated("10.7.0", "Please use (code, options) instead.\nhttps://github.com/js/.js/issues/2277");
           languageName = codeOrLanguageName;
           code = optionsOrCode;
         }
 
-        // https://github.com/highlightjs/highlight.js/issues/3149
+        // https://github.com/js/.js/issues/3149
         // eslint-disable-next-line no-undefined
         if (ignoreIllegals === undefined) { ignoreIllegals = true; }
 
-        /** @type {BeforeHighlightContext} */
+        /** @type {BeforeContext} */
         const context = {
           code,
           language: languageName
         };
-        // the plugin can change the desired language or the code to be highlighted
+        // the plugin can change the desired language or the code to be ed
         // just be changing the object it was passed
-        fire("before:highlight", context);
+        fire("before:", context);
 
         // a before plugin can usurp the result completely by providing it's own
-        // in which case we don't even need to call highlight
+        // in which case we don't even need to call 
         const result = context.result
           ? context.result
-          : _highlight(context.language, context.code, ignoreIllegals, continuation);
+          : _(context.language, context.code, ignoreIllegals, continuation);
 
         result.code = context.code;
         // the plugin can change anything in result to suite it
-        fire("after:highlight", result);
+        fire("after:", result);
 
         return result;
       }
 
       /**
-       * private highlight that's used internally and does not fire callbacks
+       * private  that's used internally and does not fire callbacks
        *
-       * @param {string} languageName - the language to use for highlighting
-       * @param {string} codeToHighlight - the code to highlight
+       * @param {string} languageName - the language to use for ing
+       * @param {string} codeTo - the code to 
        * @param {boolean?} [ignoreIllegals] - whether to ignore illegal matches, default is to bail
        * @param {CompiledMode?} [continuation] - current continuation mode, if any
-       * @returns {HighlightResult} - result of the highlight operation
+       * @returns {Result} - result of the  operation
       */
-      function _highlight(languageName, codeToHighlight, ignoreIllegals, continuation) {
+      function _(languageName, codeTo, ignoreIllegals, continuation) {
         const keywordHits = Object.create(null);
 
         /**
@@ -1745,7 +1745,7 @@ var hljs = (function () {
               keywordHits[word] = (keywordHits[word] || 0) + 1;
               if (keywordHits[word] <= MAX_KEYWORD_HITS) relevance += keywordRelevance;
               if (kind.startsWith("_")) {
-                // _ implied for relevance only, do not highlight
+                // _ implied for relevance only, do not 
                 // by applying a class name
                 buf += match[0];
               } else {
@@ -1764,7 +1764,7 @@ var hljs = (function () {
 
         function processSubLanguage() {
           if (modeBuffer === "") return;
-          /** @type HighlightResult */
+          /** @type Result */
           let result = null;
 
           if (typeof top.subLanguage === 'string') {
@@ -1772,10 +1772,10 @@ var hljs = (function () {
               emitter.addText(modeBuffer);
               return;
             }
-            result = _highlight(top.subLanguage, modeBuffer, true, continuations[top.subLanguage]);
+            result = _(top.subLanguage, modeBuffer, true, continuations[top.subLanguage]);
             continuations[top.subLanguage] = /** @type {CompiledMode} */ (result._top);
           } else {
-            result = highlightAuto(modeBuffer, top.subLanguage.length ? top.subLanguage : null);
+            result = Auto(modeBuffer, top.subLanguage.length ? top.subLanguage : null);
           }
 
           // Counting embedded language score towards the host language may be disabled
@@ -1933,7 +1933,7 @@ var hljs = (function () {
          */
         function doEndMatch(match) {
           const lexeme = match[0];
-          const matchPlusRemainder = codeToHighlight.substr(match.index);
+          const matchPlusRemainder = codeTo.substr(match.index);
 
           const endMode = endOfMode(top, match, matchPlusRemainder);
           if (!endMode) { return NO_MATCH; }
@@ -2004,10 +2004,10 @@ var hljs = (function () {
           // we've found a 0 width match and we're stuck, so we need to advance
           // this happens when we have badly behaved rules that have optional matchers to the degree that
           // sometimes they can end up matching nothing at all
-          // Ref: https://github.com/highlightjs/highlight.js/issues/2140
+          // Ref: https://github.com/js/.js/issues/2140
           if (lastMatch.type === "begin" && match.type === "end" && lastMatch.index === match.index && lexeme === "") {
             // spit the "skipped" character that our regex choked on back into the output sequence
-            modeBuffer += codeToHighlight.slice(match.index, match.index + 1);
+            modeBuffer += codeTo.slice(match.index, match.index + 1);
             if (!SAFE_MODE) {
               /** @type {AnnotatedError} */
               const err = new Error(`0 width match regex (${languageName})`);
@@ -2097,16 +2097,16 @@ var hljs = (function () {
             }
             top.matcher.lastIndex = index;
 
-            const match = top.matcher.exec(codeToHighlight);
+            const match = top.matcher.exec(codeTo);
             // console.log("match", match[0], match.rule && match.rule.begin)
 
             if (!match) break;
 
-            const beforeMatch = codeToHighlight.substring(index, match.index);
+            const beforeMatch = codeTo.substring(index, match.index);
             const processedCount = processLexeme(beforeMatch, match);
             index = match.index + processedCount;
           }
-          processLexeme(codeToHighlight.substr(index));
+          processLexeme(codeTo.substr(index));
           emitter.closeAllNodes();
           emitter.finalize();
           result = emitter.toHTML();
@@ -2123,13 +2123,13 @@ var hljs = (function () {
           if (err.message && err.message.includes('Illegal')) {
             return {
               language: languageName,
-              value: escape(codeToHighlight),
+              value: escape(codeTo),
               illegal: true,
               relevance: 0,
               _illegalBy: {
                 message: err.message,
                 index: index,
-                context: codeToHighlight.slice(index - 100, index + 100),
+                context: codeTo.slice(index - 100, index + 100),
                 mode: err.mode,
                 resultSoFar: result
               },
@@ -2138,7 +2138,7 @@ var hljs = (function () {
           } else if (SAFE_MODE) {
             return {
               language: languageName,
-              value: escape(codeToHighlight),
+              value: escape(codeTo),
               illegal: false,
               relevance: 0,
               errorRaised: err,
@@ -2152,13 +2152,13 @@ var hljs = (function () {
       }
 
       /**
-       * returns a valid highlight result, without actually doing any actual work,
-       * auto highlight starts with this and it's possible for small snippets that
+       * returns a valid  result, without actually doing any actual work,
+       * auto  starts with this and it's possible for small snippets that
        * auto-detection may not find a better match
        * @param {string} code
-       * @returns {HighlightResult}
+       * @returns {Result}
        */
-      function justTextHighlightResult(code) {
+      function justTextResult(code) {
         const result = {
           value: escape(code),
           illegal: false,
@@ -2171,25 +2171,25 @@ var hljs = (function () {
       }
 
       /**
-      Highlighting with language detection. Accepts a string with the code to
-      highlight. Returns an object with the following properties:
+      ing with language detection. Accepts a string with the code to
+      . Returns an object with the following properties:
 
       - language (detected language)
       - relevance (int)
-      - value (an HTML string with highlighting markup)
+      - value (an HTML string with ing markup)
       - secondBest (object with the same structure for second-best heuristically
         detected language, may be absent)
 
         @param {string} code
         @param {Array<string>} [languageSubset]
-        @returns {AutoHighlightResult}
+        @returns {AutoResult}
       */
-      function highlightAuto(code, languageSubset) {
+      function Auto(code, languageSubset) {
         languageSubset = languageSubset || options.languages || Object.keys(languages);
-        const plaintext = justTextHighlightResult(code);
+        const plaintext = justTextResult(code);
 
         const results = languageSubset.filter(getLanguage).filter(autoDetection).map(name =>
-          _highlight(name, code, false)
+          _(name, code, false)
         );
         results.unshift(plaintext); // plaintext is always an option
 
@@ -2216,7 +2216,7 @@ var hljs = (function () {
 
         const [best, secondBest] = sorted;
 
-        /** @type {AutoHighlightResult} */
+        /** @type {AutoResult} */
         const result = best;
         result.secondBest = secondBest;
 
@@ -2238,30 +2238,30 @@ var hljs = (function () {
       }
 
       /**
-       * Applies highlighting to a DOM node containing code.
+       * Applies ing to a DOM node containing code.
        *
-       * @param {HighlightedHTMLElement} element - the HTML element to highlight
+       * @param {edHTMLElement} element - the HTML element to 
       */
-      function highlightElement(element) {
+      function Element(element) {
         /** @type HTMLElement */
         let node = null;
         const language = blockLanguage(element);
 
-        if (shouldNotHighlight(language)) return;
+        if (shouldNot(language)) return;
 
-        fire("before:highlightElement",
+        fire("before:Element",
           { el: element, language: language });
 
         // we should be all text, no child nodes
         if (!options.ignoreUnescapedHTML && element.children.length > 0) {
           console.warn("One of your code blocks includes unescaped HTML. This is a potentially serious security risk.");
-          console.warn("https://github.com/highlightjs/highlight.js/issues/2886");
+          console.warn("https://github.com/js/.js/issues/2886");
           console.warn(element);
         }
 
         node = element;
         const text = node.textContent;
-        const result = language ? highlight(text, { language, ignoreIllegals: true }) : highlightAuto(text);
+        const result = language ? (text, { language, ignoreIllegals: true }) : Auto(text);
 
         element.innerHTML = result.value;
         updateClassName(element, language, result.language);
@@ -2278,11 +2278,11 @@ var hljs = (function () {
           };
         }
 
-        fire("after:highlightElement", { el: element, result, text });
+        fire("after:Element", { el: element, result, text });
       }
 
       /**
-       * Updates highlight.js global options with the passed options
+       * Updates .js global options with the passed options
        *
        * @param {Partial<HLJSOptions>} userOptions
        */
@@ -2291,36 +2291,36 @@ var hljs = (function () {
       }
 
       // TODO: remove v12, deprecated
-      const initHighlighting = () => {
-        highlightAll();
-        deprecated("10.6.0", "initHighlighting() deprecated.  Use highlightAll() now.");
+      const initing = () => {
+        All();
+        deprecated("10.6.0", "initing() deprecated.  Use All() now.");
       };
 
       // TODO: remove v12, deprecated
-      function initHighlightingOnLoad() {
-        highlightAll();
-        deprecated("10.6.0", "initHighlightingOnLoad() deprecated.  Use highlightAll() now.");
+      function initingOnLoad() {
+        All();
+        deprecated("10.6.0", "initingOnLoad() deprecated.  Use All() now.");
       }
 
-      let wantsHighlight = false;
+      let wants = false;
 
       /**
-       * auto-highlights all pre>code elements on the page
+       * auto-s all pre>code elements on the page
        */
-      function highlightAll() {
+      function All() {
         // if we are called too early in the loading process
         if (document.readyState === "loading") {
-          wantsHighlight = true;
+          wants = true;
           return;
         }
 
         const blocks = document.querySelectorAll(options.cssSelector);
-        blocks.forEach(highlightElement);
+        blocks.forEach(Element);
       }
 
       function boot() {
-        // if a highlight was requested before DOM was loaded, do now
-        if (wantsHighlight) highlightAll();
+        // if a  was requested before DOM was loaded, do now
+        if (wants) All();
       }
 
       // make sure we are in the browser environment
@@ -2345,7 +2345,7 @@ var hljs = (function () {
           // languages that have serious errors are replaced with essentially a
           // "plaintext" stand-in so that the code blocks will still get normal
           // css classes applied to them - and one bad language won't break the
-          // entire highlighter
+          // entire er
           lang = PLAINTEXT_LANGUAGE;
         }
         // give it a temporary name if it doesn't have one in the meta-data
@@ -2410,22 +2410,22 @@ var hljs = (function () {
       }
 
       /**
-       * Upgrades the old highlightBlock plugins to the new
-       * highlightElement API
+       * Upgrades the old Block plugins to the new
+       * Element API
        * @param {HLJSPlugin} plugin
        */
       function upgradePluginAPI(plugin) {
         // TODO: remove with v12
-        if (plugin["before:highlightBlock"] && !plugin["before:highlightElement"]) {
-          plugin["before:highlightElement"] = (data) => {
-            plugin["before:highlightBlock"](
+        if (plugin["before:Block"] && !plugin["before:Element"]) {
+          plugin["before:Element"] = (data) => {
+            plugin["before:Block"](
               Object.assign({ block: data.el }, data)
             );
           };
         }
-        if (plugin["after:highlightBlock"] && !plugin["after:highlightElement"]) {
-          plugin["after:highlightElement"] = (data) => {
-            plugin["after:highlightBlock"](
+        if (plugin["after:Block"] && !plugin["after:Element"]) {
+          plugin["after:Element"] = (data) => {
+            plugin["after:Block"](
               Object.assign({ block: data.el }, data)
             );
           };
@@ -2456,26 +2456,26 @@ var hljs = (function () {
 
       /**
        *
-       * @param {HighlightedHTMLElement} el
+       * @param {edHTMLElement} el
        */
-      function deprecateHighlightBlock(el) {
-        deprecated("10.7.0", "highlightBlock will be removed entirely in v12.0");
-        deprecated("10.7.0", "Please use highlightElement now.");
+      function deprecateBlock(el) {
+        deprecated("10.7.0", "Block will be removed entirely in v12.0");
+        deprecated("10.7.0", "Please use Element now.");
 
-        return highlightElement(el);
+        return Element(el);
       }
 
       /* Interface definition */
       Object.assign(hljs, {
-        highlight,
-        highlightAuto,
-        highlightAll,
-        highlightElement,
+        ,
+        Auto,
+        All,
+        Element,
         // TODO: Remove with v12 API
-        highlightBlock: deprecateHighlightBlock,
+        Block: deprecateBlock,
         configure,
-        initHighlighting,
-        initHighlightingOnLoad,
+        initing,
+        initingOnLoad,
         registerLanguage,
         unregisterLanguage,
         listLanguages,
@@ -2504,14 +2504,14 @@ var hljs = (function () {
       return hljs;
     };
 
-    // export an "instance" of the highlighter
-    var HighlightJS = HLJS({});
+    // export an "instance" of the er
+    var JS = HLJS({});
 
     var builtIns = /*#__PURE__*/Object.freeze({
         __proto__: null
     });
 
-    const hljs = HighlightJS;
+    const hljs = JS;
 
     for (const key of Object.keys(builtIns)) {
       const languageName = key.replace("grmr_", "");

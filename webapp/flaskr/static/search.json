@@ -131,7 +131,41 @@
         },{
             "name": "folium",
             "code": "python"
+        }]   
+    },
+    { 
+        "title": "Event Impacts and Effects on Pedestrian Traffic", 
+        "name": "event-disruption",
+        "description": "My business relies on customer walk-ins. I want to understand the events or factors that influence pedestrian numbers near my business.",
+        "tags": ["pedestrian", "sensor", "public transportation", "events", "trains", "machine learning"],
+        "difficulty": "Advanced",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "dash",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "scikit-learn",
+            "code": "python"
         }]
     }
-
 ]
