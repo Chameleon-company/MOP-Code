@@ -6,7 +6,8 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
 - name: 'gcr.io/google.com/docker'
-  args: ['run', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+  entrypoint: 'npm'
+  args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: gcloud
 #   args:
