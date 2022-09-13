@@ -5,7 +5,7 @@ steps:
     # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
-- name: 'gcr.io/google.com/docker'
+- name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'npm'
   args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
