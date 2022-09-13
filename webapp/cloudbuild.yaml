@@ -1,4 +1,14 @@
 steps:
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests/']
+    # Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+- name: 'gcr.io/google.com/docker'
+  args: ['run']
+
+
 # STEP 1 - CREATING STAGING ENVIRONMENT
   # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
@@ -20,13 +30,7 @@ steps:
  
 
 #  STEP 2 GOES HERE - ACCEPTANCE TESTING ON STAGING ENVIRONMENT
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests']
-    # Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
-- name: 'gcr.io/google.com/docker'
-  args: ['run']
+
 
 
 
