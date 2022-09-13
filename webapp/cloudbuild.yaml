@@ -5,8 +5,18 @@ steps:
     # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
-- name: 'gcr.io/google.com/docker'
-  args: ['run']
+# - name: 'gcr.io/google.com/docker'
+#   args: ['run', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+   - 'run'
+   - 'deploy'
+   - 'mop-code-webapp-acceptance-test'
+   - '--image'
+   - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
+   - '--region'
+   - 'australia-southeast1'
 
 
 # STEP 1 - CREATING STAGING ENVIRONMENT
