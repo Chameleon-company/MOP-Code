@@ -20,8 +20,13 @@ steps:
  
 
 #  STEP 2 GOES HERE - ACCEPTANCE TESTING ON STAGING ENVIRONMENT
-# THis is a test comment
-
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests']
+    # Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+- name: 'gcr.io/google.com/docker'
+  args: ['run']
 
 
 
@@ -46,3 +51,4 @@ steps:
 images:
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
+ - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
