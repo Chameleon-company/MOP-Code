@@ -17,6 +17,8 @@ steps:
    - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
 
 
+
+
 # STEP 1 - CREATING STAGING ENVIRONMENT
   # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
@@ -31,6 +33,7 @@ steps:
    - 'run'
    - 'deploy'
    - 'mop-code-webapp-staging'
+   - '--allow-unauthenticated'
    - '--image'
    - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
    - '--region'
@@ -64,6 +67,7 @@ images:
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
+timeout: 1200s
 
 
 
