@@ -5,19 +5,16 @@ steps:
     # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'npm'
+#   args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
+
 - name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'npm'
-  args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args:
-#    - 'run'
-#    - 'deploy'
-#    - 'mop-code-webapp-acceptance-test'
-#    - '--image'
-#    - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-#    - '--region'
-#    - 'australia-southeast1'
+  entrypoint: bash
+  args:
+   - '-c'
+   - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
+   - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
 
 
 # STEP 1 - CREATING STAGING ENVIRONMENT
@@ -67,3 +64,18 @@ images:
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
+
+
+
+
+
+# # Build the container image
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['build','-t','testing-image','$REPO_NAME']
+# # Push the container image to Container Registry
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push', 'testing-image']
+# # Run Docker Image
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: 'npm'
+#   args: ['-c', 'docker run testing-image test']
