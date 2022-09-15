@@ -14,7 +14,7 @@ steps:
   args:
    - '-c'
    - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-   - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
+  #  - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
 
 
 
@@ -59,6 +59,7 @@ steps:
    - 'run'
    - 'deploy'
    - 'mop-code-webapp-testing'
+   - '--allow-unauthenticated'
    - '--image'
    - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
    - '--region'
