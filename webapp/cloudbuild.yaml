@@ -12,7 +12,7 @@ steps:
    - '-c'
    - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
 
-
+# This is a test comment
 
 
 # STEP 1 - CREATING STAGING ENVIRONMENT
