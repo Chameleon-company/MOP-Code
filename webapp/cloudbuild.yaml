@@ -84,23 +84,23 @@ timeout: 1200s
 
 
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
-    # Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
 # - name: 'gcr.io/cloud-builders/docker'
-#   entrypoint: 'npm'
-#   args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
+#   args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
+#     # Push the container image to Container Registry
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+# # - name: 'gcr.io/cloud-builders/docker'
+# #   entrypoint: 'npm'
+# #   args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
 
-- name: 'gcr.io/cloud-builders/npm'  
-  args: ['install']
-- name: 'gcr.io/cloud-builders/npm'  
-  args: ['test']
+# - name: 'gcr.io/cloud-builders/npm'  
+#   args: ['install']
+# - name: 'gcr.io/cloud-builders/npm'  
+#   args: ['test']
 
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: bash
-  args:
-   - '-c'
-   - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-  #  - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
+# - name: 'gcr.io/cloud-builders/docker'
+#   entrypoint: bash
+#   args:
+#    - '-c'
+#    - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
+#   #  - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
