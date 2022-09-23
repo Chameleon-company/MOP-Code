@@ -1,20 +1,4 @@
 steps:
-# Build Container
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
-# Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
-# Run Tests
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: bash
-  args:
-   - '-c'
-   - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-
-# This is a test comment
-
-
 # STEP 1 - CREATING STAGING ENVIRONMENT
   # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
@@ -34,73 +18,42 @@ steps:
    - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
    - '--region'
    - 'australia-southeast1'
- 
-
-#  STEP 2 GOES HERE - ACCEPTANCE TESTING ON STAGING ENVIRONMENT
-
-
-
+   
+#  STEP 2 - ACCEPTANCE TESTING ON STAGING ENVIRONMENT
+  # Build Container
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
+  # Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
+  # Run Tests
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: bash
+  args:
+   - '-c'
+   - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
 
 # STEP 3 - CREATING PRODUCTION ENVIRONMENT
   # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing','webapp/']
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp','webapp/']
   # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing']
+  args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
    - 'run'
    - 'deploy'
-   - 'mop-code-webapp-testing'
+   - 'mop-code-webapp'
    - '--allow-unauthenticated'
    - '--image'
-   - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
+   - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp'
    - '--region'
    - 'australia-southeast1'
 images:
- - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-testing'
+ - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
 timeout: 1200s
-
-
-
-
-
-# # Build the container image
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build','-t','testing-image','$REPO_NAME']
-# # Push the container image to Container Registry
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'testing-image']
-# # Run Docker Image
-# - name: 'gcr.io/cloud-builders/docker'
-#   entrypoint: 'npm'
-#   args: ['-c', 'docker run testing-image test']
-
-
-
-
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
-#     # Push the container image to Container Registry
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
-# # - name: 'gcr.io/cloud-builders/docker'
-# #   entrypoint: 'npm'
-# #   args: ['-c', 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test test']
-
-# - name: 'gcr.io/cloud-builders/npm'  
-#   args: ['install']
-# - name: 'gcr.io/cloud-builders/npm'  
-#   args: ['test']
-
-# - name: 'gcr.io/cloud-builders/docker'
-#   entrypoint: bash
-#   args:
-#    - '-c'
-#    - 'docker run gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-#   #  - 'docker exec -t gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test npm test'
