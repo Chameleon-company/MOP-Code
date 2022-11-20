@@ -48,6 +48,12 @@ function insertSearchResults(event) {
         // get new results
         let articlePromise = searchArticles(searchTerms)
             .then((results) => {
+                // sorts use cases alphabetically
+                results = results.sort((a,b) => {
+                    if (a.title < b.title){
+                        return -1
+                    }
+                })
                 let tileParent = articleTileParent
                 for (let index in results.slice(0, 42)) {
                     // should only have 3 nodes per row
@@ -113,6 +119,7 @@ function createArticle(article) {
     // get the anchor that wraps the tile
     let anchor = articleTile.querySelectorAll('.article-anchor')[0]
     anchor.href = $SCRIPT_ROOT + "/use-cases/" + article.name
+
     // set the title & description
     let title = articleTile.querySelectorAll('.title')[0]
     title.textContent = article.title
