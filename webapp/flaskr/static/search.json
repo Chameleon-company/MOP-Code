@@ -66,7 +66,7 @@
     },
     { 
         "title": "Melbourne Bicycle Network Routes and Road Safety Part 1", 
-        "name": "bicyclenetworkroadsafety-part1", 
+        "name": "bicycle-network-road-safety-part1", 
         "description": "As a cyclist, I want a safe transport journey in the city of Melbourne. Which roads are safest to cycle on? As a council, we seek to invest in road safety initiatives which reduce the occurrences of accidents resulting in serious injuries of citizens using our road network. Where are accident hotspots for cyclists occurring?",
         "tags": ["GeoJSON", "bicycles", "road safety", "route network", "accidents"],
         "difficulty": "Intermediate",
@@ -86,7 +86,7 @@
     },
     { 
         "title": "Melbourne Bicycle Network Routes and Road Safety Part 2", 
-        "name": "bicyclenetworkroadsafety-part2",
+        "name": "bicycle-network-road-safety-part2",
         "description": "As a cyclist, I want a safe transport journey in the city of Melbourne. Which roads are safest to cycle on? As a council, we seek to invest in road safety initiatives which reduce the occurrences of accidents resulting in serious injuries of citizens using our road network. Where are accident hotspots for cyclists occurring?",
         "tags": ["GeoJSON", "bicycles", "road safety", "route network", "accidents"],
         "difficulty": "Intermediate",
@@ -165,6 +165,35 @@
             "code": "python"
         },{
             "name": "scikit-learn",
+            "code": "python"
+        }]
+    },
+    { 
+        "title": "Melbourne Pedestrian Network Routes and Road Safety: Part 1", 
+        "name": "pedestrian-network-road-safety-part1",
+        "description": "..",
+        "tags": ["."],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
             "code": "python"
         }]
     }
