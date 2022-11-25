@@ -196,5 +196,40 @@
             "name": "geopandas",
             "code": "python"
         }]
+    },
+    { 
+        "title": "Ideal Green Roof Locations: Melbourne", 
+        "name": "greenroofs",
+        "description": "..",
+        "tags": ["."],
+        "difficulty": "Beginner",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "shapely",
+            "code": "python"
+        },{
+            "name": "branca",
+            "code": "python"
+        }]
     }
 ]
