@@ -171,8 +171,8 @@
     { 
         "title": "Melbourne Pedestrian Network Routes and Road Safety: Part 1", 
         "name": "pedestrian-network-road-safety-part1",
-        "description": "..",
-        "tags": ["."],
+        "description": "As a pedestrian I want a safe journey in Melbourne. Which intersections are safest and which are the riskiest from a road safety perspective? Where are accident hot-spots occurring and under what circumstance? As a council we want to invest in road safety initiatives which can effectively reduce serious injuries and fatalities. Are the current approaches to road network design having the impact we expected?",
+        "tags": ["pedestrian","road safety","accidents","route network","geoJSON"],
         "difficulty": "Intermediate",
         "technology": [{
             "name": "numpy",
@@ -200,8 +200,8 @@
     { 
         "title": "Ideal Green Roof Locations: Melbourne", 
         "name": "greenroofs",
-        "description": "..",
-        "tags": ["."],
+        "description": "As a city planner, I want to identify the locations which could most benefit from retrofitting with a green roof. As a building manager or owner of a residence, I want to visualise the potential of retrofitting my building for energy efficiency and greening. This use case visualises spatial databases using Geopandas.",
+        "tags": ["green space","greening","urban heat","green roofs","environmental","ecology","energy efficiency"],
         "difficulty": "Beginner",
         "technology": [{
             "name": "numpy",
