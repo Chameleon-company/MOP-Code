@@ -167,5 +167,40 @@
             "name": "scikit-learn",
             "code": "python"
         }]
+    },
+      { 
+        "title": "Environmental Sensor Study Rev A", 
+        "name": "environmental-sensor-study-revA",
+        "description": "Environmental Sensor use case is designed for the people who wants to find information  with special databases utilising pandas, geopandas, shapefiles, socrata and folium                                 ",
+        "tags": ["pedestrian", "sensor", "public transportation", "events", "trains", "machine learning"],
+        "difficulty": "Advanced",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "dash",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "scikit-learn",
+            "code": "python"
+        }]
     }
 ]
