@@ -37,4 +37,5 @@
     1. Add a parent node `<code class="language-python" data-lang="python">...</code>` around the content in the `<pre>...</pre>` tag.  
     Result should be `<pre><code ...>...</code></pre>` block.
     1. Repeat for all code sections
-    1. LAST STEP - Add the search information / tile information to the `flaskr/static/search.json` file so that the new use cases shows up in the search results in the home page.
+    1. Add the search information / tile information to the `flaskr/static/search.json` file so that the new use cases shows up in the search results in the home page.
+    1. Add [acceptance tests](https://github.com/Chameleon-company/MOP-Acceptance-Tests) for new use cases following markdown document instructions, replicating existing tests.
