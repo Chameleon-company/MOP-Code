@@ -169,7 +169,7 @@
         }]
     },
     { 
-        "title": "Pedestrian Network Routes and Road Safety: Part 1", 
+        "title": "Pedestrian Network Routes and Road Safety Part 1", 
         "name": "pedestrian-network-road-safety-part1",
         "description": "As a pedestrian I want a safe journey in Melbourne. Which intersections are safest and which are the riskiest from a road safety perspective? Where are accident hot-spots occurring and under what circumstance? As a council we want to invest in road safety initiatives which can effectively reduce serious injuries and fatalities. Are the current approaches to road network design having the impact we expected?",
         "tags": ["pedestrian","road safety","accidents","route network","geoJSON"],
