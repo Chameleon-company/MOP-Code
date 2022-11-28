@@ -22,6 +22,56 @@ code.hljs {
   Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
 */
 
+.usecase-title, .usecase-duration, .usecase-section-header {
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background-color: #0f9295;
+    color: #fff;
+}
+
+.usecase-title {
+    font-size: 1.6em;
+}
+
+.usecase-authors, .usecase-level, .usecase-skill {
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background-color: #baeaeb;
+    font-size: 1.4em;
+    color: #121212;
+}
+
+.usecase-level-skill  {
+    display: flex;
+}
+
+.usecase-level, .usecase-skill {
+    width: 50%;
+}
+
+.usecase-duration, .usecase-skill {
+    text-align: right;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    font-size: 1.4em;
+}
+
+.usecase-section-header {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.usecase-subsection-header, .usecase-subsection-blurb {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #121212;
+}
+
+.usecase-subsection-blurb {
+    font-size: 1em;
+    font-style: italic;
+}
+
 .hljs {
     color: #fff;
     background: #1c1b1b
