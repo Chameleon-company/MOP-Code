@@ -233,7 +233,7 @@
         }]
     },
     { 
-        "title": "Rev A ", 
+        "title": "environmental-sensor-study ", 
         "name": "greenroofs",
         "description": "As a city planner, I want to identify the locations which could most benefit from retrofitting with a green roof. As a building manager or owner of a residence, I want to visualise the potential of retrofitting my building for energy efficiency and greening. This use case visualises spatial databases using Geopandas.",
         "tags": ["green space","greening","urban heat","green roofs","environmental","ecology","energy efficiency"],
