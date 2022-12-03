@@ -231,5 +231,40 @@
             "name": "branca",
             "code": "python"
         }]
+    },
+    { 
+        "title": "Evaluate Business Location Using Pedestrian Traffic Day and Night", 
+        "name": "evaluate-business-location-using-pedestrian-traffic-day-night",
+        "description": "As a business owner, I want to know how much pedestrian foot traffic occurs around me during the day and night, so that I can evaluate the suitability of the location and hours for my business. As a business owner, I want to know how much pedestrian foot traffic I get compared to surrounding areas, so that I can assess if it is better to adapt my hours, extend or move locations.",
+        "tags": ["pedestrian"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "shapely",
+            "code": "python"
+        },{
+            "name": "branca",
+            "code": "python"
+        }]
     }
 ]
