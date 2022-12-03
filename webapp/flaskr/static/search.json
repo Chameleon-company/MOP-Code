@@ -265,6 +265,15 @@
         },{
             "name": "branca",
             "code": "python"
+        },{
+            "name": "scikit-learn",
+            "code": "python"
+        },{
+            "name": "plotly",
+            "code": "python"
+        },{
+            "name": "nbconvert",
+            "code": "python"
         }]
     }
 ]
