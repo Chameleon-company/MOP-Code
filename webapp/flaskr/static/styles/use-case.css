@@ -24,8 +24,8 @@ code.hljs {
 
 .usecase-title, .usecase-duration, .usecase-section-header {
     padding-left: 15px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 8px;
+    padding-top: 8px;
     padding-right: 15px;
     background-color: #0f9295;
     color: #fff;
@@ -38,8 +38,8 @@ code.hljs {
 
 .usecase-authors, .usecase-level, .usecase-skill {
     padding-left: 15px;
-    padding-bottom: 7px;
-    padding-top: 7px;
+    padding-bottom: 6px;
+    padding-top: 6px;
     background-color: #baeaeb;
     font-size: 1.4em;
     color: #121212;
@@ -56,7 +56,7 @@ code.hljs {
 .usecase-duration, .usecase-skill {
     text-align: right;
     padding-right: 15px;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
     font-size: 1.4em;
 }
 
