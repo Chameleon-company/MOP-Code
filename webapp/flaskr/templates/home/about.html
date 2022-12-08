@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link href="{{ url_for('static', filename='styles/base-styles.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='./theme_controller.js') }}"></script>
+{% endblock%}
 <!-- {% block header %}
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %} -->
 <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
 <link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" /> -->
 {% block content %}
-<div class="hero-background-container">
-    <div class="hero-background">
-    </div>
-</div>
+<div class="page-container">
+    <button id="dt-btn">Dark Theme</button>
+    <button id="lt-btn">Light Theme</button>
 <div class="container">
     <section class="hero">
         <div class="hero-body has-text-centered">
-            <h1 class="title has-text-white">About</h1>
+        <h1 class="title has-text-white">About</h1>
         </div>
         <section class="panel has-background-white">
             <div class="panel-block">
