@@ -1,29 +1,51 @@
-window.addEventListener('DOMContentLoaded', (event) => { //This is needed to ensure the button is loaded prior to trying to access it
-  console.log('DOM fully loaded and parsed');
+const colors = [
+  {
+    id: "--color-one",
+    light: "var(--go-green)",
+    dark: "var(--medium-spring-green)",
+  },
+  {
+    id: "--color-two",
+    light: "var(--persian-green)",
+    dark: "var(--medium-aquamarine)",
+  },
+  {
+    id: "--color-three",
+    light: "var(--viridian-green)",
+    dark: "var(--turquoise)",
+  },
+  {
+    id: "--color-four",
+    light: "var(--blue-sapphire)",
+    dark: "var(--robin-egg-blue)",
+  },
+  {
+    id: "--color-five",
+    light: "var(--smoky-black)",
+    dark: "var(--pacific-blue)",
+  },
+  {
+    id: "--color-six",
+    light: "var(--missing-color)",
+    dark: "var(--cyan-process)",
+  },
+  {
+    id: "default-text-color",
+    light: "#ffffff",
+    dark: "#000000",
+  },
+];
+let count = 0;
+window.addEventListener("DOMContentLoaded", (event) => {
+  //This is needed to ensure the button is loaded prior to trying to access it
+  console.log("DOM fully loaded and parsed");
 
-  //Set Dark Theme
-  document.getElementById('dt-btn').addEventListener('click', () => {
-    document.documentElement.style.setProperty('--color-one', 'var(--go-green)');
-    document.documentElement.style.setProperty('--color-two', 'var(--persian-green)');
-    document.documentElement.style.setProperty('--color-three', 'var(--viridian-green)');
-    document.documentElement.style.setProperty('--color-four', 'var(--blue-sapphire)');
-    document.documentElement.style.setProperty('--color-five', 'var(--smoky-black)');
-    document.documentElement.style.setProperty('--color-six', 'var(--missing-color)');
+  document.getElementById("dt-btn").addEventListener("click", () => {
+    colors.forEach((color) => {
+      document.documentElement.style.setProperty(color.id, count %2 === 0? color.light : color.dark);
+    });
 
-    console.log('dark theme executed...');
+    count++;
   });
 
-  //Set Light Theme
-  document.getElementById('lt-btn').addEventListener('click', () => {
-    document.documentElement.style.setProperty('--color-one', 'var(--medium-spring-green)');
-    document.documentElement.style.setProperty('--color-two', 'var(--medium-aquamarine)');
-    document.documentElement.style.setProperty('--color-three', 'var(--turquoise)');
-    document.documentElement.style.setProperty('--color-four', 'var(--robin-egg-blue)');
-    document.documentElement.style.setProperty('--color-five', 'var(--pacific-blue)');
-    document.documentElement.style.setProperty('--color-six', 'var(--cyan-process)');
-    console.log('light theme executed...');
-  });
 });
-
-
-

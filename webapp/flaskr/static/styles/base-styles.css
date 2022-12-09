@@ -21,11 +21,10 @@
   --color-four: var(--robin-egg-blue);
   --color-five: var(--pacific-blue);
   --color-six: var(--cyan-process);
+--default-text-color: #000000;
 }
 
 .page-container {
-  /* background-color: var(--color-six); */
-  /* background-image: linear-gradient(var(--color-five), var(--color-four)); */
   background-image: linear-gradient(
     var(--color-six),
     var(--color-four), 
@@ -34,4 +33,18 @@
     var(--color-four), 
     var(--color-six)
     );
+}
+
+.page-heading {
+  color: #ffffff;
+  font-size: 28pt;
+  font-weight: bold;
+  padding: 30px;
+  text-align: center;
+}
+.theme-btn{
+  background-color: var(--color-six);
+  color: var(--default-text-color);
+  border: none;
+  font-size: 16pt;
 }
