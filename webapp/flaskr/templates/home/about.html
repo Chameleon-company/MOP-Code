@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link href="{{ url_for('static', filename='styles/base-styles.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='./theme_controller.js') }}"></script>
+{% endblock%}
 <!-- {% block header %}
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %} -->
 <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
 <link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" /> -->
 {% block content %}
-<div class="hero-background-container">
-    <div class="hero-background">
-    </div>
-</div>
+<div class="page-container">
+    <button id="dt-btn" class="theme-btn">Toggle Theme</button>
 <div class="container">
     <section class="hero">
         <div class="hero-body has-text-centered">
-            <h1 class="title has-text-white">About</h1>
+<<<<<<< Updated upstream
+        <h1 class="title has-text-white">About</h1>
+=======
+            <img src="../../static/images/melbourne_skyline.jpg" alt="Melbourne Skyline">
+            <br><br>
+            <h1 class="title has-text-white" style="color: black;">About</h1>
+>>>>>>> Stashed changes
         </div>
         <section class="panel has-background-white">
             <div class="panel-block">
@@ -27,6 +35,14 @@
                         </ol>
                         <p>The <a href = "https://www.melbourne.vic.gov.au/Pages/home.aspx" target="_blank">City of Melbourne</a> is an Australian leader in Open Data since 2014. The latest research and local user engagement has identified a gap where users would like to learn more abut how to access the Open Data and how to gain insights from the data to build apps and solve city problems.</p>
                         <p>This project aims to deliver proof-of -concept examples on how calls to Open Data API can be made to deliver a variety of solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="panel has-background-white">
+            <div class="panel-block">
+                <div class="block" style="flex-grow: 1">
+                    <div class="subtitle content">
                         <h2>How to use the website</h2>
                         <ol>
                             <li>Use the search bar to search for datasets available on <a href="https://data.melbourne.vic.gov.au/" target="_blank">Melbourne Open Data</a> website or for use cases of the data.</li>
@@ -39,278 +55,202 @@
                             <li>The use cases will detail,  with code snippets and instructions, the steps taken: from accessing the data, to visualising it.</li>
                             <li>For more details on the datasets, click on the tile to go to City of Melbourne's website. </li>
                         </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="panel has-background-white">
+            <div class="panel-block">
+                <div class="block" style="flex-grow: 1">
+                    <div class="subtitle content">
                         <h2>Contributors</h2>
                         <p>We would like to acknowledge the following students and mentors for making this project possible:</p>
                         <br>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="panel has-background-white">
+            <div class="panel-block">
+                <div class="block" style="flex-grow: 1">
+                    <div class="subtitle content">
+                        <h2 style="text-align: center;">2022</h2>
+                        <b>Mentors:</b><br>
+                        Dr. Justin Rough (T1 2022)<br>
+                        Dr. Luxing Yang (T2 2022)<br>
+                        Dr. Valeh Moghaddam (T2 2022)<br>
+                        Dr. Hourieh Khalajzadeh (T3 2022)<br><br>
                         <b>Students:</b>
                         <div class="columns">
                             <div class="column">
-                                <u>T2 2020</u>
-                                <br>
-                                Pavan Yellapu 
-                                <br>
-                                Manideep Manda
-                                <br>
-                                Ausaf Syed
-                                <br>
-                                Pranali Jayawant Mandhare
-                                <br>
-                                Avi Jindal
-                                <br>
-                                Ozween Silvanus Dcunha
-                                <br>
-                                Mahad Rashid
-                                <br>
-                                Praniha Reddyvari
-                                <br>
+                                <u>T1 2022</u><br><br>
+                                Alex Vuong | <i>Master of Data Science</i><br>
+                                Steven Tuften | <i>Master of Applied Artificial Intelligence (Professional)</i><br>
+                                Bree Margaret McLennan | <i>Master of Data Science</i><br>
+                                Michael John Leen | <i>Bachelor of Information Technology</i><br>
+                                Mollie Fernandez | <i>Bachelor of Criminology & Cyber Security</i><br>
+                                Anthony Todaro | <i>Bachelor of Cyber Security</i><br>
+                                Julian Cape | <i>Master of Data Science</i><br>
+                                Brendan Patrick Richards | <i>Master of Data Science</i><br>
+                                Ryan Daniel Waites | <i>Bachelor of Cyber Security</i><br>
+                                Mark Brooksby | <i>Master of Data Science</i><br>
+                                Nitish Kumar Neelala Harish | <i>Master of Data Science</i><br>
+                                Anugra Sara Thomas | <i>Master of Data Science</i><br>
+                                Pramodya Sathsarani Senanayaka Jayasundara Senanayaka | <i>Master of Data Science</i><br>
+                                Bradie Robinson | <i>Master of Cyber Security</i><br>
+                                Harrison Corin Padraic Murphy | <i>Bachelor of Cyber Security</i><br>
+                                Jacob Djaelani | <i>Bachelor of Cyber Security</i><br>
+                                Kishen Makanji Patel | <i>Bachelor of Cyber Security</i><br>
+                                Bansi Baiju Patel | <i>Bachelor of Cyber Security</i><br>
+                                Imani Maina | <i>Bachelor of Cyber Security</i><br>
+                                Janitha Thushara Nilaweera Patabandige | <i>Master of Cyber Security</i><br>
+                                Shlomi Moreh | <i>Master of Cyber Security</i><br>
+                                Yi Yang Yu | <i>Master of Data Science</i><br>
+                                Lakshmi Meghana Kethiri | <i>Master of Artificial Intelligence</i><br>
+                                Muhammad Sohaib bin Kashif | <i>Master of Artificial Intelligence</i><br>
+                                Matthew Hall | <i>Master of Cyber Security</i><br>
+                                Tianqi Zhou | <i>Master of Cyber Security</i><br>
                             </div>
                             <div class="column">
-                                <u>T3 2020</u>
-                                <br>
-                                Sivaram Krishnan 
-                                <br>
-                                Deji Ladeinde
-                                <br>
-                                Hung Son
-                                <br>
-                                Avin Fernando
-                                <br>
-                                Jasmitha Venna
-                                <br>
-                                Hannah Catri
-                                <br>
-                                Kazimm
-                                <br>
+                                <u>T2 2022</u><br><br>
+                                <strong>Project Leaders</strong><br>
+                                Mollie Fernandez | <i>Senior</i><br>
+                                Abosede Alli | <i>Senior - Assistant</i><br><br>
+                                <strong>Data Science and Engineering Team</strong><br>
+                                Bree Margaret McLennan | <i>Senior - Team Leader</i><br>
+                                Julian Cape | <i>Senior - Co Leader</i><br>
+                                Brendan Patrick Richards | <i>Senior</i><br>
+                                Ryan Daniel Waites | <i>Senior</i><br>
+                                Weiren Kong | <i>Senior</i><br>                                
+                                Andrew Tilling | <i>Junior</i><br>
+                                Barkha Javed | <i>Junior</i><br>
+                                Hanna Smith | <i>Junior</i><br>
+                                Jack Pham | <i>Junior</i><br><br>
+                                <strong>Design Team</strong><br>
+                                Samuel Spice | <i>Senior - Co Leader</i><br>
+                                Stephen Brackenridge | <i>Senior - Co Leader</i><br>
+                                Bansi Baiju Patel | <i>Senior</i><br>
+                                Irmani Maina | <i>Senior</i><br>
+                                Jacob Diaelani | <i>Senior</i><br>                            
+                                Harrison Corin Padraic | <i>Junior</i><br>
+                                Muhammad Hassan Peerzada | <i>Junior</i><br><br>
+                                <strong>Web and App Development Team</strong><br>
+                                Michael John Leen | <i>Senior - Team Leader</i><br>
+                                Muhammad Sohaib bin Kashif | <i>Senior - Co Leader</i><br>
+                                Shlomi Moreh | <i>Senior</i><br>
+                                Tianqi Zhou | <i>Senior</i><br>
+                                Yi Yang Yu | <i>Senior</i><br>
+                                Caleb Webb | <i>Junior</i><br>
+                                Marcel dos Santos Gebara | <i>Junior</i><br>
                             </div>
                             <div class="column">
-                                <u>T1 2021</u>
-                                <br>
-                                Sivaram Krishnan 
-                                <br>
-                                Deji Ladeinde
-                                <br>
-                                Nikita Vijay Wadekar
-                                <br>
-                                Jason Tsitsopoulos
-                                <br>
-                                Oscar Wu
-                                <br>
-                                Neet Patel
-                                <br>
-                                Miriam Zhu
-                                <br>
-                                Rmaamatya
-                                <br>
+                                <u>T3 2022</u><br><br>
+                                <strong>Project Leaders</strong><br>
+                                Caleb Webb | <i>Senior</i><br>
+                                Hannah Smith | <i>Senior</i><br><br>
+                                <strong>Data Science and Engineering Team</strong><br>
+                                Hannah Smith | <i>Senior - Team Leader</i><br>
+                                Barkha Javed | <i>Senior</i><br>
+                                Jack Pham | <i>Senior</i><br>
+                                Adam James Bullivant | <i>Junior</i><br>
+                                Angela Lyn Hollingworth | <i>Junior</i><br>
+                                Basilia Carmel Sethu | <i>Junior</i><br>
+                                Mick Wiedermann | <i>Junior</i><br><br>
+                                <strong>Web & App Development Team</strong><br>
+                                Caleb Webb | <i>Senior - Team Leader</i><br>
+                                Jay Nilaweera | <i>Senior</i><br>
+                                Marcel dos Santos Gebara | <i>Senior</i><br>
+                                Zhengmin Zhu | <i>Senior</i><br>
+                                Pramodya Sathsarani Senanayaka | <i>Junior</i><br>
+                                Tate Remzi-Johnson | <i>Junior</i><br>
+                                William McLinden | <i>Junior</i><br>
                             </div>
                         </div>
-                        <br>
-                        <div class="columns">
-                            <div class="column">
-                                <u>T2 2021</u>
-                                <br>
-                                Jason Tsitsopoulos
-                                <br>
-                                Oscar Wu
-                                <br>
-                                Neet Patel
-                                <br>
-                                Miriam Zhu
-                                <br>
-                                Albert Hon
-                                <br>
-                                Josh Sansom-Sherwill
-                                <br>
-                            </div>
-                            <div class="column">
-                                <u>T3 2021</u>
-                                <br>
-                                Albert Hon | <i>Master of Data Science</i>
-                                <br>
-                                Josh Sansom-Sherwill | <i>Master of Applied Artificial Intelligence</i>
-                                <br>
-                                Tithra Chap | <i>Master of Data Science</i>
-                                <br>
-                                Ngoc (Andy) Dung Huynh | <i>Master of Data Science</i>
-                                <br>
-                                William Hebblewhite | <i>Master of Data Science</i>
-                                <br>
-                                Shalom Chin | <i>Master of Cyber Security</i>
-                                <br>
-                                Angus Maiden | <i>Master of Applied Artificial Intelligence (Professional)</i>
-                                <br>
-                                Alex Vuong | <i>Master of Data Science</i>
-                                <br>
-                                Steven Tuften | <i>Master of Applied Artificial Intelligence (Professional)</i>
-                                <br>
-                            </div>
-                            <div class="column">
-                                <u>T1 2022</u>
-                                <br>
-                                Alex Vuong | <i>Master of Data Science</i>
-                                <br>
-                                Steven Tuften | <i>Master of Applied Artificial Intelligence (Professional)</i>
-                                <br>
-                                Bree Margaret McLennan | <i>Master of Data Science</i>
-                                <br>
-                                Michael John Leen | <i>Bachelor of Information Technology</i>
-                                <br>
-                                Mollie Fernandez | <i>Bachelor of Criminology & Cyber Security</i>
-                                <br>
-                                Anthony Todaro | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Julian Cape | <i>Master of Data Science</i>
-                                <br>
-                                Brendan Patrick Richards | <i>Master of Data Science</i>
-                                <br>
-                                Ryan Daniel Waites | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Mark Brooksby | <i>Master of Data Science</i>
-                                <br>
-                                Nitish Kumar Neelala Harish | <i>Master of Data Science</i>
-                                <br>
-                                Anugra Sara Thomas | <i>Master of Data Science</i>
-                                <br>
-                                Pramodya Sathsarani Senanayaka Jayasundara Senanayaka | <i>Master of Data Science</i>
-                                <br>
-                                Bradie Robinson | <i>Master of Cyber Security</i>
-                                <br>
-                                Harrison Corin Padraic Murphy | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Jacob Djaelani | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Kishen Makanji Patel | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Bansi Baiju Patel | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Imani Maina | <i>Bachelor of Cyber Security</i>
-                                <br>
-                                Janitha Thushara Nilaweera Patabandige | <i>Master of Cyber Security</i>
-                                <br>
-                                Shlomi Moreh | <i>Master of Cyber Security</i>
-                                <br>
-                                Yi Yang Yu | <i>Master of Data Science</i>
-                                <br>
-                                Lakshmi Meghana Kethiri | <i>Master of Artificial Intelligence</i>
-                                <br>
-                                Muhammad Sohaib bin Kashif | <i>Master of Artificial Intelligence</i>
-                                <br>
-                                Matthew Hall | <i>Master of Cyber Security</i>
-                                <br>
-                                Tianqi Zhou | <i>Master of Cyber Security</i>
-                                <br>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="columns">
-                            <div class="column">
-                                <u>T2 2022</u>
-                                <br>
-                                Mollie Fernandez | <i>Project Leader</i>
-                                <br>
-                                Abosede Alli | <i>Assistant Project Leader</i>
-                                <br>
-
-                                Bree Margaret McLennan | <i>Data Science & Engineering Team Leader</i>
-                                <br>
-                                Julian Cape | <i>Data Science & Engineering Co Leader</i>
-                                <br>
-
-                                Brendan Patrick Richards | <i>Data Science & Engineering</i>
-                                <br>
-                                Ryan Daniel Waites | <i>Data Science & Engineering</i>
-                                <br>
-                                Weiren Kong | <i>Data Science & Engineering</i>
-                                <br>                                
-                                Andrew Tilling | <i>Data Science & Engineering</i>
-                                <br>
-                                Barkha Javed | <i>Data Science & Engineering</i>
-                                <br>
-                                Hanna Smith | <i>Data Science & Engineering</i>
-                                <br>
-                                Jack Pham | <i>Data Science & Engineering</i>
-                                <br>
-
-                                Samuel Spice | <i>Design Team Co Leader</i>
-                                <br>
-                                Stephen Brackenridge | <i>Design Team Co Leader</i>
-                                <br>
-
-                                Bansi Baiju Patel | <i>Design</i>
-                                <br>
-                                Irmani Maina | <i>Design</i>
-                                <br>
-                                Jacob Diaelani | <i>Design</i>
-                                <br>                            
-                                Harrison Corin Padraic | <i>Design</i>
-                                <br>
-                                Muhammad Hassan Peerzada | <i>Design</i>
-                                <br>
-
-                                Michael John Leen | <i>Web & App Development Team Leader</i>
-                                <br>
-                                Muhammad Sohaib bin Kashif | <i>Web & App Development Co Leader</i>
-                                <br>
-                                
-                                Shlomi Moreh | <i>Web & App Development</i>
-                                <br>
-                                Tianqi Zhou | <i>Web & App Development</i>
-                                <br>
-                                Yi Yang Yu | <i>Web & App Development</i>
-                                <br>
-                                Caleb Webb | <i>Web & App Development</i>
-                                <br>
-                                Marcel dos Santos Gebara | <i>Web & App Development</i>
-                                <br>
-                            </div>
-                            <div class="column">
-                                <u>T3 2022</u>
-                                <br>
-                                Hannah Smith | <i>Project & Data Science Lead</i>
-                                <br>
-                                Caleb Webb | <i>Project & Web Development Lead</i>
-                                <br>
-                                Mick Wiedermann | <i>Data Science & Engineering</i>
-                                <br>
-                                Jack Pham | <i>Data Science & Engineering</i>
-                                <br>
-                                Barkha Javed | <i>Data Science & Engineering</i>
-                                <br>
-                                Adam James Bullivant | <i>Data Science & Engineering</i>
-                                <br>
-                                Basilia Carmelsethu | <i>Data Science & Engineering</i>
-                                <br>
-                                Angie Lynhollingworth | <i>Data Science & Engineering</i>
-                                <br>
-                                Rikky Kincaid | <i>Data Science & Engineering</i>
-                                <br>
-                                Marcel Gebara | <i>Web & App Development</i>
-                                <br>
-                                Jay Thushara Nilaweera Patabandige | <i>Web & App Development</i>
-                                <br>
-                                Gideon Kipchirchir Kiptugen | <i>Web & App Development</i>
-                                <br>
-                                Tate Remzi-Johnson | <i>Web & App Development</i>
-                                <br>
-                                Pramodya Sathsarani Senanayaka | <i>Web & App Development</i>
-                                <br>
-                            </div>
-                        </div>
-                        <br>
-                        <b>Mentors:</b>
-                        <br>
-                        Dr. Daniel Ma (T2 2021)
-                        <br>
-                        Dr. Sergey Polyakovskiy (T2 2021)
-                        <br>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="panel has-background-white">
+            <div class="panel-block">
+                <div class="block" style="flex-grow: 1">
+                    <div class="subtitle content">
+                        <h2 style="text-align: center;">2021</h2>
+                        <b>Mentors:</b><br>
+                        Dr. Daniel Ma (T2 2021)<br>
+                        Dr. Sergey Polyakovskiy (T2 2021)<br>
                         Dr. Fatemeh Ansarizadeh (T3 2021)
-                        <br>
-                        Dr. Justin Rough (T1 2022)
-                        <br>
-                        Dr. Luxing Yang (T2 2022)
-                        <br>
-                        Dr. Valeh Moghaddam (T2 2022)
-                        <br>
-                    </div>  
+                        <br><br>
+                        <b>Students:</b>
+                        <div class="columns">
+                            <div class="column">
+                                <u>T1 2021</u><br>
+                                Sivaram Krishnan <br>
+                                Deji Ladeinde<br>
+                                Nikita Vijay Wadekar<br>
+                                Jason Tsitsopoulos<br>
+                                Oscar Wu<br>
+                                Neet Patel<br>
+                                Miriam Zhu<br>
+                                Rmaamatya<br>
+                            </div>
+                            <div class="column">
+                                <u>T2 2021</u><br>
+                                Jason Tsitsopoulos<br>
+                                Oscar Wu<br>
+                                Neet Patel<br>
+                                Miriam Zhu<br>
+                                Albert Hon<br>
+                                Josh Sansom-Sherwill<br>
+                            </div>
+                            <div class="column">
+                                <u>T3 2021</u><br>
+                                Albert Hon | <i>Master of Data Science</i><br>
+                                Josh Sansom-Sherwill | <i>Master of Applied Artificial Intelligence</i><br>
+                                Tithra Chap | <i>Master of Data Science</i><br>
+                                Ngoc (Andy) Dung Huynh | <i>Master of Data Science</i><br>
+                                William Hebblewhite | <i>Master of Data Science</i><br>
+                                Shalom Chin | <i>Master of Cyber Security</i><br>
+                                Angus Maiden | <i>Master of Applied Artificial Intelligence (Professional)</i><br>
+                                Alex Vuong | <i>Master of Data Science</i><br>
+                                Steven Tuften | <i>Master of Applied Artificial Intelligence (Professional)</i><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="panel has-background-white">
+            <div class="panel-block">
+                <div class="block" style="flex-grow: 1">
+                    <div class="subtitle content">
+                        <h2 style="text-align: center;">2020</h2>
+                        <b>Students:</b>
+                        <div class="columns">
+                            <div class="column">
+                                <u>T2 2020</u><br>
+                                Pavan Yellapu <br>
+                                Manideep Manda<br>
+                                Ausaf Syed<br>
+                                Pranali Jayawant Mandhare<br>
+                                Avi Jindal<br>
+                                Ozween Silvanus Dcunha<br>
+                                Mahad Rashid<br>
+                                Praniha Reddyvari<br>
+                            </div>
+                            <div class="column">
+                                <u>T3 2020</u><br>
+                                Sivaram Krishnan <br>
+                                Deji Ladeinde<br>
+                                Hung Son<br>
+                                Avin Fernando<br>
+                                Jasmitha Venna<br>
+                                Hannah Catri<br>
+                                Kazimm<br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -318,6 +258,8 @@
 </div>
 
 {% endblock %}
+<<<<<<< Updated upstream
 
 
-
+=======
+>>>>>>> Stashed changes
