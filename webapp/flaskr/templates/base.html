@@ -65,16 +65,19 @@
                         </a>
                     </div>
                 </div>
+                <div class="navbar-item">
+                    <img id='dt-btn' src="{{url_for('static',filename='moon_ico.png')}}"
+                    style="width: 30px; height: 60px; margin: 5px; filter: brightness(0) invert(1)">
+                </div>
             </div>
-        </div>
     </nav>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     {% block content %}{% endblock %}
 
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="content has-text-centered">
         </div>
-    </footer>
+    </footer> -->
 </body>
 
 </html>

@@ -43,6 +43,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("dt-btn").addEventListener("click", () => {
     colors.forEach((color) => {
       document.documentElement.style.setProperty(color.id, count %2 === 0? color.light : color.dark);
+      var img = document.getElementById('dt-btn').src.includes('moon_ico.png')
+        if (img == true) {
+            document.getElementById('dt-btn').src = "/static/sun_ico.png";
+        } else {
+           document.getElementById('dt-btn').src = "/static/moon_ico.png";
+        }
     });
 
     count++;
