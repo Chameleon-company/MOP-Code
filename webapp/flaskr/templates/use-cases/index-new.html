@@ -11,15 +11,15 @@
 <div class="page-container">
     <!-- <button id="dt-btn" class="theme-btn">Toggle Theme</button> -->
     <div class="image-header">
-        <img src="../../static/images/city_of_melbourne_skyline.jpg" alt="Melbourne Skyline" style="width:100%">
+        <img src="../../static/images/city_of_melbourne_skyline.jpg" alt="Melbourne Skyline" style="height: 20em; width: 100%">
         <div class="bottom-left-text">
             Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
         </div>
     </div>
     <div class="container">
             <section class="hero">
-                <div class="hero-body has-text-centered">
-                    <p class="subtitle" style="color: black; font-weight:700">
+                <div class="has-text-centered">
+                    <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
                         Use cases
                     </p>
                 </div>
@@ -29,24 +29,17 @@
                     <div class="panel-block">
                         <div class="block" style="flex-grow: 1">
                             <div class="subtitle content">
-                                <div class="grid-container">
-                                    <div class="column">
-                                        <h2 style="font-size: 20px;">Use Case</h2>
-                                    </div>
-                                    <div class="column">
-                                        <h2 style="font-size: 20px;">Level
-                                            <span class="dot easy"></span>
-                                            <span class="dot intermediate"></span>
-                                            <span class="dot advanced"></span>
-                                        </h2>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="column">
-                                        <p style="font-size: 20px;">New Business Location</p>
-                                    </div>
-                                    <div class="column">
-                                        <p class="bubble" style="font-size: 20px;">Intermediate</p>
-                                    </div>
+                                <div class="table-container">
+                                    <table id="use-case-table">
+                                        <tr class="row">
+                                            <th>Use Case</th>
+                                            <th>Difficulty
+                                                <span class="dot easy"></span>
+                                                <span class="dot intermediate"></span>
+                                                <span class="dot advanced"></span>
+                                            </th>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +47,8 @@
                 </section>
             </section>
             <section class="hero">
-                <div class="hero-body has-text-centered">
-                    <p class="subtitle" style="color: black; font-weight:700">
+                <div class="has-text-centered">
+                    <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
                         Datasets
                     </p>
                 </div>
@@ -65,148 +58,22 @@
                     <div class="panel-block">
                         <div class="block" style="flex-grow: 1">
                             <div class="subtitle content">
-                                <div class="grid-container">
-                                    <div class="column">
-                                        <h2 style="font-size: 20px;">Dataset</h2>
-                                    </div>
-                                    <div class="column">
-                                        <h2 style="font-size: 20px;">Downloads</h2>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="column">
-                                        <p style="font-size: 20px;">Postcodes</p>
-                                    </div>
-                                    <div class="column">
-                                        <p class="bubble" style="font-size: 20px;">13,530,346</p>
-                                    </div>
+                                <div class="table-container">
+                                    <table id="dataset-table">
+                                        <tr class="row">
+                                            <th>Dataset</th>
+                                            <th>Downloads
+                                            </th>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </section>
-            
-        <!-- <section class="panel has-background-white">
-            <div class="panel-block is-dark">
-                <div class="search-control control is-large has-icons-left has-icons-right">
-                    <input class="input is-large search" type="text" placeholder="Search use cases..." />
-                    <span class="icon is-medium is-left"><i class="fas fa-search"></i></span>
-                </div>
-            </div>
-            <div class="panel-block">
-                <div class="block" style="flex-grow: 1">
-                    <div class="subtitle">
-                        <i class="fas fa-wrench"></i> Use Cases
-                    </div>
-                    <div class="tile is-ancestor" style="background-color: #f5f5f5;">
-                        <div class="tile is-parent is-vertical">
-                            <div class="tile is-parent article-tile-parent">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-block">
-                <div class="block" style="flex-grow: 1">
-                    <div class="block">
-                        <div class="subtitle">
-                            <i class="fas fa-database"></i> Datasets
-                        </div>
-                    </div>
-                    <div class="tile is-ancestor" style="background-color: #f5f5f5;">
-                        <div class="tile is-parent is-vertical">
-                            <div class="tile is-parent dataset-tile-parent">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
     </div>
 </div>
 
-<!-- template for use cases tile -->
-<template id="article_tile_template">
-    <article class="tile is-4 is-child">
-        <div class="block" style="padding: 12px;">
-            <a href="{{url_for('home.home')}}" class="article-anchor">
-                <div class="box">
-                    <div class="title">
-                        <!-- title -->
-                    </div>
-                    <div class="block description">
-                        <!-- description-->
-                    </div>
-                    <div>
-                        <b> Level: </b> 
-                        <span class="difficulty">
-                        <!-- difficulty-->
-                        </span>
-                    </div>
-                    <div class="block">
-                        <table class="table">
-                            <thead>
-                                <td><b>Tech</b></td>
-                                <td></td>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="buttons">
-                    </div>
-                </div>
-            </a>    
-        </div>
-    </article>
-</template>
-
-<!-- template for technology and icons in use cases tile -->
-<template id="technology_row_template">
-    <tr>
-        <td class="technology"></td>
-        <td class="code"></td>
-    </tr>
-</template> 
-<template id="icon_template">
-    <span class="icon"></span>
-</template>
-
-<!-- template for tags in use cases tile -->
-<template id="tags_template">
-    <button class="tag button is-info">
-    </button>
-</template>
-
-<!-- template for datasets -->
-<template id="dataset_tile_template">
-    <article class="tile is-child is-3">
-        <div class="block" style="padding: 12px;">
-            <a href="#" target="_blank" class='perma'>
-                <div class="box">
-                    <span class="subtitle">
-                    <!-- title -->
-                    </span>                       
-                    <div class="block">
-                        <p><b>Downloads:</b>
-                            <span class="description">
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </article>
-</template>
-
-<style type="text/css">
-    .article-tile-parent .box:hover {
-        box-shadow: none
-    }
-    
-    .dataset-tile-parent .box:hover {
-        box-shadow: none
-    }
-</style>
-
-<script src="{{url_for('static', filename='search.js')}}"></script>
+<script src="{{url_for('static', filename='homepage.js')}}"></script>
 {% endblock %}
