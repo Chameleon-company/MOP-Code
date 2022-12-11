@@ -17,6 +17,7 @@ var tableRowsInitialDataset = 4;
 var tableRowsTotalDataset;
 var datasetRows = 0;
 var globalDataDataset;
+var datasetTable;
 
 
 // function createNewRow(name, difficulty) {
@@ -44,7 +45,7 @@ function createNewRowDataset(name, downloads, url) {
 
 // Next, define a function for generating a new row based on the template
 // and some provided data
-function createNewRow(name, difficulty, link) {
+function createNewRowUsecase(name, difficulty, link) {
     usecaseRows++;
   // Replace the placeholders in the template with the actual data
   let row = rowTemplateUseCase.replace("{{name}}", name)
@@ -90,7 +91,7 @@ function showmoreUseCases() {
 
     // Add the remaining use cases to the table
     for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
-        useCaseTable.innerHTML += createNewRow(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
     }
 
     // Replace the "Show more" link with a "Show less" one
@@ -124,15 +125,15 @@ function showlessUseCases() {
     document.getElementById("row-initial-final").style.borderBottom = "none";
 
         // Replace the "Show less" link with a "Show more" one
-        var showMoreBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showmoreUseCases()">Show more ↓</a></div>'
-        var Obj = document.getElementById("show-more-use-cases");
+        let showMoreBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showmoreUseCases()">Show more ↓</a></div>'
+        let Obj = document.getElementById("show-more-use-cases");
         if (Obj.outerHTML) { 
             // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
             Obj.outerHTML = showMoreBtnHTML;
         }
         else {
             // Otherwise, use this alternative method for browser support
-            var tmpObj = document.createElement('div');
+            let tmpObj = document.createElement('div');
             tmpObj.innerHTML = '<!--To be replaced-->';
             ObjParent=Obj.parentNode;
             ObjParent.replaceChild(tmpObj, Obj);
@@ -148,7 +149,7 @@ function initialUseCases() {
         .then ((data) => {
             globalDataUseCases = data;
             for (let i = 0; i < tableRowsInitial; i++) {
-                useCaseTable.innerHTML += createNewRow(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+                useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
             }
             tableRowsTotal = globalDataUseCases.length;
         });
@@ -177,7 +178,7 @@ function initialUseCases() {
 // }
 
 function addDatasets() {
-    let datasetTable = document.getElementById("dataset-table");
+    datasetTable = document.getElementById("dataset-table");
     fetch(`${$SCRIPT_ROOT}/search/datasets?query`)
         .then((response) => response.json())
         .then((data) => {
@@ -202,7 +203,7 @@ function showmoreDatasets() {
     rowInitialFinal.style.borderBottom = "thin solid";
     rowInitialFinal.style.borderColor = "#00cc70";
 
-    for (let i = datasetRows; i < globalDataDataset.length; i++) {
+    for (let i = datasetRows; i < tableRowsTotalDataset; i++) {
         let datasetName = globalDataDataset[i].Name
         let datasetDownloads = globalDataDataset[i].Downloads
         let datasetURL = globalDataDataset[i].Permalink
@@ -211,6 +212,48 @@ function showmoreDatasets() {
         } else {
             datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads, datasetURL)
         }
+    }
+
+        // Replace the "Show more" link with a "Show less" one
+        let showLessBtnHTML = '<div id="show-more-datasets"><a href="javascript:showlessDatasets()">Show less ↑</a></div>'
+        let Obj = document.getElementById("show-more-datasets");
+        if (Obj.outerHTML) { 
+            // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
+            Obj.outerHTML = showLessBtnHTML;
+        }
+        else {
+            // Otherwise, use this alternative method for browser support
+            let tmpObj = document.createElement('div');
+            tmpObj.innerHTML = '<!--To be replaced-->';
+            ObjParent=Obj.parentNode;
+            ObjParent.replaceChild(tmpObj, Obj);
+            ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showLessBtnHTML);
+        }
+}
+
+function showlessDatasets() {
+    while (datasetRows > tableRowsInitialDataset) {
+        datasetTable.deleteRow(-1);
+        datasetRows--;
+    }
+
+    // Remove the border from below the final use case on the table
+    document.getElementById("row-initial-final-dataset").style.borderBottom = "none";
+
+    // Replace the "Show less" link with a "Show more" one
+    let showMoreBtnHTML = '<div id="show-more-datasets"><a href="javascript:showmoreDatasets()">Show more ↓</a></div>'
+    let Obj = document.getElementById("show-more-datasets");
+    if (Obj.outerHTML) { 
+        // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
+        Obj.outerHTML = showMoreBtnHTML;
+    }
+    else {
+        // Otherwise, use this alternative method for browser support
+        var tmpObj = document.createElement('div');
+        tmpObj.innerHTML = '<!--To be replaced-->';
+        ObjParent=Obj.parentNode;
+        ObjParent.replaceChild(tmpObj, Obj);
+        ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showMoreBtnHTML);
     }
 }
 

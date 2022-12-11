@@ -134,6 +134,15 @@
   color: #00ff8c;
 }
 
+#show-more-datasets {
+  text-align: center;
+}
+
+#show-more-datasets a{
+  text-decoration: none;
+  color: #00ff8c;
+}
+
 
 .level-col {
   width: 25%;
