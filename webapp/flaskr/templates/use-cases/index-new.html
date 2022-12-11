@@ -30,14 +30,15 @@
                         <div class="block" style="flex-grow: 1">
                             <div class="subtitle content">
                                 <div class="table-container">
-                                    <table id="use-case-table">
-                                        <tr class="row">
+                                    <table id="use-case-table" style="border: 1px">
+                                        <tr class="row row-bottom-border">
                                             <th>Use Case</th>
-                                            <th>Difficulty
-                                                <span class="dot easy"></span>
+                                            <th style="width:19%">Difficulty
+                                                <span class="dot beginner"></span>
                                                 <span class="dot intermediate"></span>
                                                 <span class="dot advanced"></span>
                                             </th>
+                                            <th></th>
                                         </tr>
                                     </table>
                                 </div>
@@ -46,6 +47,9 @@
                     </div>
                 </section>
             </section>
+            <div id="show-more-use-cases">
+                <a href="javascript:showmoreUseCases()">Show more ↓</a>
+            </div>
             <section class="hero">
                 <div class="has-text-centered">
                     <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
@@ -60,9 +64,11 @@
                             <div class="subtitle content">
                                 <div class="table-container">
                                     <table id="dataset-table">
-                                        <tr class="row">
+                                        <tr class="row row-bottom-border">
                                             <th>Dataset</th>
-                                            <th>Downloads
+                                            <th style="width:37%">Downloads
+                                                <img src="/static/download-button.png" 
+                                                style="width: 15px; height: 15px;">
                                             </th>
                                         </tr>
                                     </table>
@@ -72,6 +78,9 @@
                     </div>
                 </section>
             </section>
+            <div id="show-more-use-cases">
+                <a href="javascript:showmoreDatasets()">Show more ↓</a>
+            </div>
     </div>
 </div>
 
