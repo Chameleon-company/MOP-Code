@@ -35,7 +35,9 @@ const colors = [
     dark: "#000000",
   },
 ];
+
 let count = 0;
+
 window.addEventListener("DOMContentLoaded", (event) => {
   //This is needed to ensure the button is loaded prior to trying to access it
   console.log("DOM fully loaded and parsed");
@@ -50,8 +52,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
            document.getElementById('dt-btn').src = "/static/moon_ico.png";
         }
     });
-
     count++;
   });
-
 });

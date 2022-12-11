@@ -214,6 +214,7 @@ function showmoreDatasets() {
     }
 }
 
-initialUseCases()
+initialUseCases();
+addDatasets();
 addDatasets()
 
