@@ -1,132 +1,88 @@
-// First, define the template for the new rows as a string
-var rowTemplateUseCase = "<tr{{border}}><td>{{name}}</td><td class='level-col'>{{difficulty}}</td><td>{{link}}</td></tr>";
-var rowTemplateDataset = "<tr{{border}}><td>{{name}}</td><td>{{difficulty}}</td></tr>";
+// Templates for each row of the tables
+var rowTemplateUseCase = "<tr class='row-bottom-border-usecase'><td>{{name}}</td><td class='level-col'>{{difficulty}}</td><td>{{link}}</td></tr>";
+var rowTemplateDataset = "<tr class='row-bottom-border-dataset'><td>{{name}}</td><td>{{difficulty}}</td></tr>";
 
-// Define values for the use-case table
+// Values for the use-case table
 var tableRowsInitial = 4;
-var tableRowsTotal;
-var tableRowsTarget = tableRowsInitial;
 var usecaseRows = 0;
 var useCaseTable;
 var globalDataUseCases;
+const smUsecases = "show-more-use-cases";
+var smUsecasesCount = 0;
+const usecaseRowClass = "row-bottom-border-usecase";
 
-
-// Define values for the dataset table
+// Values for the dataset table
 var tableRowsInitialDataset = 4;
-var tableRowsTotalDataset;
 var datasetRows = 0;
-var globalDataDataset;
 var datasetTable;
+var globalDataDataset;
+const smDatasets = "show-more-datasets";
+var smDatasetsCount = 0;
+const datasetRowClass = "row-bottom-border-dataset";
 
-
-// Function for generating a new row based on the dataset table row template
-function createNewRowDataset(name, downloads, url) {
-    datasetRows++;
-    let row = rowTemplateDataset.replace("{{name}}", name)
-                      .replace("{{difficulty}}", "<div class='advanced bubble'><a href='#'>" + downloads + "</a></div>");
-
-    if (datasetRows == tableRowsTotalDataset) {
-        return row.replace("{{border}}"," id='row-final-dataset'")
-    }
-    else if (datasetRows == tableRowsInitialDataset) {
-        return row.replace("{{border}}"," id='row-initial-final-dataset'");
-    }
-    else {
-        return row.replace("{{border}}"," class='row-bottom-border'");
-    }
-  }
-
-
-// Next, define a function for generating a new row based on the template
-// and some provided data
+/**
+ * Generates the HTML code for a new row for the use-case table, based off of the template
+ * 
+ * @param {*} name          The "title" field of the use-case
+ * @param {*} difficulty    The "difficulty" field of the use-case
+ * @param {*} link          The "name" field of the use-case
+ * @returns                 The HTML code for a new row for the use-case table
+ */
 function createNewRowUsecase(name, difficulty, link) {
     usecaseRows++;
   // Replace the placeholders in the template with the actual data
-  let row = rowTemplateUseCase.replace("{{name}}", name)
+  return rowTemplateUseCase.replace("{{name}}", name)
                         .replace("{{difficulty}}", "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>")
                         .replace("{{link}}","<div class='link-col'><a href='" + link + "'>➤</a></div>");
-    
-    if (usecaseRows == tableRowsTotal) {
-        return row.replace("{{border}}"," id='row-final'");
-    }
-    else if (usecaseRows == tableRowsInitial) {
-       return row.replace("{{border}}"," id='row-initial-final'")
-    }
-    else {
-        return row.replace("{{border}}"," class='row-bottom-border'")
-    }
 }
 
-// Removes the final (bottom-most) row from the specified table and reduces the count of rows
-function deleteFinalRow(table) {
-    table.deleteRow(-1);
-    usecaseRows--;
-}
 
-// The function that executes when "Show more" is pressed
-// This will first continue creating the table using the search.json data,
-// then it will replace the "Show more" link with a "Show less" one.
+
+/**
+ * Expands the use-case table to show all of them. Then, replaces the "Show more" button with a "Show less" one
+ */
 function showmoreUseCases() {
+
     // Create a border for the initial final row
-    let rowInitialFinal = document.getElementById("row-initial-final");
-    rowInitialFinal.style.borderBottom = "thin solid";
-    rowInitialFinal.style.borderColor = "#00cc70";
+    updateBottomBorder(usecaseRowClass, 1);
 
     // Add the remaining use cases to the table
     for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
         useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
     }
 
+    // Remove the border from the final row
+    updateBottomBorder(usecaseRowClass, 0);
+
     // Replace the "Show more" link with a "Show less" one
-    var showLessBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showlessUseCases()">Show less ↑</a></div>'
-    var Obj = document.getElementById("show-more-use-cases");
-    if (Obj.outerHTML) { 
-        // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
-        Obj.outerHTML = showLessBtnHTML;
-    }
-    else {
-        // Otherwise, use this alternative method for browser support
-        var tmpObj = document.createElement('div');
-        tmpObj.innerHTML = '<!--To be replaced-->';
-        ObjParent=Obj.parentNode;
-        ObjParent.replaceChild(tmpObj, Obj);
-        ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showLessBtnHTML);
-    }
+    toggleShowButton(smUsecases);
 }
 
-// This function executes when "Show less" is pressed.
-// It will reduce the table down to the initial size, before "Show more" was
-// pressed. Then, it will replace the "Show less" link with a "Show more" one.
+/**
+ * Reduces the use-case table back to the initial size of the table and then replaces the "Show less" button
+ * with a "Show more" one.
+ */
 function showlessUseCases() {
-    tableRowsTarget = tableRowsInitial;
-    let rowsToRemove = tableRowsTotal - tableRowsInitial;
-    for (let i = 0; i < rowsToRemove; i++) {
-        deleteFinalRow(useCaseTable);
+    while (usecaseRows > tableRowsInitial) {
+        useCaseTable.deleteRow(-1);
+        usecaseRows--;
     }
 
-    // Remove the border from below the final use case on the table
-    document.getElementById("row-initial-final").style.borderBottom = "none";
+    // Remove the border from below the new final row on the table
+    updateBottomBorder(usecaseRowClass, 0);
 
-        // Replace the "Show less" link with a "Show more" one
-        let showMoreBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showmoreUseCases()">Show more ↓</a></div>'
-        let Obj = document.getElementById("show-more-use-cases");
-        if (Obj.outerHTML) { 
-            // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
-            Obj.outerHTML = showMoreBtnHTML;
-        }
-        else {
-            // Otherwise, use this alternative method for browser support
-            let tmpObj = document.createElement('div');
-            tmpObj.innerHTML = '<!--To be replaced-->';
-            ObjParent=Obj.parentNode;
-            ObjParent.replaceChild(tmpObj, Obj);
-            ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showMoreBtnHTML);
-        }
+    // Replace the "Show less" link with a "Show more" one
+    toggleShowButton(smUsecases);
 }
 
-// Create an initial smaller table of use cases and store the information read from the json file as a global variable
+/**
+ * Creates an initial table of use-cases with an amount of rows specified by the "tableRowsInitial" global variable. 
+ * Additionally, stores the relevant information of the read json file as a global variable.
+ */
 function initialUseCases() {
     useCaseTable = document.getElementById("use-case-table");
+
+    // Read in the specified json file and create the rows of the table
     fetch(`${$SCRIPT_ROOT}/static/search.json`)
         .then((response) => response.json())
         .then ((data) => {
@@ -134,21 +90,129 @@ function initialUseCases() {
             for (let i = 0; i < tableRowsInitial; i++) {
                 useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
             }
-            tableRowsTotal = globalDataUseCases.length;
+
+            // Remove the bottom border from the final row
+            updateBottomBorder(usecaseRowClass, 0);
         });
 }
 
+/**
+ * Updates the final row in one of the tables on the home page, specified by the CSS class used for the rows in
+ * each table.
+ * 
+ * @param {string} cssClass The CSS class which we want to update the final row for
+ * @param {number} option   "1" to add a border to the final row, otherwise the final row's border will be removed
+ */
+function updateBottomBorder(cssClass, option) {
+    let children = document.getElementsByClassName(cssClass);
+    let lastChild = children[children.length-1];
+    if (option == 1) {
+        lastChild.style.borderBottom = "thin solid";
+        lastChild.style.borderColor = "#00cc70";
+    } 
+    else {
+        lastChild.style.borderBottom = "none";
+    }
+}
+
+/**
+ * Changes a specified "Show more" or "Show less" button into the other
+ * @param {*} id    The css ID of the button to be changed
+ */
+function toggleShowButton(id) {
+    let Obj = document.getElementById(id);
+    let newBtnHTML;
+    if (Obj != null) {
+        switch (id) {
+            case smUsecases:
+                // If the button is "Show more", prepare to replace it with "Show less"
+                if (smUsecasesCount % 2 == 0) {
+                    newBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showlessUseCases()">Show less ↑</a></div>';
+                }
+                // Otherwise, prepare to replace the "Show less" button with "Show more"
+                else {
+                    newBtnHTML = '<div id="show-more-use-cases"><a href="javascript:showmoreUseCases()">Show more ↓</a></div>';
+                }
+                smUsecasesCount++;
+                break;
+            case smDatasets:
+                // Same as above, but for the Datasets "Show more" button
+                if (smDatasetsCount % 2 == 0) {
+                    newBtnHTML = '<div id="show-more-datasets"><a href="javascript:showlessDatasets()">Show less ↑</a></div>';
+                }
+                else {
+                    newBtnHTML = '<div id="show-more-datasets"><a href="javascript:showmoreDatasets()">Show more ↓</a></div>';
+                }
+                smDatasetsCount++;
+                break;
+            default:
+                break;
+        }
+        if (newBtnHTML != null) {
+            if (Obj.outerHTML) { 
+                // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
+                Obj.outerHTML = newBtnHTML;
+            }
+            else {
+                // Otherwise, use this alternative method for browser support
+                let tmpObj = document.createElement('div');
+                tmpObj.innerHTML = '<!--To be replaced-->';
+                ObjParent=Obj.parentNode;
+                ObjParent.replaceChild(tmpObj, Obj);
+                ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',newBtnHTML);
+            }
+        }
+    }
+}
+
+/**
+ * Recreates the use-case table to only show use-cases of the specified difficulty
+ * 
+ * @param {string} difficulty   Use cases with this difficulty will be shown
+ */
+function filterDifficulty(difficulty) {
+    while(usecaseRows > 0) {
+        useCaseTable.deleteRow(-1);
+        usecaseRows--;
+    }
+
+    for (item in globalDataUseCases) {
+        if (globalDataUseCases[item].difficulty.includes(difficulty)){
+        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title,globalDataUseCases[item].difficulty,globalDataUseCases[item].name);
+        }
+    }
+
+    updateBottomBorder(usecaseRowClass, 0);
+}
+
 // *************************************************************************
-// **********************  DATASET TABLE CODE ******************************
+// ***********************  DATASET TABLE FUNCTIONS ************************
 // *************************************************************************
 
+/**
+ * Generates the HTML code for a new row for the dataset table, based off of the template
+ * 
+ * @param {*} name          The "Name" property of the dataset entry
+ * @param {*} downloads     The "Downloads" property of the dataset entry
+ * @param {*} url           The "Permalink" property of the dataset entry
+ * @returns                 The HTML code for a new row for the dataset table
+ */
+function createNewRowDataset(name, downloads, url) {
+    datasetRows++;
+    return rowTemplateDataset.replace("{{name}}", name)
+                             .replace("{{difficulty}}", "<div class='advanced bubble'><a href='#'>" + downloads + "</a></div>");
+  }
+
+/**
+ * Creates an initial table of datasets and their download links with an amount of rows specified by the
+ * "tableRowsInitialDataset" global variable. Additionally, stores the dataset information in a global variable.
+ */
 function addDatasets() {
     datasetTable = document.getElementById("dataset-table");
     fetch(`${$SCRIPT_ROOT}/search/datasets?query`)
         .then((response) => response.json())
         .then((data) => {
             globalDataDataset = data;
-            tableRowsTotalDataset = globalDataDataset.length;
             for (let i = 0; i < tableRowsInitialDataset; i++) {
                 let datasetName = globalDataDataset[i].Name
                 let datasetDownloads = globalDataDataset[i].Downloads
@@ -159,16 +223,19 @@ function addDatasets() {
                     datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads)
                 }
             }
+            // Remove the border from the bottom row once the initial table is created
+            updateBottomBorder(datasetRowClass, 0);
         })
 }
 
+/**
+ * Expands the dataset table to show all the dataset entries. Then, replaces the "Show more" button with a "Show less" one
+ */
 function showmoreDatasets() {
     // Create a border for the initial final row
-    let rowInitialFinal = document.getElementById("row-initial-final-dataset");
-    rowInitialFinal.style.borderBottom = "thin solid";
-    rowInitialFinal.style.borderColor = "#00cc70";
+    updateBottomBorder(datasetRowClass, 1);
 
-    for (let i = datasetRows; i < tableRowsTotalDataset; i++) {
+    for (let i = datasetRows; i < globalDataDataset.length; i++) {
         let datasetName = globalDataDataset[i].Name
         let datasetDownloads = globalDataDataset[i].Downloads
         let datasetURL = globalDataDataset[i].Permalink
@@ -179,49 +246,28 @@ function showmoreDatasets() {
         }
     }
 
-        // Replace the "Show more" link with a "Show less" one
-        let showLessBtnHTML = '<div id="show-more-datasets"><a href="javascript:showlessDatasets()">Show less ↑</a></div>'
-        let Obj = document.getElementById("show-more-datasets");
-        if (Obj.outerHTML) { 
-            // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
-            Obj.outerHTML = showLessBtnHTML;
-        }
-        else {
-            // Otherwise, use this alternative method for browser support
-            let tmpObj = document.createElement('div');
-            tmpObj.innerHTML = '<!--To be replaced-->';
-            ObjParent=Obj.parentNode;
-            ObjParent.replaceChild(tmpObj, Obj);
-            ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showLessBtnHTML);
-        }
+    // Remove the border the new final row
+    updateBottomBorder(datasetRowClass, 0);
+
+    // Replace the "Show more" link with a "Show less" one
+    toggleShowButton(smDatasets);
 }
 
+/**
+ * Reduces the dataset table back to its initial size. Then, replaces the "Show less" button with a "Show more" one
+ */
 function showlessDatasets() {
     while (datasetRows > tableRowsInitialDataset) {
         datasetTable.deleteRow(-1);
         datasetRows--;
     }
 
-    // Remove the border from below the final use case on the table
-    document.getElementById("row-initial-final-dataset").style.borderBottom = "none";
+    // Remove the border from below the new final row on the table
+    updateBottomBorder(datasetRowClass, 0);
 
     // Replace the "Show less" link with a "Show more" one
-    let showMoreBtnHTML = '<div id="show-more-datasets"><a href="javascript:showmoreDatasets()">Show more ↓</a></div>'
-    let Obj = document.getElementById("show-more-datasets");
-    if (Obj.outerHTML) { 
-        // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
-        Obj.outerHTML = showMoreBtnHTML;
-    }
-    else {
-        // Otherwise, use this alternative method for browser support
-        var tmpObj = document.createElement('div');
-        tmpObj.innerHTML = '<!--To be replaced-->';
-        ObjParent=Obj.parentNode;
-        ObjParent.replaceChild(tmpObj, Obj);
-        ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',showMoreBtnHTML);
-    }
+    toggleShowButton(smDatasets);
 }
 
 initialUseCases()
 addDatasets()
-

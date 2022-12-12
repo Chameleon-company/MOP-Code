@@ -152,19 +152,12 @@
   border-color: #00cc70;
 }
 
-#row-initial-final {
-  border-bottom: none;
+.row-bottom-border-usecase {
+  border-bottom: thin solid;
   border-color: #00cc70;
 }
 
-#row-final {
-  border-bottom: none;
-}
-
-#row-initial-final-dataset {
-  border-bottom: none;
-}
-
-#row-final-dataset {
-  border-bottom: none;
+.row-bottom-border-dataset {
+  border-bottom: thin solid;
+  border-color: #00cc70;
 }
