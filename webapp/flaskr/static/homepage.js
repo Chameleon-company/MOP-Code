@@ -1,5 +1,4 @@
 // First, define the template for the new rows as a string
-//var rowTemplate = "<tr><td>{{name}}</td><td>{{difficulty}}</td></tr>";
 var rowTemplateUseCase = "<tr{{border}}><td>{{name}}</td><td class='level-col'>{{difficulty}}</td><td>{{link}}</td></tr>";
 var rowTemplateDataset = "<tr{{border}}><td>{{name}}</td><td>{{difficulty}}</td></tr>";
 
@@ -19,11 +18,6 @@ var datasetRows = 0;
 var globalDataDataset;
 var datasetTable;
 
-
-// function createNewRow(name, difficulty) {
-//     return rowTemplate.replace("{{name}}", name)
-//                       .replace("{{difficulty}}", difficulty);
-//   }
 
 // Function for generating a new row based on the dataset table row template
 function createNewRowDataset(name, downloads, url) {
@@ -56,7 +50,7 @@ function createNewRowUsecase(name, difficulty, link) {
         return row.replace("{{border}}"," id='row-final'");
     }
     else if (usecaseRows == tableRowsInitial) {
-        return row.replace("{{border}}"," id='row-initial-final'")
+       return row.replace("{{border}}"," id='row-initial-final'")
     }
     else {
         return row.replace("{{border}}"," class='row-bottom-border'")
@@ -68,17 +62,6 @@ function deleteFinalRow(table) {
     table.deleteRow(-1);
     usecaseRows--;
 }
-
-// function addUseCases() {
-//     var table = document.getElementById("use-case-table");
-//     fetch(`${$SCRIPT_ROOT}/static/search.json`)
-//         .then((response) => response.json())
-//         .then ((data) => {
-//             for (item in data) {
-//                 table.innerHTML += createNewRow(data[item].title,data[item].difficulty);
-//             }
-//         });
-// }
 
 // The function that executes when "Show more" is pressed
 // This will first continue creating the table using the search.json data,
@@ -158,24 +141,6 @@ function initialUseCases() {
 // *************************************************************************
 // **********************  DATASET TABLE CODE ******************************
 // *************************************************************************
-
-// function addDatasets() {
-//     let datasetTable = document.getElementById("dataset-table");
-//     fetch(`${$SCRIPT_ROOT}/search/datasets?query`)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             for (item in data) {
-//                 let datasetName = data[item].Name
-//                 let datasetDownloads = data[item].Downloads
-//                 let datasetURL = data[item].Permalink
-//                 if (datasetName.indexOf("(") > -1) {
-//                     datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")),datasetDownloads)
-//                 } else {
-//                     datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads)
-//                 }
-//             }
-//         })
-// }
 
 function addDatasets() {
     datasetTable = document.getElementById("dataset-table");
