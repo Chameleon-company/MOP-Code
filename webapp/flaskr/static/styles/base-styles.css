@@ -1,0 +1,50 @@
+/* Variables*/
+
+:root {   
+    --medium-spring-green: #2af598;
+    --medium-aquamarine: #22e4ac;
+    --turquoise: #1bd7bb;
+    --robin-egg-blue: #14c9cb;
+    --pacific-blue: #0fbed8;
+    --cyan-process: #08b3e5;
+  
+    --go-green: #08af64;
+    --persian-green: #14a38e;
+    --viridian-green: #0f9295;
+    --blue-sapphire: #056b8a;
+    --smoky-black: #121212;
+    --missing-color: #3a3a3a;
+  
+    --color-one: var(--medium-spring-green);
+    --color-two: var(--medium-aquamarine);
+    --color-three: var(--turquoise);
+    --color-four: var(--robin-egg-blue);
+    --color-five: var(--pacific-blue);
+    --color-six: var(--cyan-process);
+  --default-text-color: #000000;
+  }
+  
+  .page-container {
+    background-image: linear-gradient(
+      var(--color-six),
+      var(--color-four), 
+      var(--color-two), 
+      var(--color-two), 
+      var(--color-four), 
+      var(--color-six)
+      );
+  }
+  
+  .page-heading {
+    color: #ffffff;
+    font-size: 28pt;
+    font-weight: bold;
+    padding: 30px;
+    text-align: center;
+  }
+  .theme-btn{
+    background-color: var(--color-six);
+    color: var(--default-text-color);
+    border: none;
+    font-size: 16pt;
+  }
