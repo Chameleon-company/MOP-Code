@@ -1,50 +1,92 @@
 {% extends 'base.html' %}
 
-<!-- {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %} -->
-<!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
-<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" /> -->
+{% block head %}
+<link href="{{ url_for('static', filename='styles/base-styles.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='./theme_controller.js') }}">
+</script>
+{% endblock %}
+
+
 {% block content %}
-<div class="hero-background-container">
-    <div class="hero-background">
-    </div>
-</div>
-<div class="container">
-    <section class="hero">
-        <div class="hero-body has-text-centered">
-            <h1 class="title has-text-white">FAQ</h1>
+<div class="page-container">
+    <!-- <button id="dt-btn" class="theme-btn">Toggle Theme</button> -->
+    <div class="image-header">
+        <img src="../../static/images/city_of_melbourne_skyline.jpg" alt="Melbourne Skyline" style="height: 20em; width: 100%">
+        <div class="bottom-left-text">
+            Find answers to some Frequently Asked Questions below
         </div>
-        <section class="panel has-background-white">
-            <div class="panel-block">
-                <div class="block" style="flex-grow: 1">
-                    <div class="subtitle content">
-                        <h2>What is the Open Data Playground?</h2>
-                        <p>
-                        Melbourne Open Data Playground (MOP) is a capstone project sponsored by <a href = "https://www.deakin.edu.au/" target="_blank">Deakin University</a>. It provides use cases and educational material to help you leverage <a href = "https://data.melbourne.vic.gov.au/" target="_blank">Melbourne Open Data</a> for your business and research needs. For more information, see our <a href="{{url_for('home.about')}}" target="_self">'About'</a> page. 
-                        </p>
-                        <h2>Do I need to request access from the City of Melbourne to use the datasets?</h2>
-                        <p>
-                        Melbourne Open Data is a strong advocate of open access. You do not need to directly request information from us. You may like to look at our educational material which provides a step-by-step guide to using Open Data using the Socrata API.
-                        </p>
-                        <h2>I would like to access an ‘open data use case’ discovery portal so that I can better understand how to leverage Melbourne Open Data within my business.</h2>
-                        <p>
-                        Our platform includes a variety of use cases about parking availability, pedestrian traffic data, business opportunities, and business planning. We also provide educational material that provides you with the tools to explore Melbourne Open Data in your own time.
-                        </p>
-                        <h2>As a business owner, I would like to learn how to visualize the pedestrian count in Melbourne.</h2>
-                        <p>
-                        You may like to look at the educational material which provides a step-by-step guide to using Melbourne Open Data to visualize key insights for your business.
-                        </p>
-                        <h2>As a business owner, I would like to learn how to predict different times in pedestrian count, so that I can plan for more efficient operating hours.</h2>
-                        <p>
-                        You may like to look at the educational material which provides a step-by-step guide to how to use the Melbourne Open data platform to do predictive analysis on key datasets. 
-                        </p>
-                        
-                    </div>  
+    </div>
+    <div class="container">
+            <section class="hero">
+                <div class="has-text-centered">
+                    <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
+                        Frequently Asked Questions
+                    </p>
                 </div>
-            </div>
-        </section>
-    </section>
+            </section>
+            <section class="use-cases">
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <p style="font-weight: 600;">What is the Open Data Playground?</p>
+                                <p>
+                                Melbourne Open Data Playground (MOP) is a capstone project sponsored by <a href = "https://www.deakin.edu.au/" target="_blank">Deakin University</a>. It provides use cases and educational material to help you leverage <a href = "https://data.melbourne.vic.gov.au/" target="_blank">Melbourne Open Data</a> for your business and research needs. For more information, see our <a href="{{url_for('home.about')}}" target="_self">'About'</a> page. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <p style="font-weight: 600;">Do I need to request access from the City of Melbourne to use the datasets?</p>
+                                <p>
+                                Melbourne Open Data is a strong advocate of open access. You do not need to directly request information from us. You may like to look at our educational material which provides a step-by-step guide to using Open Data using the Socrata API.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <p style="font-weight: 600;">I would like to access an ‘open data use case’ discovery portal so that I can better understand how to leverage Melbourne Open Data within my business.</p>
+                                <p>
+                                Our platform includes a variety of use cases about parking availability, pedestrian traffic data, business opportunities, and business planning. We also provide educational material that provides you with the tools to explore Melbourne Open Data in your own time.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <p style="font-weight: 600;">As a business owner, I would like to learn how to visualize the pedestrian count in Melbourne.</p>
+                                <p>
+                                You may like to look at the educational material which provides a step-by-step guide to using Melbourne Open Data to visualize key insights for your business.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <p style="font-weight: 600;">As a business owner, I would like to learn how to predict different times in pedestrian count, so that I can plan for more efficient operating hours.</p>
+                                <p>
+                                You may like to look at the educational material which provides a step-by-step guide to how to use the Melbourne Open data platform to do predictive analysis on key datasets. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+    </div>
 </div>
 {% endblock %}
 
