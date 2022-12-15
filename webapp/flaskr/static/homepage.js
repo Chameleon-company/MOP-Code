@@ -102,7 +102,12 @@ function initialUseCases() {
  * Creates the use-case table until it reaches the specified initial size.
  */
 function addUseCases() {
-    for (let i = 0; i < tableRowsInitial; i++) {
+    let tablesize = tableRowsInitial;
+    if (smUsecasesCount % 2 == 1) {
+        tablesize = globalDataUseCases.length;
+    }
+
+    for (let i = 0; i < tablesize; i++) {
         useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
     }
 
