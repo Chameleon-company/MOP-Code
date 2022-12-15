@@ -169,7 +169,8 @@
   border-left-style: hidden;
   border-bottom-style: hidden;
   width: 22.5em;
-  height: 1.5em;
+  height: 40px;
+  padding: 10px;
   font-size: 16px;
 }
 
