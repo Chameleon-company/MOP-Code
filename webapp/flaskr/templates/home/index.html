@@ -1,144 +1,91 @@
 {% extends 'base.html' %}
 
-<!-- {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %} -->
+{% block head %}
+<link href="{{ url_for('static', filename='styles/base-styles.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='./theme_controller.js') }}">
+</script>
+{% endblock %}
 
 
 {% block content %}
-<div class="hero-background-container">
-    <div class="hero-background">
+<div class="page-container">
+    <!-- <button id="dt-btn" class="theme-btn">Toggle Theme</button> -->
+    <div class="image-header">
+        <img src="../../static/images/city_of_melbourne_skyline.jpg" alt="Melbourne Skyline" style="height: 20em; width: 100%">
+        <div class="bottom-left-text">
+            Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
+        </div>
     </div>
-</div>
-<div class="container">
-    <section class="hero">
-        <div class="hero-body has-text-centered">
-            <h1 class="title has-text-white">Melbourne Open Data Playground</h1>
-            <p class="subtitle has-text-white">
-                Explore real business use cases in order to experience the City of Melbourne's Open Data Platform.
-            </p>
-        </div>
-    </section>
-    <section class="panel has-background-white">
-        <div class="panel-block is-dark">
-            <div class="search-control control is-large has-icons-left has-icons-right">
-                <input class="input is-large search" type="text" placeholder="Search use cases..." />
-                <span class="icon is-medium is-left"><i class="fas fa-search"></i></span>
-            </div>
-        </div>
-        <div class="panel-block">
-            <div class="block" style="flex-grow: 1">
-                <div class="subtitle">
-                    <i class="fas fa-wrench"></i> Use Cases
+    <div class="container">
+            <section class="hero">
+                <div class="has-text-centered">
+                    <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
+                        Use cases
+                    </p>
                 </div>
-                <div class="tile is-ancestor" style="background-color: #f5f5f5;">
-                    <div class="tile is-parent is-vertical">
-                        <div class="tile is-parent article-tile-parent">
-
+            </section>
+            <section class="use-cases">
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <div class="table-container">
+                                    <table id="use-case-table" style="border: 1px">
+                                        <tr class="row row-bottom-border">
+                                            <th style="width:62.5%">Use Case</th>
+                                            <th style="width:19%">Difficulty
+                                                <a class="dot beginner" href="javascript:filterDifficulty('Beginner')"></a>
+                                                <a class="dot intermediate" href="javascript:filterDifficulty('Intermediate')"></a>
+                                                <a class="dot advanced" href="javascript:filterDifficulty('Advanced')"></a>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
+            </section>
+            <div id="show-more-use-cases">
+                <a href="javascript:showmoreUseCases()">Show more ↓</a>
             </div>
-        </div>
-        <div class="panel-block">
-            <div class="block" style="flex-grow: 1">
-                <div class="block">
-                    <div class="subtitle">
-                        <i class="fas fa-database"></i> Datasets
-                    </div>
+            <section class="hero">
+                <div class="has-text-centered">
+                    <p class="subtitle" style="color: black; font-weight:700; padding: 1em 1em">
+                        Datasets
+                    </p>
                 </div>
-                <div class="tile is-ancestor" style="background-color: #f5f5f5;">
-                    <div class="tile is-parent is-vertical">
-                        <div class="tile is-parent dataset-tile-parent">
-
+            </section>
+            <section class="datasets">
+                <section class="panel has-background-white">
+                    <div class="panel-block">
+                        <div class="block" style="flex-grow: 1">
+                            <div class="subtitle content">
+                                <div class="table-container">
+                                    <table id="dataset-table">
+                                        <tr class="row row-bottom-border">
+                                            <th>Dataset</th>
+                                            <th style="width:37%">Downloads
+                                                <img src="/static/download-button.png" 
+                                                style="width: 15px; height: 15px;">
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </section>
+            </section>
+            <div style="padding-bottom:300px">
+                <div id="show-more-datasets">
+                    <a href="javascript:showmoreDatasets()">Show more ↓</a>
                 </div>
             </div>
-        </div>
-    </section>
+    </div>
+    <footer hidden></footer>
 </div>
 
-<!-- template for use cases tile -->
-<template id="article_tile_template">
-    <article class="tile is-4 is-child">
-        <div class="block" style="padding: 12px;">
-            <a href="{{url_for('home.home')}}" class="article-anchor">
-                <div class="box">
-                    <div class="title">
-                        <!-- title -->
-                    </div>
-                    <div class="block description">
-                        <!-- description-->
-                    </div>
-                    <div>
-                        <b> Level: </b> 
-                        <span class="difficulty">
-                        <!-- difficulty-->
-                        </span>
-                    </div>
-                    <div class="block">
-                        <table class="table">
-                            <thead>
-                                <td><b>Tech</b></td>
-                                <td></td>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="buttons">
-                    </div>
-                </div>
-            </a>    
-        </div>
-    </article>
-</template>
-
-<!-- template for technology and icons in use cases tile -->
-<template id="technology_row_template">
-    <tr>
-        <td class="technology"></td>
-        <td class="code"></td>
-    </tr>
-</template> 
-<template id="icon_template">
-    <span class="icon"></span>
-</template>
-
-<!-- template for tags in use cases tile -->
-<template id="tags_template">
-    <button class="tag button is-info">
-    </button>
-</template>
-
-<!-- template for datasets -->
-<template id="dataset_tile_template">
-    <article class="tile is-child is-3">
-        <div class="block" style="padding: 12px;">
-            <a href="#" target="_blank" class='perma'>
-                <div class="box">
-                    <span class="subtitle">
-                    <!-- title -->
-                    </span>                       
-                    <div class="block">
-                        <p><b>Downloads:</b>
-                            <span class="description">
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </article>
-</template>
-
-<style type="text/css">
-    .article-tile-parent .box:hover {
-        box-shadow: none
-    }
-    
-    .dataset-tile-parent .box:hover {
-        box-shadow: none
-    }
-</style>
-<script src="{{url_for('static', filename='search.js')}}"></script>
+<script src="{{url_for('static', filename='homepage.js')}}"></script>
 {% endblock %}

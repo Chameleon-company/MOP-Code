@@ -35,7 +35,7 @@ function createNewRowUsecase(name, difficulty, link) {
   // Replace the placeholders in the template with the actual data
   return rowTemplateUseCase.replace("{{name}}", name)
                         .replace("{{difficulty}}", "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>")
-                        .replace("{{link}}","<div class='link-col'><a href='" + link + "'>➤</a></div>");
+                        .replace("{{link}}","<div class='link-col'><a href='/use-cases/" + link + "'>➤</a></div>");
 }
 
 

@@ -80,7 +80,7 @@
 .line {
   grid-column-start: 1;
   grid-column-end: 4;
-  height: 2px;
+  height: 1px;
   border-bottom: 1px solid #08af64;
   width: 100%;
 }
@@ -160,4 +160,20 @@
 .row-bottom-border-dataset {
   border-bottom: thin solid;
   border-color: #00cc70;
+}
+
+/* Contact Page */
+.contact-input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  width: 22.5em;
+  height: 1.5em;
+  font-size: 16px;
+}
+
+.input-title {
+  color: black;
+  font-weight: 700;
 }
