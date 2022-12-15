@@ -10,6 +10,8 @@ var globalDataUseCases;
 const smUsecases = "show-more-use-cases";
 var smUsecasesCount = 0;
 const usecaseRowClass = "row-bottom-border-usecase";
+var currentFilter = "None";
+var smEnable = true;
 
 // Values for the dataset table
 var tableRowsInitialDataset = 4;
@@ -43,19 +45,21 @@ function createNewRowUsecase(name, difficulty, link) {
  */
 function showmoreUseCases() {
 
-    // Create a border for the initial final row
-    updateBottomBorder(usecaseRowClass, 1);
+    if (smEnable) {
+        // Create a border for the initial final row
+        updateBottomBorder(usecaseRowClass, 1);
 
-    // Add the remaining use cases to the table
-    for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
-        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        // Add the remaining use cases to the table
+        for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
+            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        }
+
+        // Remove the border from the final row
+        updateBottomBorder(usecaseRowClass, 0);
+
+        // Replace the "Show more" link with a "Show less" one
+        toggleShowButton(smUsecases);
     }
-
-    // Remove the border from the final row
-    updateBottomBorder(usecaseRowClass, 0);
-
-    // Replace the "Show more" link with a "Show less" one
-    toggleShowButton(smUsecases);
 }
 
 /**
@@ -63,21 +67,24 @@ function showmoreUseCases() {
  * with a "Show more" one.
  */
 function showlessUseCases() {
-    while (usecaseRows > tableRowsInitial) {
-        useCaseTable.deleteRow(-1);
-        usecaseRows--;
+
+    if (smEnable) {
+        while (usecaseRows > tableRowsInitial) {
+            useCaseTable.deleteRow(-1);
+            usecaseRows--;
+        }
+    
+        // Remove the border from below the new final row on the table
+        updateBottomBorder(usecaseRowClass, 0);
+    
+        // Replace the "Show less" link with a "Show more" one
+        toggleShowButton(smUsecases);
     }
-
-    // Remove the border from below the new final row on the table
-    updateBottomBorder(usecaseRowClass, 0);
-
-    // Replace the "Show less" link with a "Show more" one
-    toggleShowButton(smUsecases);
 }
 
 /**
- * Creates an initial table of use-cases with an amount of rows specified by the "tableRowsInitial" global variable. 
- * Additionally, stores the relevant information of the read json file as a global variable.
+ * Retrieves the relevant information needed for the use-case table from the json file. Creates the initial table after
+ * doing so. 
  */
 function initialUseCases() {
     useCaseTable = document.getElementById("use-case-table");
@@ -87,13 +94,20 @@ function initialUseCases() {
         .then((response) => response.json())
         .then ((data) => {
             globalDataUseCases = data;
-            for (let i = 0; i < tableRowsInitial; i++) {
-                useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
-            }
-
-            // Remove the bottom border from the final row
-            updateBottomBorder(usecaseRowClass, 0);
+            addUseCases();
         });
+}
+
+/**
+ * Creates the use-case table until it reaches the specified initial size.
+ */
+function addUseCases() {
+    for (let i = 0; i < tableRowsInitial; i++) {
+        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+    }
+
+    // Remove the bottom border from the final row
+    updateBottomBorder(usecaseRowClass, 0);
 }
 
 /**
@@ -171,18 +185,36 @@ function toggleShowButton(id) {
  * @param {string} difficulty   Use cases with this difficulty will be shown
  */
 function filterDifficulty(difficulty) {
+    // Remove all rows
     while(usecaseRows > 0) {
         useCaseTable.deleteRow(-1);
         usecaseRows--;
     }
 
-    for (item in globalDataUseCases) {
-        if (globalDataUseCases[item].difficulty.includes(difficulty)){
-        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title,globalDataUseCases[item].difficulty,globalDataUseCases[item].name);
+    // If we are disabling the difficulty filter, just recreate the initial table
+    if (currentFilter == difficulty) {
+        addUseCases();
+        currentFilter = "None";
+        smEnable = true;
+    }
+    else {
+        // Add in all rows that match the specified difficulty
+        for (item in globalDataUseCases) {
+            if (globalDataUseCases[item].difficulty.includes(difficulty)){
+            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title,globalDataUseCases[item].difficulty,globalDataUseCases[item].name);
+            }
         }
+
+        // Update what the filter is currently set to
+        currentFilter = difficulty;
+
+        // Disable the "Show more" and "Show less" buttons
+        smEnable = false;
+
+        // Remove the border from the bottom row
+        updateBottomBorder(usecaseRowClass, 0);
     }
 
-    updateBottomBorder(usecaseRowClass, 0);
 }
 
 // *************************************************************************
