@@ -21,7 +21,15 @@
   --color-four: var(--robin-egg-blue);
   --color-five: var(--pacific-blue);
   --color-six: var(--cyan-process);
---default-text-color: #000000;
+  --default-text-color: #000000;
+  background-image: linear-gradient(
+    var(--color-six),
+    var(--color-four), 
+    var(--color-two), 
+    var(--color-two), 
+    var(--color-four), 
+    var(--color-six)
+    );
 }
 
 .page-container {
