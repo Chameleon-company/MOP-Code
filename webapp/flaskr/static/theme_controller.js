@@ -34,16 +34,6 @@ const colors = [
     light: "#ffffff",
     dark: "#000000",
   },
-  {
-    id: "--default-panel-color",
-    light: "#3A3B3C",
-    dark: "white",
-  },
-  {
-    id: "--default-link-color",
-    light: "cyan",
-    dark: "#0000EE",
-  }
 ];
 
 let count = 0;

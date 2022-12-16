@@ -22,8 +22,6 @@
   --color-five: var(--pacific-blue);
   --color-six: var(--cyan-process);
   --default-text-color: #000000;
-  --default-panel-color: #ffffff;
-  --default-link-color: #0000EE;
   background-image: linear-gradient(
     var(--color-six),
     var(--color-four), 
@@ -32,7 +30,6 @@
     var(--color-four), 
     var(--color-six)
     );
-    color: var(--default-text-color);
 }
 
 .page-container {
@@ -153,23 +150,9 @@
   width: 25%;
 }
 
-.link-col.no-underline-link a {
+.link-col a {
   text-decoration: none;
   color: #00da78;
-}
-
-.link-col.no-underline-link a:hover {
-  text-decoration: none;
-  color: var(--default-text-color);
-}
-
-.content a:hover {
-  color: var(--default-link-color);
-  text-decoration: underline;
-}
-
-.content a {
-  color: var(--default-link-color);
 }
 
 .row-bottom-border {
@@ -187,12 +170,6 @@
   border-color: #00cc70;
 }
 
-.default-panel-background {
-  background-color: var(--default-panel-color);
-}
-
-
-
 /* Contact Page */
 .contact-input {
   border-top-style: hidden;
@@ -203,7 +180,6 @@
   height: 40px;
   padding: 10px;
   font-size: 16px;
-  color: var(--default-text-color);
 }
 
 .input-title {
