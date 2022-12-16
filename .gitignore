@@ -12,4 +12,11 @@
 datascience/usecases/.ipynb_checkpoints/*.ipynb
 datascience/usecases/.ipynb_checkpoints/usecase-TEMPLATE-checkpoint.ipynb
 datascience/usecases/.ipynb_checkpoints/Pedestrian_Traffic_Analysis_Final-checkpoint.ipynb
-*.csv
+datascience/.ipynb_checkpoints
+datascience/__pycache__
+datascience/usecases/.env
+=======
+
+### Anj
+/Playground/Mick_Anj/.ipynb_checkpoints/*.ipynb
+/Playground/Mick_Anj/temp/*.csv
