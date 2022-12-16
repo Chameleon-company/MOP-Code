@@ -4,22 +4,18 @@
 <link href="{{ url_for('static', filename='styles/base-styles.css') }}" rel="stylesheet" />
 <script src="{{ url_for('static', filename='./theme_controller.js') }}"></script>
 {% endblock%}
-<!-- {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %} -->
-<!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
-<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" /> -->
+
 {% block content %}
 <div>
 <div class="container" style="padding-top: 4em;">
     <section class="hero">
         <div class="hero-body has-text-centered">
-        <h1 class="title has-text-white">About</h1>
+        <h1 class="title" style="color: var(--default-text-color);">About</h1>
         </div>
-        <section class="panel has-background-white">
+        <section class="panel" style="background-color: var(--default-panel-color);">
             <div class="panel-block">
                 <div class="block" style="flex-grow: 1">
-                    <div class="subtitle content">
+                    <div class="subtitle content" style="color: var(--default-text-color);">
                         <p>Melbourne Open Data Playground (MOP) is a capstone project sponsored by <a href="https://deakin.edu.au" target="_blank">Deakin University</a>.</p>
                         <p>Since Covid there is more demand for data by the business community to support their decision making. This project is meant to align to two strategic documents from Melbourne City Council:</p>
                         <ol>
@@ -28,7 +24,7 @@
                         </ol>
                         <p>The <a href = "https://www.melbourne.vic.gov.au/Pages/home.aspx" target="_blank">City of Melbourne</a> is an Australian leader in Open Data since 2014. The latest research and local user engagement has identified a gap where users would like to learn more abut how to access the Open Data and how to gain insights from the data to build apps and solve city problems.</p>
                         <p>This project aims to deliver proof-of -concept examples on how calls to Open Data API can be made to deliver a variety of solutions.</p>
-                        <h2>How to use the website</h2>
+                        <h2 style="color: var(--default-text-color);">How to use the website</h2>
                         <ol>
                             <li>Use the search bar to search for datasets available on <a href="https://data.melbourne.vic.gov.au/" target="_blank">Melbourne Open Data</a> website or for use cases of the data.</li>
                             <li>The use cases have different difficulty levels. The different categories are:</li>
@@ -40,7 +36,7 @@
                             <li>The use cases will detail,  with code snippets and instructions, the steps taken: from accessing the data, to visualising it.</li>
                             <li>For more details on the datasets, click on the tile to go to City of Melbourne's website. </li>
                         </ol>
-                        <h2>Contributors</h2>
+                        <h2 style="color: var(--default-text-color);">Contributors</h2>
                         <p>We would like to acknowledge the following students and mentors for making this project possible:</p>
                         <br>
                         <b>Students:</b>
