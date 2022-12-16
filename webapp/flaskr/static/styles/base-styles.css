@@ -175,6 +175,6 @@
 }
 
 .input-title {
-  color: black;
+  color: var(--default-text-color);
   font-weight: 700;
 }

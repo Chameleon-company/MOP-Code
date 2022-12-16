@@ -30,7 +30,7 @@ const colors = [
     dark: "var(--cyan-process)",
   },
   {
-    id: "default-text-color",
+    id: "--default-text-color",
     light: "#ffffff",
     dark: "#000000",
   },
