@@ -20,3 +20,4 @@ datascience/usecases/.env
 ### Anj
 /Playground/Mick_Anj/.ipynb_checkpoints/*.ipynb
 /Playground/Mick_Anj/temp/*.csv
+datascience/dataanalysis/Other EDA/Pedestrian_Counting_System_Monthly_counts_per_hour_may_2009_to_14_dec_2022.csv
