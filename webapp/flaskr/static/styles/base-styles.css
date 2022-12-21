@@ -158,6 +158,16 @@
   color: #00da78;
 }
 
+.usecase-col.no-underline-link a {
+  text-decoration: none;
+  color:#000000;
+}
+
+.usecase-col.no-underline-link a:hover {
+  text-decoration: none;
+  color:#000000;
+}
+
 .link-col.no-underline-link a:hover {
   text-decoration: none;
   color: var(--default-text-color);

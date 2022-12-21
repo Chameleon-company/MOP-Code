@@ -33,7 +33,7 @@ const datasetRowClass = "row-bottom-border-dataset";
 function createNewRowUsecase(name, difficulty, link) {
     usecaseRows++;
   // Replace the placeholders in the template with the actual data
-  return rowTemplateUseCase.replace("{{name}}", name)
+  return rowTemplateUseCase.replace("{{name}}", "<div class='usecase-col no-underline-link'><a href='/use-cases/" + link + "'>" + name + "</a></div>")
                         .replace("{{difficulty}}", "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>")
                         .replace("{{link}}","<div class='link-col no-underline-link'><a href='/use-cases/" + link + "'>➤</a></div>");
 }
