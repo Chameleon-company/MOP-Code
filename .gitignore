@@ -21,3 +21,9 @@ datascience/usecases/.env
 /Playground/Mick_Anj/.ipynb_checkpoints/*.ipynb
 /Playground/Mick_Anj/temp/*.csv
 datascience/dataanalysis/Other EDA/Pedestrian_Counting_System_Monthly_counts_per_hour_may_2009_to_14_dec_2022.csv
+
+## Angie T1 2023
+/Playground/Angie/parking_Availabilty/*.py
+/Playground/Angie/parking_Availabilty/usecase_TEMPLATE.ipynb
+/Playground/Angie/parking_Availabilty/.ipynb_checkpoints/*.ipynb
+/Playground/Angie/parking_Availabilty/__pycache__
