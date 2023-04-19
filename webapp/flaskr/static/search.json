@@ -275,5 +275,42 @@
             "name": "nbconvert",
             "code": "python"
         }]
+    },{ 
+        "title": "Improving walkability in the City of Melbourne", 
+        "name": "usecase_walkability",
+        "description": "As a resident or potential resident of the City of Melbourne, I want to identify how walkable a neighbourhood by viewing amenity density, access to public transport, or ease of walking.",
+        "tags": ["pedestrian","road safety","route network"],
+        "difficulty": "Beginner",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "scikit-learn",
+            "code": "python"
+        },{
+            "name": "shapely",
+            "code": "python"
+        },{
+            "name": "branca",
+            "code": "python"
+        }]
     }
 ]
