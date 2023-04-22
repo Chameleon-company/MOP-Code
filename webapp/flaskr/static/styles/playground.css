@@ -80,3 +80,40 @@ pre {
 .jp-Cell-outputWrapper {
     margin-top: 15px !important
 }
+
+@media (max-width: 768px) {
+    .navbar-start {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 20px;
+    }
+    .navbar-start .navbar-item {
+        text-align: center;
+        margin: 10px;
+    }
+    .navbar-end {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .navbar-end .navbar-item {
+        margin: 5px 0;
+    }
+    .navbar-burger {
+        background-color: gray;
+    }
+    .navbar-menu {
+        background-color: gray;
+    }
+    .navbar-item {
+        color: white;
+    }
+    .navbar-menu .is-active > .navbar-link {
+        background-color: transparent;
+    }
+  }  
