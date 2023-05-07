@@ -1,0 +1,52 @@
+{
+    "title": "improving-walkability-in-the-city-of-melbourne",
+    "name": "Improving walkability in the City of Melbourne",
+    "description": "This use case is intended to provide advocates and council workers in the City of Melbourne with inf",
+    "tags": [
+        "walkability",
+        "amenities",
+        "public transport",
+        "traffic conditions",
+        "footpath steepness",
+        "city planning"
+    ],
+    "difficultly": "Beginner",
+    "technology": [
+        {
+            "name": "fiona",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "shapely",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "branca",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "residential-dwellings",
+        "footpaths"
+    ]
+}
