@@ -49,91 +49,177 @@ init_mathjax();
 {% block content %}
 <div class="jp-Notebook container" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p style="font-family: helvetica,arial,sans-serif; font-size:2.0em;color:white; background-color: black">&emsp;<b>Pedestrian Foot Traffic Business Case</b></p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:black; background-color: #DDDDDD; text-align:justify">&emsp;<b>Authored by: </b> Ngoc Dung Hyunh</p>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black; text-align:right">
-<b>Duration:</b> 40 mins&emsp;</p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:black; background-color: #DDDDDD; text-align:justify">&emsp;<b>Level:</b> Advanced&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b>Pre-requisite Skills:</b>Python</p>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black; text-align:justify">&emsp;<b>Scenario </b></p>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p id="As-a-business-owner,-I-want-to-know-how-much-pedestrian-foot-traffic-occurs-in-a-potential-new-business-location">As a business owner, I want to know how much pedestrian foot traffic occurs in a potential new business location.<a class="anchor-link" href="#As-a-business-owner,-I-want-to-know-how-much-pedestrian-foot-traffic-occurs-in-a-potential-new-business-location">&#182;</a></p>
-<p id="I-would-like-to-be-able-to-compare-pedestrian-traffic-through-the-day,-week-and-month.">I would like to be able to compare pedestrian traffic through the day, week and month.<a class="anchor-link" href="#I-would-like-to-be-able-to-compare-pedestrian-traffic-through-the-day,-week-and-month.">&#182;</a></p>
-<p id="I-would-like-to-see-visualisations-that-can-help-in-deciding-where-I-can-start-my-new-venture">I would like to see visualisations that can help in deciding where I can start my new venture.<a class="anchor-link" href="#I-would-like-to-see-visualisations-that-can-help-in-deciding-where-I-can-start-my-new-venture">&#182;</a></p>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>What this Use Case will teach you</b></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>At the end of this use case you will:</p>
-<ul>
-<li>understand how to access and collect data from Melbourne Open Data</li>
-<li>have explored datasets such as Pedestrian Counting System and sensor location</li>
-<li>learnt how to visualise data using different mapping visualisation techniques</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>A brief introduction to the datasets used</b></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The City of Melbourne provides comprehensive pedestrian traffic data, as well as sensor location data. In this use case we will utilise the <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Past-Hour-counts-per-mi/d6mv-s43h"target="_blank">Pedestrian Counting System - Past Hour (counts per minute)</a></strong> dataset</p>
-<p>This dataset contains minute-by-minute directional pedestrian counts from the last over from pedestrain sensor devices located across the city. The data is updated every 15 minutes and can be used to determinate variations in pedestrian activity throughout the day.</p>
-<p>We also utilise the City of Melbourne's <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">Sensor Locations</a></strong> dataset. This data will be used to extract the location of these sensors which helps with visualisation.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>Accessing and Loading data</b></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We aim to make a decision that will be informed by insights based on the latest data.</p>
-<p>In order to get this data, we can create a function to extract, transform and load (ETL) pedestrian traffic data every 15 minutes.</p>
-<p>First, we will do ETL  for Sensor Locations and Pedestrian Counting System - Past Hour (counts per minute).</p>
-<p>We will then merge these datasets.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong><em>Note:</em></strong> We use the package <strong><em>sodapy</em></strong> to extract from Melbourne Open Data directly. This package is a python client for the <strong><a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API."target="_blank">Socrata Open Data API</a></strong>. To extract the data from Melbourne Open Data, you must have a dataset id. It can be found as follows:</p>
-<p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/data_api.png') }}"></p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+      <div class="jp-InputArea jp-Cell-inputArea">
+        <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput "data-mime-type="text/markdown">
+          <div class="usecase-title">Pedestrian Foot Traffic Business Case</div>
+          <div class="usecase-authors"><b>Authored by: </b> Ngoc Dung Hyunh</div>
+        </div>
+      </div>
   </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+      <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+      <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt">
+          </div>
+          <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput "
+              data-mime-type="text/markdown">
+              <div class="usecase-duration"><b>Duration:</b> 40 mins</div>
+              <div class="usecase-level-skill">
+                  <div class="usecase-level"><b>Level: </b>Advanced</div>
+                  <div class="usecase-skill"><b>Pre-requisite Skills: </b>Python</div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Scenario</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p id="As-a-business-owner,-I-want-to-know-how-much-pedestrian-foot-traffic-occurs-in-a-potential-new-business-location"><strong>As a business owner, I want to know how much pedestrian foot traffic occurs in a potential new business location.</strong><a class="anchor-link" href="#As-a-business-owner,-I-want-to-know-how-much-pedestrian-foot-traffic-occurs-in-a-potential-new-business-location">&#182;</a></p>
+        <p id="I-would-like-to-be-able-to-compare-pedestrian-traffic-through-the-day,-week-and-month.">I would like to be able to compare pedestrian traffic through the day, week and month.<a class="anchor-link" href="#I-would-like-to-be-able-to-compare-pedestrian-traffic-through-the-day,-week-and-month.">&#182;</a></p>
+        <p id="I-would-like-to-see-visualisations-that-can-help-in-deciding-where-I-can-start-my-new-venture">I would like to see visualisations that can help in deciding where I can start my new venture.<a class="anchor-link" href="#I-would-like-to-see-visualisations-that-can-help-in-deciding-where-I-can-start-my-new-venture">&#182;</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">What this Use Case will teach you</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>At the end of this use case you will:</p>
+        <ul>
+          <li>understand how to access and collect data from Melbourne Open Data</li>
+          <li>have explored datasets such as Pedestrian Counting System and sensor location</li>
+          <li>learnt how to visualise data using different mapping visualisation techniques</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">WA brief introduction to the datasets used</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>The City of Melbourne provides comprehensive pedestrian traffic data, as well as sensor location data. In this use case we will utilise the <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Past-Hour-counts-per-mi/d6mv-s43h"target="_blank">Pedestrian Counting System - Past Hour (counts per minute)</a></strong> dataset</p>
+        <p>This dataset contains minute-by-minute directional pedestrian counts from the last over from pedestrain sensor devices located across the city. The data is updated every 15 minutes and can be used to determinate variations in pedestrian activity throughout the day.</p>
+        <p>We also utilise the City of Melbourne's <strong><a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">Sensor Locations</a></strong> dataset. This data will be used to extract the location of these sensors which helps with visualisation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Accessing and Loading data</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>We aim to make a decision that will be informed by insights based on the latest data.</p>
+        <p>In order to get this data, we can create a function to extract, transform and load (ETL) pedestrian traffic data every 15 minutes.</p>
+        <p>First, we will do ETL  for Sensor Locations and Pedestrian Counting System - Past Hour (counts per minute).</p>
+        <p>We will then merge these datasets.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p><strong><em>Note:</em></strong> We use the package <strong><em>sodapy</em></strong> to extract from Melbourne Open Data directly. This package is a python client for the <strong><a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API."target="_blank">Socrata Open Data API</a></strong>. To extract the data from Melbourne Open Data, you must have a dataset id. It can be found as follows:</p>
+        <p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/data_api.png') }}"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        <div class="snippet-language">
+          <span class="icon"><i class="fab fa-python"></i></span>
+          <span class=>Python</span>
+        </div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">sodapy</span> <span class="kn">import</span> <span class="n">Socrata</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -197,189 +283,197 @@ init_mathjax();
 <span class="n">counting_data</span> <span class="o">=</span> <span class="n">fifty_minute_count</span><span class="p">(</span><span class="n">location_data</span><span class="p">)</span>
 <span class="c1">#Show 5 first columns</span>
 <span class="n">counting_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</code></pre></figure></div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>WARNING:root:Requests made without an app_token will be subject to strict throttling limits.
-WARNING:root:Requests made without an app_token will be subject to strict throttling limits.
-</pre></div></div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>The latest data was updated on Monday 2021-12-06 at 12:26:00 at https://data.melbourne.vic.gov.au
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Sensor ID</th>
-      <th>Count</th>
-      <th>Sensor Description</th>
-      <th>lat</th>
-      <th>lon</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>554.0</td>
-      <td>Bourke Street Mall (North)</td>
-      <td>-37.813494</td>
-      <td>144.965153</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>10</td>
-      <td>1.0</td>
-      <td>Victoria Point</td>
-      <td>-37.818765</td>
-      <td>144.947105</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>11</td>
-      <td>19.0</td>
-      <td>Waterfront City</td>
-      <td>-37.815650</td>
-      <td>144.939707</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>12</td>
-      <td>55.0</td>
-      <td>New Quay</td>
-      <td>-37.814580</td>
-      <td>144.942924</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>14</td>
-      <td>89.0</td>
-      <td>Sandridge Bridge</td>
-      <td>-37.820112</td>
-      <td>144.962919</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<table>
-<thead><tr>
-<th>Columns</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Sensor ID</td>
-<td>Unique reading ID</td>
-<td>Categorical</td>
-</tr>
-<tr>
-<td>Count</td>
-<td>Hourly sum of Pedestrians</td>
-<td>Numerical</td>
-</tr>
-<tr>
-<td>Sensor Description</td>
-<td>A description of where the sensor is located</td>
-<td>Categorical</td>
-</tr>
-<tr>
-<td>Lat</td>
-<td>Latitude of each sensor</td>
-<td>Numerical</td>
-</tr>
-<tr>
-<td>Lon</td>
-<td>Longitude of each sensor</td>
-<td>Numerical</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>Using Selenium to Crawl Data</b></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>To help drive insight to informing our business scenario, we can compare the data from two different sensor locations.</p>
-<p>This means we can compare pedestrian foot traffic in two separate locations over different periods of the current date, as well as over a 4-week period.</p>
-<p>However, in order to get this data, we need to crawl the data from <a href="http://www.pedestrian.melbourne.vic.gov.au"target="_blank"">http://www.pedestrian.melbourne.vic.gov.au</a>.</p>
-<p><strong><em>Note</em></strong> Because we cannot use <strong><em>Sodapy</em></strong> to crawl the data from this website, We use another package <strong><a href="https://pypi.org/project/selenium/"target="_blank"><strong><em>Selenium</em></strong></a></strong> to extract the data.</p>
-<p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_hourly.png') }}"></p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+</code></pre></figure>
+      </div>
+    </div>
   </div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Set up Selenium</span>
+
+  <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+      <div class="jp-OutputArea-child">
+        <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+        <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+          <pre>WARNING:root:Requests made without an app_token will be subject to strict throttling limits.
+          WARNING:root:Requests made without an app_token will be subject to strict throttling limits.
+          </pre>
+        </div>
+      </div>
+      <div class="jp-OutputArea-child">
+        <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+        <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+          <pre>The latest data was updated on Monday 2021-12-06 at 12:26:00 at https://data.melbourne.vic.gov.au</pre>
+        </div>
+      </div>
+      <div class="jp-OutputArea-child">
+        <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+          <div>
+            <style scoped>
+                .dataframe tbody tr th:only-of-type {
+                    vertical-align: middle;
+                }
+
+                .dataframe tbody tr th {
+                    vertical-align: top;
+                }
+
+                .dataframe thead th {
+                    text-align: right;
+                }
+            </style>
+            <table border="1" class="dataframe">
+              <thead>
+                <tr style="text-align: right;">
+                  <th></th>
+                  <th>Sensor ID</th>
+                  <th>Count</th>
+                  <th>Sensor Description</th>
+                  <th>lat</th>
+                  <th>lon</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>0</th>
+                  <td>1</td>
+                  <td>554.0</td>
+                  <td>Bourke Street Mall (North)</td>
+                  <td>-37.813494</td>
+                  <td>144.965153</td>
+                </tr>
+                <tr>
+                  <th>1</th>
+                  <td>10</td>
+                  <td>1.0</td>
+                  <td>Victoria Point</td>
+                  <td>-37.818765</td>
+                  <td>144.947105</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>11</td>
+                  <td>19.0</td>
+                  <td>Waterfront City</td>
+                  <td>-37.815650</td>
+                  <td>144.939707</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>12</td>
+                  <td>55.0</td>
+                  <td>New Quay</td>
+                  <td>-37.814580</td>
+                  <td>144.942924</td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td>14</td>
+                  <td>89.0</td>
+                  <td>Sandridge Bridge</td>
+                  <td>-37.820112</td>
+                  <td>144.962919</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <table>
+        <thead><tr>
+        <th>Columns</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Sensor ID</td>
+        <td>Unique reading ID</td>
+        <td>Categorical</td>
+        </tr>
+        <tr>
+        <td>Count</td>
+        <td>Hourly sum of Pedestrians</td>
+        <td>Numerical</td>
+        </tr>
+        <tr>
+        <td>Sensor Description</td>
+        <td>A description of where the sensor is located</td>
+        <td>Categorical</td>
+        </tr>
+        <tr>
+        <td>Lat</td>
+        <td>Latitude of each sensor</td>
+        <td>Numerical</td>
+        </tr>
+        <tr>
+        <td>Lon</td>
+        <td>Longitude of each sensor</td>
+        <td>Numerical</td>
+        </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Using Selenium to Crawl Data</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>To help drive insight to informing our business scenario, we can compare the data from two different sensor locations.</p>
+        <p>This means we can compare pedestrian foot traffic in two separate locations over different periods of the current date, as well as over a 4-week period.</p>
+        <p>However, in order to get this data, we need to crawl the data from <a href="http://www.pedestrian.melbourne.vic.gov.au"target="_blank"">http://www.pedestrian.melbourne.vic.gov.au</a>.</p>
+        <p><strong><em>Note</em></strong> Because we cannot use <strong><em>Sodapy</em></strong> to crawl the data from this website, We use another package <strong><a href="https://pypi.org/project/selenium/"target="_blank"><strong><em>Selenium</em></strong></a></strong> to extract the data.</p>
+        <p><img src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_hourly.png') }}"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        <div class="snippet-language">
+          <span class="icon"><i class="fab fa-python"></i></span>
+          <span class=>Python</span>
+        </div>
+        <figure class="highlight">
+          <pre>
+            <code class="language-python" data-lang="python"><span></span><span class="c1">#Set up Selenium</span>
 <span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
@@ -459,511 +553,555 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
           <span class="p">}</span>
 <span class="n">daily_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">monthly_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></figure></div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+            </code>
+          </pre>
+        </figure>
+      </div>
+    </div>
   </div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
-<span class="n">daily_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></figure></div>
-</div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
 
 
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Bourke Street Mall (North)</th>
-      <th>Bourke Street Mall (South)</th>
-      <th>Melbourne Central</th>
-      <th>Town Hall (West)</th>
-      <th>Princes Bridge</th>
-      <th>Flinders Street Station Underpass</th>
-      <th>Birrarung Marr</th>
-      <th>Webb Bridge</th>
-      <th>Southern Cross Station</th>
-      <th>Victoria Point</th>
-      <th>...</th>
-      <th>Errol Street (East)</th>
-      <th>Westwood Place</th>
-      <th>Flinders St- ACMI</th>
-      <th>Bourke St - Spencer St (South)</th>
-      <th>Spring St- Flinders st (West)</th>
-      <th>Macaulay Rd- Bellair St</th>
-      <th>Harbour Esplanade (West) - Pedestrian path</th>
-      <th>Harbour Esplanade (West) - Bike Path</th>
-      <th>Flinders St (South)</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>86.0</td>
-      <td>28.0</td>
-      <td>367.0</td>
-      <td>206.0</td>
-      <td>123.0</td>
-      <td>108.0</td>
-      <td>8.0</td>
-      <td>12.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>4.0</td>
-      <td>30.0</td>
-      <td>67.0</td>
-      <td>69.0</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>28.0</td>
-      <td>3.0</td>
-      <td>111.0</td>
-      <td>3584.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>38.0</td>
-      <td>13.0</td>
-      <td>156.0</td>
-      <td>68.0</td>
-      <td>71.0</td>
-      <td>56.0</td>
-      <td>12.0</td>
-      <td>9.0</td>
-      <td>10.0</td>
-      <td>1.0</td>
-      <td>...</td>
-      <td>2.0</td>
-      <td>38.0</td>
-      <td>NaN</td>
-      <td>88.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>15.0</td>
-      <td>4.0</td>
-      <td>84.0</td>
-      <td>2133.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>17.0</td>
-      <td>13.0</td>
-      <td>106.0</td>
-      <td>44.0</td>
-      <td>32.0</td>
-      <td>34.0</td>
-      <td>4.0</td>
-      <td>2.0</td>
-      <td>8.0</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>2.0</td>
-      <td>2.0</td>
-      <td>NaN</td>
-      <td>113.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>6.0</td>
-      <td>1.0</td>
-      <td>40.0</td>
-      <td>1453.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>17.0</td>
-      <td>4.0</td>
-      <td>88.0</td>
-      <td>40.0</td>
-      <td>62.0</td>
-      <td>15.0</td>
-      <td>2.0</td>
-      <td>5.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>23.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>38.0</td>
-      <td>1091.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>13.0</td>
-      <td>12.0</td>
-      <td>48.0</td>
-      <td>26.0</td>
-      <td>48.0</td>
-      <td>41.0</td>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>1.0</td>
-      <td>6.0</td>
-      <td>2.0</td>
-      <td>11.0</td>
-      <td>NaN</td>
-      <td>2.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>31.0</td>
-      <td>971.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 78 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        <div class="snippet-language">
+          <span class="icon"><i class="fab fa-python"></i></span>
+          <span class=>Python</span>
+        </div>
+        <figure class="highlight">
+          <pre>
+            <code class="language-python" data-lang="python"><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
+    <span class="n">daily_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+            </code>
+          </pre>
+        </figure>
+      </div>
+    </div>
   </div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
-<span class="n">monthly_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></figure></div>
-</div>
-</div>
 
-<div class="jp-Cell-outputWrapper">
+  <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+      <div class="jp-OutputArea-child">   
+        <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+          <div>
+            <style scoped>
+                .dataframe tbody tr th:only-of-type {
+                    vertical-align: middle;
+                }
 
+                .dataframe tbody tr th {
+                    vertical-align: top;
+                }
 
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Bourke Street Mall (North)</th>
-      <th>Bourke Street Mall (South)</th>
-      <th>Melbourne Central</th>
-      <th>Town Hall (West)</th>
-      <th>Princes Bridge</th>
-      <th>Flinders Street Station Underpass</th>
-      <th>Birrarung Marr</th>
-      <th>Webb Bridge</th>
-      <th>Southern Cross Station</th>
-      <th>Victoria Point</th>
-      <th>...</th>
-      <th>Errol Street (East)</th>
-      <th>Westwood Place</th>
-      <th>Flinders St- ACMI</th>
-      <th>Bourke St - Spencer St (South)</th>
-      <th>Spring St- Flinders st (West)</th>
-      <th>Macaulay Rd- Bellair St</th>
-      <th>Harbour Esplanade (West) - Pedestrian path</th>
-      <th>Harbour Esplanade (West) - Bike Path</th>
-      <th>Flinders St (South)</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>52</td>
-      <td>35</td>
-      <td>226</td>
-      <td>106</td>
-      <td>91</td>
-      <td>110</td>
-      <td>6</td>
-      <td>8</td>
-      <td>8</td>
-      <td>3.0</td>
-      <td>...</td>
-      <td>2</td>
-      <td>1</td>
-      <td>28</td>
-      <td>12</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>14</td>
-      <td>3</td>
-      <td>65</td>
-      <td>2779</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>20</td>
-      <td>20</td>
-      <td>154</td>
-      <td>52</td>
-      <td>39</td>
-      <td>43</td>
-      <td>9</td>
-      <td>8</td>
-      <td>6</td>
-      <td>1.0</td>
-      <td>...</td>
-      <td>4</td>
-      <td>2</td>
-      <td>10</td>
-      <td>9</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>3</td>
-      <td>2</td>
-      <td>30</td>
-      <td>1678</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>20</td>
-      <td>16</td>
-      <td>109</td>
-      <td>30</td>
-      <td>41</td>
-      <td>30</td>
-      <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1.0</td>
-      <td>...</td>
-      <td>6</td>
-      <td>4</td>
-      <td>13</td>
-      <td>5</td>
-      <td>NaN</td>
-      <td>3.0</td>
-      <td>6</td>
-      <td>2</td>
-      <td>23</td>
-      <td>1092</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>13</td>
-      <td>25</td>
-      <td>64</td>
-      <td>24</td>
-      <td>40</td>
-      <td>28</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>1</td>
-      <td>2</td>
-      <td>4</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>3</td>
-      <td>1</td>
-      <td>26</td>
-      <td>880</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>8</td>
-      <td>22</td>
-      <td>61</td>
-      <td>30</td>
-      <td>46</td>
-      <td>25</td>
-      <td>7</td>
-      <td>2</td>
-      <td>2</td>
-      <td>1.0</td>
-      <td>...</td>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>21</td>
-      <td>892</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 78 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>Basic Map Visualisation</b></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Visualising data provides an easy way for us to detect patterns within the data. Using the python library <strong><a href="http://python-visualization.github.io/folium/"target="_blank">folium</a></strong>, we can create a live pedestrian traffic map of the City of Melbourne.</p>
-<p>This map will represent all of the data of the pedestrian sensor locations within the City of Melbourne.</p>
-<p>This map is updated every 15 minutes for up-to-date pedestrian traffic information.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-  <div class="snippet-language">
-    <span class="icon"><i class="fab fa-python"></i></span>
-    <span class=>Python</span>
+                .dataframe thead th {
+                    text-align: right;
+                }
+            </style>
+            <table border="1" class="dataframe">
+              <thead>
+                <tr style="text-align: right;">
+                  <th></th>
+                  <th>Bourke Street Mall (North)</th>
+                  <th>Bourke Street Mall (South)</th>
+                  <th>Melbourne Central</th>
+                  <th>Town Hall (West)</th>
+                  <th>Princes Bridge</th>
+                  <th>Flinders Street Station Underpass</th>
+                  <th>Birrarung Marr</th>
+                  <th>Webb Bridge</th>
+                  <th>Southern Cross Station</th>
+                  <th>Victoria Point</th>
+                  <th>...</th>
+                  <th>Errol Street (East)</th>
+                  <th>Westwood Place</th>
+                  <th>Flinders St- ACMI</th>
+                  <th>Bourke St - Spencer St (South)</th>
+                  <th>Spring St- Flinders st (West)</th>
+                  <th>Macaulay Rd- Bellair St</th>
+                  <th>Harbour Esplanade (West) - Pedestrian path</th>
+                  <th>Harbour Esplanade (West) - Bike Path</th>
+                  <th>Flinders St (South)</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>0</th>
+                  <td>86.0</td>
+                  <td>28.0</td>
+                  <td>367.0</td>
+                  <td>206.0</td>
+                  <td>123.0</td>
+                  <td>108.0</td>
+                  <td>8.0</td>
+                  <td>12.0</td>
+                  <td>4.0</td>
+                  <td>NaN</td>
+                  <td>...</td>
+                  <td>4.0</td>
+                  <td>30.0</td>
+                  <td>67.0</td>
+                  <td>69.0</td>
+                  <td>NaN</td>
+                  <td>1.0</td>
+                  <td>28.0</td>
+                  <td>3.0</td>
+                  <td>111.0</td>
+                  <td>3584.0</td>
+                </tr>
+                <tr>
+                  <th>1</th>
+                  <td>38.0</td>
+                  <td>13.0</td>
+                  <td>156.0</td>
+                  <td>68.0</td>
+                  <td>71.0</td>
+                  <td>56.0</td>
+                  <td>12.0</td>
+                  <td>9.0</td>
+                  <td>10.0</td>
+                  <td>1.0</td>
+                  <td>...</td>
+                  <td>2.0</td>
+                  <td>38.0</td>
+                  <td>NaN</td>
+                  <td>88.0</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>15.0</td>
+                  <td>4.0</td>
+                  <td>84.0</td>
+                  <td>2133.0</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>17.0</td>
+                  <td>13.0</td>
+                  <td>106.0</td>
+                  <td>44.0</td>
+                  <td>32.0</td>
+                  <td>34.0</td>
+                  <td>4.0</td>
+                  <td>2.0</td>
+                  <td>8.0</td>
+                  <td>NaN</td>
+                  <td>...</td>
+                  <td>2.0</td>
+                  <td>2.0</td>
+                  <td>NaN</td>
+                  <td>113.0</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>6.0</td>
+                  <td>1.0</td>
+                  <td>40.0</td>
+                  <td>1453.0</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>17.0</td>
+                  <td>4.0</td>
+                  <td>88.0</td>
+                  <td>40.0</td>
+                  <td>62.0</td>
+                  <td>15.0</td>
+                  <td>2.0</td>
+                  <td>5.0</td>
+                  <td>4.0</td>
+                  <td>NaN</td>
+                  <td>...</td>
+                  <td>NaN</td>
+                  <td>2.0</td>
+                  <td>1.0</td>
+                  <td>23.0</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>5.0</td>
+                  <td>1.0</td>
+                  <td>38.0</td>
+                  <td>1091.0</td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td>13.0</td>
+                  <td>12.0</td>
+                  <td>48.0</td>
+                  <td>26.0</td>
+                  <td>48.0</td>
+                  <td>41.0</td>
+                  <td>2.0</td>
+                  <td>1.0</td>
+                  <td>5.0</td>
+                  <td>NaN</td>
+                  <td>...</td>
+                  <td>1.0</td>
+                  <td>6.0</td>
+                  <td>2.0</td>
+                  <td>11.0</td>
+                  <td>NaN</td>
+                  <td>2.0</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>31.0</td>
+                  <td>971.0</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>5 rows × 78 columns</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">folium</span>
-<span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">MarkerCluster</span>
-<span class="k">def</span> <span class="nf">map_visualization</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
-        <span class="n">row</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">location</span> <span class="o">=</span> <span class="p">[(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">)]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
-        <span class="n">locations</span> <span class="o">+=</span> <span class="n">location</span>
-      
-    <span class="n">marker_cluster</span>  <span class="o">=</span> <span class="n">MarkerCluster</span><span class="p">(</span>
-      <span class="n">locations</span><span class="o">=</span><span class="n">locations</span><span class="p">,</span>
-      <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-      <span class="n">control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-      <span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">37.8167</span><span class="p">,</span> <span class="mf">144.967</span><span class="p">],</span> <span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;Cartodb Positron&quot;</span><span class="p">,</span> <span class="n">zoom_start</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-    <span class="n">marker_cluster</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-
-    <span class="n">folium</span><span class="o">.</span><span class="n">LayerControl</span><span class="p">()</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    
-    <span class="n">m</span>
-    <span class="k">return</span> <span class="n">m</span>
-<span class="n">map_visualization</span><span class="p">(</span><span class="n">counting_data</span><span class="p">)</span>
-</code></pre></figure></div>
-</div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
 
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        <div class="snippet-language">
+          <span class="icon"><i class="fab fa-python"></i></span>
+          <span class=>Python</span>
+        </div>
+        <figure class="highlight">
+          <pre>
+            <code class="language-python" data-lang="python"><span></span><span class="c1">#Show 5 columns of daily_data (updated every an hour)</span>
+        <span class="n">monthly_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+            </code>
+          </pre>
+        </figure>
+      </div>
+    </div>
+  </div>
 
-<div class="jp-OutputArea jp-Cell-outputArea">
+  <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+      <div class="jp-OutputArea-child">
+        <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+          <div>
+            <style scoped>
+                .dataframe tbody tr th:only-of-type {
+                    vertical-align: middle;
+                }
 
-<div class="jp-OutputArea-child">
+                .dataframe tbody tr th {
+                    vertical-align: top;
+                }
 
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div style="width:100%;">
-  <div style="position:relative;width:80%;height:0;left:10%;padding-bottom:40%;">
-    <span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span>
-    <iframe src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_traffic_analysis_script_1.html')}}" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div>
+                .dataframe thead th {
+                    text-align: right;
+                }
+            </style>
+            <table border="1" class="dataframe">
+              <thead>
+                <tr style="text-align: right;">
+                  <th></th>
+                  <th>Bourke Street Mall (North)</th>
+                  <th>Bourke Street Mall (South)</th>
+                  <th>Melbourne Central</th>
+                  <th>Town Hall (West)</th>
+                  <th>Princes Bridge</th>
+                  <th>Flinders Street Station Underpass</th>
+                  <th>Birrarung Marr</th>
+                  <th>Webb Bridge</th>
+                  <th>Southern Cross Station</th>
+                  <th>Victoria Point</th>
+                  <th>...</th>
+                  <th>Errol Street (East)</th>
+                  <th>Westwood Place</th>
+                  <th>Flinders St- ACMI</th>
+                  <th>Bourke St - Spencer St (South)</th>
+                  <th>Spring St- Flinders st (West)</th>
+                  <th>Macaulay Rd- Bellair St</th>
+                  <th>Harbour Esplanade (West) - Pedestrian path</th>
+                  <th>Harbour Esplanade (West) - Bike Path</th>
+                  <th>Flinders St (South)</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>0</th>
+                  <td>52</td>
+                  <td>35</td>
+                  <td>226</td>
+                  <td>106</td>
+                  <td>91</td>
+                  <td>110</td>
+                  <td>6</td>
+                  <td>8</td>
+                  <td>8</td>
+                  <td>3.0</td>
+                  <td>...</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>28</td>
+                  <td>12</td>
+                  <td>1.0</td>
+                  <td>2.0</td>
+                  <td>14</td>
+                  <td>3</td>
+                  <td>65</td>
+                  <td>2779</td>
+                </tr>
+                <tr>
+                  <th>1</th>
+                  <td>20</td>
+                  <td>20</td>
+                  <td>154</td>
+                  <td>52</td>
+                  <td>39</td>
+                  <td>43</td>
+                  <td>9</td>
+                  <td>8</td>
+                  <td>6</td>
+                  <td>1.0</td>
+                  <td>...</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>10</td>
+                  <td>9</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td>30</td>
+                  <td>1678</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>20</td>
+                  <td>16</td>
+                  <td>109</td>
+                  <td>30</td>
+                  <td>41</td>
+                  <td>30</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1.0</td>
+                  <td>...</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>13</td>
+                  <td>5</td>
+                  <td>NaN</td>
+                  <td>3.0</td>
+                  <td>6</td>
+                  <td>2</td>
+                  <td>23</td>
+                  <td>1092</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>13</td>
+                  <td>25</td>
+                  <td>64</td>
+                  <td>24</td>
+                  <td>40</td>
+                  <td>28</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td>NaN</td>
+                  <td>...</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>NaN</td>
+                  <td>NaN</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>26</td>
+                  <td>880</td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td>8</td>
+                  <td>22</td>
+                  <td>61</td>
+                  <td>30</td>
+                  <td>46</td>
+                  <td>25</td>
+                  <td>7</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>1.0</td>
+                  <td>...</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td>NaN</td>
+                  <td>1.0</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>21</td>
+                  <td>892</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>5 rows × 78 columns</p>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
 </div>
 
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+      <div class="jp-InputArea jp-Cell-inputArea">
+        <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+          <div class="usecase-section-header">Basic Map Visualisation</div>
+        </div>
+      </div>
+  </div>
 </div>
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>Visualising data provides an easy way for us to detect patterns within the data. Using the python library <strong><a href="http://python-visualization.github.io/folium/"target="_blank">folium</a></strong>, we can create a live pedestrian traffic map of the City of Melbourne.</p>
+        <p>This map will represent all of the data of the pedestrian sensor locations within the City of Melbourne.</p>
+        <p>This map is updated every 15 minutes for up-to-date pedestrian traffic information.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+      <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        <div class="snippet-language">
+          <span class="icon"><i class="fab fa-python"></i></span>
+          <span class=>Python</span>
+        </div>
+        <figure class="highlight">
+          <pre>
+            <code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">folium</span>
+      <span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">MarkerCluster</span>
+      <span class="k">def</span> <span class="nf">map_visualization</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+          <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+              <span class="n">row</span> <span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+              <span class="n">location</span> <span class="o">=</span> <span class="p">[(</span><span class="n">row</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">row</span><span class="o">.</span><span class="n">lon</span><span class="p">)]</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Count</span><span class="p">)</span>
+              <span class="n">locations</span> <span class="o">+=</span> <span class="n">location</span>
+            
+          <span class="n">marker_cluster</span>  <span class="o">=</span> <span class="n">MarkerCluster</span><span class="p">(</span>
+            <span class="n">locations</span><span class="o">=</span><span class="n">locations</span><span class="p">,</span>
+            <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">control</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+          <span class="n">m</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">37.8167</span><span class="p">,</span> <span class="mf">144.967</span><span class="p">],</span> <span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;Cartodb Positron&quot;</span><span class="p">,</span> <span class="n">zoom_start</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+          <span class="n">marker_cluster</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+          <span class="n">folium</span><span class="o">.</span><span class="n">LayerControl</span><span class="p">()</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+          
+          <span class="n">m</span>
+          <span class="k">return</span> <span class="n">m</span>
+      <span class="n">map_visualization</span><span class="p">(</span><span class="n">counting_data</span><span class="p">)</span>
+            </code>
+          </pre>
+        </figure>
+      </div>
+  </div>
+  </div>
+
+  <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+      <div class="jp-OutputArea-child">   
+        <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+        <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+          <div style="width:100%;">
+            <div style="position:relative;width:80%;height:0;left:10%;padding-bottom:40%;">
+              <span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span>
+              <iframe src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_traffic_analysis_script_1.html')}}" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>As we can see, the majority of the pedestrain traffic takes place around Swanston street in the heart of the city</p>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>Basic Trend Visualisation</b></p>
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>As we can see, the majority of the pedestrain traffic takes place around Swanston street in the heart of the city</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Having developed a basic visualisation of our data, we can now produce a visualisation that shows us potential trends in pedestrian foot traffic.</p>
-<p>We can create a line chart that consists of two lines of different sensor locations at different times of day.</p>
-<p>Based on this visualiation, we can compare the rush hour and off-peak periods of the two sensors.</p>
-<p>This information has the potential to help inform our business owner of his new potential location.</p>
 
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Using Selenium to Crawl Data</div>
+      </div>
+    </div>
+  </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>Having developed a basic visualisation of our data, we can now produce a visualisation that shows us potential trends in pedestrian foot traffic.</p>
+        <p>We can create a line chart that consists of two lines of different sensor locations at different times of day.</p>
+        <p>Based on this visualiation, we can compare the rush hour and off-peak periods of the two sensors.</p>
+        <p>This information has the potential to help inform our business owner of his new potential location.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
+  <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
@@ -1004,7 +1142,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 <div class="jp-Cell-outputWrapper">
-
+  <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 
@@ -1029,50 +1167,91 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Based on this visualisation, if we want to open a business that caters for the lunch time crowd then we may wish to locate our business near Bourke street mall.</p>
-<p>However, if we want to open a business that caters to the Dinner crowd, perhaps the area in and around Melbourne Central provides better incentives.</p>
-<p>This goes to show just how dynamic life is in the City of Melbourne</p>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>Geographic Filter</b></p>
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+      <p>Based on this visualisation, if we want to open a business that caters for the lunch time crowd then we may wish to locate our business near Bourke street mall.</p>
+      <p>However, if we want to open a business that caters to the Dinner crowd, perhaps the area in and around Melbourne Central provides better incentives.</p>
+      <p>This goes to show just how dynamic life is in the City of Melbourne</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Sometimes, we require more specific information that may not be obtainable from the sensor information alone. In this example, we take specific addresses as data input instead of the Sensor location to provide a more meaningful and insightful result.</p>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can create a Geographic Filter that will take a <strong><em>specific address</em></strong> such as 100 Flinders Street and create a live map and a live line chart.</p>
-<p>The problem is that an address may have multiple pedestrian sensors near it. Therefore, we introduce another variable called <strong><em>Radius</em></strong>. This variable aims to filter all sensors that are within the radius of the target address</p>
-<p>We then take a sum of these different sensors to access the pedestrian data of the address.</p>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>To produce this filter, we have 8 steps :</p>
-<ol>
-<li>Take addesses</li>
-<li>Use Google API to get the information about Latitude and Longtitude of these addresses</li>
-<li>Find the distance between these addresses and the sensors</li>
-<li>Filter sensors are near these addresses</li>
-<li>Create a live chart</li>
-<li>Filter daily and monthly data</li>
-<li>Draw a line chart</li>
-</ol>
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Geographic Filter</div>
+      </div>
+    </div>
+  </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>Sometimes, we require more specific information that may not be obtainable from the sensor information alone. In this example, we take specific addresses as data input instead of the Sensor location to provide a more meaningful and insightful result.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>We can create a Geographic Filter that will take a <strong><em>specific address</em></strong> such as 100 Flinders Street and create a live map and a live line chart.</p>
+        <p>The problem is that an address may have multiple pedestrian sensors near it. Therefore, we introduce another variable called <strong><em>Radius</em></strong>. This variable aims to filter all sensors that are within the radius of the target address</p>
+        <p>We then take a sum of these different sensors to access the pedestrian data of the address.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>To produce this filter, we have 8 steps :</p>
+        <ol>
+        <li>Take addesses</li>
+        <li>Use Google API to get the information about Latitude and Longtitude of these addresses</li>
+        <li>Find the distance between these addresses and the sensors</li>
+        <li>Filter sensors are near these addresses</li>
+        <li>Create a live chart</li>
+        <li>Filter daily and monthly data</li>
+        <li>Draw a line chart</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
@@ -1241,15 +1420,25 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </code></pre></figure></div>
 </div>
 </div>
-
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can visualize Pedestrian foot traffic without an address input. The function will return a live pedestrian traffic map in Melbourne and a line chart showing the three busiest pedestrian sensors.</p>
 
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>We can visualize Pedestrian foot traffic without an address input. The function will return a live pedestrian traffic map in Melbourne and a line chart showing the three busiest pedestrian sensors.</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
+  <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
@@ -1264,7 +1453,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 <div class="jp-Cell-outputWrapper">
-
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 
@@ -1297,21 +1486,30 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
     <span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span>
     <iframe src="{{ url_for('static', filename='use-cases/pedestrian-traffic-analysis/pedestrian_traffic_analysis_script_2.html')}}" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div>
 </div>
-
+</div>
+</div>
+</div>
 </div>
 
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>We now analyze pedestrain traffic at 3 locations: Flinders Street Station, Southern Cross station and Melbourne Central Station.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
-</div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We now analyze pedestrain traffic at 3 locations: Flinders Street Station, Southern Cross station and Melbourne Central Station.</p>
 
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
+  <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
@@ -1326,7 +1524,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 <div class="jp-Cell-outputWrapper">
-
+  <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 
@@ -1367,13 +1565,26 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can even add more addresses to analyze pedestrian traffic at 4 locations: 100 Litte Collin Street, 50 Collin Street, 10 Elizabeth Street, and 10 Swanston Street.</p>
 
+
+
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>We can even add more addresses to analyze pedestrian traffic at 4 locations: 100 Litte Collin Street, 50 Collin Street, 10 Elizabeth Street, and 10 Swanston Street.</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
@@ -1388,7 +1599,7 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 <div class="jp-Cell-outputWrapper">
-
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 
@@ -1429,36 +1640,64 @@ WARNING:root:Requests made without an app_token will be subject to strict thrott
 </div>
 
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:black; background-color: #EEEEEE">&emsp;<b>Congratulations!</b>
-</p>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>You've successfully used Melbourne Open Data to visualise pedestrian traffic in and around the City of Melbourne!<br></p>
 
-</div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">Congratulations!</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><p style="font-family: helvetica,arial,sans-serif; font-size:1.6em;color:white; background-color: black">&emsp;<b>References</b></p>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>You've successfully used Melbourne Open Data to visualise pedestrian traffic in and around the City of Melbourne!<br></p>
+      </div>
+    </div>
+  </div>
+</div>
 
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>1: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp</a></p>
-<p>2: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234</a></p>
-<p>3: <a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API"target="_blank">https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API</a>.</p>
-<p>4: <a href="http://python-visualization.github.io/folium/"target="_blank">http://python-visualization.github.io/folium/</a></p>
-<p>5: <a href="https://pypi.org/project/selenium/"target="_blank">https://pypi.org/project/selenium/</a></p>
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <div class="usecase-section-header">References</div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+  <div class="jp-Cell-inputWrapper">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"></div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+      <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+      <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+        <p>1: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Monthly-counts-per-hour/b2ak-trbp</a></p>
+        <p>2: <a href="https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234"target="_blank">https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Sensor-Locations/h57g-5234</a></p>
+        <p>3: <a href="https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API"target="_blank">https://pypi.org/project/sodapy/#:~:text=sodapy%20is%20a%20python%20client%20for%20the%20Socrata%20Open%20Data%20API</a>.</p>
+        <p>4: <a href="http://python-visualization.github.io/folium/"target="_blank">http://python-visualization.github.io/folium/</a></p>
+        <p>5: <a href="https://pypi.org/project/selenium/"target="_blank">https://pypi.org/project/selenium/</a></p>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
 </div>
 
 <script>

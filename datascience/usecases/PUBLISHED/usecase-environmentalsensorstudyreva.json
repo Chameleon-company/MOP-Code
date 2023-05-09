@@ -1,0 +1,47 @@
+{
+    "title": "usecase-environmentalsensorstudyreva",
+    "name": "usecase EnvironmentalSensorStudyRevA",
+    "description": "As a city planner I want to determine the ideal number of environmental sensors for the city of Melb",
+    "tags": [
+        "sensor",
+        "economic development",
+        "social recovery",
+        "geojson"
+    ],
+    "difficultly": "Beginner",
+    "technology": [
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "shaeply",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "branca",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "microclimate-sensor-locations",
+        "road-corridors",
+        "footpaths"
+    ]
+}
