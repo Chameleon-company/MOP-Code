@@ -1,6 +1,6 @@
 /* Variables*/
 
-:root {   
+:root {
   --medium-spring-green: #2af598;
   --medium-aquamarine: #22e4ac;
   --turquoise: #1bd7bb;
@@ -24,26 +24,22 @@
   --default-text-color: #000000;
   --default-panel-color: #ffffff;
   --default-link-color: #0000EE;
-  background-image: linear-gradient(
-    var(--color-six),
-    var(--color-four), 
-    var(--color-two), 
-    var(--color-two), 
-    var(--color-four), 
-    var(--color-six)
-    );
-    color: var(--default-text-color);
+  background-image: linear-gradient(var(--color-six),
+      var(--color-four),
+      var(--color-two),
+      var(--color-two),
+      var(--color-four),
+      var(--color-six));
+  color: var(--default-text-color);
 }
 
 .page-container {
-  background-image: linear-gradient(
-    var(--color-six),
-    var(--color-four), 
-    var(--color-two), 
-    var(--color-two), 
-    var(--color-four), 
-    var(--color-six)
-    );
+  background-image: linear-gradient(var(--color-six),
+      var(--color-four),
+      var(--color-two),
+      var(--color-two),
+      var(--color-four),
+      var(--color-six));
 }
 
 .page-heading {
@@ -54,20 +50,20 @@
   text-align: center;
 }
 
-.theme-btn{
+.theme-btn {
   background-color: var(--color-six);
   color: var(--default-text-color);
   border: none;
   font-size: 16pt;
 }
 
-.image-header{
+.image-header {
   position: relative;
   text-align: center;
-  color:white ;
+  color: white;
 }
 
-.bottom-left-text{
+.bottom-left-text {
   font-size: 14pt;
   font-weight: 500;
   position: absolute;
@@ -103,6 +99,20 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+
+
+@media(max-width: 768px) {
+  .diffsize {
+    display: none;
+  }
+
+  .beginner.advanced.intermediate {
+    font-size: 15px;
+  }
+}
+
+
 
 .beginner {
   background-color: #87ffc9;
@@ -143,7 +153,7 @@
   text-align: center;
 }
 
-#show-more-datasets a{
+#show-more-datasets a {
   text-decoration: none;
   color: #00ff8c;
 }
@@ -160,12 +170,12 @@
 
 .usecase-col.no-underline-link a {
   text-decoration: none;
-  color:#000000;
+  color: #000000;
 }
 
 .usecase-col.no-underline-link a:hover {
   text-decoration: none;
-  color:#000000;
+  color: #000000;
 }
 
 .link-col.no-underline-link a:hover {

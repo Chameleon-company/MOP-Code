@@ -32,10 +32,12 @@ const datasetRowClass = "row-bottom-border-dataset";
  */
 function createNewRowUsecase(name, difficulty, link) {
     usecaseRows++;
-  // Replace the placeholders in the template with the actual data
-  return rowTemplateUseCase.replace("{{name}}", "<div class='usecase-col no-underline-link'><a href='/use-cases/" + link + "'>" + name + "</a></div>")
-                        .replace("{{difficulty}}", "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>")
-                        .replace("{{link}}","<div class='link-col no-underline-link'><a href='/use-cases/" + link + "'>➤</a></div>");
+    // Replace the placeholders in the template with the actual data
+
+    return rowTemplateUseCase.replace("{{name}}", "<div class='usecase-col no-underline-link'><a href='/use-cases/" + link + "'>" + name + "</a></div>")
+        .replace("{{difficulty}}", window.innerWidth >= 768 ? "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>" : "<div class='" + difficulty.toLowerCase() + " dot'></div>")
+        .replace("{{link}}", "<div class='link-col no-underline-link'><a href='/use-cases/" + link + "'>➤</a></div>");
+
 }
 
 
@@ -51,7 +53,7 @@ function showmoreUseCases() {
 
         // Add the remaining use cases to the table
         for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
-            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title, globalDataUseCases[i].difficulty, globalDataUseCases[i].name);
         }
 
         // Remove the border from the final row
@@ -73,10 +75,10 @@ function showlessUseCases() {
             useCaseTable.deleteRow(-1);
             usecaseRows--;
         }
-    
+
         // Remove the border from below the new final row on the table
         updateBottomBorder(usecaseRowClass, 0);
-    
+
         // Replace the "Show less" link with a "Show more" one
         toggleShowButton(smUsecases);
     }
@@ -92,7 +94,7 @@ function initialUseCases() {
     // Read in the specified json file and create the rows of the table
     fetch(`${$SCRIPT_ROOT}/static/search.json`)
         .then((response) => response.json())
-        .then ((data) => {
+        .then((data) => {
             globalDataUseCases = data;
             addUseCases();
         });
@@ -108,7 +110,7 @@ function addUseCases() {
     }
 
     for (let i = 0; i < tablesize; i++) {
-        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title, globalDataUseCases[i].difficulty, globalDataUseCases[i].name);
     }
 
     // Remove the bottom border from the final row
@@ -124,11 +126,11 @@ function addUseCases() {
  */
 function updateBottomBorder(cssClass, option) {
     let children = document.getElementsByClassName(cssClass);
-    let lastChild = children[children.length-1];
+    let lastChild = children[children.length - 1];
     if (option == 1) {
         lastChild.style.borderBottom = "thin solid";
         lastChild.style.borderColor = "#00cc70";
-    } 
+    }
     else {
         lastChild.style.borderBottom = "none";
     }
@@ -168,7 +170,7 @@ function toggleShowButton(id) {
                 break;
         }
         if (newBtnHTML != null) {
-            if (Obj.outerHTML) { 
+            if (Obj.outerHTML) {
                 // Before doing this, check that the browser supports OuterHTML as this makes it a lot easier
                 Obj.outerHTML = newBtnHTML;
             }
@@ -176,9 +178,9 @@ function toggleShowButton(id) {
                 // Otherwise, use this alternative method for browser support
                 let tmpObj = document.createElement('div');
                 tmpObj.innerHTML = '<!--To be replaced-->';
-                ObjParent=Obj.parentNode;
+                ObjParent = Obj.parentNode;
                 ObjParent.replaceChild(tmpObj, Obj);
-                ObjParent.innerHTML=ObjParent.innerHTML.replace('<div><!--To be replaced--></div>',newBtnHTML);
+                ObjParent.innerHTML = ObjParent.innerHTML.replace('<div><!--To be replaced--></div>', newBtnHTML);
             }
         }
     }
@@ -191,7 +193,7 @@ function toggleShowButton(id) {
  */
 function filterDifficulty(difficulty) {
     // Remove all rows
-    while(usecaseRows > 0) {
+    while (usecaseRows > 0) {
         useCaseTable.deleteRow(-1);
         usecaseRows--;
     }
@@ -205,8 +207,8 @@ function filterDifficulty(difficulty) {
     else {
         // Add in all rows that match the specified difficulty
         for (item in globalDataUseCases) {
-            if (globalDataUseCases[item].difficulty.includes(difficulty)){
-            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title,globalDataUseCases[item].difficulty,globalDataUseCases[item].name);
+            if (globalDataUseCases[item].difficulty.includes(difficulty)) {
+                useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title, globalDataUseCases[item].difficulty, globalDataUseCases[item].name);
             }
         }
 
@@ -237,8 +239,8 @@ function filterDifficulty(difficulty) {
 function createNewRowDataset(name, downloads, url) {
     datasetRows++;
     return rowTemplateDataset.replace("{{name}}", name)
-                             .replace("{{difficulty}}", "<div class='advanced bubble'><a href='#'>" + downloads + "</a></div>");
-  }
+        .replace("{{difficulty}}", "<div class='advanced bubble'><a href='#'>" + downloads + "</a></div>");
+}
 
 /**
  * Creates an initial table of datasets and their download links with an amount of rows specified by the
@@ -255,7 +257,7 @@ function addDatasets() {
                 let datasetDownloads = globalDataDataset[i].Downloads
                 let datasetURL = globalDataDataset[i].Permalink
                 if (datasetName.indexOf("(") > -1) {
-                    datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")),datasetDownloads)
+                    datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0, datasetName.indexOf("(")), datasetDownloads)
                 } else {
                     datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads)
                 }
@@ -277,7 +279,7 @@ function showmoreDatasets() {
         let datasetDownloads = globalDataDataset[i].Downloads
         let datasetURL = globalDataDataset[i].Permalink
         if (datasetName.indexOf("(") > -1) {
-            datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")),datasetDownloads, datasetURL)
+            datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0, datasetName.indexOf("(")), datasetDownloads, datasetURL)
         } else {
             datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads, datasetURL)
         }
