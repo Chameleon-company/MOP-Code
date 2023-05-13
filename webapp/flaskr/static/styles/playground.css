@@ -116,4 +116,7 @@ pre {
     .navbar-menu .is-active > .navbar-link {
         background-color: transparent;
     }
-  }  
+    .navbar-item.is-active {
+        background-color: #41f3a3 !important;
+    }
+}  
