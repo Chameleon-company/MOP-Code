@@ -25,7 +25,7 @@ steps:
   args: ['clone', 'https://github.com/Chameleon-company/MOP-Acceptance-Tests.git']
   # Build Container
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','https://github.com/Chameleon-company/MOP-Acceptance-Tests.git#main']
+  args: ['build','-t','gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test','./MOP-Acceptance-Tests']
   # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test']
