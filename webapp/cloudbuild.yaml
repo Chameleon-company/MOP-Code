@@ -56,4 +56,4 @@ images:
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-code-webapp-staging'
  - 'gcr.io/sit-22t1-city-of-melbo-d86dc19/mop-acceptance-test'
-timeout: 1200s
+timeout: 4000s
