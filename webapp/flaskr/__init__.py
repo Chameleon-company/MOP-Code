@@ -66,7 +66,8 @@ def create_app(test_config=None):
              ]
              },
              content_security_policy_report_only = True,
-             content_security_policy_report_uri = '/tools/csp-report')
+             content_security_policy_report_uri = '/tools/csp-report',
+             force_https = True)
     app.config.from_mapping(
         SECRET_KEY='dev'
     )
