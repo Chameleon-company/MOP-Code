@@ -275,5 +275,46 @@
             "name": "nbconvert",
             "code": "python"
         }]
+    },
+    {
+        "title": "Environmental Sensor Study RevA",
+        "name": "environmental-sensor-study-revA",
+        "description":"As a city planner I want to determine the ideal number of environmental sensors for the city of Melb",
+        "tags": ["sensor","economic development","social recovery","geoJSON"],
+        "difficulty": "Beginner",
+        "technology": [
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "shapely",
+            "code": "python"
+        },
+        {
+            "name": "branca",
+            "code": "python"
+        }]   
     }
+    
 ]
