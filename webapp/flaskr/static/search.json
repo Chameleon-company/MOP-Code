@@ -275,6 +275,7 @@
             "name": "nbconvert",
             "code": "python"
         }]
+
     },
     {
         "title": "Environmental Sensor Study RevA",
@@ -315,6 +316,70 @@
             "name": "branca",
             "code": "python"
         }]   
+      
+    },
+    { 
+        "title": "Improving walkability in the City of Melbourne", 
+        "name": "usecase_walkability",
+        "description": "As a resident or potential resident of the City of Melbourne, I want to identify how walkable a neighbourhood by viewing amenity density, access to public transport, or ease of walking.",
+        "tags": ["pedestrian","road safety","route network"],
+        "difficulty": "Beginner",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "scikit-learn",
+            "code": "python"
+        },{
+            "name": "shapely",
+            "code": "python"
+        },{
+            "name": "branca",
+            "code": "python"
+        }]
+    },
+    { 
+        "title": "Usecase-liveabilityanalysis", 
+        "name": "usecase-LiveabilityAnalysis", 
+        "description": "Individuals or families may be looking to move to Melbourne, and it is a high possibility they are u",
+        "tags": ["liveability","business owner","potential resident","clean data","housing", "education","employment","health and support services"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "plotly",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        }],
+        "datasets": [
+            "city-of-melbourne-jobs-forecasts-by-small-area-2020-2040",
+            "development-activity-monitor",
+            "free-and-cheap-support-services-with-opening-hours-public-transport-and-parking-"
+        ]
+
     }
     
 ]
