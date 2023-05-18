@@ -275,7 +275,50 @@
             "name": "nbconvert",
             "code": "python"
         }]
-    },{ 
+
+    },
+    {
+        "title": "Environmental Sensor Study RevA",
+        "name": "environmental-sensor-study-revA",
+        "description":"As a city planner I want to determine the ideal number of environmental sensors for the city of Melb",
+        "tags": ["sensor","economic development","social recovery","geoJSON"],
+        "difficulty": "Beginner",
+        "technology": [
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "shapely",
+            "code": "python"
+        },
+        {
+            "name": "branca",
+            "code": "python"
+        }]   
+      
+    },
+    { 
         "title": "Improving walkability in the City of Melbourne", 
         "name": "usecase_walkability",
         "description": "As a resident or potential resident of the City of Melbourne, I want to identify how walkable a neighbourhood by viewing amenity density, access to public transport, or ease of walking.",
@@ -336,5 +379,7 @@
             "development-activity-monitor",
             "free-and-cheap-support-services-with-opening-hours-public-transport-and-parking-"
         ]
+
     }
+    
 ]
