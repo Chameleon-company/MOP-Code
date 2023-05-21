@@ -1,0 +1,47 @@
+{
+    "title": "business-&-activity---supporting-local-businesses-surrounding-tourist-attractions-usecase",
+    "name": "Business & Activity - Supporting local businesses surrounding Tourist attractions Usecase",
+    "description": "In Melbourne, our strategic approach to enhancing the tourist experience involves utilizing a curate",
+    "tags": [
+        "folium",
+        "maps",
+        "business",
+        "tourism",
+        "landmarks",
+        "melbourne",
+        "food outlets"
+    ],
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "plotly",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "json",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "landmarks and places of interest",
+        "public artworks, fountains and monuments",
+        "public memorials and sculptures",
+        "cafe, restaurant and bistro seats"
+    ]
+}
