@@ -34,11 +34,23 @@ function createNewRowUsecase(name, difficulty, link) {
     usecaseRows++;
     // Replace the placeholders in the template with the actual data
 
+
     return rowTemplateUseCase.replace("{{name}}", "<div class='usecase-col no-underline-link'><a href='/use-cases/" + link + "'>" + name + "</a></div>")
         .replace("{{difficulty}}", window.innerWidth >= 768 ? "<div class='" + difficulty.toLowerCase() + " bubble'>" + difficulty + "</div>" : "<div class='" + difficulty.toLowerCase() + " dot'></div>")
         .replace("{{link}}", "<div class='link-col no-underline-link'><a href='/use-cases/" + link + "'>➤</a></div>");
 
+
 }
+window.addEventListener("resize", function() {
+    var rows = document.getElementsByClassName("usecase-row");
+  
+    for (var i = 0; i < rows.length; i++) {
+      var name = rows[i].getAttribute("data-usecase-name");
+      var difficulty = rows[i].getAttribute("data-usecase-difficulty");
+      var link = rows[i].getAttribute("data-usecase-link");
+      rows[i].innerHTML = createNewRowUsecase(name, difficulty, link);
+    }
+  });
 
 
 
