@@ -1,5 +1,11 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='styles/use-case.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+
+
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15101,7 +15107,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     init_mathjax();
     </script>
     <!-- End of mathjax configuration --></head>
-<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="jp-Notebook container" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15245,8 +15256,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -15254,9 +15268,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 <span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15268,8 +15282,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#calling the Residential Dwelling Dataset </span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#calling the Residential Dwelling Dataset </span>
 <span class="n">res_dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://data.melbourne.vic.gov.au/api/v2/catalog/datasets/residential-dwellings/exports/csv?limit=-1&amp;offset=0&amp;timezone=UTC'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">)</span>
 
 <span class="c1">#Filter Residential dataset for only year 2020</span>
@@ -15279,9 +15297,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">res_dataset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'property_id'</span><span class="p">:</span> <span class="s1">'pbs_property_id'</span><span class="p">,</span> <span class="s1">'base_property_id'</span><span class="p">:</span> <span class="s1">'bps_base_id'</span><span class="p">,</span><span class="s2">"building_address"</span><span class="p">:</span><span class="s2">"street_name"</span><span class="p">,</span><span class="s2">"longitude"</span><span class="p">:</span><span class="s2">"x_coordinate"</span><span class="p">,</span><span class="s2">"latitude"</span><span class="p">:</span><span class="s2">"y_coordinate"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">columns_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"census_year"</span><span class="p">,</span><span class="s2">"block_id"</span><span class="p">,</span><span class="s2">"pbs_property_id"</span><span class="p">,</span><span class="s2">"bps_base_id"</span><span class="p">,</span><span class="s2">"street_name"</span><span class="p">,</span><span class="s2">"clue_small_area"</span><span class="p">,</span><span class="s2">"dwelling_type"</span><span class="p">,</span><span class="s2">"dwelling_number"</span><span class="p">,</span><span class="s2">"x_coordinate"</span><span class="p">,</span><span class="s2">"y_coordinate"</span><span class="p">]</span>
 <span class="n">res_dataset</span> <span class="o">=</span> <span class="n">res_dataset</span><span class="p">[</span><span class="n">columns_list</span><span class="p">]</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15314,17 +15332,21 @@ Each dataset in the Melbourne Open Data Portal has a unique identifier which can
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Retrieve the "CLUE Residential Dwellings 2020" dataset</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Retrieve the "CLUE Residential Dwellings 2020" dataset</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The shape of dataset is </span><span class="si">{</span><span class="n">res_dataset</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'Below are the first few rows of this dataset:'</span><span class="p">)</span>
 
 <span class="c1"># Transpose the DataFrame for easier visual comparison. </span>
 <span class="n">res_dataset</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15503,8 +15525,12 @@ Below are the first few rows of this dataset:
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Cast datatypes to correct type so we can summarise</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Cast datatypes to correct type so we can summarise</span>
 <span class="n">res_dataset</span><span class="p">[[</span><span class="s1">'census_year'</span><span class="p">,</span> <span class="s1">'dwelling_number'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">res_dataset</span><span class="p">[[</span><span class="s1">'census_year'</span><span class="p">,</span> <span class="s1">'dwelling_number'</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">res_dataset</span><span class="p">[[</span><span class="s1">'x_coordinate'</span><span class="p">,</span> <span class="s1">'y_coordinate'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">res_dataset</span><span class="p">[[</span><span class="s1">'x_coordinate'</span><span class="p">,</span> <span class="s1">'y_coordinate'</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">res_dataset</span> <span class="o">=</span> <span class="n">res_dataset</span><span class="o">.</span><span class="n">convert_dtypes</span><span class="p">()</span> <span class="c1"># convert remaining to string</span>
@@ -15522,9 +15548,9 @@ Below are the first few rows of this dataset:
 <span class="n">dwellingsByBlock</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'clue_small_area'</span><span class="p">:</span> <span class="s1">'clue_area'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#rename to match GeoJSON extract</span>
 <span class="n">dwellingsByBlock</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'dwelling_numbersum'</span><span class="p">:</span> <span class="s1">'dwelling_count'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">dwellingsByBlock</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15640,15 +15666,19 @@ Below are the first few rows of this dataset:
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 
 <span class="n">block</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">'https://data.melbourne.vic.gov.au/api/v2/catalog/datasets/blocks-for-census-of-land-use-and-employment-clue/exports/geojson'</span><span class="p">)</span> 
 <span class="n">block</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15799,8 +15829,12 @@ Below are the first few rows of this dataset:
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the choropleth map</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Display the choropleth map</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth_mapbox</span><span class="p">(</span><span class="n">dwellingsByBlock</span><span class="p">,</span> <span class="c1"># pass in the summarised dwellings per block</span>
                            <span class="n">geojson</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="c1"># pass in the GeoJSON data defining the CLUE Block polygons</span>
                            <span class="n">locations</span><span class="o">=</span><span class="s1">'block_id'</span><span class="p">,</span> <span class="c1"># define the unique identifier for the Blocks from the dataframe</span>
@@ -15822,9 +15856,9 @@ Below are the first few rows of this dataset:
                            <span class="n">width</span><span class="o">=</span><span class="mi">950</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span> <span class="c1"># dimensions of plot in pixels</span>
                           <span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -15907,8 +15941,12 @@ This is your first step to selecting a suitable location for your new business!<
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Pull dataset for Cafe, restaurant and bistro seat dataset</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Pull dataset for Cafe, restaurant and bistro seat dataset</span>
 <span class="n">cafe_dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://data.melbourne.vic.gov.au/api/v2/catalog/datasets/cafes-and-restaurants-with-seating-capacity/exports/csv?limit=-1&amp;offset=0&amp;timezone=UTC'</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">';'</span><span class="p">)</span>
 
 <span class="c1">#Filter cafe dataset for 2020</span>
@@ -15937,9 +15975,9 @@ This is your first step to selecting a suitable location for your new business!<
 <span class="n">seatsByLocn</span><span class="p">[</span><span class="s1">'scale'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">seatsByLocn</span><span class="p">[</span><span class="s2">"number_of_seats"</span><span class="p">]</span> <span class="o">-</span> <span class="n">seatsByLocn</span><span class="p">[</span><span class="s2">"number_of_seats"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="n">all_data_diffq</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">seatsByLocn</span><span class="p">[</span><span class="s1">'scale'</span><span class="p">]</span> <span class="o">=</span> <span class="n">seatsByLocn</span><span class="p">[</span><span class="s1">'scale'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span>
 <span class="n">seatsByLocn</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -16109,8 +16147,12 @@ We then draw the scatter plot assigning it as a trace (aka "layer") to the exist
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot residential density and venue seating</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Plot residential density and venue seating</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth_mapbox</span><span class="p">(</span><span class="n">dwellingsByBlock</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="n">locations</span><span class="o">=</span><span class="s1">'block_id'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'dwelling_count'</span><span class="p">,</span>
                            <span class="n">color_continuous_scale</span><span class="o">=</span><span class="p">[</span><span class="s2">"#FFFF88"</span><span class="p">,</span> <span class="s2">"yellow"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">,</span>
                                                    <span class="s2">"orange"</span><span class="p">,</span> <span class="s2">"darkorange"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"darkred"</span><span class="p">],</span>
@@ -16142,9 +16184,9 @@ We then draw the scatter plot assigning it as a trace (aka "layer") to the exist
 <span class="n">fig</span><span class="o">.</span><span class="n">update_geos</span><span class="p">(</span><span class="n">fitbounds</span><span class="o">=</span><span class="s2">"locations"</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -16232,8 +16274,12 @@ Since Employment density and Residential density both require use a choropleth m
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Pull dataset for the Job employment by block by clue industry</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Pull dataset for the Job employment by block by clue industry</span>
 <span class="n">jobs_dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://data.melbourne.vic.gov.au/api/v2/catalog/datasets/employment-by-block-by-clue-industry/exports/csv?limit=-1&amp;offset=0&amp;timezone=UTC'</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">';'</span><span class="p">)</span>
 
 <span class="c1">#Filter jobs dataset for 2020</span>
@@ -16259,9 +16305,9 @@ Since Employment density and Residential density both require use a choropleth m
 
 <span class="c1"># Display sample data</span>
 <span class="n">employmentByBlock</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -16366,8 +16412,12 @@ Since Employment density and Residential density both require use a choropleth m
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot employment density</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Plot employment density</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth_mapbox</span><span class="p">(</span><span class="n">employmentByBlock</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="n">locations</span><span class="o">=</span><span class="s1">'block_id'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'total_employment_in_block'</span><span class="p">,</span>
                            <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span>
                            <span class="n">range_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">employmentByBlock</span><span class="p">[</span><span class="s1">'total_employment_in_block'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
@@ -16398,9 +16448,9 @@ Since Employment density and Residential density both require use a choropleth m
 <span class="n">fig</span><span class="o">.</span><span class="n">update_geos</span><span class="p">(</span><span class="n">fitbounds</span><span class="o">=</span><span class="s2">"locations"</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+ 
 </div>
 </div>
 </div>
@@ -16459,8 +16509,12 @@ Since Employment density and Residential density both require use a choropleth m
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define custom colour scale for choropleth (continuous) and scatter (discrete)</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Define custom colour scale for choropleth (continuous) and scatter (discrete)</span>
 <span class="n">custom_continuous_colorscale</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"lightblue"</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"darkblue"</span><span class="p">)]</span>
 <span class="n">custom_discrete_colorscale</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'red'</span><span class="p">]</span>
 
@@ -16507,9 +16561,9 @@ Since Employment density and Residential density both require use a choropleth m
                         <span class="n">opacity</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="n">custom_discrete_colorscale</span>
                         <span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">fig3</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># add this layer to the base figure</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -16555,8 +16609,12 @@ Since Employment density and Residential density both require use a choropleth m
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Turn off all choropleth layers</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+</div>
+
+<figure class=" highlight hl-ipython3"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Turn off all choropleth layers</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">'choroplethmapbox'</span><span class="p">))</span>
 
 <span class="c1"># Add buttons for selection on plot</span>
@@ -16580,9 +16638,9 @@ Since Employment density and Residential density both require use a choropleth m
 
 <span class="c1"># Display the map</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+
 </div>
 </div>
 </div>
@@ -16637,12 +16695,10 @@ Since Employment density and Residential density both require use a choropleth m
 </div>
 </div>
 </div>
-</body>
+</div>
 
+<script>
+  hljs.highlightAll();
+</script>
 
-
-
-
-
-
-</html>
+{% endblock %}
