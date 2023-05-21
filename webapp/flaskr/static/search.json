@@ -244,7 +244,7 @@
     },
     { 
         "title": "Evaluate Business Location Using Pedestrian Traffic Day and Night", 
-        "name": "evaluate-business-location-using-pedestrian-traffic-day-night",
+        "name": "usecase_evaluate_business_location_using_pedestrian_traffic_day_night",
         "description": "As a business owner, I want to know how much pedestrian foot traffic occurs around me during the day and night, so that I can evaluate the suitability of the location and hours for my business. As a business owner, I want to know how much pedestrian foot traffic I get compared to surrounding areas, so that I can assess if it is better to adapt my hours, extend or move locations.",
         "tags": ["pedestrian","traffic","location","day","night","sensors","machine learning"],
         "difficulty": "Intermediate",
