@@ -218,3 +218,28 @@
   color: var(--default-text-color);
   font-weight: 700;
 }
+
+@media only screen and (max-width: 768px) {
+  .dot {
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .beginner {
+    background-color: #87ffc9;
+  }
+  .intermediate {
+    background-color: #4ffdaf;
+  }
+  .advanced {
+    background-color: #00ff8c;
+  }
+  .usecase-col {
+    font-size: 0;
+  }
+  .usecase-col a {
+    font-size: initial;
+  }
+}
