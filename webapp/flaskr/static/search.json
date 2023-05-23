@@ -17,7 +17,13 @@
         },{
             "name": "plotly",
             "code": "python"
-        }]
+        }],
+        "dataset" : [
+            "residential-dwellings",
+            "blocks-for-census-of-land-use-and-employment-clue",
+            "cafes-and-restaurants-with-seating-capacity",
+            "employment-by-block-by-clue-industry"
+        ]
     },
     { 
         "title": "Spot Parking Problem", 
@@ -37,7 +43,10 @@
         },{
             "name": "scikit-learn",
             "code": "python"
-        }]
+        }],
+        "dataset" : [
+            "off-street-car-parks-with-capacity-and-type"
+        ]
     },
     { 
         "title": "Pedestrian Traffic Analysis", 
@@ -48,7 +57,13 @@
         "technology": [{
             "name": "sodapy",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "pedestrian-counting-system-sensor-locations"
+        ],
+        "datasetlinks":[
+            "https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-sensor-locations/export/"
+        ]
     },
     { 
         "title": "Parking Availability", 
@@ -62,11 +77,14 @@
         },{
             "name": "pandas",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "on-street-parking-bay-sensors"
+        ]
     },
     { 
         "title": "Bicycle Network Routes and Road Safety Part 1", 
-        "name": "bicycle-network-road-safety-part1", 
+        "name": "bicycle-network-road-safety-part1",
         "description": "As a cyclist, I want a safe transport journey in the city of Melbourne. Which roads are safest to cycle on? As a council, we seek to invest in road safety initiatives which reduce the occurrences of accidents resulting in serious injuries of citizens using our road network. Where are accident hotspots for cyclists occurring?",
         "tags": ["GeoJSON", "bicycles", "road safety", "route network", "accidents"],
         "difficulty": "Intermediate",
@@ -82,7 +100,10 @@
         },{
             "name": "folium",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "bicycle-routes-including-informal-on-road-and-off-road-routes"
+        ]
     },
     { 
         "title": "Bicycle Network Routes and Road Safety Part 2", 
@@ -102,7 +123,10 @@
         },{
             "name": "folium",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            
+        ]
     },
     {
         "title": "Ideal Green Wall Locations",
@@ -131,7 +155,15 @@
         },{
             "name": "folium",
             "code": "python"
-        }]   
+        }],
+        "dataset":[
+            "microclimate-sensor-readings",
+            "microclimate-sensor-locations",
+            "pedestrian-counting-system-monthly-counts-per-hour",
+            "butterfly-biodiversity-survey-2017",
+            "insect-records-in-the-city-of-melbourne-from-little-things-that-run-the-city",
+            "tree-canopies-2019"
+        ] 
     },
     { 
         "title": "Event Impacts and Effects on Pedestrian Traffic", 
@@ -166,7 +198,10 @@
         },{
             "name": "scikit-learn",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "pedestrian-counting-system-monthly-counts-per-hour"
+        ]
     },
     { 
         "title": "Pedestrian Network Routes and Road Safety Part 1", 
@@ -195,7 +230,10 @@
         },{
             "name": "geopandas",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "pedestrian-network"
+        ]
     },
     { 
         "title": "Ideal Green Roof Locations", 
@@ -230,7 +268,11 @@
         },{
             "name": "branca",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+            "property-level-energy-consumption-modelled-on-building-attributes-baseline-2011-",
+            "block-level-energy-consumption-modelled-on-building-attributes-2016-projection-b"
+        ]
     },
     { 
         "title": "Evaluate Business Location Using Pedestrian Traffic Day and Night", 
@@ -274,6 +316,10 @@
         },{
             "name": "nbconvert",
             "code": "python"
-        }]
+        }],
+        "dataset":[
+        ]
+        
     }
+    
 ]
