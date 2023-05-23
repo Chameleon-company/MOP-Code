@@ -1,23 +1,33 @@
 [
-    { 
-        "title": "New Business Location", 
-        "name": "new-business-location", 
-        "description": "As a Cafe, Restaurant or Bar, I am looking for commercial space in the City of Melbourne where I can open a new venue or extend my existing venue. I would like to know where similar businesses along, with their seating capacity, are located plus the density of residents and office workers in comparison.",
-        "tags": ["clue", "dwellings", "cafe", "restaurant", "mapbox", "chloropleth", "GeoJSON"],
+    {
+        "title": "New Business Location",
+        "name": "new_business_location",
+        "description": "As a cafe, restaurant or bar, looking for commercial space that can open a new venue or extend exist",
+        "tags": [
+            "maps",
+            "business",
+            "activity"
+        ],
         "difficulty": "Intermediate",
-        "technology": [{
-            "name": "mapbox",
-            "code": "python"
-        },{
-            "name": "pandas",
-            "code": "python"
-        },{
-            "name": "sodapy",
-            "code": "python"
-        },{
-            "name": "plotly",
-            "code": "python"
-        }]
+        "technology": [
+            {
+                "name": "geojson",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "plotly",
+                "code": "python"
+            }
+        ],
+        "datasets": [
+            "residential-dwellings",
+            "cafes-and-restaurants-with-seating-capacity",
+            "employment-by-block-by-clue-industry"
+        ]
     },
     { 
         "title": "Spot Parking Problem", 
@@ -234,7 +244,7 @@
     },
     { 
         "title": "Evaluate Business Location Using Pedestrian Traffic Day and Night", 
-        "name": "evaluate-business-location-using-pedestrian-traffic-day-night",
+        "name": "usecase_evaluate_business_location_using_pedestrian_traffic_day_night",
         "description": "As a business owner, I want to know how much pedestrian foot traffic occurs around me during the day and night, so that I can evaluate the suitability of the location and hours for my business. As a business owner, I want to know how much pedestrian foot traffic I get compared to surrounding areas, so that I can assess if it is better to adapt my hours, extend or move locations.",
         "tags": ["pedestrian","traffic","location","day","night","sensors","machine learning"],
         "difficulty": "Intermediate",
@@ -356,30 +366,45 @@
             "code": "python"
         }]
     },
-    { 
+    {
         "title": "Usecase-liveabilityanalysis", 
         "name": "usecase-LiveabilityAnalysis", 
-        "description": "Individuals or families may be looking to move to Melbourne, and it is a high possibility they are u",
-        "tags": ["liveability","business owner","potential resident","clean data","housing", "education","employment","health and support services"],
-        "difficulty": "Intermediate",
-        "technology": [{
-            "name": "pandas",
-            "code": "python"
-        },
-        {
-            "name": "plotly",
-            "code": "python"
-        },
-        {
-            "name": "folium",
-            "code": "python"
-        }],
+        "description": "This use case is intended to provide an analysis and visualiation into the best suburbs in Melbourne by liveability",
+        "tags": [
+            "liveability",
+            "job forecasts",
+            "school locations",
+            "housing developments",
+            "support services"
+        ],
+        "difficultly": "Intermediate",
+        "technology": [
+            {
+                "name": "json",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "geopandas",
+                "code": "python"
+            },
+            {
+                "name": "plotly",
+                "code": "python"
+            },
+            {
+                "name": "openstreetmap",
+                "code": "python"
+            }
+        ],
         "datasets": [
-            "city-of-melbourne-jobs-forecasts-by-small-area-2020-2040",
-            "development-activity-monitor",
-            "free-and-cheap-support-services-with-opening-hours-public-transport-and-parking-"
+            "residential-dwellings",
+            "free-and-cheap-support-services-with-opening-hours-public-transport-and-parking-",
+            "city-of-melbourne-jobs-forecasts-by-small-area-2020-2040"
         ]
-
     }
     
 ]
