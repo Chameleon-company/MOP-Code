@@ -25,28 +25,7 @@
         }],
         "dataset" : [
             "residential-dwellings",
-            "blocks-for-census-of-land-use-and-employment-clue",
-          
-        "technology": [
-            {
-                "name": "geojson",
-                "code": "python"
-            },
-            {
-                "name": "pandas",
-                "code": "python"
-            },
-            {
-                "name": "plotly",
-                "code": "python"
-            }
-        ],
-        "datasets": [
-            "residential-dwellings",
-
-            "cafes-and-restaurants-with-seating-capacity",
-            "employment-by-block-by-clue-industry"
-        ]
+            "blocks-for-census-of-land-use-and-employment-clue"]
     },
     { 
         "title": "Spot Parking Problem", 
@@ -343,9 +322,6 @@
         }],
         "dataset":[
         ]
-        
-        }]
-
     },
     {
         "title": "Environmental Sensor Study RevA",

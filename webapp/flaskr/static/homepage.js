@@ -274,9 +274,7 @@ function addDatasets() {
             
                 for (let j = 0; j < tableRowsInitialDataset; j++){
                 let datasetName = globalDataDataset[0].dataset[j]
-                // let datasetDownloads = globalDataDataset[0].datasetlinks[j]
-                
-                // let datasetURL = globalDataDataset[i].Permalink
+
                 if (datasetName.indexOf("(") > -1) {
                     datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")))
                 } else {
@@ -284,60 +282,12 @@ function addDatasets() {
                 }
             
             }
-            // Remove the border from the bottom row once the initial table is created
-            
         })
 }
 
-// function addDatasets() {
-//     datasetTable = document.getElementById("dataset-table");
-//     fetch(`${$SCRIPT_ROOT}/static/search.json`)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             globalDataDataset = data;
-//             for (let i = 0; i < data.length; i++) {
-//                 for (let j = 0; j < tableRowsInitialDataset; j++){
-//                 let datasetName = globalDataDataset[i].dataset[j]
-//                 let datasetDownloads = globalDataDataset[i].datasetlinks[j]
-                
-//                 // let datasetURL = globalDataDataset[i].Permalink
-//                 if (datasetName.indexOf("(") > -1) {
-//                     datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")),datasetDownloads)
-//                 } else {
-//                     datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads)
-//                 }
-//             }
-//             }
-//             // Remove the border from the bottom row once the initial table is created
-//             updateBottomBorder(datasetRowClass, 0);
-//         })
-// }
-
-// function addDatasets() {
-//     datasetTable = document.getElementById("dataset-table");
-//     fetch(`${$SCRIPT_ROOT}/static/search.json`)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             globalDataDataset = data;
-            
-//                 for (let j = 0; j < 4; j++){
-//                 let datasetName = globalDataDataset[0].datasetnames[j]
-//                 let datasetDownloads = globalDataDataset[0].datasetlinks[j]
-//                 // let datasetURL = globalDataDataset[i].Permalink
-                
-//                     datasetTable.innerHTML += createNewRowDataset(datasetName, datasetDownloads)
-                
-            
-//             }
-//             // Remove the border from the bottom row once the initial table is created
-//             updateBottomBorder(datasetRowClass, 0);
-//         })
-// }
 /**
  * Expands the dataset table to show all the dataset entries. Then, replaces the "Show more" button with a "Show less" one
  */
-
-
 function showmoreDatasets() {
     
     datasetTable = document.getElementById("dataset-table");
@@ -358,19 +308,15 @@ function showmoreDatasets() {
                 if (datasetName != undefined) {
                     datasetTable.innerHTML += createNewRowDataset(datasetName)
                 } 
-                
-                
             }
-            
             }
-        
-            
         // Remove the border the new final row
-        
         })
         // Replace the "Show more" link with a "Show less" one
         toggleShowButton(smDatasets);
 }
+
+
 // // /**
 // //  * Reduces the dataset table back to its initial size. Then, replaces the "Show less" button with a "Show more" one
 // //  */
