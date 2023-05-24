@@ -279,9 +279,6 @@ function createNewRowDataset(dataset) {
         datasetTitle += datasetTitleArray[i].charAt(0).toUpperCase() + datasetTitleArray[i].slice(1) + " ";
     }
 
-    
-    // return rowTemplateDataset.replace("{{name}}" , dataset)
-    //                          .replace("{{difficulty}}", "<div class='advanced bubble'><a href='https://data.melbourne.vic.gov.au/explore/dataset/" + dataset + "/export/'' target='blanks' ><img src='/static/download-button.png' style='width: 15px; height: 15px;'></a></div>");
     return rowTemplateDataset.replace("{{name}}" , datasetTitle)
                                 .replace("{{difficulty}}", "<div class='advanced bubble'><a href='https://data.melbourne.vic.gov.au/explore/dataset/" + dataset + "/export/'' target='blanks' ><img src='/static/download-button.png' style='width: 15px; height: 15px;'></a></div>");
                              
