@@ -6,7 +6,7 @@ var rowTemplateDataset = "<tr class='row-bottom-border-dataset' style='color: va
 var tableRowsInitial = 4;
 var usecaseRows = 0;
 var useCaseTable;
-var globalDataUseCases;
+var globalData;
 const smUsecases = "show-more-use-cases";
 var smUsecasesCount = 0;
 const usecaseRowClass = "row-bottom-border-usecase";
@@ -17,10 +17,10 @@ var smEnable = true;
 var tableRowsInitialDataset = 4;
 var datasetRows = 0;
 var datasetTable;
-var globalDataDataset;
 const smDatasets = "show-more-datasets";
 var smDatasetsCount = 0;
 const datasetRowClass = "row-bottom-border-dataset";
+var uniqueDatasets;
 
 /**
  * Generates the HTML code for a new row for the use-case table, based off of the template
@@ -67,8 +67,8 @@ function showmoreUseCases() {
         updateBottomBorder(usecaseRowClass, 1);
 
         // Add the remaining use cases to the table
-        for (let i = usecaseRows; i < globalDataUseCases.length; i++) {
-            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        for (let i = usecaseRows; i < globalData.length; i++) {
+            useCaseTable.innerHTML += createNewRowUsecase(globalData[i].title,globalData[i].difficulty,globalData[i].name);
         }
 
         // Remove the border from the final row
@@ -100,18 +100,35 @@ function showlessUseCases() {
 }
 
 /**
- * Retrieves the relevant information needed for the use-case table from the json file. Creates the initial table after
+ * Retrieves the relevant information needed for the use case table AND the dataset table from the json file. Creates the initial tables after
  * doing so. 
  */
-function initialUseCases() {
+function initialiseTables() {
     useCaseTable = document.getElementById("use-case-table");
 
     // Read in the specified json file and create the rows of the table
     fetch(`${$SCRIPT_ROOT}/static/search.json`)
         .then((response) => response.json())
         .then ((data) => {
-            globalDataUseCases = data;
+            // Read in the search.json data into a global variable
+            globalData = data;
+
+            // Create the inital use cases table
             addUseCases();
+
+            // Construct a set of the unique datasets
+            let datasetsSet = new Set();
+            for (let i = 0; i < globalData.length; i++) {
+                for (let j = 0; j < globalData[i].datasets.length; j++) {
+                    datasetsSet.add(globalData[i].datasets[j]);
+                }
+            }
+
+            // Convert datasetsSet to an array and hold it as a global variable for future use in the dataset table
+            uniqueDatasets = Array.from(datasetsSet);
+
+            // Create the initial datasets table
+            addDatasets();
         });
 }
 
@@ -121,11 +138,11 @@ function initialUseCases() {
 function addUseCases() {
     let tablesize = tableRowsInitial;
     if (smUsecasesCount % 2 == 1) {
-        tablesize = globalDataUseCases.length;
+        tablesize = globalData.length;
     }
 
     for (let i = 0; i < tablesize; i++) {
-        useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[i].title,globalDataUseCases[i].difficulty,globalDataUseCases[i].name);
+        useCaseTable.innerHTML += createNewRowUsecase(globalData[i].title,globalData[i].difficulty,globalData[i].name);
     }
 
     // Remove the bottom border from the final row
@@ -221,9 +238,9 @@ function filterDifficulty(difficulty) {
     }
     else {
         // Add in all rows that match the specified difficulty
-        for (item in globalDataUseCases) {
-            if (globalDataUseCases[item].difficulty.includes(difficulty)){
-            useCaseTable.innerHTML += createNewRowUsecase(globalDataUseCases[item].title,globalDataUseCases[item].difficulty,globalDataUseCases[item].name);
+        for (item in globalData) {
+            if (globalData[item].difficulty.includes(difficulty)){
+            useCaseTable.innerHTML += createNewRowUsecase(globalData[item].title,globalData[item].difficulty,globalData[item].name);
             }
         }
 
@@ -267,53 +284,45 @@ function createNewRowDataset(dataset) {
  */
 function addDatasets() {
     datasetTable = document.getElementById("dataset-table");
-    fetch(`${$SCRIPT_ROOT}/static/search.json`)
-        .then((response) => response.json())
-        .then((data) => {
-            globalDataDataset = data;
-            
-                for (let j = 0; j < tableRowsInitialDataset; j++){
-                let datasetName = globalDataDataset[0].dataset[j]
 
-                if (datasetName.indexOf("(") > -1) {
-                    datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")))
-                } else {
-                    datasetTable.innerHTML += createNewRowDataset(datasetName)
-                }
-            
+        for (let j = 0; j < tableRowsInitialDataset; j++){
+            let datasetName = uniqueDatasets[j];
+
+            if (datasetName.indexOf("(") > -1) {
+                datasetTable.innerHTML += createNewRowDataset(datasetName.substring(0,datasetName.indexOf("(")))
+            } else {
+                datasetTable.innerHTML += createNewRowDataset(datasetName)
             }
-        })
+        
+        }
+
+    // Remove the border from below the new final row on the table
+    updateBottomBorder(datasetRowClass, 0);
 }
 
 /**
  * Expands the dataset table to show all the dataset entries. Then, replaces the "Show more" button with a "Show less" one
  */
 function showmoreDatasets() {
-    
+
+    // Obtain the dataset table's ID so the innerHTML can be edited
     datasetTable = document.getElementById("dataset-table");
-    fetch(`${$SCRIPT_ROOT}/static/search.json`)
-        .then((response) => response.json())
-        .then((data) => {
-            globalDataDataset = data;
-    
-        for (let i = 1; i < data.length; i++) {
-            for (let j = 0; j < data.length ; j++){
-                let datasetName = globalDataDataset[i].dataset[j]
-                // let datasetDownloads = globalDataDataset[i].datasetlinks[j]
-                
-                // let datasetURL = globalDataDataset[i].Permalink
-                
-                    
-                
-                if (datasetName != undefined) {
-                    datasetTable.innerHTML += createNewRowDataset(datasetName)
-                } 
-            }
-            }
-        // Remove the border the new final row
-        })
-        // Replace the "Show more" link with a "Show less" one
-        toggleShowButton(smDatasets);
+
+    // Add the border onto the current final row on the table before expanding
+    updateBottomBorder(datasetRowClass, 1);
+
+    // Add every dataset into the table, asides from the datasets initially in the table
+    for (let i = tableRowsInitialDataset; i < uniqueDatasets.length; i++) {
+        if (uniqueDatasets[i] != undefined) {
+            datasetTable.innerHTML += createNewRowDataset(uniqueDatasets[i]);
+        }
+    }
+
+    // Remove the border from below the new final row on the table
+    updateBottomBorder(datasetRowClass, 0);
+
+    // Replace the "Show more" link with a "Show less" one
+    toggleShowButton(smDatasets);
 }
 
 
@@ -333,6 +342,4 @@ function showlessDatasets() {
     toggleShowButton(smDatasets);
 }
 
-initialUseCases()
-
-addDatasets()
+initialiseTables()

@@ -23,9 +23,12 @@
             "name": "plotly",
             "code": "python"
         }],
-        "dataset" : [
+        "datasets" : [
             "residential-dwellings",
-            "blocks-for-census-of-land-use-and-employment-clue"]
+            "blocks-for-census-of-land-use-and-employment-clue",
+            "cafes-and-restaurants-with-seating-capacity",
+            "employment-by-block-by-clue-industry"
+        ]
     },
     { 
         "title": "Spot Parking Problem", 
@@ -46,7 +49,9 @@
             "name": "scikit-learn",
             "code": "python"
         }],
-        "dataset" : [
+        "datasets" : [
+            "residential-dwellings",
+            "employment-by-block-by-clue-industry",
             "off-street-car-parks-with-capacity-and-type"
         ]
     },
@@ -60,11 +65,8 @@
             "name": "sodapy",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "pedestrian-counting-system-sensor-locations"
-        ],
-        "datasetlinks":[
-            "https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-sensor-locations/export/"
         ]
     },
     { 
@@ -80,7 +82,7 @@
             "name": "pandas",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "on-street-parking-bay-sensors"
         ]
     },
@@ -103,7 +105,7 @@
             "name": "folium",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "bicycle-routes-including-informal-on-road-and-off-road-routes"
         ]
     },
@@ -126,8 +128,8 @@
             "name": "folium",
             "code": "python"
         }],
-        "dataset":[
-            
+        "datasets":[
+            "bicycle-routes-including-informal-on-road-and-off-road-routes"
         ]
     },
     {
@@ -158,10 +160,11 @@
             "name": "folium",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "microclimate-sensor-readings",
             "microclimate-sensor-locations",
             "pedestrian-counting-system-monthly-counts-per-hour",
+            "pedestrian-counting-system-sensor-locations",
             "butterfly-biodiversity-survey-2017",
             "insect-records-in-the-city-of-melbourne-from-little-things-that-run-the-city",
             "tree-canopies-2019"
@@ -201,8 +204,9 @@
             "name": "scikit-learn",
             "code": "python"
         }],
-        "dataset":[
-            "pedestrian-counting-system-monthly-counts-per-hour"
+        "datasets":[
+            "pedestrian-counting-system-monthly-counts-per-hour",
+            "pedestrian-counting-system-sensor-locations"
         ]
     },
     { 
@@ -233,7 +237,7 @@
             "name": "geopandas",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "pedestrian-network"
         ]
     },
@@ -271,7 +275,7 @@
             "name": "branca",
             "code": "python"
         }],
-        "dataset":[
+        "datasets":[
             "property-level-energy-consumption-modelled-on-building-attributes-baseline-2011-",
             "block-level-energy-consumption-modelled-on-building-attributes-2016-projection-b"
         ]
@@ -320,7 +324,9 @@
             "code": "python"
 
         }],
-        "dataset":[
+        "datasets":[
+            "pedestrian-counting-system-sensor-locations",
+            "pedestrian-counting-system-monthly-counts-per-hour"
         ]
     },
     {
@@ -361,7 +367,12 @@
         {
             "name": "branca",
             "code": "python"
-        }]   
+        }],
+        "datasets": [
+            "microclimate-sensor-locations",
+            "road-corridors",
+            "footpaths"
+        ]
       
     },
     { 
@@ -400,7 +411,11 @@
         },{
             "name": "branca",
             "code": "python"
-        }]
+        }],
+        "datasets": [
+            "residential-dwellings",
+            "footpaths"
+        ]
     },
     {
         "title": "Usecase-liveabilityanalysis", 
