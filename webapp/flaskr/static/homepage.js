@@ -67,7 +67,7 @@ function showmoreUseCases() {
         updateBottomBorder(usecaseRowClass, 1);
 
         // Add the remaining use cases to the table
-        for (let i = usecaseRows; i < globalData.length; i++) {
+        for (let i = usecaseRows; i < globalData.length - 1; i++) {
             useCaseTable.innerHTML += createNewRowUsecase(globalData[i].title,globalData[i].difficulty,globalData[i].name);
         }
 
@@ -270,10 +270,20 @@ function filterDifficulty(difficulty) {
  */
 function createNewRowDataset(dataset) {
     
+    // Increase the count for the number of rows in the dataset table
     datasetRows++;
+
+    let datasetTitleArray = dataset.split("-");
+    let datasetTitle = "";
+    for (let i = 0; i < datasetTitleArray.length; i++) {
+        datasetTitle += datasetTitleArray[i].charAt(0).toUpperCase() + datasetTitleArray[i].slice(1) + " ";
+    }
+
     
-    return rowTemplateDataset.replace("{{name}}" , dataset)
-                             .replace("{{difficulty}}", "<div class='advanced bubble'><a href='https://data.melbourne.vic.gov.au/explore/dataset/" + dataset + "/export/'' target='blanks' ><img src='/static/download-button.png' style='width: 15px; height: 15px;'></a></div>");
+    // return rowTemplateDataset.replace("{{name}}" , dataset)
+    //                          .replace("{{difficulty}}", "<div class='advanced bubble'><a href='https://data.melbourne.vic.gov.au/explore/dataset/" + dataset + "/export/'' target='blanks' ><img src='/static/download-button.png' style='width: 15px; height: 15px;'></a></div>");
+    return rowTemplateDataset.replace("{{name}}" , datasetTitle)
+                                .replace("{{difficulty}}", "<div class='advanced bubble'><a href='https://data.melbourne.vic.gov.au/explore/dataset/" + dataset + "/export/'' target='blanks' ><img src='/static/download-button.png' style='width: 15px; height: 15px;'></a></div>");
                              
     }
 
@@ -312,7 +322,7 @@ function showmoreDatasets() {
     updateBottomBorder(datasetRowClass, 1);
 
     // Add every dataset into the table, asides from the datasets initially in the table
-    for (let i = tableRowsInitialDataset; i < uniqueDatasets.length; i++) {
+    for (let i = datasetRows; i < uniqueDatasets.length; i++) {
         if (uniqueDatasets[i] != undefined) {
             datasetTable.innerHTML += createNewRowDataset(uniqueDatasets[i]);
         }
