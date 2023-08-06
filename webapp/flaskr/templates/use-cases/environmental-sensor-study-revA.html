@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='styles/use-case.css') }}"rel="stylesheet" />
+<link href="{{ url_for('static', filename='highlight/styles/default.min.css') }}"rel="stylesheet" />
+<script src="{{ url_for('static',filename='highlight/highlight.min.js') }}"></script>
+
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14585,7 +14590,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     init_mathjax();
     </script>
     <!-- End of mathjax configuration --></head>
-<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+    {% endblock %}
+
+{% block content %}
+
+
+<div class="jp-Notebook container" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -14740,8 +14751,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This notebook was created using an ipython notebook with Jupyter Lab. </span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+  
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#This notebook was created using an ipython notebook with Jupyter Lab. </span>
 <span class="c1"># Depending on how you are running this notebook you may need some of the following packages. Try running these if some parts of the notebook don't work for you!</span>
 
 <span class="c1"># !pip install sodapy</span>
@@ -14752,9 +14767,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="c1">#Issue with using folium through Jupyter notebook was resolved by downgrading markupsafe as follows: </span>
 <span class="c1"># !pip install markupsafe==2.0.1</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -14766,8 +14781,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#File manipulation</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+ 
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#File manipulation</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">sodapy</span> <span class="kn">import</span> <span class="n">Socrata</span>
@@ -14786,9 +14805,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="kn">import</span> <span class="nn">branca.colormap</span> <span class="k">as</span> <span class="nn">cm</span>
 <span class="kn">import</span> <span class="nn">folium</span>
 <span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">MarkerCluster</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -14800,15 +14819,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Details for City of Melbourne data on Socrata website.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Details for City of Melbourne data on Socrata website.</span>
 
 <span class="n">apptoken</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"bajmvQjws2C8yfqmVSkOtOU9L"</span><span class="p">)</span> <span class="c1"># App token created on Socrata website</span>
 <span class="n">domain</span> <span class="o">=</span> <span class="s2">"data.melbourne.vic.gov.au"</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">Socrata</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">apptoken</span><span class="p">)</span> <span class="c1"># Open Dataset connection</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -14845,17 +14868,20 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Loading Melbourne Microclimate Sensor Location data as a Geopandas Dataframe</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>  
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Loading Melbourne Microclimate Sensor Location data as a Geopandas Dataframe</span>
 
 <span class="n">dataresource</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'irqv-hjr4'</span><span class="p">)</span>
 
 <span class="c1"># Retrieve data from Microclimate Sensor Locations dataset. </span>
 <span class="n">sensor_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">dataresource</span><span class="p">)</span>
 <span class="n">sensor_locations</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -14881,8 +14907,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">########### Python 3.2 #############</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">########### Python 3.2 #############</span>
 <span class="kn">import</span> <span class="nn">http.client</span><span class="o">,</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">urllib.parse</span><span class="o">,</span> <span class="nn">urllib.error</span><span class="o">,</span> <span class="nn">base64</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -14915,9 +14944,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <span class="nb">print</span><span class="p">(</span><span class="s2">"[Errno </span><span class="si">{0}</span><span class="s2">] </span><span class="si">{1}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">))</span>
 
 <span class="c1">####################################</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+  
 </div>
 </div>
 </div>
@@ -14943,14 +14972,17 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'></figure><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">json</span>
 
 <span class="n">jsonResponse</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">jsonResponse</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+   
 </div>
 </div>
 </div>
@@ -14975,11 +15007,14 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sensor_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">sensor_locations</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'EPA'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="mf">144.97</span><span class="p">,</span> <span class="o">-</span><span class="mf">37.8073959</span><span class="p">,</span> <span class="s2">"{'type': 'Point', 'coordinates': [-37.8073959, 144.97]}"</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">]</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">sensor_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">sensor_locations</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'EPA'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">,</span> <span class="mf">144.97</span><span class="p">,</span> <span class="o">-</span><span class="mf">37.8073959</span><span class="p">,</span> <span class="s2">"{'type': 'Point', 'coordinates': [-37.8073959, 144.97]}"</span><span class="p">,</span> <span class="s1">'Null'</span><span class="p">]</span>
+</code></pre></figure>
 
-     </div>
+    
 </div>
 </div>
 </div>
@@ -15003,15 +15038,18 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sensor_locations</span><span class="p">[</span><span class="s1">'Address'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">" "</span>  
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">sensor_locations</span><span class="p">[</span><span class="s1">'Address'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">" "</span>  
 
 <span class="c1">#This creates an empty column called 'Address' at the end of the dataframe. </span>
 
 <span class="c1">#Creating an empty column in the dataframe allows it to be iterated over using the iterrows method.</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15023,15 +15061,18 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
 
 <span class="c1">#The following code iterates over the rows in the dataframe, calling the reverse geocode method on each row and adding the resulting information to the 'address' column.</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sensor_locations</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="n">sensor_locations</span><span class="p">[</span><span class="s1">'Address'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">reverse_geocode</span><span class="p">([</span><span class="n">Point</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]))])[</span><span class="s1">'address'</span><span class="p">]</span>
-</pre></div>
+</pre><figure>
 
-     </div>
+   
 </div>
 </div>
 </div>
@@ -15043,13 +15084,16 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pd.set_option('display.max_colwidth', None)    #Setting this value ensures the addresses aren't abbreviated in the notebook, enabling them to be read. </span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># pd.set_option('display.max_colwidth', None)    #Setting this value ensures the addresses aren't abbreviated in the notebook, enabling them to be read. </span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">sensor_locations</span><span class="p">[</span><span class="s1">'Address'</span><span class="p">])</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+   
 </div>
 </div>
 </div>
@@ -15061,11 +15105,14 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sensor_locations</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">sensor_locations</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15089,8 +15136,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create (f)igure and base (m)ap with style and zoom level.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Create (f)igure and base (m)ap with style and zoom level.</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">37.81368709240999</span><span class="p">,</span> <span class="mf">144.95738102347036</span><span class="p">],</span> <span class="n">tiles</span> <span class="o">=</span> <span class="s1">'CartoDB positron'</span><span class="p">,</span> <span class="n">zoom_start</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 
@@ -15118,9 +15168,9 @@ The API call was successful, but the information isn't in a very readable format
 <span class="n">m</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <span class="n">f</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15169,17 +15219,20 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Loading Melbourne Road Corridor and Footpath Datasets as a Geopandas dataframes.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Loading Melbourne Road Corridor and Footpath Datasets as a Geopandas dataframes.</span>
 
 <span class="n">roaddata</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'wzzt-avwf'</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span> 
 
 <span class="n">road_corridors</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">roaddata</span><span class="p">)</span>
 
 <span class="n">road_corridors</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15191,14 +15244,17 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">footpathdata</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'5che-qtdy'</span><span class="p">,</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">footpathdata</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'5che-qtdy'</span><span class="p">,</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span>
 
 <span class="n">footpaths</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">footpathdata</span><span class="p">)</span>
 <span class="n">footpaths</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15210,8 +15266,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Dataset Sources:</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Dataset Sources:</span>
 
 <span class="c1"># https://data.melbourne.vic.gov.au/Transport/Road-corridors/9mdh-8yau</span>
 <span class="c1"># https://data.melbourne.vic.gov.au/City-Council/Footpaths/tqjk-32d9</span>
@@ -15229,9 +15288,9 @@ The API call was successful, but the information isn't in a very readable format
 
 <span class="c1">#Calling the response to observe the JSON file structure.</span>
 <span class="n">roadsegments</span><span class="p">[</span><span class="s2">"features"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'properties'</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15243,8 +15302,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">footpathsgeoJSON_Id</span> <span class="o">=</span> <span class="s1">'5che-qtdy'</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">footpathsgeoJSON_Id</span> <span class="o">=</span> <span class="s1">'5che-qtdy'</span>
 
 <span class="c1">#Call the API</span>
 <span class="n">footpathsGeoJSONURL</span> <span class="o">=</span> <span class="s1">'https://'</span><span class="o">+</span><span class="n">domain</span><span class="o">+</span><span class="s1">'/api/geospatial/'</span><span class="o">+</span><span class="n">footpathsgeoJSON_Id</span><span class="o">+</span><span class="s1">'?method=export&amp;format=GeoJSON'</span>
@@ -15253,9 +15315,9 @@ The API call was successful, but the information isn't in a very readable format
 
 <span class="c1">#Calling the response to observe the JSON file structure.</span>
 <span class="n">footpathsegments</span><span class="p">[</span><span class="s2">"features"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'properties'</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15267,8 +15329,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting the road data.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Getting the road data.</span>
 <span class="n">dataresource</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'wzzt-avwf'</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span> 
 
 <span class="c1"># Retrieving data from road corridors dataset. </span>
@@ -15280,9 +15345,9 @@ The API call was successful, but the information isn't in a very readable format
 
 <span class="c1">#Setting coordinate reference system (CRS) for the format of the data (WGS84)</span>
 <span class="n">road_corridors</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="s2">"EPSG:4326"</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15294,8 +15359,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting the footpath data.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Getting the footpath data.</span>
 <span class="n">dataresource</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'5che-qtdy'</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span> 
 
 <span class="c1"># Retrieve data from footpath corridors dataset.</span>
@@ -15306,9 +15374,9 @@ The API call was successful, but the information isn't in a very readable format
 
 <span class="c1">#Setting coordinate reference system (CRS) for the format of the data (WGS84)</span>
 <span class="n">footpath_corridors</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="s2">"EPSG:4326"</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15320,8 +15388,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fillColor'</span><span class="p">:</span> <span class="s1">'#228B22'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'#228B22'</span><span class="p">}</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fillColor'</span><span class="p">:</span> <span class="s1">'#228B22'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'#228B22'</span><span class="p">}</span>
 
 
 <span class="c1">#Create the base layer map (m)</span>
@@ -15368,9 +15439,9 @@ The API call was successful, but the information isn't in a very readable format
 <span class="n">folium</span><span class="o">.</span><span class="n">LayerControl</span><span class="p">()</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="c1">#Render the map</span>
 <span class="n">m</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15395,8 +15466,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creating CBD polygon.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Creating CBD polygon.</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
 
 <span class="n">lon_point_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">144.944077</span><span class="p">,</span> <span class="mf">144.970996</span><span class="p">,</span> <span class="mf">144.975450</span><span class="p">,</span> <span class="mf">144.948066</span><span class="p">]</span>
@@ -15412,9 +15486,9 @@ The API call was successful, but the information isn't in a very readable format
 <span class="c1">#Clipping canopy data to only the Melbourne CBD.</span>
 <span class="n">cbdRoads</span> <span class="o">=</span> <span class="n">road_corridors</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">cbdBoundary</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'intersection'</span><span class="p">)</span>
 <span class="n">cbdFootpaths</span> <span class="o">=</span> <span class="n">footpath_corridors</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">cbdBoundary</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'intersection'</span><span class="p">)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15426,8 +15500,11 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Calling plot on the geodataframes is a good way to check that we've created what we wanted to! The visualisations below show that we've done the right thing.</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#Calling plot on the geodataframes is a good way to check that we've created what we wanted to! The visualisations below show that we've done the right thing.</span>
 
 <span class="n">cbdRoads</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">cbdFootpaths</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -15435,9 +15512,9 @@ The API call was successful, but the information isn't in a very readable format
 <span class="n">cbdRoads</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">'roads.shp'</span><span class="p">)</span>
 <span class="c1"># IdealTotalSensors = cbdRoads['poly_area'].sum()</span>
 <span class="c1"># print("The ideal total number of sensors around the Melbourne CBD is approximately : " + IdealTotalSensors)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15449,11 +15526,14 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cbdRoads</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">cbdRoads</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15477,11 +15557,14 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The total road area for the Melbourne CBD is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cbdRoads</span><span class="p">[</span><span class="s1">'poly_area'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">+</span> <span class="s2">" square metres."</span><span class="p">)</span>   
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The total road area for the Melbourne CBD is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cbdRoads</span><span class="p">[</span><span class="s1">'poly_area'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">+</span> <span class="s2">" square metres."</span><span class="p">)</span>   
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15505,11 +15588,14 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'geometry'</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'geometry'</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15533,13 +15619,16 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">28355</span><span class="p">)[</span><span class="s1">'geometry'</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">28355</span><span class="p">)[</span><span class="s1">'geometry'</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
 
 <span class="c1">#Using to_crs in this line of code doesn't change the default setting for the dataframe. It only uses it for this one calculation.</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15551,13 +15640,16 @@ The API call was successful, but the information isn't in a very readable format
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">footpatharea</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">footpatharea</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="p">[</span><span class="s1">'area'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"The total footpath area for the Melbourne CBD is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">footpatharea</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" square metres."</span><span class="p">)</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15585,11 +15677,14 @@ So if we only count the area of the footpath areas in the CBD, it is a much more
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The total number of environmental sensors required for the Melbourne CBD is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">footpatharea</span><span class="o">/</span><span class="mi">150</span><span class="p">))</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The total number of environmental sensors required for the Melbourne CBD is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">footpatharea</span><span class="o">/</span><span class="mi">150</span><span class="p">))</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15613,11 +15708,14 @@ So if we only count the area of the footpath areas in the CBD, it is a much more
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idealSensorNetwork</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">28355</span><span class="p">)</span><span class="o">.</span><span class="n">centroid</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">idealSensorNetwork</span> <span class="o">=</span> <span class="n">cbdFootpaths</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">28355</span><span class="p">)</span><span class="o">.</span><span class="n">centroid</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15629,11 +15727,14 @@ So if we only count the area of the footpath areas in the CBD, it is a much more
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idealSensorNetwork</span>
-</pre></div>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="n">idealSensorNetwork</span>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15660,8 +15761,11 @@ Finally we have our hypothetical sensor network. We'll show each one on the map 
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a geometry list from the GeoDataFrame</span>
+  <div class="snippet-language">
+    <span class="icon"><i class="fab fa-python"></i></span>
+    <span class=>Python</span>
+    </div>
+<figure class='highlight'><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Create a geometry list from the GeoDataFrame</span>
 <span class="n">ideal_network_list</span> <span class="o">=</span> <span class="p">[[</span><span class="n">point</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">idealSensorNetwork</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span> <span class="p">]</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
@@ -15677,9 +15781,9 @@ Finally we have our hypothetical sensor network. We'll show each one on the map 
     <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
     
 <span class="n">m</span>
-</pre></div>
+</code></pre></figure>
 
-     </div>
+     
 </div>
 </div>
 </div>
@@ -15702,7 +15806,14 @@ Finally we have our hypothetical sensor network. We'll show each one on the map 
 </div>
 </div>
 </div>
-</body>
+</div>
+
+<script>
+  hljs.highlightAll();
+ </script>
+
+
+{% endblock %}
 
 
 
@@ -15710,4 +15821,4 @@ Finally we have our hypothetical sensor network. We'll show each one on the map 
 
 
 
-</html>
+
