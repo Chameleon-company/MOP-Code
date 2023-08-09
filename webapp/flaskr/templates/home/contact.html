@@ -52,6 +52,7 @@
             </div>
         </section>
         <section style="float: left; width: 50%; padding-left: 10%; padding-top: 1%;">
+            <!--
             <p class="input-title">
                 First Name
             </p>
@@ -89,10 +90,45 @@
 
             <div class="bubble" style="background-color: #02da78;">
                 <a href="#">Send</a>
-            </div>
+            </div>-->
+            <form id="contactForm" method="POST">
+                <label class="input-title" for="name">Name:</label>
+                <br>
+                <input class="contact-input panel default-panel-background" type="text" id="name" name="name" required>
+                <br>
+                <label class="input-title" for="number">Phone Number:</label>
+                <br>
+                <input  class="contact-input panel default-panel-background" type="text" id="number" name="number" required>
+                <br>
+                <label class="input-title" for="message">Question/Message:</label>
+                <br>
+                <textarea  class="contact-input panel default-panel-background" id="message" name="message" required></textarea>
+                <br>
+                <button class="bubble" style="background-color: #02da78;" type="submit">Submit</button>
+              </form>
+
         </section>
     </div>
 </div>
 
 <script src="{{url_for('static', filename='contact_page.js')}}"></script>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get form values
+  var name = document.getElementById('name').value;
+  var number = document.getElementById('number').value;
+  var message = document.getElementById('message').value;
+
+  // Compose email body
+  var emailBody = 'Name: ' + name + '\n' +
+                  'Phone Number: ' + number + '\n' +
+                  'Question/Message: ' + message;
+
+  // Send email
+  window.location.href = 'mailto:1498139417@qq.com?subject=Contact Form Submission&body=' + encodeURIComponent(emailBody);
+});
+</script>
 {% endblock %}
