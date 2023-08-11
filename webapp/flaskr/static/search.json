@@ -428,7 +428,7 @@
             "housing developments",
             "support services"
         ],
-        "difficultly": "Intermediate",
+        "difficulty": "Intermediate",
         "technology": [
             {
                 "name": "json",
