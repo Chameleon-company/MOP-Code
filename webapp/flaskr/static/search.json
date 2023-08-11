@@ -428,7 +428,7 @@
             "housing developments",
             "support services"
         ],
-        "difficultly": "Intermediate",
+        "difficulty": "Intermediate",
         "technology": [
             {
                 "name": "json",
@@ -456,6 +456,48 @@
             "free-and-cheap-support-services-with-opening-hours-public-transport-and-parking-",
             "city-of-melbourne-jobs-forecasts-by-small-area-2020-2040"
         ]
+    },
+    {
+        "title": "Residential Dwelling Profile",
+        "name": "Residential_dwellings_profile",
+        "description": "Analyze the distribution and types of residential dwellings in Melbourne. This use case can assist city planners, real estate agents, and businesses in understanding the residential landscape of the city.",
+        "tags": ["residential", "dwelling", "city planning", "real estate", "demographics"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        }, {
+            "name": "geopandas",
+            "code": "python"
+        }, {
+            "name": "folium",
+            "code": "python"
+        }, {
+            "name": "sodapy",
+            "code": "python"
+        }],
+        "datasets": ["residential-dwellings"]
+    },
+    {
+        "title": "Entertainment Location Projections",
+        "name": "usecase_entertainment_location_projections",
+        "description": "Predicts the most popular entertainment locations based on past data and current trends.",
+        "tags": ["residential", "dwelling", "city planning", "real estate", "demographics"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        }, {
+            "name": "geopandas",
+            "code": "python"
+        }, {
+            "name": "folium",
+            "code": "python"
+        }, {
+            "name": "sodapy",
+            "code": "python"
+        }],
+        "datasets": []
     }
-    
+
 ]
