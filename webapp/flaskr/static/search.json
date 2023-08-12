@@ -498,6 +498,28 @@
             "code": "python"
         }],
         "datasets": []
+    },
+    {
+        "title": "Smart Bin & Disposal Optimization",
+        "name": "Smart_Bin_and_disposal_optimization",
+        "description": "Utilizing sensors and data analytics for real-time waste monitoring and efficient collection scheduling.",
+        "tags": ["residential", "dwelling", "city planning", "real estate", "demographics"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        }, {
+            "name": "geopandas",
+            "code": "python"
+        }, {
+            "name": "folium",
+            "code": "python"
+        }, {
+            "name": "sodapy",
+            "code": "python"
+        }],
+        "datasets": []
     }
+
 
 ]
