@@ -498,6 +498,71 @@
             "code": "python"
         }],
         "datasets": []
+    },
+    {
+        "title": "Smart Bin & Disposal Optimization",
+        "name": "Smart_Bin_and_disposal_optimization",
+        "description": "Utilizing sensors and data analytics for real-time waste monitoring and efficient collection scheduling.",
+        "tags": ["residential", "dwelling", "city planning", "real estate", "demographics"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        }, {
+            "name": "geopandas",
+            "code": "python"
+        }, {
+            "name": "folium",
+            "code": "python"
+        }, {
+            "name": "sodapy",
+            "code": "python"
+        }],
+        "datasets": []
+    },
+    {
+        "title": "Pedestrian Network Routes and Road Safety Part 2", 
+        "name": "usecase_pedestriansafety_part2",
+        "description": "As a pedestrian we want a safe journey in Melbourne. Which intersections are safest and which are the riskiest from a road safety perspective? Where are accident hot-spots occurring and under what circumstance? As a council we want to invest in road safety initiatives which can effectively reduce serious injuries and fatalities. Are the current approaches to road network design having the impact we expected? We can utilise the VicRoads traffic accident data and aggregate this with the pedestrian paths Melbourne open dataset.",
+        "tags": ["pedestrian","road safety","accidents","route network","geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
     }
+
 
 ]
