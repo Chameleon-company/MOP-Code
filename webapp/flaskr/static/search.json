@@ -597,5 +597,91 @@
             "city-circle-tram-stops",
             "metro-train-stations-with-accessibility-information"
         ]
+    },
+    {
+        "title": "Urban Heat Island Effect Reduction in Melbourne",
+        "name": "UHI_effect_reduction_use_case(Final)",
+        "description": "To ensure a comfortable pedestrian experience in Melbourne, it's crucial to understand the areas most affected by the Urban Heat Island (UHI) effect. Which intersections or pathways are most exposed to UHI? As a council, how can we design our road network and pedestrian paths to minimize this effect? Using the VicRoads traffic accident data, we can aggregate it with the pedestrian paths Melbourne open dataset to get insights.",
+        "tags": ["pedestrian", "Urban Heat Island", "climate adaptation", "pathways", "geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
+    },
+    {
+        "title": "Impact of High-Rise Buildings on Pedestrian Safety in Melbourne",
+        "name": "usecase-highriseimpact-part 1-final",
+        "description": "High-rise buildings can influence pedestrian safety in urban areas. As a council in Melbourne, we aim to understand which intersections are riskiest due to high-rise related factors. How do shadows, wind tunnels, or traffic patterns affected by these buildings impact pedestrian safety? We can utilize the VicRoads traffic accident data and correlate it with the pedestrian paths Melbourne open dataset for a comprehensive view.",
+        "tags": ["pedestrian", "high-rise impact", "urban design", "shadow effect", "geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
     }
 ]
