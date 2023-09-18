@@ -690,34 +690,74 @@
         "description": "Tracking how live events effects foot tracking and concluding how this effects local business.",
         "tags": [
             "folium",
-        "maps",
-        "foot traffic",
-        "api",
-        "business",
-        "live events"
+            "maps",
+            "foot traffic",
+            "api",
+            "business",
+            "live events"
         ],
         "difficulty": "Intermediate",
-
-        "technology": [{
-            "name": "folium",
-            "code": "python"
-        },{
-            "name": "pandas",
-            "code": "python"
-        },{
-            "name": "csv",
-            "code": "python"
-        },{
-            "name": "requests",
-            "code": "python"
-        },{
-            "name": "matplot",
-            "code": "python"
-        }],
-        "datasets" : [
+        "technology": [
+            {
+                "name": "folium",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "csv",
+                "code": "python"
+            },
+            {
+                "name": "requests",
+                "code": "python"
+            },
+            {
+                "name": "matplot",
+                "code": "python"
+            }  
+        ],
+        "datasets": [
             "pedestrian counting system - past hour (counts per minute)",
             "pedestrian counting system - monthly (counts per hour)",
             "pedestrian counting system - sensor locations"
         ]
+    },
+    {
+        "title": "flexible-return-to-office-options",
+        "name": "Flexible Return To Office Options",
+        "description": "The City Of Melbourne Council is looking for ideas to bring people back into the city post covid, es",
+        "tags": ["folium", "coworking spaces", "urban design", "colleagues", "maps"],
+        "difficulty": "Intermediate",
+        "technology": [
+            {
+                "name": "python",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "folium",
+                "code": "python"
+            },
+            {
+                "name": "json",
+                "code": "python"
+            },
+            {
+                "name": "iwidgets",
+                "code": "python"
+            }
+        ],
+        "datasets": [
+            "cafes-and-restaurants-with-seating-capacity",
+            "coworking-spaces",
+            "metro-train-stations-with-accessibility-information"
+        ]
     }
-]
+    
+]    
