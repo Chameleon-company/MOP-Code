@@ -723,23 +723,14 @@
     {
         "title": "Small Area Population Growth Active Transport",
         "name": "small_area_population_growth_active_transport",
-        "description":"Identify key areas where active transportation routes could experience higher demand",
-        "tags": [
-            "folim",
-            "bikes",
-            "population growth",
-            "active transport",
-            "transport"
-        ],
+        "description": "Identify key areas where active transportation routes could experience higher demand. ",
+        "tags": ["folium", "bikes", "population growth", "active transport", "transport"],
         "difficulty": "Intermediate",
         "technology": [{
             "name": "pandas",
             "code": "python"
         },{
             "name": "numpy",
-            "code": "python"
-        },{
-            "name": "geopandas",
             "code": "python"
         },{
             "name": "matplotlib",
@@ -750,9 +741,14 @@
         },{
             "name": "folium",
             "code": "python"
+
+        },{
+            "name": "geopandas",
+            "code": "python"
         }],
         "datasets":[
             "city-of-melbourne-population-forecasts-by-small-area-2020-2040"
         ]
     }
+    
 ]
