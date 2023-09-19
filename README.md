@@ -82,7 +82,7 @@ Install Miniconda3 using this [link](https://docs.conda.io/en/latest/miniconda.h
 Now that we have our web application linked to VSCode, note that there is an “environment.yml” file. This is essentially a kind of file used for the web application’s configuration. This directly implies that it will set and install all the dependencies needed for it. To create our environment, please copy and execute this terminal command:
 
 ```bash
-conda env create -f dev-environment.yml
+conda env create --file dev_environment.yml
 ```
 
 ### Step 6: Select Miniconda3 Environment from the List of Environment
@@ -95,7 +95,7 @@ conda env list
 Under this command, you should be able to see your list of environments. We need to set our environment, which will exist under “melbourne_open_playground”. Please copy and execute this command in the terminal:
 
 ```bash
-conda activate melbourne_open_playground
+conda activate melbourne_playground_webapp
 ```
 
 ### Step 7: Run the WebApp
