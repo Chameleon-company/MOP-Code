@@ -37,31 +37,31 @@ Please also make sure you have these tools downloaded on your desktop:
 **NOTE:** Please install only the setup files for the first two applications only. Then make sure to install MiniConda3 while proceeding to Step 4. 
 
 ### Step 1: Clone the Repository:
-Once we have downloaded the pre-requisites for the web application, proceed to copy the link via the GitHub Desktop option, as shown in the picture: 
+Once we have downloaded the pre-requisites for the web application, proceed to copy the link via the GitHub Desktop option, as shown in the picture link below: 
 
-![Step 1a](https://drive.google.com/file/d/1LinRBm13b1x7AGfAIMEjejavz6SH0SSJ/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1LinRBm13b1x7AGfAIMEjejavz6SH0SSJ/view?usp=sharing">Step 1a</a>
 
 You should get your GitHub Desktop opened and would click on ‘Clone’ after you proceed to direct your repository to the place where you wish to save it. It is better to save all the repositories under the “GitHub” folder, which will be under your “Documents” folder.
 
-![Step 1b](https://drive.google.com/file/d/1XR_bUQHsqNIFjQULohcI9N8spTGbxvr_/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1XR_bUQHsqNIFjQULohcI9N8spTGbxvr_/view?usp=sharing">Step 1b</a>
 
 ### Step 2: Link the repository with your VS Code
 After cloning the repository, type in “VSCode” on your Desktop’s search bar.
 
-![Step 2a](https://drive.google.com/file/d/19fyVrszUfjkBryORR8WW9cBHQoK-SepO/view?usp=sharing)
+<a href="https://drive.google.com/file/d/19fyVrszUfjkBryORR8WW9cBHQoK-SepO/view?usp=sharing">Step 2a</a>
 
 Open your VSCode and on the top left, you should be able to see the explorer folder, as shown by the yellow arrow in the following picture. This is how you will be able to open up a new folder.
 
-![Step 2b](https://drive.google.com/file/d/1TNEcRiL627QD_Ha8euEop0t0E6zvsaaH/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1TNEcRiL627QD_Ha8euEop0t0E6zvsaaH/view?usp=sharing">Step 2b</a>
 
 Now proceed to Documents > GitHub > MOP-Code. Select the “webapp” folder and click on “Select Folder”.
 
-![Step 2c](https://drive.google.com/file/d/17Dd-iGftFM0Jaf_kg6nZgTDUOVCv2ETW/view?usp=sharing)
+<a href="https://drive.google.com/file/d/17Dd-iGftFM0Jaf_kg6nZgTDUOVCv2ETW/view?usp=sharing">Step 2c</a>
 
 ### Step 3: Add the Extensions
 Now add the extensions from VSCode as well. Note that you have a “Extensions” Tab on the left side as shown in the picture below:
 
-![Step 3](https://drive.google.com/file/d/17Yd1Pr0X69iH4FMpV8eOsco6oHDXSZnI/view?usp=sharing)
+<a href="https://drive.google.com/file/d/17Yd1Pr0X69iH4FMpV8eOsco6oHDXSZnI/view?usp=sharing">Step 3</a>
 
 Now add the following extensions by simply typing in:
 -	GitHub
@@ -76,7 +76,7 @@ Install Miniconda3 using this [link](https://docs.conda.io/en/latest/miniconda.h
 
 **ONCE AGAIN, MAKE SURE TO TICK “ADD MINICONDA3 TO MY ENVIRONMENT VARIABLE” (DEFAULT IS UNTICKED):**
 
-![Step 4](https://drive.google.com/file/d/1LqfHVBcMHsMzfq1sjuSacybwtCk8OG3p/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1LqfHVBcMHsMzfq1sjuSacybwtCk8OG3p/view?usp=sharing)">Step 4</a>
 
 ### Step 5: Create the Environment
 Now that we have our web application linked to VSCode, note that there is an “environment.yml” file. This is essentially a kind of file used for the web application’s configuration. This directly implies that it will set and install all the dependencies needed for it. To create our environment, please copy and execute this terminal command:
@@ -101,11 +101,11 @@ conda activate melbourne_playground_webapp
 ### Step 7: Run the WebApp
 Finally, you will run the web application by clicking on the “Run without Debugging” Option, which is under the “Run” Tab. You will get see your application running and should give a message like:
 
-![Step 7a](https://drive.google.com/file/d/1Xw74LJ4ZyywxBmFxeJ6ssFdqVDt-yyiD/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1Xw74LJ4ZyywxBmFxeJ6ssFdqVDt-yyiD/view?usp=sharing">Step 7a</a>
 
 Now just click on the website link mentioned on the terminal. This will lead you to the web application, running as shown here. Now you are all ready to develop this web application!
 
-![Step 7b](https://drive.google.com/file/d/16my1X_XI_Y9URfFhWgaoC5lLAq2-pOBG/view?usp=sharing)
+<a href="https://drive.google.com/file/d/16my1X_XI_Y9URfFhWgaoC5lLAq2-pOBG/view?usp=sharing">Step 7b</a>
 
 ## Troubleshooting Corner
 
@@ -117,32 +117,33 @@ Please follow these steps, in case you are having trouble with your environment 
 - Click on Advanced System Settings
 - Click on Environment Variables or you can simply search for environment variables as follows
 
-![Scenario 1a](https://drive.google.com/file/d/1ZGOP6QIJEbP7gxQxCTqBP6FrL4L1BlGy/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1ZGOP6QIJEbP7gxQxCTqBP6FrL4L1BlGy/view?usp=sharing">Scenario 1a</a>
 
 - Then, under System Variables, look for the path variable and click edit
 
-![Scenario 1b](https://drive.google.com/file/d/1jja4Fv45e-Tde8u3iAeQicwpQPWf2Bdk/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1jja4Fv45e-Tde8u3iAeQicwpQPWf2Bdk/view?usp=sharing">Scenario 1b</a>
 
 - Add the paths as shown in the below picture. This has four paths added as shown:
 
-![Scenario 1c](https://drive.google.com/file/d/1r5oXS_DHMLr0L-Ltx2JOm_5BQJWDuw6c/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1r5oXS_DHMLr0L-Ltx2JOm_5BQJWDuw6c/view?usp=sharing">Scenario 1c</a>
 
 ### Scenario 2: Use-Case Templates not appearing in the Development environment – (Registry Fix)
 In case your templates are not showing as shown in the picture from the last step of the set up procedures, please head on to the “Registry Editor”.
 
-![Scenario 2a](https://drive.google.com/file/d/15R-UgQwCS54bC-K_ooBt-f_rpIab9CBk/view?usp=sharing)
+<a href="https://drive.google.com/file/d/15R-UgQwCS54bC-K_ooBt-f_rpIab9CBk/view?usp=sharing">Scenario 2a</a>
 
 On the left hand of the Registry Editor, look for the “HKEY_CLASSES_ROOT”. From there, proceed to the ‘.js’ folder and then select the ‘Content Type’ file. The content type would initially be as “text/plain” but please set this as “text/javascript”. 
 
-![Scenario 2b](https://drive.google.com/file/d/1K6KM0-23PUIL4AQgcib8vcbbpng5x4oW/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1K6KM0-23PUIL4AQgcib8vcbbpng5x4oW/view?usp=sharing">Scenario 2b</a>
 
-![Scenario 2c](https://drive.google.com/file/d/1jauw9tgivgZhHPeXBL-Vb4wJbU8xH50j/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1jauw9tgivgZhHPeXBL-Vb4wJbU8xH50j/view?usp=sharing">Scenario 2c</a>
 
-![Scenario 2d](https://drive.google.com/file/d/1CNXXFsfSxenF_CqxnKCOn3ZZpac1gO6M/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1CNXXFsfSxenF_CqxnKCOn3ZZpac1gO6M/view?usp=sharing">Scenario 2d</a>
+
 
 Now, similar will also be done under the “HKEY_LOCAL_MACHINE” folder. Please repeat the above steps:
 
-![Scenario 2e](https://drive.google.com/file/d/1dnBnmaSVoc9lZtNCqCuS4b9rkr8zoyyh/view?usp=sharing)
+<a href="https://drive.google.com/file/d/1dnBnmaSVoc9lZtNCqCuS4b9rkr8zoyyh/view?usp=sharing">Scenario 2e</a>
 
 ### Scenario 3: Conda Environment Activation not working in PowerShell
 Please proceed to this link in case your environment is not working on [Conda Environment Activation.](https://github.com/conda/conda/issues/8428)
