@@ -519,7 +519,274 @@
             "code": "python"
         }],
         "datasets": []
+    },
+    {
+        "title": "Pedestrian Network Routes and Road Safety Part 2", 
+        "name": "usecase_pedestriansafety_part2",
+        "description": "As a pedestrian we want a safe journey in Melbourne. Which intersections are safest and which are the riskiest from a road safety perspective? Where are accident hot-spots occurring and under what circumstance? As a council we want to invest in road safety initiatives which can effectively reduce serious injuries and fatalities. Are the current approaches to road network design having the impact we expected? We can utilise the VicRoads traffic accident data and aggregate this with the pedestrian paths Melbourne open dataset.",
+        "tags": ["pedestrian","road safety","accidents","route network","geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
+    },
+    {
+        "title": "Disability-services-and-public-transport-analysis-within-cbd", 
+        "name": "Disability Services and Public Transport Analysis within CBD",
+        "description": "This use case is intended to provide an analysis and visualiation into public transport and footpaths for disabled users",
+        "tags": ["public transport","footpath gradient","disability features","train stations","tram stops"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "json",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "branca",
+            "code": "python"
+        },{
+            "name": "numpy",
+            "code": "python"
+
+        }],
+        "datasets":[
+            "footpath-steepness",
+            "city-circle-tram-stops",
+            "metro-train-stations-with-accessibility-information"
+        ]
+    },
+    {
+        "title": "Urban Heat Island Effect Reduction in Melbourne",
+        "name": "UHI_effect_reduction_use_case(Final)",
+        "description": "To ensure a comfortable pedestrian experience in Melbourne, it's crucial to understand the areas most affected by the Urban Heat Island (UHI) effect. Which intersections or pathways are most exposed to UHI? As a council, how can we design our road network and pedestrian paths to minimize this effect? Using the VicRoads traffic accident data, we can aggregate it with the pedestrian paths Melbourne open dataset to get insights.",
+        "tags": ["pedestrian", "Urban Heat Island", "climate adaptation", "pathways", "geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
+    },
+    {
+        "title": "Impact of High-Rise Buildings on Pedestrian Safety in Melbourne",
+        "name": "usecase-highriseimpact-part 1-final",
+        "description": "High-rise buildings can influence pedestrian safety in urban areas. As a council in Melbourne, we aim to understand which intersections are riskiest due to high-rise related factors. How do shadows, wind tunnels, or traffic patterns affected by these buildings impact pedestrian safety? We can utilize the VicRoads traffic accident data and correlate it with the pedestrian paths Melbourne open dataset for a comprehensive view.",
+        "tags": ["pedestrian", "high-rise impact", "urban design", "shadow effect", "geoJSON"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "sodapy",
+            "code": "python"
+        },{
+            "name": "pygeos",
+            "code": "python"
+
+        },{
+            "name": "mapclassify",
+            "code": "python"
+
+        },{
+            "name": "pyproj",
+            "code": "python"
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "pedestrian-network"
+        ]
+    },
+    {
+        "title": "Use case Live events and the effect on foot traffic and business",
+        "name": "use-case-live-events-and-the-effect-on-foot-traffic-and-business",
+        "description": "Tracking how live events effects foot tracking and concluding how this effects local business.",
+        "tags": [
+            "folium",
+            "maps",
+            "foot traffic",
+            "api",
+            "business",
+            "live events"
+        ],
+        "difficulty": "Intermediate",
+        "technology": [
+            {
+                "name": "folium",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "csv",
+                "code": "python"
+            },
+            {
+                "name": "requests",
+                "code": "python"
+            },
+            {
+                "name": "matplot",
+                "code": "python"
+            }  
+        ],
+        "datasets": [
+            "pedestrian counting system - past hour (counts per minute)",
+            "pedestrian counting system - monthly (counts per hour)",
+            "pedestrian counting system - sensor locations"
+        ]
+    },
+    {
+        "title": "flexible-return-to-office-options",
+        "name": "Flexible Return To Office Options",
+        "description": "The City Of Melbourne Council is looking for ideas to bring people back into the city post covid, es",
+        "tags": ["folium", "coworking spaces", "urban design", "colleagues", "maps"],
+        "difficulty": "Intermediate",
+        "technology": [
+            {
+                "name": "python",
+                "code": "python"
+            },
+            {
+                "name": "pandas",
+                "code": "python"
+            },
+            {
+                "name": "folium",
+                "code": "python"
+            },
+            {
+                "name": "json",
+                "code": "python"
+            },
+            {
+                "name": "iwidgets",
+                "code": "python"
+            }
+        ],
+        "datasets": [
+            "cafes-and-restaurants-with-seating-capacity",
+            "coworking-spaces",
+            "metro-train-stations-with-accessibility-information"
+        ]
+    },
+    {
+        "title": "Small Area Population Growth Active Transport",
+        "name": "small_area_population_growth_active_transport",
+        "description": "Identify key areas where active transportation routes could experience higher demand. ",
+        "tags": ["folium", "bikes", "population growth", "active transport", "transport"],
+        "difficulty": "Intermediate",
+        "technology": [{
+            "name": "pandas",
+            "code": "python"
+        },{
+            "name": "numpy",
+            "code": "python"
+        },{
+            "name": "matplotlib",
+            "code": "python"
+        },{
+            "name": "seaborn",
+            "code": "python"
+        },{
+            "name": "folium",
+            "code": "python"
+
+        },{
+            "name": "geopandas",
+            "code": "python"
+        }],
+        "datasets":[
+            "city-of-melbourne-population-forecasts-by-small-area-2020-2040"
+        ]
     }
-
-
-]
+  ]
