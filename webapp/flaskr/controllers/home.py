@@ -23,6 +23,10 @@ def faq():
 def contact():
     return render_template('home/contact.html', contact=True)
 
+@bp.route("/data", methods=('GET', 'POST'))
+def data():
+    return render_template('home/data.html', data=True)
+    
 
 @bp.route("/search/datasets")
 def datasets():
