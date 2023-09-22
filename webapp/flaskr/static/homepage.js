@@ -67,7 +67,7 @@ function showmoreUseCases() {
         updateBottomBorder(usecaseRowClass, 1);
 
         // Add the remaining use cases to the table
-        for (let i = usecaseRows; i < globalData.length - 1; i++) {
+        for (let i = usecaseRows; i < globalData.length; i++) {
             useCaseTable.innerHTML += createNewRowUsecase(globalData[i].title,globalData[i].difficulty,globalData[i].name);
         }
 
