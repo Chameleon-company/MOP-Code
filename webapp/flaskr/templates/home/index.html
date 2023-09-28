@@ -17,7 +17,7 @@
         }
 
         .navbar {
-            height: 6vh;
+            height: 7vh;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -28,7 +28,8 @@
 
         .navbar-links a {
             color: yellow;
-            text-decoration: none;/ transition: color 0.3s ease;
+            text-decoration: none;
+            transition: color 0.3s ease;
             margin: 0 15px;
             transition: color 0.3s ease;
         }
@@ -49,7 +50,7 @@
         }
 
         .content {
-            background-image: url('static/images/melbourne_skyline.jpg'); 
+            background-image: url('static/Landing_background.png'); 
             background-size: cover; 
             background-repeat: no-repeat; 
             background-position: center;
@@ -69,8 +70,8 @@
             border: 1px solid black;
             display: flex;
             align-items: center;
-            background-color: #fef3e6; /* 一个很浅的暖色 */
-            padding: 20px 0; /* 上下间隔 */
+            background-color: #fef3e6; 
+            padding: 20px 0; 
             position: relative;
             margin-top: 5px;
             margin-bottom: 5px;
@@ -85,22 +86,22 @@
 
         .testimonial-container {
             flex: 1;
-            overflow: hidden; /* 用于隐藏超出容器的部分 */
+            overflow: hidden; 
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 20px; 
-            width: 75%; /* 3个testimonial的宽度 */
+            width: 75%; 
         }
 
         .testimonial-wrapper {
             display: flex;
             transition: transform 0.5s;
-            width: 133.33%; /* 为了包含4个testimonials */
+            width: 133.33%; 
         }
 
         .testimonial {
-            flex: 0 0 25%; /* 占wrapper的四分之一 */
+            flex: 0 0 25%; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -121,7 +122,7 @@
             padding: 20px;
             background-color: #333;
             color: white;
-            height: 15vh;
+            height: 17vh;
         }
 
         .footer-logo {
@@ -154,15 +155,15 @@
 
         .social-media img {
             margin-left: 5px;
-            width: 50px; /* Adjust size as needed */
+            width: 50px; 
             height: 50px;
             height: auto;
         }
         .footer-contact {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center the contact info vertically */
-            justify-content: center; /* Center the contact info horizontally */
+            align-items: center; 
+            justify-content: center;
         }
     </style>
 </head>
@@ -175,12 +176,26 @@
             <p>Melbourne Open Data Project</p>
         </div>
         <div class="navbar-links">
-            <a href="index">Home</a>
-            <a href="#">Our Data</a>
-            <a href="faq">FAQ</a>
-            <a href="https://data.melbourne.vic.gov.au/pages/home/" target="_blank" rel="noopener noreferrer">City of Melbourne</a>
-            <a href="about">About</a>
-            <a href="contact">Contact</a>
+            <a class="navbar-item{% if index %} is-active{% endif %}" href="{{url_for('home.home')}}"
+                    target="_self">
+                    Home
+                </a>
+                <a class="navbar-item{% if about %} is-active{% endif %}" href="{{url_for('home.about')}}"
+                target="_self">
+                About
+            </a>
+            <a class="navbar-item{% if faq %} is-active{% endif %}" href="{{url_for('home.faq')}}"
+                target="_self">
+                FAQ
+            </a>
+            <a class="navbar-item{% if contact %} is-active{% endif %}" href="{{url_for('home.contact')}}"
+                target="_self">
+                Contact
+            </a>
+            <a class="navbar-item{% if contact %} is-active{% endif %}" href="{{url_for('home.data')}}"
+                target="_self">
+                Data
+            </a>
         </div>
     </div>
 
@@ -211,46 +226,46 @@
         <div class="testimonial-container">
             <div class="testimonial-wrapper">
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 1 textssssssssssss ssssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-boy-1.png" alt="Testimonial 1 Image">
+                    <p>It is a wonderful platform to learn about Melbourne. I liked them.</p>
+                    <p>Thank you!!</p>
+                    <p>Sam</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 2 textsssssss ssssssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-girl-1.png" alt="Testimonial 2 Image">
+                    <p>I found the data very reliable and informative. It helped me a lot for research purpose.</p>
+                    <p></p>
+                    <p>Sophie</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 3 textssssssssssss ssssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-boy-2.png" alt="Testimonial 3 Image">
+                    <p>As a student, these data saved my time for research for case study. </p>
+                    <p>Much appeciated!</p>
+                    <p>Sujan</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 4 textssssssssssssssssssss sssssssssssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-boy-3.jpeg" alt="Testimonial 4 Image">
+                    <p>I work with the Melbourne City Council and found your data very interesting.</p>
+                    <p></p>
+                    <p>Harry</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 4 textsss sssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-boy-4.png" alt="Testimonial 5 Image">
+                    <p>I'm a businessman and I got to know about proper business location from your website.</p>
+                    <p></p>
+                    <p>Marcus</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 4 textssssssssssssss sssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-girl-2.png" alt="Testimonial 6 Image">
+                    <p>As a newcomer to Melbourne your data will help a lot of people.</p>
+                    <p>Thanks</p>
+                    <p>Sally</p>
                 </div>
                 <div class="testimonial">
-                    <img src="static/MOP_logo.png" alt="Testimonial 1 Image">
-                    <p>Testimonial 4 textsssssssssss</p>
-                    <p>Testimonial 1 text</p>
-                    <p>Testimonial 1 text</p>
+                    <img src="static/testimonial-girl-3.png" alt="Testimonial 7 Image">
+                    <p>As a developer I can use your data for web development. Thank you!</p>
+                    <p></p>
+                    <p>Samikshya</p>
                 </div>
             </div>
         </div>
@@ -273,9 +288,9 @@
         <div class="social-media">
             <p>Find us on:</p>
             <div class="social-media-icons">
-                <img src="static/MOP_logo.png" alt="Facebook">
-                <img src="static/MOP_logo.png" alt="Instagram">
-                <img src="static/MOP_logo.png" alt="Twitter">
+                <img src="static/facebook-icon-logo.png" alt="Facebook">
+                <img src="static/instagram-icon-logo.png" alt="Instagram">
+                <img src="static/twitter-icon-logo.png" alt="Twitter">
             </div>
         </div>
     </div>
@@ -309,11 +324,15 @@
         }
     </script>
 
+
+
+
 </body>
 
 </html>
 
 
+<!--Below is old design raw code.-->
 <!--
 
 {% extends 'base.html' %}
