@@ -16,14 +16,19 @@ datascience/.ipynb_checkpoints
 datascience/__pycache__
 datascience/usecases/.env
 =======
+#Daniel
 
+/Playground/Daniel/.ipynb_checkpoints/
 ### Anj
+
 /Playground/Mick_Anj/.ipynb_checkpoints/*.ipynb
 /Playground/Mick_Anj/temp/*.csv
 datascience/dataanalysis/Other EDA/Pedestrian_Counting_System_Monthly_counts_per_hour_may_2009_to_14_dec_2022.csv
 
-### Daniel D'A
-/Playground/Daniel/.pyynb_)ipynb_checkpoints
+#Env
+env.txt
+env
+env.bak
 
 
 ### Steven
@@ -42,3 +47,5 @@ Playground/Steven/cred.py
 ### Jackson-Prathibha
 /Playground/Jackson-Prathibha/Urban_Greening_Wellbeing/*.py
 /Playground/Jackson-Prathibha/Urban_Greening_Wellbeing/__pycache__
+
+
