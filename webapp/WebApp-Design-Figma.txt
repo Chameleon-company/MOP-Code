@@ -1,0 +1,53 @@
+Name: Akshit Singh
+ID: 221071548
+
+Link for Figma design:
+https://www.figma.com/proto/ZI4HHwhPzAdKigq0SrJa4T/Chameleon-MOP?type=design&node-id=23-163&t=vWKa3O3b21phVBk7-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=23%3A163&mode=design
+
+Hello Everyone,
+ 
+I've outlined the roadmap for the design phase of our website in this text file. Firstly, I want to emphasize the purpose behind this design:
+It's meant to spotlight the incredible findings of our data science team. I'd like to clarify why we're opting for a web application over a conventional website. 
+Web applications empower users—they allow specific tasks, database interaction, data manipulation, and support more intricate functionalities.
+ 
+Outlined below are the essential features crucial for our web application, making it a valuable addition to the Melbourne Open Project, even with an 
+existing website in place.
+ 
+The Melbourne Open Project empowers our design teams in multiple ways: it provides extensive datasets for informed decisions, fosters collaboration 
+among stakeholders, inspires innovative design concepts, enables user-centric approaches, facilitates an iterative design process, and promotes
+transparency through community engagement.
+ 
+Here's an overview of the features our web application will incorporate:
+ 
+- Interactive Data Visualizations: Engaging graphs and visual representations for easy comprehension of our data findings.
+- Personalized User Experience: Tailoring content based on user behavior and preferences identified from data analysis.
+- Search and Filter Functionality: A robust search and filtering system to explore specific data or content.
+- Trend Analysis: Visual sections displaying trends and patterns derived from our data.
+- Recommendation Engine: A system suggesting related content based on user interaction and data analysis.
+- User Feedback Mechanism: Allowing users to provide feedback, enhancing our data insights.
+- Responsive Design: Ensuring accessibility across various devices for a wider audience.
+- Data Security Measures: Robust security to safeguard user data, especially sensitive information
+
+
+*Important*
+I have also finished the design of the landing page and shared the link below:
+
+Figma project link: 
+
+https://www.figma.com/proto/ZI4HHwhPzAdKigq0SrJa4T/Chameleon-MOP?type=design&node-id=23-163&t=vWKa3O3b21phVBk7-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=23%3A163&mode=design
+
+This design is crafted specifically for our web app's landing page. I've taken the features we discussed and brought them to life with buttons and widgets
+that showcase each one. I hope that this design helps the fellow design team members create their own pages in the same format as the sign-up and login pages,
+Data Visualisations page, Trend Analysis page, and a few other pages of Predictive modelling & forecasting, Search & Filter , Data cleaning & Integration, 
+Automated reporting system, Data-driven marketing strategy, About, FAQ and Contact us pages.
+
+
+
+
+
+
+
+
+
+
+
