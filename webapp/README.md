@@ -22,6 +22,46 @@ In order to setup your development environment and run the application locally p
 >- Step 4 : Initialise the conda environment by typing ```conda init```\
 > Read more about the issue [here](https://github.com/conda/conda/issues/8428)
 
+## Running and Building a Conda Dev Container in VS Code
+
+### Prerequisites
+
+1. **Docker Installation:**
+   Ensure that Docker is installed on your system, and the Docker daemon is running.
+
+2. **Install VS Code Extension:**
+   Install the "Dev Containers" extension for Visual Studio Code. You can find it in the Extensions view (Ctrl+Shift+X).
+
+
+### Getting the Dev Container Running
+
+1. **Open Project in VS Code:**
+   Open your project folder in Visual Studio Code.
+
+2. **Navigate to the Devcontainer File:**
+   Navigate to the `.devcontainer` folder within your project. If the folder does not exist, you may need to create it.
+
+3. **Trigger Rebuild and Run:**
+   - For macOS: Press `Cmd + Shift + P`.
+   - For Windows: Press `Ctrl + Shift + P`.
+   
+   In the command palette, type and select "Dev Containers: Rebuild and Run Container."
+
+4. **Monitor Container Status:**
+   Once the container is successfully built and running, you should see the name of the dev container in the bottom left corner of VS Code.
+
+## Additional Information
+
+- The "Dev Containers" extension allows you to develop inside a Docker container, providing a consistent and reproducible development environment.
+
+- The `.devcontainer` folder contains configuration files, such as `devcontainer.json` and `Dockerfile`, specifying the setup of your development container.
+
+- Customization of the dev container, including Conda environment setup, can be done in the `Dockerfile` and `environment.yml` files.
+
+- To stop or restart the dev container, you can use the options available in the bottom-left status bar of VS Code.
+
+This guide outlines the essential steps to set up and run a Conda dev container in Visual Studio Code, ensuring a seamless and isolated development environment for your project.
+
 ## Using Jupyter with new environment
 Jupyter Notebook and Jupyter Lab (an improved version of the notebook) are included in the environment. To run them:
 1. Switch to the environment using ```conda activate melbourne_playground_webapp```
