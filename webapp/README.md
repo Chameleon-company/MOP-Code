@@ -1,17 +1,26 @@
 # Melbourne Data Playground
 
-## Development
+## Web Development
+
 In order to setup your development environment and run the application locally please follow these steps:
-1. Open a Anaconda Prompt
+
+1. Open a Anaconda/miniconda Prompt
 2. Navigate to this webapp folder
 3. Type the following command: ```conda activate base```
-4. Type the following command: ```conda env create --file dev_environment.yml```
+4. Type the following command: ```conda env create --file dev_environment.yml``` or ```conda env create -f dev_environment.yml```
 5. Type the following command: ```conda activate melbourne_playground_webapp```
-5b. To fix an error I was receiving - Type the following command: ```conda update rtee```
-6. To run the app from command line type: ```flask run```
-7. Go to localhost:5000
+6. To run the app from command line type: ```flask run``` or go the run tab in visual studio code and select " Run without debugging ". 
+7. You should get a link in the terminal, follow the link to view the website on your local machine.
 
-> **NB!** If you get an error like '*Found conflicts! Looking for incompatible packages.*' and the environment fails to create, you may need to configure conda with the following command: ```conda config --set channel_priority flexible```
+> Known Issues
+> 1. If you get an error like '*Found conflicts! Looking for incompatible packages.*' and the environment fails to create, you may need to configure conda with the following command: ```conda config --set channel_priority flexible```
+> 2. To fix an error I was receiving - Type the following command: ```conda update rtee```
+> 3. QuickFix for conda environemnts not activating in powershell : 
+>- Step 1 : Run powershell as admin
+>- Step 2 : Change the execution policy by typing ```Set-ExecutionPolicy RemoteSigned```
+>- Step 3 : Restart powershell
+>- Step 4 : Initialise the conda environment by typing ```conda init```\
+> Read more about the issue [here](https://github.com/conda/conda/issues/8428)
 
 ## Using Jupyter with new environment
 Jupyter Notebook and Jupyter Lab (an improved version of the notebook) are included in the environment. To run them:
@@ -31,6 +40,9 @@ Jupyter Notebook and Jupyter Lab (an improved version of the notebook) are inclu
 > **NB!** When making changes to python dependencies make sure that you also update the requirements.txt file so that the web application has the dependencies that it needs to run in the docker container.
 
 ## Deployment
+
+> Currently the website is not being hosted in AWS, in the near future the website would be hosted in GCP
+
 This application takes a code first approach to defining the infrastructure to run the flask application.
 
 The template structure we use is that of [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/index.html).
