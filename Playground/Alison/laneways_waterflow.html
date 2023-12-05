@@ -14694,8 +14694,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<a href="https://data.melbourne.vic.gov.au/explore/dataset/laneways-with-greening-potential/export/">Laneways with Greening Potential</a>
-The City of Melbourne collected data analysing the best potential type of plantings in each of the city laneways; farm plantings, park species, vertically growing species and forest type species. In each laneway, the type of planting was given a categorical value of potential for types of planting: Highest, Good, Some or Lowest.
+<p><a href="https://data.melbourne.vic.gov.au/explore/dataset/laneways-with-greening-potential/export/">Laneways with Greening Potential</a></p>
+<ul>
+<li>The City of Melbourne collected data analysing the best potential type of plantings in each of the city laneways; farm plantings, park species, vertically growing species and forest type species. In each laneway, the type of planting was given a categorical value of potential for types of planting: Highest, Good, Some or Lowest.</li>
+</ul>
 
 </div>
 </div>
@@ -14707,9 +14709,10 @@ The City of Melbourne collected data analysing the best potential type of planti
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<a href="https://data.melbourne.vic.gov.au/explore/dataset/water-flow-routes-over-land-urban-forest/export/">Water flow routes over land (Urban Forest)</a>
-Data was collected in 2008 using an ESRI Spatial Analyst stream order tool to determine loctions of water flow over surface. Each location of water flow has the stream order indicated in the stream flow value column. Higher values in this field mean that water is fed into this area with water from other laneways and roads.
-
+<p><a href="https://data.melbourne.vic.gov.au/explore/dataset/water-flow-routes-over-land-urban-forest/export/">Water flow routes over land (Urban Forest)</a></p>
+<ul>
+<li>Data was collected in 2008 using an ESRI Spatial Analyst stream order tool to determine loctions of water flow over surface. Each location of water flow has the stream order indicated in the stream flow value column. Higher values in this field mean that water is fed into this area with water from other laneways and roads. </li>
+</ul>
 
 </div>
 </div>
@@ -15934,12 +15937,204 @@ class="
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Stream flow value 4:</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Search and print list of laneways at different</span>
+<span class="c1"># Set the stream_level value - string between 1 and 4</span>
+<span class="n">stream_level</span> <span class="o">=</span> <span class="s1">'4'</span> 
+<span class="c1"># Filter by the rows that have the stream flow level set</span>
+<span class="n">specific_gdf</span> <span class="o">=</span> <span class="n">joined_gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">joined_gdf</span><span class="p">[</span><span class="s1">'stream_flow_level'</span><span class="p">]</span> <span class="o">==</span> <span class="n">stream_level</span><span class="p">]</span>
+<span class="c1"># Print the table with filter applied</span>
+<span class="n">specific_gdf</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stream_flow_level</th>
+      <th>geometry</th>
+      <th>location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>48</th>
+      <td>4</td>
+      <td>POINT (144.96447 -37.81777)</td>
+      <td>Cl0496</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Stream flow value 3:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Search and print list of laneways at different</span>
+<span class="c1"># Set the stream_level value - string between 1 and 4</span>
+<span class="n">stream_level</span> <span class="o">=</span> <span class="s1">'3'</span> 
+<span class="c1"># Filter by the rows that have the stream flow level set</span>
+<span class="n">specific_gdf</span> <span class="o">=</span> <span class="n">joined_gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">joined_gdf</span><span class="p">[</span><span class="s1">'stream_flow_level'</span><span class="p">]</span> <span class="o">==</span> <span class="n">stream_level</span><span class="p">]</span>
+<span class="c1"># Print the table with filter applied</span>
+<span class="n">specific_gdf</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[26]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stream_flow_level</th>
+      <th>geometry</th>
+      <th>location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>53</th>
+      <td>3</td>
+      <td>POINT (144.95548 -37.81488)</td>
+      <td>Brown Alley</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Stream flow value 2:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Search and print list of laneways at different</span>
@@ -15966,7 +16161,7 @@ class="
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
 
 
 
@@ -16141,7 +16336,7 @@ Local Flood Guide - Flash Flood information for Melbourne CBD</a>. City of Melbo
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="w"> </span>html<span class="w"> </span>laneways_waterflow.ipynb
@@ -16167,7 +16362,7 @@ Local Flood Guide - Flash Flood information for Melbourne CBD</a>. City of Melbo
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>[NbConvertApp] Converting notebook laneways_waterflow.ipynb to html
-[NbConvertApp] Writing 2092439 bytes to laneways_waterflow.html
+[NbConvertApp] Writing 2092517 bytes to laneways_waterflow.html
 </pre>
 </div>
 </div>
