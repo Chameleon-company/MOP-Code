@@ -1,5 +1,5 @@
 # How to navigate and use the Chameleon MOP Repository for the Datascience team
-Written Trimester 2, September 2023
+Written Trimester 3, Dec 2023
 
 If you are new to the Capstone project or new to the datascience team, please read the entire document.
 
@@ -38,6 +38,8 @@ Navigate to MOP-Code > datascience > usecases
 If you have completed a new use case, you will need to place it in the folder named READY TO PUBLISH. The team leaders should create a folder named eg: T3 2023 and your can place your work in there. 
 
 If you have completed repointing an old use case you must place it in the folder named REWORK COMPLETED. 
+
+For the completed cases, we need three files: .html, .json, .jpynb. HTML is output from the jpynb file. Please refer to usecases/Output_html_file. The JSON file can be created by vscode. Please refer to the completed cases in READY TO PUBLISH. Please name these three files with the same name and put them in a folder with the same name.
 
 If you have any unfinished work or are a junior planning to continue with your work next trimester, place it in the folder named PLAYGROUND. This is the folder that holds all unfinished work. At the start
 of the trimester if you would like to pick up someone's work you can find unfinished work in this folder. Please make sure that the work doesn't belong to anyone else in the team first, such as a junior coming
