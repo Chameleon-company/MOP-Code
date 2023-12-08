@@ -199,10 +199,7 @@ env.bak/
 venv.bak/
 
 
-#Daniel
-/Playground/Daniel/env
-/Playground/Daniel/.ipynb_checkpoints
-/Playground/Daniel/env.txt
+
 # Spyder project settings
 .spyderproject
 .spyproject
