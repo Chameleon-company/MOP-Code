@@ -16,11 +16,24 @@ datascience/.ipynb_checkpoints
 datascience/__pycache__
 datascience/usecases/.env
 =======
+#Daniel
+
+/Playground/Daniel/.ipynb_checkpoints/*.ipynb
+
 
 ### Anj
+
 /Playground/Mick_Anj/.ipynb_checkpoints/*.ipynb
 /Playground/Mick_Anj/temp/*.csv
 datascience/dataanalysis/Other EDA/Pedestrian_Counting_System_Monthly_counts_per_hour_may_2009_to_14_dec_2022.csv
+
+#Env
+env.txt
+env
+env.bak
+envG.txt
+*.ipynb_checkpoints/
+
 
 
 ### Steven
