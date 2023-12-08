@@ -1,0 +1,61 @@
+# DELETE BEFORE PUBLISHING
+# This is just here so you can preview the styling on your local machine
+
+from IPython.core.display import HTML
+HTML("""
+<style>
+.usecase-title, .usecase-duration, .usecase-section-header {
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 15px;
+    background-color: #0f9295;
+    color: #fff;
+}
+
+.usecase-title {
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.usecase-authors, .usecase-level, .usecase-skill {
+    padding-left: 15px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background-color: #baeaeb;
+    font-size: 1.4em;
+    color: #121212;
+}
+
+.usecase-level-skill  {
+    display: flex;
+}
+
+.usecase-level, .usecase-skill {
+    width: 50%;
+}
+
+.usecase-duration, .usecase-skill {
+    text-align: right;
+    padding-right: 15px;
+    padding-bottom: 8px;
+    font-size: 1.4em;
+}
+
+.usecase-section-header {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.usecase-subsection-header, .usecase-subsection-blurb {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #121212;
+}
+
+.usecase-subsection-blurb {
+    font-size: 1em;
+    font-style: italic;
+}
+</style>
+""")
