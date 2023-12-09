@@ -10,7 +10,7 @@
         "visualization",
         "data processing"
     ],
-    "difficultly": "intermediate",
+    "difficultly": "Beginner",
     "technology": [{
         "name": "geopandas",
         "code": "python"
