@@ -11,8 +11,12 @@ ENV PYTHONUNBUFFERED True
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY . ./
+COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+EXPOSE 80
+EXPOSE 5000
+# CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+
+ENTRYPOINT ["flask", "run"]
