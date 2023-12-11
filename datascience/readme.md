@@ -27,7 +27,7 @@ and then merge your request.
 
 #### Note!
 Other people are committing to the repo too. If your branch is behind commits to master, you must rebase your branch first to avoid conflicts. ALWAYS do this before you push your commits to master. 
-To do this, click on the link where it says "you are x commits behind" and then create a pull request to merge those commits from master into your own branch. After you do this, you can then push to master.
+To do this, click on the link where it says "you are x commits behind" and then create a pull request to merge those commits from master into your own branch. After you do this, you can then push to master. You can also use GitHub Desktop, it has a "update from master" under Branch menu.
 
 ## At the end of the trimester
 
