@@ -123,7 +123,7 @@ const Dashboard = () => {
                         <p style={dashboardStyles.textLine1Style}>MELBOURNE</p>
                         <p style={dashboardStyles.textLine2Style}>OPEN DATA</p>
                         <p style={dashboardStyles.textLine3Style}> PROJECT</p>
-                        <p style={dashboardStyles.textLine4Style}>Unlocking Melbourne's Potential through Open Data Innovation.</p>
+                        <p style={dashboardStyles.textLine4Style}>Unlocking Melbourne&apos;s Potential through Open Data Innovation.</p>
                     </div>
                 </div>
             </div>
