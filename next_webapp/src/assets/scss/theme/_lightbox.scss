@@ -1,0 +1,113 @@
+//----------------------------------------------------------//
+//	LIGHTBOX
+//----------------------------------------------------------//
+.goverlay {
+  background: $lightbox-bg;
+}
+.glightbox-mobile .goverlay {
+  background: $lightbox-bg;
+}
+.glightbox-clean {
+  .gclose, 
+  .gnext, 
+  .gprev {
+    border: 0;
+    background: $lightbox-icon-bg;
+    color: $lightbox-icon-color;
+    @include font-size(1.2rem);
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    border-radius: 100%;
+    margin-top: 0;
+    padding: 0;
+    box-shadow: none;
+    transition: background 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gprev,
+  .gnext {
+    &:before {
+      font-family: $font-family-unicons;
+    }
+    &:hover {
+      background: $lightbox-icon-hover-bg;
+    }
+    &:after {
+      display: none;
+    }
+  }
+  .gclose {
+    top: 0.75rem;
+    right: 0.75rem;
+    &:hover {
+      background: $lightbox-icon-hover-bg;
+    }
+    &:after {
+      font-family: $font-family-unicons;
+      content: $icon-close;
+    }
+  }
+  .gprev {
+    left: 0.75rem;
+    &:before {
+      content: $icon-prev;
+    }
+  }
+  .gnext {
+    right: 0.75rem;
+    &:before {
+      content: $icon-next;
+    }
+  }
+  .gprev svg,
+  .gnext svg,
+  .gclose svg {
+    display: none;
+  }
+  .gprev.disabled,
+  .gnext.disabled,
+  .gclose.disabled {
+    display: none;
+  }
+  .gslide-media {
+    box-shadow: none;
+  }
+  .gslide-description {
+    background: none;
+  }
+  .gdesc-inner {
+    padding: 1rem 0 1rem 0;
+    text-align: center;
+    .gslide-title {
+      margin: 0;
+    }
+    .gslide-title + .gslide-desc {
+      margin-top: 0.3rem;
+    }
+    .gslide-title,
+    .gslide-desc {
+      color: $white;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .glightbox-clean {
+    .gprev,
+    .gnext {
+      transform: translateY(-50%);
+      top: 50%;
+    }
+  }
+}
+.gbtn.focused {
+  outline: none;
+}
+.gvideo .plyr {
+  border-radius: 0 !important;
+}
+.gslide-image img {
+  max-height: 100vh;
+}
