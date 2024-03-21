@@ -1,0 +1,42 @@
+{
+    "title": "laneways_endemic_species",
+    "name": "Laneways Endemic Species",
+    "description": "This use case is intended to find the best native species to plant in each laneway.",
+    "tags": [
+        "liveability",
+        "growth",
+        "environment"
+    ],
+    "difficultly": "Beginner",
+    "technology": [
+        {
+            "name": "json",
+            "code": "python"
+        },
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "webbrowser",
+            "code": "python"
+        },
+        {
+            "name": "requests",
+            "code": "python"
+        },
+        {
+            "name": "pyplot",
+            "code": "python"
+        },
+        {
+            "name": "tkinter",
+            "code": "python"
+        }
+
+    ],
+    "datasets": [
+        "pre-colonial-plant-list",
+        "laneways-with-greening-potential"
+    ]
+}
