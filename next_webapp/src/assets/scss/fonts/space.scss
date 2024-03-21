@@ -1,0 +1,137 @@
+// Font Import
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@1,300;1,400;1,500;1,600;1,700');
+@import "../../fonts/space/space.css";
+
+// Bootstrap Configuration
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
+// Font Variables
+$font-family-base: 'Space Grotesk', sans-serif;
+$font-family-serif: 'IBM Plex Serif', serif;
+$font-size-base: 0.85rem;
+$headings-font-weight: 600;
+$font-weight-base: 400;
+$btn-padding-top: 0.55rem;
+$btn-padding-bottom: 0.45rem;
+$btn-padding-top-sm: 0.45rem;
+$btn-padding-bottom-sm: 0.35rem;
+$btn-padding-top-lg: 0.7rem;
+$btn-padding-bottom-lg: 0.6rem;
+
+// Font Specific Settings
+* {
+  word-spacing: normal !important;
+}
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+}
+em {
+  font-family: $font-family-serif;
+}
+body,
+.lead,
+blockquote,
+.counter-wrapper p,
+.nav-tabs.nav-tabs-bg .nav-link p {
+  font-weight: $font-weight-base;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.nav-link,
+.dropdown-item,
+.btn,
+.btn.btn-circle .number,
+.badge,
+.accordion-wrapper .card-header button,
+.collapse-link,
+.more,
+.meta,
+.post-category,
+.filter:not(.basic-filter),
+.filter:not(.basic-filter) ul li a {
+  font-weight: $headings-font-weight;
+}
+.nav-link,
+.dropdown-item,
+.btn
+.more {
+  letter-spacing: normal;
+}
+.btn,
+.navbar .btn-sm,
+.nav-link,
+.nav-link p,
+.lg-sub-html p {
+  @include font-size($font-size-base);
+}
+.dropdown-menu {
+  @include font-size($font-size-base - 0.05);
+}
+.share-dropdown .dropdown-menu .dropdown-item,
+.btn-sm,
+.btn-group-sm>.btn,
+.post-meta {
+  @include font-size($font-size-base - 0.1);
+}
+.nav-tabs .nav-link,
+.accordion-wrapper .card-header button,
+.collapse-link {
+  @include font-size($font-size-base + 0.05 !important);
+}
+.btn {
+  padding-top: $btn-padding-top;
+  padding-bottom: $btn-padding-bottom;
+}
+.btn-group-sm>.btn, .btn-sm {
+  padding-top: $btn-padding-top-sm;
+  padding-bottom: $btn-padding-bottom-sm;
+}
+.btn-group-lg>.btn, .btn-lg {
+  padding-top: $btn-padding-top-lg;
+  padding-bottom: $btn-padding-bottom-lg;
+}
+blockquote.icon:before {
+  top: -0.9rem;
+}
+.counter-wrapper {
+  p {
+    @include font-size($font-size-base);
+  }
+  .counter {
+    @include font-size(2.05rem);
+    &.counter-lg {
+      @include font-size(2.25rem)
+    }
+  }
+}
+.lead {
+  @include font-size(0.95rem);
+  line-height: 1.6;
+}
+.lead.fs-lg {
+  line-height: 1.55;
+}
+.display-1 {
+  line-height: 1.15
+}
+.display-2 {
+  line-height: 1.2
+}
+.display-3 {
+  line-height: 1.2
+}
+.display-4 {
+  line-height: 1.25
+}
+.display-5 {
+  line-height: 1.25
+}
+.display-6 {
+  line-height: 1.3
+}
