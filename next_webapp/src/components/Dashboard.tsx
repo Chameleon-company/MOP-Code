@@ -1,11 +1,4 @@
 import  Link from "next/link";
-import dashboardIcon from '/img/header-logo.png';
-import dashboardBackground from '../img/dashboard-background.png';
-import aboutIcon from '../img/about-icon.png';
-import caseIcon from '../img/case-icon.png';
-import resourceIcon from '../img/resource-icon.png';
-import dataIcon from '../img/data-icon.png';
-import contactIcon from '../img/contact-icon.png';
 
 const dashboardStyles = {
     dashboardContainer: {
