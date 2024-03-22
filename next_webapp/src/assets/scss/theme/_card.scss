@@ -1,0 +1,128 @@
+//----------------------------------------------------------//
+//	CARD
+//----------------------------------------------------------//
+.card {
+  box-shadow: $box-shadow-with-border;
+  border: 0;
+  &[class*="bg-"] {
+    box-shadow: none !important;
+  }
+}
+.card-img-top img {
+  border-top-left-radius: $card-inner-border-radius;
+  border-top-right-radius: $card-inner-border-radius;
+}
+.card-img-top .plyr {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+@media (max-width: 991.98px) {
+  .card-md-none {
+    background: none;
+    border-radius: 0;
+    .card-body {
+      padding: 0;
+    }
+  }
+}
+[class*="card-border-"] {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+  }
+}
+.card-border-top {
+  &:after {
+    top: 0;
+    right: 0;
+    left: 0;
+    border-top-width: $border-width * 4;
+    border-bottom-width: calc(#{$card-border-radius} - #{$border-width * 4});
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-color: inherit;
+    border-bottom-color: transparent;
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
+  }
+  &[class*="border-soft-"]:after {
+    border-top-width: $border-width * 6;
+    border-bottom-width: calc(#{$card-border-radius} - #{$border-width * 6});
+  }
+}
+  
+.card-border-bottom {
+  &:after {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-bottom-width: $border-width * 4;
+    border-top-width: calc(#{$card-border-radius} - #{$border-width * 4});
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-bottom-color: inherit;
+    border-top-color: transparent;
+    border-bottom-left-radius: $card-border-radius;
+    border-bottom-right-radius: $card-border-radius;
+  }
+  &[class*="border-soft-"]:after {
+    border-bottom-width: $border-width * 6;
+    border-top-width: calc(#{$card-border-radius} - #{$border-width * 6});
+  }
+}
+.card-border-start {
+  &:after {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-left-width: $border-width * 4;
+    border-right-width: calc(#{$card-border-radius} - #{$border-width * 4});
+    border-left-style: solid;
+    border-right-style: solid;
+    border-left-color: inherit;
+    border-right-color: transparent;
+    border-top-left-radius: $card-border-radius;
+    border-bottom-left-radius: $card-border-radius;
+  }
+  &[class*="border-soft-"]:after {
+    border-left-width: $border-width * 6;
+    border-right-width: calc(#{$card-border-radius} - #{$border-width * 6});
+  }
+}
+.card-border-end {
+  &:after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-right-width: $border-width * 4;
+    border-left-width: calc(#{$card-border-radius} - #{$border-width * 4});
+    border-right-style: solid;
+    border-left-style: solid;
+    border-right-color: inherit;
+    border-left-color: transparent;
+    border-top-right-radius: $card-border-radius;
+    border-bottom-right-radius: $card-border-radius;
+  }
+  &[class*="border-soft-"]:after {
+    border-right-width: $border-width * 6;
+    border-left-width: calc(#{$card-border-radius} - #{$border-width * 6});
+  }
+}
+//----------------------------------------------------------//
+//	CARD CONTAINER
+//----------------------------------------------------------//
+.container-card > .card,
+.container-card > .card.image-wrapper:before {
+  border-radius: 0 !important;
+}
+@media (min-width: 1480px) {
+  .container-card {
+    max-width: 1470px;
+    margin: 0 auto;
+    > .card,
+    > .card.image-wrapper:before {
+      border-radius: $border-radius-xl !important;
+    }
+  }
+}
