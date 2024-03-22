@@ -1,0 +1,79 @@
+//----------------------------------------------------------//
+//	PLYR
+//----------------------------------------------------------//
+video.player {
+  max-width: 100%;
+}
+.plyr {
+  border-radius: $border-radius;
+  position: relative;
+  z-index: 2;
+}
+.plyr__control--overlaid {
+  border: 0;
+  padding: 1.25rem;
+  background: $white;
+  box-shadow: $box-shadow;
+  color: $main-dark;
+  opacity: 1;
+  &:focus,
+  &:hover {
+    background: $white !important;
+    color: $main-color !important;
+    box-shadow: $box-shadow;
+    @include transition($link-transition);
+  }
+}
+.plyr--video .plyr__controls {
+  background: linear-gradient(transparent, rgba($gray-900, 0.2));
+  .plyr__control {
+    &.plyr__tab-focus,
+    &:hover,
+    &[aria-expanded="true"] {
+      background: $main-color;
+    }
+  }
+}
+.plyr--full-ui input[type="range"] {
+  color: $main-color;
+}
+.plyr__control--overlaid::before,
+.plyr__control--overlaid::after,
+.btn-circle.ripple::before,
+.btn-circle.ripple::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  background: $white;
+  opacity: 0.8;
+  animation: ripple-1 2s infinite ease-in-out;
+  z-index: -1;
+}
+.plyr__control--overlaid::after,
+.btn-circle.ripple::after {
+  opacity: 0.6;
+  animation: ripple-2 2s infinite ease-in-out;
+  animation-delay: 0.5s;
+}
+@each $color,
+$value in map-merge($button-colors,
+  ("gray": $gray-400,
+    "dark": $main-dark,
+  )) {
+  .btn-#{$color}.btn-circle.ripple::before,
+  .btn-#{$color}.btn-circle.ripple::after {
+    background: $value;
+  }
+}
+@each $color,
+$value in $button-soft-colors {
+  .btn-soft-#{$color}.btn-circle.ripple::before,
+  .btn-soft-#{$color}.btn-circle.ripple::after {
+    background-color: tint-color($value, $bg-pale-level);
+  }
+}
