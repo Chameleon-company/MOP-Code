@@ -27,7 +27,7 @@ const CaseStudies = () => {
 <main>
 <div className="app">
 <section className="intro max-w-3/4 mx-auto bg-green-800 text-white p-4 rounded-lg">
-<p><span className="text-4xl">Chameleon Melbourne Open Data</span> - <span className="text-xl font-bold">We unveil the intricate tapestry of data science's transformative impact across diverse sectors. Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne's open data. These narratives illuminate innovative solutions, empowering informed decision-making, and driving progress within our city's dynamic landscape.</span></p>
+<p><span className="text-4xl">Chameleon Melbourne Open Data</span> - <span className="text-xl font-bold">We unveil the intricate tapestry of data science&apos;s transformative impact across diverse sectors. Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne&apos;s open data. These narratives illuminate innovative solutions, empowering informed decision-making, and driving progress within our city&apos;s dynamic landscape.</span></p>
 </section>
 <section className="recent-work">
 <h2 className="text-2xl">Recent Work</h2>
@@ -55,7 +55,7 @@ const CaseStudies = () => {
 </div>
          )}
 <section className="outro max-w-3/4 mx-auto bg-green-800 text-white p-4 rounded-lg">
-<p className="text-2xl font-bold">"Chameleon Melbourne Open Data stands as a testament to the profound possibilities unlocked by leveraging Melbourne's open data resources. From revolutionizing biotech insights to optimizing oil and gas supply chains and redefining educational strategies, these case studies highlight the integral role of data science in shaping a progressive future. Join us in exploring the boundless opportunities and transformative potential embedded within Melbourne's rich repository of open data."</p>
+<p className="text-2xl font-bold">&quot;Chameleon Melbourne Open Data stands as a testament to the profound possibilities unlocked by leveraging Melbourne&apos;s open data resources. From revolutionizing biotech insights to optimizing oil and gas supply chains and redefining educational strategies, these case studies highlight the integral role of data science in shaping a progressive future. Join us in exploring the boundless opportunities and transformative potential embedded within Melbourne&apos;s rich repository of open data.&quot;</p>
 </section>
 </div>
 </main>
