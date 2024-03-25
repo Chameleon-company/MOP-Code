@@ -1,6 +1,6 @@
 .main-content {
     position: relative;
-    background-image: url('src/assets/aboutpic2.jpg');
+    background-image: url('/img/aboutpic2.jpg');
     background-size: cover;
     background-position: center;
     height: 90vh;
