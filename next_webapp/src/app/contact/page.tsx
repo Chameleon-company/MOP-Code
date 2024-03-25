@@ -16,7 +16,7 @@ const Contact = () => {
       <div className="column">
         <form id="contact" action="" method="post">
           <h3>Contact with our team </h3>
-          <h4>Your Ideas, Our Data, Melbourne&aposs Future</h4>
+          <h4>Your Ideas, Our Data, Melbourne&apos;s Future</h4>
           <fieldset>
             <input
               placeholder="First name"
