@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function addTopic() {
+export default function AddTopic() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
