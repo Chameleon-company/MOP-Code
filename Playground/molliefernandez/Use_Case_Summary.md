@@ -28,7 +28,16 @@ Names of all use cases, location in GitHub and description of data collection me
 | Laneways Waterflow | Ready to Publish T3 2023 | `requests.get()` | Alison Collins | |
 | Projected Venue Growth | Ready to Publish T3 2023 | `requests.get()` | Daniel D'Amore | |
 
-#### Update Needed
+#### T1 2024
+|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
+| :-: | :-: | :-: | :-: | :-:|
+| Live Music Event Planning | T1 2024 | `requests.get()` | Mollie Fernandez | |
+| Ideal Green Roof Locations: Melbourne | T1 2024 | `requests.get()` | Hannah Smith and Ryan Waites | Updated by Mollie Fernandez |
+| Melbourne Bicycle Network Routes and Road Safety: Part 1 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
+| Melbourne Bicycle Network Routes and Road Safety: Part 2 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
+| Melbourne Pedestrian Network Routes and Road Safety | T1 2024 | `requests.get()` | Bree McLennan and Jack Pham | Updated by Mollie Fernandez |
+
+### Update Needed
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
 | :-: | :-: | :-: | :-: | :-:|
 | High-rise Building and Public Transport | Ready to Publish T1 2023 | `pd.read_csv` | Jack Pham and Basilia Carmel Sethu | Trello Card Updated |
@@ -50,20 +59,12 @@ Names of all use cases, location in GitHub and description of data collection me
 | Pedestrian Foot Traffic Business Case | Rework Completed | `requests.get()` | | |
 | Spot parking problems | Rework Completed | `pd.read_csv()` | | Also in Published. Trello Card Created |
 
-#### T1 2024
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Live Music Event Planning | T1 2024 | `requests.get()` | Mollie Fernandez | |
-| Ideal Green Roof Locations: Melbourne | T1 2024 | `requests.get()` | Hannah Smith and Ryan Waites | Updated by Mollie Fernandez |
-| Melbourne Bicycle Network Routes and Road Safety: Part 1 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
-| Melbourne Bicycle Network Routes and Road Safety: Part 2 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
-| Melbourne Pedestrian Network Routes and Road Safety | T1 2024 | `requests.get()` | Bree McLennan and Jack Pham | Updated by Mollie Fernandez |
-
-#### Retired
+### Retired
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
 | :-: | :-: | :-: | :-: | :-:|
 | Melbourne Pedestrian Network Routes and Road Safety: Part 2 | Published | Socrata "SODAPY_APPTOKEN" | Trello Card Created |
 
+### Currently In Progress
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
 | :-: | :-: | :-: | :-: | :-:|
 | Business Energy Consumption | In Progress | `requests.get()` | |
