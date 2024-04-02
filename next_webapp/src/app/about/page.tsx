@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import '../../../public/styles/about.css';
 
-const About = () => {
+const About  = () => {
   return (
     <div>
       <Header />
