@@ -65,7 +65,7 @@ Names of all use cases, location in GitHub and description of data collection me
 ### Retired
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
 | :-: | :-: | :-: | :-: | :-:|
-| Melbourne Pedestrian Network Routes and Road Safety: Part 2 | Published | Socrata "SODAPY_APPTOKEN" | Trello Card Created |
+| Melbourne Pedestrian Network Routes and Road Safety: Part 2 | RETIRED | `requests.get()`| Bree McLennan | External Dependency couldn't be found |
 
 ### Currently In Progress
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
@@ -91,3 +91,8 @@ Names of all use cases, location in GitHub and description of data collection me
 | Guides | In Progress | `requests.get()` | | |
 | Mental Wellbeing | In Progress | `requests.get()` | | |
 | Water Flow Rates and Trees | In Progress | `requests.get()` | | |
+| Apply Predictive Learning for On-street Parking Availability | In Progress | requests.get()  | | |
+| On-street Parking Bay Sensors Analysis | In Progress | requests.get()  | | |
+| Biodiversity in Melbourne's Parks | In Progress | requests.get()  | | |
+| Bird Culture Analysis | In Progress | requests.get()  | | |
+| Jobs Forecasting and Current Industry Jobs In Melbourne | In Progress | requests.get()  | | |
