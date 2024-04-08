@@ -66,7 +66,7 @@ const Header = () => {
                     Datasets
                   </Link>
                 </li>
-                {/* <SearchBar /> */}
+                <SearchBar />
               </ul>
             </div>
           </div>
