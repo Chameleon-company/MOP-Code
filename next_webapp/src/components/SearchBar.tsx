@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import "../../public/styles/Searchbar.css";
-// import searchIcon from "../assets/search.png";
+import "/public/styles/Searchbar.css";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,7 +28,7 @@ const SearchBar = () => {
         onChange={handleSearchInputChange}
       />
       <button className="search-button" type="submit">
-        <img src={searchIcon} alt="Search Icon" onClick={handleSearch} />
+        <img src="/img/search.png" alt="Search Icon" onClick={handleSearch} />
       </button>
     </form>
   );
