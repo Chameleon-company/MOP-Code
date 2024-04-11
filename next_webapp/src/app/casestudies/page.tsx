@@ -13,7 +13,7 @@ const CaseStudies = () => {
  const caseStudies = [
    { id: 1, image: '/img/one.png', title: 'Case Study 1', details: 'Through the lens of Melbourne open data, data science in biotech unveils a fascinating narrative, bridging innovative advancements in biotechnology with rich, publicly accessible datasets, illuminating novel possibilities and solutions within the realm of health sciences and biotech innovation' },
    { id: 2, image: '/img/two.png', title: 'Case Study 2', details: 'Within the domain of predictive modeling for sustaining oil and gas supply chains, leveraging Melbournes open data enriches the analysis, offering a diverse perspective that enhances forecasting accuracy, operational efficiency, and informed decision-making within this critical sector.' },
-   { id: 3, image: '/img/three.png', title: 'Case Study 3', details: 'Delving into the realm of education through data science, the utilization of Melbourne open data becomes a catalyst for transformative insights and informed strategies, fostering innovation and enhancing educational practices within the city dynamic learning landscape.' },
+   { id: 3, image: '/img/three.png', title: 'Case Study 3', details: 'Delvings into the realm of education through data science, the utilization of Melbourne open data becomes a catalyst for transformative insights and informed strategies, fostering innovation and enhancing educational practices within the city dynamic learning landscape.' },
  ];
  useEffect(() => {
    setImages(caseStudies);
