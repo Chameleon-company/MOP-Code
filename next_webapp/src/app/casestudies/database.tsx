@@ -1,6 +1,6 @@
 const caseStudies = [
-    { id: 1, title: 'Case Study 1', content: 'Content for Case Study 1...', group: 'Internet'},
-    { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', group: 'Internet'},
+    { id: 1, title: 'Case Study 1', content: 'Content for Case Study 1...', group: 'Internet', caseUrl: "http://localhost:3000/api?filename=Childcare_Facilities_Analysis"},
+    { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', group: 'Internet', caseUrl: "http://localhost:3000/api?filename=Projected_Music_venue_growth"},
     // Existing case studies
     { id: 3, title: 'Case Study 3', content: 'Content for Case Study 3...', group: 'Internet' },
     { id: 4, title: 'Case Study 4', content: 'Content for Case Study 4...', group: 'Internet' },
