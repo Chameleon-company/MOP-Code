@@ -7,7 +7,7 @@ const Privacypolicy = () => {
     <div>
       <Header />
       <main>
-      <div className="h-[70rem] px-[15rem] content-center font-sans-serif bg-white">
+      <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
         <h1 className="pl-[5rem] p-8 font-semibold font-medium text-[90px]"> Privacy Policy </h1>
         <section className="  md:flex md:flex-row">
           <div className=" pl-[5rem] pt-[8rem] pr-[8rem]  justify-self-auto md:w-1/2">
@@ -64,7 +64,7 @@ const Privacypolicy = () => {
                 </div>
             </div>
         </section>
-          <div className="mt-[4rem] p-[3rem] ml-[28rem] ">
+          <div className="mt-[4rem] p-[3rem] ml-[36rem] ">
               <p >By using the Melbourne Open Data Playground, you agree to the terms outlined in this privacy policy. Policy was last updated on 8 Dec 2023.
               </p>
           </div>
