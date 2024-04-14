@@ -1,0 +1,119 @@
+.upload-body {
+    background-color: #d8d8d8;
+    margin: 0%;
+    font-family: "Montserrat", sans-serif;
+}
+
+.upload-body h1,
+h2,
+label {
+    font-weight: 400;
+}
+
+.upload-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    width: auto;
+}
+
+.upload-header-left {
+    padding-left: 5rem;
+    margin-right: 1rem;
+}
+
+.upload-header-right {
+    padding-right: 5rem;
+    margin-left: 1rem;
+}
+
+.upload-header-right select {
+    font-size: 1rem;
+}
+
+.upload-container {
+    width: 50%;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 6rem 6rem;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container .column {
+    width: 45%;
+}
+
+.form-container .column input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    /* Adding border-radius for slightly rounded corners */
+    border: 1px solid #ccc;
+    /* Adding border for better visibility */
+    font-size: small;
+    opacity: 50%;
+}
+
+.form-container .column label {
+    font-size: small;
+}
+
+.green-box {
+    width: 45rem;
+    height: 25rem;
+    background-color: #d7ecd8;
+    /* Green color */
+    border-radius: 5rem;
+    /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-icon {
+    width: 80px;
+    height: 80px;
+    fill: white;
+    /* Icon color */
+}
+
+.file-upload {
+    text-align: center;
+}
+
+.file-upload-label {
+    display: block;
+    background-color: #65c265;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.upload-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #45a049;
+}
