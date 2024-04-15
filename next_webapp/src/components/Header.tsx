@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 const Header = () => {
   return (
@@ -13,39 +12,59 @@ const Header = () => {
               </a>
               <ul className="flex justify-evenly ml-8">
                 <li className="inline-block">
-                  <Link
+                  <a
                     href="/"
                     className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 ml-3 text-lg"
                     aria-current="page"
                   >
                     Home
-                  </Link>
+                  </a>
                 </li>
                 <li className="inline-block">
-                  <Link
+                  <a
                     href="/about"
                     className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 text-lg"
                   >
-                    about us
-                  </Link>
+                    About Us
+                  </a>
                 </li>
                 <li className="inline-block">
-                  <Link
+                  <a
                     href="/casestudies"
                     className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 text-lg"
                   >
                     Case Studies
-                  </Link>
+                  </a>
                 </li>
                 <li className="inline-block">
-                  <Link
+                  <a
+                    href="/statistics"
+                    className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 text-lg"
+                  >
+                    Statistics
+                  </a>
+                </li>
+                <li className="inline-block">
+                  <a
+                    href="/upload"
+                    className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 text-lg"
+                  >
+                    Upload
+                  </a>
+                </li>
+                <li className="inline-block">
+                  <a
                     href="/contact"
                     className="block font-serif py-4 px-5 text-white rounded hover:bg-blue-400 text-lg"
                   >
-                    Contact us
-                  </Link>
+                    Contact Us
+                  </a>
                 </li>
               </ul>
+            </div>
+            <div>
+              <a href="/signup" className="font-serif py-3 px-6 text-white rounded-full  text-lg " style={{ borderRadius: "20px", backgroundColor: "#4CAF50",  }}>Sign Up</a>
+              <a href="/login" className="font-serif py-3 px-6 text-white rounded-full  text-lg" style={{ borderRadius: "20px",  backgroundColor: "#4CAF50", marginLeft: "1px"  }}>Log In</a>
             </div>
           </div>
         </nav>
@@ -55,4 +74,8 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
+
 
