@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
@@ -48,7 +47,6 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            <SearchBar />
           </div>
         </nav>
       </div>
