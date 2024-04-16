@@ -6,9 +6,8 @@
   background-color: #4299e1; /* Change the background color on hover */
 }
 
-.signup-btn:hover,
 .login-btn:hover {
-  background-color: rgb(217, 217, 231); /* Change to the desired color on hover */
+  background-color: #f4f8f4; /* Change to the desired color on hover */
   /* Add any other styles you want to apply on hover */
 }
 
@@ -20,6 +19,7 @@
 
 .login-btn{
   border:1px solid white;
+  color:green
 }
 
 
