@@ -29,9 +29,15 @@ const PreviewComponent = () => {
         <div className="h-full w-full">
           {/* Display an iframe or object element to show the PDF */}
           {selectedCaseStudy && (
-            <object data={selectedCaseStudy.pdf} type="application/pdf" width="100%" height="100%">
-              <p>Your browser does not support PDFs. <a href={selectedCaseStudy.pdf}>Download the PDF</a>.</p>
-            </object>
+                <div style={{ width: "100%" }}>
+                <iframe
+                  style={{ width: "100%", height: "100vh" }}
+                  src={selectedCaseStudy.caseUrl}
+                ></iframe>
+              </div>
+            // <object data={selectedCaseStudy.caseUrl} type="application/pdf" width="100%" height="100%">
+            //   <p>Your browser does not support PDFs. <a href={selectedCaseStudy.pdf}>Download the PDF</a>.</p>
+            // </object>
           )}
         </div>
       </div>

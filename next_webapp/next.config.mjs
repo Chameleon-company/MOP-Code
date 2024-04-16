@@ -7,6 +7,10 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
     },
+    experimental: {
+        forceSwcTransforms: true,
+    }
 };
 
 export default nextConfig;
+
