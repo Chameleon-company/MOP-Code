@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import SearchBar from '../casestudies/searchbar'; 
+import PreviewComponent from '../casestudies/preview';
 
 // Adjust the path based on your project structure
 const CaseStudies = () => {
+  
  const [images, setImages] = useState([]);
  const [selectedStudy, setSelectedStudy] = useState(null);
  const caseStudies = [
@@ -21,41 +24,20 @@ const CaseStudies = () => {
  const closeModal = () => {
    setSelectedStudy(null);
  };
+ const handleSearch = (query) => {
+  // Here you might want to route to a new page with the search query
+  // For example, using Next.js router.push
+  //router.push(`/search?q=${query}`);
+};
  return (
 <div className="font-sans bg-gray-100">
 <Header />
 <main>
 <div className="app">
-<section className="intro max-w-3/4 mx-auto bg-green-800 text-white p-4 rounded-lg">
-<p><span className="text-4xl">Chameleon Melbourne Open Data</span> - <span className="text-xl font-bold">We unveil the intricate tapestry of data science&apos;s transformative impact across diverse sectors. Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne&apos;s open data. These narratives illuminate innovative solutions, empowering informed decision-making, and driving progress within our city&apos;s dynamic landscape.</span></p>
-</section>
-<section className="recent-work">
-<h2 className="text-2xl">Recent Work</h2>
-<div className="grid grid-cols-3 gap-4">
-             {images.map((study) => (
-<div key={study.id} className="case-study">
-<button onClick={() => openModal(study)}>
-<img src={study.image} alt={study.title} className="w-full h-auto" />
-<p className="text-lg font-bold">{study.title}</p>
-</button>
-</div>
-             ))}
-</div>
-</section>
-         {selectedStudy && (
-<div className="modal bg-gray-100 p-4 rounded-lg max-w-1/2 mx-auto">
-<div className="modal-content">
-<span className="close" onClick={closeModal}>
-&times;
-</span>
-<h2>{selectedStudy.title}</h2>
-<p>{selectedStudy.details}</p>
-               {/* You can add more details here */}
-</div>
-</div>
-         )}
-<section className="outro max-w-3/4 mx-auto bg-green-800 text-white p-4 rounded-lg">
-<p className="text-2xl font-bold">&quot;Chameleon Melbourne Open Data stands as a testament to the profound possibilities unlocked by leveraging Melbourne&apos;s open data resources. From revolutionizing biotech insights to optimizing oil and gas supply chains and redefining educational strategies, these case studies highlight the integral role of data science in shaping a progressive future. Join us in exploring the boundless opportunities and transformative potential embedded within Melbourne&apos;s rich repository of open data.&quot;</p>
+<section >
+<p><span className="text-4xl text-black">Case</span></p>
+<SearchBar onSearch={handleSearch} />
+<PreviewComponent />
 </section>
 </div>
 </main>
@@ -64,4 +46,4 @@ const CaseStudies = () => {
  );
 };
 
-export default CaseStudies;
+export default CaseStudies; 
