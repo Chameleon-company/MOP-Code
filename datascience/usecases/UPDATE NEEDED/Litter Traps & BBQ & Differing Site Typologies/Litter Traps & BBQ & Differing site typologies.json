@@ -45,6 +45,9 @@
 	},{
 		"name": "StringIO",
         "code": "python"
+    },{
+        "name": "networkx",
+        "code": "python"
     }],
     "datasets":["litter-traps", "public-barbecues", "cafes-and-restaurants-with-seating-capacity"] 
 }
