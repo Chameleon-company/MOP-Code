@@ -10,10 +10,15 @@
   background-color: #f4f8f4; /* Change to the desired color on hover */
   /* Add any other styles you want to apply on hover */
 }
+.signup-btn:hover {
+  color: white; /* Change to the desired color on hover */
+  /* Add any other styles you want to apply on hover */
+}
 
 .signup-btn{
   border:1px solid white;
   margin-right: 10px;
+  color:black;
 
 }
 
