@@ -7,7 +7,8 @@
 }
 
 .login-btn:hover {
-  background-color: #f4f8f4; /* Change to the desired color on hover */
+  background-color: #f4f8f4; 
+  color:green;/* Change to the desired color on hover */
   /* Add any other styles you want to apply on hover */
 }
 .signup-btn:hover {
