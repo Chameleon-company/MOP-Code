@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_31f0093f97d223ebe8794e5eed120fdd {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_31f0093f97d223ebe8794e5eed120fdd" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_31f0093f97d223ebe8794e5eed120fdd = L.map(
+                "map_31f0093f97d223ebe8794e5eed120fdd",
+                {
+                    center: [-37.8311, 144.9452],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4dbb85d0474d9c3b459e47f54cc4395a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_4dbb85d0474d9c3b459e47f54cc4395a.addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var marker_a8a6cd95eb5f622e0d19e2f0b938d6dc = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_6775c8d30f6006ecd40949cac71a2213 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_a8a6cd95eb5f622e0d19e2f0b938d6dc.setIcon(icon_6775c8d30f6006ecd40949cac71a2213);
+        
+    
+        var popup_dab4942110e688e812b07b1749f49de7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eb91c40816e141e69f50387847670420 = $(`<div id="html_eb91c40816e141e69f50387847670420" style="width: 100.0%; height: 100.0%;">Chalinolobus gouldii - Gould's Wattled Bat</div>`)[0];
+                popup_dab4942110e688e812b07b1749f49de7.setContent(html_eb91c40816e141e69f50387847670420);
+            
+        
+
+        marker_a8a6cd95eb5f622e0d19e2f0b938d6dc.bindPopup(popup_dab4942110e688e812b07b1749f49de7)
+        ;
+
+        
+    
+    
+            var marker_7a8f2600486dfbb9e54bfa38e9401460 = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_e08e138e9b9657be60f3a664bd302414 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7a8f2600486dfbb9e54bfa38e9401460.setIcon(icon_e08e138e9b9657be60f3a664bd302414);
+        
+    
+        var popup_f3a53cee3905688559a2f9f17f749731 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9fde6fb6b19ab47999f96f52d22a9c87 = $(`<div id="html_9fde6fb6b19ab47999f96f52d22a9c87" style="width: 100.0%; height: 100.0%;">Chalinolobus gouldii - Gould's Wattled Bat</div>`)[0];
+                popup_f3a53cee3905688559a2f9f17f749731.setContent(html_9fde6fb6b19ab47999f96f52d22a9c87);
+            
+        
+
+        marker_7a8f2600486dfbb9e54bfa38e9401460.bindPopup(popup_f3a53cee3905688559a2f9f17f749731)
+        ;
+
+        
+    
+    
+            var marker_391f761c0f8769e143b7b28801eaa94b = L.marker(
+                [-37.8138, 144.9754],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_12d9f067c6dfe8d5a853b66e040b9cf7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_391f761c0f8769e143b7b28801eaa94b.setIcon(icon_12d9f067c6dfe8d5a853b66e040b9cf7);
+        
+    
+        var popup_7b6d9d0f87c9826d24acff57f66b22ed = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_14ae9b1aa0fdeed1b7e3d537e5594c9c = $(`<div id="html_14ae9b1aa0fdeed1b7e3d537e5594c9c" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_7b6d9d0f87c9826d24acff57f66b22ed.setContent(html_14ae9b1aa0fdeed1b7e3d537e5594c9c);
+            
+        
+
+        marker_391f761c0f8769e143b7b28801eaa94b.bindPopup(popup_7b6d9d0f87c9826d24acff57f66b22ed)
+        ;
+
+        
+    
+    
+            var marker_dbb4c8bfb71e92be5ff67093f1cc6613 = L.marker(
+                [-37.806, 144.971],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_5348bdd7c5b1f6cd851bf4692f5870ee = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_dbb4c8bfb71e92be5ff67093f1cc6613.setIcon(icon_5348bdd7c5b1f6cd851bf4692f5870ee);
+        
+    
+        var popup_3bf6d9c9b98b92e57532b9dede3b2b64 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dee0fa6ca334a12537b3284488abfcd7 = $(`<div id="html_dee0fa6ca334a12537b3284488abfcd7" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_3bf6d9c9b98b92e57532b9dede3b2b64.setContent(html_dee0fa6ca334a12537b3284488abfcd7);
+            
+        
+
+        marker_dbb4c8bfb71e92be5ff67093f1cc6613.bindPopup(popup_3bf6d9c9b98b92e57532b9dede3b2b64)
+        ;
+
+        
+    
+    
+            var marker_39740cefddcb476db9c99449e7dd3ff4 = L.marker(
+                [-37.79, 144.949],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_63a906feff91d7b835186742dd1d6e31 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_39740cefddcb476db9c99449e7dd3ff4.setIcon(icon_63a906feff91d7b835186742dd1d6e31);
+        
+    
+        var popup_33ba601e7647d4782495b2f04e109dfb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_036cf719033cd74e750fc2b249ec5df3 = $(`<div id="html_036cf719033cd74e750fc2b249ec5df3" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_33ba601e7647d4782495b2f04e109dfb.setContent(html_036cf719033cd74e750fc2b249ec5df3);
+            
+        
+
+        marker_39740cefddcb476db9c99449e7dd3ff4.bindPopup(popup_33ba601e7647d4782495b2f04e109dfb)
+        ;
+
+        
+    
+    
+            var marker_35a724da3410db213619d95fac6ec86a = L.marker(
+                [-37.79, 144.949],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_2b33df60cbc2025f1c827cb8cc27a71b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_35a724da3410db213619d95fac6ec86a.setIcon(icon_2b33df60cbc2025f1c827cb8cc27a71b);
+        
+    
+        var popup_94eeb6238b1dcf14ed1f6099bdc410ff = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ac5b930978cdee707490cdff99bd797f = $(`<div id="html_ac5b930978cdee707490cdff99bd797f" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_94eeb6238b1dcf14ed1f6099bdc410ff.setContent(html_ac5b930978cdee707490cdff99bd797f);
+            
+        
+
+        marker_35a724da3410db213619d95fac6ec86a.bindPopup(popup_94eeb6238b1dcf14ed1f6099bdc410ff)
+        ;
+
+        
+    
+    
+            var marker_a911030a96e90719f9f85a822040ba50 = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_f612058b6e864eeb03cfcbd73fdf0c32 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_a911030a96e90719f9f85a822040ba50.setIcon(icon_f612058b6e864eeb03cfcbd73fdf0c32);
+        
+    
+        var popup_d65bc11801160300533eca0206abac2c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5644fdcda51bd3bd37e3085549d10370 = $(`<div id="html_5644fdcda51bd3bd37e3085549d10370" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_d65bc11801160300533eca0206abac2c.setContent(html_5644fdcda51bd3bd37e3085549d10370);
+            
+        
+
+        marker_a911030a96e90719f9f85a822040ba50.bindPopup(popup_d65bc11801160300533eca0206abac2c)
+        ;
+
+        
+    
+    
+            var marker_d5ebc92470fefa9d78fcd4163aecd0ba = L.marker(
+                [-37.829, 144.98],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_4383a862efb1db055b7163eaf8dfe9d4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_d5ebc92470fefa9d78fcd4163aecd0ba.setIcon(icon_4383a862efb1db055b7163eaf8dfe9d4);
+        
+    
+        var popup_37280e1cc11f67f49c93c16a34f81eb2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5e8304cecb7d7a8721547e4c8df94040 = $(`<div id="html_5e8304cecb7d7a8721547e4c8df94040" style="width: 100.0%; height: 100.0%;">Pteropus poliocephalus - Grey-headed Flying-fox</div>`)[0];
+                popup_37280e1cc11f67f49c93c16a34f81eb2.setContent(html_5e8304cecb7d7a8721547e4c8df94040);
+            
+        
+
+        marker_d5ebc92470fefa9d78fcd4163aecd0ba.bindPopup(popup_37280e1cc11f67f49c93c16a34f81eb2)
+        ;
+
+        
+    
+    
+            var marker_573b481d338217cae19a236f04f7fe6f = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_e0508343315c8c1a16d0f395ad4f82f4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_573b481d338217cae19a236f04f7fe6f.setIcon(icon_e0508343315c8c1a16d0f395ad4f82f4);
+        
+    
+        var popup_ca14f0f69eb9bb0bdc70372f5302449e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3c42623c5eb6a5dd2f7f82f69e6cd4c4 = $(`<div id="html_3c42623c5eb6a5dd2f7f82f69e6cd4c4" style="width: 100.0%; height: 100.0%;">Nyctophilus geoffroyi - Lesser Long-eared Bat</div>`)[0];
+                popup_ca14f0f69eb9bb0bdc70372f5302449e.setContent(html_3c42623c5eb6a5dd2f7f82f69e6cd4c4);
+            
+        
+
+        marker_573b481d338217cae19a236f04f7fe6f.bindPopup(popup_ca14f0f69eb9bb0bdc70372f5302449e)
+        ;
+
+        
+    
+    
+            var marker_96f97426fcd7806843fabf035073b033 = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_ff59521afe374c263cf170e3516b6858 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_96f97426fcd7806843fabf035073b033.setIcon(icon_ff59521afe374c263cf170e3516b6858);
+        
+    
+        var popup_7f1cda2f373d84ac378461e37557151f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f28d37ecf29cf6ede96498f9d6775ebc = $(`<div id="html_f28d37ecf29cf6ede96498f9d6775ebc" style="width: 100.0%; height: 100.0%;">Austronomous australis - White-striped Freetail Bat</div>`)[0];
+                popup_7f1cda2f373d84ac378461e37557151f.setContent(html_f28d37ecf29cf6ede96498f9d6775ebc);
+            
+        
+
+        marker_96f97426fcd7806843fabf035073b033.bindPopup(popup_7f1cda2f373d84ac378461e37557151f)
+        ;
+
+        
+    
+    
+            var marker_24287636100f10d32721a5b0a862ae8c = L.marker(
+                [-37.831, 144.91],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_841dee8f416e95161fd01d3a677a68fb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_24287636100f10d32721a5b0a862ae8c.setIcon(icon_841dee8f416e95161fd01d3a677a68fb);
+        
+    
+        var popup_c33cd971497b1e76502ec2b2725c57e9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_43b53145867f54d1afb9f71fc7bdb26e = $(`<div id="html_43b53145867f54d1afb9f71fc7bdb26e" style="width: 100.0%; height: 100.0%;">Austronomous australis - White-striped Freetail Bat</div>`)[0];
+                popup_c33cd971497b1e76502ec2b2725c57e9.setContent(html_43b53145867f54d1afb9f71fc7bdb26e);
+            
+        
+
+        marker_24287636100f10d32721a5b0a862ae8c.bindPopup(popup_c33cd971497b1e76502ec2b2725c57e9)
+        ;
+
+        
+    
+    
+            var marker_3d05947ce7c75602de071ffb112ee4a6 = L.marker(
+                [-37.8312, 144.9804],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_9ece00b08a41029756498d9f98e08ef1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_3d05947ce7c75602de071ffb112ee4a6.setIcon(icon_9ece00b08a41029756498d9f98e08ef1);
+        
+    
+        var popup_a14e435488d011117adb60795c93dc84 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_17e6c269802451a12f4c70beef5b3658 = $(`<div id="html_17e6c269802451a12f4c70beef5b3658" style="width: 100.0%; height: 100.0%;">Mormopterus None - None</div>`)[0];
+                popup_a14e435488d011117adb60795c93dc84.setContent(html_17e6c269802451a12f4c70beef5b3658);
+            
+        
+
+        marker_3d05947ce7c75602de071ffb112ee4a6.bindPopup(popup_a14e435488d011117adb60795c93dc84)
+        ;
+
+        
+    
+    
+            var marker_22b92c0b94e2f8d0aff05cfa70b1516d = L.marker(
+                [-37.8135, 144.9786],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_73388749d9bea03acb007beb70f1db6b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_22b92c0b94e2f8d0aff05cfa70b1516d.setIcon(icon_73388749d9bea03acb007beb70f1db6b);
+        
+    
+        var popup_183698e4982810c194215bb1eac14371 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_34675fe45cd2bf0fc498d0ace7ce915b = $(`<div id="html_34675fe45cd2bf0fc498d0ace7ce915b" style="width: 100.0%; height: 100.0%;">Mormopterus None - None</div>`)[0];
+                popup_183698e4982810c194215bb1eac14371.setContent(html_34675fe45cd2bf0fc498d0ace7ce915b);
+            
+        
+
+        marker_22b92c0b94e2f8d0aff05cfa70b1516d.bindPopup(popup_183698e4982810c194215bb1eac14371)
+        ;
+
+        
+    
+    
+            var marker_570276080afe9c4992ce112191d62d07 = L.marker(
+                [-37.8312, 144.9804],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_34f1b9b5db5accbb32869a5d4594a24e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_570276080afe9c4992ce112191d62d07.setIcon(icon_34f1b9b5db5accbb32869a5d4594a24e);
+        
+    
+        var popup_6f3b7236283fb3371d2e7f2f9fa3d3bd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_264734fd0bba418ebd91b0af34df7151 = $(`<div id="html_264734fd0bba418ebd91b0af34df7151" style="width: 100.0%; height: 100.0%;">Myotis macropus - Large-footed Myotis</div>`)[0];
+                popup_6f3b7236283fb3371d2e7f2f9fa3d3bd.setContent(html_264734fd0bba418ebd91b0af34df7151);
+            
+        
+
+        marker_570276080afe9c4992ce112191d62d07.bindPopup(popup_6f3b7236283fb3371d2e7f2f9fa3d3bd)
+        ;
+
+        
+    
+    
+            var marker_442911fb4a75446c5ee0b03e6312b8e9 = L.marker(
+                [-37.8312, 144.9804],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_262be3643c0037bb728aa0ec3d912598 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_442911fb4a75446c5ee0b03e6312b8e9.setIcon(icon_262be3643c0037bb728aa0ec3d912598);
+        
+    
+        var popup_3d0ee6e8e6a54c16df4f7e44ef99f7f1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ebd95dc68c953a9158d68c02b31ea6c2 = $(`<div id="html_ebd95dc68c953a9158d68c02b31ea6c2" style="width: 100.0%; height: 100.0%;">Scotorepens None - None</div>`)[0];
+                popup_3d0ee6e8e6a54c16df4f7e44ef99f7f1.setContent(html_ebd95dc68c953a9158d68c02b31ea6c2);
+            
+        
+
+        marker_442911fb4a75446c5ee0b03e6312b8e9.bindPopup(popup_3d0ee6e8e6a54c16df4f7e44ef99f7f1)
+        ;
+
+        
+    
+    
+            var marker_eb08fdd0f7cb559899acf7b94434d1d4 = L.marker(
+                [-37.8135, 144.9786],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_918ebc11005a3cc0907bceffbe9c9ac7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_eb08fdd0f7cb559899acf7b94434d1d4.setIcon(icon_918ebc11005a3cc0907bceffbe9c9ac7);
+        
+    
+        var popup_2b55d1826b0303fd5cf3e4a4eaeaeff2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_85a1877fd214dc6c05de2f51b50d27e4 = $(`<div id="html_85a1877fd214dc6c05de2f51b50d27e4" style="width: 100.0%; height: 100.0%;">Scotorepens None - None</div>`)[0];
+                popup_2b55d1826b0303fd5cf3e4a4eaeaeff2.setContent(html_85a1877fd214dc6c05de2f51b50d27e4);
+            
+        
+
+        marker_eb08fdd0f7cb559899acf7b94434d1d4.bindPopup(popup_2b55d1826b0303fd5cf3e4a4eaeaeff2)
+        ;
+
+        
+    
+    
+            var marker_56e2b2799ced5ec42e061752c81ff49e = L.marker(
+                [-37.8312, 144.9804],
+                {}
+            ).addTo(map_31f0093f97d223ebe8794e5eed120fdd);
+        
+    
+            var icon_817fed981eef6e97cbefcd52ad192ccc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-tint", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_56e2b2799ced5ec42e061752c81ff49e.setIcon(icon_817fed981eef6e97cbefcd52ad192ccc);
+        
+    
+        var popup_6ac8e66488da3af5795d5f4981d90308 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0fc31e7a34cd252869c211790896b1e0 = $(`<div id="html_0fc31e7a34cd252869c211790896b1e0" style="width: 100.0%; height: 100.0%;">Nyctophilus None - None</div>`)[0];
+                popup_6ac8e66488da3af5795d5f4981d90308.setContent(html_0fc31e7a34cd252869c211790896b1e0);
+            
+        
+
+        marker_56e2b2799ced5ec42e061752c81ff49e.bindPopup(popup_6ac8e66488da3af5795d5f4981d90308)
+        ;
+
+        
+    
+</script>
+</html>
