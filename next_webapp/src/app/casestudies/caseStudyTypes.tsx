@@ -1,4 +1,4 @@
-// caseStudyTypes.ts
+// caseStudyTypes.tsx
 export interface CaseStudy {
     id: number;
     title: string;

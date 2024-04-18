@@ -1,4 +1,4 @@
-// src/components/CaseStudies.tsx
+// CaseStudies.tsx
 "use client"; // This is a client component 
 import React, { useState } from 'react';
 import { caseStudiesData } from './caseStudiesData';
@@ -43,7 +43,7 @@ const CaseStudyPreview: React.FC<CaseStudyPreviewProps> = ({ caseStudy }) => (
         <>
           <h2 className="text-2xl font-bold">{caseStudy.title}</h2>
           <p>{caseStudy.content}</p>
-          {/* Render more details of the case study here */}
+          {/* More details of the case study can be rendered here */}
         </>
       ) : (
         <p>Select a case study to view details</p>
@@ -97,7 +97,7 @@ const CaseStudies: React.FC = () => {
             </div>
             <button 
               className="bg-green-500 text-white rounded-lg p-4 ml-4 hover:bg-green-600"
-              onClick={() => setSearchTerm(searchTerm)} // This should trigger the filtering
+              onClick={() => setSearchTerm(searchTerm)} 
             >
               Search
             </button>

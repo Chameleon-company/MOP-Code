@@ -17,6 +17,6 @@ const caseStudies = [
     { id: 15, title: 'Case Study 15', content: 'Content for Case Study 15...' , group: 'Security'},
     { id: 16, title: 'Case Study 16', content: 'Content for Case Study 16...', group: 'Security' },
     { id: 17, title: 'Case Study 17', content: 'Content for Case Study 17...' , group: 'Security'}
-    // ...and so on until you reach the desired number of case studies
+    // ...and so on until the desired number of case studies has been reached
   ];
 export default caseStudies;

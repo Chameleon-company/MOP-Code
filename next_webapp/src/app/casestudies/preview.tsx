@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import caseStudies from './database';
-// Mock data for case studies with associated PDF paths
-
 
 const PreviewComponent = () => {
   // State to keep track of the selected case study
