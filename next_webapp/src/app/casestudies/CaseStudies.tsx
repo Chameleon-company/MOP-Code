@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { caseStudiesData } from './caseStudiesData';
 import { CaseStudy } from './caseStudyTypes';
-
+//jk
 // Define the prop types for CaseStudyList
 type CaseStudyListProps = {
     caseStudies: CaseStudy[];
