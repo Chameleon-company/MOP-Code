@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import caseStudies from './database';
-// Mock data for case studies with associated PDF paths
-
+import caseStudies from '../casestudies/database';
 
 const PreviewComponent = () => {
   // State to keep track of the selected case study
@@ -24,10 +22,10 @@ const PreviewComponent = () => {
         </ul>
       </div>
 
-      {/* Preview Screen on the right */}
+      {/* Preview Screen */}
       <div className="w-3/4 bg-gray-200 p-4 overflow-y-auto">
         <div className="h-full w-full">
-          {/* Display an iframe or object element to show the PDF */}
+          {/* Displaying the PDF */}
           {selectedCaseStudy && (
                 <div style={{ width: "100%" }}>
                 <iframe

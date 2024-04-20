@@ -30,8 +30,8 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="inline-block">
-                  <a
-                    href="/UseCases"
+                  <a        
+                    href="/casestudies"
                     className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
                   >
                     Use Cases

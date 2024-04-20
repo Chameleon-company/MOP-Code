@@ -1,7 +1,7 @@
-const caseStudies = [
-    { id: 1, title: 'Case Study 1', content: 'Content for Case Study 1...', group: 'Internet', caseUrl: "/api?filename=Childcare_Facilities_Analysis"},
-    { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', group: 'Internet', caseUrl: "/api?filename=Projected_Music_venue_growth"},
-    // Existing case studies
+// caseStudiesData.tsx
+export const caseStudiesData = [
+    { id: 1, title: 'Case Study 1', content: 'Content for Case Study 1...', pdf: '/pdf/one.pdf' , group: 'Internet' },
+    { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', pdf: '/pdf/two.pdf' , group: 'Internet' },
     { id: 3, title: 'Case Study 3', content: 'Content for Case Study 3...', group: 'Internet' },
     { id: 4, title: 'Case Study 4', content: 'Content for Case Study 4...', group: 'Internet' },
     { id: 5, title: 'Case Study 5', content: 'Content for Case Study 5...' , group: 'Internet'},
@@ -17,6 +17,6 @@ const caseStudies = [
     { id: 15, title: 'Case Study 15', content: 'Content for Case Study 15...' , group: 'Security'},
     { id: 16, title: 'Case Study 16', content: 'Content for Case Study 16...', group: 'Security' },
     { id: 17, title: 'Case Study 17', content: 'Content for Case Study 17...' , group: 'Security'}
-    // ...add more until the desired number of case studies has been reached
+    // ... add more case studies
   ];
-export default caseStudies;
+  
