@@ -101,7 +101,7 @@ const NavItem = ({ to, icon, label }) => (
 const Dashboard = () => {
     const navItems = [
         { to: "/about", icon: "/img/about-icon.png", label: "About Us" },
-        { to: "/casestudies", icon: "/img/case-icon.png", label: "Case Studies" },
+        { to: "/UseCases", icon: "/img/case-icon.png", label: "Case Studies" },
         { to: "/resource-center", icon: "/img/resource-icon.png", label: "Resource Center" },
         { to: "/datasets", icon: "/img/data-icon.png", label: "Data Collection" },
         { to: "/contact", icon: "/img/contact-icon.png", label: "Contact Us" },

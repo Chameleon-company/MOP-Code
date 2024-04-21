@@ -1,18 +1,16 @@
 import { useState } from 'react';
-import caseStudies from './database';
-// Mock data for case studies with associated PDF paths
-
+import { database } from '../UseCases/database'; 
 
 const PreviewComponent = () => {
   // State to keep track of the selected case study
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState(caseStudies[0]); // Default to the first case study
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState(database[0]); // Default to the first case study
 
   return (
     <div className="flex h-screen">
       {/* Scrollable Menu on the left */}
       <div className="w-1/4 overflow-y-auto bg-gray-100 p-4">
         <ul>
-          {caseStudies.map((study) => (
+          {database.map((study) => (
             <li
               key={study.id}
               className={`text-black mb-2 p-2 hover:bg-gray-200 cursor-pointer ${selectedCaseStudy.id === study.id ? 'bg-gray-300' : ''}`}
@@ -24,10 +22,10 @@ const PreviewComponent = () => {
         </ul>
       </div>
 
-      {/* Preview Screen on the right */}
+      {/* Preview Screen */}
       <div className="w-3/4 bg-gray-200 p-4 overflow-y-auto">
         <div className="h-full w-full">
-          {/* Display an iframe or object element to show the PDF */}
+          {/* Displaying the PDF */}
           {selectedCaseStudy && (
                 <div style={{ width: "100%" }}>
                 <iframe
