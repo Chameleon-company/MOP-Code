@@ -10,8 +10,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
-    background-color: #f9fafb; /* Light gray background color */
-    color: #333; /* Default text color set to dark gray for better readability */
+    color: #050505; /* Default text color set to dark gray for better readability */
     line-height: 1.6; /* Improved line height for readability */
 }
 

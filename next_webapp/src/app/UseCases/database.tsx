@@ -10,7 +10,7 @@ export type CaseStudy = {
 
 export const database: CaseStudy[] = [
   { id: 1, title: 'Case Study 1', content: 'Content for Case Study 1...', group: 'Internet', pdf: '/pdf/one.pdf', caseUrl: "/api?filename=Childcare_Facilities_Analysis" },
-  { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', group: 'Internet', pdf: '/pdf/two.pdf', caseUrl: "/api?filename=Projected_Music_venue_growth" },
+  { id: 2, title: 'Case Study 2', content: 'Content for Case Study 2...', group: 'Internet', pdf: '/MOP-Code/next_webapp/src/app/UseCases/Task.pdf', caseUrl: "/api?filename=Projected_Music_venue_growth" },
   { id: 3, title: 'Case Study 3', content: 'Content for Case Study 3...', group: 'Internet' },  // Example without PDF or caseUrl
   { id: 4, title: 'Case Study 4', content: 'Content for Case Study 4...', group: 'Internet' },  // Example without PDF or caseUrl
   { id: 5, title: 'Case Study 5', content: 'Content for Case Study 5...', group: 'Internet' },  // Continues similarly

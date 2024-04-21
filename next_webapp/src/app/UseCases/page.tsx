@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <main className="mt-14">
+      <main className="bg-white">
         <CaseStudies />
       </main>
       <Footer />
