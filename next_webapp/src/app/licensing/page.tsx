@@ -1,28 +1,26 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import React from 'react';
 import "../../../public/styles/licensing.css";
 
 const Licensing = () => {
   return (
     <div className="licensing-page">
-      <Header />
+  <Header />
 
-      <h1>Licensing Agreement</h1>
-      <div className=" pading">
-        <div className="content">
-          <p>
-            Welcome to the licensing page of MOP. This page outlines the terms
-            and conditions under which you are granted a license to use our
-            website and its content.
-          </p>
+  <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10"><strong>Licensing</strong></h1>
 
-          <h2>Terms of Use</h2>
-          <p>
-            By accessing and using our website, you agree to comply with the
-            following terms and conditions:
-          </p>
-
-          <ul>
+  <div className="content-wrapper flex flex-wrap">
+    <div className="left-content w-full md:w-1/2 p-6 md:p-10">
+      <div>
+        <h2 className="text-black text-lg"><strong>Terms of Use</strong></h2>
+        <br/>
+        <p>
+          By accessing and using our website, you agree to comply with the
+          following terms and conditions:
+        </p>
+        <br />
+        <ul className="bullet-list">
             <li>
               You must use the website in accordance with applicable laws and
               regulations.
@@ -40,22 +38,18 @@ const Licensing = () => {
               website if you violate these terms.
             </li>
           </ul>
-
-          <h2>Intellectual Property</h2>
-          <p>
-            All content on this website, including text, images, and other
-            multimedia elements, is owned by MOP. You may not use, reproduce, or
-            distribute our content without explicit permission.
-          </p>
-
-          <h2>License Grant</h2>
-          <p>
-            We grant you a limited, non-exclusive, and revocable license to
-            access and use our website for personal and non-commercial purposes.
-            This license does not include the right to:
-          </p>
-
-          <ul>
+      </div>
+      <br/>
+      <div>
+        <h2 className="text-black text-lg"><strong>License Grant</strong></h2>
+        <br />
+        <p>
+          We grant you a limited, non-exclusive, and revocable license to
+          access and use our website for personal and non-commercial purposes.
+          This license does not include the right to:
+        </p>
+        <br />
+        <ul className="bullet-list">
             <li>Modify, adapt, or reverse engineer any part of the website.</li>
             <li>Copy or distribute content without permission.</li>
             <li>
@@ -63,10 +57,37 @@ const Licensing = () => {
               website.
             </li>
           </ul>
+          <br/>
+        <h2 className="text-black text-lg"><strong>Termination</strong></h2>
+        <br />
+        <p>
+          We reserve the right to terminate your license and access to the
+          website at our discretion. Upon termination, you must cease using
+          the website, and any provisions of this agreement that should
+          survive termination will continue to apply.
+        </p>
+        <br />
+       
+      </div>
+    </div>
 
-          <h2>Restrictions</h2>
-          <p>You may not:</p>
-          <ul>
+    <div className="right-content justify-self-auto w-full md:w-1/2 p-6 md:p-10">
+      <div>
+        <h2 className="text-black text-lg"><strong>Intellectual Property</strong></h2>
+        <br />
+        <p >
+          All content on this website, including text, images, and other
+          multimedia elements, is owned by MOP. You may not use, reproduce, or
+          distribute our content without explicit permission.
+        </p>
+        <br />
+       
+        <div className="mt-32 pt-16 mb-5">
+        <h2 className="text-black text-lg"><strong>Restrictions</strong></h2>
+        <br />
+        <p>You may not:</p>
+        <br />
+        <ul className="bullet-list">
             <li>Use the website for any illegal or unauthorized purpose.</li>
             <li>
               Attempt to gain unauthorized access to our systems or networks.
@@ -76,25 +97,21 @@ const Licensing = () => {
               website.
             </li>
           </ul>
-
-          <h2>Termination</h2>
-          <p>
-            We reserve the right to terminate your license and access to the
-            website at our discretion. Upon termination, you must cease using
-            the website, and any provisions of this agreement that should
-            survive termination will continue to apply.
-          </p>
-        </div>
-
-        <div className="contact-info">
-          <p>
-            If you have any questions or concerns about our licensing agreement,
-            please contact us at licensing@MOP.com.au
-          </p>
-        </div>
+          </div>
       </div>
-      <Footer />
     </div>
+  </div>
+
+  <div className="contact-info mt-8 text-center">
+    <p className="contact-text">
+      If you have any questions or concerns about our licensing agreement,
+      please contact us at <a href="mailto:licensing@MOP.com.au">licensing@MOP.com.au</a>
+    </p>
+  </div>
+
+  <Footer />
+</div>
+
   );
 };
 
