@@ -19,4 +19,12 @@
 .right-content ul.bullet-list {
   color: black;
   font-size: 17px; /* Set the color to black */
+  justify-content: center;
 }
+.contact-text {
+  color: black;
+  font-size: 17px;
+}
+
+
+  
