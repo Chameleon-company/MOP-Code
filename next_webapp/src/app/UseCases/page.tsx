@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import SearchBar from '../casestudies/searchbar'; 
-import PreviewComponent from '../casestudies/preview';
+import SearchBar from './searchbar'; 
+import PreviewComponent from './preview';
 
 // Adjust the path based on your project structure
-const CaseStudies = () => {
+const UseCases = () => {
   
  const [images, setImages] = useState([]);
  const [selectedStudy, setSelectedStudy] = useState(null);
@@ -46,4 +46,4 @@ const CaseStudies = () => {
  );
 };
 
-export default CaseStudies; 
+export default UseCases; 
