@@ -73,7 +73,7 @@ const Licensing = () => {
             multimedia elements, is owned by MOP. You may not use, reproduce, or
             distribute our content without explicit permission.
           </p>
-          <br/> <br/><br/><br/><br/><br/><br/> 
+          <br/> <br/><br/><br/><br/><br/>
           <h2 className="text-black text-lg"><strong>Restrictions</strong></h2>
           <br/> 
           <p>You may not:</p>
