@@ -1,79 +1,94 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import '../../../public/styles/contact.css';
+import "../../../public/styles/contact.css";
+import Image from "next/image";
 
 const Contact = () => {
-  return (
-      <div>
-                <Header />
-      <main className="contactBody">
-          
+  const formFields = [
+    {
+      name: "firstName",
+      spanName: "First Name",
+      type: "text",
+      placeholder: "Enter Your First name",
+      required: true,
+    },
+    {
+      name: "lastName",
+      spanName: "Last Name",
+      type: "text",
+      placeholder: "Enter Your Last name",
+      required: true,
+    },
+    {
+      name: "email",
+      spanName: "Company Email Address",
+      type: "email",
+      placeholder: "Enter Company Email Address",
+      required: true,
+    },
+    {
+      name: "phone",
+      spanName: "Phone Number",
+      type: "tel",
+      placeholder: "Enter Your Phone Number",
+      required: true,
+    },
+    {
+      name: "message",
+      spanName: "Message",
+      type: "textarea",
+      placeholder: "Enter Message",
+      required: true,
+    },
+  ];
 
-    <div className="row">
-      <div className="column">
-        <img className="cityImage responsive" src="/img/cityimg.png" alt="" />
-      </div>
-      <div className="column">
-        <form id="contact" action="" method="post">
-          <h3>Contact with our team </h3>
-          <h4>Your Ideas, Our Data, Melbourne&aposs Future</h4>
-          <fieldset>
-            <input
-              placeholder="First name"
-              type="text"
-              tabIndex={1}
-              required=""
-              autofocus=""
+  return (
+    <div className="contactPage">
+      <Header />
+      <main className="contactBody">
+        <div className="formContent">
+          <form id="contact" action="" method="post">
+            {formFields.map((field) => (
+              <fieldset key={field.name}>
+                <span className="namaSpan">{field.spanName}</span>
+                {field.type === "textarea" ? (
+                  <textarea
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                  ></textarea>
+                ) : (
+                  <input
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                  />
+                )}
+              </fieldset>
+            ))}
+          </form>
+        </div>
+
+        <div className="imgContent">
+          <span className="contactUsText">
+            Contact
+            <br />
+            Us
+          </span>
+          <div className="imgWrap">
+            <Image
+              src="/img/cityimg.png"
+              alt="City"
+              width={700}
+              height={400}
+              layout="responsive" 
+              className="cityImage"
             />
-          </fieldset>
-          <fieldset>
-            <input
-              placeholder="Last name"
-              type="text"
-              tabIndex={1}
-              required=""
-              autofocus=""
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              placeholder="Company Email Address"
-              type="email"
-              tabIndex={2}
-              required=""
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              placeholder=" Phone Number"
-              type="tel"
-              tabIndex={3}
-              required=""
-            />
-          </fieldset>
-          <fieldset>
-            <textarea
-              placeholder="Type your Message Here...."
-              tabIndex={5}
-              required=""
-              defaultValue={''}
-            />
-          </fieldset>
-          <fieldset>
-            <button
-              name="submit"
-              type="submit"
-              id="contact-submit"
-              data-submit="...Sending"
-            >
-              Submit
-            </button>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-    </main>
-    <Footer />
+          </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };
