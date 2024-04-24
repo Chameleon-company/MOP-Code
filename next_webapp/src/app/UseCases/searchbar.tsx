@@ -15,17 +15,17 @@ const SearchBar = ({
   };
 
   return (
-    <div className="p-4 flex">
+    <div className="py-4 flex">
       <form onSubmit={handleSubmit} className="flex items-center w-full">
         <input
           type="search"
-          placeholder="Case study name or category"
-          className="w-full px-4 py-2 border-2 border-gray-300 rounded-l-lg focus:outline-none focus:border-green-500"
+          placeholder="Enter use case name"
+          className="w-full px-4 py-2 mr-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="text-black border-2 border-gray-300 border-l-0 px-4 py-2 focus:outline-none focus:border-green-500"
+          className="text-black mr-3 border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-green-500"
           value={category}
           onChange={(e) => setCategory(e.target.value as CATEGORY)}
         >
@@ -37,7 +37,7 @@ const SearchBar = ({
         </select>
         <button
           type="submit"
-          className="px-4 py-2 bg-green-500 text-white rounded-r-lg hover:bg-green-600 focus:outline-none"
+          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none"
         >
           Search
         </button>

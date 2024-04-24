@@ -24,9 +24,9 @@ const UseCases = () => {
       <Header />
       <main>
         <div className="app">
-          <section>
+          <section className="px-10 pt-5">
             <p>
-              <span className="text-4xl text-black">Case</span>
+              <span className="text-4xl text-black">User Cases</span>
             </p>
             <SearchBar onSearch={handleSearch} />
             <PreviewComponent caseStudies={filteredCaseStudies} />

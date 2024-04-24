@@ -15,7 +15,7 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
   return (
     <div className="flex h-screen">
       {/* Scrollable Menu on the left */}
-      <div className="w-1/4 overflow-y-auto bg-gray-100 p-4">
+      <div className="w-1/4 overflow-y-auto bg-gray-100 py-4">
         <ul>
           {caseStudies.map((study) => (
             <li
@@ -43,9 +43,6 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
                 src={selectedCaseStudy.caseUrl}
               ></iframe>
             </div>
-            // <object data={selectedCaseStudy.caseUrl} type="application/pdf" width="100%" height="100%">
-            //   <p>Your browser does not support PDFs. <a href={selectedCaseStudy.pdf}>Download the PDF</a>.</p>
-            // </object>
           )}
         </div>
       </div>
