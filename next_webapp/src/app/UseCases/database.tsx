@@ -119,5 +119,35 @@ export const caseStudies: CaseStudy[] = [
     content: "Content for Case Study 17...",
     category: CATEGORY.SECURITY,
   },
+  {
+    id: 18,
+    title: "Case Study 18",
+    content: "Content for Case Study 18...",
+    category: CATEGORY.SECURITY,
+  },
+  {
+    id: 19,
+    title: "Case Study 19",
+    content: "Content for Case Study 19...",
+    category: CATEGORY.SECURITY,
+  },
+  {
+    id: 20,
+    title: "Case Study 20",
+    content: "Content for Case Study 20...",
+    category: CATEGORY.SECURITY,
+  },
+  {
+    id: 21,
+    title: "Case Study 21",
+    content: "Content for Case Study 21...",
+    category: CATEGORY.SECURITY,
+  },
+  {
+    id: 22,
+    title: "Case Study 22",
+    content: "Content for Case Study 22...",
+    category: CATEGORY.SECURITY,
+  },
   // ...and so on until you reach the desired number of case studies
 ];
