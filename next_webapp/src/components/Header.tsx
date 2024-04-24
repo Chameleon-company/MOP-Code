@@ -1,9 +1,27 @@
+<<<<<<< Updated upstream
 // Header.js
 import React from "react";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+=======
+"use client"
+
+import React, { useEffect, useState } from "react";
+import "../../public/styles/header.css";// Import the CSS file
+import { User } from "firebase/auth";
+import { auth } from "@/firebase/firebaseConfig";
+import { signInWithGoogle, signOutGoogle } from "@/firebase/firebaseAuth";
+>>>>>>> Stashed changes
 
 const Header = () => {
+
+  const [user, setUser] = useState<User | null>(null);
+  
+  useEffect(() =>{
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return () => unsubscribe();
+  }, []);
+
   return (
     <header>
       <div>
@@ -69,6 +87,15 @@ const Header = () => {
                 {/* <SearchBar /> */}
               </ul>
             </div>
+<<<<<<< Updated upstream
+=======
+            <div className="flex items-center justify-end">
+              {/* <a href="/signup" className="signup-btn font-serif py-3 px-6 text-white rounded-full  text-lg" >Sign Up</a>
+              <a href="/login" className="login-btn font-serif py-3 px-6 text-white rounded-full  text-lg">Log In</a> */}
+              <button onClick={signInWithGoogle}>Sign In</button>
+              <button onClick={signOutGoogle}>Sign Out</button>
+            </div>
+>>>>>>> Stashed changes
           </div>
         </nav>
       </div>
