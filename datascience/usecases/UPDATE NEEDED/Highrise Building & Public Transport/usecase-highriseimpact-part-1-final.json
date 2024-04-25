@@ -1,0 +1,47 @@
+{
+    "title": "usecase-highriseimpact-part-1-final",
+    "name": "usecase highriseimpact part 1-final",
+    "description": "From a citizen/resident perspective, I want to have a good accessibility to public transportation. I",
+    "tags": [
+        "spatial analysis",
+        "python",
+        "urban research",
+        "dwellings",
+        "clue"
+    ],
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "plotly",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "shapely",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "residential-dwellings",
+        "city-of-melbourne-dwellings-and-household-forecasts-by-small-area-2020-2040",
+        "blocks-for-census-of-land-use-and-employment-clue",
+        "small-areas-for-census-of-land-use-and-employment-clue",
+        "bus-stops",
+        "metro-train-stations-with-accessibility-information"
+    ]
+}
