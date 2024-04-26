@@ -10,7 +10,7 @@ const Statistics = () => {
     const caseStudies = [
         { id: 1, tag: 'Safety and Well-being', publishNumber: '4', popularity: '11%'},
         { id: 2, tag: 'Environment and Sustainability', publishNumber: '5', popularity: '20%'},
-        { id: 3, tag: 'Business and activity', publishNumber: '8', popularity: '90%', trimister: 1, year: 2024}
+        { id: 3, tag: 'Business and activity', publishNumber: '8', popularity: '90%'}
         
     ];
     
