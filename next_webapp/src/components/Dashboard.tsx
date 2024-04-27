@@ -273,9 +273,6 @@ const Dashboard = () => {
                     </section>
                     <section className="case-studies">
                     </section>
-                    <section className="footer-section">
-
-                    </section>
                 </div>
             </div>
         </>
