@@ -69,9 +69,9 @@ const Statistics = () => {
     }, [tagFilter, publishFilter, popularityFilter]);
 
     return (
-        <div className="font-sans bg-gray-100 text-black">
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} className="font-sans bg-gray-100 text-black">
             <Header />
-            <main>
+            <main style={{ flex: '1 0 auto', width: '100%' }}>
                 <div>
                     
                     <section>
