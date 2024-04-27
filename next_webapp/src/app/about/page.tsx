@@ -4,57 +4,117 @@ import '../../../public/styles/about.css';
 
 const About = () => {
   return (
-    <div>
-      <Header />
-      <main className="main-content">
-        <div className="featured-text">
-          <h1>About us</h1>
-          <p>
-            Melbourne Open Data Project (MOP) is a capstone project sponsored by
-            Deakin University. Since COVID, there has been an increased demand for
-            data by the business community to support their decision-making. This
-            project is meant to align with two strategic documents from the
-            Melbourne City Council.
-          </p>
-        </div>
-      </main>
-      <div className="info-section">
-        <div className="info-block">
-          <div className="additional-logo-container">
-            <img src="/img/about-logo 2.png" alt="Additional About Us Logo" />
-          </div>
-          <h2>About us</h2>
-          <p>
-            This project is meant to align with two strategic documents from the
-            Melbourne City Council: The Economic Development Strategy, which aims to
-            be a digitally-connected city. The 2021-2025 Council Plan, which
-            outlines the specific objective of delivering programs that will build
-            digital literacy skills and capabilities.
-          </p>
-        </div>
-        <div className="info-block">
-          <h2>Open Data Leadership</h2>
-          <p>
-            The City of Melbourne has been an Australian leader in Open Data since
-            2014. Recent research and local user engagement have identified a gap
-            where users would like to learn more about how to access Open Data and
-            how to gain insights from the data to build apps and solve city
-            problems.
-          </p>
-        </div>
-        <div className="info-block">
-          <h2>Our Goals</h2>
-          <p>
-            This project aims to deliver proof-of-concept examples on how calls to
-            Open Data APIs can be made.
-          </p>
-          <div className="main-logo-container">
-            <img src="/img/about-logo.png" alt="Melbourne Open Data Project Logo" />
-          </div>
-        </div>
-      </div>
-      <Footer />
+    <div className="bg-white">
+            <Header />
+            
+    <div className="about-heading">About</div>
+    <div className="about-heading">Us</div>
+    <div className="image-container">
+      <img src="/img/mel.jpg" alt="About Us Image"/>
     </div>
+
+    <div className="banner">
+    <h2>About MOP</h2>
+    <p>Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University in collaboration with City of Melbourne. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council.</p>
+  </div>
+  
+            <div className="m-4 bg-white">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mx-10 mt-10">
+                    <div style={{ backgroundColor: '#cccccc', color: 'black' }}
+                        className="flex flex-col items-center p-4 h-full">
+                        <div className="flex flex-row h-full">
+                            <span className="font-bold m-2 text-3xl"
+                            >About <br />
+                                Us</span>
+                            <div className="mt-10 pl-8 w-56 h-44 relative">
+                                <img
+                                    src="/img/about-us.png"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                    alt="Description of the image"
+                                />
+                                <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
+                                <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
+                            </div>
+                        </div>
+ 
+                        <p className="p-4 text-center">
+                            <span className="text-wrap">
+                                This project is meant to align with two strategic documents from the
+                                Melbourne City Council: The Economic Development Strategy, which aims
+                                to be a digitally-connected city. The 2021-2025 Council Plan, which
+                                outlines the specific objective of delivering programs that will build
+                                literacy skills and capabilities.
+                            </span>
+                        </p>
+                    </div>
+                    <div
+                        style={{ backgroundColor: '#cccccc' ,color: 'black'}}
+                        className="flex flex-col items-center p-4 h-full"
+                    >
+                        <div className="flex flex-row h-full">
+                            <span className="font-bold m-2 text-3xl">Open Data Leadership</span>
+                            <div className="mt-10 pl-8 w-56 h-44 relative flex-shrink-0">
+                                <img
+                                    src="/img/leadership.png"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                    alt="Description of the image"
+                                />
+                                <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
+                                <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
+                            </div>
+                        </div>
+ 
+                        <p className="p-4 text-center">
+                            <span className="text-wrap">
+                                This project is meant to align with two strategic documents from the
+                                Melbourne City Council: The Economic Development Strategy, which aims
+                                to be a digitally-connected city. The 2021-2025 Council Plan, which
+                                outlines the specific objective of delivering programs that will build
+                                literacy skills and capabilities.
+                            </span>
+                        </p>
+                    </div>
+                    <div
+                        style={{ backgroundColor: '#cccccc',color: 'black' }}
+                        className="flex flex-col items-center p-4 h-full"
+                    >
+                        <div className="flex flex-row h-full">
+                            <span className="font-bold m-2 text-3xl"
+                            >Our <br />
+                                Goals</span
+                            >
+                            <div className="mt-10 pl-8 w-56 h-44 relative">
+                                <img
+                                    src="/img/goals.png"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                    alt="Description of the image"
+                                />
+                                <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
+                                <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
+                            </div>
+                        </div>
+ 
+                        <p className="p-4 text-center">
+                            <span className="text-wrap">
+                                This project is meant to align with two strategic documents from the
+                                Melbourne City Council: The Economic Development Strategy, which aims
+                                to be a digitally-connected city. The 2021-2025 Council Plan, which
+                                outlines the specific objective of delivering programs that will build
+                                literacy skills and capabilities.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+ 
+     <Footer />
+ 
+ 
+ 
+        </div>
+    
+      
+    
   );
 };
 
