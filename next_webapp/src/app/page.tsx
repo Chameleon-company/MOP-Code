@@ -2,14 +2,16 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Dashboard from '../components/Dashboard';
+import DashboardCaseStd from '@/components/DashboardCaseStd';
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Header />
-      <Dashboard /> 
+      <Dashboard />
+      <DashboardCaseStd />
       <Footer />
-    </div>
+    </>
   );
 };
 
