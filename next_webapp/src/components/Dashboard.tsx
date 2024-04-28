@@ -243,7 +243,7 @@ const Dashboard = () => {
                     <section className="hero-section">
 
                         <Image
-                            src={mainimage} alt={"main image"}                            
+                            src={mainimage} alt={"main image1"}                            
                         />
                         
 
