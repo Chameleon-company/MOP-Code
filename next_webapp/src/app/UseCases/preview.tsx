@@ -25,7 +25,7 @@ const PreviewComponent = () => {
       </div>
 
       {/* Preview Screen on the right */}
-      <div className="w-3/4 bg-gray-200 p-4 overflow-y-auto">
+      <div className="w-3/4 bg-gray-200 p-4 overflow-y-hidden">
         <div className="h-full w-full">
           {/* Display an iframe or object element to show the PDF */}
           {selectedCaseStudy && (
@@ -33,6 +33,7 @@ const PreviewComponent = () => {
                 <iframe
                   style={{ width: "100%", height: "100vh" }}
                   src={selectedCaseStudy.caseUrl}
+                  title="Case Study"
                 ></iframe>
               </div>
             // <object data={selectedCaseStudy.caseUrl} type="application/pdf" width="100%" height="100%">

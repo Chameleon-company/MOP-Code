@@ -34,8 +34,8 @@ const UseCases = () => {
 <Header />
 <main>
 <div className="app">
-<section >
-<p><span className="text-4xl text-black">Case</span></p>
+<section>
+<p className='mb-2 mt-4'><span className="text-4xl font-bold text-black ml-4">Use Cases</span></p>
 <SearchBar onSearch={handleSearch} />
 <PreviewComponent />
 </section>
