@@ -25,8 +25,8 @@
     .contactUsText {
         font-size: 48px;
         line-height: 60px;
-        right: 80%;
-        top: -20%;
+        right: 85%;
+        top: -35%;
     }
 
     .contactBody {
@@ -49,6 +49,31 @@
         line-height: 80px;
     }
 }
+
+@media screen and (min-width: 1920px) {
+    .contactUsText {
+        font-size: 70px;
+        line-height: 90px;
+    }
+    .contactBody {
+        margin-top: 150px; 
+    }
+}
+
+
+
+/* @media screen and (min-width: 1280px) {
+    .contactUsText {
+        font-size: 58px;
+        line-height: 80px;
+        right: 10%;
+        top: 120px
+    }
+} */
+
+/* .contactBody {
+    margin-top: 100px; 
+} */
 
 ::-webkit-input-placeholder {
     color: #888;

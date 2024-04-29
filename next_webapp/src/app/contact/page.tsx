@@ -77,19 +77,18 @@ const Contact = () => {
           </form>
         </div>
 
-        <div className="imgContent text-center relative w-full mt-12">
-          <span className="contactUsText absolute text-left right-1/5 top-1/10 text-black text-3xl leading-snug font-montserrat">
+        <div className="imgContent max-w-full max-h-full text-center relative w-full mt-12">
+          <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat">
             Contact
             <br />
             Us
           </span>
           <div className="imgWrap relative inline-block">
             <Image
-              src="/img/cityimg.png"
+              src="/img/contact-us-city.png"
               alt="City"
-              width={700}
-              height={400}
-              layout="responsive"
+              width={800}
+              height={600}
               className="cityImage block relative z-10"
             />
           </div>
