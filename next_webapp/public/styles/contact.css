@@ -60,21 +60,6 @@
     }
 }
 
-
-
-/* @media screen and (min-width: 1280px) {
-    .contactUsText {
-        font-size: 58px;
-        line-height: 80px;
-        right: 10%;
-        top: 120px
-    }
-} */
-
-/* .contactBody {
-    margin-top: 100px; 
-} */
-
 ::-webkit-input-placeholder {
     color: #888;
 }
