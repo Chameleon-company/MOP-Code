@@ -1,0 +1,133 @@
+/* signup.css */
+
+.already-member {
+    position: absolute;
+    top: 5rem; /* Add margin on top */
+    right: 5rem; /* Add margin on right */
+    margin-left: 1rem; /* Add margin on left */
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    color: #666666; /* Dark grey text color */
+  }
+  
+  .logo {
+    position: absolute;
+    top: 5rem; /* Add margin on top */
+    left: 5rem; /* Add margin on left */
+    margin-right: 1rem; /* Add margin on right */
+    margin: 1rem;
+  }
+  
+  .signup-form {
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-top: 3rem; /* Add margin to create space above the form */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+    font-weight: bold; /* Bold font weight */
+    margin-bottom: 3rem; /* Add margin to create space below the text */
+  }
+  
+  .mb-8 {
+    margin-bottom: 2rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .first-name,
+  .last-name,
+  .email,
+  .password {
+    width: 50%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    margin-right: 0.5rem;
+    background-color: #e9ebeb; /* Grey background color */
+  }
+  
+  .email,
+  .password {
+    width: 100%;
+  }
+  
+  .next-button {
+    width: 100%;
+    background-color: #2fcb71;
+    color: #ffffff;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .password-strength {
+    width: 100%;
+    height: 0.25rem;
+    background-color: #ccc;
+    border-radius: 0.25rem;
+  }
+
+  .password-strength-text {
+    text-align: right;
+    font-size: 0.875rem; /* Adjust font size as needed */
+    color: #666666; /* Adjust color as needed */
+    margin-top: 0.5rem; /* Adjust margin as needed */
+  }
+  
+  .login-button {
+    border: 1px solid #666666; /* Grey border */
+    color: #666666; /* Grey text color */
+    padding: 0.5rem 1rem; /* Add padding around the text */
+    margin-left: 1rem; /* Add margin to create space */
+  }
+  
+  .login-button:hover {
+    border-color: #999999; /* Darker grey border on hover */
+  }
+
+  .last-name {
+    width: calc(50% - 0.25rem); /* Adjust width to align properly */
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    margin-right: 0; /* Remove margin-right to prevent extra space */
+  }
+
+  /* signup.css */
+
+/* Add styles for password strength bar */
+.password-strength-bar {
+  width: 100%;
+  height: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 8px; /* Add some space between the bar and the text */
+}
+
+.password-strength-bar-inner {
+  height: 100%;
+  border-radius: 5px;
+}
+
+
+  
+
+  
+  
+  
+  
+  
