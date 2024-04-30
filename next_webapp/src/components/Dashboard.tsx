@@ -270,7 +270,7 @@ const Dashboard = () => {
                     </section>
                     <section className="recent-case-studies">
                         <h2>Recent Case Studies</h2>
-                        <p>Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne's open data.</p>
+                        <p>Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne&apos;s open data.</p>
 
                     </section>
                     <section className="case-studies">
