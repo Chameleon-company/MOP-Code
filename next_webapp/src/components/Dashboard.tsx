@@ -256,7 +256,7 @@ const Dashboard = () => {
                         <div className="our-vision">Our Vision</div>
                         <div className="img-div">
                             <Image
-                            src={secondimage} alt={"second image"}                            
+                            src={secondimage} alt={"Second Image"}                            
                             />
                         </div>
                         <div className="text-div">
@@ -273,6 +273,8 @@ const Dashboard = () => {
                         <p>Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne&apos;s open data.</p>
 
                     </section>
+
+
                     <section className="case-studies">
                     </section>
                 </div>
