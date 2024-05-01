@@ -7,7 +7,8 @@ const Licensing = () => {
   return (
   <div>
   <Header />
-  <div className="licensing-page h-[70rem] px-[5rem] content-center font-sans bg-gray-200">
+  <div className="licensing-page h-[70rem] px-[5rem] content-center font-sans bg-grey-500">
+    
   <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10"><strong>Licensing</strong></h1>
  
   <div className="content-wrapper flex flex-wrap">
