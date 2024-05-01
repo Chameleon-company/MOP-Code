@@ -10,10 +10,13 @@
     ],
     "difficultly": " Intermediate ", 
     "technology": [{
-        "name": "os",
+        "name": "pandas",
         "code": "python"
     },{
-        "name": "json",
+        "name": "requests",
+        "code": "python"
+    },{
+        "name": "io",
         "code": "python"
     },{
         "name": "matplotlib",
@@ -25,13 +28,16 @@
         "name": "geopandas",
         "code": "python"
     },{
-        "name": "timezone",
-        "code": "python"
-    },{
         "name": "folium",
         "code": "python"
     },{
-        "name": "Minute",
+        "name": "scipy",
+        "code": "python"
+    },{
+        "name": "imblearn",
+        "code": "python"
+    },{
+        "name": "sklearn",
         "code": "python"
     }],
     "datasets":["bus-stop", 
