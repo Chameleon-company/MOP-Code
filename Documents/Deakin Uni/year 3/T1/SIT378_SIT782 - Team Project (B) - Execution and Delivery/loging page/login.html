@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Updated top bar for logo and Sign Up button to be in a single line -->
+    <div class="top-bar">
+        <img src="logo.png" alt="Chameleon Logo" class="logo">
+        <span class="no-account">No Account yet?</span>
+        <button class="sign-up-button">Sign Up</button>
+    </div>
+    <!-- Login container for login form -->
+    <div class="login-container">
+        <h2>Account Log In</h2>
+        <p class="subtitle">Please login to continue to your account</p>
+        <form action="/submit-your-login-form" method="POST">
+            <div class="input-group">
+                <input type="email" id="email" name="email" required placeholder="Email">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required placeholder="Password">
+            </div>
+            <div class="options-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="remember-me" name="remember-me">
+                    Remember Me
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit" class="login-button">LOGIN</button>
+        </form>
+    </div>
+</body>
+</html>
