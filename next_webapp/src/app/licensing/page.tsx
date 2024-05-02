@@ -5,11 +5,13 @@ import "../../../public/styles/licensing.css";
 
 const Licensing = () => {
   return (
-    <div className="licensing-page">
+  <div>
   <Header />
-
+  <main>
+  <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-gray-200">
+    
   <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10"><strong>Licensing</strong></h1>
-
+ 
   <div className="content-wrapper flex flex-wrap">
     <div className="left-content w-full md:w-1/2 p-6 md:p-10">
       <div>
@@ -101,14 +103,15 @@ const Licensing = () => {
       </div>
     </div>
   </div>
-
+ 
   <div className="contact-info mt-8 text-center">
     <p className="contact-text">
       If you have any questions or concerns about our licensing agreement,
       please contact us at <a href="mailto:licensing@MOP.com.au">licensing@MOP.com.au</a>
     </p>
   </div>
-
+  </div>
+  </main>
   <Footer />
 </div>
 
