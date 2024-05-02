@@ -1,0 +1,158 @@
+//----------------------------------------------------------//
+//	PROCESS
+//----------------------------------------------------------//
+@media (min-width: 992px) {
+  .process-wrapper.line [class*="col-"] {
+    position: relative;
+    &:after {
+      width: 100%;
+      position: absolute;
+      content: "";
+      height: 1px;
+      background: none;
+      border-top: 1px solid $border-light;
+      top: 1.5rem;
+      z-index: 1;
+      left: 3rem;
+    }
+    &:last-child:after {
+      display: none;
+    }
+  }
+  .process-wrapper.line.text-center [class*="col-"]:before,
+  .process-wrapper.line.text-center [class*="col-"]:after {
+    width: 50%;
+    position: absolute;
+    content: "";
+    height: 1px;
+    background: $border-light;
+    border: 0;
+    top: 1.5rem;
+    z-index: 1;
+    left: 0;
+  }
+  .process-wrapper.line.text-center [class*="col-"]:after {
+    right: 0;
+    left: auto;
+  }
+  .process-wrapper.line.text-center [class*="col-"]:first-child:before,
+  .process-wrapper.line.text-center [class*="col-"]:last-child:after {
+    display: none;
+  }
+  .process-wrapper.arrow [class*="col-"] {
+    position: relative;
+    &:before {
+      content: "";
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108.15 19.5'%3E%3Cpath fill='#{url-color($main-color)}' d='M2.38,13.63A107.77,107.77,0,0,1,41.56,3.28C54.29,2.51,67,4.2,79.4,6.9c7.73,1.68,15.38,3.73,23,5.86a1.56,1.56,0,0,0,.83-3C89.85,6,76.35,2.5,62.54.87A111,111,0,0,0,24,2.73,119,119,0,0,0,.8,10.93c-1.81.85-.23,3.54,1.58,2.7Z'/%3E%3Cpath fill='#{url-color($main-color)}' d='M95.51,19.27A60.35,60.35,0,0,1,107,12.41a1.58,1.58,0,0,0,1.12-1.29,1.53,1.53,0,0,0-.75-1.56,20.31,20.31,0,0,1-9-8.65,1.56,1.56,0,0,0-2.7,1.57c2.34,4,5.79,7.86,10.12,9.78l.37-2.86a62.69,62.69,0,0,0-12.25,7.18,1.6,1.6,0,0,0-.56,2.14,1.56,1.56,0,0,0,2.13.55Z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 70% 70%;
+      position: absolute;
+      width: 6rem;
+      height: 1rem;
+      top: 0.8rem;
+      left: -3rem;
+      z-index: 1;
+      opacity: 0.15;
+    }
+    &:nth-child(odd):before {
+      transform: scale(1, -1);
+    }
+    &:first-child:before {
+      display: none;
+    }
+  }
+}
+.process-wrapper.line .btn-circle {
+  position: relative;
+  z-index: 2;
+}
+//----------------------------------------------------------//
+//	TIMELINE
+//----------------------------------------------------------//
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    .timeline-info {
+      white-space: nowrap;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-content {
+      padding-bottom: 2rem;
+      p:last-child {
+        margin: 0;
+      }
+    }
+    .timeline-marker {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 0.6rem;
+      color: $main-color;
+      &:before,
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+      }
+      &:before {
+        background: currentColor;
+        border-radius: 100%;
+        width: 0.55rem;
+        height: 0.55rem;
+        top: 0.2rem;
+        left: 0;
+      }
+      &:after {
+        width: 1px;
+        background: $border-light;
+        top: 1rem;
+        left: 0.25rem;
+        bottom: 0;
+      }
+    }
+    &:last-child {
+      padding-bottom: 0;
+      .timeline-content {
+        padding-bottom: 0;
+      }
+      .timeline-marker:after {
+        content: none;
+      }
+    }
+  }
+}
+@media (min-width: 768px) {
+  .timeline {
+    display: table;
+    .timeline-item {
+      display: table-row;
+      padding: 0;
+      .timeline-info,
+      .timeline-marker,
+      .timeline-content{
+        display: table-cell;
+        vertical-align: top;
+      }
+      .timeline-info {
+        text-align: right;
+        padding-right: 1.5rem;
+      }
+      .timeline-marker {
+        position: relative;
+      }
+      .timeline-content {
+        padding-left: 1.5rem;
+        .timeline-title {
+          margin-top: -0.25rem;
+        }
+      }
+    }
+  }
+}

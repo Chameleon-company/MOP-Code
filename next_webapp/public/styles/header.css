@@ -1,0 +1,30 @@
+.nav-link {
+  border-radius: 20px; /* Adjust the border radius to match your navigation bar */
+}
+
+.nav-link:hover {
+  background-color: #287405; /* Change the background color on hover */
+}
+
+.signup-btn{
+  border:1px solid white;
+  margin-right: 10px;
+  color:white;
+
+}
+
+.login-btn{
+  border:1px solid white;
+  background-color: #f4f8f4; 
+  color:rgb(9, 189, 9);
+}
+
+.language-btn{
+  border:1px solid white;
+  background-color: #f4f8f4; 
+  color:rgb(9, 189, 9);
+}
+
+
+
+  

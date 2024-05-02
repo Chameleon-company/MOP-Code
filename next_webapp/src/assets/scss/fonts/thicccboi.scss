@@ -1,0 +1,138 @@
+// Font Import
+@import "../../fonts/thicccboi/thicccboi.css";
+
+// Bootstrap Configuration
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
+// Font Variables
+$font-family-base: "THICCCBOI", sans-serif;
+$font-size-base: 0.85rem;
+
+// Font Specific Settings
+* {
+  word-spacing: normal !important;
+}
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+}
+.nav-link,
+.dropdown-item,
+.btn {
+  letter-spacing: normal;
+}
+.btn,
+.navbar .btn-sm,
+.nav-link,
+.nav-link p,
+.lg-sub-html p {
+  @include font-size($font-size-base);
+}
+.dropdown-menu {
+  @include font-size($font-size-base - 0.05);
+}
+.share-dropdown .dropdown-menu .dropdown-item,
+.btn-sm,
+.btn-group-sm>.btn,
+.post-meta {
+  @include font-size($font-size-base - 0.1);
+}
+.meta,
+.post-category,
+.filter,
+.filter ul li a {
+  @include font-size($font-size-base - 0.15);
+}
+.post-header .post-meta {
+  @include font-size($font-size-base);
+}
+.nav-tabs .nav-link,
+.accordion-wrapper .card-header button,
+.collapse-link {
+  @include font-size($font-size-base + 0.05);
+}
+blockquote {
+  @include font-size($font-size-base + 0.05);
+}
+.blockquote-footer {
+  @include font-size($font-size-base - 0.2);
+}
+.blockquote-details p {
+  @include font-size($font-size-base);
+}
+.counter-wrapper {
+  p {
+    @include font-size($font-size-base);
+  }
+  .counter {
+    @include font-size(2.05rem);
+    &.counter-lg {
+      @include font-size(2.25rem)
+    }
+  }
+}
+.icon-list.bullet-bg i {
+  top: 0.25rem;
+}
+.accordion-wrapper .card-header button:before {
+  margin-top: -0.2rem;
+}
+.form-floating > label {
+  padding-top: 0.65rem;
+}
+.h1, h1 {
+  @include font-size(1.5rem);
+}
+.h2, h2 {
+  @include font-size(1.35rem);
+}
+.h3, h3 {
+  @include font-size(1.15rem);
+}
+.h4, h4 {
+  @include font-size(1rem);
+}
+.h5, h5 {
+  @include font-size(0.95rem);
+}
+.h6, h6 {
+  @include font-size(0.9rem);
+}
+.fs-sm {
+  @include font-size(0.75rem !important);
+}
+.fs-lg {
+  @include font-size(1.05rem !important);
+}
+.lead {
+  @include font-size(0.95rem);
+  line-height: 1.6;
+}
+.lead.fs-lg {
+  @include font-size(1.1rem !important);
+  line-height: 1.55;
+}
+.display-1 {
+  @include font-size(2.5rem);
+  line-height: 1.15
+}
+.display-2 {
+  @include font-size(2.3rem);
+  line-height: 1.2
+}
+.display-3 {
+  @include font-size(2.1rem);
+  line-height: 1.2
+}
+.display-4 {
+  @include font-size(1.9rem);
+  line-height: 1.25
+}
+.display-5 {
+  @include font-size(1.7rem);
+  line-height: 1.25
+}
+.display-6 {
+  @include font-size(1.5rem);
+  line-height: 1.3
+}
