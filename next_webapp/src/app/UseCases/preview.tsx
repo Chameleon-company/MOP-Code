@@ -32,17 +32,21 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
       </div>
 
       {/* Preview Screen on the right */}
-      <div className="w-3/4 bg-gray-200 p-4 overflow-y-auto">
+      <div className="w-3/4 bg-gray-200 p-4 overflow-y-hidden">
         <div className="h-full w-full">
           {/* Display an iframe to show the file */}
-          <div>{selectedCaseStudy?.title}</div>
+          <div className="font-semibold text-2xl">{selectedCaseStudy?.title}</div>
           {selectedCaseStudy && (
-            <div style={{ width: "100%" }}>
-              <iframe
-                style={{ width: "100%", height: "100vh" }}
-                src={selectedCaseStudy.caseUrl}
-              ></iframe>
-            </div>
+                <div style={{ width: "100%" }}>
+                <iframe
+                  style={{ width: "100%", height: "calc(100vh - 70px)"}}
+                  src={selectedCaseStudy.caseUrl}
+                  title="Case Study"
+                ></iframe>
+              </div>
+            // <object data={selectedCaseStudy.caseUrl} type="application/pdf" width="100%" height="100%">
+            //   <p>Your browser does not support PDFs. <a href={selectedCaseStudy.pdf}>Download the PDF</a>.</p>
+            // </object>
           )}
         </div>
       </div>
