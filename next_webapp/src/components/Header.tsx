@@ -1,5 +1,6 @@
 import React from "react";
-import "../../public/styles/header.css";// Import the CSS file
+import LanguageDropdown from "../components/LanguageDropdown";
+import "../../public/styles/header.css"; // Import the CSS file
 
 const Header = () => {
   return (
@@ -15,7 +16,7 @@ const Header = () => {
                 <li className="inline-block">
                   <a
                     href="/"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg" 
+                    className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg"
                     aria-current="page"
                   >
                     Home
@@ -53,12 +54,24 @@ const Header = () => {
                     Upload
                   </a>
                 </li>
-
               </ul>
             </div>
             <div className="flex items-center justify-end">
-              <a href="/signup" className="signup-btn font-serif py-3 px-6 text-white rounded-full  text-lg" >Sign Up</a>
-              <a href="/login" className="login-btn font-serif py-3 px-6 text-white rounded-full  text-lg">Log In</a>
+              <div className="relative" x-data="{ open: false }">
+                <LanguageDropdown />
+              </div>
+              <a
+                href="/signup"
+                className="signup-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+              >
+                Sign Up
+              </a>
+              <a
+                href="/login"
+                className="login-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+              >
+                Log In
+              </a>
             </div>
           </div>
         </nav>
@@ -68,10 +81,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
-
-
-
