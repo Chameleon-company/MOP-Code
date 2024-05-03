@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CaseStudy } from "./database";
+import { CaseStudy } from "../types";
 // Mock data for case studies with associated PDF paths
 
 const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
@@ -40,7 +40,7 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
             <div style={{ width: "100%" }}>
               <iframe
                 style={{ width: "100%", height: "100vh" }}
-                src={selectedCaseStudy.caseUrl}
+                src={`/api?filename=${selectedCaseStudy.filename}`}
               ></iframe>
             </div>
           )}
