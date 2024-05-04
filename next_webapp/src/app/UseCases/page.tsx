@@ -44,7 +44,7 @@ const UseCases = () => {
         <div className="app">
           <section className="px-10 pt-5">
             <p>
-              <span className="text-4xl text-black">User Cases</span>
+              <span className="text-4xl font-bold text-black">User Cases</span>
             </p>
             <SearchBar onSearch={handleSearch} />
             <PreviewComponent caseStudies={filteredCaseStudies} />
