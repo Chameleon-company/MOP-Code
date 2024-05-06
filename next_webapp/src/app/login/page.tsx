@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import '../../../public/styles/login.css';
 
 function LoginForm() {
@@ -10,69 +9,61 @@ function LoginForm() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('');
 
-    // Handles changes in the email and password fields
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        name === 'email' ? setEmail(value) : setPassword(value);
+        if (name === 'email') setEmail(value);
+        else setPassword(value);
     };
 
-    // Toggles the visibility of the password
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
 
-    // Handles form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!email || !password) {
             setError('Please fill in both fields');
             return;
         }
-        // Placeholder for authentication logic
-        console.log('Authentication in progress...');
+        console.log('Authentication in progress...'); 
         setError('');
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            {/* Example of integrating an image with Next.js optimization */}
-            <div className="logo">
-                <Image
-                    src="/img/image.png" alt="Logo"
-                    width={150}  // Specify the width
-                    height={150}  // Specify the height
-                    priority  // Load the image with high priority
-                />
+        <div className="login-container">
+            <div className="top-bar">
+                <img src="logo.png" alt="Chameleon Logo" className="logo"/>
+                <div className="signup-container">
+                    <span className="no-account">No Account yet?</span>
+                    <button className="sign-up-button">Sign Up</button>
+                </div>
             </div>
-            <form onSubmit={handleSubmit} className="login-form">
-                <div className="input-group">
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label>Email</label>
-                </div>
-                <div className="input-group">
-                    <input
-                        type={passwordVisible ? 'text' : 'password'}
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label>Password</label>
-                    <span onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
-                        {passwordVisible ? 'Hide' : 'Show'}
-                    </span>
-                </div>
-                <button type="submit" className="login-button">Login</button>
-                {error && <div className="error text-red-500">{error}</div>}
-            </form>
+            <div className="login-container">
+                <h2>Account Log In</h2>
+                <p className="subtitle">Please login to continue to your account</p>
+                <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
+                    <div className="input-group">
+                        <input type="email" id="email" name="email" required placeholder="Email"
+                               value={email} onChange={handleChange} />
+                    </div>
+                    <div className="input-group">
+                        <input type={passwordVisible ? "text" : "password"} id="password" name="password"
+                               required placeholder="Password" value={password} onChange={handleChange} />
+                        <span className="toggle-password" onClick={togglePasswordVisibility}>
+                            {passwordVisible ? '🔒' : '🔓'} {/* Adjusted icons for visibility */}
+                        </span>
+                    </div>
+                    <div className="options-container">
+                        <label className="checkbox-label">
+                            <input type="checkbox" id="remember-me" name="remember-me" />
+                            Remember Me
+                        </label>
+                        <a href="#" className="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" className="login-button">LOGIN</button>
+                </form>
+            </div>
+            {error && <div className="error text-red-500">{error}</div>}
         </div>
     );
 }
