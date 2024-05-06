@@ -32,7 +32,7 @@ function LoginForm() {
     return (
       <div className="login-container">
         <div className="top-bar">
-          <img src="./assets/logo.png" alt="Chameleon Logo" className="logo" />
+          <img src="/img/image.png" alt="Chameleon Logo" className="logo" />
           <div className="signup-container">
             <span className="no-account">No Account yet?</span>
             <a href="./signup" className="sign-up-button">Sign Up</a>
