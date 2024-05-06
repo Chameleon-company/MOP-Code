@@ -80,12 +80,11 @@ body {
 .login-container {
     background-color: white;
     padding: 1rem;
-    max-width: 90%; /* Adjust width to be responsive */
+    max-width: 100%; /* Adjust width to be responsive */
     width: auto; /* Ensures it grows with the screen size */
     box-sizing: border-box;
     position: relative;
-    /*top: 0px;  Adjusted top positioning */
-    margin-top: 60px; /* Added space for the fixed top bar */
+    margin-top: 30px; /* Added space for the fixed top bar */
     text-align: center;
 }
 
