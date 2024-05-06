@@ -1,5 +1,8 @@
+'use client'
+
 import React, { useState } from 'react';
-import '../../../public/styles/login.css'; // Adjust the path as necessary
+import Image from 'next/image';
+import '../../../public/styles/login.css';
 
 function LoginForm() {
     const [email, setEmail] = useState('');
@@ -32,6 +35,16 @@ function LoginForm() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
+            {/* Example of integrating an image with Next.js optimization */}
+            <div className="logo">
+                <Image
+                    src="/path/to/your/logo.png" // Adjust the path to your image
+                    alt="Logo"
+                    width={150}  // Specify the width
+                    height={150}  // Specify the height
+                    priority  // Load the image with high priority
+                />
+            </div>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="input-group">
                     <input
