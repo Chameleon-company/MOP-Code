@@ -38,8 +38,7 @@ function LoginForm() {
             {/* Example of integrating an image with Next.js optimization */}
             <div className="logo">
                 <Image
-                    src="/path/to/your/logo.png" // Adjust the path to your image
-                    alt="Logo"
+                    src="/img/image.png" alt="Logo"
                     width={150}  // Specify the width
                     height={150}  // Specify the height
                     priority  // Load the image with high priority
