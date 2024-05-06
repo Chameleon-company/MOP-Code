@@ -4,11 +4,14 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Montserrat', sans-serif; /* Sets Montserrat as the base font */
+    font-family: 'Montserrat', sans-serif;
+    background: #FFFFFF; 
 }
+
 .top-bar, .login-container, .signup-link, .forgot-password, input, button {
-    font-family: 'Montserrat', sans-serif; /* Ensuring all text elements use Montserrat */
+    font-family: 'Montserrat', sans-serif;
 }
+
 .top-bar {
     background-color: white;
     padding: 1rem;
@@ -16,14 +19,14 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    position: fixed; /* Changed from relative to fixed */
-    top: 0; /* Updated position */
-    left: 0; /* Updated position */
+    position: fixed;
+    top: 0;
+    left: 0;
     box-sizing: border-box;
 }
 
 .logo {
-    height: 60px; /* Reduced from 100px for smaller screens */
+    height: 60px;
 }
 
 .signup-container {
@@ -32,8 +35,8 @@ body {
 }
 
 .no-account {
-    margin-right: 1rem; /* Changed from -500px */
-    font-size: 0.875rem; /* Changed from 14px */
+    margin-right: 1rem;
+    font-size: 0.875rem;
     color: #333;
 }
 
@@ -44,12 +47,13 @@ body {
     border-radius: 5px;
 }
 
-.account-query  {
+.account-query {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-.options-container{
+
+.options-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -57,7 +61,7 @@ body {
     padding: 0 0.625rem;
 }
 
-.sign-up-button {
+.sign-up-button, .login-button {
     padding: 0.3125rem 0.625rem;
     background-color: #fff;
     color: #333;
@@ -66,37 +70,55 @@ body {
     cursor: pointer;
     font-size: 0.875rem;
 }
+
 .login-button {
-    padding: 0.3125rem 0.625rem;
     background-color: #2ECC71;
     color: white;
-    border: 1px solid #ccc;
-    border-radius: 1px;
-    cursor: pointer;
-    font-size: 0.875rem;
     width: 100%;
 }
 
 .login-container {
     background-color: white;
     padding: 1rem;
-    max-width: 100%; /* Adjust width to be responsive */
-    width: auto; /* Ensures it grows with the screen size */
+    max-width: 100%;
+    width: auto;
     box-sizing: border-box;
     position: relative;
-    margin-top: 30px; /* Added space for the fixed top bar */
+    margin-top: 30px;
     text-align: center;
 }
 
+.h2 {
+    font-weight: bold; 
+    color: black; 
+}
+.login-title {
+    font-weight: bold;
+    color: black; 
+}
+
+.login-subtitle {
+    color: #616161; 
+}
+
+.remember-me {
+    color: #616161; 
+}
+
+.subtitle {
+    color: #616161; 
+}
+
 .input-group input {
-    width: 100%; /* Makes input width responsive */
+    width: 100%;
     padding: 0.625rem;
     border: 1px solid #ccc;
 }
 
-.input-group label {
-    padding: 0.625rem;
+.remember-me {
+    color: #616161; 
 }
+
 .input-group {
     position: relative;
     display: flex;
@@ -104,24 +126,22 @@ body {
 }
 
 .input-group input[type="password"] {
-    width: 100%;
-    padding-right: 30px; /* Make space for the eye icon */
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding-right: 30px;
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px; /* Adjust as needed */
+    right: 10px;
     cursor: pointer;
-    font-size: 18px; /* Adjust size as needed */
+    font-size: 18px;
 }
+
 @media (min-width: 768px) {
     .logo {
-        height: 100px; /* Larger size on wider screens */
+        height: 100px;
     }
 
     .login-container {
-        width: 675px; /* Fixed width on larger screens */
+        width: 675px;
     }
 }

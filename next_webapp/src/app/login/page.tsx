@@ -9,43 +9,38 @@ function LoginForm() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState("");
 
-    // Handles input changes for both email and password
     const handleChange = (event) => {
       const { name, value } = event.target;
       if (name === "email") setEmail(value);
       else setPassword(value);
     };
 
-    // Toggles the visibility of the password
     const togglePasswordVisibility = () => {
       setPasswordVisible(!passwordVisible);
     };
 
-    // Handles form submission
     const handleSubmit = (event) => {
       event.preventDefault();
       if (!email || !password) {
         setError("Please fill in both fields");
         return;
       }
-      console.log("Authentication in progress..."); // Placeholder for actual auth
+      console.log("Authentication in progress...");
       setError("");
     };
 
-    // Form rendering
     return (
       <div className="login-container">
         <div className="top-bar">
-          <img src="/img/image.png" alt="Chameleon Logo" className="logo" />
+          <img src="./assets/logo.png" alt="Chameleon Logo" className="logo" />
           <div className="signup-container">
             <span className="no-account">No Account yet?</span>
             <a href="./signup" className="sign-up-button">Sign Up</a>
-
           </div>
         </div>
         <div className="login-container">
-          <h2>Account Log In</h2>
-          <p className="subtitle">Please login to continue to your account</p>
+          <h2 className="login-title">Account Log In</h2> {/* Changed class name for specific styling */}
+          <p className="login-subtitle">Please login to continue to your account</p>
           <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
             <div className="input-group">
               <input
@@ -73,7 +68,7 @@ function LoginForm() {
               </span>
             </div>
             <div className="options-container">
-              <label className="checkbox-label">
+              <label className="checkbox-label remember-me">
                 <input type="checkbox" id="remember-me" name="remember-me" />
                 Remember Me
               </label>
