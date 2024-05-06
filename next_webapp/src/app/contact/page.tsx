@@ -99,10 +99,6 @@ const Contact = () => {
         valid = false;
       }
     });
-    if (valid) {
-      console.log("Form is valid: Submitting data");
-      // Here you would handle the form submission, e.g., posting data to a server
-    }
   };
   return (
     <div className="contactPage font-sans bg-gray-200 min-h-screen">
