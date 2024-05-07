@@ -1,17 +1,4 @@
-export enum CATEGORY {
-  ALL = "all",
-  INTERNET = "internet",
-  EV = "ev",
-  SECURITY = "security",
-}
-
-export type CaseStudy = {
-  id: number;
-  title: string;
-  content: string;
-  category: CATEGORY;
-  caseUrl?: string;
-};
+import { CATEGORY, CaseStudy } from "../types";
 
 export const caseStudies: CaseStudy[] = [
   {
@@ -19,14 +6,14 @@ export const caseStudies: CaseStudy[] = [
     title: "Case Study 1",
     content: "Content for Case Study 1...",
     category: CATEGORY.INTERNET,
-    caseUrl: "/api?filename=Childcare_Facilities_Analysis",
+    filename: "Childcare_Facilities_Analysis",
   },
   {
     id: 2,
     title: "Case Study 2",
     content: "Content for Case Study 2...",
     category: CATEGORY.INTERNET,
-    caseUrl: "/api?filename=Projected_Music_venue_growth",
+    filename: "Projected_Music_venue_growth",
   },
   // Existing case studies
   {

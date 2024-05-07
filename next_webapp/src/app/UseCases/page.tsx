@@ -4,20 +4,38 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
-import { caseStudies, CaseStudy, CATEGORY } from "./database";
+import { caseStudies } from "./database";
+import { CATEGORY, SEARCH_MODE, SearchParams } from "../types";
+// import path from "path";
+// import fs from "fs";
+
+async function searchUseCases(searchParams: SearchParams) {
+  const response = await fetch("/api/search-use-cases", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(searchParams),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
+}
 
 const UseCases = () => {
   const [filteredCaseStudies, setFilteredCaseStudies] = useState(caseStudies);
 
-  const handleSearch = (searchTerm: string, category: string) => {
-    setFilteredCaseStudies(
-      caseStudies.filter((caseStudy) => {
-        return (
-          (category === CATEGORY.ALL || category === caseStudy.category) &&
-          caseStudy.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      })
-    );
+  const handleSearch = async (
+    searchTerm: string,
+    searchMode: SEARCH_MODE,
+    category: CATEGORY
+  ) => {
+    const res = await searchUseCases({ searchTerm, searchMode, category });
+    console.log("🚀 ~ UseCases ~ res:", res);
+    setFilteredCaseStudies(res?.filteredStudies);
   };
   return (
     <div className="font-sans bg-gray-100">
@@ -26,7 +44,7 @@ const UseCases = () => {
         <div className="app">
           <section className="px-10 pt-5">
             <p>
-              <span className="text-4xl text-black">User Cases</span>
+              <span className="text-4xl font-bold text-black">User Cases</span>
             </p>
             <SearchBar onSearch={handleSearch} />
             <PreviewComponent caseStudies={filteredCaseStudies} />
