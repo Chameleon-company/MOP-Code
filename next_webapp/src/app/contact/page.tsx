@@ -22,6 +22,7 @@ const Contact = () => {
       type: "text",
       placeholder: "Enter Your First name",
       required: true,
+      validator: (value: string) => value.trim() !== '',
     },
     {
       name: "lastName",
@@ -29,6 +30,7 @@ const Contact = () => {
       type: "text",
       placeholder: "Enter Your Last name",
       required: true,
+      validator: (value: string) => value.trim() !== '',
     },
     {
       name: "email",
@@ -52,6 +54,7 @@ const Contact = () => {
       type: "textarea",
       placeholder: "Enter Message",
       required: true,
+      validator: (value: string) => value.trim() !== '',
     },
   ];
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
