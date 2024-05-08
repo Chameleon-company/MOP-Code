@@ -3,17 +3,7 @@
 }
 
 .nav-link:hover {
-  background-color: #4299e1; /* Change the background color on hover */
-}
-
-.login-btn:hover {
-  background-color: #f4f8f4; 
-  color:green;/* Change to the desired color on hover */
-  /* Add any other styles you want to apply on hover */
-}
-.signup-btn:hover {
-  color: black; /* Change to the desired color on hover */
-  /* Add any other styles you want to apply on hover */
+  background-color: #287405; /* Change the background color on hover */
 }
 
 .signup-btn{
@@ -25,7 +15,14 @@
 
 .login-btn{
   border:1px solid white;
-  color:white;
+  background-color: #f4f8f4; 
+  color:rgb(9, 189, 9);
+}
+
+.language-btn{
+  border:1px solid white;
+  background-color: #f4f8f4; 
+  color:rgb(9, 189, 9);
 }
 
 
