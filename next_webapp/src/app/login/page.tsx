@@ -39,7 +39,7 @@ function LoginForm() {
           </div>
         </div>
         <div className="login-container">
-          <h2 className="login-title">Account Log In</h2> {/* Changed class name for specific styling */}
+          <h1 className="login-title">Account Log In</h1> {/* Changed class name for specific styling */}
           <p className="login-subtitle">Please login to continue to your account</p>
           <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
             <div className="input-group">

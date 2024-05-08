@@ -75,6 +75,7 @@ body {
     background-color: #2ECC71;
     color: white;
     width: 100%;
+    padding-block: 15px;
 }
 
 .login-container {
@@ -112,7 +113,8 @@ body {
 .input-group input {
     width: 100%;
     padding: 0.625rem;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
+    color: black;
 }
 
 .remember-me {
@@ -126,7 +128,11 @@ body {
 }
 
 .input-group input[type="password"] {
-    padding-right: 30px;
+    margin: 5px;
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #333;
+    color: black;
 }
 
 .toggle-password {
