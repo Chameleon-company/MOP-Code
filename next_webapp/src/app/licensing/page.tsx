@@ -1,8 +1,6 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import React from 'react';
-import "../../../public/styles/licensing.css";
-
 const Licensing = () => {
   return (
   <div>
@@ -17,12 +15,12 @@ const Licensing = () => {
       <div>
         <h2 className="text-black text-lg"><strong>Terms of Use</strong></h2>
         <br/>
-        <p>
+        <p className="justify-center text-black text-lg">
           By accessing and using our website, you agree to comply with the
           following terms and conditions:
         </p>
         <br />
-        <ul className="bullet-list">
+        <ul className="list-disc pl-5">
             <li>
               You must use the website in accordance with applicable laws and
               regulations.
@@ -43,7 +41,7 @@ const Licensing = () => {
       </div>
       <br/>
       <div>
-        <h2 className="text-black text-lg"><strong>License Grant</strong></h2>
+        <h2 className=" text-black text-lg"><strong>License Grant</strong></h2>
         <br />
         <p>
           We grant you a limited, non-exclusive, and revocable license to
@@ -51,7 +49,7 @@ const Licensing = () => {
           This license does not include the right to:
         </p>
         <br />
-        <ul className="bullet-list">
+        <ul className="list-disc pl-5">
             <li>Modify, adapt, or reverse engineer any part of the website.</li>
             <li>Copy or distribute content without permission.</li>
             <li>
@@ -89,7 +87,7 @@ const Licensing = () => {
         <br />
         <p>You may not:</p>
         <br />
-        <ul className="bullet-list">
+        <ul className="list-disc pl-5">
             <li>Use the website for any illegal or unauthorized purpose.</li>
             <li>
               Attempt to gain unauthorized access to our systems or networks.
@@ -105,7 +103,7 @@ const Licensing = () => {
   </div>
  
   <div className="contact-info mt-8 text-center">
-    <p className="contact-text">
+    <p className="text-black text-lg">
       If you have any questions or concerns about our licensing agreement,
       please contact us at <a href="mailto:licensing@MOP.com.au">licensing@MOP.com.au</a>
     </p>
