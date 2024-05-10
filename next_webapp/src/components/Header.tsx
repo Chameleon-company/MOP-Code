@@ -1,6 +1,5 @@
 import React from "react";
 import LanguageDropdown from "../components/LanguageDropdown";
-import "../../public/styles/header.css"; // Import the CSS file
 
 const Header = () => {
   return (
