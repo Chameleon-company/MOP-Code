@@ -20,7 +20,7 @@ const Header = () => {
               </a>
               <div onClick={()=>setisOpen(!isOpen)} className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden">
                 {
-                  isOpen ?  <CiMenuBurger className="size-6"/> :   <HiMiniXMark className="size-8"/>
+                  isOpen ? <HiMiniXMark className="size-8"/>: <CiMenuBurger className="size-6"/>  
                 }
               </div>
               <ul className={`md:flex justify-between md:pl-9 bg-green-400  md:w-auto w-full absolute md:static md:z-auto  z-[1] ${isOpen ? 'top-12' : 'top-[-430px]'}` }>
