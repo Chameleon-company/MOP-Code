@@ -6,7 +6,7 @@ import Chatbot from '../app/chatbot/chatbot';
 
 const Home = () => {
   return (
-    <div>
+    <div className='w-full'>
       <Header />
       <Dashboard /> 
       <Chatbot />
