@@ -80,7 +80,7 @@ function LoginForm() {
               <input type="checkbox" id="remember-me" name="remember-me" />
               Remember Me
             </label>
-            <a href="#" className="forgot-password">
+            <a href="/forgot-password" className="forgot-password">
               Forgot Password?
             </a>
           </div>

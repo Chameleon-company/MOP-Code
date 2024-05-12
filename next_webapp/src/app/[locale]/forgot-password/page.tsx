@@ -1,8 +1,8 @@
 // ForgotPasswordPage.js
 
-import React from 'react';
-import Link from 'next/link'; // Import Link from Next.js
-import '../../../public/styles/forgot-password.css';
+import React from "react";
+import Link from "next/link"; // Import Link from Next.js
+import "../../../../public/styles/forgot-password.css";
 
 const ForgotPasswordPage = () => {
   return (
@@ -10,7 +10,9 @@ const ForgotPasswordPage = () => {
       {/* No Account Yet */}
       <div className="already-member">
         <p className="text-sm mr-2">No Account Yet?</p>
-        <a href="/signup" className="login-button text-sm">Sign up</a>
+        <a href="/signup" className="login-button text-sm">
+          Sign up
+        </a>
       </div>
 
       {/* Logo */}
