@@ -1,8 +1,10 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import "../../../../public/styles/about.css";
+import { useTranslations } from "next-intl";
 
 const About = () => {
+  const t = useTranslations("about");
   return (
     <div className="bg-white">
       <Header />
@@ -14,14 +16,8 @@ const About = () => {
       </div>
 
       <div className="banner">
-        <h2>About MOP</h2>
-        <p>
-          Melbourne Open Data Project (MOP) is a capstone project sponsored by
-          Deakin University in collaboration with City of Melbourne. Since
-          COVID, there has been an increased demand for data by the business
-          community to support their decision-making. This project is meant to
-          align with two strategic documents from the Melbourne City Council.
-        </p>
+        <h2>{t("About MOP")}</h2>
+        <p>{t("p1")}</p>
       </div>
 
       <div className="m-4 bg-white">
@@ -32,8 +28,8 @@ const About = () => {
           >
             <div className="flex flex-row h-full">
               <span className="font-bold m-2 text-3xl">
-                About <br />
-                Us
+                {t("About")} <br />
+                {t("Us")}
               </span>
               <div className="mt-10 pl-8 w-56 h-44 relative">
                 <img
@@ -47,14 +43,7 @@ const About = () => {
             </div>
 
             <p className="p-4 text-center">
-              <span className="text-wrap">
-                This project is meant to align with two strategic documents from
-                the Melbourne City Council: The Economic Development Strategy,
-                which aims to be a digitally-connected city. The 2021-2025
-                Council Plan, which outlines the specific objective of
-                delivering programs that will build literacy skills and
-                capabilities.
-              </span>
+              <span className="text-wrap">{t("p2")}</span>
             </p>
           </div>
           <div
@@ -63,7 +52,7 @@ const About = () => {
           >
             <div className="flex flex-row h-full">
               <span className="font-bold m-2 text-3xl">
-                Open Data Leadership
+                {t("Open Data Leadership")}
               </span>
               <div className="mt-10 pl-8 w-56 h-44 relative flex-shrink-0">
                 <img
@@ -77,14 +66,7 @@ const About = () => {
             </div>
 
             <p className="p-4 text-center">
-              <span className="text-wrap">
-                This project is meant to align with two strategic documents from
-                the Melbourne City Council: The Economic Development Strategy,
-                which aims to be a digitally-connected city. The 2021-2025
-                Council Plan, which outlines the specific objective of
-                delivering programs that will build literacy skills and
-                capabilities.
-              </span>
+              <span className="text-wrap">{t("p3")}</span>
             </p>
           </div>
           <div
@@ -93,8 +75,8 @@ const About = () => {
           >
             <div className="flex flex-row h-full">
               <span className="font-bold m-2 text-3xl">
-                Our <br />
-                Goals
+                {t("Our")} <br />
+                {t("Goals")}
               </span>
               <div className="mt-10 pl-8 w-56 h-44 relative">
                 <img
@@ -108,14 +90,7 @@ const About = () => {
             </div>
 
             <p className="p-4 text-center">
-              <span className="text-wrap">
-                This project is meant to align with two strategic documents from
-                the Melbourne City Council: The Economic Development Strategy,
-                which aims to be a digitally-connected city. The 2021-2025
-                Council Plan, which outlines the specific objective of
-                delivering programs that will build literacy skills and
-                capabilities.
-              </span>
+              <span className="text-wrap">{t("p4")}</span>
             </p>
           </div>
         </div>

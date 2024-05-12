@@ -4,6 +4,7 @@ import Footer from "../../../components/Footer";
 import "../../../../public/styles/contact.css";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface FormField {
   name: string;
@@ -105,6 +106,9 @@ const Contact = () => {
       }
     });
   };
+
+  const t = useTranslations("contact");
+
   return (
     <div className="contactPage font-sans bg-gray-200 min-h-screen">
       <Header />
@@ -151,7 +155,7 @@ const Contact = () => {
             ))}
             <div className="flex justify-center items-center">
               <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
-                Submit
+                {t("Submit")}
               </button>
             </div>
           </form>
@@ -159,9 +163,9 @@ const Contact = () => {
 
         <div className="imgContent max-w-full max-h-full text-center relative w-full mt-12">
           <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat">
-            Contact
+            {t("Contact")}
             <br />
-            Us
+            {t("Us")}
           </span>
           <div className="imgWrap relative inline-block">
             <Image

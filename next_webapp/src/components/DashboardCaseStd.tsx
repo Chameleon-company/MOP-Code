@@ -1,32 +1,35 @@
 // DashboardCaseStd.js
 import React from "react";
 import Link from "next/link";
-
-const caseStudies = [
-  {
-    id: "cs1",
-    image: "/img/icon1.png",
-    title: "Case Study 1",
-    description: "ChildCare Facilities Analysis",
-    link: "/UseCases",
-  },
-  {
-    id: "cs2",
-    image: "/img/icon2.png",
-    title: "Case Study 2",
-    description: "Projected Venue Growth",
-    link: "/UseCases",
-  },
-  {
-    id: "cs3",
-    image: "/img/icon3.png",
-    title: "Case Study 3",
-    description: "Data Science in Education",
-    link: "UseCases",
-  },
-];
+import { useTranslations } from "next-intl";
 
 const DashboardCaseStd = () => {
+  const t = useTranslations("common");
+
+  const caseStudies = [
+    {
+      id: "cs1",
+      image: "/img/icon1.png",
+      title: t("Case Study 1"),
+      description: t("ChildCare Facilities Analysis"),
+      link: "/UseCases",
+    },
+    {
+      id: "cs2",
+      image: "/img/icon2.png",
+      title: t("Case Study 2"),
+      description: t("Projected Venue Growth"),
+      link: "/UseCases",
+    },
+    {
+      id: "cs3",
+      image: "/img/icon3.png",
+      title: t("Case Study 3"),
+      description: t("Data Science in Education"),
+      link: "UseCases",
+    },
+  ];
+
   return (
     <div className="case-studies-wrapper">
       {caseStudies.map((caseStudy) => (
