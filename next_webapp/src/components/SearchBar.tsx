@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import "/public/styles/Searchbar.css";
@@ -11,10 +11,10 @@ const SearchBar = () => {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Redirect to the search results page with the current search value
     window.location.href = `/searchresults?q=${encodeURIComponent(
-      searchQuery,
+      searchQuery
     )}`;
   };
 

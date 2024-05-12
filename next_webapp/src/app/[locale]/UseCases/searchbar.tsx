@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CATEGORY, SEARCH_MODE } from "../types";
+import { CATEGORY, SEARCH_MODE } from "../../types";
+import { useTranslations } from "next-intl";
 
 const SearchBar = ({
   onSearch,
@@ -19,6 +20,8 @@ const SearchBar = ({
     onSearch(searchTerm, searchMode, category);
   };
 
+  const t = useTranslations("usecases");
+
   return (
     <div className="p-4 flex flex-col pl-0 ml-0">
       <form
@@ -33,7 +36,7 @@ const SearchBar = ({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <label htmlFor="category-select" className="sr-only">
-          All categories
+          {t("All categories")}
         </label>
         <div className="flex-shrink-0">
           <select
@@ -42,26 +45,28 @@ const SearchBar = ({
             value={searchMode}
             onChange={(e) => setSearchMode(e.target.value as SEARCH_MODE)}
           >
-            <option value={SEARCH_MODE.TITLE}>Search by title</option>
-            <option value={SEARCH_MODE.CONTENT}>Search by content</option>
+            <option value={SEARCH_MODE.TITLE}>{t("Search by title")}</option>
+            <option value={SEARCH_MODE.CONTENT}>
+              {t("Search by content")}
+            </option>
           </select>
           <select
             className="text-black mr-3 border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-green-500"
             value={category}
             onChange={(e) => setCategory(e.target.value as CATEGORY)}
           >
-            <option value={CATEGORY.ALL}>All categories</option>
+            <option value={CATEGORY.ALL}>{t("All categories")}</option>
             {/* Add more options here based on your categories */}
-            <option value={CATEGORY.INTERNET}>Internet</option>
-            <option value={CATEGORY.EV}>EV</option>
-            <option value={CATEGORY.SECURITY}>Security</option>
+            <option value={CATEGORY.INTERNET}>{t("Internet")}</option>
+            <option value={CATEGORY.EV}>{t("EV")}</option>
+            <option value={CATEGORY.SECURITY}>{t("Security")}</option>
           </select>
         </div>
         <button
           type="submit"
           className="px-4 py-2 bg-green-500 text-white rounded-r-lg rounded-l-md hover:bg-green-600 focus:outline-none"
         >
-          Search
+          {t("Search")}
         </button>
       </form>
     </div>

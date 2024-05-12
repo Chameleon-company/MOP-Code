@@ -1,4 +1,4 @@
-import { CATEGORY, CaseStudy } from "../types";
+import { CATEGORY, CaseStudy } from "../../types";
 
 export const caseStudies: CaseStudy[] = [
   {

@@ -1,8 +1,11 @@
 import React from "react";
 import LanguageDropdown from "../components/LanguageDropdown";
 import "../../public/styles/header.css"; // Import the CSS file
+import { useTranslations } from "next-intl";
 
 const Header = () => {
+  const t = useTranslations("common");
+
   return (
     <header>
       <div>
@@ -19,7 +22,7 @@ const Header = () => {
                     className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg"
                     aria-current="page"
                   >
-                    Home
+                    {t("Home")}
                   </a>
                 </li>
                 <li className="inline-block">
@@ -27,7 +30,7 @@ const Header = () => {
                     href="/about"
                     className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
                   >
-                    About Us
+                    {t("About Us")}
                   </a>
                 </li>
                 <li className="inline-block">
@@ -35,7 +38,7 @@ const Header = () => {
                     href="/UseCases"
                     className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
                   >
-                    Use Cases
+                    {t("Use Cases")}
                   </a>
                 </li>
                 <li className="inline-block">
@@ -43,7 +46,7 @@ const Header = () => {
                     href="/statistics"
                     className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
                   >
-                    Statistics
+                    {t("Statistics")}
                   </a>
                 </li>
                 <li className="inline-block">
@@ -51,7 +54,7 @@ const Header = () => {
                     href="/upload"
                     className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
                   >
-                    Upload
+                    {t("Upload")}
                   </a>
                 </li>
               </ul>
@@ -64,13 +67,13 @@ const Header = () => {
                 href="/signup"
                 className="signup-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
-                Sign Up
+                {t("Sign Up")}
               </a>
               <a
                 href="/login"
                 className="login-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
-                Log In
+                {t("Log In")}
               </a>
             </div>
           </div>

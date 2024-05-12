@@ -1,5 +1,5 @@
 // import required libraries
-import { caseStudies } from "@/app/UseCases/database";
+import { caseStudies } from "@/app/[locale]/UseCases/database";
 import { CATEGORY, CaseStudy, SEARCH_MODE, SearchParams } from "@/app/types";
 import fs from "fs";
 import path from "path";
