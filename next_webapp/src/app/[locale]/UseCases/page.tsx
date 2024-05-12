@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
 import { caseStudies } from "./database";
-import { CATEGORY, SEARCH_MODE, SearchParams } from "../types";
+import { CATEGORY, SEARCH_MODE, SearchParams } from "../../types";
 // import path from "path";
 // import fs from "fs";
 

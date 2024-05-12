@@ -1,9 +1,10 @@
-"use client"
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import "../../../public/styles/contact.css";
+"use client";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
+import "../../../../public/styles/contact.css";
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface FormField {
   name: string;
@@ -22,7 +23,7 @@ const Contact = () => {
       type: "text",
       placeholder: "Enter Your First name",
       required: true,
-      validator: (value: string) => value.trim() !== '',
+      validator: (value: string) => value.trim() !== "",
     },
     {
       name: "lastName",
@@ -30,7 +31,7 @@ const Contact = () => {
       type: "text",
       placeholder: "Enter Your Last name",
       required: true,
-      validator: (value: string) => value.trim() !== '',
+      validator: (value: string) => value.trim() !== "",
     },
     {
       name: "email",
@@ -46,7 +47,7 @@ const Contact = () => {
       type: "tel",
       placeholder: "Enter Your Phone Number",
       required: true,
-      validator: (phone: string) => /^\d{10,}$/.test(phone.replace(/\D/g, '')),
+      validator: (phone: string) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
     },
     {
       name: "message",
@@ -54,14 +55,16 @@ const Contact = () => {
       type: "textarea",
       placeholder: "Enter Message",
       required: true,
-      validator: (value: string) => value.trim() !== '',
+      validator: (value: string) => value.trim() !== "",
     },
   ];
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   // Handler to update form values and clear errors
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -75,7 +78,7 @@ const Contact = () => {
 
   // Function to validate individual fields
   const validateField = (name: string, value: string) => {
-    const field = formFields.find(field => field.name === name);
+    const field = formFields.find((field) => field.name === name);
     if (field?.validator && !field.validator(value)) {
       setErrors({
         ...errors,
@@ -93,9 +96,9 @@ const Contact = () => {
     e.preventDefault();
     let valid = true;
     // Validate all fields before submitting
-    formFields.forEach(field => {
+    formFields.forEach((field) => {
       if (field.validator && !field.validator(formValues[field.name] || "")) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
           [field.name]: `Invalid ${field.spanName.toLowerCase()}`,
         }));
@@ -103,14 +106,27 @@ const Contact = () => {
       }
     });
   };
+
+  const t = useTranslations("contact");
+
   return (
     <div className="contactPage font-sans bg-gray-200 min-h-screen">
       <Header />
       <main className="contactBody font-light text-xs leading-7 flex flex-col justify-between mt-12 items-start p-12">
         <div className="formContent w-full">
-          <form id="contact" action="" onSubmit={handleSubmit} method="post" className="m-8" noValidate>
+          <form
+            id="contact"
+            action=""
+            onSubmit={handleSubmit}
+            method="post"
+            className="m-8"
+            noValidate
+          >
             {formFields.map((field) => (
-              <fieldset key={field.name} className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700">
+              <fieldset
+                key={field.name}
+                className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
+              >
                 <span className="namaSpan text-black">{field.spanName}</span>
                 {field.type === "textarea" ? (
                   <textarea
@@ -130,12 +146,16 @@ const Contact = () => {
                     onChange={handleChange}
                   />
                 )}
-                {errors[field.name] && <span className="text-red-500 text-xs">{errors[field.name]}</span>}
+                {errors[field.name] && (
+                  <span className="text-red-500 text-xs">
+                    {errors[field.name]}
+                  </span>
+                )}
               </fieldset>
             ))}
             <div className="flex justify-center items-center">
               <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
-                Submit
+                {t("Submit")}
               </button>
             </div>
           </form>
@@ -143,9 +163,9 @@ const Contact = () => {
 
         <div className="imgContent max-w-full max-h-full text-center relative w-full mt-12">
           <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat">
-            Contact
+            {t("Contact")}
             <br />
-            Us
+            {t("Us")}
           </span>
           <div className="imgWrap relative inline-block">
             <Image

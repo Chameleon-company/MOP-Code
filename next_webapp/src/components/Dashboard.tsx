@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import mainimage from "../../public/img/mainImage.png"
-import secondimage from "../../public/img/second_image.png"
+import mainimage from "../../public/img/mainImage.png";
+import secondimage from "../../public/img/second_image.png";
+import { useTranslations } from "next-intl";
 
 const style = `
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -227,65 +228,53 @@ color:black;
 .main-wrapper{
     background-color: white;
 }
-`
+`;
 const Dashboard = () => {
-    const navItems = [
-        { to: "/about", icon: "/img/about-icon.png", label: "About Us" },
-        { to: "/casestudies", icon: "/img/case-icon.png", label: "Case Studies" },
-        { to: "/resource-center", icon: "/img/resource-icon.png", label: "Resource Center" },
-        { to: "/datasets", icon: "/img/data-icon.png", label: "Data Collection" },
-        { to: "/contact", icon: "/img/contact-icon.png", label: "Contact Us" },
-    ];
+  const navItems = [
+    { to: "/about", icon: "/img/about-icon.png", label: "About Us" },
+    { to: "/casestudies", icon: "/img/case-icon.png", label: "Case Studies" },
+    {
+      to: "/resource-center",
+      icon: "/img/resource-icon.png",
+      label: "Resource Center",
+    },
+    { to: "/datasets", icon: "/img/data-icon.png", label: "Data Collection" },
+    { to: "/contact", icon: "/img/contact-icon.png", label: "Contact Us" },
+  ];
 
-    return (
-        <>
-            <style dangerouslySetInnerHTML={{ __html: style }} />
+  const t = useTranslations("common");
 
-            <div className="main-wrapper">
-                <div className="main-container">
-                    <section className="hero-section">
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: style }} />
 
-                        <Image
-                            src={mainimage} alt={"main image1"}                            
-                        />
-                        
-
-                    </section>
-                    <section className="sign-up-btn-section">
-                        <button className="sign-up-btn"><a href="/signup"> Sign Up</a></button>
-                    </section>
-                    <section className="our-vision-section">
-
-                        <div className="our-vision">Our Vision</div>
-                        <div className="img-div">
-                            <Image
-                            src={secondimage} alt={"Second Image"}                            
-                            />
-                        </div>
-                        <div className="text-div">
-                            Melbourne Open Data Project (MOP) is a capstone project sponsored by
-                            Deakin University. Since COVID, there has been an increased demand
-                            for data by the business community to support their decision-making.
-                            This project is meant to align with two strategic documents from the
-                            Melbourne City Council.
-                        </div>
-
-                    </section>
-                    <section className="recent-case-studies">
-                        <h2>Recent Case Studies</h2>
-                        <p>Through compelling case studies exploring biotechnology, oil and gas supply management, and education, we showcase the power of Melbourne&apos;s open data.</p>
-
-                    </section>
-
-
-                    <section className="case-studies">
-                    </section>
-                </div>
+      <div className="main-wrapper">
+        <div className="main-container">
+          <section className="hero-section">
+            <Image src={mainimage} alt={"main image1"} />
+          </section>
+          <section className="sign-up-btn-section">
+            <button className="sign-up-btn">
+              <a href="en/signup"> {t("Sign Up")}</a>
+            </button>
+          </section>
+          <section className="our-vision-section">
+            <div className="our-vision">{t("Our Vision")}</div>
+            <div className="img-div">
+              <Image src={secondimage} alt={"Second Image"} />
             </div>
-        </>
+            <div className="text-div">{t("intro")}</div>
+          </section>
+          <section className="recent-case-studies">
+            <h2>{t("Recent Case Studies")}</h2>
+            <p>{t("p2")}</p>
+          </section>
 
-
-    );
+          <section className="case-studies"></section>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Dashboard;
