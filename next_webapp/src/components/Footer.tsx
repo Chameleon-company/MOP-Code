@@ -10,13 +10,13 @@ const Footer = () => {
         </div>
         <div class="flex-grow text-center">
           <ul class="flex justify-center gap-20">
-            <a href="en/privacypolicy">
+            <a href="/en/privacypolicy">
               <li>Privacy Policy</li>
             </a>
-            <a href="en/licensing">
+            <a href="/en/licensing">
               <li>Licensing</li>
             </a>
-            <a href="en/contact">
+            <a href="/en/contact">
               <li>Contact Us</li>
             </a>
           </ul>
