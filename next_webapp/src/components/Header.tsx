@@ -23,7 +23,7 @@ const Header = () => {
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/about"
+                    href="/en/about"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     About Us
@@ -31,7 +31,7 @@ const Header = () => {
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/UseCases"
+                    href="/en/UseCases"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     Use Cases
@@ -39,7 +39,7 @@ const Header = () => {
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/statistics"
+                    href="/en/statistics"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     Statistics
@@ -47,7 +47,7 @@ const Header = () => {
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/upload"
+                    href="/en/upload"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     Upload
@@ -60,13 +60,13 @@ const Header = () => {
                 <LanguageDropdown />
               </div>
               <a
-                href="/signup"
+                href="/en/signup"
                 className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
                 Sign Up
               </a>
               <a
-                href="/login"
+                href="/en/login"
                 className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
               >
                 Log In
