@@ -6,6 +6,7 @@ import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
 import { caseStudies } from "./database";
 import { CATEGORY, SEARCH_MODE, SearchParams } from "../../types";
+import { useTranslations } from "next-intl";
 // import path from "path";
 // import fs from "fs";
 
@@ -37,6 +38,9 @@ const UseCases = () => {
     console.log("🚀 ~ UseCases ~ res:", res);
     setFilteredCaseStudies(res?.filteredStudies);
   };
+
+  const t = useTranslations("usecases");
+
   return (
     <div className="font-sans bg-gray-100">
       <Header />
@@ -44,7 +48,9 @@ const UseCases = () => {
         <div className="app">
           <section className="px-10 pt-5">
             <p>
-              <span className="text-4xl font-bold text-black">User Cases</span>
+              <span className="text-4xl font-bold text-black">
+                {t("User Cases")}
+              </span>
             </p>
             <SearchBar onSearch={handleSearch} />
             <PreviewComponent caseStudies={filteredCaseStudies} />

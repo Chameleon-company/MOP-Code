@@ -1,9 +1,11 @@
 // Footer.js
+import { Link } from "@/i18n-navigation";
 import React from "react";
 import { useTranslations } from "next-intl";
 
 const Footer = () => {
   const t = useTranslations("common");
+
   return (
     <footer class="bg-white text-black justify-center">
       <div class="w-full px-32 py-7 flex items-center">
@@ -12,15 +14,15 @@ const Footer = () => {
         </div>
         <div class="flex-grow text-center">
           <ul class="flex justify-center gap-20">
-            <a href="/en/privacypolicy">
+            <Link href="/privacypolicy">
               <li>{t("Privacy Policy")}</li>
-            </a>
-            <a href="/en/licensing">
+            </Link>
+            <Link href="/licensing">
               <li>{t("Licensing")}</li>
-            </a>
-            <a href="/en/contact">
+            </Link>
+            <Link href="/contact">
               <li>{t("Contact Us")}</li>
-            </a>
+            </Link>
           </ul>
         </div>
         <div class="flex-shrink-0 ml-4 flex gap-2">

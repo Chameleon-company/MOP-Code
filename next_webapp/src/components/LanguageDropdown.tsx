@@ -1,10 +1,14 @@
 "use client";
+import { usePathname, useRouter } from "@/i18n-navigation";
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 const LanguageDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Custom hook to handle clicks outside the dropdown
   useEffect(() => {
@@ -20,6 +24,11 @@ const LanguageDropdown: React.FC = () => {
     };
   }, []);
 
+  const selectLanguage = (locale: string) => {
+    router.push(pathname, { locale });
+    router.refresh();
+  };
+
   const t = useTranslations("common");
 
   return (
@@ -34,12 +43,20 @@ const LanguageDropdown: React.FC = () => {
         <div className="absolute z-10 bg-white rounded shadow-lg mt-1 w-48">
           <a
             href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              selectLanguage("en");
+            }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
             {t("English")}
           </a>
           <a
             href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              selectLanguage("cn");
+            }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
             {t("Chinese")}
