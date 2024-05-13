@@ -22,7 +22,7 @@
         "name": "matplotlib",
         "code": "python"
     },{
-        "name": "seaborn",
+        "name": "numpy",
         "code": "python"
     },{
         "name": "geopandas",
@@ -31,16 +31,16 @@
         "name": "folium",
         "code": "python"
     },{
+        "name": "plotly",
+        "code": "python"
+    },{
+        "name": "statistics",
+        "code": "python"
+    },{
         "name": "scipy",
-        "code": "python"
-    },{
-        "name": "imblearn",
-        "code": "python"
-    },{
-        "name": "sklearn",
         "code": "python"
     }],
     "datasets":["bus-stop", 
-    "pedestrian-counting-system-monthly-counts-per-hour"
+    "Victoria Road Crash Data"
     ] 
 }
