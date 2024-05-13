@@ -4,11 +4,24 @@ import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5"; // Import I
 import { useRouter } from "next/navigation";
 import "../chatbot/chatbot.css";
 
+
+type Message = {
+  content: React.ReactNode;  // Using React.ReactNode to accept both strings and JSX
+  sender: string;
+};
+
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [messages, setMessages] = useState([
-    { text: "Hi, How can I help you?", sender: "bot" },
+  const [messages, setMessages] = useState<Message[]>([  
+    {
+      content: (
+        <>
+          Hi, How can I help you? Check out our <a href="/en/faq" style={{ color: 'blue', textDecoration: 'underline' }}>FAQ page</a> for more information.
+        </>
+      ),
+      sender: "bot"
+    },
   ]);
   const router = useRouter();
 
@@ -21,7 +34,7 @@ const Chatbot = () => {
   const handleSend = () => {
     if (!userInput.trim()) return;
     const trimmedInput = userInput.trim().toLowerCase();
-    setMessages([...messages, { text: userInput, sender: "user" }]);
+    setMessages([...messages, { content: userInput, sender: "user" }]);
     handleCommand(trimmedInput);
     setUserInput("");
   };
@@ -91,13 +104,13 @@ const Chatbot = () => {
     if (matchedKeyword) {
       setMessages([
         ...messages,
-        { text: `Understood. Redirecting to the right page.`, sender: "bot" },
+        { content: `Understood. Redirecting to the right page.`, sender: "bot" },
       ]);
       setTimeout(() => router.push(matchedKeyword.route), 2000);
     } else {
       setMessages([
         ...messages,
-        { text: "Sorry, I didn't understand that.", sender: "bot" },
+        { content: "Sorry, I didn't understand that.", sender: "bot" },
       ]);
     }
   };
@@ -108,13 +121,9 @@ const Chatbot = () => {
         <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full">
           <div className="messages overflow-auto h-40">
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`message ${
-                  msg.sender === "bot" ? "text-green-600" : "text-green-800"
-                }`}
-              >
-                {msg.text}
+              <div key={index} className={`message ${msg.sender === "bot" ? "text-green-600" : "text-green-800"}`}>
+                {/* Directly use msg.content without checking type */}
+                {msg.content}  
               </div>
             ))}
           </div>
