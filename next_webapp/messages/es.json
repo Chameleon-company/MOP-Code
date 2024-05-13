@@ -69,7 +69,8 @@
         "Tag": "Etiqueta",
         "number": "Número de Estudios de Caso Publicados",
         "Popularity": "Popularidad",
-        "Rows per page": "Filas por página"
+        "Rows per page": "Filas por página",
+        "Enter Tag name": "Ingrese el nombre de la etiqueta"
     },
     "usecases": {
         "User Cases": "Casos de Usuario",

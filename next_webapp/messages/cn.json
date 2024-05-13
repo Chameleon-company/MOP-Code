@@ -69,7 +69,8 @@
       "Tag": "标签",
       "number": "发布案例研究的数量",
       "Popularity": "人气",
-      "Rows per page": "每页行数"
+      "Rows per page": "每页行数",
+      "Enter Tag name": "输入标签名称"
   },
   "usecases": {
       "User Cases": "用户案例",

@@ -69,7 +69,8 @@
         "Tag": "Tag",
         "number": "Number of Case Studies Published",
         "Popularity": "Popularity",
-        "Rows per page": "Rows per page"
+        "Rows per page": "Rows per page",
+        "Enter Tag name": "Enter Tag name"
       },
       "usecases": {
         "User Cases": "User Cases",
