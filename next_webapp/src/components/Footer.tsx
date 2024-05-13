@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 const Footer = () => {
   const t = useTranslations("common");
   return (
-    <footer class="bg-white text-black justify-center">
+    <footer class="bg-white text-black justify-center mt-10">
+      <hr class=" h-1 border-1 text-gray-500 bg-gray-500 mx-8"></hr>
       <div class="w-full px-32 py-7 flex items-center">
         <div class="flex-shrink-0 mr-4">
-          <img src="/img/header-logo.png" alt="logo" class="w-20" />
+          <img src="/img/new-logo-green.png" alt="logo" class="w-20" />
         </div>
         <div class="flex-grow text-center">
           <ul class="flex justify-center gap-20">
