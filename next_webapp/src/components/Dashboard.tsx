@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n-navigation";
 import Image from "next/image";
 import mainimage from "../../public/img/mainImage.png";
 import secondimage from "../../public/img/second_image.png";
@@ -255,7 +255,7 @@ const Dashboard = () => {
           </section>
           <section className="sign-up-btn-section">
             <button className="sign-up-btn">
-              <a href="en/signup"> {t("Sign Up")}</a>
+              <Link href="signup">{t("Sign Up")}</Link>
             </button>
           </section>
           <section className="our-vision-section">

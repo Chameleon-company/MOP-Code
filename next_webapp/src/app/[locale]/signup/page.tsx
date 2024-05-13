@@ -1,6 +1,7 @@
 // SignUpPage.js
 "use client";
 
+import { Link } from "@/i18n-navigation";
 import React, { useState } from "react";
 
 const SignUpPage = () => {
@@ -47,12 +48,12 @@ const SignUpPage = () => {
       {/* Already a member section */}
       <div className="absolute top-20 right-20 ml-4 m-4 flex items-center text-[#666666]">
         <p className="text-sm mr-2">Already a member?</p>
-        <a
-          href="en/login"
+        <Link
+          href="/login"
           className="border border-gray-600 text-gray-600 px-4 py-2 ml-4 hover:border-[#999999]"
         >
           Log In
-        </a>
+        </Link>
       </div>
 
       {/* Logo */}

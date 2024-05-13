@@ -9,8 +9,8 @@ const About = () => {
     <div className="bg-white">
       <Header />
 
-      <div className="about-heading">About</div>
-      <div className="about-heading">Us</div>
+      <div className="about-heading">{t("About")}</div>
+      <div className="about-heading">{t("Us")}</div>
       <div className="image-container">
         <img src="/img/mel.jpg" alt="About Us Image" />
       </div>

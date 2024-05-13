@@ -1,9 +1,11 @@
 import React from "react";
 import LanguageDropdown from "../components/LanguageDropdown";
+import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 
 const Header = () => {
   const t = useTranslations("common");
+
   return (
     <header>
       <div>
@@ -24,36 +26,36 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="inline-block">
-                  <a
-                    href="/en/about"
+                  <Link
+                    href="/about"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     {t("About Us")}
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
-                    href="/en/UseCases"
+                  <Link
+                    href="/UseCases"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     {t("Use Cases")}
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
-                    href="/en/statistics"
+                  <Link
+                    href="/statistics"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     {t("Statistics")}
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
-                    href="/en/upload"
+                  <Link
+                    href="/upload"
                     className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
                     {t("Upload")}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -61,18 +63,18 @@ const Header = () => {
               <div className="relative" x-data="{ open: false }">
                 <LanguageDropdown />
               </div>
-              <a
-                href="/en/signup"
+              <Link
+                href="/signup"
                 className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
                 {t("Sign Up")}
-              </a>
-              <a
-                href="/en/login"
+              </Link>
+              <Link
+                href="/login"
                 className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
               >
                 {t("Log In")}
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
