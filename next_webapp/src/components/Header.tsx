@@ -11,7 +11,7 @@ const Header = () => {
           <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
             <div className="flex items-center space-x-3">
               <a href="/">
-                <img src="/img/image.png" className="h-8" alt="MOP logo" />
+                <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
               </a>
               <ul className="flex justify-evenly ml-8">
                 <li className="inline-block">
