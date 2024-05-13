@@ -1,98 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-.contactPage {
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    background: #f2f2f2;
-    height: auto;
-}
-
-.contactBody {
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 50px;
-    align-items: start;
-    padding: 50px;
-}
-
-.formContent {
-    width: 100%;
-}
-
-#contact {
-    margin: 30px;
-}
-
-fieldset {
-    border: medium none !important;
-    margin: 0 0 10px;
-    min-width: 100%;
-    padding: 0;
-    width: 100%;
-    color: #777;
-}
-
-#contact span {
-    color: #000000;
-}
-
-#contact input[type='text'],
-#contact input[type='email'],
-#contact input[type='tel'],
-#contact input[type='url'],
-#contact textarea {
-    width: 100%;
-    border: 1px solid #ccc;
-    background: #fff;
-    margin: 0 0 5px;
-    padding: 10px;
-    font: 400 12px/16px 'Open Sans', Helvetica, Arial, sans-serif;
-    border-radius: 5px;
-}
-
-#contact textarea {
-    height: 60px;
-}
-
-#contact input[type='text']:hover,
-#contact input[type='email']:hover,
-#contact input[type='tel']:hover,
-#contact input[type='url']:hover,
-#contact textarea:hover {
-    -webkit-transition: border-color 0.3s ease-in-out;
-    -moz-transition: border-color 0.3s ease-in-out;
-    transition: border-color 0.3s ease-in-out;
-    border: 1px solid #aaa;
-}
-
-.imgContent {
-    text-align: center;
-    position: relative;
-    width: 100%;
-    margin-top: 50px;
-}
-
-.contactUsText {
-    position: absolute;
-    z-index: 2;
-    font-family: 'Montserrat', sans-serif;
-    ;
-    text-align: left;
-    right: 83%;
-    top: -15%;
-    color: #000000;
-    font-size: 28px;
-    line-height: 50px;
-}
-
-.imgWrap {
-    position: relative;
-    display: inline-block;
-}
-
 .imgWrap::before,
 .imgWrap::after {
     content: '';
@@ -114,18 +21,12 @@ fieldset {
     height: 80%;
 }
 
-.cityImage {
-    display: block;
-    position: relative;
-    z-index: 1;
-}
-
 @media screen and (min-width: 1024px) {
     .contactUsText {
         font-size: 48px;
         line-height: 60px;
-        right: 80%;
-        top: -20%;
+        right: 85%;
+        top: -35%;
     }
 
     .contactBody {
@@ -146,6 +47,16 @@ fieldset {
     .contactUsText {
         font-size: 58px;
         line-height: 80px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .contactUsText {
+        font-size: 70px;
+        line-height: 90px;
+    }
+    .contactBody {
+        margin-top: 150px; 
     }
 }
 
