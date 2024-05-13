@@ -27,36 +27,18 @@
 }
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-  .text-black, .contact-text {
-      font-size: 14px; /* Smaller font size for mobile devices */
+  h1 {
+    font-size: 36px; /* Smaller font size for H1 on small devices */
   }
-
-  .left-content, .right-content {
-      padding: 10px; /* Smaller padding for smaller screens */
+  h2 {
+    font-size: 24px; /* Smaller font size for H2 on small devices */
   }
-
-  .bullet-list {
-      padding-left: 15px; /* Adjust list padding for mobile */
+  p {
+    font-size: 16px; /* Smaller font size for paragraphs on small devices */
   }
-
-  .left-content p,
-  .left-content ul.bullet-list,
-  .right-content p,
-  .right-content ul.bullet-list {
-      font-size: 14px; /* Adjust font size for smaller screens */
+  .my-custom-padding-class {
+    padding-left: 20px; /* Reduce left padding on small devices */
+    padding-right: 20px; /* Reduce right padding on small devices */
   }
 }
 
-/* Additional media query for larger screens */
-@media (min-width: 769px) {
-  .left-content, .right-content {
-      padding: 20px; /* Larger padding for larger screens */
-  }
-
-  .bullet-list {
-      padding-left: 25px; /* Adjust list padding for larger screens */
-  }
-}
-
-
-  
