@@ -79,7 +79,8 @@
       "Internet": "互联网",
       "EV": "电动车",
       "Security": "安全",
-      "Search": "搜索"
+      "Search": "搜索",
+      "Case study name or category": "案例研究名称或类别"
   },
   "licensing": {
       "Licensing": "许可",
@@ -108,6 +109,16 @@
   "contact": {
       "Submit": "提交",
       "Contact": "联系",
-      "Us": "我们"
+      "Us": "我们",
+      "First Name": "名字",
+    "Enter Your First name": "输入您的名字",
+    "Last Name": "姓氏",
+    "Enter Your Last name": "输入您的姓氏",
+    "Company Email Address": "公司电子邮件地址",
+    "Enter Company Email Address": "输入公司电子邮件地址",
+    "Phone Number": "电话号码",
+    "Enter Your Phone Number": "输入您的电话号码",
+    "Message": "信息",
+    "Enter Message": "输入信息"
   }
 }

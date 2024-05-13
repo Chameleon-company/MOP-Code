@@ -78,7 +78,8 @@
         "Internet": "Διαδίκτυο",
         "EV": "Ηλεκτρικό Όχημα",
         "Security": "Ασφάλεια",
-        "Search": "Αναζήτηση"
+        "Search": "Αναζήτηση",
+        "Case study name or category": "Όνομα ή κατηγορία μελέτης περίπτωσης"
     },
     "licensing": {
         "Licensing": "Αδειοδότηση",
@@ -107,6 +108,16 @@
     "contact": {
         "Submit": "Υποβολή",
         "Contact": "Επικοινωνία",
-        "Us": "Μαζί Μας"
+        "Us": "Εμάς",
+        "First Name": "Όνομα",
+        "Enter Your First name": "Εισάγετε το όνομά σας",
+        "Last Name": "Επώνυμο",
+        "Enter Your Last name": "Εισάγετε το επώνυμό σας",
+        "Company Email Address": "Διεύθυνση Ηλεκτρονικού Ταχυδρομείου Εταιρείας",
+        "Enter Company Email Address": "Εισάγετε τη διεύθυνση email της εταιρείας",
+        "Phone Number": "Τηλεφωνικός Αριθμός",
+        "Enter Your Phone Number": "Εισάγετε τον τηλεφωνικό σας αριθμό",
+        "Message": "Μήνυμα",
+        "Enter Message": "Εισάγετε μήνυμα"
     }
 }

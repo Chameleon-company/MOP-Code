@@ -30,13 +30,13 @@ const SearchBar = ({
       >
         <input
           type="search"
-          placeholder="Case study name or category"
+          placeholder={t("Case study name or category")}
           className="w-full px-4 py-2 border-2 border-gray-300 rounded-l-lg rounded-r-lg focus:outline-none focus:border-green-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <label htmlFor="category-select" className="sr-only">
-          All categories
+          {t("All categories")}
         </label>
         <div className="flex-shrink-0">
           <select

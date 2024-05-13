@@ -68,7 +68,7 @@ const Licensing = () => {
                     <strong>{t("t5")}</strong>
                   </h2>
                   <br />
-                  <p>{t("p12")}You may not:</p>
+                  <p>{t("p12")}</p>
                   <br />
                   <ul className="bullet-list">
                     <li>{t("p13")}</li>
