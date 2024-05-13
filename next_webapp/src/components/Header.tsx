@@ -1,7 +1,9 @@
 import React from "react";
-import "../../public/styles/header.css";// Import the CSS file
+import LanguageDropdown from "../components/LanguageDropdown";
+import { useTranslations } from "next-intl";
 
 const Header = () => {
+  const t = useTranslations("common");
   return (
     <header>
       <div>
@@ -15,50 +17,62 @@ const Header = () => {
                 <li className="inline-block">
                   <a
                     href="/"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg" 
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  ml-3 text-lg"
                     aria-current="page"
                   >
-                    Home
+                    {t("Home")}
                   </a>
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/about"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/about"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    About Us
+                    {t("About Us")}
                   </a>
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/UseCases"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/UseCases"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Use Cases
+                    {t("Use Cases")}
                   </a>
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/statistics"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/statistics"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Statistics
+                    {t("Statistics")}
                   </a>
                 </li>
                 <li className="inline-block">
                   <a
-                    href="/upload"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/upload"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Upload
+                    {t("Upload")}
                   </a>
                 </li>
-
               </ul>
             </div>
             <div className="flex items-center justify-end">
-              <a href="/signup" className="signup-btn font-serif py-3 px-6 text-white rounded-full  text-lg" >Sign Up</a>
-              <a href="/login" className="login-btn font-serif py-3 px-6 text-white rounded-full  text-lg">Log In</a>
+              <div className="relative" x-data="{ open: false }">
+                <LanguageDropdown />
+              </div>
+              <a
+                href="/en/signup"
+                className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+              >
+                {t("Sign Up")}
+              </a>
+              <a
+                href="/en/login"
+                className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
+              >
+                {t("Log In")}
+              </a>
             </div>
           </div>
         </nav>
@@ -68,10 +82,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
-
-
-

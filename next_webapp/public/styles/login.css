@@ -1,0 +1,128 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif; /* Sets Montserrat as the base font */
+}
+.top-bar, .login-container, .signup-link, .forgot-password, input, button {
+    font-family: 'Montserrat', sans-serif; /* Ensuring all text elements use Montserrat */
+}
+.top-bar {
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed; /* Changed from relative to fixed */
+    top: 0; /* Updated position */
+    left: 0; /* Updated position */
+    box-sizing: border-box;
+}
+
+.logo {
+    height: 60px; /* Reduced from 100px for smaller screens */
+}
+
+.signup-container {
+    display: flex;
+    align-items: center;
+}
+
+.no-account {
+    margin-right: 1rem; /* Changed from -500px */
+    font-size: 0.875rem; /* Changed from 14px */
+    color: #333;
+}
+
+.signup-link, .forgot-password {
+    padding: 0.5rem 1rem;
+    color: #0066cc;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.account-query  {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.options-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 0.625rem;
+}
+
+.sign-up-button {
+    padding: 0.3125rem 0.625rem;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+.login-button {
+    padding: 0.3125rem 0.625rem;
+    background-color: #2ECC71;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    width: 100%;
+}
+
+.login-container {
+    background-color: white;
+    padding: 1rem;
+    max-width: 90%; /* Adjust width to be responsive */
+    width: auto; /* Ensures it grows with the screen size */
+    box-sizing: border-box;
+    position: relative;
+    /*top: 0px;  Adjusted top positioning */
+    margin-top: 60px; /* Added space for the fixed top bar */
+    text-align: center;
+}
+
+.input-group input {
+    width: 100%; /* Makes input width responsive */
+    padding: 0.625rem;
+    border: 1px solid #ccc;
+}
+
+.input-group label {
+    padding: 0.625rem;
+}
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group input[type="password"] {
+    width: 100%;
+    padding-right: 30px; /* Make space for the eye icon */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px; /* Adjust as needed */
+    cursor: pointer;
+    font-size: 18px; /* Adjust size as needed */
+}
+@media (min-width: 768px) {
+    .logo {
+        height: 100px; /* Larger size on wider screens */
+    }
+
+    .login-container {
+        width: 675px; /* Fixed width on larger screens */
+    }
+}
