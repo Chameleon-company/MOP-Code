@@ -10,22 +10,24 @@
     "difficultly": "Intermediate",
     "technology": [
         {
+            "name": "requests", 
+            "code": "python"
+        },{
+            "name": "io", 
+            "code": "python"
+        },{
             "name": "numpy",
             "code": "python"
-        },
-        {
+        },{
             "name": "pandas",
             "code": "python"
-        },
-        {
+        },{
             "name": "seaborn",
             "code": "python"
-        },
-        {
+        },{
             "name": "matplotlib",
             "code": "python"
-        },
-        {
+        },{
             "name": "sklearn",
             "code": "python"
         }
