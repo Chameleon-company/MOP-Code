@@ -1,14 +1,15 @@
+/* General Styles */
+
 .upload-body {
     background-color: #d8d8d8;
-    margin: 0%;
+    margin: 0;
     font-family: "Montserrat", sans-serif;
-}
-
-.upload-body h1,
-h2,
-label {
+    color: black;
     font-weight: 400;
 }
+
+
+/* Header Styles */
 
 .upload-header {
     display: flex;
@@ -17,87 +18,92 @@ label {
     background-color: #ffffff;
     padding: 10px;
     width: auto;
+    height: 5rem;
+    margin-bottom: 2rem;
 }
 
-.upload-header-left {
-    padding-left: 5rem;
-    margin-right: 1rem;
+.upload-header h1 {
+    font-size: 1.5rem;
 }
 
+.upload-header-left,
 .upload-header-right {
-    padding-right: 5rem;
-    margin-left: 1rem;
+    padding: 0 2rem;
+    margin: 0 1rem;
 }
 
 .upload-header-right select {
     font-size: 1rem;
 }
 
+
+/* Container Styles */
+
 .upload-container {
-    width: 50%;
-    margin: 50px auto;
+    width: 90%;
+    margin: auto;
     background-color: #ffffff;
-    padding: 6rem 6rem;
+    padding: 3rem 2rem;
+}
+
+.upload-container h2 {
+    font-size: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .form-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 2rem;
 }
 
 .form-container .column {
-    width: 45%;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .form-container .column input {
-    width: 100%;
+    width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 10px;
-    box-sizing: border-box;
     border-radius: 5px;
-    /* Adding border-radius for slightly rounded corners */
     border: 1px solid #ccc;
-    /* Adding border for better visibility */
-    font-size: small;
-    opacity: 50%;
 }
 
 .form-container .column label {
     font-size: small;
 }
 
+
+/* Green Box Styles */
+
 .green-box {
-    width: 45rem;
-    height: 25rem;
+    width: 100%;
+    height: 20rem;
     background-color: #d7ecd8;
-    /* Green color */
-    border-radius: 5rem;
-    /* Rounded corners */
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    /* Stack elements vertically */
     justify-content: center;
     align-items: center;
 }
 
 .upload-icon {
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     fill: white;
-    /* Icon color */
 }
 
 .file-upload {
     text-align: center;
 }
 
-.file-upload-label {
-    display: block;
-    background-color: #65c265;
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    cursor: pointer;
+.file-upload h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    padding-bottom: 1rem;
 }
 
 .file-upload-input {
@@ -116,4 +122,19 @@ label {
 
 .upload-btn:hover {
     background-color: #45a049;
+}
+
+
+/* Media Queries for Responsive Design */
+
+@media only screen and (min-width: 768px) {
+    .form-container .column {
+        width: 48%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .upload-container {
+        width: 80%;
+    }
 }
