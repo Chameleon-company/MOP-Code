@@ -53,13 +53,13 @@ const SignUpPage = () => {
           className="border border-gray-600 text-gray-600 px-4 py-2 ml-4 hover:border-[#999999]"
         >
           Log In
-        </Link>
+        </a> {/* Changed Link to a */}
       </div>
 
       {/* Logo */}
       <div className="absolute top-20 left-20 mr-4 m-4">
         {/* Add your logo here */}
-        <img src="/img/new-logo-green.png" alt="Logo" class="h-40"/>
+        <img src="/img/new-logo-green.png" alt="Logo" className="h-40" /> {/* Added className */}
       </div>
 
       {/* Sign-up form */}
@@ -116,6 +116,7 @@ const SignUpPage = () => {
         </button>
       </div>
     </div>
+
   );
 };
 
