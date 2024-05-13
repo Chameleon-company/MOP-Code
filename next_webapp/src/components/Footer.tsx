@@ -21,6 +21,9 @@ const Footer = () => {
             <a href="/en/contact">
               <li>{t("Contact Us")}</li>
             </a>
+            <a href="/en/faq">
+              <li>{t("FAQ")}</li>
+            </a>
           </ul>
         </div>
         <div class="flex-shrink-0 ml-4 flex gap-2">
