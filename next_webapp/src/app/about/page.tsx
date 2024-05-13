@@ -10,7 +10,7 @@ const About = () => {
     <div className="about-heading">About</div>
     <div className="about-heading">Us</div>
     <div className="image-container">
-      <img src="/img/mel.jpg" alt="About Us Image"/>
+      <img src="/img/mel.jpg" alt="Melbourne city image"/>
     </div>
 
     <div className="banner">
@@ -30,14 +30,14 @@ const About = () => {
                                 <img
                                     src="/img/about-us.png"
                                     className="absolute inset-0 w-full h-full object-cover"
-                                    alt="Description of the image"
+                                    alt="About us image"
                                 />
                                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
                                 <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
                             </div>
                         </div>
  
-                        <p className="p-4 text-center">
+                        <p className="p-4 text-left">
                             <span className="text-wrap">
                                 This project is meant to align with two strategic documents from the
                                 Melbourne City Council: The Economic Development Strategy, which aims
@@ -57,7 +57,7 @@ const About = () => {
                                 <img
                                     src="/img/leadership.png"
                                     className="absolute inset-0 w-full h-full object-cover"
-                                    alt="Description of the image"
+                                    alt="leadership image"
                                 />
                                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
                                 <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
@@ -87,7 +87,7 @@ const About = () => {
                                 <img
                                     src="/img/goals.png"
                                     className="absolute inset-0 w-full h-full object-cover"
-                                    alt="Description of the image"
+                                    alt="Goals image"
                                 />
                                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
                                 <div className="absolute bottom-0 -left-3 h-1/2 bg-black w-3"></div>
