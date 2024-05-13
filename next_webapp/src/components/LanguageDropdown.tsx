@@ -61,6 +61,26 @@ const LanguageDropdown: React.FC = () => {
           >
             {t("Chinese")}
           </a>
+          <a
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              selectLanguage("es");
+            }}
+            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+          >
+            {t("Spanish")}
+          </a>
+          <a
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              selectLanguage("el");
+            }}
+            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+          >
+            {t("Greek")}
+          </a>
         </div>
       )}
     </div>
