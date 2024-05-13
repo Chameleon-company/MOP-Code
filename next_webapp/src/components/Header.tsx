@@ -1,14 +1,19 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import LanguageDropdown from "../components/LanguageDropdown";
+import { useTranslations } from "next-intl";
 import "../../public/styles/header.css";
 import { CiMenuBurger  } from "react-icons/ci";
 import { HiMiniXMark } from "react-icons/hi2";
 
- // Import the CSS file
 
 const Header = () => {
+  const t = useTranslations("common");
   let[isOpen, setisOpen] = useState(false);
+
+  const handleChange = () =>{
+          setisOpen(!isOpen);
+  }
   return (
     <header>
       <div>
@@ -16,9 +21,9 @@ const Header = () => {
           <div className=" md:flex items-center justify-between ">
             <div className="md:flex items-center  ">
               <a href="/">
-                <img src="/img/image.png" className="h-8" alt="MOP logo" />
+                <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
               </a>
-              <div onClick={()=>setisOpen(!isOpen)} className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden">
+              <div onClick={()=>handleChange()} className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden">
                 {
                   isOpen ? <HiMiniXMark className="size-8"/>: <CiMenuBurger className="size-6"/>  
                 }
@@ -27,42 +32,42 @@ const Header = () => {
                 <li className="">
                   <a
                     href="/"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  ml-3 text-lg"
                     aria-current="page"
                   >
-                    Home
+                    {t("Home")}
                   </a>
                 </li>
                 <li className="">
                   <a
-                    href="/about"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/about"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    About Us
+                    {t("About Us")}
                   </a>
                 </li>
                 <li className="">
                   <a
-                    href="/UseCases"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/UseCases"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Use Cases
+                    {t("Use Cases")}
                   </a>
                 </li>
                 <li className="">
                   <a
-                    href="/statistics"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/statistics"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Statistics
+                    {t("Statistics")}
                   </a>
                 </li>
                 <li className="">
                   <a
-                    href="/upload"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    href="/en/upload"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Upload
+                    {t("Upload")}
                   </a>
                 </li>
               </ul>
@@ -75,18 +80,18 @@ const Header = () => {
               </li>
               <li className=" mt-5 sm:mt-3">
               <a
-                href="/signup"
-                className="signup-btn font-serif py-3 px-6 mx-3  text-white rounded-full  text-lg"
+                href="/en/signup"
+                className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
-                Sign Up
+                {t("Sign Up")}
               </a>
               </li>
               <li className="mt-8 sm:mt-3">
               <a
-                href="/login"
-                className="login-btn font-serif py-3 px-6 mx-3  text-white rounded-full  text-lg"
+                href="/en/login"
+                className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
               >
-                Log In
+                {t("Log In")}
               </a>
               </li>
             </ul>
