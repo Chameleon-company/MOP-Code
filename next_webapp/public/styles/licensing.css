@@ -25,6 +25,38 @@
   color: black;
   font-size: 17px;
 }
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .text-black, .contact-text {
+      font-size: 14px; /* Smaller font size for mobile devices */
+  }
+
+  .left-content, .right-content {
+      padding: 10px; /* Smaller padding for smaller screens */
+  }
+
+  .bullet-list {
+      padding-left: 15px; /* Adjust list padding for mobile */
+  }
+
+  .left-content p,
+  .left-content ul.bullet-list,
+  .right-content p,
+  .right-content ul.bullet-list {
+      font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
+/* Additional media query for larger screens */
+@media (min-width: 769px) {
+  .left-content, .right-content {
+      padding: 20px; /* Larger padding for larger screens */
+  }
+
+  .bullet-list {
+      padding-left: 25px; /* Adjust list padding for larger screens */
+  }
+}
 
 
   
