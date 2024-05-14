@@ -1,8 +1,11 @@
 import React from "react";
 import LanguageDropdown from "../components/LanguageDropdown";
-import "../../public/styles/header.css"; // Import the CSS file
+import { Link } from "@/i18n-navigation";
+import { useTranslations } from "next-intl";
 
 const Header = () => {
+  const t = useTranslations("common");
+
   return (
     <header>
       <div>
@@ -10,49 +13,49 @@ const Header = () => {
           <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
             <div className="flex items-center space-x-3">
               <a href="/">
-                <img src="/img/image.png" className="h-8" alt="MOP logo" />
+                <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
               </a>
               <ul className="flex justify-evenly ml-8">
                 <li className="inline-block">
                   <a
                     href="/"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  ml-3 text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  ml-3 text-lg"
                     aria-current="page"
                   >
-                    Home
+                    {t("Home")}
                   </a>
                 </li>
                 <li className="inline-block">
-                  <a
+                  <Link
                     href="/about"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    About Us
-                  </a>
+                    {t("About Us")}
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
+                  <Link
                     href="/UseCases"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Use Cases
-                  </a>
+                    {t("Use Cases")}
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
+                  <Link
                     href="/statistics"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Statistics
-                  </a>
+                    {t("Statistics")}
+                  </Link>
                 </li>
                 <li className="inline-block">
-                  <a
+                  <Link
                     href="/upload"
-                    className="nav-link block font-serif py-4 px-5 text-white rounded  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
                   >
-                    Upload
-                  </a>
+                    {t("Upload")}
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -60,18 +63,18 @@ const Header = () => {
               <div className="relative" x-data="{ open: false }">
                 <LanguageDropdown />
               </div>
-              <a
+              <Link
                 href="/signup"
-                className="signup-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+                className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
               >
-                Sign Up
-              </a>
-              <a
+                {t("Sign Up")}
+              </Link>
+              <Link
                 href="/login"
-                className="login-btn font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+                className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
               >
-                Log In
-              </a>
+                {t("Log In")}
+              </Link>
             </div>
           </div>
         </nav>
