@@ -4,7 +4,7 @@
   "description": " The objective is to find and to contribute to the creation of smarter, gain deeper insights into the dynamics of cities, and identify the areas for improvement, and develop innovative solutions to advance inclusive and strong communities.",
   "tags": [
       "Jobs per ANZSIC for blocks",
-      "House Prices by Small Area",
+      "House Prices by Small Area"
   ],
   "difficultly": "Intermediete",
   "technology": [
@@ -29,7 +29,7 @@
           "code": "python"
       },
       {
-          "name": "tkinter",
+          "name": "StandardScaler",
           "code": "python"
       }
 
