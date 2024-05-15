@@ -1,35 +1,43 @@
 // Footer.js
-import React from 'react';
-import Link from "next/link";
+import { Link } from "@/i18n-navigation";
+import React from "react";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("common");
+
   return (
-    <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="/img/header-logo.png" class="h-8" alt="MOP logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Melbourne Open Playground</span>
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <Link href="/about" class="hover:underline me-4 md:me-6">About</Link>
-                </li>
-                <li>
-                    <Link href="/privacypolicy" class="hover:underline me-4 md:me-6">Privacy Policy</Link>
-                </li>
-                <li>
-                    <Link href="/licensing" class="hover:underline me-4 md:me-6">Licensing</Link>
-                </li>
-                <li>
-                    <Link href="/contact" class="hover:underline">Contact</Link>
-                </li>
-            </ul>
+    <footer class="bg-white text-black justify-center mt-10">
+      <hr class=" h-1 border-1 text-gray-500 bg-gray-500 mx-8"></hr>
+      <div class="w-full px-32 py-7 flex items-center">
+        <div class="flex-shrink-0 mr-4">
+          <img src="/img/new-logo-green.png" alt="logo" class="w-20" />
         </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="" class="hover:underline"></a>. All Rights Reserved.</span>
-    </div>
-</footer>
+        <div class="flex-grow text-center">
+          <ul class="flex justify-center gap-20">
+            <Link href="/privacypolicy">
+              <li>{t("Privacy Policy")}</li>
+            </Link>
+            <Link href="/licensing">
+              <li>{t("Licensing")}</li>
+            </Link>
+            <Link href="/contact">
+              <li>{t("Contact Us")}</li>
+            </Link>
+          </ul>
+        </div>
+        <div class="flex-shrink-0 ml-4 flex gap-2">
+          <a href="https://data.melbourne.vic.gov.au/pages/home/">
+            {t("Melbourne Open Data")}
+          </a>
+          <img
+            src="https://www.svgrepo.com/show/510970/external-link.svg"
+            alt="link icon"
+            class="w-5"
+          />
+        </div>
+      </div>
+    </footer>
   );
 };
 
