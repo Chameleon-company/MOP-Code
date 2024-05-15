@@ -16,44 +16,46 @@ interface FormField {
 }
 
 const Contact = () => {
+  const t = useTranslations("contact");
+
   const formFields = [
     {
       name: "firstName",
-      spanName: "First Name",
+      spanName: t("First Name"),
       type: "text",
-      placeholder: "Enter Your First name",
+      placeholder: t("Enter Your First name"),
       required: true,
       validator: (value: string) => value.trim() !== "",
     },
     {
       name: "lastName",
-      spanName: "Last Name",
+      spanName: t("Last Name"),
       type: "text",
-      placeholder: "Enter Your Last name",
+      placeholder: t("Enter Your Last name"),
       required: true,
       validator: (value: string) => value.trim() !== "",
     },
     {
       name: "email",
-      spanName: "Company Email Address",
+      spanName: t("Company Email Address"),
       type: "email",
-      placeholder: "Enter Company Email Address",
+      placeholder: t("Enter Company Email Address"),
       required: true,
       validator: (email: string) => /^\S+@\S+\.\S+$/.test(email),
     },
     {
       name: "phone",
-      spanName: "Phone Number",
+      spanName: t("Phone Number"),
       type: "tel",
-      placeholder: "Enter Your Phone Number",
+      placeholder: t("Enter Your Phone Number"),
       required: true,
       validator: (phone: string) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
     },
     {
       name: "message",
-      spanName: "Message",
+      spanName: t("Message"),
       type: "textarea",
-      placeholder: "Enter Message",
+      placeholder: t("Enter Message"),
       required: true,
       validator: (value: string) => value.trim() !== "",
     },
@@ -106,8 +108,6 @@ const Contact = () => {
       }
     });
   };
-
-  const t = useTranslations("contact");
 
   return (
     <div className="contactPage font-sans bg-gray-200 min-h-screen">
