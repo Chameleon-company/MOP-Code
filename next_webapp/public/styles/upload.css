@@ -46,6 +46,10 @@
     padding: 3rem 2rem;
 }
 
+.spacer {
+    height: 2rem;
+}
+
 .upload-container h2 {
     font-size: 1.5rem;
     padding-bottom: 1.5rem;
@@ -126,6 +130,12 @@
 
 
 /* Media Queries for Responsive Design */
+
+@media only screen and (max-width: 600px) {
+    .upload-header-left {
+        padding: 0;
+    }
+}
 
 @media only screen and (min-width: 768px) {
     .form-container .column {
