@@ -5,7 +5,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: #FFFFFF; /* Entire page background color set to white */
+    background: #FFFFFF;
 }
 
 .top-bar, .login-container, .signup-link, .forgot-password, input, button {
@@ -92,25 +92,25 @@ body {
 }
 
 .h2 {
-    font-weight: bold; 
-    color: black; 
+    font-weight: bold;
+    color: black;
 }
 .login-title {
     font-weight: bold;
-    color: black; 
+    color: black;
     font-size: 2vw;
 }
 
 .login-subtitle {
-    color: #616161; 
+    color: #616161;
 }
 
 .remember-me {
-    color: #616161; 
+    color: #616161;
 }
 
 .subtitle {
-    color: #616161; 
+    color: #616161;
 }
 
 .input-group input {
