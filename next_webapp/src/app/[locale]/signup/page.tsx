@@ -48,18 +48,18 @@ const SignUpPage = () => {
       {/* Already a member section */}
       <div className="absolute top-20 right-20 ml-4 m-4 flex items-center text-[#666666]">
         <p className="text-sm mr-2">Already a member?</p>
-        <Link
-          href="/login"
+        <a
+          href="/en/login"
           className="border border-gray-600 text-gray-600 px-4 py-2 ml-4 hover:border-[#999999]"
         >
           Log In
-        </Link>
+        </a> {/* Changed Link to a */}
       </div>
 
       {/* Logo */}
       <div className="absolute top-20 left-20 mr-4 m-4">
         {/* Add your logo here */}
-        <img src="/img/image.png" alt="Logo" />
+        <img src="/img/new-logo-green.png" alt="Logo" className="h-40" /> {/* Added className */}
       </div>
 
       {/* Sign-up form */}
@@ -68,27 +68,35 @@ const SignUpPage = () => {
           <h2 className="text-2xl font-bold mb-12">Account Sign Up</h2>
         </div>
         <div className="mb-4 flex">
+          <label htmlFor="firstNameInput" className="sr-only">First Name</label>
           <input
             type="text"
+            id="firstNameInput"
             placeholder="First name"
             className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
+          <label htmlFor="lastNameInput" className="sr-only">Last Name</label>
           <input
             type="text"
+            id="lastNameInput"
             placeholder="Last name"
             className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="emailInput" className="sr-only">Email</label>
           <input
             type="email"
+            id="emailInput"
             placeholder="Email"
             className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="passwordInput" className="sr-only">Password</label>
           <input
             type="password"
+            id="passwordInput"
             placeholder="Password"
             className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
             onChange={handlePasswordChange}
@@ -108,6 +116,7 @@ const SignUpPage = () => {
         </button>
       </div>
     </div>
+
   );
 };
 

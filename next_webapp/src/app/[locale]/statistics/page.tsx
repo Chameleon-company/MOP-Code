@@ -195,6 +195,8 @@ const Statistics = () => {
         flexDirection: "column",
       }}
       className="font-sans bg-gray-100 text-black"
+      role="main"
+      aria-label="Statistics page"
     >
       <Header />
       <h1 className="text-7xl font-bold px-[2rem] pt-[1rem] pb-[4rem]">
@@ -211,7 +213,7 @@ const Statistics = () => {
       </div>
       <main style={{ flex: "1 0 auto", width: "100%" }}>
         <div style={{ padding: "0 50px" }}>
-          <section>
+          <section aria-label="Statistics section">
             <select
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
