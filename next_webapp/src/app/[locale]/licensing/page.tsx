@@ -46,7 +46,7 @@ const Licensing = () => {
                 </ul>
                 <br />
                 <h2 className="text-black text-lg">
-                  <strong>{t("t3")}Termination</strong>
+                  <strong>{t("t3")}</strong>
                 </h2>
                 <br />
                 <p>{t("p10")}</p>
@@ -68,21 +68,12 @@ const Licensing = () => {
                     <strong>{t("t5")}</strong>
                   </h2>
                   <br />
-                  <p>{t("p1")}You may not:</p>
+                  <p>{t("p12")}</p>
                   <br />
                   <ul className="bullet-list">
-                    <li>
-                      {t("p12")}Use the website for any illegal or unauthorized
-                      purpose.
-                    </li>
-                    <li>
-                      {t("p13")}Attempt to gain unauthorized access to our
-                      systems or networks.
-                    </li>
-                    <li>
-                      {t("p14")}Violate any applicable laws or regulations while
-                      using the website.
-                    </li>
+                    <li>{t("p13")}</li>
+                    <li>{t("p14")}</li>
+                    <li>{t("p15")}</li>
                   </ul>
                 </div>
               </div>
@@ -91,8 +82,7 @@ const Licensing = () => {
 
           <div className="contact-info mt-8 text-center">
             <p className="contact-text">
-              {t("p15")}If you have any questions or concerns about our
-              licensing agreement, please contact us at{" "}
+              {t("p16")}{" "}
               <a href="mailto:licensing@MOP.com.au">licensing@MOP.com.au</a>
             </p>
           </div>

@@ -264,7 +264,7 @@ const Statistics = () => {
               <form className="flex items-center w-full">
                 <input
                   type="search"
-                  placeholder="Enter Tag name"
+                  placeholder={t("Enter Tag name")}
                   className="w-full px-4 py-2 mr-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />

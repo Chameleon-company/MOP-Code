@@ -23,7 +23,9 @@
         "Log In": "Log In",
         "Language": "Language",
         "English": "English",
-        "Chinese": "Chinese"
+        "Chinese": "Chinese",
+        "Spanish": "Spanish",
+        "Greek": "Greek"
       },
       "about": {
         "About": "About",
@@ -67,7 +69,8 @@
         "Tag": "Tag",
         "number": "Number of Case Studies Published",
         "Popularity": "Popularity",
-        "Rows per page": "Rows per page"
+        "Rows per page": "Rows per page",
+        "Enter Tag name": "Enter Tag name"
       },
       "usecases": {
         "User Cases": "User Cases",
@@ -77,7 +80,8 @@
         "Internet": "Internet",
         "EV": "EV",
         "Security": "Security",
-        "Search": "Search"
+        "Search": "Search",
+        "Case study name or category": "Case study name or category"
       },
       "licensing": {
         "Licensing": "Licensing",
@@ -100,11 +104,22 @@
         "p12": "You may not:",
         "p13": "Use the website for any illegal or unauthorized purpose.",
         "p14": "Attempt to gain unauthorized access to our systems or networks.",
-        "p15": "Violate any applicable laws or regulations while using the website."
+        "p15": "Violate any applicable laws or regulations while using the website.",
+        "p16": "If you have any questions or concerns about our licensing agreement, please contact us at"
       },
       "contact": {
         "Submit": "Submit",
         "Contact": "Contact",
-        "Us": "Us"
+        "Us": "Us",
+        "First Name": "First Name",
+        "Enter Your First name": "Enter Your First name",
+        "Last Name": "Last Name",
+        "Enter Your Last name": "Enter Your Last name",
+        "Company Email Address": "Company Email Address",
+        "Enter Company Email Address": "Enter Company Email Address",
+        "Phone Number": "Phone Number",
+        "Enter Your Phone Number": "Enter Your Phone Number",
+        "Message": "Message",
+        "Enter Message": "Enter Message"
       }
   }
