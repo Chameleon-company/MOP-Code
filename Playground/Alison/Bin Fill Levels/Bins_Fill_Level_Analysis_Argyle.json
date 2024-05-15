@@ -11,7 +11,7 @@
     "difficultly": "Intermediate",
     "technology": [
         {
-            "name": "json",
+            "name": "requests",
             "code": "python"
         },
         {
@@ -19,15 +19,39 @@
             "code": "python"
         },
         {
-            "name": "webbrowser",
+            "name": "numpy",
             "code": "python"
         },
         {
-            "name": "requests",
+            "name": "io",
             "code": "python"
         },
         {
-            "name": "pyplot",
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "geopandas",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "dcor",
+            "code": "python"
+        },
+        {
+            "name": "sklearn",
+            "code": "python"
+        },
+        {
+            "name": "scipy",
             "code": "python"
         }
     ],
