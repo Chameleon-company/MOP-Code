@@ -1,18 +1,30 @@
 { 
-    "title": "Air_Quality_Prediction",
-    "name": "Air Quality Prediction (Argyle Square)",
-    "description": "Understanding relationshib between development activty and its effects on air quality with use of machine learning and deep learning to predict carbon monoxide levels",
+    "title": "Tree_History",
+    "name": "Tree_History",
+    "description": "Analyze the diversity and density of tree species in the Melbourne area, comparing contemporary data with historical records from pre-colonial times. The goal is to identify significant changes and trends in tree diversity, highlighting species that have diminished in prevalence or are nearing local extinction. Insights from this analysis will guide the selection of tree species for future planting programs to restore ecological balance and enhance urban biodiversity. This initiative supports sustainable urban development by aligning greening efforts with historical data and current ecological needs. The analysis will leverage interactive mapping tools and temporal data visualization techniques to present findings clearly to stakeholders and the public, ensuring that urban greening initiatives are informed and strategically implemented.",
     "tags": [
-        "Prediction", 
-        "climate", 
-        "environment", 
-        "development planning",
-        "data processing",
-        "Machine Learning"
+        "Urban Planning", 
+        "Ecology", 
+        "Biodiversity", 
+        "Environmental Conservation",
+        "Historical Data Analysis",
+        "Species Diversity",
+        "Data Visualization",
+        "Geospatial Analysis",
+        "Sustainable Development",
+        "Interactive Mapping",
+        "Machine Learning",
+        "Data Processing"
     ],
-    "difficultly": "Intermediate",
-    "technology": [{
+    "difficultly": "Beginner/ Intermediate",
+    "technology": [
+      {
         "name": "requests",
+        "code": "python"
+      },
+      {
+        "name": "pandas",
+        "alias": "pd",
         "code": "python"
       },
       {
@@ -20,13 +32,11 @@
         "code": "python"
       },
       {
-        "name": "numpy",
-        "alias": "np",
+        "name": "matplotlib_venn",
         "code": "python"
       },
       {
-        "name": "pandas",
-        "alias": "pd",
+        "name": "matplotlib",
         "code": "python"
       },
       {
@@ -38,7 +48,12 @@
         "code": "python"
       },
       {
-        "name": "StringIO",
+        "name": "FeatureGroupSubGroup",
+        "code": "python"
+      },
+      {
+        "name": "geopandas",
+        "alias": "gpd",
         "code": "python"
       },
       {
@@ -47,39 +62,21 @@
         "code": "python"
       },
       {
-        "name": "geopandas",
+        "name": "statsmodels",
+        "features": [
+          {
+            "name": "adfuller",
+            "type": "function"
+          },
+          {
+            "name": "ARIMA",
+            "type": "model"
+          }
+        ],
         "code": "python"
-      },
-      {
-        "name": "matplotlib",
-        "code": "python"
-      },
-      {
-        "name": "StandardScaler",
-        "code": "python"
-      },
-      {
-        "name": "tensorflow",
-        "alias": "tf",
-        "code": "python"
-      },
-      {
-        "name": "geopy",
-        "code": "python"
-      },
-      {
-        "name": "haversine",
-        "code": "python"
-      },
-      {
-        "name": "scikit-learn",
-        "code": "python"
-      },
-      {
-        "name": "tk",
-        "code": "python"
-      }],
-    "datasets":["Development Activity Monitor", 
-    "Argyle Square Air Quality"
+      }
+    ],
+    "datasets":["pre-colonial-plant-list", 
+    "trees-with-species-and-dimensions-urban-forest"
     ] 
 }
