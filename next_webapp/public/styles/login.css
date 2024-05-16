@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif; /* Sets Montserrat as the base font */
+}
+.top-bar, .login-container, .signup-link, .forgot-password, input, button {
+    font-family: 'Montserrat', sans-serif; /* Ensuring all text elements use Montserrat */
+}
+@media (min-width: 768px) {
+    .logo {
+        height: 100px; /* Larger size on wider screens */
+    }
+
+    .login-container {
+        width: 675px; /* Fixed width on larger screens */
+    }
+}
