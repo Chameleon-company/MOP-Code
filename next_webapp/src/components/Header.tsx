@@ -16,7 +16,7 @@ const Header = () => {
       <div>
         <nav className="border-gray-200 bg-green-400 text-white py-3">
           <div className=" md:flex items-center justify-between ">
-            <div className="md:flex items-center  ">
+            <div className="md:flex items-center  md:pl-[20rem]">
               <a href="/">
                 <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
               </a>
@@ -69,7 +69,7 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            <ul className={`md:flex justify-between md:pl-9 absolute bg-green-400   ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${isOpen ? 'top-[21rem]' : 'top-[-430px]'}` }>
+            <ul className={`md:flex justify-between md:pl-9 absolute bg-green-400  md:pr-[15rem] ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${isOpen ? 'top-[21rem]' : 'top-[-430px]'}` }>
               <li className="">
               <div className=" " x-data="{ open: false }">
                 <LanguageDropdown />
