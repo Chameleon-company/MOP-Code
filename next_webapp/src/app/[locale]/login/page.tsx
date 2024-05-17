@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import '../../../public/styles/login.css';
+import '../../../../public/styles/login.css';
 
 function LoginForm() {
     const [email, setEmail] = useState("");
