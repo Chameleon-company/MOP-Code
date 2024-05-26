@@ -1,0 +1,30 @@
+//----------------------------------------------------------//
+//	PAGINATION
+//----------------------------------------------------------//
+.pagination {
+  box-shadow: $box-shadow;
+  .page-link {
+    width: $pagination-size;
+    height: $pagination-size;
+    @include font-size($pagination-font-size);
+    font-weight: $pagination-font-weight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    i {
+      @include font-size($pagination-icon-font-size);
+    }
+  }
+  &.pagination-alt {
+    box-shadow: none;
+    .page-item {
+      margin-right: 0.5rem;
+      .page-link {
+        border: 0;
+        border-radius: $border-radius !important;
+        box-shadow: $box-shadow-lg;
+      }
+    }
+  }
+}

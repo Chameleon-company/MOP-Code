@@ -1,0 +1,167 @@
+//----------------------------------------------------------//
+//	SLIDE DOWN ANIMATION
+//----------------------------------------------------------//
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+//----------------------------------------------------------//
+//	SCALE IN AND DOWN ANIMATION
+//----------------------------------------------------------//
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleDown {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+//----------------------------------------------------------//
+//	FADEIN ANIMATION
+//----------------------------------------------------------//
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+//----------------------------------------------------------//
+//	PRICING ANIMATION
+//----------------------------------------------------------//
+@keyframes priceFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+}
+@keyframes priceShow {
+  0% {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+//----------------------------------------------------------//
+//	RIPPLE ANIMATION
+//----------------------------------------------------------//
+@keyframes ripple-1 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes ripple-2 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+//----------------------------------------------------------//
+//	LOADER ANIMATION
+//----------------------------------------------------------//
+@keyframes loader-scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+//----------------------------------------------------------//
+//	LOADER
+//----------------------------------------------------------//
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $body-bg;
+  z-index: 9999;
+  transition: 0.5s all;
+  &.done {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+.page-loader:before,
+.swiper-hero:before,
+.gloader {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: -1.25rem;
+  margin-left: -1.25rem;
+  background: none;
+  border: 4px solid $main-color;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 50%;
+  animation: loader-scale 1s ease-out infinite;
+}
+.bg-dark > .swiper-hero:before,
+.gloader {
+  border-color: $white;
+}
+//----------------------------------------------------------//
+//	ANIMATE.CSS
+//----------------------------------------------------------//
+:root {
+  --animate-delay: 0.5s;
+}
+//----------------------------------------------------------//
+//	DISABLE TRANSITION
+//----------------------------------------------------------//
+.transition-none {
+  transition: none;
+}

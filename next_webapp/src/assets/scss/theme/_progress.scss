@@ -1,0 +1,135 @@
+//----------------------------------------------------------//
+//	PROGRESSBAR
+//----------------------------------------------------------//
+.progress-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	p {
+		margin-bottom: 0.25rem;
+	}
+	li {
+		margin-bottom: 1rem;
+	}
+	.progressbar svg,
+	.progressbar svg path {
+		border-radius: 1rem;
+	}
+	
+	.progressbar.line {
+		position: relative;
+		svg {
+			height: 0.3rem;
+		}
+	}
+}
+.progressbar.semi-circle {
+	position: relative;
+	margin: 0 auto 1rem;
+	width: 8.5rem;
+	height: 4.25rem;
+	.progressbar-text {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		margin: 0;
+		font-size: 2rem;
+		line-height: 1;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		color: $headings-color !important;
+		&:after {
+			content: "%";
+			display: block;
+			font-size: 1rem;
+			padding-left: 0.01rem;
+			padding-bottom: 0.1rem;
+		}
+	}
+	&.text-white .progressbar-text {
+		color: $white !important;
+	}
+}
+.progressbar svg path:first-child {
+	stroke: rgba($gray-900, 0.06);
+}
+@each $color,
+$value in $colors {
+	.progressbar.#{$color} svg path:last-child {
+		stroke: $value;
+	}
+	.progressbar.semi-circle.#{$color} svg path:first-child {
+		stroke: rgba($value, 0.1);
+	}
+}
+@each $color,
+$value in $colors {
+	.progressbar.soft-#{$color} svg path:last-child {
+		stroke: tint-color($value, $icon-fill-level);
+	}
+	.progressbar.semi-circle.soft-#{$color} svg path:first-child {
+		stroke: rgba($value, 0.1);
+	}
+}
+//----------------------------------------------------------//
+//	PAGE SCROLL PROGRESS
+//----------------------------------------------------------//
+@media (min-width:576px) {
+	.progress-wrap.active-progress {
+		opacity: 1;
+	}
+}
+.progress-wrap {
+	position: fixed;
+	right: 1.5rem;
+	bottom: 1.5rem;
+	width: 2.3rem;
+	height: 2.3rem;
+	cursor: pointer;
+	display: block;
+	border-radius: 100%;
+	box-shadow: inset 0 0 0 0.1rem rgba(128, 130, 134, 0.25);
+	z-index: $zindex-fixed - 20;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(0.75rem);
+	@include transition(all 200ms linear, margin-right 0ms);
+	&.active-progress {
+		visibility: visible;
+		transform: translateY(0);
+	}
+	&:after {
+		position: absolute;
+		font-family: $font-family-unicons;
+		content: $icon-page-progress;
+		text-align: center;
+		line-height: 2.3rem;
+		@include font-size(1.2rem);
+		color: $main-color;
+		left: 0;
+		top: 0;
+		height: 2.3rem;
+		width: 2.3rem;
+		cursor: pointer;
+		display: block;
+		z-index: 1;
+		@include transition(all 200ms linear);
+	}
+	svg path {
+		fill: none;
+	}
+	svg.progress-circle path {
+		stroke: $main-color;
+		stroke-width: 4;
+		box-sizing: border-box;
+		@include transition(all 200ms linear);
+	}
+}
+@media (min-width:576px) {
+	.progress-wrap.active-progress {
+		opacity: 1;
+	}
+}

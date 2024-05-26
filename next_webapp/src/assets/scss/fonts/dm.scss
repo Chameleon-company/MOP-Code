@@ -1,0 +1,62 @@
+// Font Import
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1');
+
+// Bootstrap Configuration
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
+// Font Variables
+$font-family-serif: "DM Serif Display";
+
+// Font Specific Settings
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.counter-wrapper .counter,
+.post-title,
+.ff-serif {
+  font-family: $font-family-serif;
+  font-weight: normal !important;
+  word-spacing: normal !important;
+  letter-spacing: normal !important;
+}
+.display-1 {
+  @include font-size(2.6rem);
+  line-height: 1.1
+}
+.display-2 {
+  @include font-size(2.4rem);
+  line-height: 1.15
+}
+.display-3 {
+  @include font-size(2.3rem);
+  line-height: 1.15
+}
+.display-4 {
+  @include font-size(2rem);
+  line-height: 1.2
+}
+.display-5 {
+  @include font-size(1.8rem);
+  line-height: 1.2
+}
+.display-6 {
+  @include font-size(1.6rem);
+  line-height: 1.25
+}
+h2.post-title,
+.h2.post-title {
+  @include font-size(1.4rem);
+}
+h3.post-title,
+.h3.post-title {
+  @include font-size(1.2rem);
+}
+.counter-wrapper .counter {
+  @include font-size(2.1rem);
+  &.counter-lg {
+    @include font-size(2.3rem);
+  }
+}

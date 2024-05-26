@@ -1,0 +1,22 @@
+//----------------------------------------------------------//
+//	STICKY FOOTER
+//----------------------------------------------------------//
+html,
+body {
+  height: 100%;
+}
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.content-wrapper,
+footer {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+.content-wrapper {
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}

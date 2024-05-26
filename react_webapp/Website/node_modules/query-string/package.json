@@ -1,0 +1,65 @@
+{
+	"name": "query-string",
+	"version": "8.1.0",
+	"description": "Parse and stringify URL query strings",
+	"license": "MIT",
+	"repository": "sindresorhus/query-string",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"engines": {
+		"node": ">=14.16"
+	},
+	"scripts": {
+		"benchmark": "node benchmark.js",
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"base.js",
+		"base.d.ts"
+	],
+	"keywords": [
+		"browser",
+		"querystring",
+		"query",
+		"string",
+		"qs",
+		"param",
+		"parameter",
+		"url",
+		"parse",
+		"stringify",
+		"encode",
+		"decode",
+		"searchparams",
+		"filter"
+	],
+	"dependencies": {
+		"decode-uri-component": "^0.4.1",
+		"filter-obj": "^5.1.0",
+		"split-on-first": "^3.0.0"
+	},
+	"devDependencies": {
+		"ava": "^5.1.0",
+		"benchmark": "^2.1.4",
+		"deep-equal": "^2.1.0",
+		"fast-check": "^3.4.0",
+		"tsd": "^0.25.0",
+		"xo": "^0.53.1"
+	},
+	"tsd": {
+		"compilerOptions": {
+			"module": "node16"
+		}
+	}
+}
