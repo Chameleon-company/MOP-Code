@@ -1,0 +1,70 @@
+version: "3.1"
+
+rules:
+
+  # Rule for finding nearby stations
+  - rule: Find nearby station
+    steps:
+      - intent: find_nearby_station
+      - action: action_find_nearby_station
+
+  # Rule for searching by station name
+  - rule: Search by station name
+    steps:
+      - intent: search_by_name
+      - slot_was_set:
+          - station_name: null
+      - action: utter_ask_station_name
+      - slot_was_set:
+          - station_name
+      - action: action_search_by_name
+
+  # Rule for searching by StopID
+  - rule: Search by StopID
+    steps:
+      - intent: search_by_stopid
+      - slot_was_set:
+          - stop_id: null
+      - action: utter_ask_stop_id
+      - slot_was_set:
+          - stop_id
+      - action: action_search_by_stopid
+
+  # Rule for getting station details
+  - rule: Get station details
+    steps:
+      - intent: station_details
+      - slot_was_set:
+          - station_name: null
+      - action: utter_ask_station_name
+      - slot_was_set:
+          - station_name
+      - action: action_station_details
+
+  # Rule for getting directions
+  - rule: Get directions to/from station
+    steps:
+      - intent: directions
+      - slot_was_set:
+          - station_name: null
+      - action: utter_ask_station_name
+      - slot_was_set:
+          - station_name
+      - action: action_directions
+
+  # Rule for filtering stations
+  - rule: Filter stations
+    steps:
+      - intent: filter_stations
+      - action: action_filter_stations
+
+  # Rule for real-time information
+  - rule: Get real-time information
+    steps:
+      - intent: real_time_information
+      - slot_was_set:
+          - station_name: null
+      - action: utter_ask_station_name
+      - slot_was_set:
+          - station_name
+      - action: action_real_time_information
