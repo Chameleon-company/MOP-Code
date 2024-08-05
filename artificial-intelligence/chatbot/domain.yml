@@ -8,26 +8,78 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - find_next_transport
+  - find_nearby_station
+  - search_by_name
+  - search_by_stopid
+  - station_details
+  - directions
+  - filter_stations
+  - real_time_information
+
+entities:
+  - transport_type
+  - station_name
+  - stop_id
+  - zone
+  - route_name
+
+slots:
+  transport_type:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: transport_type
+  station_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: station_name
+  stop_id:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: stop_id
+  zone:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: zone
+  route_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: route_name
+
+actions:
+  - action_find_next_transport
+  - action_find_nearby_station
+  - action_search_by_name
+  - action_search_by_stopid
+  - action_station_details
+  - action_directions
+  - action_filter_stations
+  - action_real_time_information
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+    - text: "Hello! How can I assist you today?"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Goodbye!"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great!"
+
+  utter_cheer_up:
+    - text: "Cheer up!"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
 
 session_config:
   session_expiration_time: 60
