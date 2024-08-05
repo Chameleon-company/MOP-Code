@@ -6,86 +6,73 @@ nlu:
     - hey
     - hello
     - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+    - see you
 
 - intent: affirm
   examples: |
     - yes
-    - y
     - indeed
     - of course
-    - that sounds good
-    - correct
 
 - intent: deny
   examples: |
     - no
-    - n
     - never
     - I don't think so
-    - don't like that
-    - no way
-    - not really
 
 - intent: mood_great
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - I'm feeling great
+    - I'm good
+    - I'm happy
 
 - intent: mood_unhappy
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - I'm sad
+    - I'm unhappy
+    - I'm not feeling well
 
-- intent: bot_challenge
+- intent: find_next_transport
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - When is the next [regional train](transport_type) at [Southern Cross](station_name)?
+    - When is the next [metropolitan train](transport_type) at [Flinders Street Station](station_name)?
+
+- intent: find_nearby_station
+  examples: |
+    - Where is the nearest station for [regional train](transport_type)?
+    - Find the closest station for [metropolitan train](transport_type).
+
+- intent: search_by_name
+  examples: |
+    - Where is [Southern Cross](station_name)?
+    - Tell me about [Flinders Street Station](station_name).
+
+- intent: search_by_stopid
+  examples: |
+    - What is the stop with ID [1234](stop_id)?
+    - Find stop ID [5678](stop_id).
+
+- intent: station_details
+  examples: |
+    - What facilities does [Southern Cross](station_name) have?
+    - Tell me about the facilities at [Flinders Street Station](station_name).
+
+- intent: directions
+  examples: |
+    - How do I get to [Southern Cross](station_name)?
+    - Directions to [Flinders Street Station](station_name).
+
+- intent: filter_stations
+  examples: |
+    - List stations in zone [1](zone) for [regional train](transport_type).
+    - What stations are on route [86](route_name) for [metropolitan train](transport_type)?
+
+- intent: real_time_information
+  examples: |
+    - What is the status of [Southern Cross](station_name) for [regional train](transport_type)?
+    - Is [Flinders Street Station](station_name) open for [metropolitan train](transport_type)?
