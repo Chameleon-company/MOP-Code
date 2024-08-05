@@ -1,0 +1,34 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]": "utter_goodbye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"real_time_information\"}}]": "action_real_time_information",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"real_time_information\"}}, {\"prev_action\": {\"action_name\": \"action_real_time_information\"}, \"user\": {\"intent\": \"real_time_information\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"find_next_transport\"}}]": "action_find_next_transport",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"find_next_transport\"}}, {\"prev_action\": {\"action_name\": \"action_find_next_transport\"}, \"user\": {\"intent\": \"find_next_transport\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"search_by_stopid\"}}]": "action_search_by_stopid",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"search_by_stopid\"}}, {\"prev_action\": {\"action_name\": \"action_search_by_stopid\"}, \"user\": {\"intent\": \"search_by_stopid\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"find_nearby_station\"}}]": "action_find_nearby_station",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"find_nearby_station\"}}, {\"prev_action\": {\"action_name\": \"action_find_nearby_station\"}, \"user\": {\"intent\": \"find_nearby_station\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"search_by_name\"}}]": "action_search_by_name",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"search_by_name\"}}, {\"prev_action\": {\"action_name\": \"action_search_by_name\"}, \"user\": {\"intent\": \"search_by_name\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"directions\"}}]": "action_directions",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"directions\"}}, {\"prev_action\": {\"action_name\": \"action_directions\"}, \"user\": {\"intent\": \"directions\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"station_details\"}}]": "action_station_details",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"station_details\"}}, {\"prev_action\": {\"action_name\": \"action_station_details\"}, \"user\": {\"intent\": \"station_details\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"greet\"}}]": "utter_greet",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"greet\"}}, {\"prev_action\": {\"action_name\": \"utter_greet\"}, \"user\": {\"intent\": \"greet\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"filter_stations\"}}]": "action_filter_stations",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"filter_stations\"}}, {\"prev_action\": {\"action_name\": \"action_filter_stations\"}, \"user\": {\"intent\": \"filter_stations\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "predicting default action with intent restart",
+      "predicting default action with intent back",
+      "predicting default action with intent session_start"
+    ]
+  }
+}
