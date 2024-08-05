@@ -1,6 +1,12 @@
 version: "3.1"
 
 stories:
+- story: greet and goodbye
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: goodbye
+  - action: utter_goodbye
 
 - story: happy path
   steps:
@@ -9,7 +15,7 @@ stories:
   - intent: mood_great
   - action: utter_happy
 
-- story: sad path 1
+- story: sad path
   steps:
   - intent: greet
   - action: utter_greet
@@ -19,12 +25,42 @@ stories:
   - intent: affirm
   - action: utter_happy
 
-- story: sad path 2
+- story: find next transport
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: find_next_transport
+  - action: action_find_next_transport
+
+- story: find nearby station
+  steps:
+  - intent: find_nearby_station
+  - action: action_find_nearby_station
+
+- story: search by name
+  steps:
+  - intent: search_by_name
+  - action: action_search_by_name
+
+- story: search by stop ID
+  steps:
+  - intent: search_by_stopid
+  - action: action_search_by_stopid
+
+- story: station details
+  steps:
+  - intent: station_details
+  - action: action_station_details
+
+- story: directions
+  steps:
+  - intent: directions
+  - action: action_directions
+
+- story: filter stations
+  steps:
+  - intent: filter_stations
+  - action: action_filter_stations
+
+- story: real time information
+  steps:
+  - intent: real_time_information
+  - action: action_real_time_information
