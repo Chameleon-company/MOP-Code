@@ -29,7 +29,7 @@ const Footer = ({data}) => {
             </Link>
           </ul>
         </div>
-        <div class="flex-shrink-0 ml-4 flex gap-2">
+        <div className="flex-shrink-0 ml-4 flex gap-2">
           <a href="https://data.melbourne.vic.gov.au/pages/home/">
             {t("Melbourne Open Data")}
           </a>
