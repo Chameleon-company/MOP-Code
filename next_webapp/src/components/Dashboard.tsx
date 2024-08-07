@@ -247,7 +247,7 @@ const Dashboard = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: style }} />
-
+    <div className="dark">
       <div className="main-wrapper">
         <div className="main-container">
           <section className="hero-section">
@@ -272,6 +272,7 @@ const Dashboard = () => {
 
           <section className="case-studies"></section>
         </div>
+      </div>
       </div>
     </>
   );

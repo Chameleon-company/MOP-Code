@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import ToggleButton from "../Togglebutton/page";
 import { useTranslations } from "next-intl";
 import { set } from "firebase/database";
 //import caseStudies from './database';  // Adjust the path according to your project structure
@@ -102,6 +103,13 @@ const Statistics = () => {
   const [pagefilter, setPageFilter] = useState("5");
   const [serach, setSearchTerm] = useState("");
 
+  //dark theme
+  const [dark_value,setdarkvalue] = useState(false);
+
+  const handleValueChange = (newValue: boolean | ((prevState: boolean) => boolean))=>{
+    setdarkvalue(newValue);
+  }
+
   // Distinct tags for the dropdown
   const tags = Array.from(new Set(caseStudies.map((study) => study.tag)));
 
@@ -187,6 +195,7 @@ const Statistics = () => {
   const t = useTranslations("statistics");
 
   return (
+    <div className = {`${dark_value && "dark"}`}>
     <div
       style={{
         margin: "0 auto",
@@ -194,12 +203,13 @@ const Statistics = () => {
         display: "flex",
         flexDirection: "column",
       }}
-      className="font-sans bg-gray-100 text-black"
+      className="font-sans bg-gray-100 dark:bg-black text-black "
       role="main"
       aria-label="Statistics page"
     >
       <Header />
-      <h1 className="text-7xl font-bold px-[2rem] pt-[1rem] pb-[4rem]">
+      <ToggleButton onValueChange={handleValueChange}/>
+      <h1 className="text-7xl  dark:text-white font-bold px-[2rem] pt-[1rem] pb-[4rem]">
         {" "}
         {t("Statistics")}{" "}
       </h1>
@@ -362,6 +372,7 @@ const Statistics = () => {
         </div>
       </main>
       <Footer />
+    </div>
     </div>
   );
 

@@ -1,15 +1,24 @@
+'use client';
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import ToggleButton from "../Togglebutton/page";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 const Privacypolicy = () => {
   const t = useTranslations("privacypolicy");
-
+  const [dark_value,setdarkvalue] = useState(false);
+  
+  const handleValueChange = (newValue: boolean | ((prevState: boolean) => boolean))=>{
+    setdarkvalue(newValue);
+  }
+  
   return (
-    <div>
+    <div className={`${dark_value && "dark"}`}>
       <Header />
+      <ToggleButton onValueChange={handleValueChange}/>
       <main>
-        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
+        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white dark:bg-black dark:text-white">
           <h1 className="pl-20 p-8 font-semibold text-7xl mt-32">
             {t("Privacy Policy")}
           </h1>

@@ -3,11 +3,14 @@ import { Link } from "@/i18n-navigation";
 import React from "react";
 import { useTranslations } from "next-intl";
 
-const Footer = () => {
+const Footer = ({data}) => {
   const t = useTranslations("common");
 
+   
+   
   return (
-    <footer class="bg-white text-black justify-center mt-10">
+    <div className= {`${data && "dark"}`}>
+    <footer class="bg-white dark:bg-black text-black dark:text-white justify-center mt-10">
       <hr class=" h-1 border-1 text-gray-500 bg-gray-500 mx-8"></hr>
       <div class="w-full px-32 py-7 flex items-center">
         <div class="flex-shrink-0 mr-4">
@@ -38,6 +41,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </div>
   );
 };
 
