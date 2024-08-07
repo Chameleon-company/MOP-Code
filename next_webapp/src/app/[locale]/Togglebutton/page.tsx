@@ -4,7 +4,7 @@ import { useState } from "react";
 // This componen is for dark and light theme button
 // It helps to change the theme of the page
 
-const Tooglebutton = ({onValueChange}) => {
+const Tooglebutton = ({onValueChange}:any) => {
     const [darkvalue, setdarkvalue] = useState(false);
     const [dark_btn, setdark_btn] = useState("dark")
 

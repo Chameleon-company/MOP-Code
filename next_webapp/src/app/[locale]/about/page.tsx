@@ -26,12 +26,12 @@ const About = () => {
       <div className="text-black dark:text-white text-[120px] mb-1 mt-1 ml-48">{t("About")}</div>
       <div className="text-black dark:text-white text-[120px] mb-1 mt-1 ml-48">{t("Us")}</div>
       <div className="float-right absolute top-0 right-0 mt-40 overflow-hidden image-container">
-        <img src="/img/mel.jpg" alt="About Us Image" class="w-full ml-2 mt-2 h-auto"/>
+        <img src="/img/mel.jpg" alt="About Us Image" className="w-full ml-2 mt-2 h-auto"/>
       </div>
 
       <div className="w-full bg-[#cccccc] py-2 text-center mt-72 text-black">
-        <h2 class="text-3xl mb-3 font-bold">{t("About MOP")}</h2>
-        <p class="text-lg mb-3 font-semibold">{t("p1")}</p>
+        <h2 className="text-3xl mb-3 font-bold">{t("About MOP")}</h2>
+        <p className="text-lg mb-3 font-semibold">{t("p1")}</p>
       </div>
 
       <div className="m-4 bg-white dark:bg-black">
@@ -110,7 +110,7 @@ const About = () => {
         </div>
       </div>
 
-      <Footer data={dark_value} />
+      <Footer />
     </div>
     </div>
   );
