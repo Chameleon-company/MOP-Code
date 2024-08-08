@@ -20,21 +20,21 @@ const SignUpPage = () => {
 
   const checkPasswordStrength = (password) => {
     if (password.length < 6) {
-      return "Weak";
+      return t("Weak");
     } else if (password.length < 10) {
-      return "Moderate";
+      return t("Moderate");
     } else {
-      return "Strong";
+      return t("Strong");
     }
   };
 
   const getPasswordStrengthColor = () => {
     switch (passwordStrength) {
-      case "Weak":
+      case t("Weak"):
         return "red";
-      case "Moderate":
+      case t("Moderate"):
         return "orange";
-      case "Strong":
+      case t("Strong"):
         return "green";
       default:
         return "transparent";
