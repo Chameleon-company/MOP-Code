@@ -121,5 +121,21 @@
         "Enter Your Phone Number": "Enter Your Phone Number",
         "Message": "Message",
         "Enter Message": "Enter Message"
+      },
+      "signup":{
+        "language": "language",
+        "Already a member?": "Already a member?",
+        "Log In":"Log In",
+        "Account Sign Up": "Account Sign Up",
+        "Last name": "Last name",
+        "Email": "Email",
+        "Password": "Password",
+        "Password Strength": "Password Strength",
+        "Next": "Next",
+        "First name": "First name",
+        "Weak": "Weak",
+        "Moderate":"Moderate",
+        "Strong":"Strong"
       }
+  
   }
