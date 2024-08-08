@@ -121,5 +121,20 @@
         "Enter Your Phone Number": "Ingrese su número de teléfono",
         "Message": "Mensaje",
         "Enter Message": "Ingrese su mensaje"
-      }
+      },
+      "signup": {
+        "language": "idioma",
+        "Already a member?": "¿Ya eres miembro?",
+        "Log In": "Iniciar sesión",
+        "Account Sign Up": "Registro de cuenta",
+        "Last name": "Apellido",
+        "Email": "Correo electrónico",
+        "Password": "Contraseña",
+        "Password Strength": "Fortaleza de la contraseña",
+        "Next": "Próximo",
+        "First name": "Nombre de pila",
+        "Weak": "Débil",
+        "Moderate":"moderarse",
+        "Strong":"Fuerte"
+     }
 }
