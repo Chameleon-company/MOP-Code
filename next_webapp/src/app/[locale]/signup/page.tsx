@@ -1,4 +1,5 @@
 // SignUpPage.js
+// SignUpPage.js
 "use client";
 
 import { Link } from "@/i18n-navigation";
