@@ -4,6 +4,7 @@
 
 import { Link } from "@/i18n-navigation";
 import React, { useState } from "react";
+import LanguageDropdown  from "../../../components/LanguageDropdown";
 
 const SignUpPage = () => {
   const [password, setPassword] = useState("");
@@ -55,6 +56,9 @@ const SignUpPage = () => {
         >
           Log In
         </a> {/* Changed Link to a */}
+        <div className="ml-4">
+        <LanguageDropdown />
+        </div>
       </div>
 
       {/* Logo */}
