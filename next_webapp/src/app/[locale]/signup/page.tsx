@@ -115,11 +115,11 @@ const SignUpPage = () => {
             <div className="h-full rounded" style={passwordStrengthStyle}></div>
           </div>
           <p className="text-right text-sm text-gray-600 mt-2">
-            Password Strength: {passwordStrength}
+            {t("Password Strength")} : {passwordStrength}
           </p>
         </div>
         <button className="w-full bg-green-500 text-white py-2 px-2 rounded-md cursor-pointer">
-          Next
+          {t("Next")}
         </button>
       </div>
     </div>
