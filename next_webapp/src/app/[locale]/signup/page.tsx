@@ -5,8 +5,10 @@
 import { Link } from "@/i18n-navigation";
 import React, { useState } from "react";
 import LanguageDropdown  from "../../../components/LanguageDropdown";
+import { useTranslations } from "next-intl";
 
 const SignUpPage = () => {
+  const t = useTranslations("signup");
   const [password, setPassword] = useState("");
   const [passwordStrength, setPasswordStrength] = useState("");
 
