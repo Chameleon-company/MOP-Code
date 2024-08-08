@@ -43,6 +43,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Code Quality Check') {
+            steps {
+                // Navigate to the next_webapp directory and lint the project
+                dir('next_webapp') {
+                    sh 'npm run lint'
+                }
+            }
+        }
         
         stage('Deploy') {
             steps {
