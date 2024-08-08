@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CATEGORY, SEARCH_MODE } from "../../types";
 import { useTranslations } from "next-intl";
+import React from "react";
 
 const SearchBar = ({
   onSearch,
