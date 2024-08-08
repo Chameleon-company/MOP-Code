@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src/app --ext .js,.jsx,.ts,.tsx --quiet",
+    "lint": "next lint",
     "test": "jest"
   },
   "dependencies": {

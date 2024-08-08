@@ -28,7 +28,7 @@ ChartJS.register(
 
 const Statistics = () => {
   // Dummy Array
-  const caseStudies = useMemo(() => [
+  const caseStudies = [
     {
       id: 1,
       tag: "Safety and Well-being",
@@ -92,7 +92,7 @@ const Statistics = () => {
       popularity: "90%",
       trimester: "2",
     },
-  ], []);
+  ];
 
   // State for storing the filtered results and all filters
   const [filteredStudies, setFilteredStudies] = useState(caseStudies);
@@ -146,7 +146,7 @@ const Statistics = () => {
       });
     }
     setFilteredStudies(filtered);
-  }, [tagFilter, publishFilter, popularityFilter, caseStudies]);
+  }, [tagFilter, publishFilter, popularityFilter]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPage = parseInt(pagefilter);
