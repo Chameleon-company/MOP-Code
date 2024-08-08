@@ -59,6 +59,9 @@ pipeline {
                 // Add your deployment script/commands here
                 dir('next_webapp') {
                     echo 'Deploying the application...'
+                    //building the docker image
+                    // sh 'docker build -t mop-react-app .'
+
                     // sh 'npm run deploy'  // Uncomment and adjust this line based on our deployment script
                 }
             }
