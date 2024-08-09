@@ -121,5 +121,20 @@
     "Enter Your Phone Number": "输入您的电话号码",
     "Message": "信息",
     "Enter Message": "输入信息"
+  },
+  "signup":{
+        "language": "语言",
+        "Already a member?": "已经是会员？",
+        "Log In":"登录",
+        "Account Sign Up": "登录",
+        "Last name": "姓氏",
+        "Email": "电子邮件",
+        "Password": "密码",
+        "Password Strength": "密码强度",
+        "Next": "下一步",
+        "First name": "名字",
+        "Weak": "虚弱的",
+        "Moderate":"缓和",
+        "Strong":"强的"
   }
 }

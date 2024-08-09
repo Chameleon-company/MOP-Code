@@ -120,5 +120,20 @@
         "Enter Your Phone Number": "Εισάγετε τον τηλεφωνικό σας αριθμό",
         "Message": "Μήνυμα",
         "Enter Message": "Εισάγετε μήνυμα"
+    },
+    "signup": {
+        "language": "γλώσσα",
+        "Already a member?": "Ήδη μέλος;",
+        "Log In": "Σύνδεση",
+        "Account Sign Up": "Εγγραφή λογαριασμού",
+        "Last name": "Επώνυμο",
+        "Email": "Ηλεκτρονικό ταχυδρομείο",
+        "Password": "Κωδικός πρόσβασης",
+        "Password Strength": "Ισχύς κωδικού πρόσβασης",
+        "Next": "Επόμενο",
+        "First name": "Όνομα",
+        "Weak": "Αδύναμος",
+        "Moderate":"Μέτριος",
+        "Strong":"Ισχυρός"
     }
 }
