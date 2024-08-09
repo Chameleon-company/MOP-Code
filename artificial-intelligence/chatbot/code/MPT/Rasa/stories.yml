@@ -1,0 +1,64 @@
+version: "3.1"
+
+stories:
+  - story: greet and route planning
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: route_planning
+      - action: action_find_best_route
+
+  - story: get schedule information
+    steps:
+      - intent: schedule_information
+      - action: action_get_schedule
+
+  - story: check transfers and connections
+    steps:
+      - intent: transfers_connections
+      - action: action_check_transfers
+
+  - story: route optimisation
+    steps:
+      - intent: route_optimisation
+      - action: action_optimise_route
+
+  - story: check accessibility
+    steps:
+      - intent: accessibility
+      - action: action_check_accessibility
+
+  - story: get real-time updates
+    steps:
+      - intent: real_time_updates
+      - action: action_get_real_time_updates
+
+  - story: find nearby stations
+    steps:
+      - intent: nearby_stations
+      - action: action_find_nearby_stations
+
+  - story: search for station
+    steps:
+      - intent: search_station
+      - action: action_search_station
+
+  - story: get station details
+    steps:
+      - intent: station_details
+      - action: action_station_details
+
+  - story: get directions to/from station
+    steps:
+      - intent: directions_to_from_stations
+      - action: action_get_directions
+
+  - story: filter stations
+    steps:
+      - intent: filter_stations
+      - action: action_filter_stations
+
+  - story: get real-time information
+    steps:
+      - intent: real_time_information
+      - action: action_real_time_info

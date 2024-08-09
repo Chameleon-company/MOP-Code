@@ -1,0 +1,86 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hello
+      - hi
+      - hey
+
+  - intent: goodbye
+    examples: |
+      - bye
+      - goodbye
+      - see you
+
+  - intent: route_planning
+    examples: |
+      - What is the best route from [Flinders Street](station_a) to [Ringwood](station_b)?
+      - How do I get from [Southern Cross](station_a) to [Richmond](station_b)?
+      - Show me the fastest route from [Melbourne Central](station_a) to [Parliament](station_b).
+
+  - intent: schedule_information
+    examples: |
+      - What time does the next train to [Ringwood](station_b) leave from [Flinders Street](station_a)?
+      - When is the next train from [Southern Cross](station_a) to [Richmond](station_b)?
+      - What are the train schedules for [Melbourne Central](station_a)?
+
+  - intent: transfers_connections
+    examples: |
+      - Do I need to change trains to get to [Ringwood](station_b) from [Flinders Street](station_a)?
+      - How many transfers are there between [Southern Cross](station_a) and [Richmond](station_b)?
+      - Is there a direct train from [Melbourne Central](station_a) to [Parliament](station_b)?
+
+  - intent: route_optimisation
+    examples: |
+      - What is the quickest route to avoid delays?
+      - Which route has the least number of stops from [Flinders Street](station_a) to [Ringwood](station_b)?
+      - Recommend a route to avoid Zone 1.
+
+  - intent: accessibility
+    examples: |
+      - Is the route from [Flinders Street](station_a) to [Ringwood](station_b) accessible for wheelchairs?
+      - Which stations on my route have elevators or ramps?
+      - Are there any accessibility issues on the route from [Southern Cross](station_a) to [Richmond](station_b)?
+
+  - intent: real_time_updates
+    examples: |
+      - Are there any delays on the route to [Ringwood](station_b)?
+      - Is the train to [Richmond](station_b) running on time?
+      - What are the current service alerts for my route?
+
+  - intent: nearby_stations
+    examples: |
+      - Find the nearest train station.
+      - Where is the closest train station to my current location?
+      - Show me nearby train stations.
+
+  - intent: search_station
+    examples: |
+      - Where is [Flinders Street](station_name)?
+      - Find [Southern Cross](station_name) on the map.
+      - Locate [Richmond](station_name).
+
+  - intent: station_details
+    examples: |
+      - What facilities are available at [Flinders Street](station_name)?
+      - Does [Southern Cross](station_name) have parking?
+      - Is there a restroom at [Richmond](station_name)?
+
+  - intent: directions_to_from_stations
+    examples: |
+      - How do I get to [Flinders Street](station_name)?
+      - Show me directions from [Southern Cross](station_name) to [Richmond](station_b).
+      - Provide directions to [Melbourne Central](station_name) from here.
+
+  - intent: filter_stations
+    examples: |
+      - Show me stations in Zone 1.
+      - List all stations that serve the [Lilydale](route_name) line.
+      - Find stations with elevators.
+
+  - intent: real_time_information
+    examples: |
+      - Is [Flinders Street](station_name) open right now?
+      - What are the opening hours for [Southern Cross](station_name)?
+      - Are there any service alerts for [Richmond](station_name)?
