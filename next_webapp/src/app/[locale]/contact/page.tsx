@@ -5,6 +5,7 @@ import "../../../../public/styles/contact.css";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
+import { db, collection, addDoc } from '../../../firebase/firebaseConfig';
 
 interface FormField {
   name: string;
@@ -62,6 +63,8 @@ const Contact = () => {
   ];
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failureMessage, setFailureMessage] = useState("");
 
   // Handler to update form values and clear errors
   const handleChange = (
@@ -94,7 +97,7 @@ const Contact = () => {
   };
 
   // Form submission handler
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
     // Validate all fields before submitting
@@ -107,12 +110,53 @@ const Contact = () => {
         valid = false;
       }
     });
+
+
+    if (valid) {
+      try {
+        await addDoc(collection(db, "messages"), {
+          ...formValues,
+          timestamp: new Date(),
+        });
+        setSuccessMessage("Message sent successfully!");
+        setFormValues({});
+        setFailureMessage("");
+      } catch (error) {
+        setFailureMessage("Failed to send message. Please try again.");
+      }
+    }
+
+
+
+
+
+
+
+
+
   };
 
   return (
-    <div className="contactPage font-sans bg-gray-200 min-h-screen">
+    <div className="contactPage font-sans bg-white min-h-screen">
       <Header />
       <main className="contactBody font-light text-xs leading-7 flex flex-col justify-between mt-12 items-start p-12">
+
+        <div className="imgContent relative w-full mt-12 lg:mt-24">
+          <span className="contactUsText block text-black text-4xl leading-snug font-montserrat mt-8 pl-6 text-left lg:absolute lg:left-0 lg:top-0 lg:transform lg:translate-y-0 lg:pl-0 lg:text-center lg:mb-8 z-20">
+            {t("Contact")}
+            <br />
+            {t("Us")}
+          </span>
+          <div className="imgWrap relative w-full mt-4 lg:mt-0">
+            <Image
+              src="/img/contact-us-city.png"
+              alt="City"
+              width={800}
+              height={600}
+              className="cityImage block w-full h-auto"
+            />
+          </div>
+        </div>
         <div className="formContent w-full">
           <form
             id="contact"
@@ -159,23 +203,6 @@ const Contact = () => {
               </button>
             </div>
           </form>
-        </div>
-
-        <div className="imgContent max-w-full max-h-full text-center relative w-full mt-12">
-          <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat">
-            {t("Contact")}
-            <br />
-            {t("Us")}
-          </span>
-          <div className="imgWrap relative inline-block">
-            <Image
-              src="/img/contact-us-city.png"
-              alt="City"
-              width={800}
-              height={600}
-              className="cityImage block relative z-10"
-            />
-          </div>
         </div>
       </main>
       <Footer />
