@@ -99,7 +99,7 @@ def main():
     location = geocode_address(user_input)
     #Check if geocoding was successful
     if location:
-        print(f"Geocoded location: Latitude = {location[0]}, Longitude = {location[1]}")
+        #print(f"Geocoded location: Latitude = {location[0]}, Longitude = {location[1]}") Removed as causing logging flag on github
         # visualize_location(location[0], location[1])
 
         #Find the nearest public transport station to the current location
