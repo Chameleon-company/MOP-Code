@@ -50,13 +50,16 @@ const SignUpPage = () => {
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Already a member section */}
       <div className="absolute top-20 right-20 ml-4 m-4 flex items-center text-[#666666]">
-        <p className="text-sm mr-2">Already a member?</p>
+        <p className="text-sm mr-2">{t("Already a member?")}</p>
         <a
           href="/en/login"
           className="border border-gray-600 text-gray-600 px-4 py-2 ml-4 hover:border-[#999999]"
         >
-          Log In
+          {t("Log In")}
         </a> {/* Changed Link to a */}
+        <div className="ml-4">
+        <LanguageDropdown />
+        </div>
       </div>
 
       {/* Logo */}
@@ -68,7 +71,7 @@ const SignUpPage = () => {
       {/* Sign-up form */}
       <div className="p-8 rounded-lg mt-12">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-12">Account Sign Up</h2>
+          <h2 className="text-2xl font-bold mb-12">{t("Account Sign Up")}</h2>
         </div>
         <div className="mb-4 flex">
           <label htmlFor="firstNameInput" className="sr-only">First Name</label>
