@@ -1,0 +1,6 @@
+[
+  {
+    "name": "stop",
+    "pattern": "(Flinders Street|Southern Cross|Melbourne Central|Parliament|Richmond)"
+  }
+]

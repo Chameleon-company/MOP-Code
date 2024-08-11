@@ -1,12 +1,6 @@
 version: "3.1"
 
 stories:
-- story: greet and goodbye
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: goodbye
-  - action: utter_goodbye
 
 - story: happy path
   steps:
@@ -15,7 +9,7 @@ stories:
   - intent: mood_great
   - action: utter_happy
 
-- story: sad path
+- story: sad path 1
   steps:
   - intent: greet
   - action: utter_greet
@@ -25,42 +19,51 @@ stories:
   - intent: affirm
   - action: utter_happy
 
-- story: find next transport
+- story: sad path 2
   steps:
-  - intent: find_next_transport
-  - action: action_find_next_transport
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
 
-- story: find nearby station
+- story: ask next train
   steps:
-  - intent: find_nearby_station
-  - action: action_find_nearby_station
+  - intent: ask_next_train
+    entities:
+      - stop: "Southern Cross"
+  - slot_was_set:
+    - stop: "Southern Cross"
+  - action: action_next_train
 
-- story: search by name
+- story: ask next bus
   steps:
-  - intent: search_by_name
-  - action: action_search_by_name
+  - intent: ask_next_bus
+    entities:
+      - stop: "Flinders Street"
+  - slot_was_set:
+    - stop: "Flinders Street"
+  - action: action_next_bus
 
-- story: search by stop ID
+- story: ask next train with form
   steps:
-  - intent: search_by_stopid
-  - action: action_search_by_stopid
+  - intent: ask_next_train
+  - action: transit_form
+  - active_loop: transit_form
+  - active_loop: null
+  - action: action_next_train
 
-- story: station details
+- story: ask next bus with form
   steps:
-  - intent: station_details
-  - action: action_station_details
+  - intent: ask_next_bus
+  - action: transit_form
+  - active_loop: transit_form
+  - active_loop: null
+  - action: action_next_bus
 
-- story: directions
+- story: list stops
   steps:
-  - intent: directions
-  - action: action_directions
-
-- story: filter stations
-  steps:
-  - intent: filter_stations
-  - action: action_filter_stations
-
-- story: real time information
-  steps:
-  - intent: real_time_information
-  - action: action_real_time_information
+  - intent: list_stops
+  - action: action_list_stops

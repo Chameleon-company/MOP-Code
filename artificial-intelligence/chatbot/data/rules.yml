@@ -1,52 +1,13 @@
 version: "3.1"
 
 rules:
-- rule: greet
-  steps:
-  - intent: greet
-  - action: utter_greet
 
-- rule: goodbye
+- rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: handle next transport query
+- rule: Say 'I am a bot' anytime the user challenges
   steps:
-  - intent: find_next_transport
-  - action: action_find_next_transport
-
-- rule: handle nearby station query
-  steps:
-  - intent: find_nearby_station
-  - action: action_find_nearby_station
-
-- rule: handle search by name
-  steps:
-  - intent: search_by_name
-  - action: action_search_by_name
-
-- rule: handle search by stop ID
-  steps:
-  - intent: search_by_stopid
-  - action: action_search_by_stopid
-
-- rule: handle station details
-  steps:
-  - intent: station_details
-  - action: action_station_details
-
-- rule: handle directions
-  steps:
-  - intent: directions
-  - action: action_directions
-
-- rule: handle filter stations
-  steps:
-  - intent: filter_stations
-  - action: action_filter_stations
-
-- rule: handle real time information
-  steps:
-  - intent: real_time_information
-  - action: action_real_time_information
+  - intent: bot_challenge
+  - action: utter_iamabot
