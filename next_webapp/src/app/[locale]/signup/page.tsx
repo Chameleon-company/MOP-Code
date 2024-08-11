@@ -78,14 +78,14 @@ const SignUpPage = () => {
           <input
             type="text"
             id="firstNameInput"
-            placeholder="First name"
+            placeholder={t("First name")}
             className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
           <label htmlFor="lastNameInput" className="sr-only">Last Name</label>
           <input
             type="text"
             id="lastNameInput"
-            placeholder="Last name"
+            placeholder={t("Last name")}
             className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
         </div>
@@ -94,7 +94,7 @@ const SignUpPage = () => {
           <input
             type="email"
             id="emailInput"
-            placeholder="Email"
+            placeholder={t("Email")}
             className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
           />
         </div>
@@ -103,7 +103,7 @@ const SignUpPage = () => {
           <input
             type="password"
             id="passwordInput"
-            placeholder="Password"
+            placeholder={t("Password")}
             className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
             onChange={handlePasswordChange}
           />
@@ -114,11 +114,11 @@ const SignUpPage = () => {
             <div className="h-full rounded" style={passwordStrengthStyle}></div>
           </div>
           <p className="text-right text-sm text-gray-600 mt-2">
-            Password Strength: {passwordStrength}
+            {t("Password Strength")} : {passwordStrength}
           </p>
         </div>
         <button className="w-full bg-green-500 text-white py-2 px-2 rounded-md cursor-pointer">
-          Next
+          {t("Next")}
         </button>
       </div>
     </div>
