@@ -81,5 +81,3 @@ const Privacypolicy = () => {
 };
 
 export default Privacypolicy;
-
-//font size was changed so it looks similar to licensing pages.
