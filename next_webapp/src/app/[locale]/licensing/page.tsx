@@ -10,7 +10,7 @@ const Licensing = () => {
     <div>
       <Header />
       <main>
-        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-gray-200">
+        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
           <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10">
             <strong>{t("Licensing")}</strong>
           </h1>
