@@ -10,63 +10,63 @@ const Privacypolicy = () => {
       <Header />
       <main>
         <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
-          <h1 className="pl-20 p-8 font-semibold text-7xl mt-32">
+          <h1 className="pl-20 p-8 font-semibold text-4xl mt-32">
             {t("Privacy Policy")}
           </h1>
           <section className="  md:flex md:flex-row">
             <div className=" pl-[5rem] pt-[8rem] pr-[8rem] -mt-14 justify-self-auto md:w-1/2">
-              <h2 className="text-[40px] font-normal font-semibold">
+              <h2 className="text-[20px] font-normal font-semibold">
                 {" "}
                 {t("t1")}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light">{t("p1")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark">{t("p1")}</p>
               </div>
             </div>
             <div className=" pl-[5rem] pt-[8rem] pr-[6rem] -mt-14 justify-self-auto md:w-1/2">
-              <h2 className="text-[40px] font-normal font-semibold">
+              <h2 className="text-[20px] font-normal font-semibold">
                 {t("t2")}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light">{t("p2")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark">{t("p2")}</p>
               </div>
             </div>
           </section>
           <section className="md:flex md:flex-row">
             <div className="pl-[5rem] pt-[4rem] pr-[8rem] justify-self-auto md:w-1/2">
-              <h2 className="text-[40px] font-normal font-semibold">
+              <h2 className="text-[20px] font-normal font-semibold">
                 {t("t3")}{" "}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light"> {t("p3")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark"> {t("p3")}</p>
               </div>
             </div>
             <div className="pl-[5rem] pt-[4rem] pr-[6rem] justify-self-auto md:w-1/2">
-              <h2 className="text-[40px] font-normal font-semibold">
+              <h2 className="text-[20px] font-normal font-semibold">
                 {" "}
                 {t("t4")}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light">{t("p4")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark">{t("p4")}</p>
               </div>
             </div>
           </section>
           <section className="md:flex md:flex-row">
             <div className="pl-[5rem] pt-[4rem] pr-[8rem] justify-self-auto md:w-1/2">
-              <h2 className=" text-[40px] font-normal font-semibold">
+              <h2 className=" text-[20px] font-normal font-semibold">
                 {t("t5")}{" "}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light"> {t("p5")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark"> {t("p5")}</p>
               </div>
             </div>
             <div className="pl-[5rem] pt-[4rem] pr-[6rem] justify-self-auto md:w-1/2">
-              <h2 className="text-[40px] font-normal font-semibold">
+              <h2 className="text-[20px] font-normal font-semibold">
                 {" "}
                 {t("t6")}
               </h2>
               <div>
-                <p className=" mt-[2rem] text-[18px] font-light">{t("p6")}</p>
+                <p className=" mt-[2rem] text-[16px] font-dark">{t("p6")}</p>
               </div>
             </div>
           </section>
