@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['trailer']
+
+roboflow:
+  workspace: qasim-zia
+  project: trailer-h9eyb-fzkpn
+  version: 1
+  license: CC BY 4.0
+  url: https://app.roboflow.com/qasim-zia/trailer-h9eyb-fzkpn/1
