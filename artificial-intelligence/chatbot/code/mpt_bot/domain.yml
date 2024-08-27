@@ -1,0 +1,63 @@
+version: '3.1'
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- find_next_train
+- request_map
+- find_best_route
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+
+entities:
+  - station_a
+  - station_b
+
+slots:
+  station_a:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: station_a
+  station_b:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: station_b
+
+responses:
+  utter_ask_for_station_b:
+    - text: "Which station would you like to travel to?"
+
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: https://i.imgur.com/nGF1K8f.jpg
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+actions:
+- action_find_next_train
+- action_generate_map
+- action_find_best_route

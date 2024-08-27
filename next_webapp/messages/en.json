@@ -57,20 +57,20 @@
       },
       "statistics":{
         "Statistics": "Statistics",
-        "t1": "Trimester which published the most test cases",
         "All Tags": "All Tags",
-        "All Publish Numbers": "All Publish Numbers",
-        "Less than 4": "Less than 4",
-        "Between 4 and 7": "Between 4 and 7",
-        "Above 7": "Above 7",
-        "t2": "All Popularity Ranges",
+        "All Trimesters": "All Trimesters",
+        "Trimester1": "Trimester 1",
+        "Trimester2": "Trimester 2",
+        "Trimester3": "Trimester 3",
+        "t1": "Trimester which publish the most test cases",
+        "t2": "Popularity",
         "Total Results": "Total Results",
-        "ID": "ID",
+        "Enter Tag name": "Enter Tag name",
+        "No": "No.",
         "Tag": "Tag",
-        "number": "Number of Case Studies Published",
+        "number": "Number of Test Cases Published",
         "Popularity": "Popularity",
-        "Rows per page": "Rows per page",
-        "Enter Tag name": "Enter Tag name"
+        "Rows per page": "Rows per page"
       },
       "usecases": {
         "User Cases": "User Cases",
@@ -121,5 +121,20 @@
         "Enter Your Phone Number": "Enter Your Phone Number",
         "Message": "Message",
         "Enter Message": "Enter Message"
+      },
+      "signup":{
+        "language": "language",
+        "Already a member?": "Already a member?",
+        "Log In":"Log In",
+        "Account Sign Up": "Account Sign Up",
+        "Last name": "Last name",
+        "Email": "Email",
+        "Password": "Password",
+        "Password Strength": "Password Strength",
+        "Next": "Next",
+        "First name": "First name",
+        "Weak": "Weak",
+        "Moderate":"Moderate",
+        "Strong":"Strong"
       }
   }
