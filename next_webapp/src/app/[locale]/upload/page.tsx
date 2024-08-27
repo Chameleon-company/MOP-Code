@@ -4,7 +4,7 @@ import "../../../../public/styles/upload.css";
 import { useTranslations } from "next-intl";
 
 const Upload = () => {
-  const t = useTranslations("upload");
+  //const t = useTranslations("upload");
 
   return (
     <div>

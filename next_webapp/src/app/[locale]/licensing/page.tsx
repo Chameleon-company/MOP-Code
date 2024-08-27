@@ -1,24 +1,34 @@
+"use client";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import React from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+
+import Tooglebutton from "../Tooglebutton/Tooglebutton";
 
 const Licensing = () => {
   const t = useTranslations("licensing");
-
+ //dark theme
+ const [dark_value,setdarkvalue] = useState(false);
+  
+ const handleValueChange = (newValue: boolean | ((prevState: boolean) => boolean))=>{
+   setdarkvalue(newValue);
+ }
   return (
-    <div>
+    <div className= {`${dark_value && "dark"}`}>
       <Header />
+      <Tooglebutton onValueChange={handleValueChange}/>
       <main>
-        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
-          <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10">
+        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white dark:bg-pr_bg_dark dark:text-white">
+          <h1 className="text-black text-4xl left-content w-full md:w-1/2 p-6 md:p-10 dark:text-white">
             <strong>{t("Licensing")}</strong>
           </h1>
 
           <div className="content-wrapper flex flex-wrap">
             <div className="left-content w-full md:w-1/2 p-6 md:p-10">
               <div>
-                <h2 className="text-black text-lg">
+                <h2 className="text-black text-lg dark:text-white">
                   <strong>{t("t1")}</strong>
                 </h2>
                 <br />
@@ -33,7 +43,7 @@ const Licensing = () => {
               </div>
               <br />
               <div>
-                <h2 className="text-black text-lg">
+                <h2 className="text-black text-lg dark:text-white">
                   <strong>{t("t2")}</strong>
                 </h2>
                 <br />
@@ -45,7 +55,7 @@ const Licensing = () => {
                   <li>{t("p9")}</li>
                 </ul>
                 <br />
-                <h2 className="text-black text-lg">
+                <h2 className="text-black text-lg dark:text-white">
                   <strong>{t("t3")}</strong>
                 </h2>
                 <br />
@@ -56,7 +66,7 @@ const Licensing = () => {
 
             <div className="right-content justify-self-auto w-full md:w-1/2 p-6 md:p-10">
               <div>
-                <h2 className="text-black text-lg">
+                <h2 className="text-black text-lg dark:text-white">
                   <strong>{t("t4")}</strong>
                 </h2>
                 <br />
@@ -64,7 +74,7 @@ const Licensing = () => {
                 <br />
 
                 <div className="mt-32 pt-16 mb-5">
-                  <h2 className="text-black text-lg">
+                  <h2 className="text-black text-lg dark:text-white">
                     <strong>{t("t5")}</strong>
                   </h2>
                   <br />

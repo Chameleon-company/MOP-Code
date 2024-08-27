@@ -5,7 +5,7 @@ import "../../../../public/styles/contact.css";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-
+import Tooglebutton from "../Tooglebutton/Tooglebutton";
 interface FormField {
   name: string;
   spanName: string;
@@ -109,10 +109,19 @@ const Contact = () => {
     });
   };
 
+  //dark theme
+  const [dark_value,setdarkvalue] = useState(false);
+  
+  const handleValueChange = (newValue: boolean | ((prevState: boolean) => boolean))=>{
+    setdarkvalue(newValue);
+  }
+
   return (
-    <div className="contactPage font-sans bg-gray-200 min-h-screen">
+    <div className= {`${dark_value && "dark"}`}>
+    <div className="contactPage font-sans bg-gray-200 min-h-screen dark:bg-pr_bg_dark">
       <Header />
-      <main className="contactBody font-light text-xs leading-7 flex flex-col justify-between mt-12 items-start p-12">
+      <Tooglebutton onValueChange={handleValueChange}/>
+      <main className="contactBody font-light text-xs leading-7 flex flex-col justify-between mt-12 items-start p-12 dark:bg-pr_bg_dark">
         <div className="formContent w-full">
           <form
             id="contact"
@@ -125,15 +134,15 @@ const Contact = () => {
             {formFields.map((field) => (
               <fieldset
                 key={field.name}
-                className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
+                className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700 dark:bg-pr_bg_dark "
               >
-                <span className="namaSpan text-black">{field.spanName}</span>
+                <span className="namaSpan text-black dark:text-white">{field.spanName}</span>
                 {field.type === "textarea" ? (
                   <textarea
                     name={field.name}
                     placeholder={field.placeholder}
                     required={field.required}
-                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
+                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16 dark:bg-sc_bg_dark"
                     onChange={handleChange}
                   ></textarea>
                 ) : (
@@ -142,7 +151,7 @@ const Contact = () => {
                     type={field.type}
                     placeholder={field.placeholder}
                     required={field.required}
-                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
+                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 dark:bg-sc_bg_dark"
                     onChange={handleChange}
                   />
                 )}
@@ -162,7 +171,7 @@ const Contact = () => {
         </div>
 
         <div className="imgContent max-w-full max-h-full text-center relative w-full mt-12">
-          <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat">
+          <span className="contactUsText absolute text-left  text-black text-3xl leading-snug font-montserrat dark:text-white">
             {t("Contact")}
             <br />
             {t("Us")}
@@ -179,6 +188,7 @@ const Contact = () => {
         </div>
       </main>
       <Footer />
+    </div>
     </div>
   );
 };

@@ -22,8 +22,8 @@ const Tooglebutton = ({onValueChange}:any) => {
 
     return(
         <div className={`${darkvalue && "dark"}`}>
-        <div className ="fixed bottom-4 right-4">
-        <button  onClick={handleclick} className="bg-white dark:bg-white  text-black dark:text-black font-bold py-2 px-4 rounded-full shadow-lg  ">
+        <div className ="fixed top-[8rem] right-4">
+        <button  onClick={handleclick} className="bg-[#40D47D] dark:bg-[#40D47D]  text-black dark:text-black font-bold py-[1.5rem] px-[1.5rem] rounded-full shadow-lg  ">
             {dark_btn}
         </button>
         </div>
