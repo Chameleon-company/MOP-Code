@@ -80,4 +80,6 @@ const Privacypolicy = () => {
   );
 };
 
+//privacy page has been fixed
+
 export default Privacypolicy;

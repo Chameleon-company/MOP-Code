@@ -1,0 +1,45 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: find_next_train_story
+  steps:
+  - intent: find_next_train
+  - action: action_find_next_train
+
+- story: User asks for the best route between two stations
+  steps:
+  - intent: ask_best_route
+  - action: action_find_best_route
+
+- story: generate_map_story
+  steps:
+  - intent: request_map
+  - action: action_generate_map
