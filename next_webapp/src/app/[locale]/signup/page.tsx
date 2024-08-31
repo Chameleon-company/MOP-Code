@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import LanguageDropdown from "../../../components/LanguageDropdown";
@@ -52,7 +51,7 @@ const SignUpPage = () => {
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="p-8 rounded-lg mt-12">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-12">Account Sign Up</h2>
+            <h2 className="text-2xl font-bold mb-12">{t("Account Sign Up")}</h2>
           </div>
           <div className="mb-4 flex">
             <label htmlFor="firstNameInput" className="sr-only">
@@ -61,7 +60,7 @@ const SignUpPage = () => {
             <input
               type="text"
               id="firstNameInput"
-              placeholder="First name"
+              placeholder={t("First name")}
               className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
             />
             <label htmlFor="lastNameInput" className="sr-only">
@@ -70,7 +69,7 @@ const SignUpPage = () => {
             <input
               type="text"
               id="lastNameInput"
-              placeholder="Last name"
+              placeholder={t("Last name")}
               className="w-1/2 p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
             />
           </div>
@@ -81,8 +80,8 @@ const SignUpPage = () => {
             <input
               type="email"
               id="emailInput"
-              placeholder="Email"
-              className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
+              placeholder={t("Email")}
+              className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb]"
             />
           </div>
           <div className="mb-4">
@@ -92,8 +91,8 @@ const SignUpPage = () => {
             <input
               type="password"
               id="passwordInput"
-              placeholder="Password"
-              className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] mr-2 bg-[#e9ebeb]"
+              placeholder={t("Password")}
+              className="w-full p-2 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb]"
               onChange={handlePasswordChange}
             />
           </div>
@@ -102,11 +101,11 @@ const SignUpPage = () => {
               <div className="h-full rounded" style={passwordStrengthStyle}></div>
             </div>
             <p className="text-right text-sm text-gray-600 mt-2">
-              Password Strength: {passwordStrength}
+              {t("Password Strength")}: {passwordStrength}
             </p>
           </div>
           <button className="w-full bg-green-500 text-white py-2 px-2 rounded-md cursor-pointer">
-            Next
+            {t("Next")}
           </button>
         </div>
       </div>
@@ -129,7 +128,6 @@ const SignUpPage = () => {
       <div className="absolute top-20 left-20 mr-4 m-4">
         <img src="/img/new-logo-green.png" alt="Logo" className="h-40" />
       </div>
-
       <Footer />
     </div>
   );
