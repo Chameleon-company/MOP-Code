@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import LanguageDropdown  from "../../../components/LanguageDropdown";
 import { useTranslations } from "next-intl";
 
 const SignUpPage = () => {
