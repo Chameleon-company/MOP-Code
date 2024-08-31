@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         NODE_ENV = 'development'
+        VERCEL_TOKEN = credentials('vercel-token') // Adding the Vercel token in Jenkins credentials
     }
 
     stages {
@@ -52,20 +53,59 @@ pipeline {
                 }
             }
         }
-        
-        stage('Deploy') {
-            steps {
-                // Placeholder for deployment steps
-                // Add your deployment script/commands here
-                dir('next_webapp') {
-                    echo 'Deploying the application...'
-                    //building the docker image
-                    // sh 'docker build -t mop-react-app .'
 
-                    // sh 'npm run deploy'  // Uncomment and adjust this line based on our deployment script
+        //Adrian
+        stage('Install Vercel CLI') {
+            steps {
+                // Install Vercel CLI globally
+                sh 'npm install -g vercel'
+            }
+        }
+        
+        //Adrian
+        stage('Deploy to Vercel') {
+            steps {
+                dir('next_webapp') {
+                    script {
+                        // Deploy to Vercel using the Vercel CLI
+                        sh 'npx vercel --prod --token=$VERCEL_TOKEN'
+                    }
                 }
             }
         }
+
+        //Adrian
+        stage('Testing with Cypress') {
+            steps {
+                dir('next_webapp') {
+                    // Run Cypress tests
+                    sh 'npx cypress run'
+                }
+            }
+        }
+
+        //Adrian
+        stage('Monitoring and Logging Setup') {
+            steps {
+                script {
+                    // Set up monitoring and logging
+                    echo "Setting up monitoring and logging..."
+                    // Example: Set up Prometheus, Grafana, or use GCP's Cloud Monitoring
+                }
+            }
+        }
+
+        //Adrian
+        stage('Security and Compliance') {
+            steps {
+                dir('next_webapp') {
+                    // Run security checks
+                    sh 'npm audit'
+                }
+            }
+        }
+
+        
     }
     
     post {
