@@ -1,0 +1,2 @@
+﻿service_id,date,exception_type
+"T0+WD10","20240927","2"

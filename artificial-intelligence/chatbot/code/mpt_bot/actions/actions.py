@@ -21,12 +21,16 @@ nlp = spacy.load('en_core_web_sm')
 	-------------------------------------------------------------------------------------------------------
 '''
 # Load GTFS data into DataFrames
-dataset_path = 'C:/Users/Alex.Truong/PycharmProjects/pythonProject/MPT/ds/gtfs/2'
-stops_df = pd.read_csv(f'{dataset_path}/stops.txt')
-routes_df = pd.read_csv(f'{dataset_path}/routes.txt')
-trips_df = pd.read_csv(f'{dataset_path}/trips.txt')
-stop_times_df = pd.read_csv(f'{dataset_path}/stop_times.txt')
-calendar_df = pd.read_csv(f'{dataset_path}/calendar.txt')
+#dataset_path = r'C:\Users\logan\MOP Clone\MOP-Code\artificial-intelligence\chatbot\code\mpt_bot\gtfs\2'
+
+# Load GTFS data into DataFrames using a relative path
+dataset_path = os.path.join('gtfs', '2')
+
+stops_df = pd.read_csv(os.path.join(dataset_path, 'stops.txt'))
+routes_df = pd.read_csv(os.path.join(dataset_path, 'routes.txt'))
+trips_df = pd.read_csv(os.path.join(dataset_path, 'trips.txt'))
+stop_times_df = pd.read_csv(os.path.join(dataset_path, 'stop_times.txt'))
+calendar_df = pd.read_csv(os.path.join(dataset_path, 'calendar.txt'))
 
 # Normalize the stop names
 stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower()
@@ -280,3 +284,69 @@ class ActionFindBestRoute(Action):
             raise
 
         return []
+    
+
+
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Directions and Mapping
+	Author: LoganG
+	-------------------------------------------------------------------------------------------------------
+'''
+from typing import Any, Text, Dict, List
+import subprocess
+import sys
+
+logger = logging.getLogger(__name__)
+
+
+class ActionRunMappingScript(Action):
+    def name(self) -> Text:
+        return "action_run_direction_script"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Get the two most recent user messages
+        user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
+        user_location = user_messages[-2] if len(user_messages) >= 2 else None
+        destination = user_messages[-1] if user_messages else None
+
+        if not user_location or not destination:
+            dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
+            return []
+
+        script_path = r"C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\userlocationmaps_executablepassingactions.py"
+        map_file_path = "map.html"  
+
+        try:
+            #Use subprocess to run the script and capture output
+            result = subprocess.run([sys.executable, script_path, user_location, destination], 
+                                    capture_output=True, 
+                                    text=True, 
+                                    check=True)
+
+            if result.stdout.strip():
+                if "Address not found" in result.stdout or "Current location could not be determined" in result.stdout:
+                    dispatcher.utter_message(text="It seems the location or destination could not be found. Please check your input and try again.")
+                else:
+                    dispatcher.utter_message(text=f"The direction script has been executed successfully. Here's the output:\n{result.stdout}")
+
+                    #Check if the map file was generated
+                    if os.path.exists(map_file_path):
+                        dispatcher.utter_message(text="A map has been generated and should open in your default web browser.")
+                    else:
+                        dispatcher.utter_message(text="The script ran successfully, but no map was generated.")
+
+            else:
+                dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
+
+        except subprocess.CalledProcessError as e:
+            dispatcher.utter_message(text=f"An error occurred while running the script: {e.stderr}")
+            logger.error(f"Script execution failed: {e.stderr}")
+        except Exception as e:
+            dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
+            logger.error(f"Exception occurred: {str(e)}")
+
+        return [SlotSet("user_location", user_location), SlotSet("destination", destination)]

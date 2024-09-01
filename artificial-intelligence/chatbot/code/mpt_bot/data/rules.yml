@@ -9,3 +9,20 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+
+
+- rule: Ask for location when running direction script
+  steps:
+  - intent: run_direction_script
+  - action: utter_ask_location
+
+- rule: Ask for destination after providing location
+  steps:
+  - intent: provide_location
+  - action: utter_ask_destination  
+
+- rule: Execute direction script after providing destination
+  steps:
+  - intent: provide_destination
+  - action: action_run_direction_script
