@@ -136,5 +136,16 @@
         "Weak": "Weak",
         "Moderate":"Moderate",
         "Strong":"Strong"
+      },
+      "login":{
+        "No Account yet?": "No Account yet?",
+        "Sign Up": "Sign Up",
+        "Account Log In": "Account Log In",
+        "Please login to continue to your account": "Please login to continue to your account",
+        "Email": "Email",
+        "Password": "Password",
+        "Remember Me": "Remember Me",
+        "Forgot Password?": "Forgot Password?",
+        "LOGIN": "LOGIN"
       }
   }

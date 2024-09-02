@@ -2,8 +2,11 @@
 
 import React, { useState } from 'react';
 import '../../../../public/styles/login.css';
+import LanguageDropdown from "../../../components/LanguageDropdown";
+import { useTranslations } from "next-intl";
 
 function LoginForm() {
+    const t = useTranslations("login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -34,13 +37,16 @@ function LoginForm() {
             <div className="top-bar">
                 <img src="/img/image.png" alt="Chameleon Logo" className="logo" />
                 <div className="signup-container">
-                    <span className="no-account">No Account yet?</span>
-                    <a href="./signup" className="sign-up-button">Sign Up</a>
+                    <span className="no-account">{t("No Account yet?")}</span>
+                    <a href="./signup" className="sign-up-button">{t("Sign Up")}</a>
+                    <div className="ml-4">
+                        <LanguageDropdown />
+                    </div>
                 </div>
             </div>
             <div className="login-content">
-                <h1 className="login-title">Account Log In</h1>
-                <p className="login-subtitle">Please login to continue to your account</p>
+                <h1 className="login-title">{t("Account Log In")}</h1>
+                <p className="login-subtitle">{t("Please login to continue to your account")}</p>
                 <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
                     <div className="input-group">
                         <input
@@ -48,7 +54,7 @@ function LoginForm() {
                             id="email"
                             name="email"
                             required
-                            placeholder="Email"
+                            placeholder={t("Email")}
                             value={email}
                             onChange={handleChange}
                         />
@@ -59,7 +65,7 @@ function LoginForm() {
                             id="password"
                             name="password"
                             required
-                            placeholder="Password"
+                            placeholder={t("Password")}
                             value={password}
                             onChange={handleChange}
                         />
@@ -70,11 +76,11 @@ function LoginForm() {
                     <div className="options-container">
                         <label className="checkbox-label remember-me">
                             <input type="checkbox" id="remember-me" name="remember-me" />
-                            Remember Me
+                            {t("Remember Me")}
                         </label>
-                        <a href="#" className="forgot-password">Forgot Password?</a>
+                        <a href="#" className="forgot-password">{t("Forgot Password?")}</a>
                     </div>
-                    <button type="submit" className="login-button">LOGIN</button>
+                    <button type="submit" className="login-button">{t("LOGIN")}</button>
                 </form>
                 {error && <div className="error text-red-500">{error}</div>}
             </div>
