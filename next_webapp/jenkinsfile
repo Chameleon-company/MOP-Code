@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_ENV = 'development'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                git 'https://github.com/Chameleon-company/MOP-Code.git'
+            }
+        }
+        
+        stage('Setup') {
+            steps {
+                // Navigate to the next_webapp directory
+                dir('next_webapp') {
+                    script {
+                        // Print Node.js and npm versions
+                        sh 'node -v'
+                        sh 'npm -v'
+                    }
+                }
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                // Navigate to the next_webapp directory and install dependencies
+                dir('next_webapp') {
+                    sh 'npm install'
+                }
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Navigate to the next_webapp directory and build the project
+                dir('next_webapp') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Code Quality Check') {
+            steps {
+                // Navigate to the next_webapp directory and lint the project
+                dir('next_webapp') {
+                    sh 'npm run lint'
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Placeholder for deployment steps
+                // Add your deployment script/commands here
+                dir('next_webapp') {
+                    echo 'Deploying the application...'
+                    //building the docker image
+                    // sh 'docker build -t mop-react-app .'
+
+                    // sh 'npm run deploy'  // Uncomment and adjust this line based on our deployment script
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

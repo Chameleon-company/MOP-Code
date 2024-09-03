@@ -1,0 +1,25 @@
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500; 
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  .image-container::before {
+     content: '';
+     position: absolute;
+     top:0;
+     left: 50%; 
+     width: 50%; 
+     height: 20px; 
+     background-color: #000; 
+  }
+  .image-container::after {
+     content: '';
+     position: absolute;
+     bottom: 0; 
+     left: 0; 
+     width: 20px; 
+     height: 50%; 
+     background-color: #000; 
+   }

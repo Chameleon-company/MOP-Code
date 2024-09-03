@@ -1,0 +1,52 @@
+//----------------------------------------------------------//
+//	BREADCRUMB
+//----------------------------------------------------------//
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $breadcrumb-padding-y $breadcrumb-padding-x;
+  margin-bottom: $breadcrumb-margin-bottom;
+  @include font-size($breadcrumb-font-size);
+  list-style: none;
+  background-color: $breadcrumb-bg;
+  @include border-radius($breadcrumb-border-radius);
+}
+.breadcrumb-item {
+  display: flex;
+  color: $breadcrumb-color;
+  a {
+    color: inherit;
+    &:hover {
+      color: $breadcrumb-hover-color;
+    }
+  }
+  + .breadcrumb-item {
+    padding-left: $breadcrumb-item-padding-x;
+    &::before {
+      font-family: $font-family-unicons;
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      padding-right: $breadcrumb-item-padding-x;
+      color: $breadcrumb-divider-color;
+      content: $icon-caret-end;
+      margin-top: -1px;
+      @include font-size(0.9rem);
+    }
+  }
+}
+.breadcrumb.text-white .breadcrumb-item {
+  &:hover,
+  &.active {
+    color: $white;
+  }
+}
+.breadcrumb.text-white .breadcrumb-item a {
+  color: $white;
+  &:hover {
+    border-color: $white;
+  }
+}
+.breadcrumb.text-white .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba($white, 0.5);
+}
