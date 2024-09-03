@@ -20,15 +20,21 @@ const About = () => {
     <div className="bg-white dark:bg-black">
       <Header />
       <Tooglebutton onValueChange={handleValueChange}/>
-      <div className="text-black dark:text-white text-[120px] mb-1 mt-1 sm:ml-72">{t("About")}</div>
-      <div className="text-black dark:text-white text-[120px] mb-1 -mt-6 sm:ml-72">{t("Us")}</div>
-      <div className="float-right absolute pl-10 top-0 right-0 mt-40 image-2 overflow-hidden image-container before:dark:bg-white after:dark:bg-white">
-        <img src="/img/mel.jpg" alt="About Us Image" className="w-full ml-2 mt-36 h-auto"/>
+      <div className="flex flex-row h-full w-full">
+        <span className="about-us dark:text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mt-7 ml-4 sm:ml-12 md:ml-16">
+        {t("About")} <br />
+        {t("Us")}
+        </span>
+        <div className="mt-7 pl-10 float-right relative flex top-0 right-0 ms-auto overflow-hidden before:dark:bg-white after:dark:bg-white">
+          <img src="/img/mel.jpg" alt="About Us Image" className="w-full h-full object-scale-down"/>
+          <div className="absolute top-[-0] right-0 h-3 w-1/2 bg-black"></div>
+          <div className="absolute bottom-0 left-[-3] h-1/2 bg-black w-3"></div>
+        </div>
       </div>
 
-      <div className="w-full bg-gray-100 border-y-2  py-2 text-center mt-96 text-black dark:bg-[#131619] dark:text-white">
-        <h2 className="text-4xl font-semibold p-5">{t("About MOP")}</h2>
-        <p className="font-normal text-xl mb-3 p-5">{t("p1")}</p>
+      <div className="w-full bg-gray-100 border-y-2 py-2 text-center mt-12 text-black dark:bg-[#131619] dark:text-white">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold p-3 md:p-5">{t("About MOP")}</h2>
+        <p className="text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl m-5 px-3">{t("p1")}</p>
       </div>
 
       <div className="m-4 bg-white dark:bg-black">
@@ -37,15 +43,15 @@ const About = () => {
              style={{ backgroundColor: "rgb(255,255,255)", color: "black" }}
             className="flex flex-col items-center p-4 border-2 shadow-xl rounded-sm h-full"
           >
-            <div className="flex flex-row h-full">
-              <span className="font-bold m-2 text-3xl">
+            <div className="flex flex-row h-auto w-full">
+              <span className="font-bold m-2 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
                 {t("About")} <br />
                 {t("Us")}
               </span>
-              <div className="mt-10 pl-8 w-56 h-44 relative">
+              <div className="mt-10 float-right relative flex top-0 right-0 w-40 h-36 ms-auto">
                 <img
                   src="/img/about-us.png"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                   alt="Description of the image"
                 />
                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
@@ -53,22 +59,22 @@ const About = () => {
               </div>
             </div>
 
-            <p className="p-4 text-center">
-              <span className="text-wrap">{t("p2")}</span>
+            <p className="p-4 text-center ">
+              <span className="text-wrap text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">{t("p2")}</span>
             </p>
           </div>
           <div
             style={{ backgroundColor: "rgb(74 222 128)", color: "black" }}
-            className="flex flex-col items-center border-black shadow-xl  p-4 h-full"
+            className="flex flex-col items-center border-black border-2 rounded-sm shadow-xl p-4 h-full"
           >
-            <div className="flex flex-row h-full">
-              <span className="font-bold m-2 text-3xl">
+            <div className="flex flex-row h-auto w-full">
+              <span className="font-bold m-2 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
                 {t("Open Data Leadership")}
               </span>
-              <div className="mt-10 pl-8 w-56 h-44 relative flex-shrink-0">
+              <div className="mt-10 float-right relative flex top-0 right-0 w-40 h-36 ms-auto">
                 <img
                   src="/img/leadership.png"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                   alt="Description of the image"
                 />
                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
@@ -77,22 +83,22 @@ const About = () => {
             </div>
 
             <p className="p-4 text-center">
-              <span className="text-wrap">{t("p3")}</span>
+              <span className="text-wrap text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">{t("p3")}</span>
             </p>
           </div>
           <div
             style={{ backgroundColor: "rgb(255,255,255)", color: "black" }}
             className="flex flex-col items-center p-4 border-2 shadow-xl rounded-sm h-full"
           >
-            <div className="flex flex-row h-64">
-              <span className="font-bold m-2 text-3xl">
+            <div className="flex flex-row h-auto w-full">
+              <span className="font-bold m-2 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
                 {t("Our")} <br />
                 {t("Goals")}
               </span>
-              <div className="mt-10 pl-8 w-56 h-44 relative">
+              <div className="mt-10 float-right relative flex top-0 right-0 w-40 h-36 ms-auto">
                 <img
                   src="/img/goals.png"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                   alt="Description of the image"
                 />
                 <div className="absolute -top-3 right-0 h-3 w-1/2 bg-black"></div>
@@ -101,8 +107,9 @@ const About = () => {
             </div>
 
             <p className="p-4 text-center">
-              <span className="text-wrap">{t("p4")}</span>
+              <span className="text-wrap text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">{t("p4")}</span>
             </p>
+            
           </div>
         </div>
       </div>

@@ -1,9 +1,5 @@
-body {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500; 
-  margin: 0;
-  padding: 0;
-  background-color: white;
+* {
+  font-family: 'Montserrat', sans-serif; 
 }
 
 .image-container::before {
@@ -24,8 +20,16 @@ body {
    height: 52%; 
    background-color: #0A142F;
    margin-left: -42px;
- }
+}
 
  .image-2{
   width:1123px !important;
- }
+}
+
+.about-us {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-align: left;
+  color: black;
+}
+
