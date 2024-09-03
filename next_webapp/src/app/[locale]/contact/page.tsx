@@ -5,7 +5,7 @@ import "../../../../public/styles/contact.css";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { db, collection, addDoc } from '../../../firebase/firebaseConfig';
+
 
 interface FormField {
   name: string;
@@ -112,101 +112,83 @@ const Contact = () => {
     });
 
 
-    if (valid) {
-      try {
-        await addDoc(collection(db, "messages"), {
-          ...formValues,
-          timestamp: new Date(),
-        });
-        setSuccessMessage("Message sent successfully!");
-        setFormValues({});
-        setFailureMessage("");
-      } catch (error) {
-        setFailureMessage("Failed to send message. Please try again.");
-      }
-    }
-
-
-
-
-
-
-
-
-
   };
 
-  return (
-    <div className="contactPage font-sans bg-white min-h-screen">
-      <Header />
-      <main className="contactBody font-light text-xs leading-7 flex flex-col justify-between mt-12 items-start p-12">
+  return (<div className="contactPage font-sans bg-white min-h-screen">
+    <Header />
+    <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
+  
+      <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
+      <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:absolute lg:left-0 lg:top-0 lg:transform lg:translate-y-[-10%] lg:pl-0 lg:text-center lg:mb-8 z-20">
+  {t("Contact")}
+  <br />
+  {t("Us")}
+</span>
 
-        <div className="imgContent relative w-full mt-12 lg:mt-24">
-          <span className="contactUsText block text-black text-4xl leading-snug font-montserrat mt-8 pl-6 text-left lg:absolute lg:left-0 lg:top-0 lg:transform lg:translate-y-0 lg:pl-0 lg:text-center lg:mb-8 z-20">
-            {t("Contact")}
-            <br />
-            {t("Us")}
-          </span>
-          <div className="imgWrap relative w-full mt-4 lg:mt-0">
-            <Image
-              src="/img/contact-us-city.png"
-              alt="City"
-              width={800}
-              height={600}
-              className="cityImage block w-full h-auto"
-            />
+        <div className="imgWrap relative w-full mt-4 lg:mt-0">
+          <Image
+            src="/img/contact-us-city.png"
+            alt="City"
+            width={800}
+            height={600}
+            className="cityImage block w-full h-auto"
+          />
+        </div>
+      </div>
+  
+      <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8">
+        <form
+          id="contact"
+          action=""
+          onSubmit={handleSubmit}
+          method="post"
+          className="m-8"
+          noValidate
+        >
+          {formFields.map((field) => (
+            <fieldset
+              key={field.name}
+              className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
+            >
+              <span className="namaSpan text-black">{field.spanName}</span>
+              {field.type === "textarea" ? (
+                <textarea
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
+                  onChange={handleChange}
+                ></textarea>
+              ) : (
+                <input
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
+                  onChange={handleChange}
+                />
+              )}
+              {errors[field.name] && (
+                <span className="text-red-500 text-xs">
+                  {errors[field.name]}
+                </span>
+              )}
+            </fieldset>
+          ))}
+          <div className="flex justify-center items-center">
+            <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
+              {t("Submit")}
+            </button>
           </div>
-        </div>
-        <div className="formContent w-full">
-          <form
-            id="contact"
-            action=""
-            onSubmit={handleSubmit}
-            method="post"
-            className="m-8"
-            noValidate
-          >
-            {formFields.map((field) => (
-              <fieldset
-                key={field.name}
-                className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
-              >
-                <span className="namaSpan text-black">{field.spanName}</span>
-                {field.type === "textarea" ? (
-                  <textarea
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
-                    onChange={handleChange}
-                  ></textarea>
-                ) : (
-                  <input
-                    name={field.name}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
-                    onChange={handleChange}
-                  />
-                )}
-                {errors[field.name] && (
-                  <span className="text-red-500 text-xs">
-                    {errors[field.name]}
-                  </span>
-                )}
-              </fieldset>
-            ))}
-            <div className="flex justify-center items-center">
-              <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
-                {t("Submit")}
-              </button>
-            </div>
-          </form>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </form>
+      </div>
+  
+    </main>
+    <Footer />
+  </div>
+  
+
   );
 };
 
