@@ -1,4 +1,3 @@
-// lib/mongodb.js
 const mongoose = require('mongoose');
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -17,7 +16,6 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) {
-    console.log('Using existing connection');
     return cached.conn;
   }
 
@@ -27,7 +25,6 @@ async function dbConnect() {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log('Connected to MongoDB');
       return mongoose;
     });
   }

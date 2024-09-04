@@ -1,7 +1,7 @@
 const dbConnect = require('../../lib/mongodb');
-const UseCase = require('./UseCase');
+const UseCase = require('../../models/UseCase');
 
-async function handleRequest(req, res) {
+export default async function handler(req, res) {
     await dbConnect();
 
     const { method } = req;
@@ -60,5 +60,3 @@ async function handleRequest(req, res) {
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }
-
-module.exports = handleRequest;

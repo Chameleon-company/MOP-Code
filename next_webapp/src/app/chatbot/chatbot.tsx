@@ -48,6 +48,7 @@ const Chatbot = () => {
           "show me use cases",
           "use case page",
           "use cases",
+          "use case",
         ],
         route: "/en/UseCases",
       },
