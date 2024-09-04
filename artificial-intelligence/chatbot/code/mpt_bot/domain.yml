@@ -93,3 +93,4 @@ actions:
 - action_calculate_transfers
 - action_find_best_route_with_transfers
 - action_find_route_with_least_stops
+- action_generate_route_map

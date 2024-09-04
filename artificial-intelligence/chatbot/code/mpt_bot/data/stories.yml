@@ -89,3 +89,9 @@ stories:
     steps:
     - intent: bot_challenge
     - action: utter_iamabot
+
+#  - story: User asks for the quickest route and map
+#    steps:
+#      - intent: ask_best_route
+#      - action: action_find_best_route
+#      - action: action_generate_route_map

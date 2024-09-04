@@ -1,6 +1,9 @@
 import spacy
 import folium
 import os
+from io import BytesIO
+import zipfile
+import requests
 import pandas as pd
 import logging
 from typing import Any, Text, Dict, List, Optional
@@ -9,11 +12,11 @@ from datetime import datetime, timedelta
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
-import logging
 from collections import deque
+import certifi
 
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module='rasa.shared.utils.io')
+# import warnings
+# warnings.filterwarnings("ignore", category=UserWarning, module='rasa.shared.utils.io')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -22,18 +25,9 @@ logger = logging.getLogger(__name__)
 # Load spaCy NLP model
 nlp = spacy.load('en_core_web_sm')
 
-# Load GTFS data into DataFrames
-dataset_path = os.getenv('GTFS_DATASET_PATH', 'C:/Users/Alex.Truong/PycharmProjects/pythonProject/MPT/ds/gtfs/2')
-stops_df = pd.read_csv(f'{dataset_path}/stops.txt')
-routes_df = pd.read_csv(f'{dataset_path}/routes.txt')
-trips_df = pd.read_csv(f'{dataset_path}/trips.txt')
-stop_times_df = pd.read_csv(f'{dataset_path}/stop_times.txt')
-calendar_df = pd.read_csv(f'{dataset_path}/calendar.txt')
-
 '''-------------------------------------------------------------------------------------------------------'''
 ''' -------------------------------------------------------------------------------------------------------	
-	Singleton common methods can be use in actions
-	Author: AlexT
+	Singleton common methods can be use in actions	
 		- normalise_gtfs_data
 		- find_station_name
 		- convert_gtfs_time
@@ -48,10 +42,81 @@ calendar_df = pd.read_csv(f'{dataset_path}/calendar.txt')
 	-------------------------------------------------------------------------------------------------------
 '''
 class GTFSUtils:
+    @staticmethod
+    def load_data(url: str, dataset_path: str, inner_zip_path: str = '2/google_transit.zip') -> Optional[
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
+        """
+        Downloads, extracts, and loads GTFS data from a provided URL.
+
+        :param url: The URL to download the GTFS zip file from.
+        :param dataset_path: The folder where the extracted data will be stored.
+        :param inner_zip_path: The path within the main zip to the GTFS data zip file.
+        :return: A tuple containing the stops DataFrame, stop_times DataFrame, routes DataFrame, trips DataFrame, and calendar DataFrame.
+        """
+        # Ensure the dataset path is absolute and create it if it doesn't exist
+        os.makedirs(dataset_path, exist_ok=True)
+
+        logger.info("Downloading the zip file...")
+        # response = requests.get(url)
+        response = requests.get(url, verify=certifi.where())
+
+        # Disable SSL certificate verification to bypass the certificate error
+        try:
+            response = requests.get(url, verify=False)
+            response.raise_for_status()  # Ensure the download was successful
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to download file from {url}: {e}")
+            return None
+
+        # Open the downloaded zip file in memory
+        logger.info("Opening the main zip file...")
+        try:
+            with zipfile.ZipFile(BytesIO(response.content)) as z:
+                # List all files and directories in the main zip file
+                logger.info("Listing contents of the main zip file...")
+                for name in z.namelist():
+                    logger.info(f"Found file: {name}")
+                    if name == inner_zip_path:
+                        logger.info(f"Found '{inner_zip_path}' inside the main zip file.")
+                        # Extract the inner zip file (google_transit.zip)
+                        with z.open(name) as inner_zip_file:
+                            with zipfile.ZipFile(BytesIO(inner_zip_file.read())) as inner_z:
+                                logger.info(f"Extracting contents to '{dataset_path}'...")
+                                inner_z.extractall(dataset_path)
+                                logger.info(f"Extraction complete. Files saved to '{dataset_path}'")
+                                break
+                else:
+                    logger.error(f"No matching '{inner_zip_path}' file found inside the main zip file.")
+                    return None
+        except Exception as e:
+            logger.error(f"Error extracting zip files: {e}")
+            return None
+
+        # Load the relevant files into DataFrames
+        try:
+            stops_df = pd.read_csv(os.path.join(dataset_path, 'stops.txt'))
+            routes_df = pd.read_csv(os.path.join(dataset_path, 'routes.txt'))
+            trips_df = pd.read_csv(os.path.join(dataset_path, 'trips.txt'))
+            stop_times_df = pd.read_csv(os.path.join(dataset_path, 'stop_times.txt'))
+            calendar_df = pd.read_csv(os.path.join(dataset_path, 'calendar.txt'))
+
+            # Normalize the data
+            GTFSUtils.normalise_gtfs_data(stops_df, stop_times_df)
+
+            return stops_df, stop_times_df, routes_df, trips_df, calendar_df
+        except FileNotFoundError as e:
+            logger.error(f"Failed to load GTFS data files: {e}")
+            return None
+        except pd.errors.EmptyDataError as e:
+            logger.error(f"File found but no data: {e}")
+            return None
 
     @staticmethod
     def normalise_gtfs_data(stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> None:
-        """Normalize the stop names and ensure the stop_times DataFrame is indexed correctly."""
+        """
+           Author: AlexT
+            Normalize the stop names and ensure the stop_times DataFrame is indexed correctly.
+        """
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
         stops_df['stop_id'] = stops_df['stop_id'].astype(str).str.strip()
 
@@ -71,7 +136,10 @@ class GTFSUtils:
 
     @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
-        """Find the best matching station name from the stops DataFrame."""
+        """
+            Author: AlexT
+            Find the best matching station name from the stops DataFrame.
+        """
         user_input = user_input.lower().strip()
         stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
 
@@ -96,7 +164,10 @@ class GTFSUtils:
 
     @staticmethod
     def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
-        """Get the stop ID for a given station name, using fuzzy matching to find the correct station name."""
+        """
+            Author: AlexT
+            Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
+        """
         matched_station_name = GTFSUtils.find_station_name(station_name, stops_df)
         if matched_station_name:
             station_row = stops_df.loc[stops_df['stop_name'] == matched_station_name]
@@ -106,7 +177,10 @@ class GTFSUtils:
         return None
     @staticmethod
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
-        """Extract potential station names from a query using NLP and fuzzy matching."""
+        """
+            Author: AlexT
+            Extract potential station names from a query using NLP and fuzzy matching.
+        """
         doc = nlp(query)
         potential_stations = [ent.text for ent in doc.ents]
         if not potential_stations:
@@ -121,7 +195,10 @@ class GTFSUtils:
     @staticmethod
     def check_direct_route(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> (
     bool, List[str]):
-        """Check if there is a direct train between two stations."""
+        """
+            Author: AlexT
+            Check if there is a direct train between two stations.
+        """
         stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
         stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
 
@@ -140,7 +217,10 @@ class GTFSUtils:
 
     @staticmethod
     def calculate_route_travel_time(route: List[str], stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> Optional[float]:
-        """Calculate the total travel time for a given route."""
+        """
+            Author: AlexT
+            Calculate the total travel time for a given route.
+        """
         total_travel_time = 0.0
 
         stop_times_df.sort_index(inplace=True)
@@ -174,15 +254,12 @@ class GTFSUtils:
 
         return total_travel_time / 60  # Return time in minutes
 
-    # @staticmethod
-    # def parse_time(gtfs_time: str) -> timedelta:
-    #     """Parse GTFS time (assuming GTFS time format is HH:MM:SS) into a timedelta object."""
-    #     hours, minutes, seconds = map(int, gtfs_time.split(':'))
-    #     return timedelta(hours=hours, minutes=minutes, seconds=seconds)
-
     @staticmethod
     def parse_time(gtfs_time: str) -> timedelta:
-        """Parse GTFS time (handling times that exceed 24:00:00) into a timedelta object."""
+        """
+            Author: AlexT
+            Parse GTFS time (handling times that exceed 24:00:00) into a timedelta object.
+        """
         hours, minutes, seconds = map(int, gtfs_time.split(':'))
         if hours >= 24:
             hours = hours - 24
@@ -192,7 +269,10 @@ class GTFSUtils:
     @staticmethod
     def calculate_transfers(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> \
             Tuple[int, List[str]]:
-        """Calculate the number of transfers needed between two stations and provide details of the transfer stations."""
+        """
+            Author: AlexT
+            Calculate the number of transfers needed between two stations and provide details of the transfer stations.
+        """
 
         # Ensure the DataFrame is sorted and indexed correctly
         stop_times_df.sort_index(inplace=True)
@@ -264,7 +344,10 @@ class GTFSUtils:
         return float('inf'), []
     @staticmethod
     def find_best_route_with_transfers(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> Optional[List[str]]:
-        """Find the best route between two stations, considering transfers."""
+        """
+            Author: AlexT
+            Find the best route between two stations, considering transfers.
+        """
         stop_times_df.sort_index(inplace=True)
 
         queue = deque([(station_a, [station_a])])
@@ -314,17 +397,201 @@ class GTFSUtils:
         logger.error(error_message)
         return []
 
+    @staticmethod
+    def get_trip_id_for_best_route(best_route: List[str], stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> \
+    Optional[str]:
+        """
+            Author: AlexT
+            Given a list of stops representing the best route, find the trip ID that matches this route.
+            :param best_route: A list of stop names (or IDs) representing the best route.
+            :param stops_df: DataFrame containing stop information.
+            :param stop_times_df: DataFrame containing stop times.
+            :return: The trip ID that best matches the provided route, or None if no suitable trip is found.
+        """
+        try:
+            # Get the stop IDs for each station in the best route
+            stop_ids = [GTFSUtils.get_station_id(station, stops_df) for station in best_route]
+
+            if None in stop_ids:
+                raise ValueError("One or more station IDs could not be found for the provided route.")
+
+            # Filter stop_times_df for trips that pass through all stops in the best route
+            matching_trips = stop_times_df.loc[stop_ids].reset_index()
+            matching_trips = matching_trips.groupby('trip_id').filter(
+                lambda x: set(stop_ids).issubset(x['stop_id'].tolist()))
+
+            if matching_trips.empty:
+                return None
+
+            # Select the trip ID that has the stops in the correct order
+            for trip_id, group in matching_trips.groupby('trip_id'):
+                ordered_stop_ids = group.sort_values('stop_sequence')['stop_id'].tolist()
+                if ordered_stop_ids == stop_ids:
+                    return trip_id
+
+            return None
+
+        except Exception as e:
+            logger.error(f"Failed to get trip ID for best route: {str(e)}")
+            return None
+
+    @staticmethod
+    def is_subsequence(subsequence: List[str], sequence: List[str]) -> bool:
+        """
+            Author: AlexT
+            Check if subsequence is a subsequence of sequence.
+            :param subsequence: The list of stop IDs that form the best route.
+            :param sequence: The list of stop IDs from a candidate trip.
+            :return: True if subsequence is a subsequence of sequence, False otherwise.
+        """
+        iter_seq = iter(sequence)
+        return all(item in iter_seq for item in subsequence)
+
+    @staticmethod
+    def generate_route_map(trip_id: str, station_a: str, station_b: str, stops_df: pd.DataFrame,
+                           stop_times_df: pd.DataFrame, dataset_path: str,
+                           transfers_df: Optional[pd.DataFrame] = None) -> Optional[str]:
+        """
+            Author: AlexT
+            Generate a route map for a given trip ID, save it as an HTML file, and return a hyperlink to the map.
+            Optionally highlights transfer stations on the route if transfers_df is provided.
+            :param trip_id: The trip ID for which to generate the route map.
+            :param station_a: The starting station name.
+            :param station_b: The ending station name.
+            :param stops_df: DataFrame containing stop information.
+            :param stop_times_df: DataFrame containing stop times.
+            :param dataset_path: Path to the dataset directory where the map will be saved.
+            :param transfers_df: Optional DataFrame containing transfer information.
+            :return: Hyperlink to the saved map file, or None if the map could not be generated.
+        """
+        try:
+            # Ensure the stop_times_df is correctly indexed (it should already be normalized)
+            if not isinstance(stop_times_df.index, pd.MultiIndex):
+                raise ValueError("The stop_times_df DataFrame must be indexed by ['stop_id', 'trip_id'].")
+
+            # Normalize the input station names to match the normalized stop names in stops_df
+            normalized_station_a = station_a.strip().lower()
+            normalized_station_b = station_b.strip().lower()
+
+            # Get stop IDs for station_a and station_b using the normalized names
+            stop_a_id = stops_df.loc[stops_df['normalized_stop_name'] == normalized_station_a, 'stop_id'].values[0]
+            stop_b_id = stops_df.loc[stops_df['normalized_stop_name'] == normalized_station_b, 'stop_id'].values[0]
+
+            # Filter the stop_times_df by the specified trip_id
+            trip_stops = stop_times_df.xs(trip_id, level='trip_id').reset_index()
+
+            if trip_stops.empty:
+                raise ValueError(f"No stops found for trip ID {trip_id}.")
+
+            # Find the sequences for station_a and station_b
+            stop_a_sequence = trip_stops[trip_stops['stop_id'] == stop_a_id]['stop_sequence'].values[0]
+            stop_b_sequence = trip_stops[trip_stops['stop_id'] == stop_b_id]['stop_sequence'].values[0]
+
+            # Filter the trip stops to only include those between stop_a_sequence and stop_b_sequence
+            trip_stops = trip_stops[
+                (trip_stops['stop_sequence'] >= stop_a_sequence) & (trip_stops['stop_sequence'] <= stop_b_sequence)]
+
+            # Merge with stops_df to get stop names and locations
+            trip_stops = trip_stops.merge(stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']], on='stop_id',
+                                          how='left')
+
+            if trip_stops[['stop_lat', 'stop_lon']].isnull().any().any():
+                raise ValueError(f"Missing stop latitude/longitude information for trip ID {trip_id}.")
+
+            # Create the map centered around the first stop
+            start_location = trip_stops[['stop_lat', 'stop_lon']].iloc[0].values
+            trip_map = folium.Map(location=start_location, zoom_start=13)
+
+            # Highlight transfer stations if transfers_df is provided
+            if transfers_df is not None:
+                transfer_stop_ids = transfers_df['from_stop_id'].unique()
+            else:
+                transfer_stop_ids = []
+
+            # Plot each stop on the map, highlighting transfer stations in red
+            for _, stop in trip_stops.iterrows():
+                color = 'red' if stop['stop_id'] in transfer_stop_ids else 'blue'
+                folium.Marker(
+                    location=[stop['stop_lat'], stop['stop_lon']],
+                    popup=f"Stop: {stop['stop_name']}<br>Stop ID: {stop['stop_id']}",
+                    tooltip=stop['stop_name'],
+                    icon=folium.Icon(color=color)
+                ).add_to(trip_map)
+
+            # Draw lines between consecutive stops to represent the route
+            folium.PolyLine(
+                locations=trip_stops[['stop_lat', 'stop_lon']].values.tolist(),
+                color='blue',
+                weight=5,
+                opacity=0.7
+            ).add_to(trip_map)
+
+            # Save the map to an HTML file
+            map_filename = f"route_map_{trip_id}.html"
+            map_folder = os.path.join(dataset_path, "maps")
+            map_path = os.path.join(map_folder, map_filename)
+            trip_map.save(map_path)
+
+            # Create and return the hyperlink
+            hyperlink = f"<a href='{map_path}' target='_blank'>Click here to view the route map</a>"
+            return hyperlink
+
+        except Exception as e:
+            logger.error(f"Failed to generate route map for trip ID {trip_id}: {str(e)}")
+            return None
+
+
 # Normalise data
-GTFSUtils.normalise_gtfs_data(stops_df, stop_times_df)
+# GTFSUtils.normalise_gtfs_data(stops_df, stop_times_df)
 
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_02 implementation
-	Name: Schedule Information
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-'''
+url = 'https://data.ptv.vic.gov.au/downloads/gtfs.zip'
+current_directory = os.getcwd()
+dataset_folder = 'mpt_data'
+dataset_path = os.path.join(current_directory, dataset_folder)
+stops_df, stop_times_df, routes_df, trips_df, calendar_df = GTFSUtils.load_data(url, dataset_folder)
+
+
+class ActionGenerateMap(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_13
+    	Name: Generate Map of Train Stations
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_generate_map"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
+                    tooltip=row['stop_name']
+                ).add_to(melbourne_map)
+
+            map_path = os.path.join(dataset_path, 'melbourne_train_stations_map.html')
+            melbourne_map.save(map_path)
+
+            dispatcher.utter_message(
+                text=f"The map of Melbourne train stations has been generated and saved to: {map_path}")
+        except Exception as e:
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
+            raise
+
 class ActionFindNextTrain(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_02 implementation
+    	Name: Schedule Information
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    '''
     def name(self) -> Text:
         return "action_find_next_train"
 
@@ -394,55 +661,81 @@ class ActionFindNextTrain(Action):
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the next train", e)
             raise
 
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_13 
-	Name: Generate Map of Train Stations
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-'''
-class ActionGenerateMap(Action):
-
-    def name(self) -> Text:
-        return "action_generate_map"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        try:
-            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
-            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
-
-            for _, row in stops_map_df.iterrows():
-                folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
-                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
-                ).add_to(melbourne_map)
-
-            map_path = os.path.join(dataset_path, 'melbourne_train_stations_map.html')
-            melbourne_map.save(map_path)
-
-            dispatcher.utter_message(
-                text=f"The map of Melbourne train stations has been generated and saved to: {map_path}")
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
-            raise
 
 ''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_01 implementation
-	Name: Basic Route Planning
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-	"What is the best route from [Station A] to [Station B]?"
-    "How do I get from [Station A] to [Station B]?"
-    "Show me the fastest route from [Station A] to [Station B]."
+    	ID: REQ_01 implementation
+    	Name: Basic Route Planning
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    	"What is the best route from [Station A] to [Station B]?"
+        "How do I get from [Station A] to [Station B]?"
+        "Show me the fastest route from [Station A] to [Station B]."
+        Generate the route map
 '''
+# class ActionFindBestRoute(Action):
+#
+#     def name(self) -> Text:
+#         return "action_find_best_route"
+#
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#
+#         try:
+#             query = tracker.latest_message.get('text')
+#             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+#
+#             if len(extracted_stations) == 0:
+#                 dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
+#                 return []
+#
+#             station_a = extracted_stations[0]
+#             station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
+#
+#             if not station_a or not station_b:
+#                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+#                 return []
+#
+#             stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
+#             stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+#
+#             stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+#             stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+#
+#             merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+#
+#             valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+#
+#             if valid_trips.empty:
+#                 dispatcher.utter_message(text="No direct route found between the two stations.")
+#                 return []
+#
+#             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
+#             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
+#             valid_trips['travel_time'] = (
+#                         valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
+#
+#             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
+#
+#             route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
+#             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
+#             destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
+#
+#             response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}, \n taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+#
+#             # Create the route map given the trip id
+#             hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path)
+#             if hyperlink:
+#                 response += f"\n{hyperlink}"
+#
+#             dispatcher.utter_message(text=response)
+#         except Exception as e:
+#             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
+#             raise
 class ActionFindBestRoute(Action):
 
     def name(self) -> Text:
         return "action_find_best_route"
-
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -485,12 +778,20 @@ class ActionFindBestRoute(Action):
 
             route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
+            destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
 
-            response = f"The best route from {station_a} to {station_b} is on route {route_name}, trip ID {best_trip['trip_id']}, taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination} \n The trip taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+
+            # Create the route map given the trip id, including the transfers_df to highlight transfer stations
+            hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path)
+            if hyperlink:
+                response += f"\n{hyperlink}"
+
             dispatcher.utter_message(text=response)
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise
+
 ''' -------------------------------------------------------------------------------------------------------
 	ID: REQ_03 implementation
 	Name: Basic Route Planning
@@ -504,6 +805,49 @@ class ActionFindBestRoute(Action):
     No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer
     Invalid Stations: Check how the action handles cases where stations are not found or the travel time cannot be calculated.
 '''
+# class ActionCalculateTransfers(Action):
+#
+#     def name(self) -> Text:
+#         return "action_calculate_transfers"
+#
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#
+#         try:
+#             query = tracker.latest_message.get('text')
+#             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+#
+#             if len(extracted_stations) < 2:
+#                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+#                 return []
+#
+#             station_a, station_b = extracted_stations[0], extracted_stations[1]
+#
+#             transfers, transfer_stations = GTFSUtils.calculate_transfers(station_a, station_b, stops_df, stop_times_df)
+#             travel_time = GTFSUtils.calculate_route_travel_time([station_a] + transfer_stations + [station_b], stops_df, stop_times_df)
+#
+#             if transfers == 0:
+#                 response = f"There is a direct train from {station_a} to {station_b}, so no transfers are needed."
+#                 if travel_time is not None:
+#                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
+#             elif transfers > 0:
+#                 transfer_details = ', '.join(transfer_stations) if transfer_stations else "unknown locations"
+#                 response = (
+#                     f"You will need to make {transfers} transfer(s) to get from {station_a} to {station_b}. "
+#                     f"The transfer(s) occur at the following station(s): {transfer_details}."
+#                 )
+#                 if travel_time is not None:
+#                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
+#             else:
+#                 response = f"Sorry, no suitable route with transfers could be found between {station_a} and {station_b}."
+#
+#             dispatcher.utter_message(text=response)
+#
+#         except Exception as e:
+#             dispatcher.utter_message(text="An error occurred while calculating transfers. Please try again.")
+#             GTFSUtils.handle_error(dispatcher, logger, "Failed to calculate transfers", e)
+#         return []
 class ActionCalculateTransfers(Action):
 
     def name(self) -> Text:
@@ -523,13 +867,24 @@ class ActionCalculateTransfers(Action):
 
             station_a, station_b = extracted_stations[0], extracted_stations[1]
 
+            # Calculate transfers and transfer stations
             transfers, transfer_stations = GTFSUtils.calculate_transfers(station_a, station_b, stops_df, stop_times_df)
-            travel_time = GTFSUtils.calculate_route_travel_time([station_a] + transfer_stations + [station_b], stops_df, stop_times_df)
+            travel_time = GTFSUtils.calculate_route_travel_time([station_a] + transfer_stations + [station_b], stops_df,
+                                                                stop_times_df)
 
             if transfers == 0:
                 response = f"There is a direct train from {station_a} to {station_b}, so no transfers are needed."
                 if travel_time is not None:
                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
+
+                # Generate the route map for the direct route
+                # best_trip_id = GTFSUtils.find_best_trip_id(station_a, station_b, stop_times_df)
+                # if best_trip_id:
+                #     hyperlink = GTFSUtils.generate_route_map(best_trip_id, station_a, station_b, stops_df,
+                #                                              stop_times_df, dataset_path)
+                #     if hyperlink:
+                #         response += f"\n{hyperlink}"
+
             elif transfers > 0:
                 transfer_details = ', '.join(transfer_stations) if transfer_stations else "unknown locations"
                 response = (
@@ -538,6 +893,16 @@ class ActionCalculateTransfers(Action):
                 )
                 if travel_time is not None:
                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
+
+                # Generate the route map with transfers (if applicable)
+                # best_trip_id = GTFSUtils.find_best_trip_id_with_transfers(station_a, station_b, transfer_stations,
+                #                                                           stop_times_df)
+                # if best_trip_id:
+                #     hyperlink = GTFSUtils.generate_route_map(best_trip_id, station_a, station_b, stops_df,
+                #                                              stop_times_df, dataset_path, transfers_df)
+                #     if hyperlink:
+                #         response += f"\n{hyperlink}"
+
             else:
                 response = f"Sorry, no suitable route with transfers could be found between {station_a} and {station_b}."
 
@@ -547,6 +912,7 @@ class ActionCalculateTransfers(Action):
             dispatcher.utter_message(text="An error occurred while calculating transfers. Please try again.")
             GTFSUtils.handle_error(dispatcher, logger, "Failed to calculate transfers", e)
         return []
+
 
 ''' -------------------------------------------------------------------------------------------------------
 	ID: REQ_03 implementation
@@ -583,14 +949,18 @@ class ActionCheckDirectRoute(Action):
             if direct_route_exists:
                 # If a direct route exists, return the best direct route (next available train)
                 best_direct_trip = trips[0]  # Assume the first trip is the best for simplicity
-                # Call calculate_route_travel_time with the correct arguments
                 travel_time = GTFSUtils.calculate_route_travel_time([station_a, station_b], stops_df, stop_times_df)
 
-                response = f"Yes, there is a direct train from {station_a} to {station_b} on trip ID {best_direct_trip}.\n"
+                response = f"Yes, there is a direct train from {station_a} to {station_b}."
                 if travel_time is not None:
-                    response += f"Total travel time: {travel_time:.2f} minutes."
+                    response += f" Total travel time: {travel_time:.2f} minutes."
                 else:
-                    response += "Unable to calculate travel time for the direct route."
+                    response += " Unable to calculate travel time for the direct route."
+
+                hyperlink = GTFSUtils.generate_route_map(best_direct_trip, station_a, station_b, stops_df, stop_times_df, dataset_path)
+                if hyperlink:
+                    response += f"\n{hyperlink}"
+
             else:
                 # If no direct route exists, find the best route with transfers
                 response = f"No direct route found between {station_a} and {station_b}.\n"
@@ -602,14 +972,25 @@ class ActionCheckDirectRoute(Action):
                         response += f"Total travel time: {travel_time:.2f} minutes."
                     else:
                         response += "Unable to calculate travel time for the best route."
+
+                    # Generate a route map for the best route
+                    best_trip_id = GTFSUtils.get_trip_id_for_best_route(best_route, stops_df, stop_times_df)
+                    if best_trip_id:
+                        # Pass transfer stations to highlight them on the map
+                        hyperlink = GTFSUtils.generate_route_map(best_trip_id, station_a, station_b, stops_df,
+                                                                 stop_times_df, dataset_path,
+                                                                 transfer_stations=best_route[1:-1])
+                        if hyperlink:
+                            response += f"\n{hyperlink}"
                 else:
                     response += f"No suitable route with transfers found between {station_a} and {station_b}."
 
             dispatcher.utter_message(text=response)
 
         except Exception as e:
-            handle_error(dispatcher, logger, "Failed to check direct route or find the best route with transfers", e)
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to check direct route or find the best route with transfers", e)
             raise
+
 
 ''' -------------------------------------------------------------------------------------------------------
 	ID: REQ_03 implementation
@@ -765,3 +1146,65 @@ class ActionFindRouteWithLeastStops(Action):
             raise
 
         return []
+
+class ActionGenerateRouteMap(Action):
+
+    def name(self) -> Text:
+        return "action_generate_route_map"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            query = tracker.latest_message.get('text')
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+
+            if len(extracted_stations) < 2:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            station_a, station_b = extracted_stations[0], extracted_stations[1]
+
+            # Find the best route with transfers first
+            best_route = GTFSUtils.find_best_route_with_transfers(station_a, station_b, stops_df, stop_times_df)
+            if not best_route:
+                dispatcher.utter_message(text=f"Sorry, I couldn't find a suitable route from {station_a} to {station_b}.")
+                return []
+
+            # Get trip IDs from the best route
+            trip_id = GTFSUtils.get_trip_id_for_route(best_route, stops_df, stop_times_df)
+            if not trip_id:
+                dispatcher.utter_message(text=f"Sorry, I couldn't determine the trip ID for the route.")
+                return []
+
+            # Generate the map
+            trip_stops = stop_times_df[stop_times_df['trip_id'] == trip_id]
+            first_stop_id = trip_stops.iloc[0]['stop_id']
+            first_stop = stops_df[stops_df['stop_id'] == first_stop_id]
+            start_coords = [first_stop['stop_lat'].values[0], first_stop['stop_lon'].values[0]]
+
+            melbourne_map = folium.Map(location=start_coords, zoom_start=12)
+
+            for _, stop_time in trip_stops.iterrows():
+                stop_id = stop_time['stop_id']
+                stop_info = stops_df[stops_df['stop_id'] == stop_id]
+                stop_name = stop_info['stop_name'].values[0]
+                stop_coords = [stop_info['stop_lat'].values[0], stop_info['stop_lon'].values[0]]
+
+                folium.Marker(
+                    location=stop_coords,
+                    popup=f"{stop_name}",
+                    tooltip=stop_name
+                ).add_to(melbourne_map)
+
+            coords = [[stop_info['stop_lat'].values[0], stop_info['stop_lon'].values[0]] for stop_id in trip_stops['stop_id']]
+            folium.PolyLine(coords, color="blue", weight=2.5, opacity=1).add_to(melbourne_map)
+
+            map_path = os.path.join(dataset_path, f'{trip_id}_route_map.html')
+            melbourne_map.save(map_path)
+
+            dispatcher.utter_message(text=f"The map of the route from {station_a} to {station_b} has been generated and saved to: {map_path}")
+        except Exception as e:
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate route map", e)
+            raise

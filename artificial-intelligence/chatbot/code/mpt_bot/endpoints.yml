@@ -13,6 +13,7 @@
 # url: "http://0.0.0.0:5005/webhook"
 action_endpoint:
  url: "http://localhost:5055/webhook"
+ loglevel: "ERROR"  # Set the log level to ERROR
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
 # https://rasa.com/docs/rasa/tracker-stores
