@@ -21,6 +21,5 @@ export type CaseStudy = {
   name: string;
   description: string;
   tags: string[];
-  // category: CATEGORY;
   filename?: string;
 };

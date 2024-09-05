@@ -27,19 +27,9 @@ const UseCases = () => {
   const [caseStudies, setCaseStudies] = useState([])
   const [filteredCaseStudies, setFilteredCaseStudies] = useState(caseStudies);
 
-  // useEffect(() => {
-  //   async function fetchCaseStudies() {
-  //     const response = await fetch('/api/get-case-studies', {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data: CaseStudy[] = await response.json();
-  //     return data;
-  //   }
-  //   console.log(fetchCaseStudies())
-  // })
+  useEffect(() => {
+    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL)
+  }, [])
 
   const handleSearch = async (
     searchTerm: string,
