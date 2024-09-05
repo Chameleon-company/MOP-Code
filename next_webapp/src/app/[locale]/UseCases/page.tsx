@@ -4,11 +4,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
-import { caseStudies } from "./database";
-import { CATEGORY, SEARCH_MODE, SearchParams } from "../../types";
+import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
 import { useTranslations } from "next-intl";
-// import path from "path";
-// import fs from "fs";
 
 async function searchUseCases(searchParams: SearchParams) {
   const response = await fetch("/api/search-use-cases", {
@@ -27,7 +24,22 @@ async function searchUseCases(searchParams: SearchParams) {
 }
 
 const UseCases = () => {
+  const [caseStudies, setCaseStudies] = useState([])
   const [filteredCaseStudies, setFilteredCaseStudies] = useState(caseStudies);
+
+  // useEffect(() => {
+  //   async function fetchCaseStudies() {
+  //     const response = await fetch('/api/get-case-studies', {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const data: CaseStudy[] = await response.json();
+  //     return data;
+  //   }
+  //   console.log(fetchCaseStudies())
+  // })
 
   const handleSearch = async (
     searchTerm: string,

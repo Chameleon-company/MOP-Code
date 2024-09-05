@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
 // Extracting Filename from Query Parameters
   const { searchParams } = new URL(request.url)
-  const fileName = `${searchParams.get('filename')}.html`
+  const fileName = `${searchParams.get('filename')}`
   console.log(fileName)
 
   // Constructing the File Path

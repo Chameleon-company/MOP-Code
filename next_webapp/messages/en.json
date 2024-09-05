@@ -76,12 +76,12 @@
         "User Cases": "User Cases",
         "All categories": "All categories",
         "Search by title": "Search by title",
-        "Search by content": "Search by content",
+        "Search by content": "Search by tag",
         "Internet": "Internet",
         "EV": "EV",
         "Security": "Security",
         "Search": "Search",
-        "Case study name or category": "Case study name or category"
+        "Case study name or category": "Use case search term"
       },
       "licensing": {
         "Licensing": "Licensing",
