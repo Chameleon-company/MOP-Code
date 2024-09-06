@@ -53,7 +53,7 @@ const UseCases = () => {
               </span>
             </p>
             <SearchBar onSearch={handleSearch} />
-            <PreviewComponent caseStudies={filteredCaseStudies} />
+            <PreviewComponent/>
           </section>
         </div>
       </main>
