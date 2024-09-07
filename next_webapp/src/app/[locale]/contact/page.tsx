@@ -96,7 +96,7 @@ const Contact = () => {
     }
   };
 
-  // Form submissio handler
+  // Form submissi handler
   const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
