@@ -1,0 +1,49 @@
+//----------------------------------------------------------//
+//	SHAPES
+//----------------------------------------------------------//
+.shape.rellax {
+  position: absolute;
+}
+.shape.rellax {
+  z-index: 1;
+}
+.position-relative .shape.rellax + figure {
+  position: relative;
+  z-index: 2;
+}
+.bg-dot,
+.bg-line {
+  opacity: 0.5;
+}
+.bg-dot {
+  background-size: 0.75rem 0.75rem;
+}
+@each $color,
+$value in $colors {
+  .bg-dot.#{$color} {
+    @include bg-dot-variant($value);
+  }
+}
+@each $color,
+$value in $colors {
+  .bg-line.#{$color} {
+    @include bg-line-variant($value);
+  }
+}
+@media (max-width: 575.98px) {
+  .shape {
+    display: none;
+  }
+}
+@each $color,
+$value in $colors {
+  .shape.#{$color} .svg-fill {
+    fill: $value;
+  }
+  .shape.soft-#{$color} .svg-fill {
+    fill: tint-color($value, $bg-soft-level);
+  }
+  .shape.pale-#{$color} .svg-fill {
+    fill: tint-color($value, $bg-pale-level);
+  }
+}
