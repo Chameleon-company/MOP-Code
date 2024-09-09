@@ -1,26 +1,26 @@
 "use client";
 import React, { useState } from "react";
-import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5"; // Import IoSend for the send button
+import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import "../chatbot/chatbot.css";
-
+import nlp from 'compromise'; // Importing compromise for NLP
 
 type Message = {
-  content: React.ReactNode;  // Using React.ReactNode to accept both strings and JSX
+  content: React.ReactNode;
   sender: string;
 };
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([  
+  const [messages, setMessages] = useState<Message[]>([
     {
       content: (
         <>
           Hi, How can I help you? Check out our <a href="/en/faq" style={{ color: 'blue', textDecoration: 'underline' }}>FAQ page</a> for more information.
         </>
       ),
-      sender: "bot"
+      sender: "bot",
     },
   ]);
   const router = useRouter();
@@ -39,78 +39,47 @@ const Chatbot = () => {
     setUserInput("");
   };
 
+  // Updated handleCommand function to use NLP
   const handleCommand = (input: string) => {
+    const doc = nlp(input); // Creating an NLP document with the user input
     const keywords = [
       {
-        key: [
-          "usecase",
-          "usecases",
-          "show me use cases",
-          "use case page",
-          "use cases",
-        ],
+        key: ["use case", "usecases", "use case page"],
         route: "/en/UseCases",
       },
-      {
-        key: ["about us", "aboutus", "about us page", "aboutus page"],
-        route: "/en/about",
-      },
+      { key: ["about us", "aboutus", "about us page"], route: "/en/about" },
       { key: ["statistics", "statistics page"], route: "/en/statistics" },
-      { key: ["upload", "upload page", "uploadpage"], route: "/en/upload" },
-      {
-        key: ["sign up", "sign up page", "signup", "signup page"],
-        route: "/en/signup",
-      },
+      { key: ["upload", "upload page"], route: "/en/upload" },
+      { key: ["sign up", "signup", "signup page"], route: "/en/signup" },
       { key: ["login", "login page"], route: "/en/login" },
-      {
-        key: [
-          "resource-center",
-          "resource-center page",
-          "resourcecenter",
-          "resource center page",
-          "resource center",
-        ],
-        route: "/en/resource-center",
-      },
-      {
-        key: ["datasets", "datasets page", "data sets page", "data sets"],
-        route: "/en/datasets",
-      },
-      {
-        key: [
-          "contact",
-          "contact page",
-          "contact us page",
-          "contact us",
-          "contact us page",
-        ],
-        route: "/en/contact",
-      },
-      {
-        key: [
-          "privacypolicy",
-          "privacypolicy page",
-          "privacy policy",
-          "privacy policy page",
-        ],
-        route: "/en/privacypolicy",
-      },
+      { key: ["resource center", "resourcecenter"], route: "/en/resource-center" },
+      { key: ["datasets", "datasets page"], route: "/en/datasets" },
+      { key: ["contact", "contact us"], route: "/en/contact" },
+      { key: ["privacy policy", "privacypolicy"], route: "/en/privacypolicy" },
       { key: ["licensing", "licensing page"], route: "/en/licensing" },
     ];
 
-    const matchedKeyword = keywords.find(({ key }) =>
-      key.some((keyword) => input.includes(keyword))
-    );
-    if (matchedKeyword) {
+    let foundMatch = false;
+
+    // Using NLP to check if the input matches any of the keyword intents
+    keywords.forEach(({ key, route }) => {
+      key.forEach(keyword => {
+        if (doc.has(keyword)) { // Using NLP's "has" method to find matches
+          setMessages([
+            ...messages,
+            { content: `Understood. Redirecting to the right page.`, sender: "bot" },
+          ]);
+          setTimeout(() => router.push(route), 2000);
+          foundMatch = true;
+        }
+      });
+    });
+
+    // If no matches found, it will then provide a fallback response
+    if (!foundMatch) {
       setMessages([
         ...messages,
-        { content: `Understood. Redirecting to the right page.`, sender: "bot" },
-      ]);
-      setTimeout(() => router.push(matchedKeyword.route), 2000);
-    } else {
-      setMessages([
-        ...messages,
-        { content: "Sorry, I didn't understand that.", sender: "bot" },
+        { content: "Sorry, I didn't understand that. Can you try rephrasing?", sender: "bot" },
       ]);
     }
   };
@@ -122,8 +91,7 @@ const Chatbot = () => {
           <div className="messages overflow-auto h-40">
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.sender === "bot" ? "text-green-600" : "text-green-800"}`}>
-                {/* Directly use msg.content without checking type */}
-                {msg.content}  
+                {msg.content}
               </div>
             ))}
           </div>
@@ -152,3 +120,4 @@ const Chatbot = () => {
 };
 
 export default Chatbot;
+
