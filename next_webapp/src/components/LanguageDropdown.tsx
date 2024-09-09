@@ -35,7 +35,7 @@ const LanguageDropdown: React.FC = () => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="border-[1px] border-solid border-white text-[#09bd09] font-serif py-3 px-6 mx-3 bg-white rounded-full  text-lg"
+        className="border border-solid border-green-500 bg-white text-green-500 font-serif py-2.5 px-6 mx-3 rounded-md  text-lg"
       >
         {t("Language")}
       </button>

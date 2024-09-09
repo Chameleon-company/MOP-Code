@@ -14,22 +14,24 @@ const Header = () => {
   return (
     <header>
       <div>
-        <nav className="border-gray-200 bg-green-400 text-white py-3">
-          <div className=" md:flex items-center justify-between ">
-            <div className="md:flex items-center  md:pl-[20rem]">
+        <nav className="border-1 border white-200 bg-white text-white">
+          <div className=" md:flex items-center justify-between px-20 py-4">
+            <div className="flex items-center">
               <a href="/">
-                <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
+                <img src="/img/new-logo-green.png" className="h-20 w-20 absolute left-1 top-4"   alt="MOP logo" />
               </a>
               <div onClick={()=>setisOpen(!isOpen)}className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden">
                 {
                   isOpen ? <HiMiniXMark className="size-8"/>: <CiMenuBurger className="size-6"/>  
                 }
               </div>
-              <ul className={`md:flex justify-between md:pl-9 bg-green-400  md:w-auto w-full absolute md:static md:z-auto  z-[1] ${isOpen ? 'top-18' : 'top-[-430px]'}` }>
+              <ul className={`md:flex md:items-right-10 md:space-x-6 ${
+                isOpen ? "block" : "hidden"
+              } md:block`}>
                 <li className="">
                   <a
                     href="/"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  ml-3 text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500  ml-3 text-lg"
                     aria-current="page"
                   >
                     {t("Home")}
@@ -38,7 +40,7 @@ const Header = () => {
                 <li className=" md:inline-block">
                   <Link
                     href="/about"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500  text-lg"
                   >
                     {t("About Us")}
                   </Link>
@@ -46,7 +48,7 @@ const Header = () => {
                 <li className=" md:inline-block">
                   <Link
                     href="/UseCases"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500  text-lg"
                   >
                     {t("Use Cases")}
                   </Link>
@@ -54,7 +56,7 @@ const Header = () => {
                 <li className=" md:inline-block">
                   <Link
                     href="/statistics"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500  text-lg"
                   >
                     {t("Statistics")}
                   </Link>
@@ -62,23 +64,24 @@ const Header = () => {
                 <li className=" md:inline-block">
                   <Link
                     href="/upload"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500  text-lg"
                   >
                     {t("Upload")}
                   </Link>
                 </li>
               </ul>
             </div>
-            <ul className={`md:flex justify-between md:pl-9 absolute bg-green-400  md:pr-[15rem] ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${isOpen ? 'top-[21rem]' : 'top-[-430px]'}` }>
+            <ul className={`md:flex justify-between md:pl-9 absolute bg-white-400  md:pr-[15rem] ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${isOpen ? 'top-[21rem]' : 'top-[-430px]'}` }>
               <li className="">
               <div className=" " x-data="{ open: false }">
+             
                 <LanguageDropdown />
               </div>
               </li>
               <li className=" mt-5 sm:mt-3">
               <Link
                 href="/signup"
-                className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+                className="border   mr-3 font-serif py-3 px-6 mx-3 text-white rounded-md  text-lg bg-green-400 hover:bg-blue-600"
               >
                 {t("Sign Up")}
               </Link>
@@ -86,7 +89,7 @@ const Header = () => {
               <li className="mt-8 sm:mt-3">
               <Link
                 href="/login"
-                className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
+                className="border border-solid border-green-500 bg-white text-green-500 font-serif py-3 px-6 mx-3 rounded-md  text-lg"
               >
                 {t("Log In")}
               </Link>
