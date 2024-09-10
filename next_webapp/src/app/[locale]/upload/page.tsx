@@ -121,7 +121,7 @@ const Upload = () => {
                 <img className="h-20 w-auto" src="../img/Upload_use_case.png" alt="Logo" />
               </button>
             </div>
-            <h1 className="text-center text-lg py-[2rem]">{"Drag & Drop or Choose Files"}</h1>
+            <h1 className="text-center text-lg py-[2rem]">{"Click on Upload logo "}</h1>
           </div>
         </div>
 
