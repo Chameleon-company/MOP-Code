@@ -1,5 +1,4 @@
 // import required libraries
-import { caseStudies } from "@/app/[locale]/UseCases/database";
 import { CATEGORY, CaseStudy, SEARCH_MODE, SearchParams } from "@/app/types";
 import fs from "fs";
 import path from "path";
@@ -7,45 +6,61 @@ import path from "path";
 // defaults to auto
 // Create a Server Component
 export async function POST(request: Request) {
+  const baseDir = path.join(process.cwd(), 'public', 'T1 2024');
   const res = (await request.json()) as SearchParams;
-  console.log("🚀 ~ POST ~ res:", res);
+  console.log("🚀 ~ POST ~ resn:", res);
   const { category, searchMode, searchTerm } = res;
+
+  const caseStudies: CaseStudy[] = [];
+  let id = 1;
+
+  // Read all subdirectories in the base directory
+  const subdirs = fs.readdirSync(baseDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  subdirs.forEach(subdir => {
+    const subdirPath = path.join(baseDir, subdir);
+    const files = fs.readdirSync(subdirPath);
+
+    // Find JSON and HTML files
+    const jsonFile = files.find(file => file.endsWith('.json'));
+    const htmlFile = files.find(file => file.endsWith('.html'));
+
+    if (jsonFile && htmlFile) {
+      const jsonPath = path.join(subdirPath, jsonFile);
+      const jsonContent = fs.readFileSync(jsonPath, 'utf-8');
+      const { name, description, tags } = JSON.parse(jsonContent);
+
+      caseStudies.push({
+        id: id++,
+        description: description,
+        name: name,
+        tags: tags,
+        filename: path.join('T1 2024', subdir, htmlFile)
+      });
+    }
+  });
 
   let filteredStudies: (CaseStudy & { fileContent?: string })[] = [];
   if (searchMode === SEARCH_MODE.TITLE) {
+
     filteredStudies = caseStudies.filter((caseStudy) => {
       return (
-        (category === CATEGORY.ALL || category === caseStudy.category) &&
-        caseStudy.title.toLowerCase().includes(searchTerm.toLowerCase())
+        caseStudy.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   } else if (searchMode === SEARCH_MODE.CONTENT) {
-    const caseStudiesWithContent = await Promise.all(
-      caseStudies.map(async (study) => {
-        const filePath = path.join(
-          process.cwd(),
-          "public",
-          `${study.filename}.html`
-        ); // Ensure the file extension is correct
-        try {
-          const fileContent = await fs.readFileSync(filePath, "utf-8");
-          return { ...study, fileContent }; // Spread the existing study object and add the file content
-        } catch (error) {
-          console.error(
-            `Failed to read file for Case Study ${study.id}: ${error}`
-          );
-          return { ...study, fileContent: "Failed to load file content" }; // Handle errors
-        }
-      })
-    );
-    filteredStudies = caseStudiesWithContent.filter((caseStudy) => {
-      return (
-        (category === CATEGORY.ALL || category === caseStudy.category) &&
-        caseStudy.fileContent?.toLowerCase().includes(searchTerm.toLowerCase())
+    filteredStudies = caseStudies.filter((caseStudy) => {
+      return caseStudy.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   }
+
   console.log("🚀 ~ POST ~ filteredStudies:", filteredStudies);
+
+
 
   return Response.json({ filteredStudies });
 
