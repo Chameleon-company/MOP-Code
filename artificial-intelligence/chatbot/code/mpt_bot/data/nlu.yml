@@ -157,3 +157,44 @@ nlu:
     - Next train from [Footscray](station_a) to [Melbourne Central](station_b)?
     - At what time does the next train depart from [South Yarra](station_a) to [Hawthorn](station_b)?
     - What is the schedule for the next train from [Dandenong](station_a) to [Parliament](station_b)?
+
+
+- intent: run_direction_script
+  examples: |
+    - run the direction script
+    - I need directions to a place.
+    - I want to go somewhere
+    - Can you help me get somewhere?
+    - I need to take the train
+    - Can you show me the way?
+    - Guide me to a location.
+    - I want to find how to reach a place
+    - Im looking for directions
+
+#Logan: Temporary location solution, working on better method
+
+- intent: provide_location
+  examples: |
+    - [Southbank](location)
+    - [St Kilda](location)
+    - [Collingwood](location)
+    - [Footscray](location)
+    - [Melbourne Central](location)
+    - [Prahran](location)
+    - [Federation Square](location)
+    - [Melbourne Airport](location)
+    - [Essendon](location)
+
+
+- intent: provide_destination
+  examples: |
+    - [Melbourne CBD](location)
+    - [Richmond](location)
+    - [South Melbourne](location)
+    - [Brunswick](location)
+    - [Docklands](location)
+    - [Fitzroy](location)
+    - [North Melbourne](location)
+    - [South Yarra](location)
+    - [Carlton](location)
+    - [MCG](location)    
