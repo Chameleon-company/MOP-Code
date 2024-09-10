@@ -19,10 +19,14 @@ intents:
   - affirm
   - deny
   - bot_challenge
+  - run_direction_script
+  - provide_location
+  - provide_destination
 
 entities:
   - station_a
   - station_b
+  - location
 
 slots:
   station_a:
@@ -37,6 +41,14 @@ slots:
     mappings:
       - type: from_entity
         entity: station_b
+  user_location:
+    type: text
+    mappings:
+      - type: from_text
+  destination:
+    type: text
+    mappings:
+      - type: from_text
 
 responses:
   utter_ask_for_station_b:
@@ -85,6 +97,18 @@ responses:
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."
 
+  utter_script_executed:
+  - text: "The direction script has been executed successfully."
+
+  utter_script_failed:
+  - text: "There was an error executing the direction script."
+
+  utter_ask_location:
+  - text: "Please provide your location."
+
+  utter_ask_destination:
+  - text: "Great! Now, please provide your destination."
+
 actions:
 - action_find_next_train
 - action_generate_map
@@ -94,3 +118,4 @@ actions:
 - action_find_best_route_with_transfers
 - action_find_route_with_least_stops
 - action_generate_route_map
+- action_run_direction_script

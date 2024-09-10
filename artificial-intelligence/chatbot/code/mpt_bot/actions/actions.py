@@ -9,6 +9,7 @@ import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
+from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
@@ -1208,3 +1209,70 @@ class ActionGenerateRouteMap(Action):
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to generate route map", e)
             raise
+
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Directions and Mapping
+	Author: LoganG
+	-------------------------------------------------------------------------------------------------------
+'''
+from typing import Any, Text, Dict, List
+import subprocess
+import sys
+
+logger = logging.getLogger(__name__)
+
+
+class ActionRunMappingScript(Action):
+    def name(self) -> Text:
+        return "action_run_direction_script"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Get the two most recent user messages
+        user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
+        user_location = user_messages[-2] if len(user_messages) >= 2 else None
+        destination = user_messages[-1] if user_messages else None
+
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        if not user_location or not destination:
+            dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
+            return []
+
+        #script_path = r"C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\userlocationmaps_executablepassingactions.py"
+        script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
+        map_file_path = "map.html"  
+
+        try:
+            #Use subprocess to run the script and capture output
+            result = subprocess.run([sys.executable, script_path, user_location, destination], 
+                                    capture_output=True, 
+                                    text=True, 
+                                    check=True)
+
+            if result.stdout.strip():
+                if "Address not found" in result.stdout or "Current location could not be determined" in result.stdout:
+                    dispatcher.utter_message(text="It seems the location or destination could not be found. Please check your input and try again.")
+                else:
+                    dispatcher.utter_message(text=f"The direction script has been executed successfully. Here's the output:\n{result.stdout}")
+
+                    #Check if the map file was generated
+                    if os.path.exists(map_file_path):
+                        dispatcher.utter_message(text="A map has been generated and should open in your default web browser.")
+                    else:
+                        dispatcher.utter_message(text="The script ran successfully, but no map was generated.")
+
+            else:
+                dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
+
+        except subprocess.CalledProcessError as e:
+            dispatcher.utter_message(text=f"An error occurred while running the script: {e.stderr}")
+            logger.error(f"Script execution failed: {e.stderr}")
+        except Exception as e:
+            dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
+            logger.error(f"Exception occurred: {str(e)}")
+
+        return [SlotSet("user_location", user_location), SlotSet("destination", destination)]

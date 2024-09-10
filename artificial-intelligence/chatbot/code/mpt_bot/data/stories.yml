@@ -95,3 +95,28 @@ stories:
 #      - intent: ask_best_route
 #      - action: action_find_best_route
 #      - action: action_generate_route_map
+
+  - story: find_next_train_story
+    steps:
+    - intent: find_next_train
+    - action: action_find_next_train
+
+  - story: User asks for the best route between two stations
+    steps:
+    - intent: ask_best_route
+    - action: action_find_best_route
+
+  - story: generate_map_story
+    steps:
+    - intent: request_map
+    - action: action_generate_map
+
+  - story: run direction script
+    steps:
+    - intent: run_direction_script
+    - action: utter_ask_location
+    - intent: provide_location
+    - action: utter_ask_destination
+    - intent: provide_destination
+    - action: action_run_direction_script
+
