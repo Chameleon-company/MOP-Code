@@ -1,104 +1,115 @@
-'use client'
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n-navigation';
-import LanguageDropdown from './LanguageDropdown';
-import { HiMenu, HiX } from 'react-icons/hi';
+"use client";
+import React, { useState } from "react";
+import LanguageDropdown from "../components/LanguageDropdown";
+import { Link } from "@/i18n-navigation";
+import { useTranslations } from "next-intl";
+import { CiMenuBurger } from "react-icons/ci";
+import { HiMiniXMark } from "react-icons/hi2";
 
 const Header = () => {
-  const t = useTranslations('common');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Object array for navigation items
-  const navItems = [
-    { name: 'Home', link: '/' },
-    { name: 'About Us', link: '/about' },
-    { name: 'Use Cases', link: '/UseCases' },
-    { name: 'Statistics', link: '/statistics' },
-    { name: 'Upload', link: '/upload' }
-  ];
+  const t = useTranslations("common");
+  let [isOpen, setisOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0">
-              <img className="h-20 w-auto" src="/img/new-logo-green.png" alt="Logo" />
-            </Link>
-            {/* Hamburger Menu Icon */}
-            <div className="flex lg:hidden ml-auto">
-              <button
-                onClick={toggleMenu}
-                className="text-green-600 hover:text-green-900 focus:outline-none focus:text-green-900"
+    <header>
+      <div>
+        <nav className="border-1 border-white-200 bg-white text-white">
+          <div className="md:flex items-center justify-between px-20 py-4">
+            <div className="flex items-center">
+              <a href="/">
+                <img
+                  src="/img/new-logo-green.png"
+                  className="h-20 w-20 absolute left-1 top-4"
+                  alt="MOP logo"
+                />
+              </a>
+              <div
+                onClick={() => setisOpen(!isOpen)}
+                className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden"
               >
-                {isMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
-              </button>
+                {isOpen ? (
+                  <HiMiniXMark className="size-8" />
+                ) : (
+                  <CiMenuBurger className="size-6" />
+                )}
+              </div>
+              <ul
+                className={`md:flex md:items-right-10 md:space-x-6 ${
+                  isOpen ? "block" : "hidden"
+                } md:block`}
+              >
+                <li>
+                  <a
+                    href="/"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500 ml-3 text-lg"
+                    aria-current="page"
+                  >
+                    {t("Home")}
+                  </a>
+                </li>
+                <li className="md:inline-block">
+                  <Link
+                    href="/about"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500 text-lg"
+                  >
+                    {t("About Us")}
+                  </Link>
+                </li>
+                <li className="md:inline-block">
+                  <Link
+                    href="/UseCases"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500 text-lg"
+                  >
+                    {t("Use Cases")}
+                  </Link>
+                </li>
+                <li className="md:inline-block">
+                  <Link
+                    href="/statistics"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500 text-lg"
+                  >
+                    {t("Statistics")}
+                  </Link>
+                </li>
+                <li className="md:inline-block">
+                  <Link
+                    href="/upload"
+                    className="rounded-3xl hover:bg-[#287405] block font-bold py-4 px-5 text-green-500 text-lg"
+                  >
+                    {t("Upload")}
+                  </Link>
+                </li>
+              </ul>
             </div>
-            {/* Menu Items */}
-            <nav className={`ml-10 space-x-4 hidden lg:flex ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.link}
-                  className="text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {t(item.name)}
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <div className="flex items-center">
-            <LanguageDropdown />
-            <div className='hidden lg:flex'>
-            <Link
-              href="/signup"
-              className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
+            <ul
+              className={`md:flex justify-between md:pl-9 absolute bg-white-400 md:pr-[15rem] ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${
+                isOpen ? "top-[21rem]" : "top-[-430px]"
+              }`}
             >
-              {t('Sign Up')}
-            </Link>
-            <Link
-              href="/login"
-              className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium"
-            >
-              {t('Log In')}
-            </Link>
-            </div>
-          </div>
-        </div>
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <nav className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
+              <li>
+                <div className=" " x-data="{ open: false }">
+                  <LanguageDropdown />
+                </div>
+              </li>
+              <li className="mt-5 sm:mt-3">
                 <Link
-                  key={item.name}
-                  href={item.link}
-                  className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+                  href="/signup"
+                  className="border mr-3 font-serif py-3 px-6 mx-3 text-white rounded-md text-lg bg-green-400 hover:bg-blue-600"
                 >
-                  {t(item.name)}
+                  {t("Sign Up")}
                 </Link>
-              ))}
-              {/* Add Sign Up and Log In buttons to mobile menu */}
-              <Link
-                href="/signup"
-                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
-              >
-                {t('Sign Up')}
-              </Link>
-              <Link
-                href="/login"
-                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
-              >
-                {t('Log In')}
-              </Link>
-            </nav>
+              </li>
+              <li className="mt-8 sm:mt-3">
+                <Link
+                  href="/login"
+                  className="border border-solid border-green-500 bg-white text-green-500 font-serif py-3 px-6 mx-3 rounded-md text-lg"
+                >
+                  {t("Log In")}
+                </Link>
+              </li>
+            </ul>
           </div>
-        )}
+        </nav>
       </div>
     </header>
   );
