@@ -117,14 +117,17 @@ const Contact = () => {
   return (<div className="contactPage font-sans bg-white min-h-screen">
     <Header />
     <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
-  
+      
+    
       <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
-      <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:absolute lg:left-0 lg:top-0 lg:transform lg:translate-y-[-10%] lg:pl-0 lg:text-center lg:mb-8 z-20">
-  {t("Contact")}
-  <br />
-  {t("Us")}
-</span>
-
+    
+        <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
+          {t("Contact")}
+          <br />
+          {t("Us")}
+        </span>
+  
+ 
         <div className="imgWrap relative w-full mt-4 lg:mt-0">
           <Image
             src="/img/contact-us-city.png"
