@@ -6,7 +6,6 @@ from sklearn.metrics import mean_squared_error
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 import matplotlib.pyplot as plt
-
 # Load the dataset
 file_path = "C:\Local MOAI PROJECT\merged_data.csv"
 df = pd.read_csv(file_path)
