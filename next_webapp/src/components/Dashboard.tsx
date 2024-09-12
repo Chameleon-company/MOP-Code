@@ -72,7 +72,7 @@ body{
 
 .hero-section{
     margin-top: 55px;
-    height: 805px;
+    height: auto;
     background: grey;
     overflow: hidden;
 }
@@ -88,6 +88,7 @@ body{
 
 .our-vision-section{
     display: flex;
+    background: #2ECC71;
     justify-content: space-between;
     border: 1px solid black;
     margin-top: 21px;
@@ -100,7 +101,8 @@ body{
         font-weight: 600;
         letter-spacing: -0.015em;
         text-align: left;
-        color: black;
+        color: white;
+        background: #2ECC71;
     }
     .img-div{
         margin-top: 139px;
@@ -123,14 +125,14 @@ body{
         position: absolute;
         top: -56px;
         right: 0;
-        background-color: #999696;
+        background-color: #000000;
     }
     .img-div:before{
         content: '';
         width: 45px;
         height: 243px;
         position: absolute;
-        background-color: #999696;
+        background-color: #000000;
         left: -46px;
         bottom: -1px;
     }
@@ -143,7 +145,7 @@ body{
         font-family: 'Montserrat';
         font-size: 17px;
         text-align: left;
-        color: black;
+        color: white;
     }
 }
 .case-studies-wrapper{
