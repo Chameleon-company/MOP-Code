@@ -5,6 +5,8 @@ import "../../../../public/styles/upload.css";
 import { useEffect, useState, useRef } from "react";
 import "../../../../public/img/Upload_use_case.png";
 import axios from "axios";
+import { TagsInput } from "react-tag-input-component";
+
 
 const Upload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,6 +16,7 @@ const Upload = () => {
   const [selectedFileName, setSelectedFileName] = useState(null);
   const [progress, setProgress] = useState(0);
   const [uploadStatus, setUploadStatus] = useState("select");
+  const [tagselect, setTagselect] = useState([" "]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -81,7 +84,7 @@ const Upload = () => {
         <div className="upload-header-left ">
           <h1 className="font-bold text-[50px] py-11">{"Upload Case Studies"}</h1>
         </div>
-        <div className="  ml-[80rem] mt-20 py-15">
+        <div className="  ml-[50rem] mt-20 py-15">
           <select className=" py-15 p-12px" style={{ border: "none" }}>
             <option value="option1">{"Trimester 1"}</option>
             <option value="option2">{"Trimester 2"}</option>
@@ -94,22 +97,23 @@ const Upload = () => {
         <h2 style={{ textAlign: "left" }}>{"Uploader's Details"}</h2>
         <div className="form-container">
           <div className="column">
-            <label htmlFor="first-name">{"Author's Name"}</label>
-            <input type="text" id="first-name" name="first-name" placeholder={"Enter author's name"} />
+            <label htmlFor="Name">{"Name"}</label>
+            <input type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
 
-            <label htmlFor="last-name">{"DOP"}</label>
-            <input type="text" id="last-name" name="last-name" placeholder={"Enter DOP"} />
 
-            <label htmlFor="email">{"Company Email"}</label>
-            <input type="email" id="email" name="email" placeholder={"Enter email"} />
+            {/* <pre>{JSON.stringify(tagselect)}</pre> */}
+            <label htmlFor="Tag">{"Tags"}</label>
+            <TagsInput
+              value={tagselect}
+              onChange={setTagselect}
+              name="tags"
+              placeHolder="tags"
+            />
           </div>
-
           <div className="column">
-            <label htmlFor="phone">{"Case Study"}</label>
-            <input type="tel" id="phone" name="phone" placeholder={"Enter case "} />
 
-            <label htmlFor="address">{"Category"}</label>
-            <input type="text" id="address" name="address" placeholder={"Enter category"} />
+            <label htmlFor="description">{"Description"}</label>
+            <input type="text" id="last-name" name="last-name" placeholder={"Enter Description"} />
           </div>
         </div>
 
@@ -121,7 +125,7 @@ const Upload = () => {
                 <img className="h-20 w-auto" src="../img/Upload_use_case.png" alt="Logo" />
               </button>
             </div>
-            <h1 className="text-center text-lg py-[2rem]">{"Drag & Drop or Choose Files"}</h1>
+            <h1 className="text-center text-lg py-[2rem]">{"Click on logo to "}<p className="text-center text-green-500">{"upload files"}</p></h1>
           </div>
         </div>
 
