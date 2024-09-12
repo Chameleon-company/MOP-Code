@@ -79,7 +79,7 @@ The best resulting parameters for each model were:
 Below shows a comparison of the each model with the best parameters found in the gridsearch:
 
 
-![](./model_comparison.jpg)
+![](./visualisations/model_comparison.jpg)
 
 As can be seen, the Random Forest and XGBoost models performed the best. The Logistic Regression model performed weaker but still with reasonable performance.
 
@@ -91,7 +91,7 @@ Feature importance was performed for the XGB, showing that vehicle_class_1 (0.26
 
 The feature importances are relatively low, with the highest being only 0.2638, indicating no single feature strongly drives predictions. This suggests the model relies on a combination of features.
 
-![](./feature_importance.jpg)
+![](./visualisations/feature_importance.jpg)
 
 ## Utilising XGB model to predict speeding probabilities
 
@@ -99,32 +99,32 @@ The strongest XGB model was then used to predict speeding probabilties on the te
 
 We can see that the Parkville was found to be the suburb most at risk of speeding with a 65.64% chance of speeding. North Melbourne, Docklands, South Yarra also were found to have greater than 50% chance of speeding. Suburbs such as Southbank and Carlton North were found to have a lower risk of speeding out of the high risk suburbs, receiving 15 and 2.9% respectively.
 
-![](./suburbs.jpg)
+![](./visualisations/suburbs.jpg)
 
 For hours, 2 PM was considred the most likely with a 46.86% chance of speeding. The results show there was considered to the highest risk at 4-6pm and at 6 and 9 am.
 
-![](./hours.jpg)
+![](./visualisations/hours.jpg)
 
 Wednesday was found to be the most likely day of the week to speed with a 48% chance. This was folloed by Monday and Sunday, whereas Thursday was considered the least likely.
 
-![](./days.jpg)
+![](./visualisations/days.jpg)
 
 ## Visualisations
 
 To give visual insights, the predictions on different areas in each suburbs on the test data can be seen in this map. It allows for checking the location and the likelihood of speeding.
 
-![](./high_risk_areas.jpg)
+![](./visualisations/high_risk_areas.jpg)
 
 
 To allow for insights into speeding, I also generated maps of the recorded speeding incidents from the original data, which are within the "Speed analysis mapping.ipynb" file. Two variations were generated, one allowing to see the actual numbers, and other providing a heat map to give different insights into the data. Both of which are interactive allowing users to zoom in to see finer detail. 
 
 ### Numerical marker map
 
-![](./marker_map.jpg)
+![](./visualisations/marker_map.jpg)
 
 ### Heatmap
 
-![](./heatmap.jpg)
+![](./visualisations/heatmap.jpg)
 
 
 ## Conclusion
