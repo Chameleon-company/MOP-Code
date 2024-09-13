@@ -90,7 +90,7 @@ body{
     display: flex;
     background: #2ECC71;
     justify-content: space-between;
-    border: 1px solid black;
+    border: 1px solid white;
     margin-top: 21px;
     .our-vision{
         margin-left: 61px;
