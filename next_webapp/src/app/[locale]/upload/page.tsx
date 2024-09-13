@@ -125,7 +125,7 @@ const Upload = () => {
                 <img className="h-20 w-auto" src="../img/Upload_use_case.png" alt="Logo" />
               </button>
             </div>
-            <h1 className="text-center text-lg py-[2rem]">{"Click on logo to "}<p className="text-center text-green-500">{"upload files"}</p></h1>
+            <h1 className="text-center text-lg py-[2rem]">{"Click on logo to upload files"}</h1>
           </div>
         </div>
 
@@ -139,14 +139,14 @@ const Upload = () => {
                   <p> {progress}%</p>
                 </div>
                 <div className="w-full pt-3 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 pl-2">
-                  <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
+                  <div className="bg-green-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                 </div>
               </div>
             </div>
 
             <div className="flex justify-center pt-4">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-green-500 text-white px-4 py-2 rounded"
                 onClick={handleUpload}
               >
                 {uploadStatus === "done" ? "Clear" : "Upload File"}
