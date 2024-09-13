@@ -7,7 +7,7 @@ const Licensing = () => {
   const t = useTranslations("licensing");
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
       <main className="flex-grow">
         <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-gray-100">
