@@ -31,19 +31,20 @@ const DashboardCaseStd = () => {
   ];
 
   return (
-    <div className="case-studies-wrapper">
-      {caseStudies.map((caseStudy) => (
-        <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
-          <div className="card-wrapper">
-            <div className="top-image">
-              <img src={caseStudy.image} alt={caseStudy.title} />
-            </div>
-            <h4 className="title">{caseStudy.title}</h4>
-            <p className="description">{caseStudy.description}</p>
-          </div>
-        </Link>
-      ))}
-    </div>
+    <br></br>
+    // <div className="case-studies-wrapper">
+    //   {caseStudies.map((caseStudy) => (
+    //     <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
+    //       <div className="card-wrapper">
+    //         <div className="top-image">
+    //           <img src={caseStudy.image} alt={caseStudy.title} />
+    //         </div>
+    //         <h4 className="title">{caseStudy.title}</h4>
+    //         <p className="description">{caseStudy.description}</p>
+    //       </div>
+    //     </Link>
+    //   ))}
+    // </div>
   );
 };
 
