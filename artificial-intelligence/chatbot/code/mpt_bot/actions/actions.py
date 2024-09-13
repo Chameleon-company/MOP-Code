@@ -673,66 +673,6 @@ class ActionFindNextTrain(Action):
         "Show me the fastest route from [Station A] to [Station B]."
         Generate the route map
 '''
-# class ActionFindBestRoute(Action):
-#
-#     def name(self) -> Text:
-#         return "action_find_best_route"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         try:
-#             query = tracker.latest_message.get('text')
-#             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
-#
-#             if len(extracted_stations) == 0:
-#                 dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
-#                 return []
-#
-#             station_a = extracted_stations[0]
-#             station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
-#
-#             if not station_a or not station_b:
-#                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-#                 return []
-#
-#             stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-#             stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
-#
-#             stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
-#             stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
-#
-#             merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
-#
-#             valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
-#
-#             if valid_trips.empty:
-#                 dispatcher.utter_message(text="No direct route found between the two stations.")
-#                 return []
-#
-#             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
-#             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
-#             valid_trips['travel_time'] = (
-#                         valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
-#
-#             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
-#
-#             route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
-#             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
-#             destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
-#
-#             response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}, \n taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
-#
-#             # Create the route map given the trip id
-#             hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path)
-#             if hyperlink:
-#                 response += f"\n{hyperlink}"
-#
-#             dispatcher.utter_message(text=response)
-#         except Exception as e:
-#             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
-#             raise
 class ActionFindBestRoute(Action):
 
     def name(self) -> Text:
@@ -806,49 +746,7 @@ class ActionFindBestRoute(Action):
     No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer
     Invalid Stations: Check how the action handles cases where stations are not found or the travel time cannot be calculated.
 '''
-# class ActionCalculateTransfers(Action):
-#
-#     def name(self) -> Text:
-#         return "action_calculate_transfers"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         try:
-#             query = tracker.latest_message.get('text')
-#             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
-#
-#             if len(extracted_stations) < 2:
-#                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-#                 return []
-#
-#             station_a, station_b = extracted_stations[0], extracted_stations[1]
-#
-#             transfers, transfer_stations = GTFSUtils.calculate_transfers(station_a, station_b, stops_df, stop_times_df)
-#             travel_time = GTFSUtils.calculate_route_travel_time([station_a] + transfer_stations + [station_b], stops_df, stop_times_df)
-#
-#             if transfers == 0:
-#                 response = f"There is a direct train from {station_a} to {station_b}, so no transfers are needed."
-#                 if travel_time is not None:
-#                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
-#             elif transfers > 0:
-#                 transfer_details = ', '.join(transfer_stations) if transfer_stations else "unknown locations"
-#                 response = (
-#                     f"You will need to make {transfers} transfer(s) to get from {station_a} to {station_b}. "
-#                     f"The transfer(s) occur at the following station(s): {transfer_details}."
-#                 )
-#                 if travel_time is not None:
-#                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
-#             else:
-#                 response = f"Sorry, no suitable route with transfers could be found between {station_a} and {station_b}."
-#
-#             dispatcher.utter_message(text=response)
-#
-#         except Exception as e:
-#             dispatcher.utter_message(text="An error occurred while calculating transfers. Please try again.")
-#             GTFSUtils.handle_error(dispatcher, logger, "Failed to calculate transfers", e)
-#         return []
+
 class ActionCalculateTransfers(Action):
 
     def name(self) -> Text:
