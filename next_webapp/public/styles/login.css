@@ -1,11 +1,18 @@
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: #FFFFFF;
+    background: #F0F0F0; 
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .top-bar, .login-container, .signup-link, .forgot-password, input, button {
@@ -27,7 +34,9 @@ body {
 }
 
 .logo {
-    height: 60px;
+    height: 150px; 
+    margin-left: -40px; 
+    width: auto; 
 }
 
 .signup-container {
@@ -62,7 +71,7 @@ body {
     padding: 0 0.625rem;
 }
 
-.sign-up-button{
+.sign-up-button {
     padding: 0.3125rem 0.625rem;
     background-color: #fff;
     color: #424242;
@@ -81,10 +90,10 @@ body {
 }
 
 .login-container {
-    background-color: white;
+    background-color: #F0F0F0; 
     padding: 1rem;
-    max-width: 100%;
-    width: auto;
+    width: 100%;
+    max-width: 400px;
     box-sizing: border-box;
     position: relative;
     margin-top: 30px;
@@ -95,6 +104,7 @@ body {
     font-weight: bold;
     color: black;
 }
+
 .login-title {
     font-weight: bold;
     color: black;
@@ -121,8 +131,6 @@ body {
     color: black;
     padding-block: 3%;
     font-size: large;
-
-
 }
 
 .remember-me {
@@ -152,12 +160,23 @@ body {
     font-size: 18px;
 }
 
+footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
 @media (min-width: 768px) {
     .logo {
-        height: 100px;
+        height: 150px; 
+        margin-left: -40px; 
     }
 
     .login-container {
-        width: 675px;
+        max-width: 675px;
+        margin: auto;
     }
 }
