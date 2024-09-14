@@ -57,8 +57,8 @@
       },
       "statistics":{
         "Statistics": "Statistics",
-        "All Tags": "All Tags",
-        "All Trimesters": "All Trimesters",
+        "All Tags": "Select Tag",
+        "All Trimesters": "Select Trimester",
         "Trimester1": "Trimester 1",
         "Trimester2": "Trimester 2",
         "Trimester3": "Trimester 3",
