@@ -107,11 +107,13 @@ const Statistics = () => {
     ],
   };
 
+  // Responsive chart options
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
-        maintainAspectRatio: false,
       },
     },
   };
@@ -135,24 +137,29 @@ const Statistics = () => {
       {" "}
       {t("Statistics")}{" "}
       </h1>
-      <div className="flex justify-center gap-20 mb-[5rem]">
-        <div className="bg-white shadow-l h-[30rem] w-[40rem] mb-[5rem] pb-[10rem]">
+
+      {/* Flex container for charts */}
+      <div className="flex flex-col md:flex-row justify-center gap-10 mb-[5rem]">
+        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
-            <Bar data={data1} height={15} width={25} options={options} />
+            <Bar data={data1} options={options} />
           </div>
         </div>
-        <div className="bg-white shadow-l h-[30rem] w-[40rem] mb-[5rem] pb-[10rem]">
+        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
-            <Bar data={data2} height={15} width={25} options={options} />
+            <Bar data={data2} options={options} />
           </div>
         </div>
       </div>
+
       <main style={{ flex: "1 0 auto", width: "100%" }}>
         <div style={{ padding: "0 50px" }}>
           <section aria-label="Statistics section">
-          <select
+
+            {/* Filter Dropdowns */}
+            <select
               value={trimesterFilter}
               onChange={(e) => setTrimesterFilter(e.target.value)}
               className="p-2 m-2 border shadow-lg"
@@ -164,6 +171,7 @@ const Statistics = () => {
                 </option>
               ))}
             </select>
+
             <select
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
@@ -176,19 +184,20 @@ const Statistics = () => {
                 </option>
               ))}
             </select>
-            <div className="flex">
-              <div className="border-solid bg-white shadow-2xl border-2 border-black-600 py-8 px-10 my-10">
+
+            {/* Total Results */}
+            <div className="flex justify-center mb-4">
+              <div className="w-full md:w-1/3 bg-white shadow-xl py-8 px-10">
                 <h2 className="text-2xl font-bold text-gray-400">
                   {t("Total Results")}
                 </h2>
-                <p className="text-[1.8rem] font-bold text-center pt-[15px] px-2rem font-bold text-black-400">
+                <p className="text-[1.8rem] font-bold text-center pt-[15px] text-black-400">
                   {filteredStudies.length}
                 </p>
               </div>
-              <div>
-                <p></p>
-              </div>
             </div>
+
+            {/* Search Input */}
             <div className="overflow-hidden p-2 rounded-lg shadow">
               <form className="flex items-center w-full">
                 <input
@@ -198,52 +207,58 @@ const Statistics = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </form>
-              <table className="min-w-full bg-white">
-                <thead>
-                  <tr>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-lg">
-                      {t("No")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-lg">
-                      {t("Tag")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      {t("number")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tr-lg">
-                      {t("Popularity")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {records
-                    .filter((item) => {
-                      return search.toLowerCase() === ""
-                        ? item
-                        : item.tag.toLowerCase().includes(search);
-                    })
-                    .map((study, index) => (
-                      <tr
-                        key={study.id}
-                        className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-                      >
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.id}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.tag}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.publishNumber}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.popularity}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+
+              {/* Data Table */}
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white">
+                  <thead>
+                    <tr>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-lg">
+                        {t("No")}
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-lg">
+                        {t("Tag")}
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        {t("number")}
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tr-lg">
+                        {t("Popularity")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {records
+                      .filter((item) => {
+                        return search.toLowerCase() === ""
+                          ? item
+                          : item.tag.toLowerCase().includes(search);
+                      })
+                      .map((study, index) => (
+                        <tr
+                          key={study.id}
+                          className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                        >
+                          <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            {study.id}
+                          </td>
+                          <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            {study.tag}
+                          </td>
+                          <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            {study.publishNumber}
+                          </td>
+                          <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                            {study.popularity}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
+
+            {/* Pagination */}
             <nav className="bg-gray-200 p-3 mt-5 flex justify-between items-center">
               <p>
                 {firstIndex + 1} - {lastIndex} of {filteredStudies.length}
