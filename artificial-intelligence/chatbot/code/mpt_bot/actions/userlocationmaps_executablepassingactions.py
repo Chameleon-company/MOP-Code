@@ -10,6 +10,7 @@ import requests
 import folium
 from geopy.geocoders import Nominatim
 from IPython.display import display
+from datetime import datetime
 import openrouteservice
 from scipy.spatial import KDTree
 from geopy.distance import geodesic
@@ -21,12 +22,17 @@ import os
 #Function to geocode an address using Nominatim
 def geocode_address(address):
     geolocator = Nominatim(user_agent="mapping_app1.0")
-    #Geocode the input address to get latitude and longitude of address
-    location = geolocator.geocode(address)
+    
+    #Define the bounding box for Melbourne
+    melbourne_bbox = [(-38.5267, 144.5937), (-37.5113, 145.5125)] 
+    
+    #Geocode the address within the Melbourne bounding box
+    location = geolocator.geocode(address, viewbox=melbourne_bbox, bounded=True)
+    
     if location:
         return location.latitude, location.longitude
     else:
-        print("Address not found")
+        print("Address not found within Melbourne.")
         return None
 
 #Function to visualize the combined route (walking + public transport) with Folium
@@ -48,11 +54,16 @@ def visualize_combined_route(start_walking, transport, end_walking):
     folium.LayerControl().add_to(m)
     
     #Save the map as a html fil and open the map in the default browser
-    map_file = 'map.html'
+    #Generate a timestamp and map file path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    map_file = os.path.join(current_dir, '..', 'mpt_data', f'user_directions_{timestamp}.html')
+    #map_file = 'map.html'
     m.save(map_file)
     
-    webbrowser.open_new_tab(map_file)
-    print(f"Map has been saved and opened: {map_file}")
+    #webbrowser.open_new_tab(map_file)
+    #print(f"Map has been saved and opened")
+    return map_file
 
 #Function to get a route between two points using OpenRouteService
 def get_route(start_lat, start_lng, end_lat, end_lng, api_key, profile='driving-car'):
@@ -84,13 +95,15 @@ def find_nearest_station(lat, lon, kdtree, df):
 
 #Main function to execute the program by RASA
 def main(current_location, destination_input):
-    #Loading test dataset
-    #stops_file_path = r'C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\stops.txt'
     import os
-    script_dir = os.path.dirname(__file__)
-    stops_file_path = os.path.join(script_dir, '..', 'gtfs', '2', 'stops.txt')
 
-    #Read the stops.txt file and extract coords from the DF
+    #Get the directory where the current script is located
+    script_dir = os.path.dirname(__file__)
+
+    #Navigate to the 'mpt_data' folder relative to the current script's location
+    stops_file_path = os.path.join(script_dir, '..', 'mpt_data', 'stops.txt')
+
+    #Read the stops.txt file and extract coords from the df
     df = pd.read_csv(stops_file_path)
     coords = df[["stop_lat", "stop_lon"]].values
 
@@ -120,17 +133,15 @@ def main(current_location, destination_input):
         start_transport_long = nearest_station["stop_lon"]
 
         #Check if destination geocoding was successful
-        if destination:
-            #print(f"Geocoded destination: Latitude = {destination[0]}, Longitude = {destination[1]}")
-
-            print(f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters} meters away")
-            
+        if destination:          
             #Find the nearest public transport station to the destination
             nearest_station_destination, distance_meters_destination, distance_destination = find_nearest_station(destination[0], destination[1], kdtree, df)
 
-            print(f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination} meters away from the destination")
-
-            print(f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}")
+            output_message = (
+                f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters:.2f} meters away.<br><br>"
+                f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination:.2f} meters away from the destination.<br><br>"
+                f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}."
+            )
 
             #Get the walking routes to and from public transport stops using OpenRouteService
             api_key = '5b3ce3597851110001cf6248a6b7c97bb850491794bb504b30e2f2f7'
@@ -141,7 +152,8 @@ def main(current_location, destination_input):
             transport_route = get_route(start_transport_lat, start_transport_long, nearest_station_destination["stop_lat"], nearest_station_destination["stop_lon"], api_key, profile='driving-car')
 
             #Visualize the combined routes on a map
-            visualize_combined_route(walking_route_start, transport_route, walking_route_end)
+            map_file = visualize_combined_route(walking_route_start, transport_route, walking_route_end)
+            return output_message + "|||" + map_file
         else:
             print("Destination location could not be determined.")
     else:
@@ -155,6 +167,14 @@ if __name__ == "__main__":
     
     current_location = sys.argv[1]
     destination_input = sys.argv[2]
-    main(current_location, destination_input)
+
+    #Capture the returned value from the main function
+    result = main(current_location, destination_input)
+    
+    #Print the result (this will either be the map file path or an error message)
+    if result:
+        print(result)  # This allows Rasa to capture the map file path or error message
+    else:
+        print("An unexpected error occurred while generating the map.")
 
 

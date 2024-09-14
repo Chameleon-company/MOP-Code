@@ -1120,16 +1120,15 @@ import sys
 
 logger = logging.getLogger(__name__)
 
-
 class ActionRunMappingScript(Action):
     def name(self) -> Text:
         return "action_run_direction_script"
-
+    
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # Get the two most recent user messages
+        #Get the two most recent user messages
         user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
         user_location = user_messages[-2] if len(user_messages) >= 2 else None
         destination = user_messages[-1] if user_messages else None
@@ -1140,35 +1139,42 @@ class ActionRunMappingScript(Action):
             dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
             return []
 
-        #script_path = r"C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\userlocationmaps_executablepassingactions.py"
         script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
-        map_file_path = "map.html"  
 
+        
         try:
-            #Use subprocess to run the script and capture output
             result = subprocess.run([sys.executable, script_path, user_location, destination], 
                                     capture_output=True, 
                                     text=True, 
                                     check=True)
+            
+            output = result.stdout.strip()
 
-            if result.stdout.strip():
-                if "Address not found" in result.stdout or "Current location could not be determined" in result.stdout:
-                    dispatcher.utter_message(text="It seems the location or destination could not be found. Please check your input and try again.")
+            if output:
+                output_parts = output.split("|||")
+                
+                if len(output_parts) >= 2:
+                    description = output_parts[0].strip()
+                    map_file_path = output_parts[1].strip()
+
+                    dispatcher.utter_message(text=description)
+
+                    #Generate URL for the map file using the existing server
+                    relative_path = os.path.relpath(map_file_path, current_dir)
+                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+
+                    map_link = f"<a href='{map_url}' target='_blank'>Click here to view the route map</a>"
+                    dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
                 else:
-                    dispatcher.utter_message(text=f"The direction script has been executed successfully. Here's the output:\n{result.stdout}")
-
-                    #Check if the map file was generated
-                    if os.path.exists(map_file_path):
-                        dispatcher.utter_message(text="A map has been generated and should open in your default web browser.")
-                    else:
-                        dispatcher.utter_message(text="The script ran successfully, but no map was generated.")
+                    dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
 
             else:
                 dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
 
-        except subprocess.CalledProcessError as e:
-            dispatcher.utter_message(text=f"An error occurred while running the script: {e.stderr}")
-            logger.error(f"Script execution failed: {e.stderr}")
+        except subprocess.CalledProcessError as e:  
+            error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
+            dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
+            logger.error(f"Script execution failed: {error_message}")
         except Exception as e:
             dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
             logger.error(f"Exception occurred: {str(e)}")
