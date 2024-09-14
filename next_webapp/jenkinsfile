@@ -53,8 +53,17 @@ pipeline {
         stage('Testing with Cypress') {
             steps {
                 dir('next_webapp') {
-                    // Run Cypress tests
-                    sh 'npx cypress run'
+                    script {
+                        // Install xvfb if necessary (for headless mode in Jenkins)
+                        sh 'apt-get install -y xvfb'
+
+                        // Start Xvfb to allow Cypress to run in headless mode
+                        sh 'Xvfb :99 &'
+                        export DISPLAY=:99
+
+                        // Run Cypress in headless mode with Electron
+                        sh 'npx cypress run --headless --browser chrome'
+                    }
                 }
             }
         }
@@ -85,7 +94,7 @@ pipeline {
         }
 
 
-        //Adrian
+        //Hoang
         stage('Deploy to GCP') {
             steps {
                 script {
