@@ -58,11 +58,8 @@ def visualize_combined_route(start_walking, transport, end_walking):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
     map_file = os.path.join(current_dir, '..', 'mpt_data', f'user_directions_{timestamp}.html')
-    #map_file = 'map.html'
     m.save(map_file)
     
-    #webbrowser.open_new_tab(map_file)
-    #print(f"Map has been saved and opened")
     return map_file
 
 #Function to get a route between two points using OpenRouteService
@@ -88,9 +85,6 @@ def find_nearest_station(lat, lon, kdtree, df):
     #Calculate the geodesic distance (in meters) between the point and the nearest statio
     distance_meters = geodesic(point_coords, nearest_station_coords).meters
     
-    ###TO DO
-    ###ADD FUNCTIONALTIY OF DIRECTIONS
-    
     return nearest_station, distance_meters, distance
 
 #Main function to execute the program by RASA
@@ -111,21 +105,18 @@ def main(current_location, destination_input):
     kdtree = KDTree(coords)
     
     #Prompt the user to input their current location
-    #user_input = input("Please enter your current location: ") #"fitzroy victoria"
     user_input = current_location
     #Geocode the user's inputted location
     location = geocode_address(user_input)
     #Check if geocoding was successful
     if location:
-        #print(f"Geocoded location: Latitude = {location[0]}, Longitude = {location[1]}") Removed as causing logging flag on github
-        # visualize_location(location[0], location[1])
+
 
         #Find the nearest public transport station to the current location
         nearest_station, distance_meters, distance = find_nearest_station(location[0], location[1], kdtree, df)
 
         
         #Prompt the user to input their destination
-        #destination_input = input("Please enter your destination: ") #"fitzroy victoria" #"collingwood victoria"
         destination = geocode_address(destination_input)
         
         #Get the latitude and longitude of the nearest public transport station
@@ -171,9 +162,9 @@ if __name__ == "__main__":
     #Capture the returned value from the main function
     result = main(current_location, destination_input)
     
-    #Print the result (this will either be the map file path or an error message)
+    #Print the result
     if result:
-        print(result)  # This allows Rasa to capture the map file path or error message
+        print(result) 
     else:
         print("An unexpected error occurred while generating the map.")
 
