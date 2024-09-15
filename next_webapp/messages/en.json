@@ -28,15 +28,17 @@
         "Greek": "Greek"
       },
       "about": {
-        "About": "About",
-        "Us": "Us",
+        "About Us": "About Us",
+        "About":"About",
+        "Us":"Us",
         "About MOP": "About MOP",
         "p1": "Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University in collaboration with City of Melbourne. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council.",
-        "p2": "This project is meant to align with two strategic documents from the Melbourne City Council: The Economic Development Strategy, which aims to be a digitally-connected city. The 2021-2025Council Plan, which outlines the specific objective of delivering programs that will build literacy skills and capabilities.",
+        "p2": "This project is meant to align with two strategic documents from the Melbourne City Council: The Economic Development Strategy, which aims to be a digitally-connected city. The 2021-2025 Council Plan, which outlines the specific objective of delivering programs that will build literacy skills and capabilities.",
         "Open Data Leadership": "Open Data Leadership",
         "p3": "The City of Melbourne has been an Australian leader in Open Data since 2014. Recent research and local user engagement have identified a gap where users would like to learn more about how to access Open Data and how to gain insights from the data to build apps and solve city problems.",
+        "Our Goals": "Our Goals",
         "Our": "Our",
-        "Goals": "Goals",
+        "Goals":"Goals",
         "p4": "This project aims to deliver proof-of-concept examples on how calls to Open Data APIs can be made."
       },
       "privacypolicy": {
@@ -57,8 +59,8 @@
       },
       "statistics":{
         "Statistics": "Statistics",
-        "All Tags": "Select Tag",
-        "All Trimesters": "Select Trimester",
+        "All Tags": "All Tags",
+        "All Trimesters": "All Trimesters",
         "Trimester1": "Trimester 1",
         "Trimester2": "Trimester 2",
         "Trimester3": "Trimester 3",
@@ -76,12 +78,12 @@
         "User Cases": "User Cases",
         "All categories": "All categories",
         "Search by title": "Search by title",
-        "Search by content": "Search by tag",
+        "Search by content": "Search by content",
         "Internet": "Internet",
         "EV": "EV",
         "Security": "Security",
         "Search": "Search",
-        "Case study name or category": "Use case search term"
+        "Case study name or category": "Case study name or category"
       },
       "licensing": {
         "Licensing": "Licensing",
@@ -136,14 +138,5 @@
         "Weak": "Weak",
         "Moderate":"Moderate",
         "Strong":"Strong"
-      },
-      "login":{
-        "Account Log In": "Account Log In",
-        "Please login to continue to your account": "Please login to continue to your account",
-        "Email": "Email",
-        "Password": "Password",
-        "Remember Me": "Remember Me",
-        "Forgot Password?": "Forgot Password?",
-        "LOGIN": "LOGIN"
       }
   }
