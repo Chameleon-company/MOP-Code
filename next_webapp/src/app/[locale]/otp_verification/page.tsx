@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import '../../../../public/styles/otp_verification.css';
+import Header from "../../../components/Header";
+
 
 const PasswordStrengthIndicator = ({ password }) => {
-    const calculateStrength = (password) => {
+    const calculateStrength = (password : string) => {
       // You can implement your password strength calculation logic here
       // For simplicity, I'll just return the length of the password
       return password.length;
@@ -48,20 +50,11 @@ const OTPVerificationPage = () => {
   };
 
   return (
-    <div className="first flex flex-col items-center justify-center min-h-screen" style={{ backgroundColor: 'white' }}>
-      {/* No Account Yet */}
-      <div className="already-member">
-        <p className="text-sm mr-2">No Account Yet?</p>
-        <a href="/signup" className="signup-button text-sm">Sign up</a>
-      </div>
-
-      {/* Logo */}
-      <div className="logo">
-        {/* Add your logo here */}
-        <img src="/img/new-logo-green.png" alt="Chameleon Logo" className=" h-40" />
-      </div>
-
-      <div className="text-center mt-4">
+    <div className='min-h-screen 'style={{ backgroundColor: 'white' }}>
+    <Header/>
+    <div className="flex-grow flex flex-col items-center justify-center " >
+   
+      <div className="text-center">
         <h2 className="text-2xl font-bold">OTP VERIFICATION</h2>
       </div>
       {/* Message for OTP */}
@@ -73,7 +66,7 @@ const OTPVerificationPage = () => {
         <div className='mb-4'>
           <input type="text" placeholder="Four Digit Code" className="reset-input" />
         </div>
-        <div className='mb-4'>
+        <div className='mb-6'>
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="New Password"
@@ -83,7 +76,7 @@ const OTPVerificationPage = () => {
           />
           <PasswordStrengthIndicator password={newPassword} />
         </div>
-        <div className='mb-4'>
+        <div className='mb-8'>
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="Confirm Password"
@@ -95,12 +88,15 @@ const OTPVerificationPage = () => {
             <div style={{ color: 'red' }}>Passwords do not match</div>
           )}
           <PasswordStrengthIndicator password={newPassword} />
+          
         </div>
+      
+        <button className="reset-button w-full mb-4 w-full max-w-xs sm:max-w-sm md:w-1/2 lg:w-2/3" >Reset Password</button>
+      
       </div>
-
-      <button className="reset-button" >Reset Password</button>
-
     </div>
+    </div>
+    
   );
 };
 
