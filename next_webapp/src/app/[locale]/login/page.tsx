@@ -39,46 +39,51 @@ function LoginForm() {
                 <Header />
             </div>
             <div className="main-content login-container">
-
-                <div className="login-content mt-20">
+                <div className="login-content mt-16"> {/* Adjusted margin-top for title */}
                     <h1 className="login-title">{t("Account Log In")}</h1>
                     <p className="login-subtitle">{t("Please login to continue to your account")}</p>
                     <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
-                        <div className="input-group">
+                        <div className="mb-4">
+                            <label htmlFor="emailInput" className="sr-only">
+                                Email
+                            </label>
                             <input
                                 type="email"
-                                id="email"
-                                name="email"
-                                required
+                                id="emailInput"
                                 placeholder={t("Email")}
+                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide" // Made wider
                                 value={email}
                                 onChange={handleChange}
+                                name="email"
                             />
                         </div>
-                        <div className="input-group">
+                        <div className="mb-4 relative">
+                            <label htmlFor="passwordInput" className="sr-only">
+                                Password
+                            </label>
                             <input
                                 type={passwordVisible ? "text" : "password"}
-                                id="password"
-                                name="password"
-                                required
+                                id="passwordInput"
                                 placeholder={t("Password")}
+                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide" // Made wider
                                 value={password}
                                 onChange={handleChange}
+                                name="password"
                             />
-                            <span className="toggle-password" onClick={togglePasswordVisibility}>
-                                {passwordVisible ? "🔒" : "🔓"}
+                            <span className="absolute right-4 top-3 cursor-pointer" onClick={togglePasswordVisibility}>
+                                {passwordVisible ? "👁️" : "👁️‍🗨️"} {/* Eye icon */}
                             </span>
                         </div>
-                        <div className="options-container">
+                        <div className="options-container flex justify-between mb-4">
                             <label className="checkbox-label remember-me">
                                 <input type="checkbox" id="remember-me" name="remember-me" />
                                 {t("Remember Me")}
                             </label>
                             <a href="#" className="forgot-password">{t("Forgot Password?")}</a>
                         </div>
-                        <button type="submit" className="login-button">{t("LOGIN")}</button>
+                        <button type="submit" className="login-button wide-button">{t("LOGIN")}</button> {/* Wider button */}
                     </form>
-                    {error && <div className="error text-red-500">{error}</div>}
+                    {error && <div className="error text-red-500 mt-4">{error}</div>}
                 </div>
             </div>
             {/* Logo */}
