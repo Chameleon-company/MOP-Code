@@ -49,11 +49,11 @@
 }
 
 .text-box h2 {
-  font-size: calc(30px + 0.4vw);
+  font-size: calc(24px + 0.4vw);
 }
 
 .text-box p {
-  font-size: calc(16px + 0.4vw);
+  font-size: calc(12px + 0.4vw);
   font-weight: 450;
 }
 
@@ -61,7 +61,7 @@
 
 @media (max-width: 1024px) {
   .text-box p {
-    font-size: calc(14px + 0.1vw);
+    font-size: calc(12px + 0.1vw);
   }
   .text-box h2 {
     font-size: calc(24px + 0.1vw);
