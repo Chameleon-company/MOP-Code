@@ -34,12 +34,12 @@ const DashboardCaseStd = () => {
     <div className="case-studies-wrapper">
       {caseStudies.map((caseStudy) => (
         <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
-          <div className="card-wrapper">
+          <div className="card-wrapper dark:bg-zinc-700 ">
             <div className="top-image">
               <img src={caseStudy.image} alt={caseStudy.title} />
             </div>
-            <h4 className="title">{caseStudy.title}</h4>
-            <p className="description">{caseStudy.description}</p>
+            <h4 className="title dark:text-slate-100">{caseStudy.title}</h4>
+            <p className="description dark:text-slate-100">{caseStudy.description}</p>
           </div>
         </Link>
       ))}

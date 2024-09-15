@@ -114,14 +114,14 @@ const Contact = () => {
 
   };
 
-  return (<div className="contactPage font-sans bg-white min-h-screen">
+  return (<div className="contactPage font-sans bg-white min-h-screen dark:bg-zinc-800 ">
     <Header />
     <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
       
     
       <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
     
-        <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
+        <span className="contactUsText block text-black text-4xl font-normal leading-snug dark:text-slate-100 font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
           {t("Contact")}
           <br />
           {t("Us")}
@@ -153,13 +153,13 @@ const Contact = () => {
               key={field.name}
               className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
             >
-              <span className="namaSpan text-black">{field.spanName}</span>
+              <span className="namaSpan text-black dark:text-slate-100">{field.spanName}</span>
               {field.type === "textarea" ? (
                 <textarea
                   name={field.name}
                   placeholder={field.placeholder}
                   required={field.required}
-                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
+                  className="w-full border border-gray-300 bg-white dark:bg-zinc-800 dark:text-slate-100 mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
                   onChange={handleChange}
                 ></textarea>
               ) : (
@@ -168,7 +168,7 @@ const Contact = () => {
                   type={field.type}
                   placeholder={field.placeholder}
                   required={field.required}
-                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
+                  className="w-full border border-gray-300 bg-white dark:bg-zinc-800 dark:text-slate-100 mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
                   onChange={handleChange}
                 />
               )}

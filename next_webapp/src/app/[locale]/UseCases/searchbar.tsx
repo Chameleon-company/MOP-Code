@@ -23,7 +23,7 @@ const SearchBar = ({
   const t = useTranslations("usecases");
 
   return (
-    <div className="p-4 flex flex-col pl-0 ml-0">
+    <div className="p-4 flex flex-col pl-0 ml-0 dark:bg-zinc-700">
       <form
         onSubmit={handleSubmit}
         className="flex items-center w-full max-w-10xl space-x-3"

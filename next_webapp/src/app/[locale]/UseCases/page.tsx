@@ -44,13 +44,13 @@ const UseCases = () => {
   const t = useTranslations("usecases");
 
   return (
-    <div className="font-sans bg-gray-100">
+    <div className="font-sans bg-gray-100 bg-white dark:bg-zinc-800 dark:text-slate-100">
       <Header />
       <main>
         <div className="app">
           <section className="px-10 pt-5">
             <p>
-              <span className="text-4xl font-bold text-black">
+              <span className="text-4xl font-bold">
                 {t("User Cases")}
               </span>
             </p>

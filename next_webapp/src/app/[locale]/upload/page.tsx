@@ -7,42 +7,42 @@ const Upload = () => {
   const t = useTranslations("upload");
 
   return (
-    <div>
+    <div className=" dark:bg-zinc-800">
       <Header />
-      <main className="upload-body">
-        <div className="upload-header">
+      <main className="upload-body dark:bg-zinc-800">
+        <div className="upload-header  dark:bg-zinc-800 dark:text-slate-100">
           <div className="upload-header-left">
             <h1>{"Upload Case Studies"}</h1>
           </div>
           <div className="upload-header-right">
-            <select style={{ border: "none" }}>
+            <select style={{ border: "none" }} className=" dark:bg-zinc-800">
               <option value="option1">{"Trimester 1"}</option>
               <option value="option2">{"Trimester 2"}</option>
               <option value="option3">{"Trimester 3"}</option>
             </select>
           </div>
         </div>
-        <div className="upload-container">
+        <div className="upload-container dark:bg-zinc-700 dark:text-slate-100">
 
           <h2 style={{ textAlign: "left" }}>{"Uploader's Details"}</h2>
           <div className="form-container">
             <div className="column">
               <label htmlFor="first-name">{"Author's Name"}</label>
-              <input type="text" id="first-name" name="first-name" placeholder={"Enter author's name"} />
+              <input type="text" id="first-name" className="dark:bg-zinc-700" name="first-name" placeholder={"Enter author's name"} />
 
               <label htmlFor="last-name">{"DOP"}</label>
-              <input type="text" id="last-name" name="last-name" placeholder={"Enter DOP"} />
+              <input type="text" id="last-name" className="dark:bg-zinc-700" name="last-name" placeholder={"Enter DOP"} />
 
               <label htmlFor="email">{"Company Email"}</label>
-              <input type="email" id="email" name="email" placeholder={"Enter email"} />
+              <input type="email" id="email" name="email" className="dark:bg-zinc-700" placeholder={"Enter email"} />
             </div>
 
             <div className="column">
               <label htmlFor="phone">{"Case Study"}</label>
-              <input type="tel" id="phone" name="phone" placeholder={"Enter case "} />
+              <input type="tel" id="phone" name="phone" className="dark:bg-zinc-700" placeholder={"Enter case "} />
 
               <label htmlFor="address">{"Category"}</label>
-              <input type="text" id="address" name="address" placeholder={"Enter category"} />
+              <input type="text" id="address" name="address" className="dark:bg-zinc-700" placeholder={"Enter category"} />
             </div>
           </div>
           <div className="green-box">
@@ -54,7 +54,7 @@ const Upload = () => {
               <path d="M514.045 634.097c23.972 0 43.402 19.433 43.402 43.399v178.086c0 23.968-19.432 43.398-43.402 43.398-23.964 0-43.396-19.432-43.396-43.398V677.496c0.001-23.968 19.433-43.399 43.396-43.399z" fill="#E5594F" />
             </svg>
             <div className="file-upload">
-              <h1>{"Drag & Drop Files"}</h1>
+              <h1 className="dark:text-black">{"Drag & Drop Files"}</h1>
               <input type="file" id="file-upload" className="file-upload-input" />
               <button className="upload-btn">{"UPLOAD FILES"}</button>
             </div>

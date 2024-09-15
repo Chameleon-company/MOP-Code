@@ -7,7 +7,7 @@ import DashboardCaseStd from "@/components/DashboardCaseStd";
 
 const Home = () => {
   return (
-    <div>
+    <div className="dark:bg-zinc-800" >
       <Header />
       <Dashboard />
       <DashboardCaseStd />

@@ -46,12 +46,12 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="signup-page flex flex-col min-h-screen">
-      <Header showSignUpButton={false} />
+    <div className="signup-page dark:bg-zinc-800 flex flex-col min-h-screen">
+      <Header />
       <div className="flex flex-col items-center justify-center flex-grow">
         <div className="p-8 rounded-lg mt-12">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-12">{t("Account Sign Up")}</h2>
+            <h2 className="text-2xl font-bold mb-12 dark:text-slate-200">{t("Account Sign Up")}</h2>
           </div>
           <div className="mb-4 flex">
             <label htmlFor="firstNameInput" className="sr-only">
@@ -100,7 +100,7 @@ const SignUpPage = () => {
             <div className="w-full h-2 border border-gray-300 rounded mb-2">
               <div className="h-full rounded" style={passwordStrengthStyle}></div>
             </div>
-            <p className="text-right text-sm text-gray-600 mt-2">
+            <p className="text-right text-sm text-gray-600 mt-2 dark:text-slate-100">
               {t("Password Strength")}: {passwordStrength}
             </p>
           </div>
@@ -110,24 +110,8 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* Already a member section */}
-      <div className="absolute top-20 right-20 ml-4 m-4 flex items-center text-[#666666]">
-        <p className="text-sm mr-2">{t("Already a member?")}</p>
-        <a
-          href="/en/login"
-          className="border border-gray-600 text-gray-600 px-4 py-2 ml-4 hover:border-[#999999]"
-        >
-          {t("Log In")}
-        </a>
-        <div className="ml-4">
-          <LanguageDropdown />
-        </div>
-      </div>
-
-      {/* Logo */}
-      <div className="absolute top-20 left-20 mr-4 m-4">
-        <img src="/img/new-logo-green.png" alt="Logo" className="h-40" />
-      </div>
+    
+     
       <Footer />
     </div>
   );

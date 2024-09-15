@@ -26,7 +26,7 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
 
   if (selectedCaseStudy) {
     return (
-      <div className="flex flex-col h-screen bg-gray-100 p-8">
+      <div className="flex flex-col h-screen bg-gray-100 p-8 dark:bg-zinc-800">
         <button
           onClick={handleBack}
           className="flex items-center text-green-500 mb-4 hover:text-green-700 transition-colors duration-300"
@@ -47,12 +47,12 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
   }
 
   return (
-    <div className="flex flex-col h-full bg-gray-100 p-8">
+    <div className="flex flex-col h-full bg-gray-100 p-8  dark:bg-zinc-800">
       <div className="grid grid-cols-3 gap-8 mb-8">
         {visibleCaseStudies.map((study) => (
           <div
             key={study.id}
-            className="bg-white p-4 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+            className="bg-white dark:bg-zinc-700 p-4 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
             onClick={() => handleCaseStudyClick(study)}
           >
             <div className="flex items-center justify-center mb-4">
@@ -61,7 +61,7 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
               <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
             </div>
             <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
-            <p className="text-gray-600 text-center mb-2">{study.description}</p>
+            <p className="text-gray-600 text-center mb-2 dark:text-slate-300">{study.description}</p>
             <div className="flex flex-wrap justify-center gap-2">
             <p>Tags: </p>
               {study.tags.map((tag, index) => (
@@ -81,9 +81,9 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 bg-white rounded-full shadow-md disabled:opacity-50"
+          className="p-2 bg-white  rounded-full shadow-md disabled:opacity-50"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} className="dark:text-zinc-900"/>
         </button>
         <span className="text-xl font-semibold">{currentPage}</span>
         <button
@@ -91,7 +91,7 @@ const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
           disabled={currentPage === totalPages}
           className="p-2 bg-white rounded-full shadow-md disabled:opacity-50"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={24} className="dark:text-zinc-900" />
         </button>
       </div>
     </div>

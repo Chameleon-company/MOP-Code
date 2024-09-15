@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { color } from "chart.js/helpers";
 
 ChartJS.register(
   CategoryScale,
@@ -88,6 +89,7 @@ const Statistics = () => {
         label: "Data Series 1",
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
+
         borderWidth: 1,
         data: [tri1, tri2, tri3],
       },
@@ -102,6 +104,7 @@ const Statistics = () => {
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
+
         data: [tri1, tri2, tri3],
       },
     ],
@@ -128,25 +131,25 @@ const Statistics = () => {
         display: "flex",
         flexDirection: "column",
       }}
-      className="font-sans bg-gray-100 text-black"
+      className="font-sans bg-gray-100 text-black dark:bg-zinc-800 "
       role="main"
       aria-label="Statistics page"
     >
       <Header />
-      <h1 className="text-7xl font-bold px-[2rem] pt-[1rem] pb-[4rem]">
+      <h1 className="text-7xl font-bold px-[2rem] pt-[1rem] pb-[4rem] dark:text-slate-100">
       {" "}
       {t("Statistics")}{" "}
       </h1>
 
       {/* Flex container for charts */}
-      <div className="flex flex-col md:flex-row justify-center gap-10 mb-[5rem]">
-        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
+      <div className="flex flex-col md:flex-row justify-center gap-10 mb-[5rem] dark:text-slate-100">
+        <div className="bg-white dark:bg-zinc-700 shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
             <Bar data={data1} options={options} />
           </div>
         </div>
-        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
+        <div className="bg-white  dark:bg-zinc-700 shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem] dark:text-slate-100">
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
             <Bar data={data2} options={options} />
@@ -162,7 +165,7 @@ const Statistics = () => {
             <select
               value={trimesterFilter}
               onChange={(e) => setTrimesterFilter(e.target.value)}
-              className="p-2 m-2 border shadow-lg"
+              className="p-2 m-2 border shadow-lg  dark:bg-zinc-700 dark:text-slate-100"
             >
               <option value="">{t("All Trimesters")}</option>
               {trimesters.map((trimester) => (
@@ -175,7 +178,7 @@ const Statistics = () => {
             <select
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
-              className="p-2 m-2 border shadow-lg"
+              className="p-2 m-2 border shadow-lg  dark:bg-zinc-700 dark:text-slate-100"
             >
               <option value="">{t("All Tags")}</option>
               {tags.map((tag) => (
@@ -187,8 +190,8 @@ const Statistics = () => {
 
             {/* Total Results */}
             <div className="flex justify-center mb-4">
-              <div className="w-full md:w-1/3 bg-white shadow-xl py-8 px-10">
-                <h2 className="text-2xl font-bold text-gray-400">
+              <div className="w-full md:w-1/3 bg-white dark:text-slate-100  dark:bg-zinc-700 shadow-xl py-8 px-10">
+                <h2 className="text-2xl font-bold text-gray-400 dark:text-slate-100">
                   {t("Total Results")}
                 </h2>
                 <p className="text-[1.8rem] font-bold text-center pt-[15px] text-black-400">

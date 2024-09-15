@@ -6,10 +6,10 @@ const Privacypolicy = () => {
   const t = useTranslations("privacypolicy");
 
   return (
-    <div>
+    <div className=" bg-white dark:bg-zinc-800 dark:text-slate-100">
       <Header />
       <main>
-        <div className="h-[70rem] px-[5rem] content-center font-sans-serif bg-white">
+        <div className="h-[70rem] px-[5rem] content-center font-sans-serif">
           <h1 className="pl-20 p-8 font-semibold text-4xl mt-32">
             {t("Privacy Policy")}
           </h1>

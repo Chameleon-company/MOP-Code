@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n-navigation';
 import LanguageDropdown from './LanguageDropdown';
 import { HiMenu, HiX } from 'react-icons/hi';
+import ModeHandler from './ModeHandler';
 
 const Header = () => {
   const t = useTranslations('common');
@@ -23,7 +24,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm dark:bg-zinc-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -53,20 +54,23 @@ const Header = () => {
             </nav>
           </div>
           <div className="flex items-center">
+            <ModeHandler />
             <LanguageDropdown />
+
             <div className='hidden lg:flex'>
-            <Link
-              href="/signup"
-              className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
-            >
-              {t('Sign Up')}
-            </Link>
-            <Link
-              href="/login"
-              className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium"
-            >
-              {t('Log In')}
-            </Link>
+              <Link
+                href="/signup"
+                className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
+              >
+                {t('Sign Up')}
+              </Link>
+              <Link
+                href="/login"
+                className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium"
+              >
+                {t('Log In')}
+              </Link>
+
             </div>
           </div>
         </div>
@@ -96,6 +100,7 @@ const Header = () => {
               >
                 {t('Log In')}
               </Link>
+
             </nav>
           </div>
         )}

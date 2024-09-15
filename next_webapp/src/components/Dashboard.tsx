@@ -250,7 +250,7 @@ const Dashboard = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: style }} />
 
-      <div className="main-wrapper">
+      <div className="main-wrapper dark:bg-zinc-800">
         <div className="main-container">
           <section className="hero-section">
             <Image src={mainimage} alt={"main image1"} />
@@ -267,9 +267,9 @@ const Dashboard = () => {
             </div>
             <div className="text-div">{t("intro")}</div>
           </section>
-          <section className="recent-case-studies">
-            <h2>{t("Recent Case Studies")}</h2>
-            <p>{t("p2")}</p>
+          <section className="recent-case-studies ">
+            <h2 className="dark:text-slate-100">{t("Recent Case Studies")}</h2>
+            <p className="dark:text-slate-100">{t("p2")}</p>
           </section>
 
           <section className="case-studies"></section>
