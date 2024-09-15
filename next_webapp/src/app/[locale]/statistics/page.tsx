@@ -168,11 +168,13 @@ const Statistics = () => {
     ],
   };
 
+  // Responsive chart options
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
-        maintainAspectRatio: false,
       },
     },
   };
@@ -196,23 +198,28 @@ const Statistics = () => {
         {" "}
         {t("Statistics")}{" "}
       </h1>
-      <div className="flex justify-center gap-20 mb-[5rem]">
-        <div className="bg-white shadow-l h-[30rem] w-[40rem] mb-[5rem] pb-[10rem]">
+
+      {/* Flex container for charts */}
+      <div className="flex flex-col md:flex-row justify-center gap-10 mb-[5rem]">
+        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
-            <Bar data={data1} height={15} width={25} options={options} />
+            <Bar data={data1} options={options} />
           </div>
         </div>
         {/* <div className="bg-white shadow-l h-[30rem] w-[40rem] mb-[5rem] pb-[10rem]">
+
           <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
           <div className="mx-5">
-            <Bar data={data2} height={15} width={25} options={options} />
+            <Bar data={data2} options={options} />
           </div>
         </div> */}
       </div>
+
       <main style={{ flex: "1 0 auto", width: "100%" }}>
         <div style={{ padding: "0 50px" }}>
           <section aria-label="Statistics section">
+            {/* Filter Dropdowns */}
             <select
               value={trimesterFilter}
               onChange={(e) => setTrimesterFilter(e.target.value)}
@@ -225,6 +232,7 @@ const Statistics = () => {
                 </option>
               ))}
             </select>
+
             <select
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
@@ -237,17 +245,16 @@ const Statistics = () => {
                 </option>
               ))}
             </select>
-            <div className="flex">
-              <div className="border-solid bg-white shadow-2xl border-2 border-black-600 py-8 px-10 my-10">
+
+            {/* Total Results */}
+            <div className="flex justify-center mb-4">
+              <div className="w-full md:w-1/3 bg-white shadow-xl py-8 px-10">
                 <h2 className="text-2xl font-bold text-gray-400">
                   {t("Total Results")}
                 </h2>
-                <p className="text-[1.8rem] font-bold text-center pt-[15px] px-2rem font-bold text-black-400">
+                <p className="text-[1.8rem] font-bold text-center pt-[15px] text-black-400">
                   {filteredStudies.length}
                 </p>
-              </div>
-              <div>
-                <p></p>
               </div>
             </div>
             <div className="overflow-hidden p-2 rounded-lg shadow bg-[#3EB470]">
@@ -305,7 +312,7 @@ const Statistics = () => {
                 </tbody>
               </table>
             </div>
-            <nav className="bg-gray-200 p-3 mt-5 flex justify-between items-center bg-[#3EB470]">
+            <nav className="p-3 mt-5 flex justify-between items-center bg-[#3EB470]">
               <p>
                 {firstIndex + 1} - {lastIndex} of {filteredStudies.length}
               </p>
