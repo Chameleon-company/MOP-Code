@@ -7,10 +7,10 @@ const Privacypolicy = () => {
   const t = useTranslations("privacypolicy");
 
   return (
-    <div>
+    <div className="bg-white">
       <Header />
       <main>
-        <div className="h-full ms-auto content-center font-sans-serif bg-white">
+        <div className="h-full ms-auto content-center font-sans-serif">
           <div className="ml-[5%] mt-[5%]">
             <h1 className="font-semibold text-title">{t("Privacy Policy")}</h1>
           </div>
@@ -71,9 +71,9 @@ const Privacypolicy = () => {
               </div>
             </div>
           </section>
-          <div className="flex items-center justify-center mt-24 mb-[-60px]">
-            <p className="text-center w-[80%]">{t("p7")}</p>
-          </div>
+        </div>
+        <div className="flex items-center justify-center mt-24 mb-[-3rem]">
+            <p className="text-center text-[14px] w-[80%]">{t("p7")}</p>
         </div>
       </main>
       <Footer />
