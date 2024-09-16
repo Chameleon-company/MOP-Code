@@ -76,12 +76,12 @@
         "User Cases": "Casos de Usuario",
         "All categories": "Todas las categorías",
         "Search by title": "Buscar por título",
-        "Search by content": "Buscar por contenido",
+        "Search by content": "Buscar por etiqueta",
         "Internet": "Internet",
         "EV": "VE (Vehículo Eléctrico)",
         "Security": "Seguridad",
         "Search": "Buscar",
-        "Case study name or category": "Nombre o categoría del caso de estudio"
+        "Case study name or category": "érmino de búsqueda de casos de uso"
     },
     "licensing": {
         "Licensing": "Licenciamiento",
@@ -136,5 +136,15 @@
         "Weak": "Débil",
         "Moderate":"moderarse",
         "Strong":"Fuerte"
+     },
+     "login":{
+        "Account Log In": "Iniciar sesión en la cuenta",
+        "Please login to continue to your account": "Por favor inicie sesión para continuar con su cuenta",
+        "Email": "Correo electrónico",
+        "Password": "Contraseña",
+        "Remember Me": "Acuérdate de mí",
+        "Forgot Password?": "¿Olvidaste tu contraseña?",
+        "LOGIN": "ACCESO"
+
      }
 }

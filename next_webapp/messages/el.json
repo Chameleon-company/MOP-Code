@@ -75,12 +75,12 @@
         "User Cases": "Περιπτώσεις Χρηστών",
         "All categories": "Όλες οι Κατηγορίες",
         "Search by title": "Αναζήτηση ανά τίτλο",
-        "Search by content": "Αναζήτηση ανά περιεχόμενο",
+        "Search by content": "Αναζήτηση με βάση την ετικέτα",
         "Internet": "Διαδίκτυο",
         "EV": "Ηλεκτρικό Όχημα",
         "Security": "Ασφάλεια",
         "Search": "Αναζήτηση",
-        "Case study name or category": "Όνομα ή κατηγορία μελέτης περίπτωσης"
+        "Case study name or category": "Όρος αναζήτησης περιπτώσεων χρήσης"
     },
     "licensing": {
         "Licensing": "Αδειοδότηση",
@@ -135,5 +135,15 @@
         "Weak": "Αδύναμος",
         "Moderate":"Μέτριος",
         "Strong":"Ισχυρός"
+    },
+    "login":{
+        "Account Log In": "Είσοδος λογαριασμού",
+        "Please login to continue to your account": "Παρακαλούμε συνδεθείτε για να συνεχίσετε στον λογαριασμό σας",
+        "Email": "Ηλεκτρονικό ταχυδρομείο",
+        "Password": "Κωδικός πρόσβασης",
+        "Remember Me": "Να με θυμάσαι",
+        "Forgot Password?": "Ξεχάσατε τον κωδικό πρόσβασης;",
+        "LOGIN": "ΣΥΝΔΕΣΗ"
+
     }
 }
