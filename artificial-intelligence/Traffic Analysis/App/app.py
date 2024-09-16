@@ -1,11 +1,15 @@
+
 import pandas as pd
 import numpy as np
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
+
 # Load the dataset
 file_path = "C:\Local MOAI PROJECT\merged_data.csv"
 df = pd.read_csv(file_path)
@@ -63,8 +67,8 @@ else:
     scaler = MinMaxScaler()
     df_filtered_scaled = scaler.fit_transform(df_filtered[[vehicle_type]])
 
-    # Prepare the data for LSTM
-    def create_dataset(data, time_step=1):
+    # Prepare the data for LSTM with more time steps to handle volatility
+    def create_dataset(data, time_step=3):  # Using time_step=3 to capture more temporal dependencies
         X, Y = [], []
         for i in range(len(data) - time_step - 1):
             a = data[i:(i + time_step), 0]
@@ -72,8 +76,8 @@ else:
             Y.append(data[i + time_step, 0])
         return np.array(X), np.array(Y)
 
-    # Setting time_step = 1 for hourly prediction
-    time_step = 1
+    # Setting time_step = 3 for better prediction of volatile data
+    time_step = 3
     X, Y = create_dataset(df_filtered_scaled, time_step)
 
     # Ensure there's enough data for training
@@ -90,29 +94,37 @@ else:
         X_train = X_train.reshape((X_train.shape[0], X_train.shape[1], 1))
         X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
 
-        # Create and fit the LSTM model
+        # Create and fit the LSTM model with Dropout and EarlyStopping
         model = Sequential()
-        model.add(LSTM(50, return_sequences=True, input_shape=(time_step, 1)))
-        model.add(LSTM(50, return_sequences=False))
-        model.add(Dense(25))
-        model.add(Dense(1, activation='relu'))
+        model.add(LSTM(128, return_sequences=True, input_shape=(time_step, 1)))  # Increased LSTM units
+        model.add(Dropout(0.4))  # Increased dropout to handle volatility
+        model.add(LSTM(128, return_sequences=False))
+        model.add(Dense(50))
+        model.add(Dense(1))
 
-        model.compile(optimizer='adam', loss='mean_squared_error')
+        # Compile the model with Adam optimizer and reduced learning rate
+        optimizer = Adam(learning_rate=0.001)  # Reduced learning rate for smoother convergence
+        model.compile(optimizer=optimizer, loss='mean_squared_error')
+
+        # Early stopping to avoid overfitting
+        early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
         # Train the model
-        model.fit(X_train, Y_train, batch_size=10, epochs=65)
+        model.fit(X_train, Y_train, batch_size=32, epochs=100, validation_data=(X_test, Y_test), callbacks=[early_stopping])
 
         # Predictions
         train_predict = model.predict(X_train)
         test_predict = model.predict(X_test)
 
-        # Calculate RMSE
+        # Calculate RMSE and MAE
         train_rmse = np.sqrt(mean_squared_error(Y_train, train_predict))
         test_rmse = np.sqrt(mean_squared_error(Y_test, test_predict))
+        train_mae = mean_absolute_error(Y_train, train_predict)
+        test_mae = mean_absolute_error(Y_test, test_predict)
 
         # Streamlit visualization
-        st.write(f"Train RMSE: {train_rmse}")
-        st.write(f"Test RMSE: {test_rmse}")
+        st.write(f"Train RMSE: {train_rmse}, Train MAE: {train_mae}")
+        st.write(f"Test RMSE: {test_rmse}, Test MAE: {test_mae}")
 
         # Plotting the actual and predicted values
         fig, ax = plt.subplots()
@@ -122,14 +134,16 @@ else:
         train_predict_plot = np.empty_like(df_filtered_scaled)
         train_predict_plot[:, :] = np.nan
         train_predict_plot[time_step:len(train_predict) + time_step, :] = train_predict
-        ax.plot(train_predict_plot, label='Training Prediction')
 
-        # Plot testing predictions
+        # Plot testing predictions - Fixing the mismatch in shape
         test_predict_plot = np.empty_like(df_filtered_scaled)
         test_predict_plot[:, :] = np.nan
+
         start_index = len(train_predict) + (time_step * 2)
-        end_index = start_index + len(test_predict)
-        test_predict_plot[start_index:end_index, :] = test_predict
+        end_index = min(start_index + len(test_predict), len(test_predict_plot))  # Ensure we don't exceed array bounds
+        test_predict_plot[start_index:end_index, :] = test_predict[:(end_index - start_index)]  # Correct the index
+
+        ax.plot(train_predict_plot, label='Training Prediction')
         ax.plot(test_predict_plot, label='Testing Prediction')
 
         ax.set_title(f'Actual vs Predicted Traffic Volume for {vehicle_type}')
@@ -140,5 +154,4 @@ else:
 
         # Button to predict
         if st.button('Predict'):
-            # The above code executes when the user presses the "Predict" button
             st.success("Prediction completed and plotted!")
