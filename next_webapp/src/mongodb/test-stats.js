@@ -1,15 +1,15 @@
 const dbConnect = require('../../lib/mongodb');
-const handleRequest = require('./UseCases');
-const UseCase = require('./UseCase');
+const handleRequest = require('./CaseStudies');
+const CaseStudy = require('./CaseStudy');
 
 async function main() {
     await dbConnect();
 
     console.log('Inserting dummy data...');
-    await UseCase.deleteMany({}); // Clear existing data
+    await CaseStudy.deleteMany({}); // Clear existing data
 
     // Dummy data provided
-    const caseStudies = [
+    const CaseStudies = [
         { tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "1" },
         { tag: "Environment and Sustainability", publishNumber: "5", popularity: "40%", trimester: "2" },
         { tag: "Business and activity", publishNumber: "8", popularity: "90%", trimester: "3" },
@@ -21,40 +21,13 @@ async function main() {
         { tag: "Business and activity", publishNumber: "8", popularity: "60%", trimester: "1" },
     ];
 
-    await UseCase.insertMany(caseStudies);
+    await CaseStudy.insertMany(CaseStudies);
     console.log('Dummy data inserted.');
 
-    // Test case 1: Fetch use case statistics with filters
-    const reqStats = {
-        method: 'GET',
-        query: { stats: 'true', tag: 'Environment and Sustainability', trimester: '2' }
-    };
-
-    const resStats = {
-        status: (statusCode) => {
-            resStats.statusCode = statusCode;
-            return resStats;
-        },
-        json: (data) => {
-            console.log('Response for stats request:', data);
-        },
-        end: (message) => {
-            console.log('Response ended:', message);
-        },
-        statusCode: null
-    };
-
-    try {
-        console.log('Fetching use case statistics...');
-        await handleRequest(reqStats, resStats);
-    } catch (error) {
-        console.error('Error executing stats request:', error.message);
-    }
-
-    // Test case 2: Fetch use case count by trimester
+    //Fetch all use cases
     const reqCount = {
         method: 'GET',
-        query: {} // No filters for counting by trimester
+        query: {}
     };
 
     const resCount = {

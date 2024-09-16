@@ -1,18 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import { useTranslations } from "next-intl";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
+import {useTranslations} from "next-intl";
+import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from "chart.js";
+import {Bar} from "react-chartjs-2";
+import {CATEGORY, SEARCH_MODE, SearchParams} from "@/app/types";
 
 ChartJS.register(
   CategoryScale,
@@ -23,39 +16,75 @@ ChartJS.register(
   Legend
 );
 
-const Statistics = () => {
-  // Dummy Array
-  const caseStudies = [
-    { id: 1, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "1" },
-    { id: 2, tag: "Environment and Sustainability", publishNumber: "5", popularity: "40%", trimester: "2" },
-    { id: 3, tag: "Business and activity", publishNumber: "8", popularity: "90%", trimester: "3" },
-    { id: 4, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "2" },
-    { id: 5, tag: "Environment and Sustainability", publishNumber: "5", popularity: "90%", trimester: "3" },
-    { id: 6, tag: "Business and activity", publishNumber: "8", popularity: "70%", trimester: "1" },
-    { id: 7, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "2" },
-    { id: 8, tag: "Environment and Sustainability", publishNumber: "5", popularity: "20%", trimester: "2" },
-    { id: 9, tag: "Business and activity", publishNumber: "8", popularity: "60%", trimester: "1" },
-  ];
+async function searchStatistics(searchParams: SearchParams) {
+  const response = await fetch("/api/statistics", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
 
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+
+
+const Statistics = () => {
+  const [caseStudies, setCaseStudies] = useState([]);
   // State for storing the filtered results and all filters
   const [filteredStudies, setFilteredStudies] = useState(caseStudies);
+
+  useEffect(() => {
+    fetchStatistics()
+  }, [])
+
+  const fetchStatistics = async () => {
+    try {
+      const data = await searchStatistics({searchTerm: "",
+        searchMode: SEARCH_MODE.TITLE,
+        category: CATEGORY.EV});
+      setCaseStudies(data);
+      console.log('data received! ' + data.toString());
+    } catch (error) {
+      console.log('request called!');
+    } finally {
+      console.log('request called finally!');
+    }
+  };
+
   const [tagFilter, setTagFilter] = useState("");
   const [trimesterFilter, setTrimesterFilter] = useState("");
   const [pagefilter, setPageFilter] = useState("5");
   const [search, setSearchTerm] = useState("");
 
+  // Effect to handle filtering based on tag and trimester
+  useEffect(() => {
+    let filtered = caseStudies;
+    if (tagFilter) {
+      filtered = filtered.filter((study: {tag: string}) => study.tag === tagFilter);
+    }
+    if (trimesterFilter) {
+      filtered = filtered.filter((study: {trimester: string}) => study.trimester === trimesterFilter);
+    }
+    setFilteredStudies(filtered);
+  }, [tagFilter, trimesterFilter]);
+
   // Distinct tags for the dropdown
-  const tags = Array.from(new Set(caseStudies.map((study) => study.tag)));
-  const trimesters = Array.from(new Set(caseStudies.map((study) => study.trimester)));
+  const tags = Array.from(new Set(caseStudies.map((study: {tag: string}) => study.tag)));
+  // Distinct trimesters for the dropdown
+  const trimesters = Array.from(new Set(caseStudies.map((study: {trimester: string}) => study.trimester)));
 
   // Effect to handle filtering based on tag and trimester
   useEffect(() => {
     let filtered = caseStudies;
     if (tagFilter) {
-      filtered = filtered.filter((study) => study.tag === tagFilter);
+      filtered = filtered.filter((study: {tag: string}) => study.tag === tagFilter);
     }
     if (trimesterFilter) {
-      filtered = filtered.filter((study) => study.trimester === trimesterFilter);
+      filtered = filtered.filter((study: {trimester: string}) => study.trimester === trimesterFilter);
     }
     setFilteredStudies(filtered);
   }, [tagFilter, trimesterFilter]);
@@ -68,7 +97,7 @@ const Statistics = () => {
   const npage = Math.ceil(filteredStudies.length / recordsPage);
 
   // Sort caseStudies by popularity
-  const sortedStudiesByPopularity = [...caseStudies].sort((a, b) => {
+  const sortedStudiesByPopularity = [...caseStudies].sort((a: {popularity: string}, b: {popularity: string}) => {
     const popularityA = parseFloat(a.popularity.replace('%', ''));
     const popularityB = parseFloat(b.popularity.replace('%', ''));
     return popularityB - popularityA; // Descending order
@@ -76,9 +105,9 @@ const Statistics = () => {
 
 
   // Counting the values of trimester to plot on the graph
-  const tri1 = caseStudies.filter((item) => item.trimester === "1").length;
-  const tri2 = caseStudies.filter((item) => item.trimester === "2").length;
-  const tri3 = caseStudies.filter((item) => item.trimester === "3").length;
+  const tri1 = caseStudies.filter((item: {trimester: string}) => item.trimester === "1").length;
+  const tri2 = caseStudies.filter((item: {trimester: string}) => item.trimester === "2").length;
+  const tri3 = caseStudies.filter((item: {trimester: string}) => item.trimester === "3").length;
 
   // Store the required variables for plotting the graph
   const data1 = {
@@ -229,12 +258,12 @@ const Statistics = () => {
                   </thead>
                   <tbody>
                     {records
-                      .filter((item) => {
+                      .filter((item: {tag: string}) => {
                         return search.toLowerCase() === ""
                           ? item
                           : item.tag.toLowerCase().includes(search);
                       })
-                      .map((study, index) => (
+                      .map((study: {id: string, tag: string, publishNumber: string, popularity: string }, index) => (
                         <tr
                           key={study.id}
                           className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
