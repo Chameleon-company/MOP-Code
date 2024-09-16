@@ -76,12 +76,12 @@
       "User Cases": "用户案例",
       "All categories": "所有类别",
       "Search by title": "按标题搜索",
-      "Search by content": "按内容搜索",
+      "Search by content": "按标签搜索",
       "Internet": "互联网",
       "EV": "电动车",
       "Security": "安全",
       "Search": "搜索",
-      "Case study name or category": "案例研究名称或类别"
+      "Case study name or category": "用例搜索词"
   },
   "licensing": {
       "Licensing": "许可",
@@ -136,5 +136,15 @@
         "Weak": "虚弱的",
         "Moderate":"缓和",
         "Strong":"强的"
+  },
+  "login":{
+    "Account Log In": "账户登录",
+    "Please login to continue to your account": "请登录以继续使用您的帐户",
+    "Email": "电子邮件",
+    "Password": "密码",
+    "Remember Me": "记住账号",
+    "Forgot Password?": "忘记密码？",
+    "LOGIN": "登录"
+
   }
 }

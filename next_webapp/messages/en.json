@@ -57,8 +57,8 @@
       },
       "statistics":{
         "Statistics": "Statistics",
-        "All Tags": "All Tags",
-        "All Trimesters": "All Trimesters",
+        "All Tags": "Select Tag",
+        "All Trimesters": "Select Trimester",
         "Trimester1": "Trimester 1",
         "Trimester2": "Trimester 2",
         "Trimester3": "Trimester 3",
@@ -76,12 +76,12 @@
         "User Cases": "User Cases",
         "All categories": "All categories",
         "Search by title": "Search by title",
-        "Search by content": "Search by content",
+        "Search by content": "Search by tag",
         "Internet": "Internet",
         "EV": "EV",
         "Security": "Security",
         "Search": "Search",
-        "Case study name or category": "Case study name or category"
+        "Case study name or category": "Use case search term"
       },
       "licensing": {
         "Licensing": "Licensing",
@@ -136,5 +136,14 @@
         "Weak": "Weak",
         "Moderate":"Moderate",
         "Strong":"Strong"
+      },
+      "login":{
+        "Account Log In": "Account Log In",
+        "Please login to continue to your account": "Please login to continue to your account",
+        "Email": "Email",
+        "Password": "Password",
+        "Remember Me": "Remember Me",
+        "Forgot Password?": "Forgot Password?",
+        "LOGIN": "LOGIN"
       }
   }

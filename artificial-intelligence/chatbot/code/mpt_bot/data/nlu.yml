@@ -1,5 +1,16 @@
 version: "3.1"
 nlu:
+- regex: station_name
+  examples: |
+    - [Central Station](station_name)
+    - [North Station](station_name)
+
+- lookup: station_name
+  examples: |
+    - Central Station
+    - North Station
+    - South Station
+    - East Station
 - intent: greet
   examples: |
     - hey
@@ -92,7 +103,7 @@ nlu:
     - How do I get to [Southern Cross](station_b) from [Flinders Street](station_a)?
 - intent: request_map
   examples: |
-    - Show me a map of the train stations.
+    - Show me a map of Melbourne train stations.
     - Can you generate a map of Melbourne train stations?
     - Create a map with all train stops in Melbourne.
 - regex: time
@@ -112,3 +123,78 @@ nlu:
     - What’s the best train route from [Dandenong](station_a) to [Caulfield](station_b)?
     - How can I get from [Richmond](station_a) to [South Kensington](station_b)?
     - What’s the fastest way to travel from [Footscray](station_a) to [Williamstown](station_b)?
+- intent: ask_direct_route
+  examples: |
+    - Is there a direct train from [Dandenong](station_a) to [Parliament](station_b)?
+    - Do I need to change trains to get from [Melbourne Central](station_a) to [Flinders Street](station_b)?
+    - Is there a train that goes directly from [Richmond](station_a) to [South Yarra](station_b)?
+    - Is there a direct train from [Parliament](station_a) to [Ringwood](station_b)?
+- intent: ask_transfers
+  examples: |
+    - Do I need to change trains to get to [Dandenong](station_b) from [Parliament](station_a)?
+    - How many transfers are there between [South Yarra](station_a) to [Hawthorn](station_b)?
+    - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
+    - Will I need to change trains to go from [Flinders Street](station_a) to [Southern Cross](station_b)?
+    - How many train changes between [Melbourne Central](station_a) and [Glenferrie](station_b)?
+- intent: ask_best_route
+  examples: |
+    - What is the best route from [Richmond](station_a) to [North Melbourne](station_b)?
+    - How should I travel from [Richmond](station_a) to [North Melbourne](station_b) with the fewest transfers?
+    - What is the fastest route from [Richmond](station_a) to [North Melbourne](station_b)?
+- intent: ask_least_stops_route
+  examples: |
+    - What is the route with the least number of stops from [Ringwood](station_a) to [Parliament](station_b)?
+    - Which route has the fewest stops between [Ringwood](station_a) and [Parliament](station_b)?
+    - How can I travel with the least stops from [Ringwood](station_a) to [Parliament](station_b)?
+- intent: ask_quickest_route
+  examples: |
+    - Can you tell me the quickest way from [South Yarra](station_a) to [Hawthorn](station_b)?
+    - What's the fastest route from [Footscray](station_a) to [Melbourne Central](station_b)?
+- intent: ask_next_train
+  examples: |
+    - What time does the next train from [South Yarra](station_a) to [Hawthorn](station_b) leave?
+    - When is the next train from [Richmond](station_a) to [Flinders Street](station_b)?
+    - Next train from [Footscray](station_a) to [Melbourne Central](station_b)?
+    - At what time does the next train depart from [South Yarra](station_a) to [Hawthorn](station_b)?
+    - What is the schedule for the next train from [Dandenong](station_a) to [Parliament](station_b)?
+
+
+- intent: run_direction_script
+  examples: |
+    - run the direction script
+    - I need directions to a place.
+    - I want to go somewhere
+    - Can you help me get somewhere?
+    - I need to take the train
+    - Can you show me the way?
+    - Guide me to a location.
+    - I want to find how to reach a place
+    - Im looking for directions
+
+#Logan: Temporary location solution, working on better method
+
+- intent: provide_location
+  examples: |
+    - [Southbank](location)
+    - [St Kilda](location)
+    - [Collingwood](location)
+    - [Footscray](location)
+    - [Melbourne Central](location)
+    - [Prahran](location)
+    - [Federation Square](location)
+    - [Melbourne Airport](location)
+    - [Essendon](location)
+
+
+- intent: provide_destination
+  examples: |
+    - [Melbourne CBD](location)
+    - [Richmond](location)
+    - [South Melbourne](location)
+    - [Brunswick](location)
+    - [Docklands](location)
+    - [Fitzroy](location)
+    - [North Melbourne](location)
+    - [South Yarra](location)
+    - [Carlton](location)
+    - [MCG](location)    
