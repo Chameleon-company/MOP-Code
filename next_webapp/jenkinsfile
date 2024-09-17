@@ -127,7 +127,7 @@ pipeline {
                     sh 'sudo dpkg -i trivy_0.31.3_Linux-64bit.deb'
 
                     // Scan the Docker image created in the Deploy stage
-                    sh 'trivy image next-webapp'
+                    sh 'trivy image mop-next-webapp' //updated new image name
                 }
             }
         }
