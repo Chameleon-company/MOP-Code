@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f87844c3281e833f3ba861f20b9f0514 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f87844c3281e833f3ba861f20b9f0514" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f87844c3281e833f3ba861f20b9f0514 = L.map(
+                "map_f87844c3281e833f3ba861f20b9f0514",
+                {
+                    center: [-37.80269136881641, 144.9453980215212],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_62e3e864050644b1b0e1f794215936e2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_62e3e864050644b1b0e1f794215936e2.addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var marker_476563d456a0030236cafb3eeff9573c = L.marker(
+                [-37.80536030043139, 144.94487882984174],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_d197041f2cad96e8b27dd8078866f580 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_476563d456a0030236cafb3eeff9573c.setIcon(icon_d197041f2cad96e8b27dd8078866f580);
+        
+    
+        var popup_a7ef06de11a70f513a43d5c2c9622fc2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_12426d62ff51df59ea39114f8f4f9b63 = $(`<div id="html_12426d62ff51df59ea39114f8f4f9b63" style="width: 100.0%; height: 100.0%;">Road: Abbottsford Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 100672.06674437324</div>`)[0];
+                popup_a7ef06de11a70f513a43d5c2c9622fc2.setContent(html_12426d62ff51df59ea39114f8f4f9b63);
+            
+        
+
+        marker_476563d456a0030236cafb3eeff9573c.bindPopup(popup_a7ef06de11a70f513a43d5c2c9622fc2)
+        ;
+
+        
+    
+    
+            var marker_458d734395baab11bfddd9a359cffe47 = L.marker(
+                [-37.8244512444801, 144.97374387571432],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_6c10b24e4a5c712a975ab9616553ae15 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_458d734395baab11bfddd9a359cffe47.setIcon(icon_6c10b24e4a5c712a975ab9616553ae15);
+        
+    
+        var popup_87898dc8fcca98b87a29929b8b3535f0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_922ca77dc70a572962cb6bcaf5ff58f3 = $(`<div id="html_922ca77dc70a572962cb6bcaf5ff58f3" style="width: 100.0%; height: 100.0%;">Road: Anderson Street<br>Speeding Violation Rate: 4.24%<br>Total Traffic Volume: 164033.2005731472</div>`)[0];
+                popup_87898dc8fcca98b87a29929b8b3535f0.setContent(html_922ca77dc70a572962cb6bcaf5ff58f3);
+            
+        
+
+        marker_458d734395baab11bfddd9a359cffe47.bindPopup(popup_87898dc8fcca98b87a29929b8b3535f0)
+        ;
+
+        
+    
+    
+            var marker_dcfe654c3318b20ba89a30ffc4cf8cf0 = L.marker(
+                [-37.80007447851221, 144.94173799325807],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_c7b20174c7b69dbddedc5513acaa735f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_dcfe654c3318b20ba89a30ffc4cf8cf0.setIcon(icon_c7b20174c7b69dbddedc5513acaa735f);
+        
+    
+        var popup_0737641a81a88b2a5c677cfcbb086add = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a67f659d92b10f4a440330c15c725702 = $(`<div id="html_a67f659d92b10f4a440330c15c725702" style="width: 100.0%; height: 100.0%;">Road: Arden Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 266017.15306759207</div>`)[0];
+                popup_0737641a81a88b2a5c677cfcbb086add.setContent(html_a67f659d92b10f4a440330c15c725702);
+            
+        
+
+        marker_dcfe654c3318b20ba89a30ffc4cf8cf0.bindPopup(popup_0737641a81a88b2a5c677cfcbb086add)
+        ;
+
+        
+    
+    
+            var marker_9ff863569d9da88b2b20065aa06b3e1d = L.marker(
+                [-37.79319824384064, 144.9268133291936],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_20802cd596e9a0753fdc0d41bdbaa0d7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_9ff863569d9da88b2b20065aa06b3e1d.setIcon(icon_20802cd596e9a0753fdc0d41bdbaa0d7);
+        
+    
+        var popup_d956cca4ea51a2a3c724262ec92770e1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_259a208569323bc1642a4041e3028100 = $(`<div id="html_259a208569323bc1642a4041e3028100" style="width: 100.0%; height: 100.0%;">Road: Epsom Road<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 111307.87909372826</div>`)[0];
+                popup_d956cca4ea51a2a3c724262ec92770e1.setContent(html_259a208569323bc1642a4041e3028100);
+            
+        
+
+        marker_9ff863569d9da88b2b20065aa06b3e1d.bindPopup(popup_d956cca4ea51a2a3c724262ec92770e1)
+        ;
+
+        
+    
+    
+            var marker_e161254dc5f43201dfba441ad9df0b2b = L.marker(
+                [-37.800117074605446, 144.95559719107828],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_a9f92c128e88a69801528e37bf4fec37 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_e161254dc5f43201dfba441ad9df0b2b.setIcon(icon_a9f92c128e88a69801528e37bf4fec37);
+        
+    
+        var popup_dd4d9316945504721333499604274c27 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_104659406940e57a5c6d21e3eaa9961b = $(`<div id="html_104659406940e57a5c6d21e3eaa9961b" style="width: 100.0%; height: 100.0%;">Road: Flemington Road<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 199715.7049561082</div>`)[0];
+                popup_dd4d9316945504721333499604274c27.setContent(html_104659406940e57a5c6d21e3eaa9961b);
+            
+        
+
+        marker_e161254dc5f43201dfba441ad9df0b2b.bindPopup(popup_dd4d9316945504721333499604274c27)
+        ;
+
+        
+    
+    
+            var marker_f6f4253857be2a1a3810b52cfd171e20 = L.marker(
+                [-37.79257484630395, 144.91953143955618],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_d60a0945cbcad461eee475c881fa648a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_f6f4253857be2a1a3810b52cfd171e20.setIcon(icon_d60a0945cbcad461eee475c881fa648a);
+        
+    
+        var popup_a9f359b69e3e676bda06cce6e12e75c0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8540a84ebc2f2f15f3a34ee720b1111b = $(`<div id="html_8540a84ebc2f2f15f3a34ee720b1111b" style="width: 100.0%; height: 100.0%;">Road: Gatehouse Drive<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 77549.30422807125</div>`)[0];
+                popup_a9f359b69e3e676bda06cce6e12e75c0.setContent(html_8540a84ebc2f2f15f3a34ee720b1111b);
+            
+        
+
+        marker_f6f4253857be2a1a3810b52cfd171e20.bindPopup(popup_a9f359b69e3e676bda06cce6e12e75c0)
+        ;
+
+        
+    
+    
+            var marker_b43dd0dee17f09b0658e3b61e5d1f673 = L.marker(
+                [-37.79407369273793, 144.95443252605506],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_3e11f19b6132046fd01f9cd4642fe697 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_b43dd0dee17f09b0658e3b61e5d1f673.setIcon(icon_3e11f19b6132046fd01f9cd4642fe697);
+        
+    
+        var popup_867e15255a6e5771fe8337bd80496971 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ffc03ab665a3b09fd21191055f9780b0 = $(`<div id="html_ffc03ab665a3b09fd21191055f9780b0" style="width: 100.0%; height: 100.0%;">Road: Gatehouse Street<br>Speeding Violation Rate: 0.24%<br>Total Traffic Volume: 406324.97706689016</div>`)[0];
+                popup_867e15255a6e5771fe8337bd80496971.setContent(html_ffc03ab665a3b09fd21191055f9780b0);
+            
+        
+
+        marker_b43dd0dee17f09b0658e3b61e5d1f673.bindPopup(popup_867e15255a6e5771fe8337bd80496971)
+        ;
+
+        
+    
+    
+            var marker_5b47997f1d9b81b33db607ed3c0182cb = L.marker(
+                [-37.79662223211197, 144.92334972258587],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_dbf3a1c856bb5b969aed03a411e6d17c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_5b47997f1d9b81b33db607ed3c0182cb.setIcon(icon_dbf3a1c856bb5b969aed03a411e6d17c);
+        
+    
+        var popup_69a5a1fca023b47900cd32c01ac93dfd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b5b03fdb5d9239616aa63794b6b5066f = $(`<div id="html_b5b03fdb5d9239616aa63794b6b5066f" style="width: 100.0%; height: 100.0%;">Road: Kensington Road<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 129547.66921784892</div>`)[0];
+                popup_69a5a1fca023b47900cd32c01ac93dfd.setContent(html_b5b03fdb5d9239616aa63794b6b5066f);
+            
+        
+
+        marker_5b47997f1d9b81b33db607ed3c0182cb.bindPopup(popup_69a5a1fca023b47900cd32c01ac93dfd)
+        ;
+
+        
+    
+    
+            var marker_9962dc2f863d7c6b55a04f18aadab862 = L.marker(
+                [-37.80194457687862, 144.9308787370982],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_12bfcd186c8ea41140dc34a4f8fea652 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_9962dc2f863d7c6b55a04f18aadab862.setIcon(icon_12bfcd186c8ea41140dc34a4f8fea652);
+        
+    
+        var popup_de3f98f6d86980ad009938f3de2d621b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_695c917ac0c50e9d1e8d458a8a359c51 = $(`<div id="html_695c917ac0c50e9d1e8d458a8a359c51" style="width: 100.0%; height: 100.0%;">Road: Lloyd Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 77071.08614299436</div>`)[0];
+                popup_de3f98f6d86980ad009938f3de2d621b.setContent(html_695c917ac0c50e9d1e8d458a8a359c51);
+            
+        
+
+        marker_9962dc2f863d7c6b55a04f18aadab862.bindPopup(popup_de3f98f6d86980ad009938f3de2d621b)
+        ;
+
+        
+    
+    
+            var marker_dc145413a1f1d31619e5b574ea8fe285 = L.marker(
+                [-37.79586587541699, 144.93502457642055],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_77e038362acea08ffaac4dec996bb478 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_dc145413a1f1d31619e5b574ea8fe285.setIcon(icon_77e038362acea08ffaac4dec996bb478);
+        
+    
+        var popup_5429be2003889a02bf4af66a026b04c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1c4ad64a166aa69c3a5356939b44433a = $(`<div id="html_1c4ad64a166aa69c3a5356939b44433a" style="width: 100.0%; height: 100.0%;">Road: Macaulay Road<br>Speeding Violation Rate: 0.10%<br>Total Traffic Volume: 351926.00302879786</div>`)[0];
+                popup_5429be2003889a02bf4af66a026b04c7.setContent(html_1c4ad64a166aa69c3a5356939b44433a);
+            
+        
+
+        marker_dc145413a1f1d31619e5b574ea8fe285.bindPopup(popup_5429be2003889a02bf4af66a026b04c7)
+        ;
+
+        
+    
+    
+            var marker_aadcbe767f531239661e002fb847c5bf = L.marker(
+                [-37.8029664157792, 144.94882052280224],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_f960591e2fef1b6bffac35575699ae9f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_aadcbe767f531239661e002fb847c5bf.setIcon(icon_f960591e2fef1b6bffac35575699ae9f);
+        
+    
+        var popup_fb57d377934f6ed6a301d3d704676b9a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_267de48c95ca2abb99b4d65d48fd2ea3 = $(`<div id="html_267de48c95ca2abb99b4d65d48fd2ea3" style="width: 100.0%; height: 100.0%;">Road: Queensberry Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 214804.13028841387</div>`)[0];
+                popup_fb57d377934f6ed6a301d3d704676b9a.setContent(html_267de48c95ca2abb99b4d65d48fd2ea3);
+            
+        
+
+        marker_aadcbe767f531239661e002fb847c5bf.bindPopup(popup_fb57d377934f6ed6a301d3d704676b9a)
+        ;
+
+        
+    
+    
+            var marker_1d03e3705b892c2a59e4ddac349a65a2 = L.marker(
+                [-37.8014354752279, 144.9698287850515],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_e1f0e25f306cf0af5c6d39801b2cee08 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_1d03e3705b892c2a59e4ddac349a65a2.setIcon(icon_e1f0e25f306cf0af5c6d39801b2cee08);
+        
+    
+        var popup_5e48bdab64f5f491c70bc78eb2261a75 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_384b5c0f54569bc4fca2ae543f593e29 = $(`<div id="html_384b5c0f54569bc4fca2ae543f593e29" style="width: 100.0%; height: 100.0%;">Road: Rathdowne Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 519335.02588006674</div>`)[0];
+                popup_5e48bdab64f5f491c70bc78eb2261a75.setContent(html_384b5c0f54569bc4fca2ae543f593e29);
+            
+        
+
+        marker_1d03e3705b892c2a59e4ddac349a65a2.bindPopup(popup_5e48bdab64f5f491c70bc78eb2261a75)
+        ;
+
+        
+    
+    
+            var marker_6acc9186c35f4cf77ae3a5c20dc6e0bd = L.marker(
+                [-37.806623782975485, 144.9459043533111],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_501358a4181aef954b6b299b8afdcabc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_6acc9186c35f4cf77ae3a5c20dc6e0bd.setIcon(icon_501358a4181aef954b6b299b8afdcabc);
+        
+    
+        var popup_85e32c0966543fd11b850544ecd8d7b8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d6a3623238c63429d9701097641de65d = $(`<div id="html_d6a3623238c63429d9701097641de65d" style="width: 100.0%; height: 100.0%;">Road: Spencer Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 283764.1495221953</div>`)[0];
+                popup_85e32c0966543fd11b850544ecd8d7b8.setContent(html_d6a3623238c63429d9701097641de65d);
+            
+        
+
+        marker_6acc9186c35f4cf77ae3a5c20dc6e0bd.bindPopup(popup_85e32c0966543fd11b850544ecd8d7b8)
+        ;
+
+        
+    
+    
+            var marker_5503fe096b2ce3aa0a4d559aa6e2e861 = L.marker(
+                [-37.79263340556885, 144.93532577014406],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_f53ebd3caa53e317ecfca481b2f6b25c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_5503fe096b2ce3aa0a4d559aa6e2e861.setIcon(icon_f53ebd3caa53e317ecfca481b2f6b25c);
+        
+    
+        var popup_817bd4e9df0aae320379fa0c510b3aa9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_290860394a6e3331677c1815ec286d78 = $(`<div id="html_290860394a6e3331677c1815ec286d78" style="width: 100.0%; height: 100.0%;">Road: Stubbs Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 270820.97338078794</div>`)[0];
+                popup_817bd4e9df0aae320379fa0c510b3aa9.setContent(html_290860394a6e3331677c1815ec286d78);
+            
+        
+
+        marker_5503fe096b2ce3aa0a4d559aa6e2e861.bindPopup(popup_817bd4e9df0aae320379fa0c510b3aa9)
+        ;
+
+        
+    
+    
+            var marker_10e843b481d45e0f6333b20769930ec2 = L.marker(
+                [-37.80533158523445, 144.9510030774347],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_943eee333b7349496199db59f07c34f0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_10e843b481d45e0f6333b20769930ec2.setIcon(icon_943eee333b7349496199db59f07c34f0);
+        
+    
+        var popup_5272a3cfc99499dce9458092a91578e2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_565a750cec594d97aea4a1bd689ee93a = $(`<div id="html_565a750cec594d97aea4a1bd689ee93a" style="width: 100.0%; height: 100.0%;">Road: Victoria Street<br>Speeding Violation Rate: 0.00%<br>Total Traffic Volume: 194460.08879049896</div>`)[0];
+                popup_5272a3cfc99499dce9458092a91578e2.setContent(html_565a750cec594d97aea4a1bd689ee93a);
+            
+        
+
+        marker_10e843b481d45e0f6333b20769930ec2.bindPopup(popup_5272a3cfc99499dce9458092a91578e2)
+        ;
+
+        
+    
+    
+            var marker_fe6c9d142f8d03eecff979d3b1b3163b = L.marker(
+                [-37.82978867095752, 144.96949761479416],
+                {}
+            ).addTo(map_f87844c3281e833f3ba861f20b9f0514);
+        
+    
+            var icon_c0a01f135ec38e8c1b04b125a48d98ab = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_fe6c9d142f8d03eecff979d3b1b3163b.setIcon(icon_c0a01f135ec38e8c1b04b125a48d98ab);
+        
+    
+        var popup_e21f27df03f35e03f8bc2897f3438341 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f37eed0a42124d19f9b8b28f0bffbb8f = $(`<div id="html_f37eed0a42124d19f9b8b28f0bffbb8f" style="width: 100.0%; height: 100.0%;">Road: Wells Place<br>Speeding Violation Rate: 42.86%<br>Total Traffic Volume: 50642.00080550401</div>`)[0];
+                popup_e21f27df03f35e03f8bc2897f3438341.setContent(html_f37eed0a42124d19f9b8b28f0bffbb8f);
+            
+        
+
+        marker_fe6c9d142f8d03eecff979d3b1b3163b.bindPopup(popup_e21f27df03f35e03f8bc2897f3438341)
+        ;
+
+        
+    
+</script>
+</html>
