@@ -7,8 +7,8 @@ import Header from "../../../components/Header";
 
 const PasswordStrengthIndicator = ({ password }) => {
     const calculateStrength = (password : string) => {
-      // You can implement your password strength calculation logic here
-      // For simplicity, I'll just return the length of the password
+      // You can implement your password strength calculation logic here.
+      // For simplicity, I'll just return the length of password
       return password.length;
     };
   
