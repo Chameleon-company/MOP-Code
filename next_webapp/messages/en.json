@@ -28,15 +28,17 @@
         "Greek": "Greek"
       },
       "about": {
-        "About": "About",
-        "Us": "Us",
+        "About Us": "About Us",
+        "About":"About",
+        "Us":"Us",
         "About MOP": "About MOP",
         "p1": "Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University in collaboration with City of Melbourne. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council.",
-        "p2": "This project is meant to align with two strategic documents from the Melbourne City Council: The Economic Development Strategy, which aims to be a digitally-connected city. The 2021-2025Council Plan, which outlines the specific objective of delivering programs that will build literacy skills and capabilities.",
+        "p2": "This project is meant to align with two strategic documents from the Melbourne City Council: The Economic Development Strategy, which aims to be a digitally-connected city. The 2021-2025 Council Plan, which outlines the specific objective of delivering programs that will build literacy skills and capabilities.",
         "Open Data Leadership": "Open Data Leadership",
         "p3": "The City of Melbourne has been an Australian leader in Open Data since 2014. Recent research and local user engagement have identified a gap where users would like to learn more about how to access Open Data and how to gain insights from the data to build apps and solve city problems.",
+        "Our Goals": "Our Goals",
         "Our": "Our",
-        "Goals": "Goals",
+        "Goals":"Goals",
         "p4": "This project aims to deliver proof-of-concept examples on how calls to Open Data APIs can be made."
       },
       "privacypolicy": {
@@ -57,20 +59,20 @@
       },
       "statistics":{
         "Statistics": "Statistics",
-        "t1": "Trimester which published the most test cases",
         "All Tags": "All Tags",
-        "All Publish Numbers": "All Publish Numbers",
-        "Less than 4": "Less than 4",
-        "Between 4 and 7": "Between 4 and 7",
-        "Above 7": "Above 7",
-        "t2": "All Popularity Ranges",
+        "All Trimesters": "All Trimesters",
+        "Trimester1": "Trimester 1",
+        "Trimester2": "Trimester 2",
+        "Trimester3": "Trimester 3",
+        "t1": "Trimester which publish the most test cases",
+        "t2": "Popularity",
         "Total Results": "Total Results",
-        "ID": "ID",
+        "Enter Tag name": "Enter Tag name",
+        "No": "No.",
         "Tag": "Tag",
-        "number": "Number of Case Studies Published",
+        "number": "Number of Test Cases Published",
         "Popularity": "Popularity",
-        "Rows per page": "Rows per page",
-        "Enter Tag name": "Enter Tag name"
+        "Rows per page": "Rows per page"
       },
       "usecases": {
         "User Cases": "User Cases",
@@ -121,5 +123,20 @@
         "Enter Your Phone Number": "Enter Your Phone Number",
         "Message": "Message",
         "Enter Message": "Enter Message"
+      },
+      "signup":{
+        "language": "language",
+        "Already a member?": "Already a member?",
+        "Log In":"Log In",
+        "Account Sign Up": "Account Sign Up",
+        "Last name": "Last name",
+        "Email": "Email",
+        "Password": "Password",
+        "Password Strength": "Password Strength",
+        "Next": "Next",
+        "First name": "First name",
+        "Weak": "Weak",
+        "Moderate":"Moderate",
+        "Strong":"Strong"
       }
   }

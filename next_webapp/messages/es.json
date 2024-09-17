@@ -30,6 +30,7 @@
     "about": {
         "About": "Acerca de",
         "Us": "Nosotros",
+        "About Us": "Acerca de Nosotros",
         "About MOP": "Acerca del MOP",
         "p1": "El Proyecto de Datos Abiertos de Melbourne (MOP) es un proyecto de culminación patrocinado por la Universidad Deakin en colaboración con la Ciudad de Melbourne. Desde el COVID, ha habido un aumento en la demanda de datos por parte de la comunidad empresarial para apoyar su toma de decisiones. Este proyecto está destinado a alinearse con dos documentos estratégicos del Consejo de la Ciudad de Melbourne.",
         "p2": "Este proyecto está destinado a alinearse con dos documentos estratégicos del Consejo de la Ciudad de Melbourne: la Estrategia de Desarrollo Económico, que tiene como objetivo ser una ciudad digitalmente conectada. El Plan del Consejo 2021-2025, que describe el objetivo específico de entregar programas que construirán habilidades y capacidades de alfabetización.",
@@ -37,6 +38,7 @@
         "p3": "La Ciudad de Melbourne ha sido líder en Datos Abiertos en Australia desde 2014. Investigaciones recientes y la participación de usuarios locales han identificado un vacío donde los usuarios desearían aprender más sobre cómo acceder a Datos Abiertos y cómo obtener insights de los datos para construir aplicaciones y resolver problemas de la ciudad.",
         "Our": "Nuestros",
         "Goals": "Objetivos",
+        "Our Goals":"Nuestros Objetivos",
         "p4": "Este proyecto tiene como objetivo entregar ejemplos de prueba de concepto sobre cómo se pueden realizar llamadas a las APIs de Datos Abiertos."
     },
     "privacypolicy": {
@@ -76,12 +78,12 @@
         "User Cases": "Casos de Usuario",
         "All categories": "Todas las categorías",
         "Search by title": "Buscar por título",
-        "Search by content": "Buscar por contenido",
+        "Search by content": "Buscar por etiqueta",
         "Internet": "Internet",
         "EV": "VE (Vehículo Eléctrico)",
         "Security": "Seguridad",
         "Search": "Buscar",
-        "Case study name or category": "Nombre o categoría del caso de estudio"
+        "Case study name or category": "érmino de búsqueda de casos de uso"
     },
     "licensing": {
         "Licensing": "Licenciamiento",
@@ -121,5 +123,30 @@
         "Enter Your Phone Number": "Ingrese su número de teléfono",
         "Message": "Mensaje",
         "Enter Message": "Ingrese su mensaje"
-      }
+      },
+      "signup": {
+        "language": "idioma",
+        "Already a member?": "¿Ya eres miembro?",
+        "Log In": "Iniciar sesión",
+        "Account Sign Up": "Registro de cuenta",
+        "Last name": "Apellido",
+        "Email": "Correo electrónico",
+        "Password": "Contraseña",
+        "Password Strength": "Fortaleza de la contraseña",
+        "Next": "Próximo",
+        "First name": "Nombre de pila",
+        "Weak": "Débil",
+        "Moderate":"moderarse",
+        "Strong":"Fuerte"
+     },
+     "login":{
+        "Account Log In": "Iniciar sesión en la cuenta",
+        "Please login to continue to your account": "Por favor inicie sesión para continuar con su cuenta",
+        "Email": "Correo electrónico",
+        "Password": "Contraseña",
+        "Remember Me": "Acuérdate de mí",
+        "Forgot Password?": "¿Olvidaste tu contraseña?",
+        "LOGIN": "ACCESO"
+
+     }
 }
