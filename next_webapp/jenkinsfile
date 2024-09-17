@@ -124,6 +124,22 @@ pipeline {
                 }
             }
         }
+
+        //Danish 
+         stage('Security Scan') {
+            steps {
+                dir('next_webapp') {
+                    echo 'Scanning Docker image for vulnerabilities...'
+
+                    // Install Trivy
+                    sh 'wget https://github.com/aquasecurity/trivy/releases/download/v0.31.3/trivy_0.31.3_Linux-64bit.deb'
+                    sh 'sudo dpkg -i trivy_0.31.3_Linux-64bit.deb'
+
+                    // Scan the Docker image created in the Deploy stage
+                    sh 'trivy image mop-next-webapp' //updated new image name
+                }
+            }
+        }
     }
     
     post {
