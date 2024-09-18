@@ -4,11 +4,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
-import { caseStudies } from "./database";
-import { CATEGORY, SEARCH_MODE, SearchParams } from "../../types";
+import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
 import { useTranslations } from "next-intl";
-// import path from "path";
-// import fs from "fs";
 
 async function searchUseCases(searchParams: SearchParams) {
   const response = await fetch("/api/search-use-cases", {
@@ -27,7 +24,12 @@ async function searchUseCases(searchParams: SearchParams) {
 }
 
 const UseCases = () => {
+  const [caseStudies, setCaseStudies] = useState([])
   const [filteredCaseStudies, setFilteredCaseStudies] = useState(caseStudies);
+
+  useEffect(() => {
+    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL)
+  }, [])
 
   const handleSearch = async (
     searchTerm: string,
