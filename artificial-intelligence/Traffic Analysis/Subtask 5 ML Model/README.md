@@ -52,12 +52,11 @@ The model was trained using the **Multinomial Logistic Regression** algorithm:
 Below are some visualizations used in this project:
 
 ### Confusion Matrix
-![Confusion Matrix](artificial-intelligence/Traffic Analysis/Subtask 5 ML model/confusion_matrix.png)
+![Confusion Matrix](./visualisations/confusion_matrix.png)
 
 ### Example Model Output
-![Model Output](artificial-intelligence/Traffic Analysis/Subtask 5 ML model/model_output.png)
+![Model Output](./visualisations/model_output.png)
 
-> **Note:** Replace `path_to_image` with the actual path to the images in your repository.
 
 ## Cross-Validation
 - Applied 5-fold cross-validation.
