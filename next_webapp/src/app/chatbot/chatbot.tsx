@@ -4,7 +4,6 @@ import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5"; // Import I
 import { useRouter } from "next/navigation";
 import "../chatbot/chatbot.css";
 
-
 type Message = {
   content: React.ReactNode;  // Using React.ReactNode to accept both strings and JSX
   sender: string;
@@ -24,6 +23,7 @@ const Chatbot = () => {
     },
   ]);
   const router = useRouter();
+  const alreadyRedirectedRoutes = new Set(); // Track redirects
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -32,9 +32,19 @@ const Chatbot = () => {
   };
 
   const handleSend = () => {
-    if (!userInput.trim()) return;
+    if (!userInput.trim()) {
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { content: "Please enter a valid message.", sender: "bot" }
+      ]);
+      return;
+    }
+
     const trimmedInput = userInput.trim().toLowerCase();
-    setMessages([...messages, { content: userInput, sender: "user" }]);
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { content: userInput, sender: "user" }
+    ]);
     handleCommand(trimmedInput);
     setUserInput("");
   };
@@ -48,6 +58,7 @@ const Chatbot = () => {
           "show me use cases",
           "use case page",
           "use cases",
+          "use case",          
         ],
         route: "/en/UseCases",
       },
@@ -98,19 +109,29 @@ const Chatbot = () => {
       { key: ["licensing", "licensing page"], route: "/en/licensing" },
     ];
 
-    const matchedKeyword = keywords.find(({ key }) =>
-      key.some((keyword) => input.includes(keyword))
-    );
-    if (matchedKeyword) {
-      setMessages([
-        ...messages,
-        { content: `Understood. Redirecting to the right page.`, sender: "bot" },
-      ]);
-      setTimeout(() => router.push(matchedKeyword.route), 2000);
+    let matchedRoutes: string[] = [];
+
+    // Check if the input contains any of the keywords from the routes map
+    keywords.forEach(({ key, route }) => {
+      if (key.some(keyword => input.includes(keyword.toLowerCase()))) {
+        matchedRoutes.push(route);
+      }
+    });
+
+    if (matchedRoutes.length > 0) {
+      // Process each intent sequentially
+      matchedRoutes.forEach((route, index) => {
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { content: `Redirecting to ${route}.`, sender: "bot" }
+        ]);
+        // Delayed redirection for each matched intent
+        setTimeout(() => router.push(route), 2000 * (index + 1));
+      });
     } else {
-      setMessages([
-        ...messages,
-        { content: "Sorry, I didn't understand that.", sender: "bot" },
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { content: "Sorry, I didn't understand that. Can you try rephrasing?", sender: "bot" }
       ]);
     }
   };
@@ -122,8 +143,7 @@ const Chatbot = () => {
           <div className="messages overflow-auto h-40">
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.sender === "bot" ? "text-green-600" : "text-green-800"}`}>
-                {/* Directly use msg.content without checking type */}
-                {msg.content}  
+                {msg.content}
               </div>
             ))}
           </div>
@@ -134,8 +154,9 @@ const Chatbot = () => {
               onChange={handleInputChange}
               value={userInput}
               placeholder="Type a message..."
+              aria-label="User input"
             />
-            <button onClick={handleSend} className="send-icon ml-2">
+            <button onClick={handleSend} className="send-icon ml-2" aria-label="Send message">
               <IoSend className="text-green-500" size={24} />
             </button>
           </div>
@@ -144,6 +165,7 @@ const Chatbot = () => {
       <button
         onClick={toggleChat}
         className="toggle-btn text-3xl text-white bg-green-600 rounded-full p-3 hover:bg-green-700"
+        aria-label="Open chat"
       >
         <IoChatbubbleEllipsesSharp />
       </button>
