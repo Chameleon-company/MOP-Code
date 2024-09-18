@@ -50,17 +50,16 @@ const SearchBar = ({
               {t("Search by content")}
             </option>
           </select>
-          <select
+          {/* <select
             className="text-black mr-3 border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-green-500"
             value={category}
             onChange={(e) => setCategory(e.target.value as CATEGORY)}
           >
             <option value={CATEGORY.ALL}>{t("All categories")}</option>
-            {/* Add more options here based on your categories */}
             <option value={CATEGORY.INTERNET}>{t("Internet")}</option>
             <option value={CATEGORY.EV}>{t("EV")}</option>
             <option value={CATEGORY.SECURITY}>{t("Security")}</option>
-          </select>
+          </select> */}
         </div>
         <button
           type="submit"
