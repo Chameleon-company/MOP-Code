@@ -1,0 +1,89 @@
+{ 
+    "title": "parking_slot_occupancy_detection",
+    "name": "parking_slot_occupancy_detection",
+    "description": "The new system is based on cloud, The cloud will provide data storage and computing resources for the car parking. It will store the big data of available car parking lots, car parking area, car's location, user's location and profiles.  The system shows the real time available parking slots and predicted available parking spots for short medium and longer term planning.",
+    "tags": [
+        "Prediction", 
+        "urban technology", 
+        "environment", 
+        "city planning",
+        "data processing",
+        "Machine Learning",
+        "sensor technology",
+         "real time monitoring",
+         "data analytics."
+
+    ],
+    "difficultly": "Intermediate",
+    "technology": [{
+        "name": "requests",
+        "code": "python"
+      },
+      {
+        "name": "os",
+        "code": "python"
+      },
+      {
+        "name": "numpy",
+        "alias": "np",
+        "code": "python"
+      },
+      {
+        "name": "pandas",
+        "alias": "pd",
+        "code": "python"
+      },
+      {
+        "name": "folium",
+        "code": "python"
+      },
+      {
+        "name": "MarkerCluster",
+        "code": "python"
+      },
+      {
+        "name": "StringIO",
+        "code": "python"
+      },
+      {
+        "name": "seaborn",
+        "alias": "sns",
+        "code": "python"
+      },
+      {
+        "name": "geopandas",
+        "code": "python"
+      },
+      {
+        "name": "matplotlib",
+        "code": "python"
+      },
+      {
+        "name": "StandardScaler",
+        "code": "python"
+      },
+      {
+        "name": "tensorflow",
+        "alias": "tf",
+        "code": "python"
+      },
+      {
+        "name": "geopy",
+        "code": "python"
+      },
+      {
+        "name": "haversine",
+        "code": "python"
+      },
+      {
+        "name": "scikit-learn",
+        "code": "python"
+      },
+      {
+        "name": "tk",
+        "code": "python"
+      }],
+    "datasets":["On-street Parking Bay Sensors", 
+    "Sign plates located in each Parking zone", "On-street Car Parking Sensor Data - 2020 (Jan - May)"
+    ] 
+}
