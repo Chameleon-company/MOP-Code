@@ -8,9 +8,6 @@
         "Workers", 
         "visualisation",
         "geopy",
-        "k neighbors regressor",
-	"nearest neighbor", 
-        "feed forward neural network",
         "folium",
         "data processing"
     ],
