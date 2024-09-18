@@ -1,29 +1,29 @@
 "use client";
 import React, { useState } from "react";
-import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5"; // Import IoSend for the send button
+import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import "../chatbot/chatbot.css";
+import nlp from 'compromise'; // Importing compromise for NLP
 
 type Message = {
-  content: React.ReactNode;  // Using React.ReactNode to accept both strings and JSX
+  content: React.ReactNode;
   sender: string;
 };
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([  
+  const [messages, setMessages] = useState<Message[]>([
     {
       content: (
         <>
           Hi, How can I help you? Check out our <a href="/en/faq" style={{ color: 'blue', textDecoration: 'underline' }}>FAQ page</a> for more information.
         </>
       ),
-      sender: "bot"
+      sender: "bot",
     },
   ]);
   const router = useRouter();
-  const alreadyRedirectedRoutes = new Set(); // Track redirects
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -32,106 +32,54 @@ const Chatbot = () => {
   };
 
   const handleSend = () => {
-    if (!userInput.trim()) {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { content: "Please enter a valid message.", sender: "bot" }
-      ]);
-      return;
-    }
-
+    if (!userInput.trim()) return;
     const trimmedInput = userInput.trim().toLowerCase();
-    setMessages(prevMessages => [
-      ...prevMessages,
-      { content: userInput, sender: "user" }
-    ]);
+    setMessages([...messages, { content: userInput, sender: "user" }]);
     handleCommand(trimmedInput);
     setUserInput("");
   };
 
+  // Updated handleCommand function to use NLP
   const handleCommand = (input: string) => {
+    const doc = nlp(input); // Creating an NLP document with the user input
     const keywords = [
       {
-        key: [
-          "usecase",
-          "usecases",
-          "show me use cases",
-          "use case page",
-          "use cases",
-          "use case",          
-        ],
+        key: ["use case", "usecases", "use case page", "use cases"],
         route: "/en/UseCases",
       },
-      {
-        key: ["about us", "aboutus", "about us page", "aboutus page"],
-        route: "/en/about",
-      },
+      { key: ["about us", "aboutus", "about us page"], route: "/en/about" },
       { key: ["statistics", "statistics page"], route: "/en/statistics" },
-      { key: ["upload", "upload page", "uploadpage"], route: "/en/upload" },
-      {
-        key: ["sign up", "sign up page", "signup", "signup page"],
-        route: "/en/signup",
-      },
+      { key: ["upload", "upload page"], route: "/en/upload" },
+      { key: ["sign up", "signup", "signup page"], route: "/en/signup" },
       { key: ["login", "login page"], route: "/en/login" },
-      {
-        key: [
-          "resource-center",
-          "resource-center page",
-          "resourcecenter",
-          "resource center page",
-          "resource center",
-        ],
-        route: "/en/resource-center",
-      },
-      {
-        key: ["datasets", "datasets page", "data sets page", "data sets"],
-        route: "/en/datasets",
-      },
-      {
-        key: [
-          "contact",
-          "contact page",
-          "contact us page",
-          "contact us",
-          "contact us page",
-        ],
-        route: "/en/contact",
-      },
-      {
-        key: [
-          "privacypolicy",
-          "privacypolicy page",
-          "privacy policy",
-          "privacy policy page",
-        ],
-        route: "/en/privacypolicy",
-      },
+      { key: ["resource center", "resourcecenter"], route: "/en/resource-center" },
+      { key: ["datasets", "datasets page"], route: "/en/datasets" },
+      { key: ["contact", "contact us"], route: "/en/contact" },
+      { key: ["privacy policy", "privacypolicy"], route: "/en/privacypolicy" },
       { key: ["licensing", "licensing page"], route: "/en/licensing" },
     ];
 
-    let matchedRoutes: string[] = [];
+    let foundMatch = false;
 
-    // Check if the input contains any of the keywords from the routes map
+    // Using NLP to check if the input matches any of the keyword intents
     keywords.forEach(({ key, route }) => {
-      if (key.some(keyword => input.includes(keyword.toLowerCase()))) {
-        matchedRoutes.push(route);
-      }
+      key.forEach(keyword => {
+        if (doc.has(keyword)) { // Using NLP's "has" method to find matches
+          setMessages([
+            ...messages,
+            { content: `Understood. Redirecting to the right page.`, sender: "bot" },
+          ]);
+          setTimeout(() => router.push(route), 2000);
+          foundMatch = true;
+        }
+      });
     });
 
-    if (matchedRoutes.length > 0) {
-      // Process each intent sequentially
-      matchedRoutes.forEach((route, index) => {
-        setMessages(prevMessages => [
-          ...prevMessages,
-          { content: `Redirecting to ${route}.`, sender: "bot" }
-        ]);
-        // Delayed redirection for each matched intent
-        setTimeout(() => router.push(route), 2000 * (index + 1));
-      });
-    } else {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { content: "Sorry, I didn't understand that. Can you try rephrasing?", sender: "bot" }
+    // If no matches found, it will then provide a fallback response
+    if (!foundMatch) {
+      setMessages([
+        ...messages,
+        { content: "Sorry, I didn't understand that. Can you try rephrasing?", sender: "bot" },
       ]);
     }
   };
@@ -154,9 +102,8 @@ const Chatbot = () => {
               onChange={handleInputChange}
               value={userInput}
               placeholder="Type a message..."
-              aria-label="User input"
             />
-            <button onClick={handleSend} className="send-icon ml-2" aria-label="Send message">
+            <button onClick={handleSend} className="send-icon ml-2">
               <IoSend className="text-green-500" size={24} />
             </button>
           </div>
@@ -165,7 +112,6 @@ const Chatbot = () => {
       <button
         onClick={toggleChat}
         className="toggle-btn text-3xl text-white bg-green-600 rounded-full p-3 hover:bg-green-700"
-        aria-label="Open chat"
       >
         <IoChatbubbleEllipsesSharp />
       </button>
@@ -174,3 +120,4 @@ const Chatbot = () => {
 };
 
 export default Chatbot;
+
