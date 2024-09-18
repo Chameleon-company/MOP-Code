@@ -75,3 +75,28 @@
 :-ms-input-placeholder {
     color: #888;
 }
+
+
+/* Adjust the position of the contact us text and image */
+.imgContent {
+    position: relative;
+    margin-top: -50px; 
+  }
+  
+  .contactUsText {
+    margin-top: -40px; 
+    font-weight: normal;
+    z-index: 10;
+  }
+  
+
+  @media (max-width: 768px) {
+    .imgContent {
+      margin-top: -10px; 
+    }
+  
+    .contactUsText {
+      margin-top: -20px; 
+    }
+  }
+  
