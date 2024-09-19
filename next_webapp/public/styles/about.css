@@ -1,25 +1,106 @@
-  body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500; 
-    margin: 0;
-    padding: 0;
-    background-color: white;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.container-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.content-section {
+  margin: 20px auto;
+  width: 80%;
+  height: 100%;
+}
+
+.content-title {
+  margin: 20px auto;
+  width: 80%;
+  height: 100%;
+}
+
+.img-title {
+  width: 40%;
+  aspect-ratio: 1/0.6;
+  max-width: 672px;
+  min-width: 128px;
+}
+
+.img-section {
+  width: 35%;
+  aspect-ratio: 1/0.68;
+  max-width: 576px;
+  min-width: 112px;
+}
+
+.text-box {
+  color: rgb(255, 255, 255);
+}
+
+.text-box h2 {
+  font-size: calc(24px + 0.4vw);
+}
+
+.text-box p {
+  font-size: calc(12px + 0.4vw);
+  font-weight: 450;
+}
+
+
+
+@media (max-width: 1024px) {
+  .text-box p {
+    font-size: calc(12px + 0.1vw);
   }
-  .image-container::before {
-     content: '';
-     position: absolute;
-     top:0;
-     left: 50%; 
-     width: 50%; 
-     height: 20px; 
-     background-color: #000; 
+  .text-box h2 {
+    font-size: calc(24px + 0.1vw);
   }
-  .image-container::after {
-     content: '';
-     position: absolute;
-     bottom: 0; 
-     left: 0; 
-     width: 20px; 
-     height: 50%; 
-     background-color: #000; 
-   }
+}
+
+@media (max-width: 767px) {
+  .text-box p {
+    padding-top: 14%;
+  }
+}
+
+@media (max-width: 496px) {
+  #p3 {
+    padding-top: 4%;
+  }
+}
+
+@media (max-width: 330px) {
+  .text-box p {
+    font-size: calc(10px + 0.1vw);
+  }
+  .text-box h2 {
+    font-size: calc(16px + 0.1vw);
+  }
+}
+
+@media (max-width: 260px) {
+  .img-title {
+    width: 100%;
+    aspect-ratio: 1/0.6;
+  }
+
+  .img-section {
+    width: 100%;
+    aspect-ratio: 1/0.68;
+  }
+
+  .text-box p {
+    padding-top: 0.2%;
+  }
+}

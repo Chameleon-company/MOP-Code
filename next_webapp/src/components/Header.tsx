@@ -1,99 +1,105 @@
-"use client"
-import React, { useState } from "react";
-import LanguageDropdown from "../components/LanguageDropdown";
-import { Link } from "@/i18n-navigation";
-import { useTranslations } from "next-intl";
-import { CiMenuBurger  } from "react-icons/ci";
-import { HiMiniXMark } from "react-icons/hi2";
+'use client'
+import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n-navigation';
+import LanguageDropdown from './LanguageDropdown';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 const Header = () => {
-  const t = useTranslations("common");
-  let[isOpen, setisOpen] = useState(false);
- 
+  const t = useTranslations('common');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Object array for navigation items
+  const navItems = [
+    { name: 'Home', link: '/' },
+    { name: 'About Us', link: '/about' },
+    { name: 'Use Cases', link: '/UseCases' },
+    { name: 'Statistics', link: '/statistics' },
+    { name: 'Upload', link: '/upload' }
+  ];
 
   return (
-    <header>
-      <div>
-        <nav className="border-gray-200 bg-green-400 text-white py-3">
-          <div className=" md:flex items-center justify-between ">
-            <div className="md:flex items-center  md:pl-[20rem]">
-              <a href="/">
-                <img src="/img/new-logo-white.png" className="h-20" alt="MOP logo" />
-              </a>
-              <div onClick={()=>setisOpen(!isOpen)}className="w-10 h-7 absolute right-8 top-6 cursor-pointer md:hidden">
-                {
-                  isOpen ? <HiMiniXMark className="size-8"/>: <CiMenuBurger className="size-6"/>  
-                }
-              </div>
-              <ul className={`md:flex justify-between md:pl-9 bg-green-400  md:w-auto w-full absolute md:static md:z-auto  z-[1] ${isOpen ? 'top-18' : 'top-[-430px]'}` }>
-                <li className="">
-                  <a
-                    href="/"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  ml-3 text-lg"
-                    aria-current="page"
-                  >
-                    {t("Home")}
-                  </a>
-                </li>
-                <li className=" md:inline-block">
-                  <Link
-                    href="/about"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
-                  >
-                    {t("About Us")}
-                  </Link>
-                </li>
-                <li className=" md:inline-block">
-                  <Link
-                    href="/UseCases"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
-                  >
-                    {t("Use Cases")}
-                  </Link>
-                </li>
-                <li className=" md:inline-block">
-                  <Link
-                    href="/statistics"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
-                  >
-                    {t("Statistics")}
-                  </Link>
-                </li>
-                <li className=" md:inline-block">
-                  <Link
-                    href="/upload"
-                    className="rounded-3xl hover:bg-[#287405] block font-serif py-4 px-5 text-white  text-lg"
-                  >
-                    {t("Upload")}
-                  </Link>
-                </li>
-              </ul>
+    <header className="bg-white shadow-sm">
+       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"></link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            <Link href="/" className="flex-shrink-0">
+              <img className="h-20 w-auto" src="/img/new-logo-green.png" alt="Logo" />
+            </Link>
+            {/* Hamburger Menu Icon */}
+            <div className="flex lg:hidden ml-auto">
+              <button
+                onClick={toggleMenu}
+                className="text-green-600 hover:text-green-900 focus:outline-none focus:text-green-900"
+              >
+                {isMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
+              </button>
             </div>
-            <ul className={`md:flex justify-between md:pl-9 absolute bg-green-400  md:pr-[15rem] ml-0 py-5 md:w-auto w-full md:static md:z-auto z-[1] ${isOpen ? 'top-[21rem]' : 'top-[-430px]'}` }>
-              <li className="">
-              <div className=" " x-data="{ open: false }">
-                <LanguageDropdown />
-              </div>
-              </li>
-              <li className=" mt-5 sm:mt-3">
+            {/* Menu Items */}
+            <nav className={`ml-10 space-x-4 hidden lg:flex ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.link}
+                  className="text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  {t(item.name)}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center">
+            <LanguageDropdown />
+            <div className='hidden lg:flex'>
+            <Link
+              href="/signup"
+              className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
+            >
+              {t('Sign Up')}
+            </Link>
+            <Link
+              href="/login"
+              className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium"
+            >
+              {t('Log In')}
+            </Link>
+            </div>
+          </div>
+        </div>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden">
+            <nav className="px-2 pt-2 pb-3 space-y-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.link}
+                  className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+                >
+                  {t(item.name)}
+                </Link>
+              ))}
+              {/* Add Sign Up and Log In buttons to mobile menu */}
               <Link
                 href="/signup"
-                className="border-[1px] border-solid border-white mr-3 font-serif py-3 px-6 mx-3 text-white rounded-full  text-lg"
+                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
               >
-                {t("Sign Up")}
+                {t('Sign Up')}
               </Link>
-              </li>
-              <li className="mt-8 sm:mt-3">
               <Link
                 href="/login"
-                className="border-[1px] border-solid border-white bg-white text-[#09bd09] font-serif py-3 px-6 mx-3 rounded-full  text-lg"
+                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
               >
-                {t("Log In")}
+                {t('Log In')}
               </Link>
-              </li>
-            </ul>
+            </nav>
           </div>
-        </nav>
+        )}
       </div>
     </header>
   );
