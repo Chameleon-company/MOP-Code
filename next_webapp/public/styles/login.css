@@ -1,127 +1,129 @@
-html, body {
-    height: 100%;
+body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
-    background: #f5f5f5; /* Set background to grey */
-}
-
-body {
+    background-color: white;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.main-content {
+.top-bar {
+    background-color: #2ECC71; /* Header background color */
+    width: 100vw; /* Full width of the viewport */
+    position: fixed; /* Stay fixed at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the header is above other elements */
+    padding: 1rem 8%; /* Adjust padding for spacing */
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Make the content fill the space between header and footer */
-    padding: 20px;
-    box-sizing: border-box;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    position: relative;
+    top: 0;
+    transform: translateY(-10%); /* Adjust as needed */
 }
 
 .login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.login-content {
-    max-width: 600px; /* Limiting the width of the form */
-    width: 100%;
-    padding: 20px;
+    background-color: white;
+    padding: 2rem;
+    min-width: 320px; /* Minimum width for smaller screens */
+    max-width: 600px; /* Maximum width for larger screens */
+    width: 100%; /* Responsive width */
     box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    border-radius: 10px; /* Rounded corners */
 }
 
 .login-title {
     font-weight: bold;
     color: black;
-    font-size: 1.8rem;
-    text-align: center; /* Centering the title */
+    font-size: 1.8rem; /* Reduced font size to fit on one line */
     margin-bottom: 0.5rem;
+    white-space: nowrap; /* Prevent line break */
 }
 
 .login-subtitle {
+    font-size: 1rem; /* Adjust font size for subtitle */
     color: #616161;
-    font-size: 1rem;
-    text-align: center; /* Centering the subtitle */
     margin-bottom: 1.5rem;
 }
 
-.login-input-wide {
+.input-group input {
+    margin: 10px 0;
     width: 100%;
-    padding: 0.875rem;
+    padding: 0.625rem;
+    border: 1px solid #9E9E9E;
+    color: black;
     font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-.wide-button {
-    width: 100%;
-    padding: 0.875rem;
-    background-color: #2ECC71;
-    color: white;
-    border: none;
-    font-size: 1rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.wide-button:hover {
-    background-color: #27ae60;
-}
-
-.relative {
-    position: relative;
-}
-
-.toggle-password {
-    font-size: 1.2rem;
-    cursor: pointer;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .options-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.forgot-password {
-    color: #0066cc;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.remember-me {
-    font-size: 0.9rem;
-    margin-left: 10px; /* Add space between the checkbox and the text */
-}
-
-.options-container input[type="checkbox"] {
-    margin-right: 10px; /* Add space between the checkbox and the label */
-}
-
-.error {
-    color: red;
-    font-size: 1rem;
-    margin-top: 1rem;
-}
-
-.footer-container {
-    position: static; /* Remove fixed positioning */
-    height: 80px; /* Adjust footer height */
-    background-color: #131619;
-    color: white;
-    text-align: center;
     width: 100%;
+    padding: 0.5rem 0;
+}
+
+.remember-me,
+.forgot-password {
+    font-size: 0.9rem;
+    color: #616161;
+}
+
+.remember-me input {
+    margin-right: 0.25rem;
+}
+
+.login-button {
+    background-color: #2ECC71;
+    color: white;
+    width: 100%;
+    padding-block: 15px;
+    font-size: 1rem;
+    border-color: white;
+    margin-top: 10px;
+}
+
+.input-group {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.input-group input[type="password"], 
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #9E9E9E;
+    font-size: 1rem;
+    padding-right: 40px; /* Add space for the icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #9E9E9E;
+}
+@media (min-width: 768px) {
+    .login-container {
+        width: 80%;
+    }
 }
