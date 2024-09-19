@@ -9,6 +9,7 @@ This document outlines the key steps to set up and run the transport planner, in
 It is recommended to create a virtual environment before installing the required packages to ensure isolation of dependencies. You can follow the commands below:
 
 ```bash
+pip install rasa
 pip install rasa-sdk
 pip install spacy
 python -m spacy download en_core_web_md
