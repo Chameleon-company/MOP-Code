@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 # Load spaCy NLP model
 nlp = spacy.load('en_core_web_sm')
 
-DATASET_PATH = "/mnt/metro_train_accessibility_cleaned.csv"
+DATASET_PATH = "./mnt/metro_train_accessibility_cleaned.csv"
 station_data = pd.read_csv(DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 
