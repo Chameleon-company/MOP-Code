@@ -11,7 +11,7 @@ const Privacypolicy = () => {
       <main>
         <div className="h-[70rem] px-[5rem] content-center font-sans-serif">
           <h1 className="pl-20 p-8 font-semibold text-4xl mt-32">
-            {t("Privacy Policy")}
+          <h1 className="font-bold text-title">{t("Privacy Policy")}</h1> {/* Bold heading */}
           </h1>
           <section className="  md:flex md:flex-row">
             <div className=" pl-[5rem] pt-[8rem] pr-[8rem] -mt-14 justify-self-auto md:w-1/2">
@@ -79,7 +79,5 @@ const Privacypolicy = () => {
     </div>
   );
 };
-
-//privacy page has been fixed
 
 export default Privacypolicy;

@@ -24,7 +24,10 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm dark:bg-zinc-700">
+
+       <header className="bg-white shadow-sm dark:bg-zinc-700">
+       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"></link>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
