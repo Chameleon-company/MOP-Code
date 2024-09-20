@@ -1,52 +1,98 @@
-import { useEffect, useState } from "react";
-import { CaseStudy } from "../types";
-// Mock data for case studies with associated PDF paths
+import React, { useState, useEffect } from "react";
+import { CaseStudy } from "../../types";
+import { ChevronLeft, ChevronRight, FileText, ArrowLeft } from "lucide-react";
+
+const ITEMS_PER_PAGE = 9;
 
 const PreviewComponent = ({ caseStudies }: { caseStudies: CaseStudy[] }) => {
-  // State to keep track of the selected case study
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<
-    undefined | CaseStudy
-  >(caseStudies[0]); // Default to the first case study
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | undefined>(undefined);
 
-  useEffect(() => {
-    setSelectedCaseStudy(caseStudies[0]);
-  }, [caseStudies]);
+  const totalPages = Math.ceil(caseStudies.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const visibleCaseStudies = caseStudies.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleCaseStudyClick = (study: CaseStudy) => {
+    setSelectedCaseStudy(study);
+  };
+
+  const handleBack = () => {
+    setSelectedCaseStudy(undefined);
+  };
+
+  if (selectedCaseStudy) {
+    return (
+      <div className="flex flex-col h-screen bg-gray-100 p-8">
+        <button
+          onClick={handleBack}
+          className="flex items-center text-green-500 mb-4 hover:text-green-700 transition-colors duration-300"
+        >
+          <ArrowLeft size={24} className="mr-2" />
+          Back
+        </button>
+        <div className="bg-white rounded-lg shadow-md p-6 flex-grow overflow-hidden">
+          <h1 className="text-3xl font-bold mb-4">{selectedCaseStudy.name}</h1>
+          <iframe
+            src={`/api?filename=${selectedCaseStudy.filename}`}
+            className="w-full h-full border-none"
+            title={selectedCaseStudy.name}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-screen">
-      {/* Scrollable Menu on the left */}
-      <div className="w-1/4 overflow-y-auto bg-gray-100 py-4 max-h-screen scroll-smooth">
-        <ul>
-          {caseStudies.map((study) => (
-            <li
-              key={study.id}
-              className={`text-black mb-2 p-2 hover:bg-gray-200 cursor-pointer ${
-                selectedCaseStudy?.id === study.id ? "bg-gray-300" : ""
-              }`}
-              onClick={() => setSelectedCaseStudy(study)}
-            >
-              {study.title}
-            </li>
-          ))}
-        </ul>
+    <div className="flex flex-col h-full bg-gray-100 p-8">
+      <div className="grid grid-cols-3 gap-8 mb-8">
+        {visibleCaseStudies.map((study) => (
+          <div
+            key={study.id}
+            className="bg-white p-4 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+            onClick={() => handleCaseStudyClick(study)}
+          >
+            <div className="flex items-center justify-center mb-4">
+              <FileText size={48} className="text-green-500" />
+              <FileText size={48} className="text-teal-400 -ml-6" />
+              <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
+            </div>
+            <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
+            <p className="text-gray-600 text-center mb-2">{study.description}</p>
+            <div className="flex flex-wrap justify-center gap-2">
+            <p>Tags: </p>
+              {study.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-200 text-gray-800 text-sm px-2 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Preview Screen on the right */}
-      <div className="w-3/4 bg-gray-200 p-4 overflow-y-hidden">
-        <div className="h-full w-full">
-          {/* Display an iframe to show the file */}
-          <div className="font-semibold text-2xl">{selectedCaseStudy?.title}</div>
-          {selectedCaseStudy && (
-
-            <div style={{ width: "100%" }}>
-              <iframe
-                style={{ width: "100%", height: "100vh" }}
-                src={`/api?filename=${selectedCaseStudy.filename}`}
-              ></iframe>
-            </div>
-
-          )}
-        </div>
+      <div className="flex justify-center items-center space-x-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="p-2 bg-white rounded-full shadow-md disabled:opacity-50"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <span className="text-xl font-semibold">{currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="p-2 bg-white rounded-full shadow-md disabled:opacity-50"
+        >
+          <ChevronRight size={24} />
+        </button>
       </div>
     </div>
   );

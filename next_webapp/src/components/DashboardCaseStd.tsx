@@ -1,4 +1,3 @@
-// DashboardCaseStd.js
 import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -26,24 +25,25 @@ const DashboardCaseStd = () => {
       image: "/img/icon3.png",
       title: t("Case Study 3"),
       description: t("Data Science in Education"),
-      link: "UseCases",
+      link: "/UseCases",
     },
   ];
 
   return (
-    <div className="case-studies-wrapper">
-      {caseStudies.map((caseStudy) => (
-        <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
-          <div className="card-wrapper">
-            <div className="top-image">
-              <img src={caseStudy.image} alt={caseStudy.title} />
-            </div>
-            <h4 className="title">{caseStudy.title}</h4>
-            <p className="description">{caseStudy.description}</p>
-          </div>
-        </Link>
-      ))}
-    </div>
+    <br></br>
+    // <div className="case-studies-wrapper">
+    //   {caseStudies.map((caseStudy) => (
+    //     <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
+    //       <div className="card-wrapper">
+    //         <div className="top-image">
+    //           <img src={caseStudy.image} alt={caseStudy.title} />
+    //         </div>
+    //         <h4 className="title">{caseStudy.title}</h4>
+    //         <p className="description">{caseStudy.description}</p>
+    //       </div>
+    //     </Link>
+    //   ))}
+    // </div>
   );
 };
 
