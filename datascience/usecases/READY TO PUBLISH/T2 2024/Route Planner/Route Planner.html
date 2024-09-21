@@ -7562,7 +7562,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7570,23 +7570,21 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span><span class="p">,</span> <span class="n">ttest_ind</span><span class="p">,</span> <span class="n">f_oneway</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">shape</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/Users/nish/anaconda3/lib/python3.11/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).
-  from pandas.core import (
-</pre>
 </div>
 </div>
 </div>
@@ -7599,11 +7597,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">num_records</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">num_records</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">all_records</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">max_offset</span> <span class="o">=</span> <span class="mi">9900</span>  <span class="c1"># Maximum number of requests</span>
 
@@ -7614,7 +7608,7 @@ a.anchor-link {
 
         <span class="c1"># Create API request URL</span>
         <span class="n">filters</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s1">/records?limit=</span><span class="si">{</span><span class="n">num_records</span><span class="si">}</span><span class="s1">&amp;offset=</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s1">'</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">base_url</span><span class="si">}{</span><span class="n">filters</span><span class="si">}</span><span class="s1">&amp;api_key=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">'</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">base_url</span><span class="si">}{</span><span class="n">filters</span><span class="si">}</span><span class="s1">'</span>
 
         <span class="c1"># Start request</span>
         <span class="k">try</span><span class="p">:</span>
@@ -7636,8 +7630,6 @@ a.anchor-link {
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_records</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 
-<span class="c1"># Retrieve API key from environment variable</span>
-<span class="n">API_KEY</span> <span class="o">=</span> <span class="s2">"3d51088437ae0a40d7b6faf31ff85d9da7e54f2a768d16d21be50395"</span>
 <span class="n">BASE_URL</span> <span class="o">=</span> <span class="s1">'https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/'</span>
 </pre></div>
 </div>
@@ -7666,7 +7658,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Data set name</span>
 <span class="n">pedestrian</span> <span class="o">=</span> <span class="s1">'smart-bins-argyle-square'</span>
 
-<span class="n">smart_bins_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">pedestrian</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">)</span>
+<span class="n">smart_bins_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">pedestrian</span><span class="p">)</span>
 
 <span class="n">smart_bins_df</span>
 </pre></div>
@@ -7886,7 +7878,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Data set name</span>
 <span class="n">waste_month</span> <span class="o">=</span> <span class="s1">'waste-collected-per-month'</span>
 
-<span class="n">waste_collected_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">waste_month</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">)</span>
+<span class="n">waste_collected_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">waste_month</span><span class="p">)</span>
 
 <span class="n">waste_collected_df</span>
 </pre></div>
@@ -8130,7 +8122,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Data set name</span>
 <span class="n">waste_month</span> <span class="o">=</span> <span class="s1">'garbage-collection-zones'</span>
 
-<span class="n">garbage_zones_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">waste_month</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">)</span>
+<span class="n">garbage_zones_df</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">waste_month</span><span class="p">)</span>
 
 <span class="n">garbage_zones_df</span>
 </pre></div>
@@ -8347,7 +8339,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Convert the 'date' column in waste_collected_df to datetime format</span>
@@ -8366,7 +8358,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Group by year and month to calculate the total waste collected</span>
@@ -8395,7 +8387,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Plotting the time series for different waste categories</span>
@@ -8447,7 +8439,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Grouping by month to analyze seasonality</span>
@@ -8505,11 +8497,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span><span class="p">,</span> <span class="n">f_oneway</span>
-
-<span class="c1"># Load waste collection data (already loaded earlier)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load waste collection data (already loaded earlier)</span>
 <span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
 
 <span class="c1"># Add a new column to indicate events</span>
@@ -8657,15 +8645,10 @@ street_sweepings: t-statistic = nan, p-value = nan
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
-
-<span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8687,7 +8670,7 @@ street_sweepings: t-statistic = nan, p-value = nan
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Handle missing values</span>
@@ -8719,7 +8702,7 @@ street_sweepings: t-statistic = nan, p-value = nan
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Separate data into event and non-event periods</span>
@@ -8745,7 +8728,7 @@ street_sweepings: t-statistic = nan, p-value = nan
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Convert results to a DataFrame for display</span>
@@ -8780,7 +8763,7 @@ street_sweepings       NaN    NaN
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Plotting waste collection during events vs. non-events</span>
@@ -8822,15 +8805,10 @@ street_sweepings       NaN    NaN
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
-
-<span class="c1"># Load waste collection data (if not already loaded)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load waste collection data (if not already loaded)</span>
 <span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
 
 <span class="c1"># Handle missing values</span>
@@ -8894,14 +8872,6 @@ street_sweepings       NaN    NaN
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/Users/nish/anaconda3/lib/python3.11/site-packages/scipy/stats/_stats_py.py:4781: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
-  warnings.warn(stats.ConstantInputWarning(msg))
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Correlation Results with Specific Dates:
                     correlation  p_value
@@ -8936,7 +8906,7 @@ street_sweepings            NaN      NaN
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
@@ -9015,14 +8985,6 @@ street_sweepings            NaN      NaN
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/Users/nish/anaconda3/lib/python3.11/site-packages/scipy/stats/_stats_py.py:4781: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
-  warnings.warn(stats.ConstantInputWarning(msg))
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Correlation Results with Holidays and Weekends:
                     corr_with_holiday  p_val_holiday  corr_with_weekend  \
@@ -9052,11 +9014,10 @@ street_sweepings         0.370901
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load waste collection data (if not already loaded)</span>
-<span class="n">waste_collected_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'waste-collected-per-month.csv'</span><span class="p">)</span>
 <span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'%Y-%m'</span><span class="p">)</span>
 
 <span class="c1"># Extract the year from the date</span>
@@ -9104,11 +9065,160 @@ street_sweepings         0.370901
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">smart_bins_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>time</th>
+<th>serial</th>
+<th>sensor_name</th>
+<th>status_current_fill_level</th>
+<th>bin_status</th>
+<th>last_update</th>
+<th>product_type</th>
+<th>description</th>
+<th>address</th>
+<th>latlong</th>
+<th>wastebasket_size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>2021-06-29T21:18:25+00:00</td>
+<td>FB1000001905AA05</td>
+<td>None</td>
+<td>14</td>
+<td>Low</td>
+<td>None</td>
+<td>CleanFLEX</td>
+<td>Argyle - FB1000001905AA05</td>
+<td>Argyle Square, 13-19 Argyle Pl N, Carlton VIC ...</td>
+<td>{'lon': 144.966267, 'lat': -37.802983}</td>
+<td>None</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2021-06-30T12:17:40+00:00</td>
+<td>FB1000001905AA15</td>
+<td>Internal Bin Sensor  2</td>
+<td>49</td>
+<td>Half Full</td>
+<td>None</td>
+<td>CleanFLEX</td>
+<td>Argyle - FB1000001905AA15</td>
+<td>138-146 Cardigan St, Carlton VIC 3053, Australia</td>
+<td>{'lon': 144.9655, 'lat': -37.802017}</td>
+<td>None</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2021-07-01T00:00:21+00:00</td>
+<td>FB1000001905AA17</td>
+<td>External Bin Sensor 1</td>
+<td>100</td>
+<td>Full</td>
+<td>None</td>
+<td>CleanFLEX</td>
+<td>Argyle - FB1000001905AA17</td>
+<td>164 Lygon St, Carlton VIC 3053, Australia</td>
+<td>{'lon': 144.9661, 'lat': -37.803217}</td>
+<td>None</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2021-06-30T16:19:28+00:00</td>
+<td>FB1000001905AA07</td>
+<td>Internal Bin Sensor 7</td>
+<td>30</td>
+<td>Half Full</td>
+<td>None</td>
+<td>CleanFLEX</td>
+<td>Argyle - FB1000001905AA07</td>
+<td>Grattan Pl, Carlton VIC 3053, Australia</td>
+<td>{'lon': 144.965233, 'lat': -37.803117}</td>
+<td>None</td>
+</tr>
+<tr>
+<th>4</th>
+<td>2021-06-30T10:30:07+00:00</td>
+<td>FB1000001905AA18</td>
+<td>External Bin Sensor 2</td>
+<td>0</td>
+<td>Low</td>
+<td>None</td>
+<td>CleanFLEX</td>
+<td>Argyle - FB1000001905AA18</td>
+<td>153 Lygon St, Carlton VIC 3053, Australia</td>
+<td>None</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Save the DataFrame as a CSV file</span>
+<span class="n">smart_bins_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'smart_bins_data.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 'index=False' to avoid saving the index as a column</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Convert the 'time' column in the smart bins dataset to datetime format</span>
 <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'time'</span><span class="p">])</span>
+
+<span class="c1"># Split the 'latlong' dictionary into separate 'latitude' and 'longitude' columns</span>
+<span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'latlong'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'lat'</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'latlong'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'lon'</span><span class="p">]</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
 <span class="c1"># Extract relevant time-based features</span>
 <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'hour'</span><span class="p">]</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
@@ -9116,16 +9226,22 @@ street_sweepings         0.370901
 <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>  <span class="c1"># Extract just the date</span>
 
 <span class="c1"># Aggregate the bin fill levels by location and time</span>
-<span class="n">location_fill_levels</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'latlong'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+<span class="n">location_fill_levels</span> <span class="o">=</span> <span class="n">smart_bins_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'latitude'</span><span class="p">,</span> <span class="s1">'longitude'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
     <span class="s1">'status_current_fill_level'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">,</span>  <span class="c1"># Average fill level for each location per day</span>
     <span class="s1">'hour'</span><span class="p">:</span> <span class="s1">'count'</span>  <span class="c1"># Number of records per location per day (proxy for activity)</span>
 <span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
 <span class="c1"># Rename columns for clarity</span>
-<span class="n">location_fill_levels</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'status_current_fill_level'</span><span class="p">:</span> <span class="s1">'avg_fill_level'</span><span class="p">,</span> <span class="s1">'hour'</span><span class="p">:</span> <span class="s1">'activity_count'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">location_fill_levels</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">'status_current_fill_level'</span><span class="p">:</span> <span class="s1">'avg_fill_level'</span><span class="p">,</span> 
+    <span class="s1">'hour'</span><span class="p">:</span> <span class="s1">'activity_count'</span>
+<span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Convert 'date' to datetime format for merging</span>
 <span class="n">location_fill_levels</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">location_fill_levels</span><span class="p">[</span><span class="s1">'date'</span><span class="p">])</span>
+
+<span class="c1"># Assuming 'waste_collected_df' exists and contains 'date' and numeric data</span>
+<span class="c1"># Convert the 'date' column in 'waste_collected_df' to datetime if not already</span>
 <span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'date'</span><span class="p">])</span>
 
 <span class="c1"># Calculate daily total waste collected</span>
@@ -9152,27 +9268,35 @@ street_sweepings         0.370901
 <pre>Merged Data Summary:
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 0 entries
-Data columns (total 16 columns):
+Data columns (total 24 columns):
  #   Column                 Non-Null Count  Dtype         
 ---  ------                 --------------  -----         
- 0   latlong                0 non-null      object        
- 1   date                   0 non-null      datetime64[ns]
- 2   avg_fill_level         0 non-null      float64       
- 3   activity_count         0 non-null      int64         
- 4   residential            0 non-null      float64       
- 5   public_litter_bins     0 non-null      float64       
- 6   dumped_rubbish         0 non-null      float64       
- 7   street_sweepings       0 non-null      float64       
- 8   mattresses             0 non-null      int64         
- 9   commingled_recycling   0 non-null      float64       
- 10  cardboard              0 non-null      float64       
- 11  hardwaste_to_landfill  0 non-null      float64       
- 12  hardwaste_recovered    0 non-null      float64       
- 13  hardwaste_total        0 non-null      float64       
- 14  green_waste            0 non-null      float64       
- 15  year                   0 non-null      int32         
-dtypes: datetime64[ns](1), float64(11), int32(1), int64(2), object(1)
-memory usage: 132.0+ bytes
+ 0   latitude               0 non-null      float64       
+ 1   longitude              0 non-null      float64       
+ 2   date                   0 non-null      datetime64[ns]
+ 3   avg_fill_level         0 non-null      float64       
+ 4   activity_count         0 non-null      int64         
+ 5   residential            0 non-null      float64       
+ 6   public_litter_bins     0 non-null      float64       
+ 7   dumped_rubbish         0 non-null      float64       
+ 8   street_sweepings       0 non-null      float64       
+ 9   mattresses             0 non-null      int64         
+ 10  commingled_recycling   0 non-null      float64       
+ 11  cardboard              0 non-null      float64       
+ 12  hardwaste_to_landfill  0 non-null      float64       
+ 13  hardwaste_recovered    0 non-null      float64       
+ 14  hardwaste_total        0 non-null      float64       
+ 15  green_waste            0 non-null      float64       
+ 16  month                  0 non-null      int32         
+ 17  year                   0 non-null      int32         
+ 18  event                  0 non-null      int64         
+ 19  day                    0 non-null      int32         
+ 20  day_of_week            0 non-null      int32         
+ 21  is_specific_date       0 non-null      int64         
+ 22  is_weekend             0 non-null      int64         
+ 23  is_holiday             0 non-null      int64         
+dtypes: datetime64[ns](1), float64(13), int32(4), int64(6)
+memory usage: 132.0 bytes
 None
 </pre>
 </div>
@@ -9184,7 +9308,7 @@ None
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Remove rows with missing values to ensure valid correlation analysis</span>
@@ -9231,7 +9355,7 @@ street_sweepings          None    None
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Plotting the correlations with cleaned data</span>
@@ -9267,7 +9391,7 @@ street_sweepings          None    None
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Convert 'date' in waste_month to datetime format</span>
@@ -9317,12 +9441,10 @@ street_sweepings          None    None
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
-
-<span class="c1"># Perform seasonal decomposition on residential waste collection</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Perform seasonal decomposition on residential waste collection</span>
 <span class="n">decomposition</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'residential'</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">'additive'</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">decomposition</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -9348,7 +9470,7 @@ street_sweepings          None    None
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Hypothetical event dates for analysis</span>
@@ -9390,6 +9512,12 @@ hardwaste_total                              45.714568
 green_waste                                   4.143333
 month                                         6.666667
 year                                       2012.111111
+event                                              0.0
+day                                                1.0
+day_of_week                                   2.975309
+is_specific_date                                   0.0
+is_weekend                                    0.283951
+is_holiday                                         0.0
 dtype: object
 Average waste collection after event: date                     2018-02-14 20:09:36
 residential                        2428.4594
@@ -9405,6 +9533,12 @@ hardwaste_total                       85.532
 green_waste                           8.4484
 month                                   6.34
 year                                 2017.68
+event                                    0.0
+day                                      1.0
+day_of_week                             3.12
+is_specific_date                         0.0
+is_weekend                               0.3
+is_holiday                               0.0
 dtype: object
 </pre>
 </div>
@@ -9416,7 +9550,7 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Correlation between average bin fill levels and residential waste</span>
@@ -9457,13 +9591,10 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># Prepare data for clustering</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare data for clustering</span>
 <span class="n">waste_features</span> <span class="o">=</span> <span class="n">waste_collected_df</span><span class="p">[[</span><span class="s1">'residential'</span><span class="p">,</span> <span class="s1">'public_litter_bins'</span><span class="p">,</span> <span class="s1">'dumped_rubbish'</span><span class="p">,</span> <span class="s1">'street_sweepings'</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
 <span class="c1"># Fit K-Means clustering</span>
@@ -9486,17 +9617,9 @@ dtype: object
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Cluster centers: [[1990.05428571  362.95306122  156.37938776  365.57265306]
- [1566.24765957  358.9112766   152.02553191  526.33085106]
- [2544.74138889  269.60444444  138.30972222  306.99055556]]
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/Users/nish/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
-  warnings.warn(
+<pre>Cluster centers: [[2562.025       273.13470588  139.26852941  308.69441176]
+ [1579.7616      360.4266      152.808       522.0022    ]
+ [2013.33458333  355.23708333  154.404375    356.38645833]]
 </pre>
 </div>
 </div>
@@ -9518,13 +9641,10 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-
-<span class="c1"># Prepare the data for modeling</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the data for modeling</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">waste_collected_df</span><span class="p">[[</span><span class="s1">'public_litter_bins'</span><span class="p">,</span> <span class="s1">'dumped_rubbish'</span><span class="p">,</span> <span class="s1">'street_sweepings'</span><span class="p">]]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">waste_collected_df</span><span class="p">[</span><span class="s1">'residential'</span><span class="p">]</span>
 
@@ -9578,7 +9698,7 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate the percentage of time bins are full</span>
@@ -9608,7 +9728,7 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Assuming df is your DataFrame</span>
@@ -9623,14 +9743,10 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">shape</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="c1"># Assuming 'geo_shape' is already a dictionary, we can directly extract the 'geometry'</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Assuming 'geo_shape' is already a dictionary, we can directly extract the 'geometry'</span>
 <span class="c1"># Applying the 'shape()' function directly to convert the geometry into a Shapely object</span>
 <span class="n">garbage_zones_df</span><span class="p">[</span><span class="s1">'geometry'</span><span class="p">]</span> <span class="o">=</span> <span class="n">garbage_zones_df</span><span class="p">[</span><span class="s1">'geo_shape'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">'geometry'</span><span class="p">])</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
 
@@ -9666,7 +9782,7 @@ dtype: object
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
