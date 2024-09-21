@@ -5,6 +5,7 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useTranslations } from "next-intl";
 
+//Signup
 const SignUpPage = () => {
   const t = useTranslations("signup");
   const [firstName, setFirstName] = useState<string>("");
