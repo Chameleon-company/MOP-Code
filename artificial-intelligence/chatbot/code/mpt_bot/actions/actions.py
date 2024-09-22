@@ -26,6 +26,10 @@ logger = logging.getLogger(__name__)
 # Load spaCy NLP model
 nlp = spacy.load('en_core_web_sm')
 
+DATASET_PATH = "./mnt/metro_train_accessibility_cleaned.csv"
+station_data = pd.read_csv(DATASET_PATH)
+station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
+
 '''-------------------------------------------------------------------------------------------------------'''
 ''' -------------------------------------------------------------------------------------------------------	
 	Singleton common methods can be use in actions	
@@ -1120,16 +1124,15 @@ import sys
 
 logger = logging.getLogger(__name__)
 
-
 class ActionRunMappingScript(Action):
     def name(self) -> Text:
         return "action_run_direction_script"
-
+    
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # Get the two most recent user messages
+        #Get the two most recent user messages
         user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
         user_location = user_messages[-2] if len(user_messages) >= 2 else None
         destination = user_messages[-1] if user_messages else None
@@ -1140,37 +1143,224 @@ class ActionRunMappingScript(Action):
             dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
             return []
 
-        #script_path = r"C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\userlocationmaps_executablepassingactions.py"
         script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
-        map_file_path = "map.html"  
 
+        
         try:
-            #Use subprocess to run the script and capture output
             result = subprocess.run([sys.executable, script_path, user_location, destination], 
                                     capture_output=True, 
                                     text=True, 
                                     check=True)
+            
+            output = result.stdout.strip()
 
-            if result.stdout.strip():
-                if "Address not found" in result.stdout or "Current location could not be determined" in result.stdout:
-                    dispatcher.utter_message(text="It seems the location or destination could not be found. Please check your input and try again.")
+            if output:
+                output_parts = output.split("|||")
+                
+                if len(output_parts) >= 2:
+                    description = output_parts[0].strip()
+                    map_file_path = output_parts[1].strip()
+
+                    dispatcher.utter_message(text=description)
+
+                    #Generate URL for the map file using the existing server
+                    relative_path = os.path.relpath(map_file_path, current_dir)
+                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+
+                    map_link = f"<a href='{map_url}' target='_blank'>Click here to view the route map</a>"
+                    dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
                 else:
-                    dispatcher.utter_message(text=f"The direction script has been executed successfully. Here's the output:\n{result.stdout}")
-
-                    #Check if the map file was generated
-                    if os.path.exists(map_file_path):
-                        dispatcher.utter_message(text="A map has been generated and should open in your default web browser.")
-                    else:
-                        dispatcher.utter_message(text="The script ran successfully, but no map was generated.")
+                    dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
 
             else:
                 dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
 
-        except subprocess.CalledProcessError as e:
-            dispatcher.utter_message(text=f"An error occurred while running the script: {e.stderr}")
-            logger.error(f"Script execution failed: {e.stderr}")
+        except subprocess.CalledProcessError as e:  
+            error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
+            dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
+            logger.error(f"Script execution failed: {error_message}")
         except Exception as e:
             dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
             logger.error(f"Exception occurred: {str(e)}")
 
         return [SlotSet("user_location", user_location), SlotSet("destination", destination)]
+
+''' 
+-------------------------------------------------------------------------------------------------------
+Author: hariprasad
+-------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Class: ActionCheckFeature
+Purpose: This class handles the intent where a user asks whether a specific feature is available at a particular station.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+'''
+
+class ActionCheckFeature(Action):
+
+    def name(self) -> Text:
+        return "action_check_feature"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        station_name = tracker.get_slot("station_name")
+        feature = tracker.get_slot("feature")
+        
+        if not station_name or not feature:
+            dispatcher.utter_message(text="Please specify both the station name and the feature you are asking about.")
+            return []
+
+        station_name = station_name.strip().lower()
+        feature = feature.strip().lower()
+
+        station_names = station_data['Station Name'].tolist()
+        if station_name not in station_names:
+            dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name.capitalize()} station.")
+            return []
+
+        feature_mapping = {
+            "escalators": "Escalators",
+            "escalator": "Escalators",
+            "lifts": "Lift",
+            "elevator": "Lift",
+            "elevators": "Lift",  
+            "ramps": "Station access",
+            "access": "Station access",
+            "parking": "Parking",
+            "restroom": "Toilet",
+            "toilets": "Toilet",
+            "toilet": "Toilet",
+            "tactile edges": "Tactile edges",
+            "hearing loops": "Hearing Loop",
+            "info screens": "Info screens",
+            "shelter": "Shelter",
+            "low platform": "Low platform",
+            "path widths": "Path Widths",
+            "pick up / drop off": "Pick up / Drop off"
+        }
+
+        standardized_feature = feature_mapping.get(feature)
+
+        if not standardized_feature:
+            dispatcher.utter_message(text=f"Sorry, I don't have information about {feature}.")
+            return []
+
+        station_info = station_data[station_data['Station Name'] == station_name]
+        
+        feature_value = station_info[standardized_feature].values[0]
+        if pd.isna(feature_value) or feature_value.lower() == 'no':
+            dispatcher.utter_message(text=f"No, {station_name.capitalize()} station does not have {feature}.")
+        else:
+            dispatcher.utter_message(text=f"Yes, {station_name.capitalize()} station has {feature}.")
+        
+        return []
+
+'''
+-------------------------------------------------------------------------------------------------------
+Class: ActionCheckStation
+Purpose: This class is used when a user asks about all features available at a specific station.
+-------------------------------------------------------------------------------------------------------
+'''
+
+class ActionCheckStation(Action):
+
+    def name(self) -> Text:
+        return "action_check_station"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        station_name = tracker.get_slot("station_name")
+        station_name = station_name.strip().lower()
+
+        if station_name not in station_data['Station Name'].tolist():
+            dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name} station.")
+            return []
+
+        station_info = station_data[station_data['Station Name'] == station_name]
+        
+        features = station_info.iloc[0].to_dict()
+        feature_descriptions = "\n".join([f"{k}: {v}" for k, v in features.items() if k != "Station Name"])
+        dispatcher.utter_message(text=f"Here are the accessibility features for {station_name.capitalize()} station:\n{feature_descriptions}")
+        
+        return []
+
+'''
+-------------------------------------------------------------------------------------------------------
+Class: ActionListAllStations
+Purpose: This class is responsible for listing all the stations available in the dataset.
+-------------------------------------------------------------------------------------------------------
+'''
+
+class ActionListAllStations(Action):
+
+    def name(self) -> Text:
+        return "action_list_all_stations"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        unique_stations = sorted(set(station_data['Station Name'].str.title()))
+
+        stations_list = ", ".join(unique_stations)
+        dispatcher.utter_message(text=f"Here are all the metro stations: {stations_list}.")
+
+        return []
+
+'''
+-----------------------------------------------------------------------------------------------------------
+Class: ActionListStationsWithFeature
+Purpose: This class handles queries where the user wants to find all stations that have a specific feature.
+-----------------------------------------------------------------------------------------------------------
+'''
+
+class ActionListStationsWithFeature(Action):
+
+    def name(self) -> Text:
+        return "action_list_stations_with_feature"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        feature = tracker.get_slot("feature").strip().lower()
+        
+        feature_mapping = {
+            "escalators": "Escalators",
+            "escalator": "Escalators",
+            "lifts": "Lift",
+            "elevator": "Lift",
+            "elevators": "Lift",
+            "ramps": "Station access",
+            "access": "Station access",
+            "parking": "Parking",
+            "restroom": "Toilet",
+            "toilets": "Toilet",
+            "tactile edges": "Tactile edges",
+            "hearing loops": "Hearing Loop",
+            "info screens": "Info screens",
+            "shelter": "Shelter",
+            "low platform": "Low platform",
+            "path widths": "Path Widths",
+            "pick up / drop off": "Pick up / Drop off"
+        }
+
+        standardized_feature = feature_mapping.get(feature)
+
+        if not standardized_feature:
+            dispatcher.utter_message(text=f"Sorry, I don't have information about {feature}.")
+            return []
+
+        stations_with_feature = station_data[station_data[standardized_feature].str.lower() == 'yes']['Station Name'].str.title().tolist()
+
+        if not stations_with_feature:
+            dispatcher.utter_message(text=f"No stations have {feature}.")
+        else:
+            stations_list = ", ".join(stations_with_feature)
+            dispatcher.utter_message(text=f"Stations with {feature}: {stations_list}")
+
+        return []

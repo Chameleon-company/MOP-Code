@@ -10,6 +10,7 @@ import requests
 import folium
 from geopy.geocoders import Nominatim
 from IPython.display import display
+from datetime import datetime
 import openrouteservice
 from scipy.spatial import KDTree
 from geopy.distance import geodesic
@@ -21,12 +22,17 @@ import os
 #Function to geocode an address using Nominatim
 def geocode_address(address):
     geolocator = Nominatim(user_agent="mapping_app1.0")
-    #Geocode the input address to get latitude and longitude of address
-    location = geolocator.geocode(address)
+    
+    #Define the bounding box for Melbourne
+    melbourne_bbox = [(-38.5267, 144.5937), (-37.5113, 145.5125)] 
+    
+    #Geocode the address within the Melbourne bounding box
+    location = geolocator.geocode(address, viewbox=melbourne_bbox, bounded=True)
+    
     if location:
         return location.latitude, location.longitude
     else:
-        print("Address not found")
+        print("Address not found within Melbourne.")
         return None
 
 #Function to visualize the combined route (walking + public transport) with Folium
@@ -39,8 +45,10 @@ def visualize_combined_route(start_walking, transport, end_walking):
     
     #Add the starting walking route to the map in green
     folium.GeoJson(start_walking, name="start walking route", style_function=lambda x: {'color': 'green'}).add_to(m)
+
     #Add the public transport route to the map in blue
     folium.GeoJson(transport, name="public transport route", style_function=lambda x: {'color': 'blue'}).add_to(m)
+
     #Add the ending walking route to the map in red
     folium.GeoJson(end_walking, name="end walking route", style_function=lambda x: {'color': 'red'}).add_to(m)
     
@@ -48,20 +56,25 @@ def visualize_combined_route(start_walking, transport, end_walking):
     folium.LayerControl().add_to(m)
     
     #Save the map as a html fil and open the map in the default browser
-    map_file = 'map.html'
+    #Generate a timestamp and map file path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    map_file = os.path.join(current_dir, '..', 'mpt_data', f'user_directions_{timestamp}.html')
     m.save(map_file)
     
-    webbrowser.open_new_tab(map_file)
-    print(f"Map has been saved and opened: {map_file}")
+    return map_file
 
 #Function to get a route between two points using OpenRouteService
 def get_route(start_lat, start_lng, end_lat, end_lng, api_key, profile='driving-car'):
     #Create an OpenRouteService client instance
     client = openrouteservice.Client(key=api_key)
+
     #Set up coordinates for the route
     coordinates = [[start_lng, start_lat], [end_lng, end_lat]]
+
     #Get the route between the coordinates with the specified profile (e.g. can have walking/driving)
     route = client.directions(coordinates=coordinates, profile=profile, format='geojson')
+
     #Return the route in GeoJSON format
     return route
 
@@ -69,28 +82,53 @@ def get_route(start_lat, start_lng, end_lat, end_lng, api_key, profile='driving-
 def find_nearest_station(lat, lon, kdtree, df):
     #Query the KDTree with the given latitude and longitude to find nearest station. Distance is returned in degrees so need to calculate the meters
     distance, index = kdtree.query([lat, lon])
+
     #Get the nearest station details from the DataFrame
     nearest_station = df.iloc[index]
+
     #Extract stations coords
     nearest_station_coords = (nearest_station["stop_lat"], nearest_station["stop_lon"])
     point_coords = (lat, lon)
+
     #Calculate the geodesic distance (in meters) between the point and the nearest statio
     distance_meters = geodesic(point_coords, nearest_station_coords).meters
     
-    ###TO DO
-    ###ADD FUNCTIONALTIY OF DIRECTIONS
-    
     return nearest_station, distance_meters, distance
+
+#Function getting written directions and time to travel
+def extract_directions(route, distance_threshold=50):
+    steps = route['features'][0]['properties']['segments'][0]['steps']
+    directions = []
+    total_distance = 0
+    total_duration = 0
+
+    #Generating step information
+    for step in steps:
+        instruction = step['instruction']
+        distance = step['distance']
+        duration = step['duration']
+
+        #Accumulate total distance and duration
+        total_distance += distance
+        total_duration += duration
+
+        #Only show instructions for significant steps
+        if distance >= distance_threshold:
+            directions.append(f"{instruction} for {distance:.0f} meters.")
+    
+    return directions, total_distance, total_duration
 
 #Main function to execute the program by RASA
 def main(current_location, destination_input):
-    #Loading test dataset
-    #stops_file_path = r'C:\Users\logan\Desktop\Uni\Team proj\basemodelintegratedwithmap\actions\stops.txt'
     import os
-    script_dir = os.path.dirname(__file__)
-    stops_file_path = os.path.join(script_dir, '..', 'gtfs', '2', 'stops.txt')
 
-    #Read the stops.txt file and extract coords from the DF
+    #Get the directory where the current script is located
+    script_dir = os.path.dirname(__file__)
+
+    #Navigate to the 'mpt_data' folder relative to the current script's location
+    stops_file_path = os.path.join(script_dir, '..', 'mpt_data', 'stops.txt')
+
+    #Read the stops.txt file and extract coords from the df
     df = pd.read_csv(stops_file_path)
     coords = df[["stop_lat", "stop_lon"]].values
 
@@ -98,21 +136,20 @@ def main(current_location, destination_input):
     kdtree = KDTree(coords)
     
     #Prompt the user to input their current location
-    #user_input = input("Please enter your current location: ") #"fitzroy victoria"
     user_input = current_location
+
     #Geocode the user's inputted location
     location = geocode_address(user_input)
+
     #Check if geocoding was successful
     if location:
-        #print(f"Geocoded location: Latitude = {location[0]}, Longitude = {location[1]}") Removed as causing logging flag on github
-        # visualize_location(location[0], location[1])
+
 
         #Find the nearest public transport station to the current location
         nearest_station, distance_meters, distance = find_nearest_station(location[0], location[1], kdtree, df)
 
         
         #Prompt the user to input their destination
-        #destination_input = input("Please enter your destination: ") #"fitzroy victoria" #"collingwood victoria"
         destination = geocode_address(destination_input)
         
         #Get the latitude and longitude of the nearest public transport station
@@ -120,28 +157,48 @@ def main(current_location, destination_input):
         start_transport_long = nearest_station["stop_lon"]
 
         #Check if destination geocoding was successful
-        if destination:
-            #print(f"Geocoded destination: Latitude = {destination[0]}, Longitude = {destination[1]}")
-
-            print(f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters} meters away")
-            
+        if destination:          
             #Find the nearest public transport station to the destination
             nearest_station_destination, distance_meters_destination, distance_destination = find_nearest_station(destination[0], destination[1], kdtree, df)
-
-            print(f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination} meters away from the destination")
-
-            print(f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}")
 
             #Get the walking routes to and from public transport stops using OpenRouteService
             api_key = '5b3ce3597851110001cf6248a6b7c97bb850491794bb504b30e2f2f7'
             walking_route_start = get_route(location[0], location[1], start_transport_lat, start_transport_long, api_key, profile='foot-walking')
             walking_route_end = get_route(nearest_station_destination["stop_lat"], nearest_station_destination["stop_lon"], destination[0], destination[1], api_key, profile='foot-walking')
 
+
+            ###
+            # The below generates directions, however no street names are generated when using the profile='foot-walking'.
+            # This feature requires further development.
+
+
+            # # Extract directions and total time for walking to the nearest station
+            start_directions, total_distance_to_station, total_duration_to_station = extract_directions(walking_route_start)
+            # walking_start_details = f"\nWalking directions to the nearest station:\n" + "\n".join(start_directions)
+            # walking_start_details += f"\nIt will take {total_duration_to_station / 60:.0f} minutes and is {total_distance_to_station:.0f} meters.\n"
+
+            # # Extract directions and total time for walking from the station to the destination
+            end_directions, total_distance_from_station, total_duration_from_station = extract_directions(walking_route_end)
+            # walking_end_details = f"\nWalking directions from the nearest station to the destination:\n" + "\n".join(end_directions)
+            # walking_end_details += f"\nIt will take {total_duration_from_station / 60:.0f} minutes and is {total_distance_from_station:.0f} meters.\n"
+
+
+            ###
+
+            output_message = (
+                f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters:.2f} meters away. "
+                f"It will take approximately {total_duration_to_station / 60:.0f} minutes to walk there.<br><br>" 
+                f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination:.2f} meters away from the destination. "
+                f"It will take approximately {total_duration_from_station / 60:.0f} minutes to walk to the destination.<br><br>"
+                f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}. <br><br>"
+            )
+
             #Get the public transport route between the two stations
             transport_route = get_route(start_transport_lat, start_transport_long, nearest_station_destination["stop_lat"], nearest_station_destination["stop_lon"], api_key, profile='driving-car')
 
             #Visualize the combined routes on a map
-            visualize_combined_route(walking_route_start, transport_route, walking_route_end)
+            map_file = visualize_combined_route(walking_route_start, transport_route, walking_route_end)
+            return output_message + "|||" + map_file
         else:
             print("Destination location could not be determined.")
     else:
@@ -155,6 +212,14 @@ if __name__ == "__main__":
     
     current_location = sys.argv[1]
     destination_input = sys.argv[2]
-    main(current_location, destination_input)
+
+    #Capture the returned value from the main function
+    result = main(current_location, destination_input)
+    
+    #Print the result
+    if result:
+        print(result) 
+    else:
+        print("An unexpected error occurred while generating the map.")
 
 
