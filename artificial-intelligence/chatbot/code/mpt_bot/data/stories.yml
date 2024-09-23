@@ -45,6 +45,26 @@ stories:
      - intent: ask_best_route
      - action: action_find_best_route_with_transfers
 
+  - story: user asks about a specific feature at a station
+    steps:
+    - intent: ask_about_feature
+    - action: action_check_feature
+
+  - story: user asks about all features at a station
+    steps:
+    - intent: ask_about_station
+    - action: action_check_station
+
+  - story: user asks to list all stations
+    steps:
+    - intent: list_all_stations
+    - action: action_list_all_stations
+
+  - story: fallback scenario
+    steps:
+    - intent: nlu_fallback
+    - action: utter_default
+
   # Story with follow-up questions
   - story: User asks for best route, then asks for transfers
     steps:

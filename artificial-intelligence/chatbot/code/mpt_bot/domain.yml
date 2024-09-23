@@ -22,11 +22,18 @@ intents:
   - run_direction_script
   - provide_location
   - provide_destination
+  - ask_about_feature
+  - ask_about_station
+  - list_all_stations
+  - nlu_fallback
+  - list_stations_with_feature
 
 entities:
   - station_a
   - station_b
   - location
+  - station_name
+  - feature  
 
 slots:
   station_a:
@@ -49,6 +56,20 @@ slots:
     type: text
     mappings:
       - type: from_text
+
+    station_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: station_name
+
+  feature:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feature
 
 responses:
   utter_ask_for_station_b:
@@ -119,3 +140,7 @@ actions:
 - action_find_route_with_least_stops
 - action_generate_route_map
 - action_run_direction_script
+- action_check_feature
+- action_check_station
+- action_list_all_stations
+- action_list_stations_with_feature
