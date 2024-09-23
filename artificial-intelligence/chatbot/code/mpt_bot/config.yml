@@ -5,6 +5,7 @@ pipeline:
 - name: "RegexFeaturizer"
 - name: "LexicalSyntacticFeaturizer"
 - name: "CountVectorsFeaturizer"
+  analyzer: "word"
 - name: "DIETClassifier"
 - name: "RegexEntityExtractor"
   analyzer: char_wb
@@ -18,6 +19,8 @@ pipeline:
   entity_recognition: True
   use_word_boundaries: True
 - name: RegexEntityExtractor
+- name: EntitySynonymMapper
+
 
 policies:
 - name: MemoizationPolicy
@@ -25,4 +28,7 @@ policies:
   max_history: 5
   epochs: 100
 - name: RulePolicy
+  core_fallback_action_name: "action_default_fallback"
+  core_fallback_threshold: 0.3
+- name: AugmentedMemoizationPolicy
 assistant_id: 20240808-170718-best-sharp

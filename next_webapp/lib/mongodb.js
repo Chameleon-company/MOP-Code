@@ -1,24 +1,37 @@
 // lib/mongodb.js
-import { MongoClient } from 'mongodb';
+const mongoose = require('mongoose');
 
-const uri = process.env.MONGODB_URI; 
-let client;
-let clientPromise;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local');
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-if (process.env.NODE_ENV === 'development') {
-  
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    console.log('Using existing connection');
+    return cached.conn;
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('Connected to MongoDB');
+      return mongoose.connection;
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
 
-export default clientPromise;
+module.exports = dbConnect;
+
