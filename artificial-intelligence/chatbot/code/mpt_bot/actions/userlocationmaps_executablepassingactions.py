@@ -45,10 +45,8 @@ def visualize_combined_route(start_walking, transport, end_walking):
     
     #Add the starting walking route to the map in green
     folium.GeoJson(start_walking, name="start walking route", style_function=lambda x: {'color': 'green'}).add_to(m)
-
     #Add the public transport route to the map in blue
     folium.GeoJson(transport, name="public transport route", style_function=lambda x: {'color': 'blue'}).add_to(m)
-
     #Add the ending walking route to the map in red
     folium.GeoJson(end_walking, name="end walking route", style_function=lambda x: {'color': 'red'}).add_to(m)
     
@@ -68,13 +66,10 @@ def visualize_combined_route(start_walking, transport, end_walking):
 def get_route(start_lat, start_lng, end_lat, end_lng, api_key, profile='driving-car'):
     #Create an OpenRouteService client instance
     client = openrouteservice.Client(key=api_key)
-
     #Set up coordinates for the route
     coordinates = [[start_lng, start_lat], [end_lng, end_lat]]
-
     #Get the route between the coordinates with the specified profile (e.g. can have walking/driving)
     route = client.directions(coordinates=coordinates, profile=profile, format='geojson')
-
     #Return the route in GeoJSON format
     return route
 
@@ -82,41 +77,15 @@ def get_route(start_lat, start_lng, end_lat, end_lng, api_key, profile='driving-
 def find_nearest_station(lat, lon, kdtree, df):
     #Query the KDTree with the given latitude and longitude to find nearest station. Distance is returned in degrees so need to calculate the meters
     distance, index = kdtree.query([lat, lon])
-
     #Get the nearest station details from the DataFrame
     nearest_station = df.iloc[index]
-
     #Extract stations coords
     nearest_station_coords = (nearest_station["stop_lat"], nearest_station["stop_lon"])
     point_coords = (lat, lon)
-
     #Calculate the geodesic distance (in meters) between the point and the nearest statio
     distance_meters = geodesic(point_coords, nearest_station_coords).meters
     
     return nearest_station, distance_meters, distance
-
-#Function getting written directions and time to travel
-def extract_directions(route, distance_threshold=50):
-    steps = route['features'][0]['properties']['segments'][0]['steps']
-    directions = []
-    total_distance = 0
-    total_duration = 0
-
-    #Generating step information
-    for step in steps:
-        instruction = step['instruction']
-        distance = step['distance']
-        duration = step['duration']
-
-        #Accumulate total distance and duration
-        total_distance += distance
-        total_duration += duration
-
-        #Only show instructions for significant steps
-        if distance >= distance_threshold:
-            directions.append(f"{instruction} for {distance:.0f} meters.")
-    
-    return directions, total_distance, total_duration
 
 #Main function to execute the program by RASA
 def main(current_location, destination_input):
@@ -137,10 +106,8 @@ def main(current_location, destination_input):
     
     #Prompt the user to input their current location
     user_input = current_location
-
     #Geocode the user's inputted location
     location = geocode_address(user_input)
-
     #Check if geocoding was successful
     if location:
 
@@ -161,37 +128,16 @@ def main(current_location, destination_input):
             #Find the nearest public transport station to the destination
             nearest_station_destination, distance_meters_destination, distance_destination = find_nearest_station(destination[0], destination[1], kdtree, df)
 
+            output_message = (
+                f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters:.2f} meters away.<br><br>"
+                f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination:.2f} meters away from the destination.<br><br>"
+                f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}."
+            )
+
             #Get the walking routes to and from public transport stops using OpenRouteService
             api_key = '5b3ce3597851110001cf6248a6b7c97bb850491794bb504b30e2f2f7'
             walking_route_start = get_route(location[0], location[1], start_transport_lat, start_transport_long, api_key, profile='foot-walking')
             walking_route_end = get_route(nearest_station_destination["stop_lat"], nearest_station_destination["stop_lon"], destination[0], destination[1], api_key, profile='foot-walking')
-
-
-            ###
-            # The below generates directions, however no street names are generated when using the profile='foot-walking'.
-            # This feature requires further development.
-
-
-            # # Extract directions and total time for walking to the nearest station
-            start_directions, total_distance_to_station, total_duration_to_station = extract_directions(walking_route_start)
-            # walking_start_details = f"\nWalking directions to the nearest station:\n" + "\n".join(start_directions)
-            # walking_start_details += f"\nIt will take {total_duration_to_station / 60:.0f} minutes and is {total_distance_to_station:.0f} meters.\n"
-
-            # # Extract directions and total time for walking from the station to the destination
-            end_directions, total_distance_from_station, total_duration_from_station = extract_directions(walking_route_end)
-            # walking_end_details = f"\nWalking directions from the nearest station to the destination:\n" + "\n".join(end_directions)
-            # walking_end_details += f"\nIt will take {total_duration_from_station / 60:.0f} minutes and is {total_distance_from_station:.0f} meters.\n"
-
-
-            ###
-
-            output_message = (
-                f"The nearest public transport stop is at {nearest_station['stop_name']} it is {distance_meters:.2f} meters away. "
-                f"It will take approximately {total_duration_to_station / 60:.0f} minutes to walk there.<br><br>" 
-                f"The nearest public transport stop to the destination is at {nearest_station_destination['stop_name']} it is {distance_meters_destination:.2f} meters away from the destination. "
-                f"It will take approximately {total_duration_from_station / 60:.0f} minutes to walk to the destination.<br><br>"
-                f"Take public transport from {nearest_station['stop_name']} to {nearest_station_destination['stop_name']}. <br><br>"
-            )
 
             #Get the public transport route between the two stations
             transport_route = get_route(start_transport_lat, start_transport_long, nearest_station_destination["stop_lat"], nearest_station_destination["stop_lon"], api_key, profile='driving-car')

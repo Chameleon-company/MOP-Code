@@ -33,12 +33,14 @@ body{
     padding-right: 24px;
     align-items: center;
     
+
 }
 .left-section{
     display: flex;
     gap: 68px;
     align-items: center;
 }
+
 .left-section .logo{
     height: 50px;
     width: 56px;
@@ -66,7 +68,12 @@ body{
     display: flex;
     gap: 27px;
 }
+
+
+
+
 /* ------- */
+
 .hero-section{
     margin-top: 55px;
     height: auto;
@@ -77,6 +84,12 @@ body{
     width: 100%;
     height : 805px;
 }
+
+
+
+
+
+
 .our-vision-section{
     display: flex;
     background: #2ECC71;
@@ -169,6 +182,7 @@ color:black;
     max-width: 300px;
     width: 100%;
 }
+
 .card-wrapper .top-image{
     height: 281px;
     padding-left: 64px;
@@ -179,6 +193,7 @@ color:black;
     width: 100%;
     height: 100%;
 }
+
 .recent-case-studies{
     margin-top: 105px;
     margin-left: 80px;
@@ -196,7 +211,9 @@ color:black;
     font-size: 36px;
     font-weight: 400;
     color : black;
+
 }
+
 .sign-up-btn-section{
     display: flex;
     align-items: center;

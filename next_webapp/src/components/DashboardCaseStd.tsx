@@ -1,3 +1,4 @@
+// DashboardCaseStd.js
 import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -25,7 +26,7 @@ const DashboardCaseStd = () => {
       image: "/img/icon3.png",
       title: t("Case Study 3"),
       description: t("Data Science in Education"),
-      link: "/UseCases",
+      link: "UseCases",
     },
   ];
 

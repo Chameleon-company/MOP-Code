@@ -1,127 +1,163 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: #f5f5f5; /* Set background to grey */
-}
-
 body {
     display: flex;
-    flex-direction: column;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Make the content fill the space between header and footer */
-    padding: 20px;
-    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #FFFFFF;
 }
 
-.login-container {
+.top-bar, .login-container, .signup-link, .forgot-password, input, button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.top-bar {
+    background-color: #fff;
+    padding: 1rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-}
-
-.login-content {
-    max-width: 600px; /* Limiting the width of the form */
-    width: 100%;
-    padding: 20px;
+    justify-content: space-between;
+    width: 80%;
+    position: fixed;
+    top: 88px;
+    left: 0;
     box-sizing: border-box;
+    margin-left: 8%;
 }
 
-.login-title {
-    font-weight: bold;
-    color: black;
-    font-size: 1.8rem;
-    text-align: center; /* Centering the title */
-    margin-bottom: 0.5rem;
+.logo {
+    height: 60px;
 }
 
-.login-subtitle {
-    color: #616161;
-    font-size: 1rem;
-    text-align: center; /* Centering the subtitle */
-    margin-bottom: 1.5rem;
+.signup-container {
+    display: flex;
+    align-items: center;
 }
 
-.login-input-wide {
-    width: 100%;
-    padding: 0.875rem;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+.no-account {
+    margin-right: 1rem;
+    font-size: larger;
+    color: #333;
 }
 
-.wide-button {
-    width: 100%;
-    padding: 0.875rem;
-    background-color: #2ECC71;
-    color: white;
-    border: none;
-    font-size: 1rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.signup-link, .forgot-password {
+    padding: 0.5rem 1rem;
+    color: #0066cc;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
-.wide-button:hover {
-    background-color: #27ae60;
-}
-
-.relative {
-    position: relative;
-}
-
-.toggle-password {
-    font-size: 1.2rem;
-    cursor: pointer;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+.account-query {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .options-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 0 0.625rem;
 }
 
-.forgot-password {
-    color: #0066cc;
-    text-decoration: none;
-    font-size: 0.9rem;
+.sign-up-button{
+    padding: 0.3125rem 0.625rem;
+    background-color: #fff;
+    color: #424242;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: larger;
+}
+
+.login-button {
+    background-color: #2ECC71;
+    color: white;
+    width: 100%;
+    padding-block: 15px;
+    border-color: white;
+}
+
+.login-container {
+    background-color: white;
+    padding: 1rem;
+    max-width: 100%;
+    width: auto;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.h2 {
+    font-weight: bold;
+    color: black;
+}
+.login-title {
+    font-weight: bold;
+    color: black;
+    font-size: 2vw;
+}
+
+.login-subtitle {
+    color: #616161;
 }
 
 .remember-me {
-    font-size: 0.9rem;
-    margin-left: 10px; /* Add space between the checkbox and the text */
+    color: #616161;
 }
 
-.options-container input[type="checkbox"] {
-    margin-right: 10px; /* Add space between the checkbox and the label */
+.subtitle {
+    color: #616161;
 }
 
-.error {
-    color: red;
-    font-size: 1rem;
-    margin-top: 1rem;
-}
-
-.footer-container {
-    position: static; /* Remove fixed positioning */
-    height: 80px; /* Adjust footer height */
-    background-color: #131619;
-    color: white;
-    text-align: center;
+.input-group input {
+    margin: 5px;
     width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #9E9E9E;
+    color: black;
+    padding-block: 3%;
+    font-size: large;
+
+
+}
+
+.remember-me {
+    color: #616161;
+}
+
+.input-group {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+}
+
+.input-group input[type="password"] {
+    margin: 5px;
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #9E9E9E;
+    color: black;
+    padding-block: 3%;
+    font-size: large;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+@media (min-width: 768px) {
+    .logo {
+        height: 100px;
+    }
+
+    .login-container {
+        width: 675px;
+    }
 }

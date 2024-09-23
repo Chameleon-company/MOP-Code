@@ -7,54 +7,26 @@ const Footer = () => {
   const t = useTranslations("common");
 
   return (
-    <footer className="bg-green-500 text-white py-8 mt-16 md:mt-8">
-      <div className="container mx-auto px-4 md:px-2 lg:px-8">
-        {/* Flexbox container for layout */}
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
-          
-          {/* Logo and Navigation */}
-          <div className="flex flex-col md:flex-row items-center md:space-x-6 space-y-8 md:space-y-0">
-            {/* Logo */}
-            <img src="/img/new-logo-white.png" alt="Hameleon logo" className="h-16 lg:h-24 w-auto" />
-
-            {/* Navigation Links */}
-            <nav className="mt-4 md:mt-0">
-              <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 text-base lg:text-lg">
-                <li>
-                  <Link href="/licensing" className="hover:underline">
-                    {t("Licensing")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacypolicy" className="hover:underline">
-                    {t("Privacy Policy")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="hover:underline">
-                    {t("Contact Us")}
-                  </Link>
-                </li>
+    <footer className="bg-green-500 text-white py-4 mt-20">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0">
+          <div className="flex flex-col lg:flex-row items-center lg:space-x-8 space-y-4 lg:space-y-0">
+            <img src="/img/new-logo-white.png" alt="Hameleon logo" className="h-20 lg:h-28" />
+            <nav className="mt-4 lg:mt-0">
+              <ul className="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-6 text-lg lg:text-xl">
+                <li><Link href="/licensing" className="hover:underline">Licensing</Link></li>
+                <li><Link href="/privacypolicy" className="hover:underline">Privacy Policy</Link></li>
+                <li><Link href="/contact" className="hover:underline">Contact Us</Link></li>
               </ul>
             </nav>
           </div>
-
-          {/* Social Icons and External Link */}
-          <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6">
-            {/* Social Media Icons */}
+          
+          <div className="flex flex-col items-center lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-6">
             <div className="flex space-x-4">
-              <a href="#" aria-label="Facebook" className="hover:text-gray-300">
-                <FaFacebook size={24} />
-              </a>
-              <a href="#" aria-label="Twitter" className="hover:text-gray-300">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-gray-300">
-                <FaLinkedin size={24} />
-              </a>
+              <a href="#" aria-label="Facebook"><FaFacebook size={20} /></a>
+              <a href="#" aria-label="Twitter"><FaTwitter size={20} /></a>
+              <a href="#" aria-label="LinkedIn"><FaLinkedin size={20} /></a>
             </div>
-
-            {/* External Link */}
             <a href="https://data.melbourne.vic.gov.au/pages/home/" className="flex items-center hover:underline">
               Melbourne Open Data
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
