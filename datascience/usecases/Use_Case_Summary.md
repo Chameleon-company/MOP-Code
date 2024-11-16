@@ -4,15 +4,17 @@ Names of all use cases, location in GitHub and description of data collection me
 
 ### Ready To Publish 
 #### T1 2023
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Disability Services and Public Transport Analysis within CBD | Ready to Publish T1 2023 | `requests.get(url)` | Adam Bullivant | Use Case is really large and can't be viewed |
-| Flexible Return To Office Options | Ready to Publish T1 2023 | `requests.get()` | Angie Hollingworth | |
-| Small Area Population Growth & Active | Ready to Publish T1 2023 | `requests.get()` | Angie Hollingworth and Mick Wiedermann | |
-| Urban Heat Island (UHI) Effect Reduction | Ready to Publish T1 2023 | `requests.get()` | Amy Tran and Siyu Ai  | |
-| Live events and the effect on foot traffic and business | Ready to Publish T1 2023 | `requests.get()` | Keefe Alpay and Nathan Clee | |
+| ID | Use Case Name | Use Case Location | Data Collection Method | Author | Notes | 
+| :-: | :-: | :-: | :-: | :-: | 
+| 10001 | Disability Services and Public Transport Analysis within CBD | Ready to Publish T1 2023 | requests.get(url) | Adam Bullivant | Use Case is really large and can't be viewed | 
+| 10002 | Flexible Return To Office Options | Ready to Publish T1 2023 | requests.get() | Angie Hollingworth | | 
+| 10003 | Small Area Population Growth & Active | Ready to Publish T1 2023 | requests.get() | Angie Hollingworth and Mick Wiedermann | | 
+| 10004 | Urban Heat Island (UHI) Effect Reduction | Ready to Publish T1 2023 | requests.get() | Amy Tran and Siyu Ai | | 
+| 10005 | Live events and the effect on foot traffic and business | Ready to Publish T1 2023 | requests.get() | Keefe Alpay and Nathan Clee | | 
+| 10006 | Supporting local businesses surrounding Tourist | Ready to Publish T1 2023 | requests.get(url) | Kruthi Shetty and Vinit Shetty | |
 
-| Supporting local businesses surrounding Tourist | Ready to Publish T1 2023 | `requests.get(url)` | Kruthi Shetty and Vinit Shetty | |
+
+
 
 #### T2 2023
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
