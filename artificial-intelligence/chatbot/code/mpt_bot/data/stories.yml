@@ -140,3 +140,8 @@ stories:
     - intent: provide_destination
     - action: action_run_direction_script
 
+###new
+  - story: Direct directions request
+    steps:
+    - intent: get_directions
+    - action: action_run_direction_script

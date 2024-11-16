@@ -1119,41 +1119,41 @@ class ActionGenerateRouteMap(Action):
 	-------------------------------------------------------------------------------------------------------
 '''
 from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
 import subprocess
 import sys
+import os
+import logging
 
 logger = logging.getLogger(__name__)
 
-class ActionRunMappingScript(Action):
+class ActionRunDirectionScript(Action):
     def name(self) -> Text:
         return "action_run_direction_script"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        #Get the two most recent user messages
-        user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
-        user_location = user_messages[-2] if len(user_messages) >= 2 else None
-        destination = user_messages[-1] if user_messages else None
-
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        if not user_location or not destination:
-            dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
+            
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        
+        if not location_from or not location_to:
+            dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
 
+        current_dir = os.path.dirname(os.path.abspath(__file__))
         script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
-
         
         try:
-            result = subprocess.run([sys.executable, script_path, user_location, destination], 
-                                    capture_output=True, 
-                                    text=True, 
-                                    check=True)
+            result = subprocess.run([sys.executable, script_path, location_from, location_to], 
+                                  capture_output=True, 
+                                  text=True, 
+                                  check=True)
             
             output = result.stdout.strip()
-
+            
             if output:
                 output_parts = output.split("|||")
                 
@@ -1163,7 +1163,6 @@ class ActionRunMappingScript(Action):
 
                     dispatcher.utter_message(text=description)
 
-                    #Generate URL for the map file using the existing server
                     relative_path = os.path.relpath(map_file_path, current_dir)
                     map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
 
@@ -1171,11 +1170,10 @@ class ActionRunMappingScript(Action):
                     dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
                 else:
                     dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
-
             else:
-                dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
+                dispatcher.utter_message(text="The direction script executed successfully, but no output was produced.")
 
-        except subprocess.CalledProcessError as e:  
+        except subprocess.CalledProcessError as e:
             error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
             dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
             logger.error(f"Script execution failed: {error_message}")
@@ -1183,7 +1181,7 @@ class ActionRunMappingScript(Action):
             dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
             logger.error(f"Exception occurred: {str(e)}")
 
-        return [SlotSet("user_location", user_location), SlotSet("destination", destination)]
+        return []
 
 ''' 
 -------------------------------------------------------------------------------------------------------

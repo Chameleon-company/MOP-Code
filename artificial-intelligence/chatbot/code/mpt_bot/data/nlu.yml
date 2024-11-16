@@ -197,7 +197,22 @@ nlu:
     - [North Melbourne](location)
     - [South Yarra](location)
     - [Carlton](location)
-    - [MCG](location)    
+    - [MCG](location)   
+
+###new
+- intent: get_directions
+  examples: |
+    - I want to go from [Southbank](location_from) to [St Kilda](location_to)
+    - How do I get from [Collingwood](location_from) to [Federation Square](location_to)
+    - Show me directions from [Melbourne Airport](location_from) to [CBD](location_to)
+    - Route from [Footscray](location_from) to [Richmond](location_to)
+    - Get me from [Brunswick](location_from) to [South Melbourne](location_to)
+    - Directions from [Prahran](location_from) to [Docklands](location_to)
+    - Navigate from [Carlton](location_from) to [MCG](location_to)
+    - How to get to [South Yarra](location_to) from [Essendon](location_from)
+    - Find route between [North Melbourne](location_from) and [Fitzroy](location_to)
+    - Plan journey from [St Kilda](location_from) to [Brunswick](location_to)    
+
 
 - intent: ask_about_feature
   examples: |

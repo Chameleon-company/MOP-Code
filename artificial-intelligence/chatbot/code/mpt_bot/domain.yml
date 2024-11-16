@@ -34,6 +34,9 @@ entities:
   - location
   - station_name
   - feature  
+  
+  - location_from
+  - location_to
 
 slots:
   station_a:
@@ -57,7 +60,7 @@ slots:
     mappings:
       - type: from_text
 
-    station_name:
+  station_name:
     type: text
     influence_conversation: true
     mappings:
@@ -70,6 +73,19 @@ slots:
     mappings:
       - type: from_entity
         entity: feature
+
+  location_from:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location_from
+  location_to:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location_to
 
 responses:
   utter_ask_for_station_b:
@@ -129,6 +145,9 @@ responses:
 
   utter_ask_destination:
   - text: "Great! Now, please provide your destination."
+
+  utter_default:
+  - text: "Sorry I didn't understand. Can you rephrase?"
 
 actions:
 - action_find_next_train

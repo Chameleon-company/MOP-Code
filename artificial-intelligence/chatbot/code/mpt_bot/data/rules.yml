@@ -56,10 +56,10 @@ rules:
   - intent: ask_transfers
   - action: action_calculate_transfers
 
-- rule: Best route inquiry
-  steps:
-  - intent: ask_best_route
-  - action: action_find_best_route_with_transfers
+# - rule: Best route inquiry
+#   steps:
+#   - intent: ask_best_route
+#   - action: action_find_best_route_with_transfers
 
 - rule: Find route with least stops
   steps:
@@ -90,3 +90,10 @@ rules:
   steps:
   - intent: provide_destination
   - action: action_run_direction_script
+
+###new
+- rule: Direct directions request
+  steps:
+  - intent: get_directions
+  - action: action_run_direction_script
+
