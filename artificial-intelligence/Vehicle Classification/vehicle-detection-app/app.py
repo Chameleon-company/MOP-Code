@@ -13,10 +13,10 @@ def home():
 def about():
     return render_template('about.html')
 
-# Route for the Vechile Detection page
-@app.route('/vecdec')
-def vecdec():
-    return render_template('vecdec.html')
+# Route for the Vehile Detection page
+@app.route('/vedec')
+def vedec():
+    return render_template('vedec.html')
 
 # Run the app
 if __name__ == '__main__':
