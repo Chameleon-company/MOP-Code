@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chameleon - MOP AI/IoT - {{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/vecdec">Vechile Detection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>{{ title }}</h1>
+        <div class="content">
+            {% block content %}
+            <!-- Content will be injected here -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Placeholder for footer</p>
+    </footer>
+</body>
+</html>
