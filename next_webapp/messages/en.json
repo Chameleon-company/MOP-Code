@@ -138,5 +138,21 @@
         "Weak": "Weak",
         "Moderate":"Moderate",
         "Strong":"Strong"
+      },
+      "login": {
+        "Account Log In":"Account Log In",
+        "Please login to continue to your account":"Please login to continue to your account",
+        "Email":"Email",
+        "Remember Me":"Remember Me",
+        "LOGIN": "LOGIN",
+        "Password": "Password",
+        "Forgot Password?":"Forgot Password?"
+      },
+      "forgot-password": {
+        "Forgot Password": "Forgot Password",
+        "Email": "Email",
+        "Continue": "Continue",
+        "line1": "ONE-TIME PASSWORD (OTP) WILL BE SENT TO YOUR",
+        "line2": "EMAIL ADDRESS FOR VERIFICATION"
       }
   }
