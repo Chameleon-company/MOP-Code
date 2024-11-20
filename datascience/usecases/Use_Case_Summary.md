@@ -63,21 +63,20 @@ Names of all use cases, location in GitHub and description of data collection me
 ### Retired
 |                     Use Case Name                         | Use Case Location | Data Collection Method  |      Author      |                     Notes                      |
 |-----------------------------------------------------------|:-----------------:|:-----------------------:|:----------------:|:----------------------------------------------:|
-| Melbourne Pedestrian Network Routes and Road Safety: Part 2 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/RETIRED)          | `requests.get()`        | Bree McLennan    | External dependency couldn't be found          |
+| UC00031_Melbourne_Pedestrian_Network_Routes_and_Road_Safety_Part_2 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/RETIRED)          | `requests.get()`        | Bree McLennan    | External dependency couldn't be found          |
 
 ### Currently In Progress
 |                     Use Case Name                   |     Use Case Location     | Data Collection Method  | Author | Notes |
 |-----------------------------------------------------|:-------------------------:|:-----------------------:|:------:|:-----:|
-| Urban Tree Planting                                   | In Progress               | `requests.get()`        |        |       |
-| Argyle Square Additional Bins Events                  | In Progress               | `requests.get()`        |        |       |
-| Pedestrian Prediction / Walkability Map of CoM        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Pedestrian%20Prediction%20and%20Analysis)               | `requests.get()`        |        |       | ***
-| Identify Potential Area for New Cafe in Melbourne     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Identify%20potential%20area%20for%20new%20cafe%20in%20Melbourne%20by%20using%20residential%20data%20-%20Urban%20Investor)               | `requests.get()`        |        |       |
-| Impact of Greenhouse Gas Emissions                    | [File Link](               | `requests.get()`        |        |       |
-| Tree Canopy Changes                                   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Tree%20Canopy%20Changes)               | `requests.get()`        |        |       |
-| Guides                                                | In Progress               | `requests.get()`        |        |       |
-| Apply Predictive Learning for On-street Parking Availability | In Progress        | `requests.get()`        |        |       |
-| On-street Parking Bay Sensors Analysis                | [File Link](               | `requests.get()`        |        |       |
-| Housing Prices, Landmarks and Places of Interests     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/house_prices_landmarks_places_interest)              | `requests.get()`        |        |       |
+| UC00032_Argyle_Square_Additional_Bins_Events                  | In Progress               | `requests.get()`        |        |       |
+| UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Identify%20potential%20area%20for%20new%20cafe%20in%20Melbourne%20by%20using%20residential%20data%20-%20Urban%20Investor)               | `requests.get()`        |        |       |
+| UC00034_Impact_of_Greenhouse_Gas_Emissions                    | [File Link](               | `requests.get()`        |        |       |
+| UC00035_Tree_Canopy_Changes                                   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Tree%20Canopy%20Changes)               | `requests.get()`        |        |       |
+| UC00036_Guides                                                | In Progress               | `requests.get()`        |        |       |
+| UC00037_Apply_Predictive_Learning_for_On-street_Parking_Availability | In Progress        | `requests.get()`        |        |       |
+| UC00038_On-street_Parking_Bay_Sensors_Analysis                | [File Link](               | `requests.get()`        |        |       |
+| UC00039_Bird_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/bf034bb03da2db28c885e92051eb9e1a99a3ee74/datascience/usecases/UPDATE%20NEEDED/Arjun_222300263_Bird_sighting_Analysis)         | `requests.get()`        |        |       |
+| UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/house_prices_landmarks_places_interest)              | `requests.get()`        |        |       |
 | Urban Flood Management and Emergency Response T224 | In Progress        | `requests.get()`        |        |       |
 | Tracking Unique Insect Species in the City of Melbourne T224 | In Progress        | `requests.get()`        |        |       |
 | Clustering and Mapping Public Art Tours in the City of Melbourne T224 | In Progress        | `requests.get()`        |        |       |
@@ -85,7 +84,8 @@ Names of all use cases, location in GitHub and description of data collection me
 | Biodiversity Corridors Creation T224| In Progress       | `requests.get()`        |        |       |
 | Short Term Accomodation Impacts to Residential Floor Use T224| In Progress        | `requests.get()`        |        |       |
 | Coworking Spaces T224| In Progress        | `requests.get()`        |        |       |
-| Bird Analysis T224| [File Link](https://github.com/Chameleon-company/MOP-Code/tree/bf034bb03da2db28c885e92051eb9e1a99a3ee74/datascience/usecases/UPDATE%20NEEDED/Arjun_222300263_Bird_sighting_Analysis)         | `requests.get()`        |        |       |
+
+| Urban Tree Planting                                   | In Progress               | `requests.get()`        |        |       |
 
 
 
