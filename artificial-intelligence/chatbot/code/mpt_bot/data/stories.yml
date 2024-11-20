@@ -140,3 +140,12 @@ stories:
     - intent: provide_destination
     - action: action_run_direction_script
 
+  - story: Find next tram
+    steps:
+    - intent: find_next_tram
+    - action: action_find_next_tram
+  
+  - story: Find next bus
+    steps:
+	- intent: find_next_bus
+	- action: action_find_next_bus
