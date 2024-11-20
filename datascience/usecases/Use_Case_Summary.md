@@ -68,24 +68,23 @@ Names of all use cases, location in GitHub and description of data collection me
 ### Currently In Progress
 |                     Use Case Name                   |     Use Case Location     | Data Collection Method  | Author | Notes |
 |-----------------------------------------------------|:-------------------------:|:-----------------------:|:------:|:-----:|
-| UC00032_Argyle_Square_Additional_Bins_Events                  | In Progress               | `requests.get()`        |        |       |
+| UC00032_Argyle_Square_Additional_Bins_Events                  | Unknown               | `requests.get()`        |        |       |
 | UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Identify%20potential%20area%20for%20new%20cafe%20in%20Melbourne%20by%20using%20residential%20data%20-%20Urban%20Investor)               | `requests.get()`        |        |       |
-| UC00034_Impact_of_Greenhouse_Gas_Emissions                    | [File Link](               | `requests.get()`        |        |       |
+| UC00034_Impact_of_Greenhouse_Gas_Emissions                    | Unknown               | `requests.get()`        |        |       |
 | UC00035_Tree_Canopy_Changes                                   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Tree%20Canopy%20Changes)               | `requests.get()`        |        |       |
-| UC00036_Guides                                                | In Progress               | `requests.get()`        |        |       |
-| UC00037_Apply_Predictive_Learning_for_On-street_Parking_Availability | In Progress        | `requests.get()`        |        |       |
-| UC00038_On-street_Parking_Bay_Sensors_Analysis                | [File Link](               | `requests.get()`        |        |       |
+| UC00036_Guides                                                | Unknown               | `requests.get()`        |        |       |
+| UC00037_Apply_Predictive_Learning_for_On-street_Parking_Availability | Unknown        | `requests.get()`        |        |       |
+| UC00038_On-street_Parking_Bay_Sensors_Analysis                | Unknown               | `requests.get()`        |        |       |
 | UC00039_Bird_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/bf034bb03da2db28c885e92051eb9e1a99a3ee74/datascience/usecases/UPDATE%20NEEDED/Arjun_222300263_Bird_sighting_Analysis)         | `requests.get()`        |        |       |
 | UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/house_prices_landmarks_places_interest)              | `requests.get()`        |        |       |
-| UC00041_Urban_Flood_Management_and_Emergency_Response | In Progress        | `requests.get()`        |        |       |
-| Tracking Unique Insect Species in the City of Melbourne T224 | In Progress        | `requests.get()`        |        |       |
-| Clustering and Mapping Public Art Tours in the City of Melbourne T224 | In Progress        | `requests.get()`        |        |       |
-| Analyse Access Support Services Impact Wellbeing Indicators T224 | In Progress        | `requests.get()`        |        |       |
-| Biodiversity Corridors Creation T224| In Progress       | `requests.get()`        |        |       |
-| Short Term Accomodation Impacts to Residential Floor Use T224| In Progress        | `requests.get()`        |        |       |
-| Coworking Spaces T224| In Progress        | `requests.get()`        |        |       |
-
-| Urban Tree Planting                                   | In Progress               | `requests.get()`        |        |       |
+| UC00041_Urban_Flood_Management_and_Emergency_Response | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Urban%20Flood%20Management%20and%20Emergency%20Response%2002)        | `requests.get()`        |        |       |
+| UC00042_Tracking_Unique_Insect_Species_in_City_of_Melbourne | Unknown        | `requests.get()`        |        |       |
+| UC00043_Clustering_and_Mapping_Public_Art_Tours_in_City_of_Melbourne | Unknown        | `requests.get()`        |        |       |
+| UC00044_Analyse_Access_Support_Services_Impact_Wellbeing_Indicators | Unknown        | `requests.get()`        |        |       |
+| UC00045_Biodiversity_Corridors_Creation| Unknown       | `requests.get()`        |        |       |
+| UC00046_Short_Term_Accommodation_Impacts_to_Residential_Floor_Use| Unknown        | `requests.get()`        |        |       |
+| UC00047_Coworking_Spaces | Unknown        | `requests.get()`        |        |       |
+| UC00048_Urban_Tree_Planting                                   | Unknown               | `requests.get()`        |        |       |
 
 
 
@@ -138,7 +137,7 @@ Names of all use cases, location in GitHub and description of data collection me
 | Tram and Bus Network                                                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Tram%20and%20Bus%20Network%20Use%20Case)         | `requests.get()`         |                     |       |
 | Tourism Impact Analysis                                                                              | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Tourism%20Impact%20Analysis)         | `requests.get()`         |                     |       |
 | Soil Analysis and Prediction                                                                         | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Soil%20Analysis%20and%20Prediction)        | `requests.get()`         |                     |       |
-| Food Services and Its Impact on Wellbeing Indicators                                                 | Unavailable       | `requests.get()`         |                     |       |
+| Food Services and Its Impact on Wellbeing Indicators                                                 | Unknown       | `requests.get()`         |                     |       |
 | Exploring Business Establishments in the City of Melbourne by ANZSIC4 Classification and CLUE Area   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Business_establishments_in_city_of_Melbourne_Anzsic4_CLUE_small_area)        | `requests.get()`         |                     |       |
 | Top Five Hotspots for Business and Its Activities                                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Top_five_hotspots_for_business_and_its_activities_T2_2024)        | `requests.get()`         |                     |       |
 | New Business Location Use Case                                                                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/New%20Business%20Location)        | `requests.get()`         |                     |       |
@@ -156,7 +155,7 @@ Names of all use cases, location in GitHub and description of data collection me
 | Analyzing Traffic Congestion, Speeding, and Accident Correlation                                     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Analyzing%20Traffic%20Congestion%2C%20Speeding%2C%20and%20Accident%20Correlation)        | `requests.get()`         |                     |       |
 | Public Transport Accessibility to Business Locations Such as Bars/Taverns/Pubs                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Public%20Transport%20Accessibility%20to%20Business%20Locations)        | `requests.get()`         |                     |       |
 | Impact of Coworking Spaces on Social Wellbeing Indicators                                            | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Impact%20of%20Coworking%20Spaces%20on%20Social%20Wellbeing%20Indicators)        | `requests.get()`         |                     |       |
-| Impact of Coworking Spaces on Community Well-being                                                   | Unavailable        | `requests.get()`         |                     |       |
+| Impact of Coworking Spaces on Community Well-being                                                   | Unknown        | `requests.get()`         |                     |       |
 | Route Planner                                                                                        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Route%20Planner)        | `requests.get()`         | ChathuSatharasinghe                    |       |
 | Exploring Accessibility for Disabled People in the City of Melbourne                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Exploring%20Accessibility%20for%20Disabled%20People)        | `requests.get()`         |                     |       |
 | Optimizing Public Amenities in the City of Melbourne                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Optimizing%20Public%20Amenities%20in%20the%20City%20of%20Melbourne)        | `requests.get()`         |                     |       |
