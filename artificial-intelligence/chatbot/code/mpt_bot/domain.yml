@@ -59,7 +59,7 @@ slots:
     mappings:
       - type: from_text
 
-    station_name:
+  station_name:
     type: text
     influence_conversation: true
     mappings:
@@ -131,6 +131,9 @@ responses:
 
   utter_ask_destination:
   - text: "Great! Now, please provide your destination."
+
+  utter_default:
+  - text: "Sorry I didn't understand. Can you rephrase?"
 
 actions:
 - action_find_next_tram
