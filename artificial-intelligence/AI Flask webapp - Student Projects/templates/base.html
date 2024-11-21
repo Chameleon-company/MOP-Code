@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chameleon - MOP AI  {{ title }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="/static/images/cham_logo.png" alt="Company Logo" height="150">
+            <ul class="menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/chatbot_main">Chatbot</a></li>
+                <li><a href="/health_main">Health Behaviour</a></li>
+                <li><a href="/traffic_main">Traffic Analysis</a></li>
+                <li><a href="/vehicle_main">Vehicle Classification</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>MOP | AI {{ title }}</h1>
+        <div class="content">
+            <br>
+            {% block content %}
+            <!-- Content to be injected here -->
+            {% endblock %}
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-section left">
+            <p>&copy; 2024 Copyright reserved by Chameleon</p>
+        </div>
+        <div class="footer-section center">
+            <p>Contact us <br>
+                PH: 03 5975 6586 <br>
+                E:info@chameleon.com.au<br>
+            </p>
+        </div>
+        <div class="footer-section right">
+            <img src="/static/images/deakin_logo.png" alt="Deakin Logo">
+        </div>
+    </footer>
+</body>
+</html>
