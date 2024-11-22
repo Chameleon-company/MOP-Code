@@ -3,96 +3,176 @@
 Names of all use cases, location in GitHub and description of data collection methods used as well as last update of data collection method.
 
 ### Ready To Publish 
-#### T1 2023
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Disability Services and Public Transport Analysis within CBD | Ready to Publish T1 2023 | `requests.get(url)` | Adam Bullivant | Use Case is really large and can't be viewed |
-| Flexible Return To Office Options | Ready to Publish T1 2023 | `requests.get()` | Angie Hollingworth | |
-| Small Area Population Growth & Active | Ready to Publish T1 2023 | `requests.get()` | Angie Hollingworth and Mick Wiedermann | |
-| Urban Heat Island (UHI) Effect Reduction | Ready to Publish T1 2023 | `requests.get()` | Amy Tran and Siyu Ai  | |
-| Live events and the effect on foot traffic and business | Ready to Publish T1 2023 | `requests.get()` | Keefe Alpay and Nathan Clee | |
 
-| Supporting local businesses surrounding Tourist | Ready to Publish T1 2023 | `requests.get(url)` | Kruthi Shetty and Vinit Shetty | |
+#### T1 2023
+| Use Case Name                                     | Use Case Location         | Data Collection Method | Author                         | Notes                                    |
+| ------------------------------------------------ | :------------------------ | :--------------------: | :-----------------------------: | :---------------------------------------: |
+| UC00001_Disability_Transport_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Disability%20Transport%20Analysis) | `requests.get()`      | Adam Bullivant                 | Use Case is really large and cannot be viewed |
+| UC00002_Flexible_Return_To_Office_Options                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Flexible%20Return_to_Office_Options_T1_2023) | `requests.get()`         | Angie Hollingworth             |                                           |
+| UC00003_Urban_Heat_Island_(UHI)_Effect_Reduction          | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/UHI_Effect_Reduction_T1_2023) | `requests.get()`         | Amy Tran and Siyu Ai            |                                           |
+| UC00004_Live_Events_and_The_Effect_on_Foot_Traffic_and_Business | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Live_Event_Effect_on_Foot_Traffic_T1_2023) | `requests.get()`         | Keefe Alpay and Nathan Clee     |                                           |
+| UC00005_Supporting_Local_Businesses_Surrounding_Tourist   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Supporting_Local_Businesses_Surrounding_Tourist_Attractions_T1_2023) | `requests.get()`      | Kruthi Shetty and Vinit Shetty  |                                           |
+| UC00006_Small_Population_Growth_Active_Transport   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Small_Population_Growth_Active_Transport_T1_2023) | `requests.get()`      |   |
 
 #### T2 2023
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Population and Accidents | Ready to Publish T2 2023 | `requests.get()` | Kruthi Shetty |  |
-| Self Designed Walking Tour | Ready to Publish T2 2023 | `requests.get()` | Amy Tran | |
+| - | :-: | :-: | :-: | :-:|
+| UC00007_Population_and_Accidents | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202023/Population_Accident_T2_2023) | `requests.get()` | Kruthi Shetty |  |
+| UC00008_Self_Designed_Walking_Tour | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202023/Self_Designed_Walking_Tour_T2_2023) | `requests.get()` | Amy Tran | |
 
 #### T3 2023
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Childcare Facilities Analysis | Ready to Publish T3 2023 | `requests.get()` | Arjun Janwal | |
-| City Living Comfort | Ready to Publish T3 2023 | `requests.get()` | Siju Deng | File is too big to display |
-| Impact of Planned Works | Ready to Publish T3 2023 | `requests.get()` | Te' Claire and Harley NGO | |
-| Laneways Waterflow | Ready to Publish T3 2023 | `requests.get()` | Alison Collins | |
-| Projected Venue Growth | Ready to Publish T3 2023 | `requests.get()` | Daniel D'Amore | |
+| - | :-: | :-: | :-: | :-:|
+| UC00009_Childcare_Facilities_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T3%202023/Childcare%20Facilities%20Analysis) | `requests.get()` | Arjun Janwal | |
+| UC00010_City_Living_Comfort | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T3%202023/City_Living_Comfort) | `requests.get()` | Siju Deng | File is too big to display |
+| UC00011_Impact_of_Planned_Works | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T3%202023/Impact%20of%20Planned%20Works) | `requests.get()` | Te' Claire and Harley NGO | |
+| UC00012_Laneways_Waterflow | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T3%202023/Laneways%20Waterflow) | `requests.get()` | Alison Collins | |
+| UC00013_Projected_Venue_Growth | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T3%202023/Projected%20Music%20Venue%20Growth) | `requests.get()` | Daniel D'Amore | |
 
 #### T1 2024
 |    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Live Music Event Planning | T1 2024 | `requests.get()` | Mollie Fernandez | |
-| Ideal Green Roof Locations: Melbourne | T1 2024 | `requests.get()` | Hannah Smith and Ryan Waites | Updated by Mollie Fernandez |
-| Melbourne Bicycle Network Routes and Road Safety: Part 1 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
-| Melbourne Bicycle Network Routes and Road Safety: Part 2 | T1 2024 | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
-| Melbourne Pedestrian Network Routes and Road Safety | T1 2024 | `requests.get()` | Bree McLennan and Jack Pham | Updated by Mollie Fernandez |
+| - | :-: | :-: | :-: | :-:|
+| UC00014_Live_Music_Event_Planning | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Live%20Music%20Event%20Planning%20Use%20Case) | `requests.get()` | Mollie Fernandez | |
+| UC00015_Ideal_Green_Roof_Locations_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Ideal_Green_Roof_Locations) | `requests.get()` | Hannah Smith and Ryan Waites | Updated by Mollie Fernandez |
+| UC00016_Melbourne_Bicycle_Network_Road_Safety_Part_1 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Bicycle%20Network%20Road%20Safety%20Part%201) | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
+| UC00017_Melbourne_Bicycle_Network_Road_Safety_Part_2 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Bicycle%20Network%20Road%20Safety%20Part%202) | `requests.get()` | Bree McLennan and Anugra Thomas | Updated by Mollie Fernandez |
 
 ### Update Needed
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Entertainment Location Projections | UPDATE NEEDED | 'request.get(url)' | Barkha Javed and Jack Pham | |
-| Environmental Sensor Study: Melbourne | UPDATE NEEDED | Socrata "SODAPY_APPTOKEN" | | Trello Card Created |
-| Evaluate Business Location Using Pedestrian Traffic: Day and Night | UPDATE NEEDED | `requests.get(url)`, csv | | Trello Card Created |
-| Green Wall Locations: Melbourne | UPDATE NEEDED | Socrata "SODAPY_APPTOKEN" | | Trello Card Created |
-| High-rise Building and Public Transport | UPDATE NEEDED | `pd.read_csv` | Jack Pham and Basilia Carmel Sethu | Trello Card Updated |
-| Litter Traps & Public BBQ | UPDATE NEEDED | `pd.read_csv()` | Tharusha Cao and Thomas Warren | Trello Card Created |
-| Livability Analysis by Location | UPDATE NEEDED | `requests.get(url)`, csv | | Trello Card Created |
-| Melbourne Livability Assessment | UPDATE NEEDED | pd.csv read | Steven Nguyen | Trello Card Created |
-| New Business Location Use Case | UPDATE NEEDED | `pd.read_csv(url)` | | Trello Card Created |
-| Pedestrains Counts and Bus-stops | UPDATE NEEDED | `pd.read_csv()` and `requests.get()` | Shilpa Sharma | Trello Card Created |
-| Pedestrian Foot Traffic Business Case | UPDATE NEEDED | `requests.get()` | | |
-| Real-time parking hotspots | UPDATE NEEDED | `requests.get()`| Siju Deng | Requests API key input, API key visible. Trello Card Created.|
-| Smart Bin Waste_Collection AI Application | UPDATE NEEDED | `pd.read_csv()` | Barry Chen | Trello Card Created |
-| Smart Bin and Disposal Optimisation | UPDATE NEEDED | Socrata "SODAPY_APPTOKEN", .csv | Abosede Alli | Trello Card Created |
-| Soil Analysis | UPDATE NEEDED | 'request.get()' | Unknown | Needs a story there is only code. Trello Card Created |
-| Spot Parking Problems | UPDATE NEEDED | `pd.read_csv(url)` |  | Trello Card Created - Also in Rework Completed |
-| Urban Art Explorer | UPDATE NEEDED | `requests.get()` | Keefe Alpay and Nathan Clee | Needs to be edited, the style guide is showing |
-| Urban Bar Explorer | UPDATE NEEDED | `requests.get()` | Keefe Alpay and Nathan Clee | Needs to be edited, the style guide is showing |
-| Urban Development Analysis | UPDATE NEEDED | `requests.get()` | Wing Sum Wong and Jennifer Yau | Requests API key input, API key visible. Style Guide visible. Trello Card Created |
-| Walkability | UPDATE NEEDED | `gpd.read_file` | Hannah Smith | Trello Card Updated |
+|                     Use Case Name                     |     Use Case Location     |     Data Collection Method       |          Author                    |                         Notes                          |
+|-------------------------------------------------------|:-------------------------:|:--------------------------------:|:----------------------------------:|:------------------------------------------------------:|
+| UC00018_Environmental_Sensor_Study                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Environmental%20Sensor%20Study)             | Socrata "SODAPY_APPTOKEN"        |                                    | Trello Card Created                                    |
+| UC00019_Evaluate_Business_Location_with_Pedestrian_Traffic | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Evaluate%20Business%20Location) | `requests.get(url)`, csv        |                                    | Trello Card Created                                    |
+| UC00020_High-Rise_Building_and_Public_Transport               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Highrise%20Building%20%26%20Public%20Transport)             | `pd.read_csv`                    | Jack Pham and Basilia Carmel Sethu | Trello Card Updated                                    |
+| UC00021_Litter_Traps_&_Public_BBQ                             | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Litter%20Traps%20%26%20BBQ%20%26%20Differing%20Site%20Typologies)             | `pd.read_csv()`                  | Tharusha Cao and Thomas Warren     | Trello Card Created                                    |
+| UC00022_Livability_Analysis_by_Location                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Livability%20Analysis%20by%20Location)             | `requests.get(url)`, csv         |                                    | Trello Card Created                                    |
+| UC00023_New_Business_Location                        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/New%20Business%20Location)             | `pd.read_csv(url)`               |                                    | Trello Card Created                                    |
+| UC00024_Pedestrian_Foot_Traffic_Business_Case                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Pedestrian%20Foot%20Traffic%20Business%20Case)             | `requests.get()`                 |  Mollie                                  |                                                        |
+| UC00025_Smart_Bin_Waste_Collection_AI_Application             | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Smart%20Bin%20Waste%20Collection%20AI%20Application)             | `pd.read_csv()`                  | Barry Chen                         | Trello Card Created                                    |
+| UC00026_Soil_Analysis                                         | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Soil%20Analysis)             | `requests.get()`                 | Unknown                            | Needs a story; there is only code. Trello Card Created |
+| UC00027_Spot_Parking_Problems                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Spot%20Parking%20Problem)             | `pd.read_csv(url)`               |                                    | Trello Card Created - Also in Rework         |
+| UC00028_Urban_Art_Explorer                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Urban_Art_Explorer)             | `requests.get()`                 | Keefe Alpay and Nathan Clee        | Needs to be edited, the style guide is showing         |
+| UC00029_Urban_Bar_Explorer                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Urban_Bar_Explorer)             | `requests.get()`                 | Keefe Alpay and Nathan Clee        | Needs to be edited, the style guide is showing         |
+| UC00030_Walkability                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Walkability)             | `gpd.read_file`                  | Hannah Smith                       | Trello Card Updated                                    |                                  |
+
+
+
+
+
+
 
 ### Retired
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Melbourne Pedestrian Network Routes and Road Safety: Part 2 | RETIRED | `requests.get()`| Bree McLennan | External Dependency couldn't be found |
+|                     Use Case Name                         | Use Case Location | Data Collection Method  |      Author      |                     Notes                      |
+|-----------------------------------------------------------|:-----------------:|:-----------------------:|:----------------:|:----------------------------------------------:|
+| UC00031_Melbourne_Pedestrian_Network_Routes_and_Road_Safety_Part_2 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/RETIRED)          | `requests.get()`        | Bree McLennan    | External dependency couldn't be found          |
 
 ### Currently In Progress
-|    Use Case Name    | Use Case Location | Data Collection Method | Author | Notes |
-| :-: | :-: | :-: | :-: | :-:|
-| Business Energy Consumption | In Progress | `requests.get()` | | |
-| Urban Tree Planting | In Progress | `requests.get()` | | |
-| Pedestrian and Bus Stops | In Progress | `requests.get()`  | | |
-| Argyle Square Additional Bins Events | In Progress | `requests.get()` | | |
-| Smart Bin Optimised Waster Collection Route | In Progress | `requests.get()` | | |
-| Enhancing Pedestiran Safety in Melbourne's Urban Areas | In Progress | `requests.get()` | | |
-| Support Services | In Progress | `requests.get()` | | |
-| Pedestrian Predistion / Walkability Map of CoM | In Progress | `requests.get()` | | |
-| Bird Habitat Analysis | In Progress | `requests.get()` | | |
-| Air Quality | In Progress | `requests.get()` | | |
-| Identify potential area for new cafe in Melbourne by using residential data Urban Investor | In Progress | `requests.get()` | | |
-| Customer Service Analysis | In Progress | `requests.get()` | | |
-| Art Finder | In Progress | `requests.get()` | | |
-| Business Establishments (land use) and Jobs | In Progress | `requests.get()` | | |
-| Impact of Greenhouse Gas Emissions | In Progress | `requests.get()` | | |
-| Real Estate | In Progress | `requests.get()` | | |
-| Impact of Employment on Housing Prices | In Progress | `requests.get()` | | |
-| Tree Canopy Changes | In Progress | `requests.get()` | | |
-| Guides | In Progress | `requests.get()` | | |
-| Mental Wellbeing | In Progress | `requests.get()` | | |
-| Water Flow Rates and Trees | In Progress | `requests.get()` | | |
-| Apply Predictive Learning for On-street Parking Availability | In Progress | requests.get()  | | |
-| On-street Parking Bay Sensors Analysis | In Progress | requests.get()  | | |
-| Biodiversity in Melbourne's Parks | In Progress | requests.get()  | | |
-| Bird Culture Analysis | In Progress | requests.get()  | | |
-| Jobs Forecasting and Current Industry Jobs In Melbourne | In Progress | requests.get()  | | |
+|                     Use Case Name                   |     Use Case Location     | Data Collection Method  | Author | Notes |
+|-----------------------------------------------------|:-------------------------:|:-----------------------:|:------:|:-----:|
+| UC00032_Argyle_Square_Additional_Bins_Events                  | Unknown               | `requests.get()`        |        |       |
+| UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Identify%20potential%20area%20for%20new%20cafe%20in%20Melbourne%20by%20using%20residential%20data%20-%20Urban%20Investor)               | `requests.get()`        |        |       |
+| UC00034_Impact_of_Greenhouse_Gas_Emissions                    | Unknown               | `requests.get()`        |        |       |
+| UC00035_Tree_Canopy_Changes                                   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Tree%20Canopy%20Changes)               | `requests.get()`        |        |       |
+| UC00036_Guides                                                | Unknown               | `requests.get()`        |        |       |
+| UC00037_Apply_Predictive_Learning_for_On-street_Parking_Availability | Unknown        | `requests.get()`        |        |       |
+| UC00038_On-street_Parking_Bay_Sensors_Analysis                | Unknown               | `requests.get()`        |        |       |
+| UC00039_Bird_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/bf034bb03da2db28c885e92051eb9e1a99a3ee74/datascience/usecases/UPDATE%20NEEDED/Arjun_222300263_Bird_sighting_Analysis)         | `requests.get()`        |        |       |
+| UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/house_prices_landmarks_places_interest)              | `requests.get()`        |        |       |
+| UC00041_Urban_Flood_Management_and_Emergency_Response | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/70f47856ba4ec9db288e02eb5f739252d6f20039/datascience/usecases/UPDATE%20NEEDED/Urban%20Flood%20Management%20and%20Emergency%20Response%2002)        | `requests.get()`        |        |       |
+| UC00042_Tracking_Unique_Insect_Species_in_City_of_Melbourne | Unknown        | `requests.get()`        |        |       |
+| UC00043_Clustering_and_Mapping_Public_Art_Tours_in_City_of_Melbourne | Unknown        | `requests.get()`        |        |       |
+| UC00044_Analyse_Access_Support_Services_Impact_Wellbeing_Indicators | Unknown        | `requests.get()`        |        |       |
+| UC00045_Biodiversity_Corridors_Creation| Unknown       | `requests.get()`        |        |       |
+| UC00046_Short_Term_Accommodation_Impacts_to_Residential_Floor_Use| Unknown        | `requests.get()`        |        |       |
+| UC00047_Coworking_Spaces | Unknown        | `requests.get()`        |        |       |
+| UC00048_Urban_Tree_Planting                                   | Unknown               | `requests.get()`        |        |       |
+
+
+
+
+
+
+
+### Completed
+
+#### T1 2024
+|                     Use Case Name                   |     Use Case Location     | Data Collection Method | Author | Notes |
+|-----------------------------------------------------|:-------------------------:|:-----------------------:|:------:|:-----:|
+| Business Energy Consumption                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Business_energy_consumption)           | `requests.get()`        |        |       |
+| Smart Bin Optimised Waste Collection Route            | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Smart_bin_Optimized_Waster_Collection_Route)           | `requests.get()`        |        |       |
+| Support Services                                      | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Support_Services)           | `requests.get()`        |        |       |
+| Bird Habitat Analysis                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Bird%20Habitat%20Analysis)           | `requests.get()`        |        |       |
+| Air Quality Prediction                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Air%20Quality%20Prediction%20(Argyle%20Square))           | `requests.get()`        |        |       |
+| Customer Service Analysis                             | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Customer_Service_Analysis)           | `requests.get()`        |        |       |
+| Art Finder                                            | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Art%20Finder)           | `requests.get()`        |        |       |
+| Real Estate                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Real%20Estate)           | `requests.get()`        |        |       |
+| Impact of Employment on Housing Prices                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Impact_of_Employment_housingprice)           | `requests.get()`        |        |       |
+| Mental Wellbeing                                      | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Mental%20Wellbeing)           | `requests.get()`        |        |       |
+| Water Flow Rates and Trees                            | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Water%20Flow%20Rates%20and%20Trees)           | `requests.get()`        |        |       |
+| Biodiversity in Melbourne's Parks                     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Melbourne's%20Biodiversity%20usecase)           | `requests.get()`        |        |       |
+| Jobs Forecasting and Current Industry Jobs In Melbourne| [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Melbourne_Job_Forecasting)          | `requests.get()`        |        |       |
+
+#### T1 2024 - Added from Microsoft Planner
+|                             Use Case Name                             |     Use Case Location     | Data Collection Method |          Author          | Notes |
+|-----------------------------------------------------------------------|:-------------------------:|:-----------------------:|:------------------------:|:-----:|
+| Banner Polls Booking                                                  | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Banner%20Poles%20Booking)           | `requests.get()`        |                          |       |
+| Prediction of Energy Use by Use Typology                              | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Block%20Energy%20Use)           | `requests.get()`        |                          |       |
+| Population Growth & Active Transportation Needs Analysis              | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202023/Small_Population_Growth_Active_Transport_T1_2023)           | `requests.get()`        | Angie Hollingworth and Mick Wiedermann |       |
+| Private Event Planning                                                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Private%20Event%20Planning)           | `requests.get()`        |                          |       |
+| Pedestrian Prediction                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Pedestrian%20Prediction%20and%20Analysis)           | `requests.get()`        |                          |       |
+| Public Event Planning                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Public_Event_Planning)           | `requests.get()`        |                          |       |
+| Pedestrian Accidents and Bus-stops                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Pedestrian%20Accidents%20and%20Bus%20Stops)           | `requests.get()`        |                          |       |
+| Tree History                                                          | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Tree%20History)           | `requests.get()`        |                          |       |
+| Capacity Forecasting and Strategic Insights for Bars, Pubs, Cafes, and Restaurants in Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Capacity%20Forecasting%20and%20Strategic%20Insights%20for%20Bars%2C%20Pubs%2C%20Cafes%2C%20and%20Restaurants)           | `requests.get()`        |                          |       |
+
+#### T2 2024
+|       Use Case Name       |   Use Case Location   | Data Collection Method |      Author      | Notes |
+|---------------------------|:---------------------:|:-----------------------:|:----------------:|:-----:|
+| Assessing Parking Availability Around Café, Restaurant, Bistro Seats, Bar, Tavern, Pub               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Assessing_Parking_Availability_Around%20_Restaurants)         | `requests.get()`         |                     |       |
+| Urban Growth and Transit Planning for Melbourne                                                      | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Urban_Growth_and_Transit_Planning_for_Melbourne)         | `requests.get()`         |                      |       |
+| Evaluating Public Transport Accessibility to Places of Interest in Melbourne                         | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Evaluating%20Public%20Transport%20Accessibility%20to%20Places%20of%20Interest%20in%20Melbourne)         | `requests.get()`         |                      |       |
+| Influence of Employment on Price of Houses                                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Influence%20of%20Employment%20on%20Price%20of%20Houses)         | `requests.get()`         |                      |       |
+| Drinking Fountains in Melbourne Using Pedestrian Traffic Data                                        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Drinking%20Fountain%20Analysis)         | `requests.get()`         |                      |       |
+| Enhancing Community Well-being Through Public Transport Accessibility                                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Enhancing%20Community%20Well-being%20Through%20Public%20Transport%20Accessibility)         | `requests.get()`         |                      |       |
+| Social Indicator Changes Throughout Time/Place and the Impact of Covid                               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Social%20Indicator%20Changes)         | `requests.get()`         |                      |       |
+| Tram and Bus Network                                                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Tram%20and%20Bus%20Network%20Use%20Case)         | `requests.get()`         |                     |       |
+| Tourism Impact Analysis                                                                              | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Tourism%20Impact%20Analysis)         | `requests.get()`         |                     |       |
+| Soil Analysis and Prediction                                                                         | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Soil%20Analysis%20and%20Prediction)        | `requests.get()`         |                     |       |
+| Food Services and Its Impact on Wellbeing Indicators                                                 | Unknown       | `requests.get()`         |                     |       |
+| Exploring Business Establishments in the City of Melbourne by ANZSIC4 Classification and CLUE Area   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Business_establishments_in_city_of_Melbourne_Anzsic4_CLUE_small_area)        | `requests.get()`         |                     |       |
+| Top Five Hotspots for Business and Its Activities                                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Top_five_hotspots_for_business_and_its_activities_T2_2024)        | `requests.get()`         |                     |       |
+| New Business Location Use Case                                                                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/New%20Business%20Location)        | `requests.get()`         |                     |       |
+| Analyzing Business Activity for Cafes and Restaurants in Melbourne                                   | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Analyzing%20and%20Predicting%20Business%20Activity%20for%20Cafes%20and%20Restaurants%20in%20Melbourne)        | `requests.get()`         |                     |       |
+| Wedding Planning                                                                                     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Wedding%20Planner)        | `requests.get()`         |                     |       |
+| Air Quality Based on Environmental Factors                                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Air%20Quality%20Based%20on%20Environmental%20Factors)        | `requests.get()`         |                     |       |
+| Assessing Parking Availability Near Places of Interest in Melbourne                                  | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Assessing_Parking_Availability_Around%20_Restaurants)        | `requests.get()`         |                     |       |
+| Analyzing and Forecasting Tree Canopy Loss in the City of Melbourne                                  | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Analyzing%20and%20Forecasting%20Tree%20Canopy%20Loss%20in%20the%20City%20of%20Melbourne)        | `requests.get()`         |                     |       |
+| Pedestrian and Bus Stops                                                                             | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Pedestrian%20Counts%20and%20Bus%20Stops)        | `requests.get()`         |                     |       |
+| Urban Forestry and Bird Populations                                                                  | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Urban%20Forestry%20and%20Bird%20Populations)        | `requests.get()`         |                     |       |
+| Weather Condition Classification (Environmental and Wellbeing)                                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Weather%20Classification)        | `requests.get()`         |                     |       |
+| Melbourne Housing Market Analysis                                                                    | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Melbourne%20House%20Price%20Evaluation)        | `requests.get()`         |                     |       |
+| Renewable Energy Optimization                                                                        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Renewable%20Energy%20Optimization)        | `requests.get()`         |                     |       |
+| Exploring Greening Laneways and Urban Forest Strategy                                                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Exploring%20Greening%20Laneways%20and%20Urban%20Forest%20Strategy)        | `requests.get()`         |                     |       |
+| Analyzing Traffic Congestion, Speeding, and Accident Correlation                                     | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Analyzing%20Traffic%20Congestion%2C%20Speeding%2C%20and%20Accident%20Correlation)        | `requests.get()`         |                     |       |
+| Public Transport Accessibility to Business Locations Such as Bars/Taverns/Pubs                       | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Public%20Transport%20Accessibility%20to%20Business%20Locations)        | `requests.get()`         |                     |       |
+| Impact of Coworking Spaces on Social Wellbeing Indicators                                            | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Impact%20of%20Coworking%20Spaces%20on%20Social%20Wellbeing%20Indicators)        | `requests.get()`         |                     |       |
+| Impact of Coworking Spaces on Community Well-being                                                   | Unknown        | `requests.get()`         |                     |       |
+| Route Planner                                                                                        | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Route%20Planner)        | `requests.get()`         | ChathuSatharasinghe                    |       |
+| Exploring Accessibility for Disabled People in the City of Melbourne                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Exploring%20Accessibility%20for%20Disabled%20People)        | `requests.get()`         |                     |       |
+| Optimizing Public Amenities in the City of Melbourne                                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Optimizing%20Public%20Amenities%20in%20the%20City%20of%20Melbourne)        | `requests.get()`         |                     |       |
+| Business Establishments (Land Use) and Jobs                                                          | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Business%20establishments%20(land%20use)%20and%20jobs)        | `requests.get()`         |                     |       |
+| Spot Parking Problems                                                                                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/UPDATE%20NEEDED/Spot%20Parking%20Problem)        | `requests.get()`         |                     |       |
+| Needed Restaurant Hotspots                                                                           | [File Link 1](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Nearby%20Restaurant%20Hotspots%20by%20Block) &nbsp;\|&nbsp; [File Link 2](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Nearby%20Restuarant%20Hotspots%20By%20CLUE%20Area)     | `requests.get()`         | sahanchamod, Tsandz18                   |       |
+| Enhancing Pedestrian Safety in Melbourne's Urban Areas                                               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Enhancing%20Pedestrian%20Safety%20in%20Melbourne's%20Urban%20Areas)        | `requests.get()`         |                     |       |
+| Analyzing Pedestrian Foot Traffic and Footpath Utilization                                           | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Pedestrian%20Foot%20Traffic%20and%20Footpath%20Utilization)        | `requests.get()`         |                     |       |
+| Analyzing Business Distribution and Employment Trends                                                | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T2%202024/Business%20Distribution)        | `requests.get()`         | Aishwarya Mahajan   |       |
+| Effect of Business Type/Residential Properties on Energy Consumption                                 | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Business_energy_consumption)        | `requests.get()`         | Mackenzie Gong      |       |
+| Analyzing What Contributes to Waste at Degraves Street                                               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/5843319d65f6fee33d138c0b1ad94e46282c4019/datascience/usecases/READY%20TO%20PUBLISH/T1%202024/Waste_Analysis)        | `requests.get()`         |                     |       |
+
+#### T3 2024
+|                             Use Case Name                             |     Use Case Location     | Data Collection Method |          Author          | Notes |
+|-----------------------------------------------------------------------|:-------------------------:|:-----------------------:|:------------------------:|:-----:|
+
+
+
+
+#### Last updated on November 21, 2024

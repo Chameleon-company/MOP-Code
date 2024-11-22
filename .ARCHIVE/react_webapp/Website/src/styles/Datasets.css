@@ -1,0 +1,40 @@
+body {
+  font-family: poppins;
+  text-align: center; 
+}
+
+table {
+    margin: auto;
+    margin-bottom: 50px;
+    border-collapse: collapse; 
+    border-style: hidden;
+  }
+
+table td {
+    border: 1px solid gray;
+    text-align: center;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+.table_top {
+  top: 0%; 
+}
+
+.table_bottom {
+    bottom:0%; 
+}
+
+.table_top, .table_bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.title {
+  margin: 80px;
+  font-size: xx-large;
+  font-weight: bold;
+  text-align: center;
+}

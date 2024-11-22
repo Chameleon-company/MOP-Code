@@ -1,0 +1,22 @@
+{% extends "layout.html" %} 
+{%block content %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+                <h2>Welcome to the City of Melbourne Council Pedestrian Count Prediction Portal.</h2>
+                <p style="text-align: justify;"><img src="{{ url_for('static',filename='images/flinders_street.png')}}" align=  "right" width=400, height = 300> According to a report released by <a href="http://www.climatecouncil.org.au/wp-content/uploads/2020/05/report-primed-for-action.pdf">Climate Council, 2020</a>, a clean and healthy environment impacts the community's habitability in such an environment and its overall prosperity. About 80 per cent of Australians were affected directly or indirectly by the unprecedented scale and severity of bushfires and smoke haze that occurred in 2019-20 summer. This led to about 33 people's death due to fire, 417 due to smoke haze, while many people lost their homes and nearly one billion animals killed. Although, the City of Melbourne council had a comprehensive Climate Change Adaptation Strategy that was issued in 2017, which helped guide its decisions and actions during these events. Also, the council believes that the increase in greenhouse gas emissions impacts these natural disasters. </p>
+                <p style="text-align: justify;">The 2019-20 summer bushfires experience severely impacted business activities in tourism, retail, hospitality, cultural and sporting events, and people could not transport themselves to work in the city. Clarke, et al., 2019, opined that the impact of climate change would occur, even at a more frequent rate and more severe in the future. In response to this rapidly changing trend of the adverse impact of climate change on the city's habitability, the council came up with a  <a href="https://www.melbourne.vic.gov.au/SiteCollectionDocuments/melbourne-submission-technology.doc">Technology Investment Roadmap Discussion</a> Paper. The paper discusses the challenges faced by local governments due to the changes and the opportunities that can be harnessed from new and existing technology in the transition to net-zero emissions. </p>
+                <p style="text-align: justify;">This project relates one of the four priorities identified by the council towards achieving the emissions reduction targets on transport. The council is committed to investing in infrastructure and programs to increase walking, cycling, and public transport use.</p>
+
+                <h2><p style="text-align: justify;">The Project Scope</p></h2>
+
+                <p style="text-align: justify;">The product is a tool that helps provide relevant and timely intelligence as inputs into the City of Melbourne council's decisions focused at encouraging Melbournians to adopt measures that would facilitate lower fossil gas emissions within the city. The project showcases visualisation of prediction of total pedestrians' count between November 2020 and March 2021 in the CBD. It also possesses an interface where realtime total pedestrians' count prediction can be made using the identified independent variables as input. Enabling officials to determine pedestrians' count for a specific day using weather forecast features (obtained from reliable sources), whether government restriction was in place or not and date features, as independent variables.  Different models using five Machine learning algorithms were built, and the algorithm with the least error was adopted for the predictions.</p>
+                      
+             
+                
+        
+                <p style="text-align: justify;">The deliverable of this aspect of the project is regression model to predict future pedestrian traffic to help the council make appropriate decisions on measures to promote walking towards contributing their quota in achieving net-zero emission by 2040.</p>
+            
+        </div>
+    </div>
+
+{% endblock %}
