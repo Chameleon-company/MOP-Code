@@ -35,7 +35,9 @@ entities:
   - station_b
   - location
   - station_name
-  - feature  
+  - feature
+  - current_longitude
+  - current_latitude
 
 slots:
   station_a:
@@ -133,6 +135,8 @@ responses:
   - text: "Great! Now, please provide your destination."
 
 actions:
+- action_generate_tram_map
+- action_generate_bus_map
 - action_find_next_tram
 - action_find_next_bus
 - action_find_next_train

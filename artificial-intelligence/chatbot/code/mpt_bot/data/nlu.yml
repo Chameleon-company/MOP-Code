@@ -307,6 +307,37 @@ nlu:
     - Where can I find stations that have [parking](feature)?
     - Could you tell me about stations that have [lifts](feature)?
 
+#AlexT - P2
+- intent: find_next_bus
+  examples: |
+    - What time does the next bus leave from [Flinders Street]?
+    - When is the next bus from [Southern Cross Station]?
+    - Can you tell me the next bus schedule for [Melbourne Central]?
+
+#AlexT - P2
+- intent: find_next_tram
+  examples: |    
+    - When is the next tram from [Southern Cross Station]?
+    - Can you tell me the next tram schedule for [Melbourne Central]?
+
+#AlexT - P2
+- intent: request_tram_map
+  examples: |
+    - Show me the map of tram stops
+    - Generate a tram stop map
+    - Where are the tram stops located?
+    - Can I see a map of tram stops?
+    - Create a tram map
+
+#AlexT - P2
+- intent: request_bus_map
+  examples: |
+    - Show me the map of bus stops
+    - Generate a bus stop map
+    - Where are the bus stops located?
+    - Can I see a map of bus stops?
+    - Create a bus map
+
 entities:
   - station_name
   - feature
