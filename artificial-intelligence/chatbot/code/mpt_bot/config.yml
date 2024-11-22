@@ -11,6 +11,8 @@ pipeline:
   analyzer: char_wb
   min_ngram: 1
   max_ngram: 4
+- name: "SpacyNLP"
+  model: "en_core_web_md"
 - name: DIETClassifier
   epochs: 100
 - name: RegexEntityExtractor
