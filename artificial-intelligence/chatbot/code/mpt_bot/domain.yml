@@ -8,6 +8,8 @@ intents:
   - greet
   - goodbye
   - find_next_train
+  - find_next_bus
+  - find_next_tram
   - request_map
   - find_best_route
   - ask_direct_route
@@ -33,7 +35,9 @@ entities:
   - station_b
   - location
   - station_name
-  - feature  
+  - feature
+  - current_longitude
+  - current_latitude
 
 slots:
   station_a:
@@ -57,7 +61,7 @@ slots:
     mappings:
       - type: from_text
 
-    station_name:
+  station_name:
     type: text
     influence_conversation: true
     mappings:
@@ -130,7 +134,14 @@ responses:
   utter_ask_destination:
   - text: "Great! Now, please provide your destination."
 
+  utter_default:
+  - text: "Sorry I didn't understand. Can you rephrase?"
+
 actions:
+- action_generate_tram_map
+- action_generate_bus_map
+- action_find_next_tram
+- action_find_next_bus
 - action_find_next_train
 - action_generate_map
 - action_find_best_route
