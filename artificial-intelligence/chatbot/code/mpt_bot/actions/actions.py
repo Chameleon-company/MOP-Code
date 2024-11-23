@@ -76,9 +76,104 @@ station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
-	
+
+class ActionGenerateTramMap(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: TRAM_01
+        Name: Tram Stations Map
+        Author: AlexT
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_generate_tram_map"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            # Remove duplicates
+            stops_map_df = tram_stops.drop_duplicates(subset=['stop_lat', 'stop_lon'])
+
+            # Initialize map
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            # Use MarkerCluster for better performance
+            marker_cluster = MarkerCluster().add_to(melbourne_map)
+
+            # Add markers with simplified popups
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"{row['stop_name']}",
+                    tooltip=f"{row['stop_name']}"
+                ).add_to(marker_cluster)
+
+            # Save map to HTML
+            map_filename = 'melbourne_tram_stops_map.html'
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True)
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            # Send map link to user
+            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne tram stops</a>"
+            dispatcher.utter_message(text=f"The map of Melbourne tram stops has been generated. {hyperlink}")
+
+        except Exception as e:
+            logging.error(f"Error generating tram map: {e}")
+            dispatcher.utter_message(text="An error occurred while generating the tram map.")
+        return []
+class ActionGenerateBusMap(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: BUS_01
+        Name: Bus Stations Map
+        Author: AlexT
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_generate_bus_map"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            # Ensure bus_stops has the required columns
+            stops_map_df = bus_stops[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            # Add markers for bus stops
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
+                    tooltip=row['stop_name']
+                ).add_to(melbourne_map)
+
+            # Save the map to an HTML file
+            map_filename = 'melbourne_bus_stops_map.html'
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True)
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            # Generate public URL for the map
+            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne bus stops</a>"
+
+            dispatcher.utter_message(text=f"The map of Melbourne bus stops has been generated. {hyperlink}")
+        except Exception as e:
+            logging.error(f"Error generating bus map: {e}")
+            dispatcher.utter_message(text="An error occurred while generating the bus map.")
+        return []
+
 class ActionFindNextBus(Action):
     ''' -------------------------------------------------------------------------------------------------------
+         ID: BUS_02
          Name: Schedule Information for Buses
          Author: AlexT
          -------------------------------------------------------------------------------------------------------
@@ -154,7 +249,8 @@ class ActionFindNextBus(Action):
 
 class ActionFindNextTram(Action):
     ''' -------------------------------------------------------------------------------------------------------
-         Name: Schedule Information for Trams
+         ID: TRAM_02
+         Name: Schedule Information for Trams        
          Author: AlexT
          -------------------------------------------------------------------------------------------------------
     '''
