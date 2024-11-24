@@ -1,86 +1,152 @@
 
+/*-------------------------
+#Michael's designs
+*/
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 /* h1 style */
 h1 {
-    text-align: center; 
-}
-
-/* h2 style */
-.section_heading {
-    text-align:center; 
-}
-
-/* nav style */
-nav {
-    background-color: #333;  
-    text-align: center;     
-}
-
-/* ul Style */
-.menu {
-    list-style-type: none;    
-    display: flex;           
-    justify-content: center; 
-    padding: 0;
-}
-
-/* li style */
-.menu li {
-    margin: 0 15px; 
-}
-
-/* a (link) style */
-.menu a {
-    color: white;          
-    text-decoration: none; 
-    font-size: 16px;       
-    padding: 10px 20px;    
-    display: inline-block; 
-}
-
-/* Hover effect for links */
-.menu a:hover {
-    background-color: #575757; 
-    border-radius: 4px;        
-}
-
-/* about_text Style */
-.main_cent_text {
-    text-align: center;    
-}
-
-/* footer style */
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    text-align: center;
     background-color: #333;
     color: white;
-    padding: 20px;
+    margin: 10px 0;
+    padding: 10px 0;
 }
 
-.footer-section {
-    flex: 1;
-    text-align: center;
+
+
+/*-------------------------
+#Ethan's designs
+*/
+
+.main_cent_text {
+    text-align: center; 
+    font-size: 20px;  
 }
 
-.footer-section.left {
-    text-align: left;
+body {
+    margin: 0;
+    font-family: "Lato", sans-serif;
 }
 
-.footer-section.right {
-    text-align: right;
+/* Sidebar styling */
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    transition: transform 0.3s ease;
 }
 
-footer img {
+/* Collapsible state for sidebar */
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+.sidebar img {
     max-width: 100%;
     height: auto;
-    max-height: 100px; 
+    display: block;
+    margin: 10px auto;
 }
 
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.sidebar a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+/* Content styling */
+.content {
+    margin-left: 200px;
+    padding: 16px;
+    height: 1000px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Responsive sidebar for smaller screens */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .sidebar a {
+        float: left;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+        width: 100%;
+    }
+}
+
+/* Toggle button for collapsible sidebar */
+#sidebar-toggle {
+    display: none;
+}
+
+label.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+label.toggle-button:hover {
+    background-color: #028a54;
+}
+
+/* Link toggle state to sidebar and content */
+#sidebar-toggle:checked ~ .sidebar {
+    transform: translateX(-100%);
+}
+
+#sidebar-toggle:checked ~ .content {
+    margin-left: 0;
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer .footer-section {
+    margin: 10px 0;
+}
+
+/*-------------------------  */

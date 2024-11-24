@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 
 
-# Create the Flask app
 app = Flask(__name__)
 
 #-------------------------
@@ -33,15 +32,22 @@ def health_main():
     return render_template('health_main.html')
 
 #-------------------------
-#Routes for the project pages
+#Routes for the Vehicle Classification project pages
 
-# Vehicle Classification -> Vehicle detection
+#Vehicle detection
 @app.route('/vehicle_detect')
 def vehicle_detect():
     return render_template('vehicle_detect.html')
 
 #-------------------------
+#Routes for the Traffic Analysis project pages
 
+
+#-------------------------
+#Routes for the Health behaviour project pages
+
+
+#-------------------------
 # Running the app
 if __name__ == '__main__':
     app.run(debug=True,port=5000)
