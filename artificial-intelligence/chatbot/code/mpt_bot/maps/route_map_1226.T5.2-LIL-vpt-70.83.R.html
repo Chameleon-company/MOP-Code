@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_36178896c1f8abc0888eb70756686ebe {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_36178896c1f8abc0888eb70756686ebe" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_36178896c1f8abc0888eb70756686ebe = L.map(
+                "map_36178896c1f8abc0888eb70756686ebe",
+                {
+                    center: [-37.8192216542552, 145.121428934402],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_7706355374f64413ad702d137f466eca = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_7706355374f64413ad702d137f466eca.addTo(map_36178896c1f8abc0888eb70756686ebe);
+        
+    
+            var marker_850a59a7d47604ddb2e16a728311e214 = L.marker(
+                [-37.8192216542552, 145.121428934402],
+                {}
+            ).addTo(map_36178896c1f8abc0888eb70756686ebe);
+        
+    
+            var icon_5451c84ccff29d40e94eff93c3fb2af9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_850a59a7d47604ddb2e16a728311e214.setIcon(icon_5451c84ccff29d40e94eff93c3fb2af9);
+        
+    
+        var popup_03f3ea1007b4e6ced5aab7f6e02a0a2e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a92904153f1a1f7e0707f87b18d8c137 = $(`<div id="html_a92904153f1a1f7e0707f87b18d8c137" style="width: 100.0%; height: 100.0%;">Stop: Box Hill Railway Station (Box Hill)<br>Stop ID: 20042</div>`)[0];
+                popup_03f3ea1007b4e6ced5aab7f6e02a0a2e.setContent(html_a92904153f1a1f7e0707f87b18d8c137);
+            
+        
+
+        marker_850a59a7d47604ddb2e16a728311e214.bindPopup(popup_03f3ea1007b4e6ced5aab7f6e02a0a2e)
+        ;
+
+        
+    
+    
+            marker_850a59a7d47604ddb2e16a728311e214.bindTooltip(
+                `<div>
+                     Box Hill Railway Station (Box Hill)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e26635f063821e564a74271be556446b = L.marker(
+                [-37.8265671441721, 145.058697177155],
+                {}
+            ).addTo(map_36178896c1f8abc0888eb70756686ebe);
+        
+    
+            var icon_fca4f116da581f4ec76ec81a19607b26 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e26635f063821e564a74271be556446b.setIcon(icon_fca4f116da581f4ec76ec81a19607b26);
+        
+    
+        var popup_9740d283d88905ee503ec596f6f57324 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4ffbe9187da13b5e14318c826aff4888 = $(`<div id="html_4ffbe9187da13b5e14318c826aff4888" style="width: 100.0%; height: 100.0%;">Stop: Camberwell Railway Station (Camberwell)<br>Stop ID: 19853</div>`)[0];
+                popup_9740d283d88905ee503ec596f6f57324.setContent(html_4ffbe9187da13b5e14318c826aff4888);
+            
+        
+
+        marker_e26635f063821e564a74271be556446b.bindPopup(popup_9740d283d88905ee503ec596f6f57324)
+        ;
+
+        
+    
+    
+            marker_e26635f063821e564a74271be556446b.bindTooltip(
+                `<div>
+                     Camberwell Railway Station (Camberwell)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_95fb86222e537480499c4294b10ba957 = L.marker(
+                [-37.8214668222169, 145.036438832309],
+                {}
+            ).addTo(map_36178896c1f8abc0888eb70756686ebe);
+        
+    
+            var icon_c2577c8fed8be9ceaffa0d85a97fe4c6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_95fb86222e537480499c4294b10ba957.setIcon(icon_c2577c8fed8be9ceaffa0d85a97fe4c6);
+        
+    
+        var popup_3252b08cb9fe344b82ba9a2c8ad41782 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a7e5ef8d2d8de2edb8f5cccec3cfb422 = $(`<div id="html_a7e5ef8d2d8de2edb8f5cccec3cfb422" style="width: 100.0%; height: 100.0%;">Stop: Glenferrie Railway Station (Hawthorn)<br>Stop ID: 19904</div>`)[0];
+                popup_3252b08cb9fe344b82ba9a2c8ad41782.setContent(html_a7e5ef8d2d8de2edb8f5cccec3cfb422);
+            
+        
+
+        marker_95fb86222e537480499c4294b10ba957.bindPopup(popup_3252b08cb9fe344b82ba9a2c8ad41782)
+        ;
+
+        
+    
+    
+            marker_95fb86222e537480499c4294b10ba957.bindTooltip(
+                `<div>
+                     Glenferrie Railway Station (Hawthorn)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_5fdbc12a464cae5323dbfed7f65091e7 = L.polyline(
+                [[-37.8192216542552, 145.121428934402], [-37.8265671441721, 145.058697177155], [-37.8214668222169, 145.036438832309]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_36178896c1f8abc0888eb70756686ebe);
+        
+</script>
+</html>
