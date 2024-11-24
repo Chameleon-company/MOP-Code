@@ -180,7 +180,7 @@ const Contact = () => {
             </fieldset>
           ))}
           <div className="flex justify-center items-center">
-            <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
+            <button className="submitButton text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
               {t("Submit")}
             </button>
           </div>
