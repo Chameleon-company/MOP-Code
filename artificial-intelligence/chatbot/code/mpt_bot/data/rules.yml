@@ -90,13 +90,27 @@ rules:
   steps:
   - intent: ask_next_train
   - action: action_find_next_train
-  
+
+#AlexT - P2  
 - rule: Respond to next bus query
   steps:
   - intent: find_next_bus
   - action: action_find_next_bus
 
+#AlexT - P2
 - rule: Respond to next tram query
   steps:
   - intent: find_next_tram
   - action: action_find_next_tram
+
+#AlexT - P2
+- rule: Generate tram map
+  steps:
+    - intent: request_tram_map
+    - action: action_generate_tram_map
+
+#AlexT - P2
+- rule: Generate bus map
+  steps:
+    - intent: request_bus_map
+    - action: action_generate_bus_map
