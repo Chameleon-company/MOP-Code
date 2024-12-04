@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Viewer</title>
+    <!-- Include Bootstrap CSS for responsive design and modern UI components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General styling for a dark theme interface */
+        body {
+            font-family: 'Arial', sans-serif; /* Simple, readable font */
+            background-color: #121212; /* Dark background for better contrast */
+            color: #e0e0e0; /* Light text for readability */
+        }
+        .container {
+            margin-top: 50px; /* Adds space at the top of the page */
+        }
+        .table {
+            background-color: #1e1e1e; /* Slight contrast for the table */
+            border-radius: 8px; /* Smooth rounded edges */
+            overflow: hidden; /* Prevents content from overflowing */
+        }
+        .table th, .table td {
+            color: #e0e0e0; /* Light text for table data */
+        }
+        .table th {
+            background-color: #08af64; /* Green background for headers */
+            color: white; /* White text for headers */
+        }
+        footer {
+            margin-top: 50px; /* Space before footer */
+            padding: 20px 0; /* Padding for a consistent footer layout */
+            text-align: center; /* Center-align text in footer */
+            background-color: #1e1e1e; /* Footer matches table background */
+            color: #b0b0b0; /* Subtle color for footer text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Data Viewer</h1>
+        <p class="text-center">Explore the data with ease! The table below displays information loaded directly from the dataset.</p>
+
+        <!-- Form to filter data based on user preferences -->
+        <form method="get" action="/data" class="mb-4">
+            <div class="row">
+                <!-- Filter for selecting a subtopic -->
+                <div class="col-md-3">
+                    <label for="subtopic" class="form-label">Filter by Subtopic:</label>
+                    <select class="form-select" id="subtopic" name="subtopic">
+                        <!-- Default 'All' option and dynamically populated subtopics -->
+                        <option value="All" {% if subtopic == 'All' %}selected{% endif %}>All</option>
+                        {% for sub in subtopics %}
+                        <option value="{{ sub }}" {% if subtopic == sub %}selected{% endif %}>{{ sub }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Filter for selecting a category (Age Group, Gender, etc.) -->
+                <div class="col-md-3">
+                    <label for="category" class="form-label">Filter by Category:</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="All" {% if category == 'All' %}selected{% endif %}>All</option>
+                        <option value="Age Group" {% if category == 'Age Group' %}selected{% endif %}>Age Group</option>
+                        <option value="Gender" {% if category == 'Gender' %}selected{% endif %}>Gender</option>
+                        <option value="Suburb" {% if category == 'Suburb' %}selected{% endif %}>Suburb</option>
+                    </select>
+                </div>
+
+                <!-- Filter for selecting a year -->
+                <div class="col-md-3">
+                    <label for="year" class="form-label">Filter by Year:</label>
+                    <select class="form-select" id="year" name="year">
+                        <!-- Default 'All' option and dynamically populated years -->
+                        <option value="All" {% if year == 'All' %}selected{% endif %}>All</option>
+                        {% for yr in years %}
+                        <option value="{{ yr }}" {% if year == yr %}selected{% endif %}>{{ yr }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Submit button for applying the filters -->
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">Filter</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Table displaying the filtered data -->
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <!-- Dynamically generate table headers -->
+                        {% for col in column_names %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populate table rows with data -->
+                    {% for row in data %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer for branding -->
+    <footer>
+        <p>© 2024 Subjective Wellbeing Platform | Data Insights</p>
+    </footer>
+
+    <!-- Include Bootstrap JS for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

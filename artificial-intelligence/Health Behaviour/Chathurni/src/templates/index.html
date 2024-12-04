@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjective Wellbeing Platform</title>
+    <!-- Include Bootstrap CSS for responsive design and pre-styled UI components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General styling for a modern dark theme */
+        body {
+            font-family: 'Arial', sans-serif; /* Simple and readable font choice */
+            background-color: #040404; /* Dark background for better visual appeal */
+            color: #0f0101; /* Text color to match the theme */
+        }
+        .container {
+            margin-top: 50px; /* Adds spacing at the top for better layout */
+        }
+        .header {
+            text-align: center; /* Centers the header text */
+            margin-bottom: 50px; /* Adds space below the header */
+        }
+        .header h1 {
+            font-size: 2.5rem; /* Larger font for the main heading */
+            font-weight: bold; /* Makes the heading stand out */
+            color: #08af64; /* Green color for a fresh look */
+        }
+        footer {
+            margin-top: 50px; /* Creates separation between content and footer */
+            padding: 20px 0; /* Adds padding for better footer spacing */
+            text-align: center; /* Centers footer text */
+            background-color: #1e1e1e; /* Matches footer background with dark theme */
+            color: #b0b0b0; /* Subtle footer text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Welcome to the Subjective Wellbeing Platform</h1>
+        </div>
+
+        <!-- Navigation Cards Section -->
+        <div class="row justify-content-center">
+            <!-- Card: Data Viewer -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center p-4">
+                    <h5 class="card-title">Explore the Data</h5>
+                    <p class="card-text">
+                        Dive into the rich datasets behind our platform. Analyze and understand the foundation of our insights with just a click.
+                    </p>
+                    <!-- Link to the Data Viewer Page -->
+                    <a href="/data" class="btn btn-success">View Data</a>
+                </div>
+            </div>
+
+            <!-- Card: Dashboard -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center p-4">
+                    <h5 class="card-title">Discover Trends</h5>
+                    <p class="card-text">
+                        Access our Interactive Dashboard to visualize key trends and patterns in subjective wellbeing across diverse categories.
+                    </p>
+                    <!-- Link to the Dashboard Page -->
+                    <a href="/dashboard/" class="btn btn-success">Go to Dashboard</a>
+                </div>
+            </div>
+
+            <!-- Card: Map -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center p-4">
+                    <h5 class="card-title">Analyze Geographical Insights</h5>
+                    <p class="card-text">
+                        Use the Interactive Map to /n explore spatial data and uncover /n how wellbeing varies across locations.
+                    </p>
+                    <!-- Link to the Map Page -->
+                    <a href="/map" class="btn btn-success">View Map</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>
+            © 2024 Subjective Wellbeing Platform | Empowering you with data-driven insights to better understand subjective wellbeing
+        </p>
+    </footer>
+
+    <!-- Include Bootstrap JS for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
