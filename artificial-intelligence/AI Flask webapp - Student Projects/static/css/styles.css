@@ -19,22 +19,30 @@ h1 {
 #Ethan's designs
 */
 
+/*   Commented out so I can read things. 
+
+body {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    background-image: linear-gradient(rgb(30, 30, 226), white); 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+*/
+
 .main_cent_text {
     text-align: center; 
     font-size: 20px;  
 }
 
-body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-}
 
 /* Sidebar styling */
 .sidebar {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -77,6 +85,25 @@ body {
     height: 1000px;
     transition: margin-left 0.3s ease;
 }
+
+.sidebar-link {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #ddd;
+}
+
+.sidebar-link.active {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 
 /* Responsive sidebar for smaller screens */
 @media screen and (max-width: 700px) {
@@ -148,5 +175,65 @@ footer {
 footer .footer-section {
     margin: 10px 0;
 }
+
+
+/*help button pop up */
+#helpButton{
+    position: fixed;
+    bottom: 105px;
+    right: 20px;
+    color: gray;
+    font-size: 20px;
+    font-weight: bold;
+    width: 20px; /*circle dimensions*/
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+/*changes colour on hover*/
+#helpButton:hover{
+    background-color: #333334;
+    transform: translateY(-2px);
+}
+
+/* Modal styles */
+#helpModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1001;
+}
+
+#modalOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Close button styles */
+.closeButton {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 
 /*-------------------------  */

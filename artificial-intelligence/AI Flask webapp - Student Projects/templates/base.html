@@ -40,7 +40,47 @@
             <br>
             <br>
         </div>
-    </main>
+
+        
+
+        <div id="help">
+            <button id="helpButton">?</button>
+        </div>
+
+        <div id="modalOverlay"></div>
+
+        <div id="helpModal">
+            <h2>Need Help?</h2>
+            <p>Contact us at <a href="mailto:support@example.com">email</a> or call phone number.</p>
+            <button class="closeButton" id="closeButton">Close</button>
+        </div>
+
+        <script>
+            const helpButton = document.getElementById('helpButton');
+            const helpModal = document.getElementById('helpModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const closeButton = document.getElementById('closeButton');
+
+// Open modal
+            helpButton.addEventListener('click', () => {
+                helpModal.style.display = 'block';
+                modalOverlay.style.display = 'block';
+            });
+
+// Close modal
+            closeButton.addEventListener('click', () => {
+                helpModal.style.display = 'none';
+                modalOverlay.style.display = 'none';
+            });
+
+// Close modal when clicking outside of it
+            modalOverlay.addEventListener('click', () => {
+                helpModal.style.display = 'none';
+                modalOverlay.style.display = 'none';
+                });
+            </script>
+
+        </main>
 
     <footer>
         <div class="footer-section">

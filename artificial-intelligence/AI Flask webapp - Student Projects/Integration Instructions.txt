@@ -25,9 +25,12 @@ These instructions are assuming you have built a flask project with html code. I
 not including the body brackets, and post it where the comment says to.
 If you have not built a project yet, build the body section in that section.
 
+The styles will be imported from our css file, so if you want to change how yours looks, either define <style> in your html or 
+use a new class and update the css.file in the static folder to include your classes/designs.
 
-4. The styles will be imported from our css file, so if you want to change hows yours look, either define <style> in your html or 
-uses a new class and update the css.file in the static folder to include your classes/designs.
+
+4. If you need to create files for functions/databases needed for your app to work, create your own sub-folder within the /static/python folder, 
+and make sure to reference the correct file/location when setting up your html file.
 
 
 5. Setting up the routes.
