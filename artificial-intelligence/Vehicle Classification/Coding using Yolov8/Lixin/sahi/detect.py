@@ -99,7 +99,7 @@ def get_yolo_prediction(image_path, yolo_model:YOLO):
 
 def test_performance(input_path,output_path,detection_model,yolo_model,slice_height=256, slice_width=256, overlap_height_ratio=0.2, overlap_width_ratio=0.2):
     res_sahi_multi = multi_scale_sahi_prediction(
-        input_path,detection_model,start_size=128,end_size=256
+        input_path,detection_model,start_size=128,end_size=512
     )
     res_sahi = get_sahi_prediction(
         input_path,detection_model,slice_height=slice_height, slice_width=slice_width, overlap_height_ratio=overlap_height_ratio, overlap_width_ratio=overlap_width_ratio

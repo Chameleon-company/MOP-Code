@@ -96,6 +96,7 @@ def get_model_with_sahi_cpu(model_path):
 
 
 def draw_BOX(image, box, color=(0, 0, 255), thickness=1):
+    box.merge_label()
     x1, y1, x2, y2 = int(box.minx), int(box.miny), int(box.maxx), int(box.maxy)
     cv2.rectangle(image, (x1, y1), (x2, y2), color, thickness)
     cv2.putText(image, box.category, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
