@@ -9,6 +9,7 @@ import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
+from folium.plugins import MarkerCluster
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
@@ -18,6 +19,11 @@ from actions.gtfs_utils import GTFSUtils
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
+import hashlib
+import hmac
+import urllib.parse
+from tabulate import tabulate
+
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -46,8 +52,8 @@ inner_zip_paths = ['2/google_transit.zip', '3/google_transit.zip', '4/google_tra
 GTFSUtils.download_and_extract_data(url, dataset_path, inner_zip_paths)
 
 train_data = GTFSUtils.load_mode_data("mpt_data/2", "train")
-bus_data = GTFSUtils.load_mode_data("mpt_data/3", "bus")
-tram_data = GTFSUtils.load_mode_data("mpt_data/4", "tram")
+tram_data = GTFSUtils.load_mode_data("mpt_data/3", "tram")
+bus_data = GTFSUtils.load_mode_data("mpt_data/4", "bus")
 
 # Unpack dataset for train
 if train_data:
@@ -76,6 +82,205 @@ station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
+
+class ActionCheckDisruptionsTrain(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: REQ_06
+        Name: Real-time train updates
+        Author: AlexT
+        -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_check_disruptions_train"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            # Extract route name from user query
+            query = tracker.latest_message.get('text')
+            route_name = GTFSUtils.extract_route_name(query, routes_df)
+
+            if not route_name:
+                dispatcher.utter_message(text="I couldn't determine the train route. Please provide a valid route name (e.g., 'Frankston').")
+                return []
+
+            # Fetch disruptions for the route
+            active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, "train", routes_df)
+
+            if error:
+                dispatcher.utter_message(text=error)
+                return []
+
+            # Generate response based on disruptions
+            if active_disruptions:
+                table = [
+                    [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+                    for d in active_disruptions
+                ]
+                response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+                dispatcher.utter_message(text=f"Active disruptions for the train {route_name} route:\n{response}")
+            else:
+                dispatcher.utter_message(text=f"There are no active train disruptions for the {route_name} route.")
+
+        except Exception as e:
+            dispatcher.utter_message(text="An error occurred while checking disruptions. Please try again.")
+            logger.error(f"Failed to check disruptions: {str(e)}")
+
+        return []
+
+class ActionCheckDisruptionsTram(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: TRAM_07
+        Name: Real-time Tram updates
+        Author: AlexT
+        -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_check_disruptions_tram"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        query = tracker.latest_message.get("text").lower()  # Get the user's query
+        print(f"Received query for tram: {query}")  # Debugging
+
+        # Debug the dataset
+        print("Loading tram routes dataset...")
+        print(f"Available tram routes (short names): {tram_routes['route_short_name'].tolist()}")
+        print(f"Available tram routes (long names): {tram_routes['route_long_name'].tolist()}")
+
+        route_name = GTFSUtils.extract_route_name(query, tram_routes)
+        if not route_name:
+            dispatcher.utter_message(
+                text="I couldn't determine the tram route. Please provide a valid route name (e.g., '109')."
+            )
+            return []
+
+        # Fetch disruptions
+        active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+            route_name, "tram", tram_routes
+        )
+        if error:
+            dispatcher.utter_message(text=error)
+            return []
+
+        # Respond with disruptions
+        if active_disruptions:
+            table = [
+                [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+                for d in active_disruptions
+            ]
+            response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+            dispatcher.utter_message(text=f"Active tram disruptions for Route {route_id}:\n{response}")
+        else:
+            dispatcher.utter_message(
+                text=f"There are no active tram disruptions for Route {route_name} ({route_id})."
+            )
+        return []
+
+
+class ActionCheckDisruptionsBus(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: BUS_07
+        Name: Real-time BUS updates
+        Author: AlexT
+        -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_check_disruptions_bus"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        query = tracker.latest_message.get("text").lower()  # Get the user's query
+        print(f"Received query for bus: {query}")  # Debugging
+
+        # Debug the dataset
+        print("Loading bus routes dataset...")
+        print(f"Available bus routes (short names): {bus_routes['route_short_name'].tolist()}")
+        print(f"Available bus routes (long names): {bus_routes['route_long_name'].tolist()}")
+
+        route_name = GTFSUtils.extract_route_name(query, bus_routes)
+        if not route_name:
+            dispatcher.utter_message(
+                text="I couldn't determine the bus route. Please provide a valid route name (e.g., '903')."
+            )
+            return []
+
+        # Fetch disruptions
+        active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+            route_name, "bus", bus_routes
+        )
+        if error:
+            dispatcher.utter_message(text=error)
+            return []
+
+        # Respond with disruptions
+        if active_disruptions:
+            table = [
+                [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+                for d in active_disruptions
+            ]
+            response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+            dispatcher.utter_message(text=f"Active bus disruptions for Route {route_id}:\n{response}")
+        else:
+            dispatcher.utter_message(
+                text=f"There are no active bus disruptions for Route {route_name} ({route_id})."
+            )
+        return []
+
+class ActionGenerateTrainMap(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_13
+    	Name: Generate Map of Train Stations
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_generate_train_map"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
+                    tooltip=row['stop_name']
+                ).add_to(melbourne_map)
+
+            # Save the map to an HTML file
+            map_filename = 'melbourne_train_stations_map.html'
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            # Get the base URL from the environment variable
+            server_base_url = os.getenv('SERVER_BASE_URL')
+
+            # Fallback if the environment variable is not set
+            if server_base_url is None:
+                server_base_url = 'http://localhost:8080'  # Default value or fallback
+
+            # Create and return the hyperlink using the base URL
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne train stations</a>"
+
+            # Send the message to the user with the hyperlink
+            dispatcher.utter_message(
+                text=f"The map of Melbourne train stations has been generated. {hyperlink}")
+
+        except Exception as e:
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
+            raise
 
 class ActionGenerateTramMap(Action):
     ''' -------------------------------------------------------------------------------------------------------
@@ -536,41 +741,53 @@ class ActionFindBestRoute(Action):
 '''
 
 class ActionCalculateTransfers(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_03 implementation
+    	Name: Basic Route Planning
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+        "How many transfers are there between [Station A] and [Station B]?"
+        -------------------------------------------------------------------------------------------------------
+        Testing:
+        Transfer Route: Ensure all transfer stations and the correct travel time are included.
+        No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer
+        Invalid Stations: Check how the action handles cases where stations are not found or the travel time cannot be calculated.
+    '''
     def name(self) -> Text:
         return "action_calculate_transfers"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         try:
+            # Extract stations from the user query
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
             if len(extracted_stations) < 2:
-                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                dispatcher.utter_message(
+                    text="Please specify both the starting and destination stations. Example: 'How many transfers between Richmond and Parliament?'"
+                )
                 return []
 
             station_a, station_b = extracted_stations[0], extracted_stations[1]
+            print(f"Extracted stations: {station_a}, {station_b}")
 
             # Calculate transfers and transfer stations
-            transfers, transfer_stations = GTFSUtils.calculate_transfers(station_a, station_b, stops_df, stop_times_df)
-            travel_time = GTFSUtils.calculate_route_travel_time([station_a] + transfer_stations + [station_b], stops_df,
-                                                                stop_times_df)
+            transfers, transfer_stations = GTFSUtils.calculate_transfers(
+                station_a, station_b, stops_df, stop_times_df
+            )
+            travel_time = GTFSUtils.calculate_route_travel_time(
+                [station_a] + transfer_stations + [station_b], stops_df, stop_times_df
+            )
 
+            # Generate response based on the number of transfers
             if transfers == 0:
-                response = f"There is a direct train from {station_a} to {station_b}, so no transfers are needed."
+                response = (
+                    f"There is a direct train from {station_a} to {station_b}, so no transfers are needed."
+                )
                 if travel_time is not None:
                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
-
-                # Generate the route map for the direct route
-                # best_trip_id = GTFSUtils.find_best_trip_id(station_a, station_b, stop_times_df)
-                # if best_trip_id:
-                #     hyperlink = GTFSUtils.generate_route_map(best_trip_id, station_a, station_b, stops_df,
-                #                                              stop_times_df, dataset_path)
-                #     if hyperlink:
-                #         response += f"\n{hyperlink}"
 
             elif transfers > 0:
                 transfer_details = ', '.join(transfer_stations) if transfer_stations else "unknown locations"
@@ -581,23 +798,26 @@ class ActionCalculateTransfers(Action):
                 if travel_time is not None:
                     response += f" The total travel time is approximately {travel_time:.2f} minutes."
 
-                # Generate the route map with transfers (if applicable)
-                # best_trip_id = GTFSUtils.find_best_trip_id_with_transfers(station_a, station_b, transfer_stations,
-                #                                                           stop_times_df)
-                # if best_trip_id:
-                #     hyperlink = GTFSUtils.generate_route_map(best_trip_id, station_a, station_b, stops_df,
-                #                                              stop_times_df, dataset_path, transfers_df)
-                #     if hyperlink:
-                #         response += f"\n{hyperlink}"
-
             else:
                 response = f"Sorry, no suitable route with transfers could be found between {station_a} and {station_b}."
+
+            # Optional: Generate the route map hyperlink
+            # best_trip_id = GTFSUtils.find_best_trip_id_with_transfers(
+            #     station_a, station_b, transfer_stations, stop_times_df
+            # )
+            # if best_trip_id:
+            #     hyperlink = GTFSUtils.generate_route_map(
+            #         best_trip_id, station_a, station_b, stops_df, stop_times_df, dataset_path, transfers_df
+            #     )
+            #     if hyperlink:
+            #         response += f"\n{hyperlink}"
 
             dispatcher.utter_message(text=response)
 
         except Exception as e:
             dispatcher.utter_message(text="An error occurred while calculating transfers. Please try again.")
             GTFSUtils.handle_error(dispatcher, logger, "Failed to calculate transfers", e)
+
         return []
 
 
