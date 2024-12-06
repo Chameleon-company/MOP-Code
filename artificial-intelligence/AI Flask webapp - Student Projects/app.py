@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+import health_safety 
 
 
 app = Flask(__name__)
@@ -45,6 +46,23 @@ def vehicle_detect():
 
 #-------------------------
 #Routes for the Health behaviour project pages
+#Health Safety
+@app.route('/health_safety', methods=['GET', 'POST'])
+def health_safety_app():
+    return health_safety.index()
+
+@app.route('/health_safety/predict', methods=['POST'])
+def health_data_view():
+    category = request.form.get('category')
+    gender = request.form.get('gender')
+    age_range = request.form.get('age_range')
+    suburb = request.form.get('suburb')
+
+    # Pass the data to the health_safety.predict function to handle the logic and get the response
+    health_data = health_safety.predict(category, gender, age_range, suburb)
+
+    # Return the prediction data as JSON
+    return jsonify(health_data)
 
 
 #-------------------------
