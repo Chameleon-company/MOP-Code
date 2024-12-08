@@ -95,11 +95,14 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-- intent: request_map
+
+# Alex Start  -------------------------------------------------------------------------------------------
+- intent: ask_for_route
   examples: |
-    - Show me a map of Melbourne train stations.
-    - Can you generate a map of Melbourne train stations?
-    - Create a map with all train stops in Melbourne.
+    - How do I get from [Melbourne Central](origin) to [Flinders Street](destination)?
+    - Is there a route from [Parliament](origin) to [Southern Cross](destination)?
+    - What is the best way to travel from [Hawthorn](origin) to [Richmond](destination)?
+    - Do I need to switch between tram and bus to get from [Richmond](origin) to [Docklands](destination)?
 - regex: time
   examples: |
     - [0-2][0-9]:[0-5][0-9]
@@ -130,6 +133,8 @@ nlu:
     - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
     - Will I need to change trains to go from [Flinders Street](station_a) to [Southern Cross](station_b)?
     - How many train changes between [Melbourne Central](station_a) and [Glenferrie](station_b)?
+    - How many transfers are there between [Ringwood](station_a) and [North Melbourne](station_b)?
+    - Do I need to change trains from [Ringwood](station_a) to [North Melbourne](station_b)?
 - intent: ask_best_route
   examples: |
     - What is the best route from [Richmond](station_a) to [North Melbourne](station_b)?
@@ -144,6 +149,27 @@ nlu:
   examples: |
     - Can you tell me the quickest way from [South Yarra](station_a) to [Hawthorn](station_b)?
     - What's the fastest route from [Footscray](station_a) to [Melbourne Central](station_b)?
+
+#- intent: find_next_bus
+#  examples: |
+#    - When is the next bus from [Broadmeadows](station_a) to [Melbourne Airport](station_b)?
+#    - What time is the next bus to [Melbourne Airport](station_b) from [Broadmeadows](station_a)?
+#    - Next bus to [Melbourne Airport](station_b) from [Broadmeadows](station_a)?
+#
+#- intent: find_next_tram
+#  examples: |
+#    - When is the next tram from [Flinders Street Station](station_a)?
+#    - Next tram from [Melbourne Central](station_a) to [St Kilda Beach](station_b)?
+#    - What time is the next tram?
+#    - When is the next tram arriving?
+
+#- intent: find_next_train
+#  examples: |
+#    - What time does the next train to [Southern Cross](station_b) leave from [Flinders Street](station_a)?
+#    - When is the next train from [Richmond](station_a) to [Parliament](station_b)?
+#    - What are the train schedules for [Melbourne Central](station_a)?
+#    - How do I get to [Southern Cross](station_b) from [Flinders Street](station_a)?
+
 - intent: ask_next_train
   examples: |
     - What time does the next train from [South Yarra](station_a) to [Hawthorn](station_b) leave?
@@ -151,22 +177,51 @@ nlu:
     - Next train from [Footscray](station_a) to [Melbourne Central](station_b)?
     - At what time does the next train depart from [South Yarra](station_a) to [Hawthorn](station_b)?
     - What is the schedule for the next train from [Dandenong](station_a) to [Parliament](station_b)?
-- intent: find_next_bus
+
+- intent: request_train_map
   examples: |
-    - What time does the next bus leave from [Flinders Street]?
-    - When is the next bus from [Southern Cross Station]?
-    - Can you tell me the next bus schedule for [Melbourne Central]?
-- intent: find_next_tram
+    - Show me a map of Melbourne train stations.
+    - Can you generate a map of Melbourne train stations?
+    - Create a map with all train stops in Melbourne.
+    - Generate a train station map.
+    - I need a train map for Melbourne.
+
+- intent: request_tram_map
+  examples: |    
+    - Generate a tram stop map
+    - Where are the tram stops located?
+    - Can I see a map of tram stops?
+    - Create a tram map
+- intent: request_bus_map
   examples: |
-    - What time does the next tram leave from [Flinders Street]?
-    - When is the next tram from [Southern Cross Station]?
-    - Can you tell me the next tram schedule for [Melbourne Central]?
-- intent: find_next_train
+    - Show me the map of bus stops
+    - Generate a bus stop map
+    - Where are the bus stops located?
+    - Can I see a map of bus stops?
+    - Create a bus map
+
+- intent: check_disruptions_tram
   examples: |
-    - What time does the next train to [Southern Cross](station_b) leave from [Flinders Street](station_a)?
-    - When is the next train from [Richmond](station_a) to [Parliament](station_b)?
-    - What are the train schedules for [Melbourne Central](station_a)?
-    - How do I get to [Southern Cross](station_b) from [Flinders Street](station_a)?
+    - Are there any tram disruptions on route [109](route_name)?
+    - Check tram disruptions for route [Port Melbourne - Box Hill](route_name).
+    - Show me tram disruptions for route [16](route_name).
+    - Any tram issues on route [109](route_name)?
+
+- intent: check_disruptions_bus
+  examples: |
+    - Are there any bus disruptions on route [279](route_name)?
+    - Check bus disruptions for route [903](route_name).
+    - Show me bus disruptions on route [679](Chirnside Park SC - Ringwood).
+    - Any bus issues on route [903](route_name)?
+
+- intent: check_disruptions_train
+  examples: |
+    - Are there any train disruptions on the [Sandringham Line](route_name)?
+    - Check train disruptions for the [Belgrave Line](route_name).
+    - Tell me if there are any train issues for the [Frankston Line](route_name).
+    - Are there disruptions on [Lilydale Line](route_name)?
+    - What train disruptions are affecting the [Pakenham Line](route_name)?
+# Alex Finish  -------------------------------------------------------------------------------------------
 
 - intent: run_direction_script
   examples: |
@@ -307,36 +362,6 @@ nlu:
     - Where can I find stations that have [parking](feature)?
     - Could you tell me about stations that have [lifts](feature)?
 
-#AlexT - P2
-- intent: find_next_bus
-  examples: |
-    - What time does the next bus leave from [Flinders Street]?
-    - When is the next bus from [Southern Cross Station]?
-    - Can you tell me the next bus schedule for [Melbourne Central]?
-
-#AlexT - P2
-- intent: find_next_tram
-  examples: |    
-    - When is the next tram from [Southern Cross Station]?
-    - Can you tell me the next tram schedule for [Melbourne Central]?
-
-#AlexT - P2
-- intent: request_tram_map
-  examples: |
-    - Show me the map of tram stops
-    - Generate a tram stop map
-    - Where are the tram stops located?
-    - Can I see a map of tram stops?
-    - Create a tram map
-
-#AlexT - P2
-- intent: request_bus_map
-  examples: |
-    - Show me the map of bus stops
-    - Generate a bus stop map
-    - Where are the bus stops located?
-    - Can I see a map of bus stops?
-    - Create a bus map
 
 entities:
   - station_name
