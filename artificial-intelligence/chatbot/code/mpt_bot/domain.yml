@@ -60,22 +60,43 @@ slots:
     mappings:
       - type: from_entity
         entity: station_b
-  transport_modes:
-    type: list
+#  transport_modes:
+#    type: list
+#    mappings:
+#      - type: from_text
+#  current_longitude:
+#    type: float
+#    mappings:
+#      - type: from_entity
+#        entity: current_longitude
+#  current_latitude:
+#    type: float
+#    mappings:
+#     - type: from_entity
+#       entity: current_latitude
+  # Alex Finish slots  --------------------------------------------------------------
+  user_location:
+    type: text
     mappings:
       - type: from_text
-  current_longitude:
-    type: float
+  destination:
+    type: text
+    mappings:
+      - type: from_text
+
+  station_name:
+    type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
-        entity: current_longitude
-  current_latitude:
-    type: float
-    mappings:
-     - type: from_entity
-       entity: current_latitude
-  # Alex Finish slots  --------------------------------------------------------------
+        entity: station_name
 
+  feature:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feature
 responses:
   # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
