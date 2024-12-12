@@ -2,25 +2,22 @@ version: "3.1"
 
 rules:
 # Alex Start  -------------------------------------------------------------------------------------------
+# General Greetings and Goodbyes
   - rule: Say goodbye anytime the user says goodbye
     steps:
       - intent: goodbye
       - action: utter_goodbye
 
+  # Route Queries
   - rule: Direct route inquiry
     steps:
       - intent: ask_direct_route
       - action: action_check_direct_route
 
-#  - rule: User asks for transfers
-#    steps:
-#      - intent: ask_transfers
-#      - action: action_calculate_transfers
-
   - rule: Best route inquiry
     steps:
-    - intent: ask_best_route
-    - action: action_find_best_route_with_transfers
+      - intent: ask_best_route
+      - action: action_find_best_route_with_transfers
 
   - rule: Find route with least stops
     steps:
@@ -32,6 +29,7 @@ rules:
       - intent: ask_quickest_route
       - action: action_find_best_route_with_transfers
 
+  # Map Generation
   - rule: Generate train map
     steps:
       - intent: request_train_map
@@ -46,26 +44,26 @@ rules:
     steps:
       - intent: request_bus_map
       - action: action_generate_bus_map
+
+  # Timings and Disruptions
   - rule: Find next train timing
     steps:
-      - intent: ask_next_train
+      - intent: find_next_train
       - action: action_find_next_train
 
-  - rule: Find next train timing
+  - rule: Find next tram timing
     steps:
-      - intent: ask_next_train
-      - action: action_find_next_train
+      - intent: find_next_tram
+      - slot_was_set:
+          - transport_mode: tram
+      - action: action_find_next_tram
 
-#  - rule: Respond to next bus query
-#    steps:
-#      - intent: find_next_bus
-#      - action: action_find_next_bus
-#
-#  - rule: Respond to next tram query
-#    steps:
-#      - intent: find_next_tram
-#      - action: action_find_next_tram
-
+  - rule: Find next bus timing
+    steps:
+      - intent: find_next_bus
+      - slot_was_set:
+          - transport_mode: bus
+      - action: action_find_next_bus
 
   - rule: Check tram disruptions
     steps:
@@ -82,10 +80,7 @@ rules:
       - intent: check_disruptions_train
       - action: action_check_disruptions_train
 
-#  - rule: Fallback for ambiguous or invalid queries
-#    steps:
-#      - action: action_default_fallback
-# Alex Finish  -------------------------------------------------------------------------------------------
+  # Alex Finish  -------------------------------------------------------------------------------------------
 
 - rule: Respond to asking about a specific feature
   steps:
