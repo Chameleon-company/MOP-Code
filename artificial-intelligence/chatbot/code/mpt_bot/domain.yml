@@ -65,13 +65,36 @@ slots:
     influence_conversation: true
     mappings:
       - type: from_text
-
   route_name:
     type: text
     mappings:
       - type: from_entity
         entity: route_name
   # Alex Finish slots  ---------------------------------------------------------------
+
+  user_location:
+    type: text
+    mappings:
+      - type: from_text
+  destination:
+    type: text
+    mappings:
+      - type: from_text
+
+  station_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: station_name
+
+  feature:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feature
+
 responses:
     # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
@@ -145,6 +168,9 @@ responses:
   utter_ask_destination:
   - text: "Great! Now, please provide your destination."
 
+  utter_default:
+  - text: "Sorry I didn't understand. Can you rephrase?"
+
 actions:
   # Alex Start Actions  -----------------------------------------------------------
   - action_generate_train_map
@@ -165,3 +191,8 @@ actions:
   - action_check_disruptions_train
   - validate_transport_mode
   # Alex Finish Actions  -----------------------------------------------------------
+  - action_run_direction_script
+  - action_check_feature
+  - action_check_station
+  - action_list_all_stations
+  - action_list_stations_with_feature
