@@ -279,3 +279,53 @@ footer .footer-section {
     transition: background-color 0.3s ease;
 }
 
+/* Kaimon Styling */
+
+.graph-container-kaimon {
+    display: flex;
+    min-height: 600px;
+    gap: 20px;
+}
+
+.container-kaimon {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.custom-select-container-kaimon {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.custom-select-kaimon {
+    width: 100%;
+    padding: 8px; 
+    margin-top: 5px; 
+}
+
+.button-kaimon {
+    margin-top: 10px;
+    max-width: 600px;
+    background-color: #617156;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.button-kaimon:hover {
+    background-color: #2C421D;
+}
