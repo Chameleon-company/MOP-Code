@@ -60,20 +60,20 @@ slots:
     mappings:
       - type: from_entity
         entity: station_b
-  transport_modes:
-    type: list
-    mappings:
-      - type: from_text
-  current_longitude:
-    type: float
-    mappings:
-      - type: from_entity
-        entity: current_longitude
-  current_latitude:
-    type: float
-    mappings:
-     - type: from_entity
-       entity: current_latitude
+#  transport_modes:
+#    type: list
+#    mappings:
+#      - type: from_text
+#  current_longitude:
+#    type: float
+#    mappings:
+#      - type: from_entity
+#        entity: current_longitude
+#  current_latitude:
+#    type: float
+#    mappings:
+#     - type: from_entity
+#       entity: current_latitude
   # Alex Finish slots  --------------------------------------------------------------
 
 responses:
