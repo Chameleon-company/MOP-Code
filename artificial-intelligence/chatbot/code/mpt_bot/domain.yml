@@ -76,6 +76,28 @@ slots:
 #       entity: current_latitude
   # Alex Finish slots  --------------------------------------------------------------
 
+  user_location:
+    type: text
+    mappings:
+      - type: from_text
+  destination:
+    type: text
+    mappings:
+      - type: from_text
+
+  station_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: station_name
+
+  feature:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feature
 responses:
   # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
@@ -152,6 +174,9 @@ responses:
 
   utter_ask_destination:
   - text: "Great! Now, please provide your destination."
+
+  utter_default:
+  - text: "Sorry I didn't understand. Can you rephrase?"
 
 actions:
 # Alex Start Actions  -----------------------------------------------------------
