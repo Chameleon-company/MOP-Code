@@ -3,93 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjective Wellbeing Platform</title>
-    <!-- Include Bootstrap CSS for responsive design and pre-styled UI components -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Subjective Wellbeing Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <style>
-        /* General styling for a modern dark theme */
         body {
-            font-family: 'Arial', sans-serif; /* Simple and readable font choice */
-            background-color: #040404; /* Dark background for better visual appeal */
-            color: #0f0101; /* Text color to match the theme */
+            background-color: #f8f9fa; /* Light theme background */
+            color: #212529; /* Dark text for readability */
+            font-family: Arial, sans-serif;
+        }
+        .hero {
+            background: linear-gradient(90deg, #08af64, #22e4ac); /* Green gradient */
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .hero p {
+            font-size: 1.2rem;
         }
         .container {
-            margin-top: 50px; /* Adds spacing at the top for better layout */
+            margin-top: 30px;
         }
-        .header {
-            text-align: center; /* Centers the header text */
-            margin-bottom: 50px; /* Adds space below the header */
+        .search-bar {
+            margin-bottom: 30px;
         }
-        .header h1 {
-            font-size: 2.5rem; /* Larger font for the main heading */
-            font-weight: bold; /* Makes the heading stand out */
-            color: #08af64; /* Green color for a fresh look */
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-        footer {
-            margin-top: 50px; /* Creates separation between content and footer */
-            padding: 20px 0; /* Adds padding for better footer spacing */
-            text-align: center; /* Centers footer text */
-            background-color: #1e1e1e; /* Matches footer background with dark theme */
-            color: #b0b0b0; /* Subtle footer text color */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .feature-icon {
+            font-size: 50px;
+            color: #08af64;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to the Subjective Wellbeing Dashboard</h1>
+        <p>Explore data insights, trends, and interactive visualizations on subjective wellbeing in your community.</p>
+        <p>Empowering communities with data-driven insights for a better future.</p>
+    </div>
+
+    <!-- Search Bar -->
     <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <h1>Welcome to the Subjective Wellbeing Platform</h1>
-        </div>
+        <form class="search-bar" action="/search" method="get">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search for trends, maps, or data..." aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
 
-        <!-- Navigation Cards Section -->
-        <div class="row justify-content-center">
-            <!-- Card: Data Viewer -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-center p-4">
-                    <h5 class="card-title">Explore the Data</h5>
-                    <p class="card-text">
-                        Dive into the rich datasets behind our platform. Analyze and understand the foundation of our insights with just a click.
-                    </p>
-                    <!-- Link to the Data Viewer Page -->
-                    <a href="/data" class="btn btn-success">View Data</a>
+    <!-- Features Section -->
+    <div class="container">
+        <div class="row text-center">
+            <!-- Dashboard Feature -->
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="card-body">
+                        <div class="feature-icon">📊</div>
+                        <h5 class="card-title">Dashboard</h5>
+                        <p class="card-text">View detailed trends and insights on subjective wellbeing.</p>
+                        <a href="/dashboard/" class="btn btn-outline-success">Go to Dashboard</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Card: Dashboard -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-center p-4">
-                    <h5 class="card-title">Discover Trends</h5>
-                    <p class="card-text">
-                        Access our Interactive Dashboard to visualize key trends and patterns in subjective wellbeing across diverse categories.
-                    </p>
-                    <!-- Link to the Dashboard Page -->
-                    <a href="/dashboard/" class="btn btn-success">Go to Dashboard</a>
+            <!-- Map Feature -->
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="card-body">
+                        <div class="feature-icon">🗺️</div>
+                        <h5 class="card-title">Interactive Map</h5>
+                        <p class="card-text">Explore geographic trends and data through an interactive map.</p>
+                        <a href="/map" class="btn btn-outline-success">Explore Map</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Card: Map -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-center p-4">
-                    <h5 class="card-title">Analyze Geographical Insights</h5>
-                    <p class="card-text">
-                        Use the Interactive Map to /n explore spatial data and uncover /n how wellbeing varies across locations.
-                    </p>
-                    <!-- Link to the Map Page -->
-                    <a href="/map" class="btn btn-success">View Map</a>
+            <!-- Data Viewer Feature -->
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="card-body">
+                        <div class="feature-icon">📂</div>
+                        <h5 class="card-title">Data Viewer</h5>
+                        <p class="card-text">Filter, view, and download subjective wellbeing datasets.</p>
+                        <a href="/data" class="btn btn-outline-success">View Data</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>
-            © 2024 Subjective Wellbeing Platform | Empowering you with data-driven insights to better understand subjective wellbeing
-        </p>
-    </footer>
-
-    <!-- Include Bootstrap JS for interactive components -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <!-- Statistics Section -->
+    <div class="container mt-5">
+        <h2 class="text-center">Why Subjective Wellbeing Matters</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <h3>85%</h3>
+                <p>of individuals reported satisfaction with their standard of living.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>70%</h3>
+                <p>of individuals feel a strong sense of community connection.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>92%</h3>
+                <p>of individuals feel safe in their local area.</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

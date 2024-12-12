@@ -4,128 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
-    <!-- Include Bootstrap CSS for responsive design and prebuilt components -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <style>
-        /* General page styling for a dark-themed interface */
         body {
-            font-family: 'Arial', sans-serif; /* Standard, clean font */
-            background-color: #121212; /* Dark background for contrast */
-            color: #e0e0e0; /* Light text for readability */
+            background-color: #f8f9fa; /* Light theme background */
+            color: #212529; /* Dark text for contrast */
+            font-family: Arial, sans-serif;
         }
         .container {
-            margin-top: 50px; /* Adds spacing at the top for better layout */
+            padding: 20px;
         }
-        h1 {
-            font-size: 2.5rem; /* Large font size for the main title */
-            font-weight: bold; /* Makes the title stand out */
-            color: #08af64; /* Primary green color for emphasis */
-            text-align: center; /* Centers the title */
-            margin-bottom: 30px; /* Space below the title */
+        .btn-back {
+            color: #08af64; /* Green theme for Back button */
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .btn-back:hover {
+            text-decoration: underline;
         }
         .form-label {
-            color: #b0b0b0; /* Muted color for form labels */
-        }
-        .form-select {
-            background-color: #1e1e1e; /* Slightly lighter than the page background */
-            color: #e0e0e0; /* Light text color inside the dropdown */
-            border: none; /* Removes border for a clean look */
-            border-radius: 8px; /* Rounded corners for dropdowns */
-        }
-        .form-select:focus {
-            box-shadow: 0 0 5px #08af64; /* Green focus highlight */
-        }
-        .btn-primary {
-            background-color: #08af64; /* Matches the theme's primary color */
-            border: none; /* Removes button border */
-        }
-        .btn-primary:hover {
-            background-color: #056b8a; /* Slightly darker green on hover */
+            font-weight: bold;
         }
         .map-container {
-            border: 2px solid #08af64; /* Green border to frame the map */
-            border-radius: 10px; /* Rounded corners for the map container */
-            overflow: hidden; /* Ensures map content stays within the container */
-            height: 600px; /* Fixed height for consistent layout */
-            margin-top: 20px; /* Adds spacing above the map */
-        }
-        footer {
-            margin-top: 50px; /* Creates separation between content and footer */
-            padding: 20px 0; /* Adds padding for better footer spacing */
-            text-align: center; /* Centers footer text */
-            background-color: #1e1e1e; /* Footer background matches the page theme */
-            color: #b0b0b0; /* Subtle text color for footer */
-        }
-        footer a {
-            color: #08af64; /* Footer links match the primary theme color */
-            text-decoration: none; /* Removes underline by default */
-        }
-        footer a:hover {
-            text-decoration: underline; /* Underlines links on hover for clarity */
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ced4da; /* Light border around map */
+            background-color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Page Header -->
-        <h1>Interactive Map</h1>
-        <p class="text-center">
-            Uncover spatial insights into subjective wellbeing. Explore the geographic distribution of data and patterns to better understand how wellbeing varies across locations.
-        </p>
+        <!-- Back to Home Button -->
+        <a href="/" class="btn-back">← Back to Home</a>
+
+        <h1 class="text-center text-success">Interactive Map</h1>
 
         <!-- Filter Form -->
-        <form method="get" action="/map" class="mb-4">
+        <form method="get" action="/map" class="mb-3">
             <div class="row">
-                <!-- Subtopic Filter Dropdown -->
-                <div class="col-md-4">
-                    <label for="subtopic" class="form-label">Filter by Subtopic:</label>
+                <div class="col-md-6">
+                    <label for="subtopic" class="form-label">Subtopic:</label>
                     <select class="form-select" id="subtopic" name="subtopic">
-                        <!-- Default 'All' option -->
                         <option value="All" {% if subtopic == 'All' %}selected{% endif %}>All</option>
-                        <!-- Dynamically populated options for subtopics -->
                         {% for sub in subtopics %}
                         <option value="{{ sub }}" {% if subtopic == sub %}selected{% endif %}>{{ sub }}</option>
                         {% endfor %}
                     </select>
                 </div>
-
-                <!-- Year Filter Dropdown -->
-                <div class="col-md-4">
-                    <label for="year" class="form-label">Filter by Year:</label>
+                <div class="col-md-6">
+                    <label for="year" class="form-label">Year:</label>
                     <select class="form-select" id="year" name="year">
-                        <!-- Default 'All' option -->
                         <option value="All" {% if year == 'All' %}selected{% endif %}>All</option>
-                        <!-- Dynamically populated options for years -->
                         {% for yr in years %}
                         <option value="{{ yr }}" {% if year == yr %}selected{% endif %}>{{ yr }}</option>
                         {% endfor %}
                     </select>
                 </div>
-
-                <!-- Submit Button -->
-                <div class="col-md-4 d-flex align-items-end">
-                    <!-- Updates the map based on selected filters -->
-                    <button type="submit" class="btn btn-primary w-100">Update Map</button>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success w-100">Update</button>
                 </div>
             </div>
         </form>
 
-        <!-- Map Display Section -->
+        <!-- Render Map -->
         <div class="map-container">
-            <!-- The map HTML will be rendered dynamically -->
             {{ map_html|safe }}
         </div>
     </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <p>
-            © 2024 Subjective Wellbeing Platform | <a href="/">Back to Home</a>
-        </p>
-    </footer>
-
-    <!-- Include Bootstrap JS for interactive elements -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
