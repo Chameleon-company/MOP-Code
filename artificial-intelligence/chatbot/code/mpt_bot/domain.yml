@@ -5,9 +5,12 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-  # Alex Start  -----------------------------------------------------------
+    # Alex Start  -----------------------------------------------------------
   - greet
   - goodbye
+  - affirm
+  - deny
+  - bot_challenge
   - find_next_train
   - find_best_route
   - ask_direct_route
@@ -15,18 +18,15 @@ intents:
   - ask_best_route
   - ask_least_stops_route
   - ask_quickest_route
-  - affirm
-  - deny
-  - bot_challenge
   - request_train_map
   - request_tram_map
   - request_bus_map
-#  - find_next_bus
-#  - find_next_tram
+  - find_next_tram
+  - find_next_bus
   - check_disruptions_tram
   - check_disruptions_bus
   - check_disruptions_train
-  # Alex finish intents  ----------------------------------------------------------
+  # Alex Finish intents  ----------------------------------------------------------
   - run_direction_script
   - provide_location
   - provide_destination
@@ -37,17 +37,17 @@ intents:
   - list_stations_with_feature
 
 entities:
-  # Alex Start entities  -----------------------------------------------------------
+    # Alex Start entities  -----------------------------------------------------------
   - station_a
   - station_b
   - current_longitude
   - current_latitude
-  - transport_modes
+  - transport_mode
   - route_name
-  # Alex finish entities  ----------------------------------------------------------
+  # Alex Finish entities  ----------------------------------------------------------
 
 slots:
-  # Alex Start slots  ---------------------------------------------------------------
+    # Alex Start slots  ---------------------------------------------------------------
   station_a:
     type: text
     influence_conversation: true
@@ -60,32 +60,28 @@ slots:
     mappings:
       - type: from_entity
         entity: station_b
-#  transport_modes:
-#    type: list
-#    mappings:
-#      - type: from_text
-#  current_longitude:
-#    type: float
-#    mappings:
-#      - type: from_entity
-#        entity: current_longitude
-#  current_latitude:
-#    type: float
-#    mappings:
-#     - type: from_entity
-#       entity: current_latitude
-  # Alex Finish slots  --------------------------------------------------------------
+  transport_mode:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
 
+  route_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: route_name
+  # Alex Finish slots  ---------------------------------------------------------------
 responses:
-  # Alex Start responses -----------------------------------------------------------
+    # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
     - text: "Where are you starting your journey?"
   utter_ask_destination:
     - text: "Where do you want to go?"
   utter_ask_transport_modes:
-    - text: "What modes of transport would you like to use (e.g., train, tram, bus)?"
+    - text: "What mode of transport would you like to use (e.g., train, tram, bus)?"
   utter_confirm_transport_modes:
-    - text: "You want to use these transport modes: {transport_modes}."
+    - text: "You want to use this transport mode: {transport_mode}."
   utter_goodbye:
     - text: "Goodbye!"
   utter_challenge:
@@ -124,21 +120,17 @@ responses:
   utter_ask_station_for_tram:
     - text: "Which station are you departing from for the tram?"
   utter_next_tram_schedule:
-    - text: "Upcoming tram schedules from {station_a}:\n{schedule}"
-  utter_next_bus_schedule:
-    - text: "Upcoming bus schedules from {station_a}:\n{schedule}"
+    - text: "The next tram from {station_a} to {station_b} departs at {departure_time}."
   utter_next_train_schedule:
-      - text: "Upcoming train schedules from {station_a}:\n{schedule}"
-
+    - text: "Upcoming train schedules from {station_a}:\n{schedule}"
   utter_no_upcoming_buses:
     - text: "No upcoming buses found from {station_a}."
-
   utter_no_upcoming_trams:
     - text: "No upcoming trams found from {station_a}."
-
-#  utter_ask_train_route:
-#    - text: "Which train route would you like to check for disruptions (e.g., 'Sandringham Line')?"
-
+  utter_no_upcoming_trains:
+    - text: "No upcoming trains found from {station_a}."
+  utter_invalid_mode:
+    - text: "Sorry, that's not a valid mode of transport. Please specify train, tram, or bus."
 # Alex Finish responses -----------------------------------------------------------
 
   utter_script_executed:
@@ -154,26 +146,22 @@ responses:
   - text: "Great! Now, please provide your destination."
 
 actions:
-# Alex Start Actions  -----------------------------------------------------------
-- action_generate_train_map
-- action_generate_tram_map
-- action_generate_bus_map
-- action_find_next_train
-#- action_find_next_bus
-#- action_find_next_tram
-- action_find_best_route
-- action_calculate_transfers
-- action_check_direct_route
-- action_find_best_route_with_transfers
-- action_check_train_change
-- action_find_route_with_least_stops
-- action_generate_route_map
-- action_check_disruptions_tram
-- action_check_disruptions_bus
-- action_check_disruptions_train
-# Alex Finish Actions  -----------------------------------------------------------
-- action_run_direction_script
-- action_check_feature
-- action_check_station
-- action_list_all_stations
-- action_list_stations_with_feature
+  # Alex Start Actions  -----------------------------------------------------------
+  - action_generate_train_map
+  - action_generate_tram_map
+  - action_generate_bus_map
+  - action_find_next_train
+  - action_find_next_tram
+  - action_find_next_bus
+  - action_find_best_route
+  - action_calculate_transfers
+  - action_check_direct_route
+  - action_find_best_route_with_transfers
+  - action_check_train_change
+  - action_find_route_with_least_stops
+  - action_generate_route_map
+  - action_check_disruptions_tram
+  - action_check_disruptions_bus
+  - action_check_disruptions_train
+  - validate_transport_mode
+  # Alex Finish Actions  -----------------------------------------------------------

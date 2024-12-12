@@ -761,85 +761,100 @@ class GTFSUtils:
         active_disruptions = GTFSUtils.filter_active_disruptions(disruptions)
         return active_disruptions, route_id, None
 
+
     @staticmethod
     def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
         """
-        Author: AlexT
-        Applicable for Tram, Bus and Train
+        Author: AlexT -- Working version for long name and short name
         Extract the route short name or validate the route long name from a user query.
         :param query: The user's query as a string.
         :param routes_df: DataFrame containing route information with 'route_short_name' and 'route_long_name'.
         :return: The extracted route short name if valid, or None if no match is found.
         """
         try:
-            # Normalize query for consistent matching
+            # Normalise query for consistent matching
             if not isinstance(query, str):
                 print("Error: Query is not a string.")
                 return None
 
-            query = query.lower().strip()
-            print(f"Query: {query}")
+            # Lowercase and normalize the query for matching
+            query = query.lower().strip().replace(" to ", " - ")
+            print(f"Normalised Query: {query}")
 
-            # Ensure route_short_name and route_long_name are strings
-            routes_df["route_short_name"] = routes_df["route_short_name"].astype(str).str.strip()
-            routes_df["route_long_name"] = routes_df["route_long_name"].astype(str).str.lower().str.strip()
+            # Normalize the DataFrame for comparison
+            routes_df["route_short_name"] = routes_df["route_short_name"].astype(str).str.strip().str.lower()
+            routes_df["route_long_name"] = routes_df["route_long_name"].astype(str).str.strip().str.lower()
 
-            # Convert columns to lists for efficient comparison
+            # Convert columns to lists for matching
             route_short_names = routes_df["route_short_name"].tolist()
             route_long_names = routes_df["route_long_name"].tolist()
 
-            # Debugging: Print available routes
             print(f"Available route short names: {route_short_names}")
             print(f"Available route long names: {route_long_names}")
 
-            # Check for route short name using regex
-            match = re.search(r'\broute\s*(\d+)\b', query)
-            if match:
-                route_short_name = match.group(1)
-                if route_short_name in route_short_names:
-                    print(f"Exact match for route_short_name found: {route_short_name}")
-                    return route_short_name
-                else:
-                    print(f"Route short name '{route_short_name}' not found in available short names.")
+            # Check if a route short name matches directly in the query
+            for short_name in route_short_names:
+                if short_name in query:
+                    print(f"Direct match found for route_short_name: {short_name}")
+                    return short_name
 
-            # Check for exact match in route long name
-            if query in route_long_names:
-                exact_match_index = route_long_names.index(query)
-                exact_match = route_short_names[exact_match_index]
-                print(f"Exact match for route_long_name found: {exact_match}")
-                return exact_match
-            else:
-                print(f"Route long name '{query}' not found in available long names.")
+            # Check for route long names in the query
+            for long_name in route_long_names:
+                if isinstance(long_name, str) and long_name in query:
+                    print(f"Direct match found for route_long_name: {long_name}")
+                    matching_short_name = \
+                        routes_df.loc[routes_df["route_long_name"] == long_name, "route_short_name"].iloc[0]
+                    return matching_short_name
 
-            # Use NLP to extract numerical entities or potential long names
+            # Use NLP to extract numerical tokens or keywords
             print("Attempting to extract using NLP...")
             doc = nlp(query)
             for token in doc:
-                if token.like_num:  # Check for numerical tokens
-                    if token.text in route_short_names:
-                        print(f"NLP extracted route_short_name: {token.text}")
-                        return token.text
+                if token.text.lower() in route_short_names:
+                    print(f"NLP extracted route_short_name: {token.text}")
+                    return token.text.lower()
 
-            # Fuzzy matching for partial long names
+            # Attempt fuzzy matching for partial matches
             print("Attempting fuzzy matching...")
             matched_long_name, score = process.extractOne(
                 query, route_long_names, scorer=fuzz.partial_ratio
             )
-            if score > 85:  # Threshold for fuzzy match
+            if score > 85:  # Define a threshold for fuzzy matches
+                print(f"Fuzzy match found: {matched_long_name} with score {score}")
                 matched_index = route_long_names.index(matched_long_name)
-                matched_short_name = route_short_names[matched_index]
-                print(f"Fuzzy match for route_long_name: {matched_short_name} (score: {score})")
-                return matched_short_name
-            else:
-                print(f"Fuzzy matching failed to find a good match (score: {score}).")
+                return route_short_names[matched_index]
 
-            # Return None if no match found
             print("No match found for the query.")
             return None
 
         except Exception as e:
             print(f"An error occurred in extract_route_name: {str(e)}")
             return None
+
+    @staticmethod
+    def find_relevant_trips(stop_a_id, stop_b_id, trips_df, stop_times_df):
+        """
+        Author: AlexT
+        Find trips that pass through both stops and occur in the correct sequence for Tram.
+        """
+        # Get trips serving stop_a
+        stop_a_times = stop_times_df[stop_times_df['stop_id'] == stop_a_id]
+        stop_b_times = stop_times_df[stop_times_df['stop_id'] == stop_b_id]
+
+        # Merge to find trips that include both stops
+        merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+
+        # Filter trips where stop_a comes before stop_b
+        valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']]
+
+        # Filter for future trips only
+        current_time = datetime.now().strftime('%H:%M:%S')
+        valid_trips = valid_trips[valid_trips['departure_time_a'] >= current_time]
+
+        # Join trip details
+        valid_trips = valid_trips.merge(trips_df, on='trip_id')
+
+        return valid_trips.sort_values('departure_time_a')
     @staticmethod
     def determine_user_route(
             query: str, stops_df: pd.DataFrame, bus_routes_df: pd.DataFrame, tram_routes_df: pd.DataFrame

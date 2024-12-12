@@ -1,5 +1,6 @@
 import spacy
 import folium
+from folium.plugins import MarkerCluster
 import os
 from io import BytesIO
 import zipfile
@@ -9,7 +10,6 @@ import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
-from folium.plugins import MarkerCluster
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
@@ -23,6 +23,7 @@ import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
+from rasa_sdk.events import SlotSet
 
 # This is to skip the favicon
 app = Sanic("custom_action_server")
@@ -82,6 +83,90 @@ station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
+
+class ActionFindNextTram(Action):
+    """
+    -------------------------------------------------------------------------------------------------------
+    ID: TRAM_02
+    Name: Schedule Information for Trams
+    Author: AlexT
+    -------------------------------------------------------------------------------------------------------
+    """
+
+    def name(self) -> Text:
+        return "action_find_next_tram"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = tracker.get_slot("transport_mode")
+
+            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
+            # Ensure the transport mode is 'tram'
+            if not transport_mode or "tram" not in transport_mode.lower():
+                dispatcher.utter_message(response="utter_invalid_mode")
+                return []
+
+            # Validate station names
+            if not station_a or not station_b:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations for the tram.")
+                return []
+
+            # Use preloaded tram_stops to find stop IDs
+            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+
+            if not stop_a_id or not stop_b_id:
+                dispatcher.utter_message(
+                    text=f"Sorry, I couldn't find one or both of the stations: {station_a}, {station_b}."
+                )
+                return []
+
+            # Get the current time for filtering
+            current_time = datetime.now().strftime('%H:%M:%S')
+
+            # Find the next tram trip using preloaded tram_stop_times
+            if not isinstance(tram_stop_times.index, pd.MultiIndex):
+                tram_stop_times.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+
+            trips_from_station_a = tram_stop_times.loc[stop_a_id].reset_index()
+            trips_to_station_b = tram_stop_times.loc[stop_b_id].reset_index()
+
+            # Filter for future trips and match them
+            future_trips = trips_from_station_a[
+                trips_from_station_a['departure_time'] >= current_time
+            ]['trip_id'].unique()
+            valid_trips = trips_to_station_b[
+                trips_to_station_b['trip_id'].isin(future_trips)
+            ]
+
+            # Generate the response
+            if not valid_trips.empty:
+                next_trip = valid_trips.iloc[0]
+                departure_time = GTFSUtils.parse_time(next_trip['departure_time'])
+
+                # Convert parsed time to a user-friendly format
+                if isinstance(departure_time, timedelta):
+                    departure_time = (datetime.min + departure_time).strftime('%I:%M %p')
+
+                response = f"The next tram from {station_a} to {station_b} departs at {departure_time}."
+            else:
+                response = f"Sorry, no upcoming trams were found from {station_a} to {station_b}."
+
+            # Send the response
+            dispatcher.utter_message(text=response)
+
+        except Exception as e:
+            # Handle exceptions and log the error
+            logger.error(f"Failed to process 'action_find_next_tram': {str(e)}")
+            dispatcher.utter_message(text="An unexpected error occurred while fetching the tram schedule. Please try again.")
+
+        return []
 
 class ActionCheckDisruptionsTrain(Action):
     ''' -------------------------------------------------------------------------------------------------------
@@ -331,6 +416,7 @@ class ActionGenerateTramMap(Action):
             logging.error(f"Error generating tram map: {e}")
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
         return []
+
 class ActionGenerateBusMap(Action):
     ''' -------------------------------------------------------------------------------------------------------
         ID: BUS_01
@@ -376,210 +462,6 @@ class ActionGenerateBusMap(Action):
             dispatcher.utter_message(text="An error occurred while generating the bus map.")
         return []
 
-class ActionFindNextBus(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-         ID: BUS_02
-         Name: Schedule Information for Buses
-         Author: AlexT
-         -------------------------------------------------------------------------------------------------------
-    '''
-    def name(self) -> Text:
-        return "action_find_next_bus"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        try:
-            query = tracker.latest_message.get('text')
-            extracted_stations = GTFSUtils.extract_stations_from_query(query, bus_stops)
-
-            if len(extracted_stations) == 0:
-                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
-                return []
-
-            station_a = extracted_stations[0]
-            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
-
-            if not station_a or (not station_b and "to" in query.lower()):
-                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-                return []
-
-            stop_a_id = GTFSUtils.get_station_id(station_a, bus_stops)
-            stop_b_id = GTFSUtils.get_station_id(station_b, bus_stops) if station_b else None
-
-            current_time = datetime.now().strftime('%H:%M:%S')
-
-            if not isinstance(bus_stop_times.index, pd.MultiIndex):
-                bus_stop_times.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-            if not station_b:
-                trips_from_station = bus_stop_times.loc[stop_a_id]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time'])
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    response = f"Upcoming bus schedules from {station_a}:\n"
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        response += f"- Bus at {(datetime.min + departure_time).strftime('%I:%M %p')}\n"
-                else:
-                    response = f"No upcoming buses found from {station_a}."
-            else:
-                trips_from_station_a = bus_stop_times.loc[stop_a_id].reset_index()
-                trips_to_station_b = bus_stop_times.loc[stop_b_id].reset_index()
-
-                future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time][
-                    'trip_id'].unique()
-                valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                if not valid_trips.empty:
-                    next_trip = valid_trips.iloc[0]
-                    next_trip_time = trips_from_station_a[
-                        (trips_from_station_a['trip_id'] == next_trip['trip_id'])
-                    ]['departure_time'].values[0]
-                    next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                    if isinstance(next_trip_time, timedelta):
-                        next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                    response = f"The next bus from {station_a} to {station_b} leaves at {next_trip_time}."
-                else:
-                    response = f"No upcoming buses found from {station_a} to {station_b}."
-
-            dispatcher.utter_message(text=response)
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to find the next bus", e)
-            raise
-
-class ActionFindNextTram(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-         ID: TRAM_02
-         Name: Schedule Information for Trams        
-         Author: AlexT
-         -------------------------------------------------------------------------------------------------------
-    '''
-    def name(self) -> Text:
-        return "action_find_next_tram"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        try:
-            query = tracker.latest_message.get('text')
-            extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
-
-            if len(extracted_stations) == 0:
-                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
-                return []
-
-            station_a = extracted_stations[0]
-            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
-
-            if not station_a or (not station_b and "to" in query.lower()):
-                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-                return []
-
-            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
-            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops) if station_b else None
-
-            current_time = datetime.now().strftime('%H:%M:%S')
-
-            if not isinstance(tram_stop_times.index, pd.MultiIndex):
-                tram_stop_times.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-            if not station_b:
-                trips_from_station = tram_stop_times.loc[stop_a_id]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time'])
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    response = f"Upcoming tram schedules from {station_a}:\n"
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        response += f"- Tram at {(datetime.min + departure_time).strftime('%I:%M %p')}\n"
-                else:
-                    response = f"No upcoming trams found from {station_a}."
-            else:
-                trips_from_station_a = tram_stop_times.loc[stop_a_id].reset_index()
-                trips_to_station_b = tram_stop_times.loc[stop_b_id].reset_index()
-
-                future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time][
-                    'trip_id'].unique()
-                valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                if not valid_trips.empty:
-                    next_trip = valid_trips.iloc[0]
-                    next_trip_time = trips_from_station_a[
-                        (trips_from_station_a['trip_id'] == next_trip['trip_id'])
-                    ]['departure_time'].values[0]
-                    next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                    if isinstance(next_trip_time, timedelta):
-                        next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                    response = f"The next tram from {station_a} to {station_b} leaves at {next_trip_time}."
-                else:
-                    response = f"No upcoming trams found from {station_a} to {station_b}."
-
-            dispatcher.utter_message(text=response)
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to find the next tram", e)
-            raise
-
-class ActionGenerateMap(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-    	Name: Generate Map of Train Stations
-    	Author: AlexT
-    	-------------------------------------------------------------------------------------------------------
-    '''
-
-    def name(self) -> Text:
-        return "action_generate_map"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        try:
-            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
-            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
-
-            for _, row in stops_map_df.iterrows():
-                folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
-                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
-                ).add_to(melbourne_map)
-
-            # Save the map to an HTML file
-            map_filename = 'melbourne_train_stations_map.html'
-            current_directory = os.getcwd()
-            map_folder = os.path.join(current_directory, "maps")
-            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
-            map_path = os.path.join(map_folder, map_filename)
-            melbourne_map.save(map_path)
-
-            # Get the base URL from the environment variable
-            server_base_url = os.getenv('SERVER_BASE_URL')
-
-            # Fallback if the environment variable is not set
-            if server_base_url is None:
-                server_base_url = 'http://localhost:8080'  # Default value or fallback
-
-            # Create and return the hyperlink using the base URL
-            public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne train stations</a>"
-
-            # Send the message to the user with the hyperlink
-            dispatcher.utter_message(
-                text=f"The map of Melbourne train stations has been generated. {hyperlink}")
-
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
-            raise
-
 class ActionFindNextTrain(Action):
     ''' -------------------------------------------------------------------------------------------------------
     	ID: REQ_02 implementation
@@ -595,6 +477,12 @@ class ActionFindNextTrain(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -618,10 +506,12 @@ class ActionFindNextTrain(Action):
                 stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
 
             if not station_b:
+                # Logic for one station
                 trips_from_station = stop_times_df.loc[stop_a_id]
                 trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
                 trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time'])
+                    subset=['departure_time']
+                )
 
                 if not trips_from_station.empty:
                     next_trips = trips_from_station[['departure_time']].head(5)
@@ -632,6 +522,7 @@ class ActionFindNextTrain(Action):
                 else:
                     response = f"No upcoming trains found from {station_a}."
             else:
+                # Logic for two stations
                 trips_from_station_a = stop_times_df.loc[stop_a_id].reset_index()
                 trips_to_station_b = stop_times_df.loc[stop_b_id].reset_index()
 
@@ -667,14 +558,21 @@ class ActionFindNextTrain(Action):
         Generate the route map
 '''
 class ActionFindBestRoute(Action):
-
     def name(self) -> Text:
         return "action_find_best_route"
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -714,10 +612,13 @@ class ActionFindBestRoute(Action):
             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
             destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
 
-            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination} \n The trip taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}.\n"
+            response += f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
 
             # Create the route map given the trip id, including the transfers_df to highlight transfer stations
-            hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path)
+            hyperlink = GTFSUtils.generate_route_map(
+                best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path
+            )
             if hyperlink:
                 response += f"\n{hyperlink}"
 
@@ -725,20 +626,6 @@ class ActionFindBestRoute(Action):
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise
-
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_03 implementation
-	Name: Basic Route Planning
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------	
-    "How many transfers are there between [Station A] and [Station B]?"    
-    -------------------------------------------------------------------------------------------------------
-    Testing:
-    When testing this refactored action, ensure you test various scenarios:    
-    Transfer Route: Ensure all transfer stations and the correct travel time are included.
-    No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer
-    Invalid Stations: Check how the action handles cases where stations are not found or the travel time cannot be calculated.
-'''
 
 class ActionCalculateTransfers(Action):
     ''' -------------------------------------------------------------------------------------------------------
@@ -760,6 +647,12 @@ class ActionCalculateTransfers(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             # Extract stations from the user query
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
@@ -820,19 +713,17 @@ class ActionCalculateTransfers(Action):
 
         return []
 
-
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_03 implementation
-	Name: Check Direct Route
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-	"Is there a direct train from [Station A] to [Station B]?"   
-    -------------------------------------------------------------------------------------------------------
-    Direct Route: Ensure the travel time is correct and no transfer details are included.
-    No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer            
-'''
 class ActionCheckDirectRoute(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_03 implementation
+    	Name: Check Direct Route
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    	"Is there a direct train from [Station A] to [Station B]?"
+        -------------------------------------------------------------------------------------------------------
+        Direct Route: Ensure the travel time is correct and no transfer details are included.
+        No Route Found: Confirm that the message correctly informs the user when no route is available. recommend the best route with transfer
+    '''
     def name(self) -> Text:
         return "action_check_direct_route"
 
@@ -841,6 +732,13 @@ class ActionCheckDirectRoute(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -899,19 +797,18 @@ class ActionCheckDirectRoute(Action):
             raise
 
 
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_03 implementation
-	Name: Best route with transfer
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-	How many transfers are there between Dandenong and Parliament?
-    How many transfers are there between South Yarra to Hawthorns?
-    How many transfers are there between North Melbourne to Hawthorns?
-    Do I need to change trains to get from Melbourne Central to Flinders station?   
-    -------------------------------------------------------------------------------------------------------                
-'''
 class ActionFindBestRouteWithTransfers(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_03 implementation
+    	Name: Best route with transfer
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    	How many transfers are there between Dandenong and Parliament?
+        How many transfers are there between South Yarra to Hawthorns?
+        How many transfers are there between North Melbourne to Hawthorns?
+        Do I need to change trains to get from Melbourne Central to Flinders station?
+        -------------------------------------------------------------------------------------------------------
+    '''
     def name(self) -> Text:
         return "action_find_best_route_with_transfers"
 
@@ -920,6 +817,13 @@ class ActionFindBestRouteWithTransfers(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -948,16 +852,15 @@ class ActionFindBestRouteWithTransfers(Action):
 
         return []
 
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_03 implementation
-	Name: Check Train Change
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------
-	"Do I need to change trains to get to [Station B] from [Station A]?"   
-    -------------------------------------------------------------------------------------------------------                
-'''
 class ActionCheckTrainChange(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_03 implementation
+    	Name: Check Train Change
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    	"Do I need to change trains to get to [Station B] from [Station A]?"
+        -------------------------------------------------------------------------------------------------------
+    '''
     def name(self) -> Text:
         return "action_check_train_change"
 
@@ -966,6 +869,13 @@ class ActionCheckTrainChange(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -981,18 +891,17 @@ class ActionCheckTrainChange(Action):
             GTFSUtils.handle_error(dispatcher, logger, "Failed to check train change", e)
             raise
 
-''' -------------------------------------------------------------------------------------------------------
-	ID: REQ_04 implementation
-	Name: Route Optimisation
-	Author: AlexT
-	-------------------------------------------------------------------------------------------------------	
-    "Which route has the least number of stops from [Station A] to [Station B]?"
-    "What is the quickest route to avoid delays?"
-    "Recommend a route to avoid Zone [X]."   
-    -------------------------------------------------------------------------------------------------------                
-'''
 class ActionFindRouteWithLeastStops(Action):
-
+    ''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_04 implementation
+    	Name: Route Optimisation
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+        "Which route has the least number of stops from [Station A] to [Station B]?"
+        "What is the quickest route to avoid delays?"
+        "Recommend a route to avoid Zone [X]."
+        -------------------------------------------------------------------------------------------------------
+    '''
     def name(self) -> Text:
         return "action_find_route_with_least_stops"
 
@@ -1001,6 +910,13 @@ class ActionFindRouteWithLeastStops(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
 
@@ -1054,72 +970,41 @@ class ActionFindRouteWithLeastStops(Action):
 
         return []
 
-''' -------------------------------------------------------------------------------------------------------	
-	Name: Generate route map
-	Author: AlexT	
-    -------------------------------------------------------------------------------------------------------                
-'''
-class ActionGenerateRouteMap(Action):
+class ValidateTransportMode(Action):
+    """
+    Custom action to validate the transport_mode slot.
+    """
 
-    def name(self) -> Text:
-        return "action_generate_route_map"
+    VALID_TRANSPORT_MODES = ["train", "tram", "bus"]
+
+    def name(self) -> str:
+        return "validate_transport_mode"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            domain: dict) -> list:
+        # Extract the value of the transport_mode slot
+        transport_mode = tracker.get_slot("transport_mode")
 
-        try:
-            query = tracker.latest_message.get('text')
-            extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+        if not transport_mode:
+            dispatcher.utter_message(
+                text="It seems you haven't specified a mode of transport. Please choose train, tram, or bus."
+            )
+            return [SlotSet("transport_mode", None)]
 
-            if len(extracted_stations) < 2:
-                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-                return []
+        # Normalize the user input
+        transport_mode = transport_mode.lower().strip()
 
-            station_a, station_b = extracted_stations[0], extracted_stations[1]
-
-            # Find the best route with transfers first
-            best_route = GTFSUtils.find_best_route_with_transfers(station_a, station_b, stops_df, stop_times_df)
-            if not best_route:
-                dispatcher.utter_message(text=f"Sorry, I couldn't find a suitable route from {station_a} to {station_b}.")
-                return []
-
-            # Get trip IDs from the best route
-            trip_id = GTFSUtils.get_trip_id_for_route(best_route, stops_df, stop_times_df)
-            if not trip_id:
-                dispatcher.utter_message(text=f"Sorry, I couldn't determine the trip ID for the route.")
-                return []
-
-            # Generate the map
-            trip_stops = stop_times_df[stop_times_df['trip_id'] == trip_id]
-            first_stop_id = trip_stops.iloc[0]['stop_id']
-            first_stop = stops_df[stops_df['stop_id'] == first_stop_id]
-            start_coords = [first_stop['stop_lat'].values[0], first_stop['stop_lon'].values[0]]
-
-            melbourne_map = folium.Map(location=start_coords, zoom_start=12)
-
-            for _, stop_time in trip_stops.iterrows():
-                stop_id = stop_time['stop_id']
-                stop_info = stops_df[stops_df['stop_id'] == stop_id]
-                stop_name = stop_info['stop_name'].values[0]
-                stop_coords = [stop_info['stop_lat'].values[0], stop_info['stop_lon'].values[0]]
-
-                folium.Marker(
-                    location=stop_coords,
-                    popup=f"{stop_name}",
-                    tooltip=stop_name
-                ).add_to(melbourne_map)
-
-            coords = [[stop_info['stop_lat'].values[0], stop_info['stop_lon'].values[0]] for stop_id in trip_stops['stop_id']]
-            folium.PolyLine(coords, color="blue", weight=2.5, opacity=1).add_to(melbourne_map)
-
-            map_path = os.path.join(dataset_path, f'{trip_id}_route_map.html')
-            melbourne_map.save(map_path)
-
-            dispatcher.utter_message(text=f"The map of the route from {station_a} to {station_b} has been generated and saved to: {map_path}")
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to generate route map", e)
-            raise
+        if transport_mode in self.VALID_TRANSPORT_MODES:
+            dispatcher.utter_message(
+                text=f"You have selected {transport_mode} as your mode of transport."
+            )
+            return [SlotSet("transport_mode", transport_mode)]
+        else:
+            dispatcher.utter_message(
+                text=f"Sorry, '{transport_mode}' is not a valid mode of transport. Please choose train, tram, or bus."
+            )
+            return [SlotSet("transport_mode", None)]
 
 ''' -------------------------------------------------------------------------------------------------------
 	
