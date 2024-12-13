@@ -182,18 +182,25 @@ Names of all use cases, location in GitHub and description of data collection me
 | UC00123_Parking_Slot_Occupancy_Detection                                               | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00123_Parking_Slot_Occupancy_Detection)        | `requests.get()`         |                     |       |
 
 
-
-
-
-
-
-
-
 #### T3 2024
-|                             Use Case Name                             |     Use Case Location     | Data Collection Method |          Author          | Notes |
-|-----------------------------------------------------------------------|:-------------------------:|:-----------------------:|:------------------------:|:-----:|
+|       Use Case Name       |   Use Case Location   | Data Collection Method |      Author      | Notes |
+|---------------------------|:---------------------:|:-----------------------:|:----------------:|:-----:|
+| UC00124_Environmental_Resource_Consumption_and_Service_Demand_in_Melb                                         | Not Found             | `requests.get()`                 | Mengkheang Neak                            |  |
+| UC00125_Traffic_Congestion_and_Parking_Zone_Impact                                         | Not Found             | `requests.get()`                 | Sabih Hassan                            |  |
+| UC00126_Accessibility_Analysis                                         | Not Found             | `requests.get()`                 | Randi Dona                            |  |
+| UC00127_Enhancing_Urban_Greening_Through_Laneway_Potential_Analysis                                         | Not Found             | `requests.get()`                 | Randi Dona                            |  |
+| UC00128_Analysing_Impact_of_Time_Weather_and_Traffic_on_Bike_and_Car                                         | Not Found             | `requests.get()`                 | Kushani Ranasinghe                            |  |
+| UC00129_Optimising_Retail_Store_Locations_Based_on_Pedestrian_Traffic                                         | Not Found             | `requests.get()`                 | Kushani Ranasinghe                            |  |
+| UC00130_Strategic_Tree_Planting_for_Water_Flow_Management                                         | Not Found             | `requests.get()`                 | Ahmed Aldhaheri                            |  |
+| UC00131_Parking_Slot_Occupancy_Detection                                         | Not Found             | `requests.get()`                 | Sabri Gulluoglu                            |  |
+| UC00132_Public_Transport_Demand                                         | Not Found             | `requests.get()`                 | Taehwan Jung                            |  |
+| UC00133_Real_Estate_Market_Dynamics                                         | Not Found             | `requests.get()`                 | Gloria Kiplagat                            |  |
+| UC00134_Enhancing_Urban_Green_Space                                         | Not Found             | `requests.get()`                 | Poojith Girish                            |  |
+| UC00135_Analysing_and_Predicting_Business_Activity_for_Cafes_and_Rest                                         | Not Found             | `requests.get()`                 | Cjay Basa                            |  |
+| UC00136_Graffiti_Vandalism_Prediction                                         | Not Found             | `requests.get()`                 | Supratim Dobhal                            |  |
+| UC00137_Bike_Route_Optimisation                                         | Not Found             | `requests.get()`                 | Nishant Khamkar                            |  |
+| UC00138_Influence_of_Employment_on_Price_of_Houses                                         | Not Found             | `requests.get()`                 | Dhruvil Mehta                            |  |
+| UC00139_Optimisation_of_Outdoor_Fitness_Activities                                         | Not Found             | `requests.get()`                 | Ananya Krishnan                            |  |
+| UC00140_Urban_Tree_Canopy_Heat_Reduction                                         | Not Found             | `requests.get()`                 | Soham Tamhane                           |  |
 
-
-
-
-#### Last updated on November 21, 2024
+#### Last updated on December 13, 2024
