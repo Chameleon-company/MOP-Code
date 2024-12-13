@@ -1013,41 +1013,41 @@ class ValidateTransportMode(Action):
 	-------------------------------------------------------------------------------------------------------
 '''
 from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
 import subprocess
 import sys
+import os
+import logging
 
 logger = logging.getLogger(__name__)
 
-class ActionRunMappingScript(Action):
+class ActionRunDirectionScriptOriginal(Action):
     def name(self) -> Text:
         return "action_run_direction_script"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        #Get the two most recent user messages
-        user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
-        user_location = user_messages[-2] if len(user_messages) >= 2 else None
-        destination = user_messages[-1] if user_messages else None
-
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        if not user_location or not destination:
-            dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
+            
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        
+        if not location_from or not location_to:
+            dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
 
+        current_dir = os.path.dirname(os.path.abspath(__file__))
         script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
-
         
         try:
-            result = subprocess.run([sys.executable, script_path, user_location, destination], 
-                                    capture_output=True, 
-                                    text=True, 
-                                    check=True)
+            result = subprocess.run([sys.executable, script_path, location_from, location_to], 
+                                  capture_output=True, 
+                                  text=True, 
+                                  check=True)
             
             output = result.stdout.strip()
-
+            
             if output:
                 output_parts = output.split("|||")
                 
@@ -1057,7 +1057,6 @@ class ActionRunMappingScript(Action):
 
                     dispatcher.utter_message(text=description)
 
-                    #Generate URL for the map file using the existing server
                     relative_path = os.path.relpath(map_file_path, current_dir)
                     map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
 
@@ -1065,11 +1064,10 @@ class ActionRunMappingScript(Action):
                     dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
                 else:
                     dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
-
             else:
-                dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
+                dispatcher.utter_message(text="The direction script executed successfully, but no output was produced.")
 
-        except subprocess.CalledProcessError as e:  
+        except subprocess.CalledProcessError as e:
             error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
             dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
             logger.error(f"Script execution failed: {error_message}")
@@ -1077,7 +1075,7 @@ class ActionRunMappingScript(Action):
             dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
             logger.error(f"Exception occurred: {str(e)}")
 
-        return [SlotSet("user_location", user_location), SlotSet("destination", destination)]
+        return []
 
 ''' 
 -------------------------------------------------------------------------------------------------------
@@ -1257,4 +1255,120 @@ class ActionListStationsWithFeature(Action):
             stations_list = ", ".join(stations_with_feature)
             dispatcher.utter_message(text=f"Stations with {feature}: {stations_list}")
 
+        return []
+    
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Bus and Trains
+	Author: LoganG
+	-------------------------------------------------------------------------------------------------------
+'''
+
+import os
+import sys
+import time
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import logging
+
+# Add the current actions folder to search path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+
+from multimodal_transit_router import MultimodalTransitRouter
+
+logger = logging.getLogger(__name__)
+class ActionRunDirectionScript(Action):
+    def __init__(self):
+        super().__init__()
+        self.router = None
+        logger = logging.getLogger(__name__)
+        logger.info("ActionRunDirectionScript initialized")
+    
+    def name(self) -> Text:
+        return "action_run_direction_script"
+    
+    def _initialize_router(self):
+        """Initialize the router if not already initialized"""
+        if self.router is None:
+            try:
+                init_start = time.time()
+                logger.info("Starting router initialization...")
+                
+                dir_start = time.time()
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                os.chdir(current_dir)
+                logger.info(f"Directory operations took {time.time() - dir_start:.2f} seconds")
+                
+                router_start = time.time()
+                self.router = MultimodalTransitRouter()
+                logger.info(f"Router creation took {time.time() - router_start:.2f} seconds")
+                
+                logger.info(f"Total initialization took {time.time() - init_start:.2f} seconds")
+                
+            except Exception as e:
+                logger.error(f"Failed to initialize transit router: {e}")
+                raise
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            
+        # Log debug information
+        latest_message = tracker.latest_message
+        logger.info("========== START DEBUG INFO ==========")
+        logger.info(f"Latest message text: {latest_message.get('text')}")
+        logger.info(f"Recognized intent: {latest_message.get('intent', {}).get('name')}")
+        logger.info(f"Confidence score: {latest_message.get('intent', {}).get('confidence')}")
+        logger.info(f"Extracted entities: {latest_message.get('entities', [])}")
+        
+        run_start = time.time()
+        logger.info("Starting action execution")
+        
+        # Get locations from slots
+        slots_start = time.time()
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        logger.info(f"Final location_from: {location_from}")
+        logger.info(f"Final location_to: {location_to}")
+        logger.info(f"Slot extraction took {time.time() - slots_start:.2f} seconds")
+        
+        if not location_from or not location_to:
+            error_msg = f"Missing {'origin' if not location_from else 'destination'} location"
+            logger.error(f"Validation failed: {error_msg}")
+            dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
+            return []
+
+        try:
+            self._initialize_router()
+            
+            # Get route
+            route_start = time.time()
+            directions, map_file = self.router.find_route(location_from, location_to)
+            logger.info(f"Route finding took {time.time() - route_start:.2f} seconds")
+            
+            # Send response
+            response_start = time.time()
+            if isinstance(directions, str):
+                # Send all directions in a single message
+                dispatcher.utter_message(text=directions)
+                
+                # Handle map file if it exists
+                if map_file and os.path.exists(map_file):
+                    relative_path = os.path.relpath(map_file, current_dir)
+                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+                    link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                    dispatcher.utter_message(text=link_message, parse_mode="html")
+            else:
+                dispatcher.utter_message(text=directions)  # Error message
+                
+            logger.info(f"Response handling took {time.time() - response_start:.2f} seconds")
+                
+        except Exception as e:
+            error_msg = f"An error occurred while finding the route: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            dispatcher.utter_message(text=error_msg)
+
+        logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
         return []

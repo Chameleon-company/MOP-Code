@@ -82,52 +82,58 @@ rules:
 
   # Alex Finish  -------------------------------------------------------------------------------------------
 
-- rule: Respond to asking about a specific feature
-  steps:
-  - intent: ask_about_feature
-  - action: action_check_feature
+  - rule: Respond to asking about a specific feature
+    steps:
+    - intent: ask_about_feature
+    - action: action_check_feature
 
-- rule: Respond to asking about all features of a station
-  steps:
-  - intent: ask_about_station
-  - action: action_check_station
+  - rule: Respond to asking about all features of a station
+    steps:
+    - intent: ask_about_station
+    - action: action_check_station
 
-- rule: Respond to listing all stations
-  steps:
-  - intent: list_all_stations
-  - action: action_list_all_stations
+  - rule: Respond to listing all stations
+    steps:
+    - intent: list_all_stations
+    - action: action_list_all_stations
 
-- rule: Handle fallback when no intent is recognized
-  steps:
-  - intent: nlu_fallback
-  - action: utter_default
+  - rule: Handle fallback when no intent is recognized
+    steps:
+    - intent: nlu_fallback
+    - action: utter_default
 
-- rule: Respond to asking for stations with a specific feature
-  steps:
-  - intent: list_stations_with_feature
-  - action: action_list_stations_with_feature
+  - rule: Respond to asking for stations with a specific feature
+    steps:
+    - intent: list_stations_with_feature
+    - action: action_list_stations_with_feature
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+    - intent: goodbye
+    - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
 
-- rule: Ask for location when running direction script
-  steps:
-  - intent: run_direction_script
-  - action: utter_ask_location
+  # - rule: Ask for location when running direction script
+  #   steps:
+  #   - intent: run_direction_script
+  #   - action: utter_ask_location
 
-- rule: Ask for destination after providing location
-  steps:
-  - intent: provide_location
-  - action: utter_ask_destination  
+  # - rule: Ask for destination after providing location
+  #   steps:
+  #   - intent: provide_location
+  #   - action: utter_ask_destination  
 
-- rule: Execute direction script after providing destination
-  steps:
-  - intent: provide_destination
-  - action: action_run_direction_script
+  # - rule: Execute direction script after providing destination
+  #   steps:
+  #   - intent: provide_destination
+  #   - action: action_run_direction_script
+
+  #Logan new
+  - rule: Direct directions request
+    steps:
+    - intent: get_directions
+    - action: action_run_direction_script

@@ -45,6 +45,13 @@ entities:
   - transport_mode
   - route_name
   # Alex Finish entities  ----------------------------------------------------------
+  #Logan entities
+  - location
+  - station_name
+  - feature  
+  
+  - location_from
+  - location_to
 
 slots:
     # Alex Start slots  ---------------------------------------------------------------
@@ -72,14 +79,14 @@ slots:
         entity: route_name
   # Alex Finish slots  ---------------------------------------------------------------
 
-  user_location:
-    type: text
-    mappings:
-      - type: from_text
-  destination:
-    type: text
-    mappings:
-      - type: from_text
+  # user_location:
+  #   type: text
+  #   mappings:
+  #     - type: from_text
+  # destination:
+  #   type: text
+  #   mappings:
+  #     - type: from_text
 
   station_name:
     type: text
@@ -94,6 +101,21 @@ slots:
     mappings:
       - type: from_entity
         entity: feature
+
+  location_from:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location_from
+  location_to:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location_to
+
+
 
 responses:
     # Alex Start responses -----------------------------------------------------------
@@ -165,8 +187,8 @@ responses:
   utter_ask_location:
   - text: "Please provide your location."
 
-  utter_ask_destination:
-  - text: "Great! Now, please provide your destination."
+  # utter_ask_destination:
+  # - text: "Great! Now, please provide your destination."
 
   utter_default:
   - text: "Sorry I didn't understand. Can you rephrase?"
