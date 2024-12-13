@@ -107,12 +107,12 @@ def classify_gender(value):
 def get_cached_data():
     return fetch_and_prepare_data()
 
-
+#homepage
 @app.route("/")
 def main_page():
     return render_template("index.html")
 
-
+#foodsecurity distribution
 @app.route("/pie-chart")
 def pie_chart():
     data = get_cached_data()  # Load cached data
@@ -143,7 +143,7 @@ def pie_chart():
     plot_html = fig.to_html(full_html=False)
     return render_template("foodSecurityDistribution.html", plot=plot_html)
 
-
+#demographics visualisation
 @app.route("/demographics-visualization", methods=["GET", "POST"])
 def demographics_visualization():
     data = get_cached_data()  # Load cached data
@@ -193,6 +193,7 @@ def demographics_visualization():
         graph_json=graph_json
     )
 
+#demographics by grouping food security
 @app.route("/demographics-food-security")
 def demographics_food_security():
     data = get_cached_data()  # Fetch the cached data
@@ -239,6 +240,7 @@ def demographics_food_security():
     plot_html = fig.to_html(full_html=False)
     return render_template("demographicsFoodSecurity.html", plot=plot_html)
 
+#trend analysis with category and their values
 @app.route("/trend-analysis", methods=["GET", "POST"])
 def trend_analysis():
     data = get_cached_data()  # Load cached data
@@ -317,6 +319,7 @@ def trend_analysis():
         plot_html=plot_html
     )
 
+#combined trends with category and all their values
 @app.route("/combined-trends", methods=["GET", "POST"])
 def combined_trends():
     data = get_cached_data()  # Load cached data
@@ -407,6 +410,7 @@ def combined_trends():
         plot_html=plot_html
     )
 
+#trends of foos security types across the demographics
 @app.route("/food-insecurity-trends", methods=["GET", "POST"])
 def food_insecurity_trends():
     data = get_cached_data()  # Load cached data
@@ -492,4 +496,11 @@ def food_insecurity_trends():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# If we head to http://127.0.0.1:5000 (since we have not mentioned any port, it defaults to port 5000), our home page will appear.
+# If it doesn't run on port 5000, change it to an available port using the following: app.run(debug=True, port=<available_port>)
+# From the home page, we can navigate to other functionalities, which are linked to separate HTML pages.
+# These other pages are accessible via buttons on our home page.
+
+
 
