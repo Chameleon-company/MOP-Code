@@ -179,11 +179,18 @@ stories:
       - action: action_check_disruptions_train
 # Alex Finish  -------------------------------------------------------------------------------------------
 
-  - story: run direction script
+  # - story: run direction script
+  #   steps:
+  #   - intent: run_direction_script
+  #   - action: utter_ask_location
+  #   - intent: provide_location
+  #   - action: utter_ask_destination
+  #   - intent: provide_destination
+  #   - action: action_run_direction_script
+
+
+#Logan new
+  - story: Direct directions request
     steps:
-    - intent: run_direction_script
-    - action: utter_ask_location
-    - intent: provide_location
-    - action: utter_ask_destination
-    - intent: provide_destination
+    - intent: get_directions
     - action: action_run_direction_script

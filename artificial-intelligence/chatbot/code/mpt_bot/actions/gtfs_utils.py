@@ -99,6 +99,30 @@ class GTFSUtils:
         :param inner_zip_paths: A list of paths to inner zip files within the main zip file.
         :return: True if extraction was successful, False otherwise.
         """
+        #LoganG updating so GTFS files arent downloaded each time
+        # Check if the data already exists
+        all_data_exists = True
+        for inner_zip_path in inner_zip_paths:
+            subfolder_name = os.path.basename(os.path.dirname(inner_zip_path))  
+            subfolder_path = os.path.join(dataset_path, subfolder_name)
+            
+            # Check for GTFS files in each subfolder
+            required_files = ['stops.txt', 'stop_times.txt', 'routes.txt', 'trips.txt', 'calendar.txt']
+            for file in required_files:
+                file_path = os.path.join(subfolder_path, file)
+                if not os.path.exists(file_path):
+                    all_data_exists = False
+                    break
+            
+            if not all_data_exists:
+                break
+
+        # If all required files exist, skip download
+        if all_data_exists:
+            logger.info("GTFS data already exists in all subfolders. Skipping download.")
+            return True
+
+        # If data doesn't exist, proceed with download and extraction
         os.makedirs(dataset_path, exist_ok=True)
 
         try:
