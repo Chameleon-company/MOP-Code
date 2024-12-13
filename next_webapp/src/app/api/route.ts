@@ -13,8 +13,6 @@ export async function GET(request: Request) {
 
   // Constructing the File Path
   const filePath = path.join(
-    process.cwd(),
-    "public",
     fileName
   );
   // Reading the file

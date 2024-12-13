@@ -48,6 +48,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8",
+    "react-multi-carousel": "^2.8.5",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.4.4"
   },
