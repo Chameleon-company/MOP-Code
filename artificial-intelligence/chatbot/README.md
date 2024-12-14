@@ -57,10 +57,10 @@ rasa run --enable-api --cors "*"
 
 3) To access the UI on a simple HTTP server run the following command, within the standard Command Prompt:
 ```bash
-python -m http.server
+python -m http.server 8080
 ```
 
-Then, open a web browser and navigate to http://localhost:8000 (or whichever URL your server is set to).
+Then, open a web browser and navigate to http://localhost:8080 (or whichever URL your server is set to).
 
 ## Commands for testing the Transport Planner
 

@@ -179,6 +179,46 @@ stories:
       - action: action_check_disruptions_train
 # Alex Finish  -------------------------------------------------------------------------------------------
 
+#Ross Start - Stories
+  - story: Find Nearest Station
+    steps:
+    - intent: find_nearest_station
+    - action: utter_ask_address
+    - intent: find_user_address
+      entities:
+       - address
+       - tranport_mode_rp
+    - action: action_find_nearest_station
+
+  - story: Find Nearest Tram
+    steps:
+    - intent: find_nearest_tram_stop
+    - action: utter_ask_address
+    - intent: find_user_address
+      entities:
+       - address
+       - transport_mode_rp    
+    - action: action_find_nearest_tram_stop
+
+  - story: Find Nearest Bus Stop
+    steps:
+    - intent: find_nearest_bus_stop
+    - action: utter_ask_address
+    - intent: find_user_address
+      entities:
+       - address
+       - transport_mode_rp
+    - action: action_find_nearest_bus_stop
+
+  - story: Map Transport In Area
+    steps:
+    - intent: map_transport_in_area
+      entities:
+       - locaiona
+       - transport_mode_rp
+    - action: action_map_transport_in_area
+#Ross Finish stories
+
   # - story: run direction script
   #   steps:
   #   - intent: run_direction_script
