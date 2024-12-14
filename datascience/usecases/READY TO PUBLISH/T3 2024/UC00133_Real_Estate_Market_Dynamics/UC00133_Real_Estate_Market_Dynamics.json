@@ -43,8 +43,8 @@
       }
     ],
     "datasets": [
-      "melbourne-property-prices",
-      "melbourne-building-footprints"
+      "melbourne-building-footprints",
+      "development-activity-data"
     ]
   }
   
