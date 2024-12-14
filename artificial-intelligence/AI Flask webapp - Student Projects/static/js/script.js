@@ -46,10 +46,21 @@ document.getElementById('upload-form').addEventListener('submit', function(event
         // Set the 'src' attribute of the 'input-image' element to a URL representing the selected file
         // This will display the original image selected by the user
         const inputImage = document.getElementById('input-image');
-        inputImage.src = URL.createObjectURL(fileInput.files[0]);
+        const file = fileInput.files[0];
 
-        // Make sure the 'input-image' element is visible
-        inputImage.style.display = 'block';
+        // Validate the file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please upload a valid image file.');
+            return;
+        }
+
+        // Use FileReader to read the file content
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            inputImage.src = e.target.result;
+            inputImage.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
     })
     .catch(error => {
         console.error('Error:', error); // Log any errors that occur during the fetch process
