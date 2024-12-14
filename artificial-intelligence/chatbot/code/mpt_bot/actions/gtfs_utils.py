@@ -29,6 +29,7 @@
 import spacy
 import folium
 import os
+import math
 from io import BytesIO
 import zipfile
 import requests
@@ -1025,3 +1026,191 @@ class GTFSUtils:
         except Exception as e:
             print(f"Error processing schedule: {e}")
             return "An error occurred while determining the schedule. Please try again later."
+# Ross Start Functions
+    @staticmethod
+    def getAddressLatLong(address: str):
+        """
+            Author: RossP
+            Lookup lat and long of address supplied by user
+            :param address
+            
+        """
+        base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+        params = {
+        "address": address,
+        "components": "country:AU|administrative_area:VIC",
+        "bounds": "-38.433859,144.593741|-37.511274,145.512529",  # Melbourne bounding box
+        "key": 'AIzaSyAuNbb-Ttqw62DYDQlu64CgLcJ-Xp3_1JA'
+        }
+
+        try:
+            response = requests.get(base_url, params=params)
+            response.raise_for_status()  # Raise an HTTPError for bad responses
+            data = response.json()
+    
+            if data['status'] == "OK":
+                # Extract details
+                result = data['results'][0]
+                formatted_address = result['formatted_address']
+                location = result['geometry']['location']  # Contains 'lat' and 'lng'
+                return {
+                    "formatted_address": formatted_address,
+                    "latitude": location['lat'],
+                    "longitude": location['lng']
+                }
+            else:
+                return {"error": f"Geocoding API error: {data['status']}"}
+        except requests.exceptions.RequestException as e:
+            return {"error": str(e)}
+    
+    @staticmethod
+    def checkDistancetoAllStation(lat: float, long: float):
+        """
+            Author: RossP
+            Lookup lat and long of address supplied by user
+            :param lat
+            :param long
+            
+        """
+        try:
+            train_stops = pd.read_csv("mpt_data/2/stops.txt")
+
+            # iter data and calculate Euclidiean Distance
+            dist_hold = float('inf')
+            
+            for row in train_stops.itertuples():
+                
+                dist = ((row.stop_lat - lat)**2 + (row.stop_lon - long)**2)**0.5
+                
+                if dist < dist_hold:
+                    dist_hold = dist
+                    closest_station = row.stop_name
+                
+            if closest_station:    
+                return {
+                    "closest_station_name": closest_station
+                }
+            else:
+                return {"error": "No Station found"}
+        except FileNotFoundError:
+            return {"error": "File 'stops.txt' not found"}
+        except pd.errors.EmptyDataError:
+            return {"error": "File 'stops.txt' is empty or invalid"}
+        except Exception as e:
+            return {"error": str(e)}
+    @staticmethod
+    def checkDistancetoAllTramsStops(lat: float, long: float):
+        """
+            Author: RossP
+            Lookup lat and long of address supplied by user
+            :param lat
+            :param long
+            
+        """
+        try:
+            tram_stops = pd.read_csv("mpt_data/3/stops.txt")
+
+            # iter data and calculate Euclidiean Distance
+            dist_hold = float('inf')
+            
+            for row in tram_stops.itertuples():
+                
+                dist = ((row.stop_lat - lat)**2 + (row.stop_lon - long)**2)**0.5
+                
+                if dist < dist_hold:
+                    dist_hold = dist
+                    closest_station = row.stop_name
+                
+            if closest_station:    
+                return {
+                    "closest_station_name": closest_station
+                }
+            else:
+                return {"error": "No Station found"}
+        except FileNotFoundError:
+            return {"error": "File 'stops.txt' not found"}
+        except pd.errors.EmptyDataError:
+            return {"error": "File 'stops.txt' is empty or invalid"}
+        except Exception as e:
+            return {"error": str(e)}
+    @staticmethod
+    def checkDistancetoAllBusStops(lat: float, long: float):
+        """
+            Author: RossP
+            Lookup lat and long of address supplied by user
+            :param lat
+            :param long
+            
+        """
+        try:
+            bus_stops = pd.read_csv("mpt_data/4/stops.txt")
+
+            # iter data and calculate Euclidiean Distance
+            dist_hold = float('inf')
+            
+            for row in bus_stops.itertuples():
+                
+                dist = ((row.stop_lat - lat)**2 + (row.stop_lon - long)**2)**0.5
+                
+                if dist < dist_hold:
+                    dist_hold = dist
+                    closest_station = row.stop_name
+                
+            if closest_station:    
+                return {
+                    "closest_station_name": closest_station
+                }
+            else:
+                return {"error": "No Station found"}
+        except FileNotFoundError:
+            return {"error": "File 'stops.txt' not found"}
+        except pd.errors.EmptyDataError:
+            return {"error": "File 'stops.txt' is empty or invalid"}
+        except Exception as e:
+            return {"error": str(e)}
+
+    @staticmethod
+    def getListOfStationsWithin1k(loc , transport_mode):
+        """
+            Author: RossP
+            Get list of stations within 900m of locations 
+            :param loc
+            :param transport mode
+            
+        """
+        try:
+            if transport_mode == 'train':
+                stops = pd.read_csv("mpt_data/2/stops.txt")
+            
+            if transport_mode == 'bus':
+                stops = pd.read_csv("mpt_data/4/stops.txt")
+                
+            if transport_mode == 'tram':
+                stops = pd.read_csv("mpt_data/3/stops.txt")
+
+            # iter data and calculate stops within 1 km of location
+            dist_res = []
+            
+            for row in stops.itertuples():
+                
+                x = loc['latitude'] - row.stop_lat
+                y = (loc['longitude'] - row.stop_lon) * math.cos(row.stop_lat)
+                dist = 110.25 * math.sqrt(x*x + y*y)
+                
+                if dist <= 0.9:
+                    dist_res.append({'lat': row.stop_lat, 'lon': row.stop_lon, 'stop': row.stop_name, 'dist': dist})
+            
+            #top_5_closest = sorted(dist_res, key=lambda x: x["dist"])[:5]
+             
+            if len(dist_res)> 0:    
+                return dist_res
+            else:
+                return {"error": "No Station found within 1k"}
+        except FileNotFoundError:
+            return {"error": f"The stops file for {transport_mode} was not found"}
+        except pd.errors.EmptyDataError:
+            return {"error": f"The stops file for {transport_mode} is empty or invalid"}
+        except Exception as e:
+            return {"error": str(e)}
+
+#Ross End Functions

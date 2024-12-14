@@ -27,6 +27,13 @@ intents:
   - check_disruptions_bus
   - check_disruptions_train
   # Alex Finish intents  ----------------------------------------------------------
+  # Ross Start intenets
+  - find_nearest_station
+  - find_nearest_tram_stop
+  - find_nearest_bus_stop
+  - find_user_address
+  - map_transport_in_area
+  # Ross Finish intents
   - run_direction_script
   - provide_location
   - provide_destination
@@ -45,6 +52,11 @@ entities:
   - transport_mode
   - route_name
   # Alex Finish entities  ----------------------------------------------------------
+  # Ross Start entities
+  - address
+  - tansport_mode_rp
+  - locationa
+  # Ross Finish entities
   #Logan entities
   - location
   - station_name
@@ -177,14 +189,17 @@ responses:
   utter_invalid_mode:
     - text: "Sorry, that's not a valid mode of transport. Please specify train, tram, or bus."
 # Alex Finish responses -----------------------------------------------------------
-
+# Ross Start responses
+  utter_ask_address:
+  - text: "Please provide your current adress"
+# Ross Finish responses
   utter_script_executed:
   - text: "The direction script has been executed successfully."
 
   utter_script_failed:
   - text: "There was an error executing the direction script."
 
-  utter_ask_location:
+  utter_ask_locationa:
   - text: "Please provide your location."
 
   # utter_ask_destination:
@@ -213,6 +228,13 @@ actions:
   - action_check_disruptions_train
   - validate_transport_mode
   # Alex Finish Actions  -----------------------------------------------------------
+  # Ross Start actions
+  - action_find_user_address
+  - action_find_nearest_station
+  - action_find_nearest_tram_stop
+  - action_find_nearest_bus_stop
+  - action_map_transport_in_area
+  # Ross finish Actions
   - action_run_direction_script
   - action_check_feature
   - action_check_station
