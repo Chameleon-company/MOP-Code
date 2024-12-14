@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from dash_app import create_dash_app
 from map import create_map
 import pandas as pd
+import os
 
 # Initialize Flask app
 flask_app = Flask(__name__)
@@ -97,4 +98,5 @@ def data_view():
     )
 
 if __name__ == '__main__':
-    flask_app.run(debug=True, port=5000)
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+    flask_app.run(debug=debug_mode, port=5000)
