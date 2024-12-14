@@ -23,10 +23,11 @@ body {
 
 .main_cent_text {
     font-size: 20px;
+    line-height: 1.5;
     background-color: rgba(255, 255, 255, 0.699);
     color: black;
     max-width: 1000px;
-    margin: 50px;
+    margin: 20px;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -279,6 +280,7 @@ footer .footer-section {
     transition: background-color 0.3s ease;
 }
 
+
 /* Kaimon Styling */
 
 .graph-container-kaimon {
@@ -329,3 +331,4 @@ footer .footer-section {
 .button-kaimon:hover {
     background-color: #2C421D;
 }
+

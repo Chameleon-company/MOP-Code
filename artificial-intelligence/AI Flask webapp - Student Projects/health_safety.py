@@ -3,12 +3,11 @@ from flask import Flask, render_template, request, jsonify
 import plotly.express as px
 import plotly.io as pio
 from sklearn.linear_model import LinearRegression
-from sklearn import svm
 
 app = Flask(__name__)
 
 # Read the dataset
-df = pd.read_csv('static/python/SafetyPerception_data.csv')
+df = pd.read_csv('SafetyPerception_data.csv')
 
 # Get unique categories for filters
 genders = df[df['Category'] == 'Gender']['Subcategory'].unique()

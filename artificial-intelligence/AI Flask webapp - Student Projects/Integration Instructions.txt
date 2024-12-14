@@ -113,4 +113,3 @@ Replace project_name with your route/project name (the name used in step 5)
 
 
 8. Save all. Refresh the app.py if it is running. Congratulations. Your project is now part of the collective app!
-

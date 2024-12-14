@@ -3,6 +3,7 @@
 {% block title %} Perceptions of Safety {% endblock %}
 
 {% block content %}
+
     <div class="body-kaimon">
     <h2 class="section_heading">The Perception of Safety within Melbourne</h2>
 
@@ -14,14 +15,19 @@
                 <div class="custom-select-container-kaimon">
                     <label for="category">Select Category:</label>
                     <select class="custom-select-kaimon" id="category" name="category">
+
+
                         <option value="neighbourhood">Neighbourhood</option>
                         <option value="transport">Transport</option>
                     </select>
                 </div>
 
+
                 <div class="custom-select-container-kaimon">
                     <label for="gender">Select a Gender:</label>
                     <select class="custom-select-kaimon" name="gender" required>
+
+
                         <option>Select a Gender</option>
                         {% for gender in genders %}
                             <option value="{{ gender }}">{{ gender }}</option>
@@ -29,9 +35,11 @@
                     </select>
                 </div>
 
+
                 <div class="custom-select-container-kaimon">
                     <label for="age_range">Select an Age Range:</label>
                     <select class="custom-select-kaimon" name="age_range" required>
+
                         <option>Select an Age Range</option>
                         <option>18-24 years</option>
                         <option>25-34 years</option>
@@ -45,6 +53,8 @@
                 <div class="custom-select-container-kaimon">
                     <label for="suburb">Select a Suburb:</label>
                     <select class="custom-select-kaimon" min-width="400px" name="suburb" required>
+
+
                         <option>Select a Suburb</option>
                         {% for suburb in suburbs %}
                             <option value="{{ suburb }}">{{ suburb }}</option>
@@ -52,7 +62,10 @@
                     </select>
                 </div>
             </div>
+
             <button class="button-kaimon" type="submit">Submit</button>
+
+
         </form>
     </div>
     <!-- <div id="prediction-output"></div> -->
@@ -85,5 +98,8 @@
     });
 });
     </script>
+
     </div>
+
+
 {% endblock %}
