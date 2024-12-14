@@ -102,7 +102,7 @@
         {
             "name": "tensorflow",
             "code": "python"
-        },
+        }
     ],
     "datasets": [
         "street-addresses",

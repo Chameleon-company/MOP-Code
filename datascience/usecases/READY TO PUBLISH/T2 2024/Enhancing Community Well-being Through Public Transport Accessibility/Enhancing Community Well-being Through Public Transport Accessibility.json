@@ -67,11 +67,10 @@
         "name": "geopy",
         "code": "python"
       },
-      
       {
         "name": "scikit-learn",
         "code": "python"
-      },
+      }
       ],
     "datasets":["Social Indicators", 
     "Bus stops","Tram tracks"
