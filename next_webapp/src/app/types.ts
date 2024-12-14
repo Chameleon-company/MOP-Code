@@ -18,8 +18,8 @@ export type SearchParams = {
 
 export type CaseStudy = {
   id: number;
-  title: string;
-  content: string;
-  category: CATEGORY;
+  name: string;
+  description: string;
+  tags: string[];
   filename?: string;
 };
