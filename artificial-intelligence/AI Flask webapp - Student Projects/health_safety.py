@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify
 import plotly.express as px
 import plotly.io as pio
 from sklearn.linear_model import LinearRegression
+import os
 
 app = Flask(__name__)
 
@@ -114,4 +115,5 @@ def predict(category, gender, age_range, suburb):
     }
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+    app.run(debug=debug_mode)
