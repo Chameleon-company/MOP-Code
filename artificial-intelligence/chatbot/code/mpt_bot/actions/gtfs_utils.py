@@ -1,21 +1,29 @@
 '''-------------------------------------------------------------------------------------------------------'''
 ''' -------------------------------------------------------------------------------------------------------
 	GTFSUtils Singleton common methods can be use in actions - This is for train station only
-	    - download_and_extract_data: (Download the whole dataset from ptv) - Author: AlexT
-	    - load_data: - Author: AlexT
-	    - load_mode_data: (Load data for a specific mode - train, tram or bus etc.) - Author: AlexT
-	    - load_combined_data: (load and combine data for train, tram and bus)- Author: AlexT
-		- normalise_gtfs_data: - Author: AlexT
-		- find_station_name: - Author: AlexT
-		- convert_gtfs_time: - Author: AlexT
-		- parse_time: - Author: AlexT
-		- get_station_id: - Author: AlexT
-		- extract_stations_from_query: - Author: AlexT
-		- check_direct_route: - Author: AlexT
-		- calculate_route_travel_time: - Author: AlexT
-		- calculate_transfers: - Author: AlexT
-		- find_best_route_with_transfers: - Author: AlexT
-		- handle_error: handle error and logging: - Author: AlexT
+	    - download_and_extract_data: Download the whole dataset from ptv (Author: AlexT)	    
+	    - load_mode_data: Load data for a specific mode - train, tram or bus etc. (Author: AlexT)
+	    - load_combined_data: load and combine data for train, tram and bus (Author: AlexT)
+	    - find_common_routes:  Find common routes between two stops (Author: AlexT)
+	    - load_data: - Author: AlexT (Download and load data for Train only)
+		- normalise_gtfs_data: (Author: AlexT)
+		- find_station_name: (Author: AlexT)
+		- convert_gtfs_time: (Author: AlexT)
+		- parse_time: (Author: AlexT)
+		- get_station_id: (Author: AlexT)
+		- extract_stations_from_query: (Author: AlexT)
+		- check_direct_route: (Author: AlexT)
+		- calculate_route_travel_time: (Author: AlexT)
+		- calculate_transfers: (Author: AlexT)
+		- find_best_route_with_transfers: (Author: AlexT)
+		- handle_error: handle error and logging: (Author: AlexT)
+		- generate_signature: signature required for PTV API: (Author: AlexT)
+        - fetch_disruptions: (Author: AlexT)
+        - filter_active_disruptions: (Author: AlexT)
+        - check_route_and_fetch_disruptions: (Author: AlexT)
+        - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
+        - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
+        - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
 	-------------------------------------------------------------------------------------------------------
 '''
 import spacy
@@ -36,81 +44,27 @@ from collections import deque
 import certifi
 from sanic import Sanic
 from sanic.response import text
+import re
+import hashlib
+import hmac
+import urllib.parse
+from tabulate import tabulate
+from transformers import pipeline
 
+# User ID and API Key
+user_id = "3003120"
+api_key = "0efc8af6-e6c8-445e-a426-fcad4aed37f2"
+
+# API Base URL
+base_url = "https://timetableapi.ptv.vic.gov.au"
+
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 # Load spaCy NLP model
 nlp = spacy.load('en_core_web_sm')
 
 class GTFSUtils:
-    @staticmethod
-    def load_data(url: str, dataset_path: str, inner_zip_path: str = '2/google_transit.zip') -> Optional[
-        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
-        """
-        Author: AlexT
-        Downloads, extracts, and loads GTFS data from a provided URL.
-        :param url: The URL to download the GTFS zip file from.
-        :param dataset_path: The folder where the extracted data will be stored.
-        :param inner_zip_path: The path within the main zip to the GTFS data zip file.
-        :return: A tuple containing the stops DataFrame, stop_times DataFrame, routes DataFrame, trips DataFrame, and calendar DataFrame.
-        """
-        # Ensure the dataset path is absolute and create it if it doesn't exist
-        os.makedirs(dataset_path, exist_ok=True)
-
-        logger.info("Downloading the zip file...")
-        # response = requests.get(url)
-        response = requests.get(url, verify=certifi.where())
-
-        # Disable SSL certificate verification to bypass the certificate error
-        try:
-            response = requests.get(url, verify=False)
-            response.raise_for_status()  # Ensure the download was successful
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to download file from {url}: {e}")
-            return None
-
-        # Open the downloaded zip file in memory
-        logger.info("Opening the main zip file...")
-        try:
-            with zipfile.ZipFile(BytesIO(response.content)) as z:
-                # List all files and directories in the main zip file
-                logger.info("Listing contents of the main zip file...")
-                for name in z.namelist():
-                    logger.info(f"Found file: {name}")
-                    if name == inner_zip_path:
-                        logger.info(f"Found '{inner_zip_path}' inside the main zip file.")
-                        # Extract the inner zip file (google_transit.zip)
-                        with z.open(name) as inner_zip_file:
-                            with zipfile.ZipFile(BytesIO(inner_zip_file.read())) as inner_z:
-                                logger.info(f"Extracting contents to '{dataset_path}'...")
-                                inner_z.extractall(dataset_path)
-                                logger.info(f"Extraction complete. Files saved to '{dataset_path}'")
-                                break
-                else:
-                    logger.error(f"No matching '{inner_zip_path}' file found inside the main zip file.")
-                    return None
-        except Exception as e:
-            logger.error(f"Error extracting zip files: {e}")
-            return None
-
-        # Load the relevant files into DataFrames
-        try:
-            stops_df = pd.read_csv(os.path.join(dataset_path, 'stops.txt'))
-            routes_df = pd.read_csv(os.path.join(dataset_path, 'routes.txt'))
-            trips_df = pd.read_csv(os.path.join(dataset_path, 'trips.txt'))
-            stop_times_df = pd.read_csv(os.path.join(dataset_path, 'stop_times.txt'))
-            calendar_df = pd.read_csv(os.path.join(dataset_path, 'calendar.txt'))
-
-            # Normalize the data
-            GTFSUtils.normalise_gtfs_data(stops_df, stop_times_df)
-
-            return stops_df, stop_times_df, routes_df, trips_df, calendar_df
-        except FileNotFoundError as e:
-            logger.error(f"Failed to load GTFS data files: {e}")
-            return None
-        except pd.errors.EmptyDataError as e:
-            logger.error(f"File found but no data: {e}")
-            return None
-
     @staticmethod
     def normalise_gtfs_data(stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> None:
         """
@@ -145,6 +99,30 @@ class GTFSUtils:
         :param inner_zip_paths: A list of paths to inner zip files within the main zip file.
         :return: True if extraction was successful, False otherwise.
         """
+        #LoganG updating so GTFS files arent downloaded each time
+        # Check if the data already exists
+        all_data_exists = True
+        for inner_zip_path in inner_zip_paths:
+            subfolder_name = os.path.basename(os.path.dirname(inner_zip_path))  
+            subfolder_path = os.path.join(dataset_path, subfolder_name)
+            
+            # Check for GTFS files in each subfolder
+            required_files = ['stops.txt', 'stop_times.txt', 'routes.txt', 'trips.txt', 'calendar.txt']
+            for file in required_files:
+                file_path = os.path.join(subfolder_path, file)
+                if not os.path.exists(file_path):
+                    all_data_exists = False
+                    break
+            
+            if not all_data_exists:
+                break
+
+        # If all required files exist, skip download
+        if all_data_exists:
+            logger.info("GTFS data already exists in all subfolders. Skipping download.")
+            return True
+
+        # If data doesn't exist, proceed with download and extraction
         os.makedirs(dataset_path, exist_ok=True)
 
         try:
@@ -239,6 +217,7 @@ class GTFSUtils:
         calendar = pd.concat([train_data[4], tram_data[4], bus_data[4]], ignore_index=True)
 
         return stops, stop_times, routes, trips, calendar
+
     @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
@@ -275,6 +254,7 @@ class GTFSUtils:
         """
         doc = nlp(query)
         potential_stations = [ent.text for ent in doc.ents]
+        print(f"Potential Stations (SpaCy): {potential_stations}")
         if not potential_stations:
             potential_stations = [GTFSUtils.find_station_name(query, stops_df)]
 
@@ -283,7 +263,10 @@ class GTFSUtils:
             matched_station = GTFSUtils.find_station_name(station, stops_df)
             if matched_station:
                 extracted_stations.append(matched_station)
+
+        print(f"Extracted stations: {extracted_stations}")
         return extracted_stations
+
     @staticmethod
     def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
@@ -298,6 +281,25 @@ class GTFSUtils:
         logger.error(f"Station name {station_name} not found in stops_df.")
         return None
 
+    @staticmethod
+    def find_common_routes(self, stop_a_id: str, stop_b_id: str) -> List[str]:
+        """
+        Author: AlexT
+        Find common routes between two stops.
+        """
+        try:
+            # Get trips passing through each stop
+            trips_a = bus_stop_times.xs(key=stop_a_id, level='stop_id').index.get_level_values('trip_id').unique()
+            trips_b = bus_stop_times.xs(key=stop_b_id, level='stop_id').index.get_level_values('trip_id').unique()
+
+            # Find common trips
+            common_trips = set(trips_a).intersection(trips_b)
+
+            # Map trips to routes
+            routes = bus_trips[bus_trips['trip_id'].isin(common_trips)]['route_id'].unique()
+            return routes.tolist()
+        except KeyError:
+            return []
     @staticmethod
     def check_direct_route(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> (
     bool, List[str]):
@@ -660,3 +662,366 @@ class GTFSUtils:
         except Exception as e:
             logger.error(f"Failed to generate route map for trip ID {trip_id}: {str(e)}")
             return None
+
+    def generate_map(stops_df: pd.DataFrame, map_title: str, dataset_path: str) -> str:
+        """
+        Author: AlexT
+        Generates a map for a given mode of transport and saves it as an HTML file.
+        Args:
+            stops_df (pd.DataFrame): DataFrame containing stop information (stop_id, stop_name, stop_lat, stop_lon).
+            map_title (str): Title for the map (e.g., "Train Stations", "Tram Stops").
+            dataset_path (str): Path where the generated map will be saved.
+        Returns:
+            str: File path to the generated map HTML.
+        """
+        try:
+            # Extract necessary columns
+            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+
+            # Initialize the map centered at Melbourne
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            # Add markers for each stop
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
+                    tooltip=row['stop_name']
+                ).add_to(melbourne_map)
+
+            # Save the map to an HTML file
+            map_filename = f"{map_title.replace(' ', '_').lower()}_map.html"
+            map_folder = os.path.join(dataset_path, "maps")
+            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            return map_path
+
+        except Exception as e:
+            logging.error(f"Error generating {map_title} map: {e}")
+            return None
+
+    @staticmethod
+    def generate_signature(base_url, user_id, api_key, route_id):
+        """
+        Author: AlexT
+        Generate API signature.
+        """
+        url_path = f"/v3/disruptions/route/{route_id}"
+        query_string = f"devid={user_id}"
+        full_url = f"{base_url}{url_path}?{query_string}"
+
+        parsed_url = urllib.parse.urlparse(full_url)
+        url_to_sign = parsed_url.path + "?" + parsed_url.query
+        signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
+
+        return f"{full_url}&signature={signature}"
+
+    @staticmethod
+    def fetch_disruptions(signed_url):
+        """
+        Author: AlexT
+        Fetch disruptions from the API and ensure all transport modes (tram, bus, train) are handled.
+        """
+        try:
+            response = requests.get(signed_url)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            print(f"HTTP error while fetching disruptions: {e}")
+            # Return an empty structure for all modes to ensure consistency
+            return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+        except Exception as e:
+            print(f"Unexpected error while fetching disruptions: {e}")
+            # Handle other exceptions gracefully
+            return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+
+    @staticmethod
+    def filter_active_disruptions(disruptions):
+        """
+        Author: AlexT
+        Filter currently active disruptions.
+        """
+        current_time = datetime.utcnow()
+        active_disruptions = [
+            d for d in disruptions
+            if datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time <= datetime.fromisoformat(
+                d["to_date"].replace("Z", ""))
+        ]
+        return active_disruptions
+
+    @staticmethod
+    def check_route_and_fetch_disruptions(route_name, mode, routes_df):
+        """
+        Author: AlexT
+        Check the route and fetch disruptions for tram, bus, or train.
+        """
+        # Match the route in the provided routes DataFrame
+        matched_routes = routes_df[
+            (routes_df["route_short_name"] == route_name) | (routes_df["route_long_name"] == route_name)
+            ]
+
+        if matched_routes.empty:
+            return None, None, f"No routes found for '{route_name}'. Please check your input."
+
+        route_id = matched_routes.iloc[0]["route_id"]
+        signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
+        disruptions_data = GTFSUtils.fetch_disruptions(signed_url)
+
+        print(f"check_route_and_fetch_disruptions MODE: {mode}")
+
+        # Fetch disruptions based on the mode
+        if mode == "tram":
+            disruptions = disruptions_data.get("disruptions", {}).get("metro_tram", [])
+        elif mode == "bus":
+            disruptions = disruptions_data.get("disruptions", {}).get("metro_bus", [])
+        elif mode == "train":
+            disruptions = disruptions_data.get("disruptions", {}).get("metro_train", [])
+        else:
+            return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
+
+        # Filter active disruptions
+        active_disruptions = GTFSUtils.filter_active_disruptions(disruptions)
+        return active_disruptions, route_id, None
+
+
+    @staticmethod
+    def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
+        """
+        Author: AlexT -- Working version for long name and short name
+        Extract the route short name or validate the route long name from a user query.
+        :param query: The user's query as a string.
+        :param routes_df: DataFrame containing route information with 'route_short_name' and 'route_long_name'.
+        :return: The extracted route short name if valid, or None if no match is found.
+        """
+        try:
+            # Normalise query for consistent matching
+            if not isinstance(query, str):
+                print("Error: Query is not a string.")
+                return None
+
+            # Lowercase and normalize the query for matching
+            query = query.lower().strip().replace(" to ", " - ")
+            print(f"Normalised Query: {query}")
+
+            # Normalize the DataFrame for comparison
+            routes_df["route_short_name"] = routes_df["route_short_name"].astype(str).str.strip().str.lower()
+            routes_df["route_long_name"] = routes_df["route_long_name"].astype(str).str.strip().str.lower()
+
+            # Convert columns to lists for matching
+            route_short_names = routes_df["route_short_name"].tolist()
+            route_long_names = routes_df["route_long_name"].tolist()
+
+            print(f"Available route short names: {route_short_names}")
+            print(f"Available route long names: {route_long_names}")
+
+            # Check if a route short name matches directly in the query
+            for short_name in route_short_names:
+                if short_name in query:
+                    print(f"Direct match found for route_short_name: {short_name}")
+                    return short_name
+
+            # Check for route long names in the query
+            for long_name in route_long_names:
+                if isinstance(long_name, str) and long_name in query:
+                    print(f"Direct match found for route_long_name: {long_name}")
+                    matching_short_name = \
+                        routes_df.loc[routes_df["route_long_name"] == long_name, "route_short_name"].iloc[0]
+                    return matching_short_name
+
+            # Use NLP to extract numerical tokens or keywords
+            print("Attempting to extract using NLP...")
+            doc = nlp(query)
+            for token in doc:
+                if token.text.lower() in route_short_names:
+                    print(f"NLP extracted route_short_name: {token.text}")
+                    return token.text.lower()
+
+            # Attempt fuzzy matching for partial matches
+            print("Attempting fuzzy matching...")
+            matched_long_name, score = process.extractOne(
+                query, route_long_names, scorer=fuzz.partial_ratio
+            )
+            if score > 85:  # Define a threshold for fuzzy matches
+                print(f"Fuzzy match found: {matched_long_name} with score {score}")
+                matched_index = route_long_names.index(matched_long_name)
+                return route_short_names[matched_index]
+
+            print("No match found for the query.")
+            return None
+
+        except Exception as e:
+            print(f"An error occurred in extract_route_name: {str(e)}")
+            return None
+
+    @staticmethod
+    def find_relevant_trips(stop_a_id, stop_b_id, trips_df, stop_times_df):
+        """
+        Author: AlexT
+        Find trips that pass through both stops and occur in the correct sequence for Tram.
+        """
+        # Get trips serving stop_a
+        stop_a_times = stop_times_df[stop_times_df['stop_id'] == stop_a_id]
+        stop_b_times = stop_times_df[stop_times_df['stop_id'] == stop_b_id]
+
+        # Merge to find trips that include both stops
+        merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+
+        # Filter trips where stop_a comes before stop_b
+        valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']]
+
+        # Filter for future trips only
+        current_time = datetime.now().strftime('%H:%M:%S')
+        valid_trips = valid_trips[valid_trips['departure_time_a'] >= current_time]
+
+        # Join trip details
+        valid_trips = valid_trips.merge(trips_df, on='trip_id')
+
+        return valid_trips.sort_values('departure_time_a')
+    @staticmethod
+    def determine_user_route(
+            query: str, stops_df: pd.DataFrame, bus_routes_df: pd.DataFrame, tram_routes_df: pd.DataFrame
+    ) -> Optional[str]:
+        """
+        Author: AlexT
+        Determine the route (bus or tram) the user is asking for based on their query.
+        :param query: User-provided natural language query.
+        :param stops_df: DataFrame containing stop names and normalized stop names.
+        :param bus_routes_df: DataFrame containing bus routes.
+        :param tram_routes_df: DataFrame containing tram routes.
+        :return: Route short name, or None if no route matches the query.
+        """
+        try:
+            # Normalize query
+            query = query.lower().strip()
+
+            # Step 1: Extract named entities using Hugging Face NER
+            ner_pipeline = pipeline("ner", grouped_entities=True)
+            entities = ner_pipeline(query)
+            potential_stations = [entity['word'] for entity in entities if entity['entity_group'] == "LOC"]
+            print(f"Potential Stations (Hugging Face NER): {potential_stations}")
+
+            # Fallback to manual segmentation if needed
+            if len(potential_stations) < 2:
+                start_keywords = ["from", "starting at", "departing from", "leaving"]
+                destination_keywords = ["to", "heading to", "going to", "destination"]
+
+                def extract_segment(query, keywords, stop_at_keywords):
+                    for keyword in keywords:
+                        if keyword in query:
+                            segment = query.split(keyword, 1)[-1].strip()
+                            for stop_keyword in stop_at_keywords:
+                                stop_idx = segment.find(stop_keyword)
+                                if stop_idx != -1:
+                                    segment = segment[:stop_idx].strip()
+                            return segment.strip("?").strip()
+                    return None
+
+                start_station = extract_segment(query, start_keywords, destination_keywords)
+                destination_station = extract_segment(query, destination_keywords, [])
+                potential_stations = [start_station, destination_station]
+                print(f"Fallback Stations: Start: {start_station}, Destination: {destination_station}")
+
+            # Normalize potential station names for matching
+            normalized_stations = [station.lower().strip() if station else None for station in potential_stations]
+
+            # Determine the mode (bus or tram)
+            if "tram" in query:
+                routes_df = tram_routes_df
+            elif "bus" in query:
+                routes_df = bus_routes_df
+            else:
+                print("No mode (bus or tram) specified in query.")
+                return None
+
+            # Step 2: Attempt to match route short name directly
+            for short_name in routes_df['route_short_name']:
+                if f"route {short_name.lower()}" in query or short_name.lower() in query:
+                    return short_name
+
+            # Step 3: Match route long names using normalized station names
+            start_station = normalized_stations[0]
+            destination_station = normalized_stations[1]
+            matching_routes = routes_df[
+                routes_df['route_long_name'].str.contains(start_station or "", case=False, na=False) |
+                routes_df['route_long_name'].str.contains(destination_station or "", case=False, na=False)
+                ]
+
+            if not matching_routes.empty:
+                return matching_routes["route_short_name"].iloc[0]  # Return the first match
+
+            print("No matching routes found.")
+            return None
+
+        except Exception as e:
+            print(f"Error processing query: {query} | Exception: {e}")
+            return None
+
+    @staticmethod
+    def determine_schedule(
+            query: str,
+            stops_df: pd.DataFrame,
+            bus_routes_df: pd.DataFrame,
+            tram_routes_df: pd.DataFrame,
+            stop_times_df: pd.DataFrame,
+            current_time: str
+    ) -> Optional[str]:
+        """
+        Author: AlexT
+        Determine the schedule for a specific route or stop based on the query.
+        :param query: User-provided natural language query.
+        :param stops_df: DataFrame containing stops data.
+        :param bus_routes_df: DataFrame containing bus routes.
+        :param tram_routes_df: DataFrame containing tram routes.
+        :param stop_times_df: DataFrame containing stop times data.
+        :param current_time: The current time in '%H:%M:%S' format.
+        :return: A response string containing the schedule information.
+        """
+        try:
+            # Step 1: Determine the route or mode using the refined determine_user_route
+            route_short_name = GTFSUtils.determine_user_route(query, stops_df, bus_routes_df, tram_routes_df)
+
+            # Step 2: Handle schedules for a route or a stop
+            if route_short_name:
+                # Case 1: Schedule for a specific route
+                matching_trips = stop_times_df[stop_times_df['trip_id'].str.contains(route_short_name, na=False)]
+                upcoming_trips = matching_trips[matching_trips['departure_time'] >= current_time].sort_values(
+                    'departure_time').head(5)
+
+                if not upcoming_trips.empty:
+                    response = f"Upcoming schedules for route {route_short_name}:\n"
+                    for _, row in upcoming_trips.iterrows():
+                        departure_time = GTFSUtils.parse_time(row['departure_time'])
+                        response += f"- Vehicle at {(datetime.min + departure_time).strftime('%I:%M %p')} from stop {row['stop_id']}\n"
+                else:
+                    response = f"No upcoming trips found for route {route_short_name}."
+                return response
+
+            else:
+                # Case 2: Extract stations from the query (no route explicitly found)
+                extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+                station_a = extracted_stations[0]
+                station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
+
+                if station_a:
+                    # Schedule for a specific stop
+                    stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
+                    matching_trips = stop_times_df[stop_times_df['stop_id'] == stop_a_id]
+                    upcoming_trips = matching_trips[matching_trips['departure_time'] >= current_time].sort_values(
+                        'departure_time').head(5)
+
+                    if not upcoming_trips.empty:
+                        response = f"Upcoming schedules from {station_a}:\n"
+                        for _, row in upcoming_trips.iterrows():
+                            departure_time = GTFSUtils.parse_time(row['departure_time'])
+                            response += f"- Vehicle at {(datetime.min + departure_time).strftime('%I:%M %p')}\n"
+                    else:
+                        response = f"No upcoming trips found from {station_a}."
+                    return response
+
+            return "Sorry, I couldn't determine the schedule based on your query. Please try again with more details."
+
+        except Exception as e:
+            print(f"Error processing schedule: {e}")
+            return "An error occurred while determining the schedule. Please try again later."
