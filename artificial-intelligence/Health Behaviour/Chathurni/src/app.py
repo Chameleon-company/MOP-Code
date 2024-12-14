@@ -97,4 +97,6 @@ def data_view():
     )
 
 if __name__ == '__main__':
-    flask_app.run(debug=True, port=2022)
+    import os
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+    flask_app.run(debug=debug_mode, port=2022)
