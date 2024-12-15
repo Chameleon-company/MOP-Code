@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Activity Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Physical Activity Dashboard</h1>
+        <p>This is the homepage for visualizations and insights on Physical Activity data in females and males in and around Melbourne.</p>
+
+        <form action="/visualize" method="get">
+            <label for="activity">Choose Activity Type:</label>
+            <select id="activity" name="activity">
+                {% for activity in activity_types %}
+                    <option value="{{ activity }}">{{ activity }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="response">Choose Response:</label>
+            <select id="response" name="response">
+                {% for response in response_types %}
+                    <option value="{{ response }}">{{ response }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <button type="submit">Show Visualization</button>
+        </form>
+    </div>
+</body>
+</html>

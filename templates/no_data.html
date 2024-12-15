@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Data Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-box">
+            <h1>OOPS!!</h1>
+            <p>No data found for <span class="highlight">{{ response }}</span> in <span class="highlight">{{ activity }}</span>.</p>
+            <p>Please try again with a different combination.</p>
+            <button onclick="window.location.href='/'">Back to Home</button>
+        </div>
+    </div>
+</body>
+</html>

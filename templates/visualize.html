@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Title with a background for better readability -->
+    <div class="title-container">
+        <h1>Visualization for {{ activity }} ({{ response }})</h1>
+    </div>
+    
+    <!-- Visualization Image -->
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Visualization">
+    
+    <br><br>
+    
+    <!-- Button to return to the homepage -->
+    <button onclick="window.location.href='/'">Back to Home</button>
+</body>
+</html>
+
