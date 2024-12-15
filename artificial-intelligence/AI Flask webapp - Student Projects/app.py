@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import health_safety 
+import food_security
 import subjective_wellbeing
 from map import create_map
 from dash_app import create_dash_app
@@ -47,6 +48,7 @@ def vehicle_detect():
 #-------------------------
 #Routes for the Traffic Analysis project pages
 
+
 #-------------------------
 #Routes for the Health behaviour project pages
 #Health Safety
@@ -66,6 +68,43 @@ def health_data_view():
 
     # Return the prediction data as JSON
     return jsonify(health_data)
+
+######################################################################################################
+#Food Security routes
+#Food Security Dashboard - Home Page
+@app.route('/food_security')
+def food_security_dashboard():
+    return food_security.main_page()
+
+#Food Security Pie Chart
+@app.route('/food_security/pie-chart')
+def food_security_pie_chart():
+    return food_security.pie_chart()
+
+#Demographics Visualization
+@app.route('/food_security/demographics-visualization', methods=['GET', 'POST'])
+def food_security_demographics():
+    return food_security.demographics_visualization()
+
+#Food Security by Demographics
+@app.route('/food_security/demographics-food-security')
+def food_security_demographics_security():
+    return food_security.demographics_food_security()
+
+#Trend Analysis
+@app.route('/food_security/trend-analysis', methods=['GET', 'POST'])
+def food_security_trend_analysis():
+    return food_security.trend_analysis()
+
+#Combined Trends
+@app.route('/food_security/combined-trends', methods=['GET', 'POST'])
+def food_security_combined_trends():
+    return food_security.combined_trends()
+
+#Food Insecurity Trends
+@app.route('/food_security/food-insecurity-trends', methods=['GET', 'POST'])
+def food_security_insecurity_trends():
+    return food_security.food_insecurity_trends()
 
 ######################################################################################################
 # Subjective Wellbeing
