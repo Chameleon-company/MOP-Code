@@ -1372,3 +1372,209 @@ class ActionRunDirectionScript(Action):
 
         logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
         return []
+
+# Ross Start Actions
+class ActionFindNearestStation(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: TRAIN
+        Name: Find Nearest Station
+        Author: RossP
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_find_nearest_station"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllStation(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest station to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+
+class ActionFindNearestTramStop(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+    ID: TRAM
+    Name: Find Nearest Tram Stop
+    Author: RossP
+    -------------------------------------------------------------------------------------------------------
+    ''' 
+    def name(self) -> Text:
+        return "action_find_nearest_tram_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllTramsStops(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest Tram Stop to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+
+class ActionFindNearestBusStop(Action):    
+    ''' -------------------------------------------------------------------------------------------------------
+    ID: BUS
+    Name: Find Nearest Bus Stop
+    Author: RossP
+    -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_find_nearest_bus_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllBusStops(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest Bus Stop to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+    
+class ActionMapTransportInArea(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: Mulit_01
+        Name: Map transport in area
+        Author: RossP
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_map_transport_in_area"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+        print(entities)
+        # parse entities for transport mode and location data
+        for entity in entities:
+            if entity['entity'] == 'transport_mode_rp':
+                transport_mode = entity['value']
+            
+            if entity['entity'] == 'locationa':
+                location = entity['value']
+        print(transport_mode,  location)
+        
+        #get lat and long of location form google API
+        locll = GTFSUtils.getAddressLatLong(address = location)
+        logger.debug(locll)
+
+        #get list of lat and long of stations around 1k from location, with transport mode
+        lstns = GTFSUtils.getListOfStationsWithin1k(locll, transport_mode)
+        print(lstns)        
+        
+        try: 
+            # Initialize map
+            melbourne_map = folium.Map(location=[locll['latitude'], locll['longitude']],
+                                       zoom_start=15)
+
+            # Use MarkerCluster for better performance
+            marker_cluster = MarkerCluster().add_to(melbourne_map)
+
+            # Add markers with simplified popups
+            for stns in lstns:
+                folium.Marker(
+                    location=[stns['lat'], stns['lon']],
+                    popup=f"{stns['stop']}",
+                    tooltip=f"{stns['stop']}"
+                ).add_to(marker_cluster)
+
+            # Save map to HTML
+            map_filename = 'stops_map.html'
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True)
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            # Send map link to user
+            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne {transport_mode} stops</a>"
+            dispatcher.utter_message(text=f"A map of {transport_mode} stops within 900 meters of {location} has been generated. {hyperlink}")
+
+        except Exception as e:
+            logging.error(f"Error generating tram map: {e}")
+            dispatcher.utter_message(text="An error occurred while generating the tram map.")
+        return []
+
+# Ross Finish Actions

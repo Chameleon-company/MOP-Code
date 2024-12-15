@@ -175,6 +175,46 @@ nlu:
     - Check train disruptions for route [Frankston - City](route_name).
 # Alex Finish - Transport Intents --------------------------------------------------------------------------------
 
+# Ross Start - Intents
+- intent: find_nearest_station
+  examples: |
+    - how to find nearest [train] station?(transport_mode_rp)
+    - where is the nearest [Train] station?(transport_mode_rp)
+    - can you tell me whre the nearest [train]station is?(transport_mode_rp)
+
+- intent: find_nearest_tram_stop
+  examples: |
+    - how to find nearest [tram] station?(transport_mode_rp)
+    - where is the nearest [Tram] stop?(transport_mode_rp)
+    - can you tell me whre the nearest [tram] stop is?(transport_mode_rp)
+
+- intent: find_nearest_bus_stop
+  examples: |
+    - how to find nearest [bus]?(transport_mode_rp)
+    - where is the nearest [Bus] stop?(transport_mode_rp)
+    - can you tell me whre the nearest [bus] stop is?(transport_mode_rpv)
+    - Which [bus] station is closest to my location?(transport_mode_rp)
+
+- intent: find_user_address
+  examples: |
+    - My address is [The Esplanade 138, St Kilda](address)
+    - It's [464 St Kilda Road, Melbourne](address)
+    - [250 Howe Cresent, Albert Park](address)
+    - I live at [205 Kooyong Rd, Toorak](address)
+    - The address is [192 High Steet, Kew](address)
+    - I am currently at [62 Glengarry Avenue, Burwood](address)
+    - Am at [38 Little Bourke Place, Melbourne](address)
+    - [11 Natasha Close, St Helana](address)
+    - I am at [426 Blackheath Mews, Waurn Ponds]
+
+- intent: map_transport_in_area
+  examples: |
+    - Can you show me all [tram](transport_mode_rp) stops near [Kew](location)?
+    - Generate a map of [bus](transport_mode_rp) stops in [Carlton](location)
+    - Show me the local [train](transport_mode_rp) stations nearby the [MCG](location)
+    - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).  
+#Ross Finish - Intents
+
 - intent: run_direction_script
   examples: |
     - run the direction script
@@ -218,34 +258,23 @@ nlu:
 #Logan new
 - intent: get_directions
   examples: |
-    # Basic format variations
     - How to get from [Essendon](location_from) to [Prahran](location_to)
     - Navigate from [Essendon](location_from) to [Prahran](location_to)
     - I want to go from [Southbank](location_from) to [St Kilda](location_to)
     - Get me from [Collingwood](location_from) to [Federation Square](location_to)
     - Show me how to get from [Melbourne Airport](location_from) to [CBD](location_to)
-    
-    # Question format variations
     - How do I get from [Collingwood](location_from) to [Federation Square](location_to)?
     - What's the way from [Footscray](location_from) to [Richmond](location_to)?
     - How can I get from [Carlton](location_from) to [MCG](location_to)?
-    
-    # Command format variations
     - Find route from [Melbourne Airport](location_from) to [CBD](location_to)
     - Show directions from [Prahran](location_from) to [Docklands](location_to)
     - Get me directions from [Carlton](location_from) to [MCG](location_to)
-    
-    # Shorter variations
     - [Southbank](location_from) to [St Kilda](location_to)
     - From [Carlton](location_from) to [MCG](location_to)
     - [Footscray](location_from) to [Richmond](location_to)
-    
-    # Explicit navigation requests
     - Navigate [Essendon](location_from) to [Prahran](location_to)
     - Direct me from [Collingwood](location_from) to [Federation Square](location_to)
     - Take me from [St Kilda](location_from) to [Brunswick](location_to)
-    
-    # Additional common variations
     - I need to get from [Footscray](location_from) to [Richmond](location_to)
     - Planning to go from [Prahran](location_from) to [Docklands](location_to)
     - Looking for route from [Carlton](location_from) to [MCG](location_to)
