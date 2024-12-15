@@ -1,0 +1,29 @@
+//----------------------------------------------------------//
+//	TOOLTIP
+//----------------------------------------------------------//
+.tooltip {
+  font-weight: $font-weight-base;
+  pointer-events: none;
+}
+.has-tooltip:focus {
+  outline: 0;
+}
+.white-tooltip {
+ margin-right: 0.25rem !important;
+ &.bs-tooltip-start {
+   .tooltip-arrow {
+     &::before {
+       border-left-color: $white;
+     }
+   }
+ }
+ .tooltip-inner {
+    background: $white;
+    color: $main-dark;
+    @include font-size($tooltip-font-size - 0.1rem);
+    padding-top: $tooltip-padding-y - 0.15rem;
+    padding-bottom: $tooltip-padding-y - 0.15rem;
+    padding-left: $tooltip-padding-x - 0.25rem;
+    padding-right: $tooltip-padding-x - 0.25rem;
+ }
+}

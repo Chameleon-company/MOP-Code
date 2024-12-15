@@ -1,0 +1,135 @@
+//----------------------------------------------------------//
+//	BACKGROUND COLORS
+//----------------------------------------------------------//
+@each $color,
+$value in $bg-soft-colors {
+  .bg-soft-#{$color} {
+    background-color: tint-color($value, $bg-soft-level) !important;
+  }
+  .text-soft-#{$color} {
+    color: tint-color($value, $bg-soft-level) !important;
+  }
+}
+.bg-soft-gray {
+  background: $border-light;
+}
+@each $color,
+$value in $bg-pale-colors {
+  .bg-pale-#{$color} {
+    background-color: tint-color($value, $bg-pale-level) !important;
+  }
+  .text-pale-#{$color} {
+    color: tint-color($value, $bg-pale-level) !important;
+  }
+}
+@each $color,
+$value in $bg-soft-colors {
+  .bg-gradient-#{$color} {
+    background: linear-gradient(180deg, tint-color($value, $bg-soft-level), rgba($white, 0) 100%);
+  }
+  .bg-gradient-reverse-#{$color} {
+    background: linear-gradient(0deg, tint-color($value, $bg-soft-level), rgba($white, 0) 100%);
+  }
+}
+@each $color,
+$value in $colors {
+  .wrapper.bg-#{$color}.angled.lower-start:after,
+  .wrapper.bg-#{$color}.angled.upper-start:before {
+    border-left-color: $value;
+  }
+  .wrapper.bg-#{$color}.angled.lower-end:after,
+  .wrapper.bg-#{$color}.angled.upper-end:before {
+    border-right-color: $value;
+  }
+  .wrapper.bg-soft-#{$color}.angled.lower-start:after,
+  .wrapper.bg-soft-#{$color}.angled.upper-start:before {
+    border-left-color: tint-color($value, $bg-soft-level);
+  }
+  .wrapper.bg-soft-#{$color}.angled.lower-end:after,
+  .wrapper.bg-soft-#{$color}.angled.upper-end:before {
+    border-right-color: tint-color($value, $bg-soft-level);
+  }
+  .wrapper.bg-pale-#{$color}.angled.lower-start:after,
+  .wrapper.bg-pale-#{$color}.angled.upper-start:before {
+    border-left-color: tint-color($value, $bg-pale-level);
+  }
+  .wrapper.bg-pale-#{$color}.angled.lower-end:after,
+  .wrapper.bg-pale-#{$color}.angled.upper-end:before {
+    border-right-color: tint-color($value, $bg-pale-level);
+  }
+}
+.bg-gradient-blend {
+  background:linear-gradient(160deg, #FFB7B7 9%, #727272 100%), 
+  radial-gradient(100% 100% at 30% 10%, #FFD1D1 0%, #260000 100%), 
+  linear-gradient(180deg, #00FFFF 0%, #FFFFFF 100%),
+  radial-gradient(100% 100% at 70% 0%, #FF0000 0%, #00FFE0 100%), 
+  linear-gradient(280deg, #DBFF00 0%, #3300FF 100%);
+  
+  background-blend-mode: screen, overlay, color-burn, color-dodge, normal;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#383838',GradientType=0 ); /* IE6-9 */
+}
+//----------------------------------------------------------//
+//	YELLOW
+//----------------------------------------------------------//
+// Extra settings for $yellow
+.bg-soft-yellow {
+  background-color: tint-color($yellow, $bg-soft-yellow-level) !important;
+}
+.text-soft-yellow {
+  color: tint-color($yellow, $bg-soft-yellow-level) !important;
+}
+.bg-gradient-yellow {
+  background: linear-gradient(180deg, tint-color($yellow, $bg-soft-yellow-level), rgba($white, 0) 100%) !important;
+}
+.bg-gradient-reverse-yellow {
+  background: linear-gradient(0deg, tint-color($yellow, $bg-soft-yellow-level), rgba($white, 0) 100%) !important;
+}
+.wrapper.bg-soft-yellow.angled.lower-start:after,
+.wrapper.bg-soft-yellow.angled.upper-start:before {
+  border-left-color: tint-color($yellow, $bg-soft-yellow-level) !important;
+}
+.wrapper.bg-soft-yellow.angled.lower-end:after,
+.wrapper.bg-soft-yellow.angled.upper-end:before {
+  border-right-color: tint-color($yellow, $bg-soft-yellow-level) !important;
+}
+@if $primary == $yellow {
+  .bg-soft-primary {
+    background-color: tint-color($main-color, $bg-soft-yellow-level) !important;
+  }
+  .text-soft-primary {
+    color: tint-color($main-color, $bg-soft-yellow-level) !important;
+  }
+  .bg-gradient-primary {
+    background: linear-gradient(180deg, tint-color($main-color, $bg-soft-yellow-level), rgba($white, 0) 100%) !important;
+  }
+  .bg-gradient-reverse-primary {
+    background: linear-gradient(0deg, tint-color($main-color, $bg-soft-yellow-level), rgba($white, 0) 100%) !important;
+  }
+  .wrapper.bg-soft-primary.angled.lower-start:after,
+  .wrapper.bg-soft-primary.angled.upper-start:before {
+    border-left-color: tint-color($main-color, $bg-soft-yellow-level) !important;
+  }
+  .wrapper.bg-soft-primary.angled.lower-end:after,
+  .wrapper.bg-soft-primary.angled.upper-end:before {
+    border-right-color: tint-color($main-color, $bg-soft-yellow-level) !important;
+  }
+}
+.bg-height {
+  height: 30rem;
+}
+@media (max-width: 991.98px) {
+  .bg-height {
+    height: 20rem;
+  }
+}
+@media (max-width: 767px) {
+  .bg-height {
+    height: 15rem;
+  }
+}
+.bg-white-700 {
+  background: rgba($white, 0.7) !important;
+}
+.bg-white-900 {
+  background: rgba($white, 0.9) !important;
+}

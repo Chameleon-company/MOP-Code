@@ -1,0 +1,645 @@
+//----------------------------------------------------------//
+//	BLOCKQUOTE
+//----------------------------------------------------------//
+blockquote {
+  border-left: 0.15rem solid $main-color;
+  padding-left: 1rem;
+  @include font-size($blockquote-font-size);
+  line-height: $line-height-base;
+  font-weight: $blockquote-font-weight;
+  &.border-0 {
+    padding-left: 0;
+  }
+  &.icon {
+    position: relative;
+    border: 0;
+    padding: 0;
+    &:before {
+      content: $icon-quote;
+      position: absolute;
+      top: -1.5rem;
+      left: -0.9rem;
+      color: rgba($main-dark, 0.05);
+      font-size: 10rem;
+      line-height: 1;
+      z-index: 1;
+    }
+  }
+  &.icon-top {
+    padding-top: 3.75rem;
+    position: relative;
+    &:before {
+      content: $icon-quote-top;
+      color: $gray-400;
+      opacity: 0.3;
+      font-size: 6.5rem;
+      font-weight: normal;
+      top: 0;
+      left: -0.3rem;
+    }
+    &.text-white:before {
+      color: $white;
+    }
+  }
+  &.text-center.icon-top:before {
+    left: 50%;
+    transform: translateX(-52%);
+  }
+}
+.blockquote-footer {
+  font-weight: $blockquote-footer-weight;
+  margin-top: 0;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-lg;
+}
+.blockquote-details {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  p {
+    @include font-size($font-size-base);
+  }
+  .info {
+    padding-left: 1rem;
+  }
+  .icon-img img {
+    width: 3.5rem !important;
+  }
+}
+//----------------------------------------------------------//
+//	DROPCAP
+//----------------------------------------------------------//
+.dropcap {
+  display: block;
+  float: left;
+  @include font-size(2.5rem);
+  line-height: 1;
+  font-weight: 500;
+  padding: 0;
+  margin: 0.2rem 0.6rem 0 0;
+  &.rounded-circle {
+    @include font-size(1.4rem);
+    height: 2.3rem;
+    width: 2.3rem;
+    margin: 0.25rem 0.5rem 0 0;
+    padding-bottom: 0.15rem;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+//----------------------------------------------------------//
+//	UNORDERED LIST
+//----------------------------------------------------------//
+.unordered-list {
+  @include list-unstyled();
+  li {
+    position: relative;
+    padding-left: 1rem;
+  }
+  > li:before {
+    font-family: sans-serif;
+    position: absolute;
+    top: -0.15rem;
+    left: 0;
+    @include font-size(1rem);
+    content: $icon-dot;
+  }
+  @each $color,
+  $value in $colors {
+    &.bullet-#{$color} li:before {
+      color: $value;
+    }
+  }
+}
+//----------------------------------------------------------//
+//	ICON LIST
+//----------------------------------------------------------//
+.icon-list {
+  @include list-unstyled();
+  li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  &.bullet-bg li {
+    padding-left: 1.5rem;
+  }
+  @each $color,
+  $value in $bullet-colors {
+    &.bullet-soft-#{$color} i {
+      color: $value;
+    }
+    &.bullet-soft-#{$color}.bullet-bg i {
+      background-color: shift-color($value, -82%);
+    }
+    &.bullet-bg i[class*="bullet-soft-#{$color}"] {
+      background-color: shift-color($value, -82%) !important;
+      color: $value !important;
+    }
+  }
+  &.bullet-soft-yellow i,
+  &.bullet-bg i[class*="bullet-soft-yellow"] {
+    color: $yellow;
+  }
+  &.bullet-soft-yellow.bullet-bg i,
+  &.bullet-bg i[class*="bullet-soft-yellow"] {
+    background-color: shift-color($yellow, -77%);
+  }
+  @each $color,
+  $value in $colors {
+    &.bullet-#{$color} i {
+      color: $value;
+    }
+    &.bullet-#{$color}.bullet-bg i {
+      background-color: $value;
+      color: $white;
+    }
+    &.bullet-bg i[class*="bullet-#{$color}"] {
+      background-color: $value !important;
+      color: white !important;
+    }
+  }
+  &.bullet-white i,
+  &.bullet-bg i.bullet-white {
+    color: $main-color !important;
+  }
+  i {
+    position: absolute;
+    top: -0.2rem;
+    left: 0;
+    @include font-size(1rem);
+  }
+  &.bullet-bg i {
+    border-radius: 100%;
+    width: 1rem;
+    height: 1rem;
+    top: 0.2rem;
+    @include font-size(0.8rem);
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    display: table;
+    &:before {
+      vertical-align: middle;
+      display: table-cell;
+    }
+  }
+}
+.widget .list-unstyled:not(.tag-list) li + li,
+.unordered-list li + li,
+.icon-list:not(.row) li + li {
+  margin-top: 0.35rem;
+}
+//----------------------------------------------------------//
+//	UNSTYLED LIST
+//----------------------------------------------------------//
+.list-unstyled li a.active {
+  color: $main-color !important;
+}
+//----------------------------------------------------------//
+//	FILTER LIST
+//----------------------------------------------------------//
+.filter:not(.basic-filter) {
+  p {
+    margin: 0 1rem 0 0;
+    display: inline;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+    li {
+      display: inline;
+      + li:before {
+        content: "";
+        display: inline-block;
+        width: 0.2rem;
+        height: 0.2rem;
+        border-radius: 100%;
+        margin: 0 0.8rem 0 0.5rem;
+        vertical-align: 0.15rem;
+        background: rgba($gray-900, 0.2);
+      }
+      a {
+        cursor: pointer;
+        &.active,
+        &:hover {
+          color: $link-hover-color;
+        }
+      }
+    }
+  }
+  &.dark-filter ul li {
+    + li:before {
+      background: rgba($white, 0.2);
+    }
+    a.active,
+    a:hover {
+      color: $white;
+    }
+  }
+}
+.isotope-filter {
+  position: relative;
+  z-index: 5;
+}
+.filter.basic-filter {
+  p {
+    margin: 0 1rem 0 0;
+    display: inline;
+    color: $headings-color;
+    font-weight: $headings-font-weight; 
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+    li {
+      display: inline;
+      margin-right: 1rem;
+      a {
+        cursor: pointer;
+        color: $body-color;
+        &.active,
+        &:hover {
+          color: $link-hover-color;
+        }
+      }
+    }
+  }
+  &.dark-filter ul li {
+    a.active,
+    a:hover {
+      color: $white;
+    }
+  }
+}
+//----------------------------------------------------------//
+//	IMAGE LIST
+//----------------------------------------------------------//
+.image-list {
+  padding: 0;
+  margin: 0;
+  p,
+  .meta {
+    margin: 0;
+  }
+  &:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  > li {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    + li {
+      margin-top: 1rem;
+    }
+  }
+  li a:hover {}
+  figure {
+    float: left;
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .post-content {
+    margin-left: 4.25rem;
+    margin-bottom: 0;
+  }
+}
+//----------------------------------------------------------//
+//	TAG LIST
+//----------------------------------------------------------//
+.tag-list li {
+  display: inline-block;
+  margin-right: 0.2rem;
+  margin-bottom: 0.1rem;
+  a:before {
+    font-style: normal;
+    content: "#";
+    font-weight: normal;
+    padding-right: 0.2rem;
+  }
+}
+.widget .tag-list li,
+.blog.single .post .tag-list li {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+}
+.widget .tag-list li a {
+  display: flex;
+  align-items: center;
+}
+//----------------------------------------------------------//
+//	META
+//----------------------------------------------------------//
+.meta,
+.post-category,
+.filter:not(.basic-filter),
+.filter:not(.basic-filter) ul li a {
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+  @include font-size(0.7rem);
+  font-weight: $font-weight-bold;
+  color: $secondary;
+}
+.meta {
+  @include font-size(0.65rem);
+}
+.post-category {
+  margin-bottom: 0.4rem;
+}
+.post-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  @include font-size(0.7rem);
+  color: $secondary;
+  li {
+    a {
+      color: $secondary;
+      &:hover {
+        color: $main-color;
+        border-color: $main-color;
+      }
+    }
+    display: inline-block;
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 0.2rem;
+      height: 0.2rem;
+      border-radius: 100%;
+      margin: 0 0.6rem 0;
+      vertical-align: 0.15rem;
+      background: $secondary;
+      opacity: 0.5;
+    }
+    i {
+      padding-right: 0.2rem;
+      vertical-align: -0.05rem;
+    }
+  }
+}
+.post-meta.text-white li:before {
+  background: $white;
+}
+.post-header .post-meta {
+  @include font-size(0.8rem);
+  li:before {
+    margin: 0 0.6rem 0 0.4rem;
+  }
+}
+.post-meta li:first-child:before,
+article .post-meta li.ms-auto:before {
+  display: none;
+}
+@media (max-width: 767px) {
+  .card-footer .post-meta li.post-author,
+  .card-footer .post-meta li.post-comments span {
+    display: none;
+  }
+  .post-header .post-meta li.post-author,
+  .post-header .post-meta li.post-comments span,
+  .post-header .post-meta li.post-likes span {
+    display: none;
+  }
+}
+//----------------------------------------------------------//
+//	GLYPHS
+//----------------------------------------------------------//
+.glyphs {
+  padding: 0;
+  li {
+    display: block;
+    svg {
+      margin-bottom: 0.3rem;
+      display: inline-block;
+    }
+    i:before {
+      margin: 0;
+      padding: 0;
+      color: $main-dark;
+      @include font-size(1.6rem);
+    }
+    span {
+      margin: 0;
+      display: block;
+      color: $text-muted;
+      @include font-size($font-size-sm);
+    }
+    .card-body {
+      padding: 0.5rem 0.2rem 1rem;
+    }
+    .card-footer {
+      padding: 0.5rem 0.2rem;
+      cursor: pointer;
+      @include font-size($font-size-sm);
+    }
+  }
+}
+.glyphs-svg li .card-body {
+  padding-top: 1rem;
+}
+//----------------------------------------------------------//
+//	CODE
+//----------------------------------------------------------//
+.code-wrapper {
+  margin-bottom: 0;
+  position: relative;
+  .btn-clipboard {
+    font-family: $font-family-sans-serif;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+    transform: none;
+    @include font-size(0.6rem);
+    padding: 0.1rem .45rem 0.1rem;
+    z-index: 3;
+  }
+  pre {
+    margin-bottom: 0;
+  }
+}
+pre[class*=language-] {
+  position: relative;
+  padding-top: 2rem;
+  &:focus {
+    outline: none;
+  }
+}
+:not(pre) > code[class*='language-'],
+pre[class*='language-'],
+pre {
+  margin: 0;
+  background: none;
+  padding: 2rem;
+  @include font-size($pre-font-size);
+}
+//----------------------------------------------------------//
+//	DOCS
+//----------------------------------------------------------//
+.external, 
+.internal,
+.code, 
+.terminal,
+.kbd, 
+.folder, 
+.file,
+mark.doc {
+  font-family: $font-family-monospace;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin: 0.275rem 0.1rem;
+  vertical-align: 2px;
+  padding: 0.05rem 0.4rem 0.05rem 1.4rem;
+  font-size: $code-font-size;
+  border-radius: $border-radius-sm;
+  background: rgba($border, 0.15);
+  box-shadow: none;
+  border: 0;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+mark.doc {
+  padding: $mark-padding;
+  padding-bottom: 0.05rem;
+}
+.external:after, 
+.internal:after, 
+.code:before, 
+.terminal:before,
+.kbd:before, 
+.folder:before, 
+.file:before {
+  position: absolute;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.6rem;
+  padding-top: 0.05rem;
+  margin-right: 0.4rem;
+  text-align: center;
+  color: inherit;
+  font-family: $font-family-unicons;
+  @include font-size(0.7rem);
+  border-radius: $border-radius-sm;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.external,
+.internal {
+  color: $body-color;
+  padding: 0.05rem 1.6rem 0.05rem 0.4rem;
+  &:after {
+    color: $body-color;
+    @include font-size(0.65rem);
+    left: auto;
+    right: 0;
+    margin-right: 0;
+    margin-left: 0.4rem;
+  }
+  &.text-white:after {
+    color: $white;
+  }
+  &:not(.text-white):hover,
+  &:not(.text-white):hover:after {
+    color: $main-color;
+  }
+}
+.external {
+  padding-right: 1.4rem;
+  &.my-0:after {
+    padding-top: 0;
+  }
+  &:after {
+    font-family: $font-family-custom-icons;
+    content: $icon-external;
+    @include font-size(0.7rem);
+  }
+}
+.internal {
+  padding-right: 1.4rem;
+  &:after {
+    content: $icon-internal;
+    @include font-size(0.8rem);
+  }
+}
+.code:before {
+  @include font-size(0.85rem);
+  content: $icon-code;
+}
+.terminal:before {
+  font-family: $font-family-custom-icons;
+  content: $icon-terminal;
+  @include font-size(0.8rem);
+}
+.folder:before {
+  content: $icon-folder;
+}
+.file:before {
+  content: $icon-file;
+}
+.kbd:before {
+  content: $icon-kbd;
+  @include font-size(0.8rem);
+}
+//----------------------------------------------------------//
+//	TEXT GRADIENT
+//----------------------------------------------------------//
+.text-gradient {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  em {
+    letter-spacing: normal;
+    padding-left: 0.05em;
+    padding-right: 0.05em;
+  }
+  &.text-line.gradient-1:before {
+    background: #f857a6;
+  }
+  &.text-line.gradient-2:before {
+    background: rgba(245,177,97,1);
+  }
+  &.text-line.gradient-3:before {
+    background: #FBDA61;
+  }
+  &.text-line.gradient-4:before {
+    background: #9040db;
+  }
+  &.text-line.gradient-5:before {
+    background: #4158D0;
+  }
+  &.text-line.gradient-6:before {
+    background: #08AEEA;
+  }
+  &.text-line.gradient-7:before {
+    background: #0093e9;
+  }
+}
+//----------------------------------------------------------//
+//	FONT SIZES
+//----------------------------------------------------------//
+.fs-sm {
+  @include font-size($font-size-sm !important);
+}
+.fs-lg {
+  @include font-size($font-size-lg !important);
+}
+@for $i from 1 through 200 {
+  .fs-#{$i} {
+    @include font-size(0.05rem*$i !important);
+  }
+}
