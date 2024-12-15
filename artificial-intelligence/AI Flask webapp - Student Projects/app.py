@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-import health_safety 
+import health_safety
 import subjective_wellbeing
 from map import create_map
 from dash_app import create_dash_app
 import pandas as pd
 import os
+
 
 app = Flask(__name__)
 
