@@ -110,7 +110,7 @@ def get_cached_data():
 
 @app.route("/food_security")
 def main_page():
-    return render_template("index.html")
+    return render_template("homepage_fs.html")
 
 
 @app.route('/food_security/pie-chart')

@@ -6,7 +6,15 @@ This document outlines the key steps to set up and run the transport planner, in
 
 ## Installations
 
-It is recommended to create a virtual environment before installing the required packages to ensure isolation of dependencies. You can follow the commands below:
+It is recommended to create a virtual environment before installing the required packages to ensure isolation of dependencies. Use the `environment.yml` file in the repo to create an environment. Details on setting up a conda environment can be found here:
+
+[Conda User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+
+Also, to familiarize yourself with Rasa, it is worthwhile to watch this video:
+[Rasa Introduction Video](https://www.youtube.com/watch?v=Co7QtrJBkpY)
+
+
+If you prefer to make your own environment without the yml file, you can use these commands:
 
 ```bash
 pip install rasa
@@ -15,23 +23,27 @@ pip install spacy
 python -m spacy download en_core_web_md
 python -m spacy link en_core_web_md en
 pip install tensorflow
+
+
 ```
 ## Setting Up Rasa
 
-After getting the rasa files setup, you first need to train the model. For all of these rasa commands, please run them from the main directory `mpt_bot` via the CLI.
+For these commands, some are run from the Anaconda Prompt, whereas others are run via the standard Command Prompt (on Windows). 
+
+After getting the rasa files setup, you first need to train the model. For all of these rasa commands, please run them from the main directory `mpt_bot` via the Anaconda Prompt.
 To train the rasa model:
 ```bash
 rasa train
 ```
 Every time you update the rasa files its recommended to do this.
 
-To test the model in the CLI, you can run:
+To test the model in the Anaconda Prompt, you can run:
 ```bash
 rasa shell
 ```
 
 ## Activating the model
-After training is completed, you can run these commands to activate rasa.
+After training is completed, you can run these commands to activate rasa (within Anaconda prompt).
 
 1) To activate rasa actions:
 ```bash
@@ -43,12 +55,12 @@ rasa run actions
 rasa run --enable-api --cors "*"
 ```
 
-3) To access the UI on a simple HTTP server run:
+3) To access the UI on a simple HTTP server run the following command, within the standard Command Prompt:
 ```bash
-python -m http.server
+python -m http.server 8080
 ```
 
-Then, open a web browser and navigate to http://localhost:8000 (or whichever URL your server is set to).
+Then, open a web browser and navigate to http://localhost:8080 (or whichever URL your server is set to).
 
 ## Commands for testing the Transport Planner
 

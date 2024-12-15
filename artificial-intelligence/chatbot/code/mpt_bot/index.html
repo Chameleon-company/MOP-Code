@@ -56,6 +56,195 @@
 
   <body>
     <div class="container">
+        <div style="margin-bottom: 20px; display: table; width: 100%;">
+          <div style="display: table-row;">
+            <div style="display: table-cell; width: 84%; text-align:left;">
+              <h2>Train Station Commands</h2>
+            </div>
+            <div style="display: table-cell; width: 8%; text-align:center;">
+              <div style="background-color: green; color: white; padding: 5px 10px;">Done</div>
+            </div>
+            <div style="display: table-cell; width: 8%; text-align:center;">
+              <div style="background-color: orange; color: white; padding: 5px 10px;">In Progress</div>
+            </div>
+          </div>
+        </div>
+
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
+    <tr>
+        <th style="text-align:left; width: 30%;">Name</th>
+        <th style="text-align:left; width: 63%;">Commands</th>
+        <th style="text-align:center; width: 7%;">Assignee(s)</th>
+    </tr>
+    <tr>
+        <td>Train stations map</td>
+        <td>Show me a map of Melbourne train stations?</td>
+         <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Schedule - timing information</td>
+        <td>When is the next train from Ringwood to Parliament station?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Route planning</td>
+        <td>What’s the best way to go from Box Hill to Glenferrie?<br>Which train should I take to get from Camberwell to Canterbury?</td>
+         <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Transfers and connection</td>
+        <td>How do I get from Flinders Street to Melbourne Central?<br>How many transfers are there between Ringwood and Parliament station?<br>How many transfers between North Melbourne and Glenferrie?<br>How many transfers between North Melbourne and Ringwood?<br>Is there Direct train from Flagstaff to Southern Cross?</td>
+         <td style="text-align:center;background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Route optimisation</td>
+        <td>Which route has the fewest stops between Ringwood and Parliament station?<br>What is the route with the least number of stops from Dandenong station to Parliament station?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Train Service Disruption</td>
+        <td>Are there any train disruptions on route Frankston?<br>Are there any train disruptions on route Frankston - City?</td>
+         <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+      <td>Nearest Train Station</td>
+      <td>Where is the nearest staion?<br>Which train statation is closest to my location?</td>
+       <td style="text-align:center; background-color:orange;">RossP</td>
+  </tr>
+    <tr>
+        <td>Real-time Information</td>
+        <td>What are the opening hours for Frankston?
+            <br>Are there any service alerts for Frankston - City?</td>
+        <td style="text-align:center; background-color:orange;">Cocos</td>
+    </tr>
+
+</table>
+<h2 style="text-align:left;">Tram Station Commands</h2>
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
+    <tr>
+        <th style="text-align:left; width: 30%;">Name</th>
+        <th style="text-align:left; width: 63%;">Commands</th>
+        <th style="text-align:center; width: 7%;">Assignee(s)</th>
+    </tr>
+    <tr>
+        <td>Tram stations map</td>
+        <td>Generate a tram stop map?<br>Can I see a map of tram stops?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Schedule - timing information</td>
+        <td>When is the next tram from Port Melbourne to Box Hill?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Route planning</td>
+        <td>What’s the best tram route from Melbourne University to Federation Square?<br>Which tram should I take to get from Southern Cross to Queen Victoria Market?</td>
+        <td style="text-align:center; background-color:orange;">JubalK</td>
+    </tr>
+    <tr>
+        <td>Transfers and connection</td>
+        <td>How do I get from Docklands to Prahran on the tram network?<br>Are there any connections needed to travel from Richmond to Albert Park?</td>
+        <td style="text-align:center; background-color:orange;">JubalK</td>
+    </tr>
+    <tr>
+        <td>Route optimisation</td>
+        <td>What is the fastest tram route from Brunswick to South Melbourne?<br>Which route has the fewest stops between Carlton and Docklands?</td>
+        <td style="text-align:center; background-color:orange;">JubalK</td>
+    </tr>
+	<tr>
+        <td>Nearest Tram Station</td>
+        <td>Where is the nearest tram station?<br>Which tram stop is closest to my location?</td>
+        <td style="text-align:center; background-color:orange;">RossP</td>
+    </tr>
+    <tr>
+        <td>Tram Service Disruption</td>
+        <td>Are there any tram disruptions on route 109?<br>Are there any tram disruptions on route port melbourne - box hill?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+</table>
+<h2 style="text-align:left;">Bus Station Commands</h2>
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
+    <tr>
+        <th style="text-align:left; width: 30%;">Name</th>
+        <th style="text-align:left; width: 63%;">Commands</th>
+        <th style="text-align:center; width: 7%;">Assignee(s)</th>
+    </tr>
+    <tr>
+        <td>Bus stations map</td>
+        <td>Show me the map of bus stops?<br>Generate a bus stop map?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Schedule - timing information</td>
+        <td>What time does the next bus leave from Gembrook to Pakenham?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+    <tr>
+        <td>Route planning</td>
+        <td>What’s the best way to travel from Essendon to Moonee Ponds by bus?<br>Which bus should I take to get from Sunshine to Footscray?</td>
+        <td style="text-align:center; background-color:orange;">LoganG</td>
+    </tr>
+    <tr>
+        <td>Transfers and connection</td>
+        <td>How do I get from Chadstone to Box Hill using buses?<br>How many bus transfers are there between Laverton and Altona North?</td>
+        <td style="text-align:center; background-color:orange;">LoganG</td>
+    </tr>
+    <tr>
+        <td>Route optimisation</td>
+        <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br>Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
+        <td style="text-align:center; background-color:orange;">LoganG</td>
+    </tr>
+	<tr>
+        <td>Nearest Bus Station</td>
+        <td>Where is the nearest bus stop?<br>Which bus station is closest to my location?</td>
+        <td style="text-align:center; background-color:orange;">RossP</td>
+    </tr>
+    <tr>
+        <td>Bus Service Disruption</td>
+        <td>Are there any bus disruptions on route Gembrook - Pakenham?<br>Check bus disruptions for route 903?</td>
+        <td style="text-align:center; background-color:green;">AlexT</td>
+    </tr>
+</table>
+<h2 style="text-align:left;">Multi-Mode</h2>
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
+    <tr>
+        <th style="text-align:left; width: 30%;">Name</th>
+        <th style="text-align:left; width: 63%;">Commands</th>
+        <th style="text-align:center; width: 7%;">Assignee(s)</th>
+    </tr>
+    <tr>
+        <td>Map Visualisation</td>
+        <td>Can you show me all tram stops near Federation Square?<br>Generate a map of bus stops in Carlton</td>
+        <td style="text-align:center; background-color:orange;">RossP</td>
+    </tr>
+    <tr>
+        <td>Multi-Modal Route Planning</td>
+        <td>What’s the best way to get from Stop a to Stop B using tram, bus and train?<br>How do I combine tram and train for this journey?</td>
+        <td style="text-align:center; background-color:orange;">LoganG</td>
+    </tr>
+    <tr>
+        <td>Transfers and connection</td>
+        <td>How do I get from Chadstone to Box Hill using buses?<br>How many bus transfers are there between Laverton and Altona North?</td>
+        <td style="text-align:center; background-color:orange;">LoganG</td>
+    </tr>
+    <tr>
+        <td>Route optimisation</td>
+        <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br>Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
+        <td style="text-align:center; background-color:orange;">LoganG, JubalK</td>
+    </tr>
+	<tr>
+        <td>Real-Time Updates for Trams and Buses</td>
+        <td>Is the tram on Route 12 running on time?<br>Are there delays on the bus to Flinders Street?</td>
+        <td style="text-align:center; background-color:orange;">Cocos, AlexT</td>
+    </tr>
+    <tr>
+        <td>Transfers and Connections for Multi-Modal Routes</td>
+        <td>Do I need to transfer between tram and bus to reach Stop X?</td>
+        <td style="text-align:center; background-color:orange;">AwanishG</td>
+    </tr>
+</table>
+
+
       <!-- Modal for rendering the charts, declare this if you want to render charts, 
          else you remove the modal -->
       <div id="modal1" class="modal">
@@ -66,7 +255,7 @@
       <div class="widget">
         <div class="chat_header">
           <!--Add the name of the bot here -->
-          <span class="chat_header_title">Alex</span>
+          <span class="chat_header_title">MPT Chatbot</span>
           <span class="dropdown-trigger" href="#" data-target="dropdown1">
             <i class="material-icons"> more_vert </i>
           </span>
