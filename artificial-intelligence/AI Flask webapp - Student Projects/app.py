@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import health_safety 
 import subjective_wellbeing
 from map import create_map
@@ -46,6 +46,7 @@ def vehicle_detect():
 #-------------------------
 #Routes for the Traffic Analysis project pages
 
+
 #-------------------------
 #Routes for the Health behaviour project pages
 #Health Safety
@@ -84,6 +85,10 @@ def subjective_wellbeing_data():
     return render_template('data.html')
 
 dash_app = create_dash_app(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/map', methods=['GET', 'POST'])
 def map_view():
@@ -134,4 +139,4 @@ def data_view():
 #-------------------------
 # Running the app
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)  # Set to True for development, False for production
+    app.run(debug=True,port=5000)
