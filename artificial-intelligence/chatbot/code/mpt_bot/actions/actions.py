@@ -1373,6 +1373,252 @@ class ActionRunDirectionScript(Action):
         logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
         return []
 
+
+class ActionFindTransferTramRoute(Action):
+
+    '''
+    ----------------------------------------------------------------------
+    tram routing with transfers - unfinished
+    by: JubalK
+    -----------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_find_tram_route_with_transfers"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            query = tracker.latest_message.get('text')
+
+            print(f"tram stops dataframe: {tram_stops.head()}")
+            print(f"tram timings dataframe: {tram_stop_times.head()}")
+            print(f"tram timings columns: {tram_stop_times.columns}")
+            print(f"tram stops dataframe: {tram_stops.columns}")
+
+            query_normalized = query.lower().strip()
+            logger.info(f"Normalized query: {query_normalized}")
+
+            print(f"DataFrame passed to extract_stations_from_query: {bus_stops.head()['normalized_stop_name']}")
+            # Extract stations from query
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
+
+            if len(extracted_stations) < 2:
+                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
+                return []
+
+            station_a = extracted_stations[0]
+            station_b = extracted_stations[1]
+
+            if not station_a or not station_b:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+
+            print(f"stop id for stop a: {stop_a_id}")
+            print(f"stop id for stop a: {stop_b_id}")
+
+            print(f"Station A: {station_a}, ID: {stop_a_id}")
+            print(f"Station B: {station_b}, ID: {stop_b_id}")
+
+            if stop_a_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_a} not found.")
+                return []
+            if stop_b_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_b} not found.")
+                return []
+
+            # Find trips for starting and destination stops
+            stop_a_trips = tram_stop_times.loc[stop_a_id].reset_index()
+            stop_b_trips = tram_stop_times.loc[stop_b_id].reset_index()
+
+            print(f"stop_a_trips: {stop_a_trips}")
+            print(f"stop_b_trips: {stop_b_trips}")
+
+            # Join trips to find possible transfer points
+            transfer_candidates = pd.merge(
+                stop_a_trips, tram_stop_times.reset_index(), on="trip_id", suffixes=('_a', '_transfer')
+            )
+
+            print(f"transfer_candidates: {transfer_candidates}")
+
+            # Filter valid transfer points where stop sequence aligns
+            transfer_candidates = transfer_candidates[
+                transfer_candidates['stop_sequence_a'] < transfer_candidates['stop_sequence_transfer']
+                ]
+
+            transfer_candidates = transfer_candidates.rename(columns={
+                "stop_id_transfer": "transfer_stop_id",
+                "arrival_time_transfer": "arrival_time_transfer"
+            })
+
+            print(f"transfer_candidates after rename: {transfer_candidates}")
+
+            # Identify transfer stops and destination trips
+            potential_transfers = pd.merge(
+                transfer_candidates, stop_b_trips, left_on="transfer_stop_id", right_on="stop_id",
+                suffixes=('_transfer', '_b')
+            )
+
+            # Filter valid transfers (sequence constraints)
+            potential_transfers = potential_transfers[
+                potential_transfers['stop_sequence_transfer'] < potential_transfers['stop_sequence_b']
+                ]
+
+            if potential_transfers.empty:
+                dispatcher.utter_message(text="No transfer route found between the two stations.")
+                return []
+
+            # Calculate travel times for valid transfers
+            potential_transfers['travel_time'] = (
+                    potential_transfers['arrival_time_b'].apply(GTFSUtils.parse_time) -
+                    potential_transfers['arrival_time_a'].apply(GTFSUtils.parse_time)
+            ).dt.total_seconds()
+
+            # Find the best transfer option
+            best_transfer = potential_transfers.loc[potential_transfers['travel_time'].idxmin()]
+
+            transfer_station = tram_stops.loc[best_transfer['transfer_stop_id'], 'stop_name']
+            first_route_name = tram_routes.loc[
+                tram_trips.loc[tram_trips['trip_id'] == best_transfer['trip_id_a'], 'route_id'].values[0],
+                'route_long_name'
+            ]
+            second_route_name = tram_routes.loc[
+                tram_trips.loc[tram_trips['trip_id'] == best_transfer['trip_id_b'], 'route_id'].values[0],
+                'route_long_name'
+            ]
+            destination = tram_trips.loc[tram_trips['trip_id'] == best_transfer['trip_id_b'], 'trip_headsign'].values[0]
+
+            response = (f"The best transfer route from {station_a} to {station_b} is as follows:\n"
+                        f"1. Take the {first_route_name} to {transfer_station}.\n"
+                        f"2. Transfer at {transfer_station} to the {second_route_name} towards {destination}.\n"
+                        f"The trip will take approximately {best_transfer['travel_time'] / 60:.2f} minutes.")
+
+            dispatcher.utter_message(text=response)
+
+        except Exception as e:
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to find a transfer route", e)
+
+
+class ActionFindTramRoute(Action):
+    '''
+    ----------------------------------------------------------------------
+    tram routing (direct connections)
+    by: JubalK
+    -----------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_check_direct_tram_route"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            query = tracker.latest_message.get('text')
+
+            print(f"tram stops dataframe: {tram_stops.head()}")
+            print(f"tram timings dataframe: {tram_stop_times.head()}")
+            print(f"tram timings columns: {tram_stop_times.columns}")
+            print(f"tram stops dataframe: {tram_stops.columns}")
+
+            query_normalized = query.lower().strip()
+            logger.info(f"Normalized query: {query_normalized}")
+
+            print(f"DataFrame passed to extract_stations_from_query: {tram_stops.head()['normalized_stop_name']}")
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
+
+            if len(extracted_stations) < 2:
+                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
+                return []
+
+            station_a = extracted_stations[0]
+            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
+
+            if not station_a or (not station_b and "to" in query.lower()):
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            stop_a_id = GTFSUtils. get_station_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils. get_station_id(station_b, tram_stops) if station_b else None
+
+            print(f"stop id for stop a: {stop_a_id}")
+            print(f"stop id for stop a: {stop_b_id}")
+
+            print(f"Station A: {station_a}, ID: {stop_a_id}")
+            print(f"Station B: {station_b}, ID: {stop_b_id}")
+
+            if stop_a_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_a} not found.")
+                return []
+            if stop_b_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_b} not found.")
+                return []
+
+            if not station_a or not station_b:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            print(station_a)
+            print(station_b)
+
+            stop_a_times = tram_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+            stop_b_times = tram_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+
+            print(f"stop_a_id for stop a: {stop_a_times}")
+            print(f"stop_b_id for stop a: {stop_b_times}")
+
+            common_trip_ids = set(stop_a_times['trip_id']).intersection(set(stop_b_times['trip_id']))
+            print(f"Common trip IDs: {common_trip_ids}")
+
+            merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+            print(f"Merged stop times:\n{merged.head()}")
+
+            valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+            print(f"valid trips:\n{valid_trips.head()}")
+
+
+            if valid_trips.empty:
+                dispatcher.utter_message(text="No direct route found between the two stations.")
+                return []
+
+            valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
+            valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
+            valid_trips['travel_time'] = (
+                    valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
+
+            print(f"valid trips columns:\n{valid_trips.columns}")
+            print(f"valid trips:\n{valid_trips.head()}")
+
+            best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
+            print(f"best trips:\n{best_trip}")
+
+            route_id = tram_trips.loc[tram_trips['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
+            route_name = tram_routes.loc[tram_routes['route_id'] == route_id, 'route_long_name'].values[0]
+            destination = tram_trips.loc[tram_trips['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
+            print(f"route ID:\n{route_id}")
+            print(f"route name:\n{route_name}")
+            print(f"destination:\n{destination}")
+
+            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination} \n The trip taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+
+            print(response)
+
+            hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, tram_stops, tram_stop_times,
+                                                     dataset_path)
+            if hyperlink:
+                response += f"\n{hyperlink}"
+
+            dispatcher.utter_message(text=response)
+
+        except Exception as e: GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
+
+
+
+
 # Ross Start Actions
 class ActionFindNearestStation(Action):
     ''' -------------------------------------------------------------------------------------------------------

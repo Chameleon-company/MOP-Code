@@ -234,3 +234,16 @@ stories:
     steps:
     - intent: get_directions
     - action: action_run_direction_script
+
+#jubal stories (start)--------------------------------------------------------------------
+  - story: Find tram route with transfers
+    steps:
+    - intent: ask_tram_route_with_transfers
+    - action: action_find_tram_route_with_transfers
+
+  - story: Find direct tram route
+    steps:
+    - intent: ask_tram_route
+    - action: action_check_direct_tram_route
+#jubal stories (end)--------------------------------------------------------------------
+
