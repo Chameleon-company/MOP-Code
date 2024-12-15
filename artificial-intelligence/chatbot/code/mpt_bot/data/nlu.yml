@@ -377,6 +377,46 @@ nlu:
     - Which stations are equipped with [hearing loops](feature)?
     - Where can I find stations that have [parking](feature)?
     - Could you tell me about stations that have [lifts](feature)?
+    
+    
+# Jubal NLU (start)-------------------------------------------------------------------------------
+- intent: ask_direct_tram_route
+  examples: |
+    - Is there a direct tram from [Flinders Street] to [Docklands]?
+    - Can I take a tram directly from [Southbank] to [Melbourne University](location)?
+    - Is there a tram that goes straight to [St Kilda](location)?
+    - Can I get to [Federation Square](location) without changing trams?
+    - Is it possible to reach [Brunswick](location) on a single tram?
+    - Does the tram from [Hawthorn](location) to [Collingwood](location) run directly?
+    - Can I travel from [Prahran](location) to [Chapel Street](location) on the same tram?
+    - Are there any direct tram connections to [Flemington](location)?
+    - Is there a direct tram between [Brunswick] and [Collingwood]?
+
+- intent: ask_tram_route_with_transfers
+  examples: |
+    - What tram should I take from [Docklands] to [Southbank]?
+    - Is there a tram from [Richmond] to [Chapel Street]?
+    - How can I get by tram from [Federation Square] to [St Kilda]?
+    - Can you find a tram from [Queen Victoria Market] to [Flinders Street]?
+    - Show me the tram route from [Hawthorn] to [Box Hill].
+    - Which tram connects [East Malvern] to [Prahran]?  
+    - Tell me the tram route from [North Melbourne] to [South Yarra].
+    - How do I go by tram from [Melbourne Zoo] to [Royal Botanic Gardens]?
+    - I need a tram route from [Carlton] to [Parkville].
+    - Can you suggest a tram from [Albert Park] to [Spencer Street]?
+    - Is there a tram from [Elsternwick] to [Southbank]?
+    - Which tram should I catch to go from [Brunswick Street] to [Docklands]?
+    - Are there trams that connect [Essendon] and [Toorak]?
+    - Find a tram route between [Melbourne Central] and [MCG].
+    - What is the tram route from [Burnley] to [Richmond]?
+    - Suggest a tram from [Southern Cross] to [Caulfield].
+    - Which tram runs between [Flemington] and [East Melbourne]?
+    - Can I catch a tram from [Footscray] to [Maribyrnong]?
+    - How can I travel by tram from [Kew] to [Balwyn]? 
+
+# Jubal NLU (end)-------------------------------------------------------------------------------
+
+
 
 
 entities:

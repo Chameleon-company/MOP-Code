@@ -42,6 +42,11 @@ intents:
   - list_all_stations
   - nlu_fallback
   - list_stations_with_feature
+  #Jubal intents (start) -------------------------------------------
+  - ask_tram_route
+  - ask_tram_route_with_transfers
+  #Jubal intents (start) -------------------------------------------
+
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -193,6 +198,13 @@ responses:
   utter_ask_address:
   - text: "Please provide your current adress"
 # Ross Finish responses
+#jubal - responses (start)--------------------------------------------------------
+  utter_tram_route_with_transfers:
+    - text: "The best tram route between {station_a} and {station_b} is..."
+  utter_direct_tram_route:
+    - text: "The best tram route between {station_a} and {station_b} is..."
+  #jubal - responses (end)--------------------------------------------------------
+
   utter_script_executed:
   - text: "The direction script has been executed successfully."
 
@@ -240,3 +252,7 @@ actions:
   - action_check_station
   - action_list_all_stations
   - action_list_stations_with_feature
+  #Jubal actions (start) -------------------------------------------
+  - action_check_direct_tram_route
+  - action_find_tram_route_with_transfers
+  #Jubal actions (end) -------------------------------------------
