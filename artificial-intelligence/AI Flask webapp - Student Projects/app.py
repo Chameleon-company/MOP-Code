@@ -36,6 +36,17 @@ def health_main():
     return render_template('health_main.html')
 
 #-------------------------
+#Routes for the Vehicle Classification project pages
+
+#Vehicle detection
+@app.route('/vehicle_detect')
+def vehicle_detect():
+    return render_template('vehicle_detect.html')
+
+#-------------------------
+#Routes for the Traffic Analysis project pages
+
+#-------------------------
 #Routes for the Health behaviour project pages
 #Health Safety
 @app.route('/health_safety', methods=['GET', 'POST'])
