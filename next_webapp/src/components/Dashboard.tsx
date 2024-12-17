@@ -7,7 +7,9 @@ import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
 import { useEffect, useState } from "react";
 import { ArrowLeft, FileText } from "lucide-react";
-
+import { useDarkMode } from "@/context/DarkModeContext"
+import Tooglebutton from "@/app/[locale]/Tooglebutton/Tooglebutton";
+import common from "mocha/lib/interfaces/common";
 const style = `
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 .nav-menu{
@@ -15,9 +17,9 @@ const style = `
     flex-direction: row;
     gap: 29px;
 }
-body{
-    background: white;
-}
+// body{
+//     background: white;
+// }
 
 .nav-menu a{
     text-decoration: none;
@@ -79,7 +81,7 @@ body{
 }
 .our-vision-section{
     display: flex;
-    background: #2ECC71;
+    // background: #2ECC71;
     justify-content: space-between;
     border: 1px solid white;
     margin-top: 21px;
@@ -93,7 +95,7 @@ body{
         letter-spacing: -0.015em;
         text-align: left;
         color: white;
-        background: #2ECC71;
+        // background: #2ECC71;
     }
     .img-div{
         margin-top: 139px;
@@ -157,23 +159,23 @@ font-size: 24px;
 font-weight: 700;
 margin-top: 47px;
 margin-left: 64px;
-color:black;
+// color:black;
 }
 .card-wrapper p{
     font-family: Montserrat;
     font-size: 18px;
     font-weight: 400;
-    margin-top: 24px;
-    margin-left: 64px;
+    // margin-top: 24px;
+    // margin-left: 64px;
     color:black;
     max-width: 300px;
     width: 100%;
 }
 .card-wrapper .top-image{
     height: 281px;
-    padding-left: 64px;
-    padding-right:64px;
-    padding-top:64px;
+    // padding-left: 64px;
+    // padding-right:64px;
+    // padding-top:64px;
 }
 .card-wrapper .top-image img{
     width: 100%;
@@ -185,7 +187,7 @@ color:black;
     margin-bottom: 82px;
 }
 .recent-case-studies h2{
-    color : black;  
+    // color : black;  
     font-family: Montserrat;
     font-size: 48px;
     font-weight: 700;
@@ -195,7 +197,7 @@ color:black;
     font-family: Montserrat;
     font-size: 36px;
     font-weight: 400;
-    color : black;
+    // color : black;
 }
 .sign-up-btn-section{
     display: flex;
@@ -214,16 +216,21 @@ color:black;
     border: 0px;
     border-radius: 10px;
 }
-.main-wrapper{
-    background-color: white;
-}
+    
+// .main-wrapper{
+//     background-color: white;
+// }
 `;
 const Dashboard = () => {
     const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
     const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | undefined>(undefined)
+    
+    const { darkMode } = useDarkMode();
+
 
     useEffect(() => {
         handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL)
+        console.log("Client Rendered:", document.body.innerHTML);
     }, [])
 
     async function searchUseCases(searchParams: SearchParams) {
@@ -295,35 +302,88 @@ const Dashboard = () => {
     return (
         <>
             <style dangerouslySetInnerHTML={{ __html: style }} />
-
-            <div className="main-wrapper">
+            <div className={`main-wrapper ${darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"}`}>
                 <div className="main-container">
-                    <section className="hero-section">
-                        <Image src={mainimage} alt={"main image1"} />
-                    </section>
-                    <section className="sign-up-btn-section">
-                        <button className="sign-up-btn">
-                            <Link href="signup">{t("Sign Up")}</Link>
-                        </button>
-                    </section>
-                    <section className="our-vision-section">
-                        <div className="our-vision">{t("Our Vision")}</div>
-                        <div className="img-div">
-                            <Image src={secondimage} alt={"Second Image"} />
-                        </div>
-                        <div className="text-div">{t("intro")}</div>
-                    </section>
-                    <section className="recent-case-studies">
-                        <h2>{t("Recent Case Studies")}</h2>
-                        <p>{t("p2")}</p>
+                    <Tooglebutton /> 
+
+                    {/* Hero Section */}
+                    <section className="hero-section relative">
+  {/* Image */}
+  <Image src={mainimage} alt={"main image1"} className="w-full h-auto" />
+
+  {/* Overlay */}
+  <div
+    className={`absolute top-0 left-0 w-full h-full ${
+      darkMode ? "bg-black bg-opacity-50" : "bg-transparent"
+    } transition-opacity duration-300`}
+  />
+</section>
+
+                    {/* Sign-Up Button Section */}
+                    <section
+                        className={`sign-up-btn-section ${
+                            darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"
+                        }`}
+                    >
+                        <button className="sign-up-btn">{t("Sign Up")}</button>
                     </section>
 
-                    <section className="case-studies mx-10">
+                    <section
+                    className={`our-vision-section ${
+                        darkMode ? "bg-[#3A714E] text-white" : "bg-[#2ECC71] text-black"
+                    } py-10`}
+                    >
+                    <div className="our-vision font-bold text-4xl md:text-5xl mb-8">
+                        {t("Our Vision")}
+                    </div>
+                    <div className="img-div">
+                        <Image src={secondimage} alt={"Second Image"} />
+                    </div>
+                    <div
+                        className={`text-div ${
+                        darkMode ? "text-gray-200" : "text-gray-700"
+                        } text-lg mt-6`}
+                    >
+                        {t("intro")}
+                    </div>
+                    </section>
+
+
+                    {/* Recent Case Studies Section */}
+                    <section
+                        className={`recent-case-studies ${
+                            darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"
+                        }`}
+                    >
+                        <h2
+                            className={`${
+                            darkMode ? "text-white !important" : "text-black !important"
+                            } text-3xl font-bold mb-4`}
+                        >
+                            {t("Recent Case Studies")}
+                        </h2>
+                        <p
+                            className={`${
+                            darkMode ? "text-white !important" : "text-black !important"
+                            } text-lg mb-8`}
+                        >
+                            {t("p2")}
+                        </p>
+                    </section>
+
+                    {/* Case Studies Section */}
+                    <section
+                        className={`case-studies mx-10 ${
+                            darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"
+                        }`}
+                    >
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {filteredCaseStudies.slice(0, 3).map((study) => (
                                 <div
                                     key={study.id}
-                                    className="bg-white p-4 rounded-lg border-4 shadow-md cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+                                    className={`p-4 rounded-lg border-4 shadow-md cursor-pointer hover:shadow-2xl transition-shadow duration-300 ${
+                                        darkMode ? "bg-[#1D1919] text-white" : "bg-gray-100 text-black"
+                                    }`}
                                     onClick={() => handleCaseStudyClick(study)}
                                 >
                                     <div className="flex items-center justify-center mb-4">
@@ -332,7 +392,7 @@ const Dashboard = () => {
                                         <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
                                     </div>
                                     <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
-                                    <p className="text-gray-600 text-sm text-center mb-2">{study.description}</p>
+                                    <p className={`text-sm text-center mb-2 ${darkMode ? "text-gray-200" : "text-gray-800"}`}>{study.description}</p>
                                     <div className="flex flex-wrap justify-center gap-2">
                                         <p className="text-sm text-gray-500">Tags:</p>
                                         {study.tags.map((tag, index) => (
@@ -347,7 +407,6 @@ const Dashboard = () => {
                                 </div>
                             ))}
                         </div>
-
                     </section>
                 </div>
             </div>

@@ -1,34 +1,31 @@
-import { useState } from "react";
+"use client";
 
+import { useDarkMode } from "@/context/DarkModeContext"; 
 
-// This componen is for dark and light theme button
-// It helps to change the theme of the page
+// This will help for the dark/light theme toggle button also helps toggle the theme of the page globally 
 
-const Tooglebutton = ({onValueChange}:any) => {
-    const [darkvalue, setdarkvalue] = useState(false);
-    const [dark_btn, setdark_btn] = useState("dark")
+const ToggleButton = ({ onValueChange }: { onValueChange?: (value: boolean) => void }) => {
+  // Access the global dark mode state and toggle function
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
-    const handleclick = () =>{
-        if(darkvalue == false){
-            setdarkvalue(true);
-            setdark_btn("dark")
-        }else{
-            setdarkvalue(false);
-            setdark_btn("light")
-        }
-        onValueChange(darkvalue);
+  const handleClick = () => {
+    toggleDarkMode();
 
+    if (onValueChange) {
+      onValueChange(!darkMode); 
     }
+  };
 
-    return(
-        <div className={`${darkvalue && "dark"}`}>
-        <div className ="fixed bottom-4 right-4">
-        <button  onClick={handleclick} className="bg-white dark:bg-white  text-black dark:text-black font-bold py-2 px-4 rounded-full shadow-lg  ">
-            {dark_btn}
-        </button>
-        </div>
-        </div>
-    );
-}
+  return (
+    <div className="fixed bottom-4 right-4">
+      <button
+        onClick={handleClick}
+        className="bg-white dark:bg-black text-black dark:text-white font-bold py-2 px-4 rounded-full shadow-lg"
+      >
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+    </div>
+  );
+};
 
-export default Tooglebutton;
+export default ToggleButton;
