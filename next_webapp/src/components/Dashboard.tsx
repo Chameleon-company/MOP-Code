@@ -305,19 +305,18 @@ const Dashboard = () => {
             <div className={`main-wrapper ${darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"}`}>
                 <div className="main-container">
                     <Tooglebutton /> 
-
                     {/* Hero Section */}
                     <section className="hero-section relative">
-  {/* Image */}
-  <Image src={mainimage} alt={"main image1"} className="w-full h-auto" />
+                        {/* Image */}
+                        <Image src={mainimage} alt={"main image1"} className="w-full h-auto" />
 
-  {/* Overlay */}
-  <div
-    className={`absolute top-0 left-0 w-full h-full ${
-      darkMode ? "bg-black bg-opacity-50" : "bg-transparent"
-    } transition-opacity duration-300`}
-  />
-</section>
+                        {/* Overlay */}
+                        <div
+                            className={`absolute top-0 left-0 w-full h-full ${
+                            darkMode ? "bg-black bg-opacity-50" : "bg-transparent"
+                            } transition-opacity duration-300`}
+                        />
+                    </section>
 
                     {/* Sign-Up Button Section */}
                     <section
@@ -325,7 +324,13 @@ const Dashboard = () => {
                             darkMode ? "bg-[#1D1919] text-white" : "bg-white text-black"
                         }`}
                     >
-                        <button className="sign-up-btn">{t("Sign Up")}</button>
+                        <button 
+                                className={`ml-4 ${
+                                    darkMode
+                                      ? 'bg-white text-green-700 border border-green-700 hover:bg-green-700 hover:text-white'
+                                      : 'bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white'
+                                  } px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300`}
+                                >{t("Sign Up")}</button>
                     </section>
 
                     <section

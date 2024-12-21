@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n-navigation';
 import LanguageDropdown from './LanguageDropdown';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { useDarkMode } from '@/context/DarkModeContext'; // Import the custom dark mode hook
+import { useDarkMode } from '@/context/DarkModeContext'; 
 
 const Header = () => {
   const t = useTranslations('common');
-  const { darkMode } = useDarkMode(); // Access the dark mode state
+  const { darkMode } = useDarkMode(); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
