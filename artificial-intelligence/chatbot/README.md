@@ -10,6 +10,18 @@ It is recommended to create a virtual environment before installing the required
 
 [Conda User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
+After setting up with the `enviroment.yml` file, you will also need to manually install spacy:
+
+```bash
+pip install spacy==3.5.2
+```
+
+After installing spacy, download the follwing spacy models
+```bash
+python -m spacy download en_core_web_md==3.5.0
+python -m spacy download en_core_web_sm==3.5.0
+```
+
 Also, to familiarize yourself with Rasa, it is worthwhile to watch this video:
 [Rasa Introduction Video](https://www.youtube.com/watch?v=Co7QtrJBkpY)
 
