@@ -16,7 +16,7 @@ After setting up with the `enviroment.yml` file, you will also need to manually 
 pip install spacy==3.5.2
 ```
 
-After installing spacy, download the follwing spacy models
+After installing spacy, download the follwing spacy models:
 ```bash
 python -m spacy download en_core_web_md==3.5.0
 python -m spacy download en_core_web_sm==3.5.0
@@ -35,7 +35,6 @@ pip install spacy
 python -m spacy download en_core_web_md
 python -m spacy link en_core_web_md en
 pip install tensorflow
-
 
 ```
 ## Setting Up Rasa
