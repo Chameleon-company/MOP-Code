@@ -84,6 +84,58 @@ def visualize():
     else:
         return render_template("no_data.html", activity=activity, response=response)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# Physical Activity Dashboard
+
+#This dashboard provides visual insights into physical activity trends among males and females in Melbourne. Users can select activity types and responses to generate visualizations. The project includes features like dark mode, error handling, and an about page.
+
+#**Goals:**
+#- Help users analyze physical activity trends.
+#- Provide user-friendly visualizations and insights.
+
+#**Target Audience:** Researchers, students, and policymakers interested in health data.
+
+## Features
+#1. Dropdowns for selecting activity type and response.
+#2. Bar chart visualizations grouped by gender and year.
+#3. Dark mode toggle for better accessibility.
+#4. Error handling: Displays a "No Data Found" page for invalid inputs.
+#5. About page to explain the project and its purpose.
+
+## Setup and Installation
+
+### Prerequisites
+#- Python 3.9+
+#- `pip` package manager
+
+### Steps
+#1. Clone the repository: `git clone <repository-url>`
+#2. Navigate to the project folder: `cd flask_project`
+#3. Install dependencies: `pip install -r requirements.txt`
+#4. Run the Flask app: `python app.py`
+#5. Open `http://127.0.0.1:5000` in your browser.
+
+## Usage
+#1. Select an activity type and response from the dropdowns.
+#2. Click "Show Visualization" to generate a chart.
+#3. Toggle between light and dark modes using the switch.
+#4. Visit the "About" page to learn more about the project.
+#5. If no data is available, a "No Data Found" page will appear.
+
+## Technical Details
+
+#- **Backend:** Flask
+ # - Routes:
+  #  - `/`: Home page
+   # - `/visualize`: Generates visualizations based on user input.
+    #- `/about`: Provides project details.
+#- **Frontend:** HTML, CSS, JavaScript
+ # - Dark mode toggle implemented with JavaScript and localStorage.
+#- **Data Processing:** pandas for filtering and aggregating data.
+#- **Visualizations:** matplotlib for creating bar charts.

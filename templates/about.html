@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No Data Found</title>
+    <title>About</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script>
         // Check localStorage for the dark mode setting
@@ -26,22 +26,22 @@
     </script>
 </head>
 <body>
-    <!-- Dark Mode Toggle -->
-    <div class="container">
-        <label for="theme-toggle" class="theme-switch">
-            <input type="checkbox" id="theme-toggle" onclick="toggleDarkMode(event)">
-            <span class="slider"></span> Dark Mode
-        </label>
-    </div>
+    <label for="theme-toggle" class="theme-switch">
+        <input type="checkbox" id="theme-toggle" onclick="toggleDarkMode(event)">
+        <span class="slider"></span> Dark Mode
+    </label>
 
-    <!-- Error Message Container -->
-    <div class="error-container">
-        <div class="error-box">
-            <h1>OOPS!!</h1>
-            <p>No data found for <span class="highlight">{{ response }}</span> in <span class="highlight">{{ activity }}</span>.</p>
-            <p>Please try again with a different combination.</p>
-            <button onclick="window.location.href='/'" class="back-button">Back to Home</button>
-        </div>
+    <div class="container">
+        <h1>About the Physical Activity Dashboard</h1>
+        <p>This dashboard is designed to provide insights into physical activity trends among males and females in Melbourne. Users can visualize and explore data to better understand how different demographics participate in physical activities.</p>
+        <p>The dashboard features:</p>
+        <ul>
+            <li>Interactive visualizations with filters for activity type and responses.</li>
+            <li>Dark and light mode for better user experience.</li>
+            <li>Error handling and user-friendly messages.</li>
+            <li>Future enhancements like downloadable graphs and summaries.</li>
+        </ul>
+        <button onclick="window.location.href='/'">Back to Home</button>
     </div>
 </body>
 </html>

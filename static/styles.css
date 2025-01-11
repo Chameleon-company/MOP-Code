@@ -1,174 +1,187 @@
-/* styles.css */
+/* defining CSS variables for theme colors */
+:root {
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --button-color: #4a90e2;
+    --button-hover-color: #357ab7;
+    --container-background: rgba(255, 255, 255, 0.8);
+    --title-color: #4a90e2;
+}
 
+/*dark theme variables */
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #f4f4f9;
+    --button-color: #555;
+    --button-hover-color: #777;
+    --container-background: rgba(50, 50, 50, 0.9);
+    --title-color: #f4f4f9;
+}
+
+/* general styles */
 body {
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1 {
     text-align: center;
     margin-top: 20px;
-    color: #4a90e2;
-}
-
-p {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 18px;
+    color: var(--title-color);
+    transition: color 0.3s ease;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background: white;
+    background: var(--container-background);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-select, button {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    margin: 10px auto;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 button {
-    background-color: #4a90e2;
-    color: white;
+    background-color: var(--button-color);
+    color: var(--text-color);
     cursor: pointer;
+    border-radius: 4px;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
-    background-color: #357ab7;
+    background-color: var(--button-hover-color);
 }
 
-img {
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
-    height: auto;
-}
-
-.back-button {
-    display: inline-block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #4a90e2;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.back-button:hover {
-    background-color: #357ab7;
-}
-
-label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px; /* Reduce space between label and dropdown */
-    text-align: left; /* Align text to the left */
-}
-
-select {
-    margin-bottom: 20px; /* Add spacing between dropdowns */
-    padding: 8px; /* Adjust padding for better appearance */
-    width: 100%; /* Ensure full width of container */
-    max-width: 400px; /* Limit the maximum width */
-    font-size: 16px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Space between form elements */
-}
-/* General body styles */
-body {
-    background: url('/static/images/background.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333; /* Adjust text color for readability */
-}
-
-/* Center alignment for the content */
-.container {
-    background: rgba(255, 255, 255, 0.8); /* Add transparency for better readability */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    margin: 100px auto;
-    text-align: center;
-}
-.title-container {
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-    margin: 20px auto;
-    text-align: center;
-}
-/* Error Page Styling */
+/* error page styling */
 .error-container {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: url("images/background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
+    background-color: var(--background-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .error-box {
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white box */
+    background: var(--container-background);
     padding: 30px 40px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.error-box h1 {
-    font-size: 3rem;
-    color: #0056b3; /* Same blue as the homepage title */
-    margin-bottom: 20px;
-}
-
-.error-box p {
-    font-size: 1.2rem;
-    color: #333;
+/*theme switch styles */
+.theme-switch {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
     margin: 10px 0;
 }
 
-.error-box .highlight {
-    color: #0056b3; /* Same blue as the title */
-    font-weight: bold;
+.theme-switch input {
+    display: none;
 }
 
-.error-box button {
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+.theme-switch .slider {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    transition: 0.3s;
 }
 
-.error-box button:hover {
-    background-color: #004494;
+.theme-switch .slider:before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    transition: 0.3s;
+}
+
+.theme-switch input:checked + .slider {
+    background-color: var(--button-color);
+}
+
+.theme-switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/*form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--button-color);
+    box-shadow: 0 0 5px var(--button-color);
+}
+
+/*adjusting hover effects for links and buttons */
+a {
+    color: var(--button-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--button-hover-color);
+}
+
+/*body {
+    background-image: url('/static/images/background.jpeg'); 
+    background-size: cover; /* Ensuring the image covers the entire page
+    background-repeat: no-repeat; /* Preventing repetition of the image
+    background-attachment: fixed; /*keeping the background fixed during scroll
+    background-position: center; /*centers the image 
+} */
+
+.title-container {
+    background-color: rgba(255, 255, 255, 0.8); /* semi-transparent white background */
+    padding: 10px 20px; /* adding some padding around the title */
+    border-radius: 8px; /* rounded corners for better aesthetics */
+    display: inline-block; /* ensureing the background only wraps the title */
+    margin: 20px auto; /* adding margin to separate it from other content */
+    text-align: center; /* center-aligning the title */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.title-container h1 {
+    color: #333; /*darker text color for better contrast */
+    font-size: 1.8rem; /*adjusting the font size as needed */
+    font-weight: bold; /*making the title stand out */
+    margin: 0; /*removing default margin from <h1> */
 }
