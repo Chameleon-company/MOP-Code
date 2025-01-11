@@ -1214,3 +1214,32 @@ class GTFSUtils:
             return {"error": str(e)}
 
 #Ross End Functions
+
+    def checkDirectTram(station_a: str, station_b: str, tram_stops: pd.DataFrame, tram_stop_times: pd.DataFrame) -> (
+    bool, List[str]):
+
+        '''
+        ----------------------------------------------------------------------
+        tram routing (direct connections)
+        by: JubalK
+        -----------------------------------------------------------------------
+        '''
+
+        stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
+        stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+
+        stop_a_times = tram_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+        stop_b_times = tram_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+        common_trip_ids = set(stop_a_times['trip_id']).intersection(set(stop_b_times['trip_id']))
+        print(f"Common trip IDs: {common_trip_ids}")
+
+        merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+        print(f"Merged stop times:\n{merged.head()}")
+
+        valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+        print(f"Valid trips:\n{valid_trips.head()}")
+
+        if not valid_trips.empty:
+            return True, valid_trips['trip_id'].unique()
+
+        return False, []
