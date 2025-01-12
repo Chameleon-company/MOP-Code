@@ -338,6 +338,29 @@ nlu:
     - Can I see a map of bus stops?
     - Create a bus map
 
+- intent: ask_traffic_location
+  examples: |
+    - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
+    - what is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [Flinders Street](station_a) to [Brighton](station_b)?
+    - Traffic from [Flinders Street](station_a) to [Brighton](station_b)?
+    - what is traffic status from [CBD](station_a) to [St Kilda](station_b)?
+    - what is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [CBD](station_a) to [Brighton](station_b)?
+    - Traffic from [CBD](station_a) to [Brighton](station_b)?
+
+  
+- intent: ask_traffic
+  examples: |
+    - Can i know traffic status of [Melbourne CBD](station_a)?
+    - I want to get traffic updated for [Flinders Street](station_a)
+    - What is traffic in [Richmond](station_a)?
+    - what is traffic in [Albert Park](station_a)?
+    - What is taffic status in [Brighton](station_a)?
+    - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+
 entities:
   - station_name
   - feature

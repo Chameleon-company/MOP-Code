@@ -18,6 +18,8 @@ from actions.gtfs_utils import GTFSUtils
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
+#from actions.traffic_route 
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -1153,3 +1155,134 @@ class ActionListStationsWithFeature(Action):
             dispatcher.utter_message(text=f"Stations with {feature}: {stations_list}")
 
         return []
+    
+class ActionFetchTraffic(Action):
+    def name(self) -> Text:
+        return "action_fetch_traffic"
+
+    def run(self, dispatcher, tracker, domain):
+        source = tracker.get_slot("station_a")
+        
+        source_coords = geocode_address(source)
+        #source_coords = getAddressLatLong( address = source)
+        #destination_coords = getAddressLatLong( address = destination )
+
+        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        
+        traffic_details_location = get_traffic_details(api_key, source_coords)
+        traffic_status_start = get_traffic_status(
+                traffic_details_location['current_speed'], traffic_details_location['free_flow_speed']
+            )
+        dispatcher.utter_message(
+            text=f"Traffic is {traffic_status_start} in {source} with a current speed of {traffic_details_location['current_speed']} km/h."
+        )
+
+class ActionFetchTrafficLocation(Action):
+    def name(self) -> Text:
+        return "action_fetch_traffic_location"
+
+    def run(self, dispatcher, tracker, domain):
+        source = tracker.get_slot("station_a")
+        destination = tracker.get_slot("station_b")
+        
+        source_coords = geocode_address(source)
+        destination_coords = geocode_address(destination)
+        #source_coords = getAddressLatLong( address = source)
+        #destination_coords = getAddressLatLong( address = destination )
+        
+        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        route_data = fetch_route(source_coords, destination_coords, api_key)
+       
+        if "error" in route_data:
+            dispatcher.utter_message(text=f"Error: {route_data['error']}")
+        else:
+            routes = route_data.get("routes", [])
+            if not routes:
+                dispatcher.utter_message(text="No routes found.")
+            else:
+                route = routes[0]
+                summary = route.get("summary", {})
+                distance = summary.get("lengthInMeters", 0) / 1000
+                travel_time = summary.get("travelTimeInSeconds", 0) / 60
+
+                #start_location = tuple(map(float, source_coords.split(',')))  # Melbourne CBD
+                traffic_details_start = get_traffic_details(api_key, source_coords)
+                
+                #traffic details for the destination location
+                #destination_location = tuple(map(float, destination_coords.split(',')))  # Albert Park
+                traffic_details_destination = get_traffic_details(api_key, destination_coords)
+               
+                if traffic_details_start and traffic_details_destination:
+                    traffic_status_start = get_traffic_status(
+                        traffic_details_start['current_speed'], traffic_details_start['free_flow_speed']
+                    )
+                    traffic_status_destination = get_traffic_status(
+                        traffic_details_destination['current_speed'], traffic_details_destination['free_flow_speed']
+                    )
+                dispatcher.utter_message(
+                    text=f"Traffic is {traffic_status_start} from {source} to {destination} with a current speed of {traffic_details_start['current_speed']} km/h. Estimated travel time is {travel_time:.2f} minutes for a distance of {distance:.2f} km."
+                )
+def fetch_route(source_coords, destination_coords, api_key):
+    base_url = "https://api.tomtom.com/routing/1/calculateRoute"
+    source = f"{source_coords[0]},{source_coords[1]}"
+    destination = f"{destination_coords[0]},{destination_coords[1]}"
+    url = f"{base_url}/{source}:{destination}/json"
+    params = {
+        "key": api_key,
+        "traffic": "true",
+        "routeType": "fastest",
+    }
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return {"error": f"API call failed with status code {response.status_code}"}
+    except Exception as e:
+        return {"error": str(e)}
+
+def get_traffic_details(api_key, location):
+    url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
+    latitude, longitude = location
+    params = {
+        "key": api_key,
+        "point": f"{latitude},{longitude}"
+    }
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        traffic_info = {
+            "current_speed": data['flowSegmentData']['currentSpeed'],
+            "free_flow_speed": data['flowSegmentData']['freeFlowSpeed'],
+            "confidence": data['flowSegmentData']['confidence'] * 100,
+        }
+        return traffic_info
+    except Exception as e:
+        return None
+
+def get_traffic_status(current_speed, free_flow_speed):
+    speed_ratio = current_speed / free_flow_speed
+    if speed_ratio >= 0.8:
+        return "light"
+    elif 0.6 <= speed_ratio < 0.8:
+        return "moderate"
+    else:
+        return "heavy"
+
+#Function to geocode an address using Nominatim
+def geocode_address(address):
+    geolocator = Nominatim(user_agent="mapping_app1.0")
+    
+    #Define the bounding box for Melbourne
+    melbourne_bbox = [(-38.433859,144.593741), (-37.511274,145.512529)]
+    
+    #Geocode the address within the Melbourne bounding box
+    location = geolocator.geocode(address, viewbox=melbourne_bbox, bounded=True)
+    
+    if location:
+        return location.latitude, location.longitude
+    else:
+        print("Address not found within Melbourne.")
+        return None
+

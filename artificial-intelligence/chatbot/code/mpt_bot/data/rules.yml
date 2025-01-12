@@ -91,6 +91,17 @@ rules:
   - intent: ask_next_train
   - action: action_find_next_train
 
+
+- rule: find traffic data between locations
+  steps:
+  - intent: ask_traffic_location
+  - action: action_fetch_traffic_location
+
+- rule: User asks about traffic
+  steps:
+  - intent: ask_traffic
+  - action: action_fetch_traffic  
+
 #AlexT - P2  
 - rule: Respond to next bus query
   steps:

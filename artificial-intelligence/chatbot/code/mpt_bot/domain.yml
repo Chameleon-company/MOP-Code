@@ -29,6 +29,8 @@ intents:
   - list_all_stations
   - nlu_fallback
   - list_stations_with_feature
+  - ask_traffic
+  - ask_traffic_location
 
 entities:
   - station_a
@@ -38,6 +40,8 @@ entities:
   - feature
   - current_longitude
   - current_latitude
+  - source
+  - destination
 
 slots:
   station_a:
@@ -74,7 +78,12 @@ slots:
     mappings:
       - type: from_entity
         entity: feature
-
+  
+  source:
+    type: text
+    mappings:
+      - type: from_text
+      
 responses:
   utter_ask_for_station_b:
     - text: "Which station would you like to travel to?"
@@ -137,6 +146,16 @@ responses:
   utter_default:
   - text: "Sorry I didn't understand. Can you rephrase?"
 
+  utter_ask_source:
+  - text: "For which loaction you want to know the traffic status?"
+
+  # utter_ask_final_stop:
+  #   - text: "Where are you going to?"
+
+  utter_traffic_details:
+    - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
+
+
 actions:
 - action_generate_tram_map
 - action_generate_bus_map
@@ -155,3 +174,8 @@ actions:
 - action_check_station
 - action_list_all_stations
 - action_list_stations_with_feature
+- action_fetch_traffic
+- action_fetch_traffic_location
+
+
+  

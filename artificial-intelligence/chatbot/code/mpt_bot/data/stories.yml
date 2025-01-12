@@ -121,10 +121,14 @@ stories:
     - intent: find_next_train
     - action: action_find_next_train
 
-  - story: User asks for the best route between two stations
+  - story: Find best train route between two stations 
     steps:
-    - intent: ask_best_route
-    - action: action_find_best_route
+    - intent: find_best_route
+      entities:
+       - station_a
+       - station_b
+       - transport_mode
+    -  action: action_find_best_route
 
   - story: generate_map_story
     steps:
@@ -144,8 +148,14 @@ stories:
     steps:
     - intent: find_next_tram
     - action: action_find_next_tram
-  
+
   - story: Find next bus
     steps:
-	- intent: find_next_bus
-	- action: action_find_next_bus
+    - intent: find_next_bus
+    - action: action_find_next_bus
+
+  
+  - story: User asks about traffic
+    steps:
+    - intent: ask_user_about_location_for_traffic
+    - action: action_fetch_traffic  
