@@ -6,7 +6,13 @@ import path from "path";
 // defaults to auto
 // Create a Server Component
 export async function POST(request: Request) {
-  const baseDir = path.join(process.cwd(), 'public', 'T1 2024');
+  const baseDir = path.join(
+    process.cwd(),
+    "..",
+    "datascience",
+    "usecases",
+    "READY TO PUBLISH"
+  );
   const res = (await request.json()) as SearchParams;
   console.log("🚀 ~ POST ~ resn:", res);
   const { category, searchMode, searchTerm } = res;
@@ -14,32 +20,49 @@ export async function POST(request: Request) {
   const caseStudies: CaseStudy[] = [];
   let id = 1;
 
-  // Read all subdirectories in the base directory
-  const subdirs = fs.readdirSync(baseDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
+  // Get all subdirectories in the base directory (e.g., T1 2024, T2 2024, etc.)
+  const termFolders = fs
+    .readdirSync(baseDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
 
-  subdirs.forEach(subdir => {
-    const subdirPath = path.join(baseDir, subdir);
-    const files = fs.readdirSync(subdirPath);
+  termFolders.forEach((termFolder) => {
 
-    // Find JSON and HTML files
-    const jsonFile = files.find(file => file.endsWith('.json'));
-    const htmlFile = files.find(file => file.endsWith('.html'));
+    const termFolderPath = path.join(baseDir, termFolder);
 
-    if (jsonFile && htmlFile) {
-      const jsonPath = path.join(subdirPath, jsonFile);
-      const jsonContent = fs.readFileSync(jsonPath, 'utf-8');
-      const { name, description, tags } = JSON.parse(jsonContent);
+    // Get all subdirectories
+    const subdirs = fs
+      .readdirSync(termFolderPath, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
 
-      caseStudies.push({
-        id: id++,
-        description: description,
-        name: name,
-        tags: tags,
-        filename: path.join('T1 2024', subdir, htmlFile)
-      });
-    }
+    subdirs.forEach(subdir => {
+      const subdirPath = path.join(termFolderPath, subdir);
+      const files = fs.readdirSync(subdirPath);
+
+      // Find JSON and HTML files
+      const jsonFile = files.find(file => file.endsWith('.json'));
+      const htmlFile = files.find(file => file.endsWith('.html'));
+
+      try {
+        if (jsonFile && htmlFile) {
+          const jsonPath = path.join(subdirPath, jsonFile);
+          const jsonContent = fs.readFileSync(jsonPath, 'utf-8');
+          const { name, description, tags } = JSON.parse(jsonContent);
+
+          caseStudies.push({
+            id: id++,
+            description: description,
+            name: name,
+            tags: tags,
+            filename: path.join(baseDir,termFolder, subdir, htmlFile)
+          });
+        }
+      }
+      catch (e) {
+        console.log("Invalid UseCase Format: ", subdirPath, e)
+      }
+    });
   });
 
   let filteredStudies: (CaseStudy & { fileContent?: string })[] = [];

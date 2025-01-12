@@ -10,6 +10,18 @@ It is recommended to create a virtual environment before installing the required
 
 [Conda User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
+After setting up with the `enviroment.yml` file, you will also need to manually install spacy:
+
+```bash
+pip install spacy==3.5.2
+```
+
+After installing spacy, download the follwing spacy models:
+```bash
+python -m spacy download en_core_web_md==3.5.0
+python -m spacy download en_core_web_sm==3.5.0
+```
+
 Also, to familiarize yourself with Rasa, it is worthwhile to watch this video:
 [Rasa Introduction Video](https://www.youtube.com/watch?v=Co7QtrJBkpY)
 
@@ -23,7 +35,6 @@ pip install spacy
 python -m spacy download en_core_web_md
 python -m spacy link en_core_web_md en
 pip install tensorflow
-
 
 ```
 ## Setting Up Rasa
@@ -57,10 +68,10 @@ rasa run --enable-api --cors "*"
 
 3) To access the UI on a simple HTTP server run the following command, within the standard Command Prompt:
 ```bash
-python -m http.server
+python -m http.server 8080
 ```
 
-Then, open a web browser and navigate to http://localhost:8000 (or whichever URL your server is set to).
+Then, open a web browser and navigate to http://localhost:8080 (or whichever URL your server is set to).
 
 ## Commands for testing the Transport Planner
 

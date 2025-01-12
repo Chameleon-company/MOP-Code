@@ -5,6 +5,8 @@ import "../../../../public/styles/contact.css";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebaseConfig";
 
 
 interface FormField {
@@ -61,8 +63,8 @@ const Contact = () => {
       validator: (value: string) => value.trim() !== "",
     },
   ];
-  const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [formValues, setFormValues] = useState < { [key: string]: string } > ({});
+  const [errors, setErrors] = useState < { [key: string]: string } > ({});
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
 
@@ -97,7 +99,7 @@ const Contact = () => {
   };
 
   // Form submission handler
-  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
     // Validate all fields before submitting
@@ -110,24 +112,45 @@ const Contact = () => {
         valid = false;
       }
     });
+    const newErrors = {};
 
+    formFields.forEach((field) => {
+      const value = formValues[field.name] || "";
+      if (field.validator && !field.validator(value)) {
+        newErrors[field.name] = `Invalid ${field.spanName.toLowerCase()}`;
+        valid = false;
+      }
+    });
 
+    setErrors(newErrors);
+
+    if (!valid) return;
+
+    try {
+      await addDoc(collection(db, "contacts"), formValues);
+      setSuccessMessage("Form submitted successfully!");
+      setFailureMessage("");
+      setFormValues({});
+    } catch (error) {
+      setFailureMessage("Failed to submit form. Please try again.");
+      setSuccessMessage("");
+    }
   };
 
   return (<div className="contactPage font-sans bg-white min-h-screen">
     <Header />
     <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
-      
-    
+
+
       <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
-    
+
         <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
           {t("Contact")}
           <br />
           {t("Us")}
         </span>
-  
- 
+
+
         <div className="imgWrap relative w-full mt-4 lg:mt-0">
           <Image
             src="/img/contact-us-city.png"
@@ -138,8 +161,10 @@ const Contact = () => {
           />
         </div>
       </div>
-  
+
       <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8">
+        {successMessage && <p className="text-green-500 mb-3">{successMessage}</p>}
+        {failureMessage && <p className="text-red-500 mb-3">{failureMessage}</p>}
         <form
           id="contact"
           action=""
@@ -186,11 +211,11 @@ const Contact = () => {
           </div>
         </form>
       </div>
-  
+
     </main>
     <Footer />
   </div>
-  
+
 
   );
 };
