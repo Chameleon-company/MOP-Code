@@ -37,7 +37,7 @@ stories:
           - transport_mode
       - action: action_find_best_route
 
-<<<<<<< HEAD
+
   - story: Find best train route between two stations 
     steps:
     - intent: find_best_route
@@ -46,7 +46,7 @@ stories:
        - station_b
        - transport_mode
     -  action: action_find_best_route
-=======
+
   - story: Ask for direct train route
     steps:
       - intent: ask_direct_route
@@ -55,7 +55,6 @@ stories:
           - station_b
           - transport_mode
       - action: action_check_direct_route
->>>>>>> 845990298dff6ece6675b16c34c911638316a909
 
   - story: User asks for train transfers
     steps:
@@ -134,7 +133,6 @@ stories:
 
   - story: Find next tram
     steps:
-<<<<<<< HEAD
     - intent: find_next_tram
     - action: action_find_next_tram
 
@@ -148,7 +146,6 @@ stories:
     steps:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic  
-=======
       - intent: find_next_tram
         entities:
           - station_a
@@ -273,4 +270,3 @@ stories:
     - action: action_check_direct_tram_route
 #jubal stories (end)--------------------------------------------------------------------
 
->>>>>>> 845990298dff6ece6675b16c34c911638316a909

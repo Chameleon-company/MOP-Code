@@ -42,16 +42,13 @@ intents:
   - list_all_stations
   - nlu_fallback
   - list_stations_with_feature
-<<<<<<< HEAD
   - ask_traffic
   - ask_traffic_location
-=======
+
   #Jubal intents (start) -------------------------------------------
   - ask_tram_route
   - ask_tram_route_with_transfers
   #Jubal intents (start) -------------------------------------------
-
->>>>>>> 845990298dff6ece6675b16c34c911638316a909
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -59,10 +56,8 @@ entities:
   - station_b
   - current_longitude
   - current_latitude
-<<<<<<< HEAD
   - source
   - destination
-=======
   - transport_mode
   - route_name
   # Alex Finish entities  ----------------------------------------------------------
@@ -78,7 +73,6 @@ entities:
   
   - location_from
   - location_to
->>>>>>> 845990298dff6ece6675b16c34c911638316a909
 
 slots:
     # Alex Start slots  ---------------------------------------------------------------
@@ -128,14 +122,12 @@ slots:
     mappings:
       - type: from_entity
         entity: feature
-<<<<<<< HEAD
   
   source:
     type: text
     mappings:
       - type: from_text
       
-=======
 
   location_from:
     type: text
@@ -152,7 +144,6 @@ slots:
 
 
 
->>>>>>> 845990298dff6ece6675b16c34c911638316a909
 responses:
     # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
@@ -247,7 +238,6 @@ responses:
 
 
 actions:
-<<<<<<< HEAD
 - action_generate_tram_map
 - action_generate_bus_map
 - action_find_next_tram
@@ -269,41 +259,38 @@ actions:
 - action_fetch_traffic_location
 
 
-  
-=======
-  # Alex Start Actions  -----------------------------------------------------------
-  - action_generate_train_map
-  - action_generate_tram_map
-  - action_generate_bus_map
-  - action_find_next_train
-  - action_find_next_tram
-  - action_find_next_bus
-  - action_find_best_route
-  - action_calculate_transfers
-  - action_check_direct_route
-  - action_find_best_route_with_transfers
-  - action_check_train_change
-  - action_find_route_with_least_stops
-  - action_generate_route_map
-  - action_check_disruptions_tram
-  - action_check_disruptions_bus
-  - action_check_disruptions_train
-  - validate_transport_mode
-  # Alex Finish Actions  -----------------------------------------------------------
-  # Ross Start actions
-  - action_find_user_address
-  - action_find_nearest_station
-  - action_find_nearest_tram_stop
-  - action_find_nearest_bus_stop
-  - action_map_transport_in_area
-  # Ross finish Actions
-  - action_run_direction_script
-  - action_check_feature
-  - action_check_station
-  - action_list_all_stations
-  - action_list_stations_with_feature
-  #Jubal actions (start) -------------------------------------------
-  - action_check_direct_tram_route
-  - action_find_tram_route_with_transfers
-  #Jubal actions (end) -------------------------------------------
->>>>>>> 845990298dff6ece6675b16c34c911638316a909
+# Alex Start Actions  -----------------------------------------------------------
+- action_generate_train_map
+- action_generate_tram_map
+- action_generate_bus_map
+- action_find_next_train
+- action_find_next_tram
+- action_find_next_bus
+- action_find_best_route
+- action_calculate_transfers
+- action_check_direct_route
+- action_find_best_route_with_transfers
+- action_check_train_change
+- action_find_route_with_least_stops
+- action_generate_route_map
+- action_check_disruptions_tram
+- action_check_disruptions_bus
+- action_check_disruptions_train
+- validate_transport_mode
+# Alex Finish Actions  -----------------------------------------------------------
+# Ross Start actions
+- action_find_user_address
+- action_find_nearest_station
+- action_find_nearest_tram_stop
+- action_find_nearest_bus_stop
+- action_map_transport_in_area
+# Ross finish Actions
+- action_run_direction_script
+- action_check_feature
+- action_check_station
+- action_list_all_stations
+- action_list_stations_with_feature
+#Jubal actions (start) -------------------------------------------
+- action_check_direct_tram_route
+- action_find_tram_route_with_transfers
+#Jubal actions (end) -------------------------------------------
