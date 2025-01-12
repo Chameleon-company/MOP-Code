@@ -124,12 +124,6 @@ slots:
     mappings:
       - type: from_entity
         entity: feature
-  
-  source:
-    type: text
-    mappings:
-      - type: from_text
-      
 
   location_from:
     type: text
@@ -143,7 +137,13 @@ slots:
     mappings:
       - type: from_entity
         entity: location_to
-
+  
+  #Awanish --Slot
+  source:
+    type: text
+    mappings:
+      - type: from_text
+      
 
 
 responses:
