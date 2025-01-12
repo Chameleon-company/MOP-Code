@@ -125,8 +125,6 @@ dependencies:
       - decorator==5.1.1
       - dnspython==2.3.0
       - docopt==0.6.2
-      - en-core-web-md==3.5.0
-      - en-core-web-sm==3.5.0
       - exceptiongroup==1.2.2
       - executing==2.1.0
       - fbmessenger==6.0.0
@@ -244,7 +242,6 @@ dependencies:
       - sklearn-crfsuite==0.3.6
       - slack-sdk==3.31.0
       - smart-open==6.4.0
-      - spacy==3.5.2
       - spacy-legacy==3.0.12
       - spacy-loggers==1.0.5
       - sqlalchemy==1.4.53

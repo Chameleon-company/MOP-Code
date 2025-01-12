@@ -175,6 +175,46 @@ nlu:
     - Check train disruptions for route [Frankston - City](route_name).
 # Alex Finish - Transport Intents --------------------------------------------------------------------------------
 
+# Ross Start - Intents
+- intent: find_nearest_station
+  examples: |
+    - how to find nearest [train] station?(transport_mode_rp)
+    - where is the nearest [Train] station?(transport_mode_rp)
+    - can you tell me whre the nearest [train]station is?(transport_mode_rp)
+
+- intent: find_nearest_tram_stop
+  examples: |
+    - how to find nearest [tram] station?(transport_mode_rp)
+    - where is the nearest [Tram] stop?(transport_mode_rp)
+    - can you tell me whre the nearest [tram] stop is?(transport_mode_rp)
+
+- intent: find_nearest_bus_stop
+  examples: |
+    - how to find nearest [bus]?(transport_mode_rp)
+    - where is the nearest [Bus] stop?(transport_mode_rp)
+    - can you tell me whre the nearest [bus] stop is?(transport_mode_rpv)
+    - Which [bus] station is closest to my location?(transport_mode_rp)
+
+- intent: find_user_address
+  examples: |
+    - My address is [The Esplanade 138, St Kilda](address)
+    - It's [464 St Kilda Road, Melbourne](address)
+    - [250 Howe Cresent, Albert Park](address)
+    - I live at [205 Kooyong Rd, Toorak](address)
+    - The address is [192 High Steet, Kew](address)
+    - I am currently at [62 Glengarry Avenue, Burwood](address)
+    - Am at [38 Little Bourke Place, Melbourne](address)
+    - [11 Natasha Close, St Helana](address)
+    - I am at [426 Blackheath Mews, Waurn Ponds]
+
+- intent: map_transport_in_area
+  examples: |
+    - Can you show me all [tram](transport_mode_rp) stops near [Kew](location)?
+    - Generate a map of [bus](transport_mode_rp) stops in [Carlton](location)
+    - Show me the local [train](transport_mode_rp) stations nearby the [MCG](location)
+    - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).  
+#Ross Finish - Intents
+
 - intent: run_direction_script
   examples: |
     - run the direction script
@@ -218,34 +258,23 @@ nlu:
 #Logan new
 - intent: get_directions
   examples: |
-    # Basic format variations
     - How to get from [Essendon](location_from) to [Prahran](location_to)
     - Navigate from [Essendon](location_from) to [Prahran](location_to)
     - I want to go from [Southbank](location_from) to [St Kilda](location_to)
     - Get me from [Collingwood](location_from) to [Federation Square](location_to)
     - Show me how to get from [Melbourne Airport](location_from) to [CBD](location_to)
-    
-    # Question format variations
     - How do I get from [Collingwood](location_from) to [Federation Square](location_to)?
     - What's the way from [Footscray](location_from) to [Richmond](location_to)?
     - How can I get from [Carlton](location_from) to [MCG](location_to)?
-    
-    # Command format variations
     - Find route from [Melbourne Airport](location_from) to [CBD](location_to)
     - Show directions from [Prahran](location_from) to [Docklands](location_to)
     - Get me directions from [Carlton](location_from) to [MCG](location_to)
-    
-    # Shorter variations
     - [Southbank](location_from) to [St Kilda](location_to)
     - From [Carlton](location_from) to [MCG](location_to)
     - [Footscray](location_from) to [Richmond](location_to)
-    
-    # Explicit navigation requests
     - Navigate [Essendon](location_from) to [Prahran](location_to)
     - Direct me from [Collingwood](location_from) to [Federation Square](location_to)
     - Take me from [St Kilda](location_from) to [Brunswick](location_to)
-    
-    # Additional common variations
     - I need to get from [Footscray](location_from) to [Richmond](location_to)
     - Planning to go from [Prahran](location_from) to [Docklands](location_to)
     - Looking for route from [Carlton](location_from) to [MCG](location_to)
@@ -348,7 +377,75 @@ nlu:
     - Which stations are equipped with [hearing loops](feature)?
     - Where can I find stations that have [parking](feature)?
     - Could you tell me about stations that have [lifts](feature)?
+    
+    
+# Jubal NLU (start)-------------------------------------------------------------------------------
+- intent: ask_direct_tram_route
+  examples: |
+    - Is there a direct tram from [Flinders Street] to [Docklands]?
+    - Can I take a tram directly from [Southbank] to [Melbourne University](location)?
+    - Is there a tram that goes straight to [St Kilda](location)?
+    - Can I get to [Federation Square](location) without changing trams?
+    - Is it possible to reach [Brunswick](location) on a single tram?
+    - Does the tram from [Hawthorn](location) to [Collingwood](location) run directly?
+    - Can I travel from [Prahran](location) to [Chapel Street](location) on the same tram?
+    - Are there any direct tram connections to [Flemington](location)?
+    - Is there a direct tram between [Brunswick] and [Collingwood]?
 
+- intent: ask_tram_route_with_transfers
+  examples: |
+    - What tram should I take from [Docklands] to [Southbank]?
+    - Is there a tram from [Richmond] to [Chapel Street]?
+    - How can I get by tram from [Federation Square] to [St Kilda]?
+    - Can you find a tram from [Queen Victoria Market] to [Flinders Street]?
+    - Show me the tram route from [Hawthorn] to [Box Hill].
+    - Which tram connects [East Malvern] to [Prahran]?  
+    - Tell me the tram route from [North Melbourne] to [South Yarra].
+    - How do I go by tram from [Melbourne Zoo] to [Royal Botanic Gardens]?
+    - I need a tram route from [Carlton] to [Parkville].
+    - Can you suggest a tram from [Albert Park] to [Spencer Street]?
+    - Is there a tram from [Elsternwick] to [Southbank]?
+    - Which tram should I catch to go from [Brunswick Street] to [Docklands]?
+    - Are there trams that connect [Essendon] and [Toorak]?
+    - Find a tram route between [Melbourne Central] and [MCG].
+    - What is the tram route from [Burnley] to [Richmond]?
+    - Suggest a tram from [Southern Cross] to [Caulfield].
+    - Which tram runs between [Flemington] and [East Melbourne]?
+    - Can I catch a tram from [Footscray] to [Maribyrnong]?
+    - How can I travel by tram from [Kew] to [Balwyn]? 
+    - Which tram should I take to get from [Southern Cross] to [Queen Victoria Market]?
+    - How do I get from [Docklands] to [Prahran] on the tram network?
+    - Are there any connections needed to travel from [Richmond] to [Albert Park]?
+
+# Jubal NLU (end)-------------------------------------------------------------------------------
+
+
+
+
+#awanish NLU Start --------------------------------------
+- intent: ask_traffic_location
+  examples: |
+    - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
+    - what is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [Flinders Street](station_a) to [Brighton](station_b)?
+    - Traffic from [Flinders Street](station_a) to [Brighton](station_b)?
+    - what is traffic status from [CBD](station_a) to [St Kilda](station_b)?
+    - what is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [CBD](station_a) to [Brighton](station_b)?
+    - Traffic from [CBD](station_a) to [Brighton](station_b)?
+
+- intent: ask_traffic
+  examples: |
+    - Can i know traffic status of [Melbourne CBD](station_a)?
+    - I want to get traffic updated for [Flinders Street](station_a)
+    - What is traffic in [Richmond](station_a)?
+    - what is traffic in [Albert Park](station_a)?
+    - What is taffic status in [Brighton](station_a)?
+    - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+
+#Awanish NLU ends ---------------------
 
 entities:
   - station_name
