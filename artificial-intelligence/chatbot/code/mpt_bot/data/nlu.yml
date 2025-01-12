@@ -413,6 +413,9 @@ nlu:
     - Which tram runs between [Flemington] and [East Melbourne]?
     - Can I catch a tram from [Footscray] to [Maribyrnong]?
     - How can I travel by tram from [Kew] to [Balwyn]? 
+    - Which tram should I take to get from [Southern Cross] to [Queen Victoria Market]?
+    - How do I get from [Docklands] to [Prahran] on the tram network?
+    - Are there any connections needed to travel from [Richmond] to [Albert Park]?
 
 # Jubal NLU (end)-------------------------------------------------------------------------------
 
