@@ -422,7 +422,7 @@ nlu:
 
 
 
-#awanish
+#awanish NLU Start --------------------------------------
 - intent: ask_traffic_location
   examples: |
     - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
@@ -436,8 +436,6 @@ nlu:
     - Traffic update from [CBD](station_a) to [Brighton](station_b)?
     - Traffic from [CBD](station_a) to [Brighton](station_b)?
 
-  
-#awanish
 - intent: ask_traffic
   examples: |
     - Can i know traffic status of [Melbourne CBD](station_a)?
@@ -446,6 +444,8 @@ nlu:
     - what is traffic in [Albert Park](station_a)?
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+
+#Awanish NLU ends ---------------------
 
 entities:
   - station_name

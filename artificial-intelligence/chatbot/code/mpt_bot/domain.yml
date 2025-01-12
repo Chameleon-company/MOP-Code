@@ -45,9 +45,11 @@ intents:
   #Jubal intents (start) -------------------------------------------
   - ask_tram_route
   - ask_tram_route_with_transfers
-  #Jubal intents (start) -------------------------------------------
+  #Jubal intents (End) -------------------------------------------
+  #Awanish intents (start) -------------------------------------------
   - ask_traffic
   - ask_traffic_location
+  #Awanish intents (End) -------------------------------------------
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -55,8 +57,6 @@ entities:
   - station_b
   - current_longitude
   - current_latitude
-  - source
-  - destination
   - transport_mode
   - route_name
   # Alex Finish entities  ----------------------------------------------------------
@@ -69,9 +69,12 @@ entities:
   - location
   - station_name
   - feature  
-  
   - location_from
   - location_to
+  #Awanish entities start
+  - source
+  - destination
+  #Awanish entities end
 
 slots:
     # Alex Start slots  ---------------------------------------------------------------
@@ -229,12 +232,12 @@ responses:
   utter_default:
   - text: "Sorry I didn't understand. Can you rephrase?"
 
+ #Awanish responses(Start) -------------------------------------------
   utter_ask_source:
   - text: "For which loaction you want to know the traffic status?"
-
   utter_traffic_details:
     - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
-
+ #Awanish responses (end) -------------------------------------------
 
 actions:
  # Alex Start Actions  -----------------------------------------------------------
@@ -272,5 +275,7 @@ actions:
   - action_check_direct_tram_route
   - action_find_tram_route_with_transfers
   #Jubal actions (end) -------------------------------------------
+  #Awanish actions (Start) -------------------------------------------
   - action_fetch_traffic
   - action_fetch_traffic_location
+  #Awanish actions (end) -------------------------------------------
