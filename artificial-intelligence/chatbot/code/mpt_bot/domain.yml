@@ -42,13 +42,12 @@ intents:
   - list_all_stations
   - nlu_fallback
   - list_stations_with_feature
-  - ask_traffic
-  - ask_traffic_location
-
   #Jubal intents (start) -------------------------------------------
   - ask_tram_route
   - ask_tram_route_with_transfers
   #Jubal intents (start) -------------------------------------------
+  - ask_traffic
+  - ask_traffic_location
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -238,59 +237,40 @@ responses:
 
 
 actions:
-- action_generate_tram_map
-- action_generate_bus_map
-- action_find_next_tram
-- action_find_next_bus
-- action_find_next_train
-- action_generate_map
-- action_find_best_route
-- action_check_direct_route
-- action_calculate_transfers
-- action_find_best_route_with_transfers
-- action_find_route_with_least_stops
-- action_generate_route_map
-- action_run_direction_script
-- action_check_feature
-- action_check_station
-- action_list_all_stations
-- action_list_stations_with_feature
-- action_fetch_traffic
-- action_fetch_traffic_location
-
-
-# Alex Start Actions  -----------------------------------------------------------
-- action_generate_train_map
-- action_generate_tram_map
-- action_generate_bus_map
-- action_find_next_train
-- action_find_next_tram
-- action_find_next_bus
-- action_find_best_route
-- action_calculate_transfers
-- action_check_direct_route
-- action_find_best_route_with_transfers
-- action_check_train_change
-- action_find_route_with_least_stops
-- action_generate_route_map
-- action_check_disruptions_tram
-- action_check_disruptions_bus
-- action_check_disruptions_train
-- validate_transport_mode
-# Alex Finish Actions  -----------------------------------------------------------
-# Ross Start actions
-- action_find_user_address
-- action_find_nearest_station
-- action_find_nearest_tram_stop
-- action_find_nearest_bus_stop
-- action_map_transport_in_area
-# Ross finish Actions
-- action_run_direction_script
-- action_check_feature
-- action_check_station
-- action_list_all_stations
-- action_list_stations_with_feature
-#Jubal actions (start) -------------------------------------------
-- action_check_direct_tram_route
-- action_find_tram_route_with_transfers
-#Jubal actions (end) -------------------------------------------
+ # Alex Start Actions  -----------------------------------------------------------
+  - action_generate_train_map
+  - action_generate_tram_map
+  - action_generate_bus_map
+  - action_find_next_train
+  - action_find_next_tram
+  - action_find_next_bus
+  - action_find_best_route
+  - action_calculate_transfers
+  - action_check_direct_route
+  - action_find_best_route_with_transfers
+  - action_check_train_change
+  - action_find_route_with_least_stops
+  - action_generate_route_map
+  - action_check_disruptions_tram
+  - action_check_disruptions_bus
+  - action_check_disruptions_train
+  - validate_transport_mode
+  # Alex Finish Actions  -----------------------------------------------------------
+  # Ross Start actions
+  - action_find_user_address
+  - action_find_nearest_station
+  - action_find_nearest_tram_stop
+  - action_find_nearest_bus_stop
+  - action_map_transport_in_area
+  # Ross finish Actions
+  - action_run_direction_script
+  - action_check_feature
+  - action_check_station
+  - action_list_all_stations
+  - action_list_stations_with_feature
+  #Jubal actions (start) -------------------------------------------
+  - action_check_direct_tram_route
+  - action_find_tram_route_with_transfers
+  #Jubal actions (end) -------------------------------------------
+  - action_fetch_traffic
+  - action_fetch_traffic_location

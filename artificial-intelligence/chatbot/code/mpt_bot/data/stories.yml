@@ -37,16 +37,6 @@ stories:
           - transport_mode
       - action: action_find_best_route
 
-
-  - story: Find best train route between two stations 
-    steps:
-    - intent: find_best_route
-      entities:
-       - station_a
-       - station_b
-       - transport_mode
-    -  action: action_find_best_route
-
   - story: Ask for direct train route
     steps:
       - intent: ask_direct_route
@@ -133,19 +123,6 @@ stories:
 
   - story: Find next tram
     steps:
-    - intent: find_next_tram
-    - action: action_find_next_tram
-
-  - story: Find next bus
-    steps:
-    - intent: find_next_bus
-    - action: action_find_next_bus
-
-  
-  - story: User asks about traffic
-    steps:
-    - intent: ask_user_about_location_for_traffic
-    - action: action_fetch_traffic  
       - intent: find_next_tram
         entities:
           - station_a
@@ -270,3 +247,7 @@ stories:
     - action: action_check_direct_tram_route
 #jubal stories (end)--------------------------------------------------------------------
 
+  - story: User asks about traffic
+    steps:
+    - intent: ask_user_about_location_for_traffic
+    - action: action_fetch_traffic 

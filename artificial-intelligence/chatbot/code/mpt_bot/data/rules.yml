@@ -97,6 +97,7 @@ rules:
   - intent: list_all_stations
   - action: action_list_all_stations
 
+#Awanish ---start
 - rule: find traffic data between locations
   steps:
   - intent: ask_traffic_location
@@ -106,6 +107,7 @@ rules:
   steps:
   - intent: ask_traffic
   - action: action_fetch_traffic  
+#awanish----end
 
 #AlexT - P2  
 - rule: Respond to next bus query
