@@ -1156,6 +1156,12 @@ class ActionListStationsWithFeature(Action):
 
         return []
     
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Traffic details for specific location
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
 class ActionFetchTraffic(Action):
     def name(self) -> Text:
         return "action_fetch_traffic"
@@ -1177,6 +1183,12 @@ class ActionFetchTraffic(Action):
             text=f"Traffic is {traffic_status_start} in {source} with a current speed of {traffic_details_location['current_speed']} km/h."
         )
 
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Traffic details for two location
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
 class ActionFetchTrafficLocation(Action):
     def name(self) -> Text:
         return "action_fetch_traffic_location"

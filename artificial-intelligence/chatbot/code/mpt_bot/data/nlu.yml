@@ -338,6 +338,7 @@ nlu:
     - Can I see a map of bus stops?
     - Create a bus map
 
+#awanish
 - intent: ask_traffic_location
   examples: |
     - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
@@ -352,6 +353,7 @@ nlu:
     - Traffic from [CBD](station_a) to [Brighton](station_b)?
 
   
+#awanish
 - intent: ask_traffic
   examples: |
     - Can i know traffic status of [Melbourne CBD](station_a)?
