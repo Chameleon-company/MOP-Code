@@ -142,15 +142,3 @@ logs/mistral_log.csv
 ```
 
 ---
-
-## Disclaimer
-
-This chatbot is intended for educational and research purposes only. It is **not a substitute for professional mental health advice or treatment.**
-
----
-
-## License
-
-This project is open-source and licensed for non-commercial, educational use.
-
----
