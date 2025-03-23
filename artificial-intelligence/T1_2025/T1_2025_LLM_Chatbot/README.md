@@ -21,12 +21,13 @@ This project is an AI-powered chatbot designed to provide supportive, empathetic
 ```
 CHATBOT/
 ├── datasets/
-│   ├── raw/                                # Raw dataset (e.g., emotion-emotion_69k.csv)
+│   ├── raw/ 
+        |──emotion-emotion_69k.csv          # Raw dataset (e.g., emotion-emotion_69k.csv)
 │   └── cleaned_empathetic_dataset.csv      # Cleaned dataset
 ├── models/                                 # GGUF model files (e.g., Mistral)
 ├── logs/                                   # Output logs for evaluation results
 ├── notebooks/
-│   └── data-cleanr.ipynb                    # Jupyter notebook for data preprocessing
+│   └── data-cleanr.ipynb                   # Jupyter notebook for data preprocessing
 ├── chatbot_terminal.py                     # Terminal chatbot script
 ├── evaluate_model.py                       # Script to test model on sample prompts
 ├── README.md                               # Project documentation (this file)
