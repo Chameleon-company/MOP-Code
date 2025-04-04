@@ -19,12 +19,13 @@ from actions.gtfs_utils import GTFSUtils
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
+#from actions.traffic_route 
 import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
 from rasa_sdk.events import SlotSet
-
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -1013,41 +1014,41 @@ class ValidateTransportMode(Action):
 	-------------------------------------------------------------------------------------------------------
 '''
 from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
 import subprocess
 import sys
+import os
+import logging
 
 logger = logging.getLogger(__name__)
 
-class ActionRunMappingScript(Action):
+class ActionRunDirectionScriptOriginal(Action):
     def name(self) -> Text:
         return "action_run_direction_script"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        #Get the two most recent user messages
-        user_messages = [event['text'] for event in tracker.events if event.get('event') == 'user']
-        user_location = user_messages[-2] if len(user_messages) >= 2 else None
-        destination = user_messages[-1] if user_messages else None
-
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        if not user_location or not destination:
-            dispatcher.utter_message(text="I couldn't understand the location or destination. Please provide both.")
+            
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        
+        if not location_from or not location_to:
+            dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
 
+        current_dir = os.path.dirname(os.path.abspath(__file__))
         script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
-
         
         try:
-            result = subprocess.run([sys.executable, script_path, user_location, destination], 
-                                    capture_output=True, 
-                                    text=True, 
-                                    check=True)
+            result = subprocess.run([sys.executable, script_path, location_from, location_to], 
+                                  capture_output=True, 
+                                  text=True, 
+                                  check=True)
             
             output = result.stdout.strip()
-
+            
             if output:
                 output_parts = output.split("|||")
                 
@@ -1057,7 +1058,6 @@ class ActionRunMappingScript(Action):
 
                     dispatcher.utter_message(text=description)
 
-                    #Generate URL for the map file using the existing server
                     relative_path = os.path.relpath(map_file_path, current_dir)
                     map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
 
@@ -1065,11 +1065,10 @@ class ActionRunMappingScript(Action):
                     dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
                 else:
                     dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
-
             else:
-                dispatcher.utter_message(text="The direction script has been executed successfully, but no output was produced.")
+                dispatcher.utter_message(text="The direction script executed successfully, but no output was produced.")
 
-        except subprocess.CalledProcessError as e:  
+        except subprocess.CalledProcessError as e:
             error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
             dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
             logger.error(f"Script execution failed: {error_message}")
@@ -1077,7 +1076,7 @@ class ActionRunMappingScript(Action):
             dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
             logger.error(f"Exception occurred: {str(e)}")
 
-        return [SlotSet("user_location", user_location), SlotSet("destination", destination)]
+        return []
 
 ''' 
 -------------------------------------------------------------------------------------------------------
@@ -1258,3 +1257,710 @@ class ActionListStationsWithFeature(Action):
             dispatcher.utter_message(text=f"Stations with {feature}: {stations_list}")
 
         return []
+    
+''' -------------------------------------------------------------------------------------------------------
+	Name: Traffic details for specific location
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
+class ActionFetchTraffic(Action):
+    def name(self) -> Text:
+        return "action_fetch_traffic"
+
+    def run(self, dispatcher, tracker, domain):
+        source = tracker.get_slot("station_a")
+        
+        source_coords = geocode_address(source)
+        #source_coords = getAddressLatLong( address = source)
+        #destination_coords = getAddressLatLong( address = destination )
+
+        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        
+        traffic_details_location = get_traffic_details(api_key, source_coords)
+        traffic_status_start = get_traffic_status(
+                traffic_details_location['current_speed'], traffic_details_location['free_flow_speed']
+            )
+        dispatcher.utter_message(
+            text=f"Traffic is {traffic_status_start} in {source} with a current speed of {traffic_details_location['current_speed']} km/h."
+        )
+
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Traffic details for two location
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
+class ActionFetchTrafficLocation(Action):
+    def name(self) -> Text:
+        return "action_fetch_traffic_location"
+
+    def run(self, dispatcher, tracker, domain):
+        source = tracker.get_slot("station_a")
+        destination = tracker.get_slot("station_b")
+        
+        source_coords = geocode_address(source)
+        destination_coords = geocode_address(destination)
+        #source_coords = getAddressLatLong( address = source)
+        #destination_coords = getAddressLatLong( address = destination )
+        
+        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        route_data = fetch_route(source_coords, destination_coords, api_key)
+       
+        if "error" in route_data:
+            dispatcher.utter_message(text=f"Error: {route_data['error']}")
+        else:
+            routes = route_data.get("routes", [])
+            if not routes:
+                dispatcher.utter_message(text="No routes found.")
+            else:
+                route = routes[0]
+                summary = route.get("summary", {})
+                distance = summary.get("lengthInMeters", 0) / 1000
+                travel_time = summary.get("travelTimeInSeconds", 0) / 60
+
+                #start_location = tuple(map(float, source_coords.split(',')))  # Melbourne CBD
+                traffic_details_start = get_traffic_details(api_key, source_coords)
+                
+                #traffic details for the destination location
+                #destination_location = tuple(map(float, destination_coords.split(',')))  # Albert Park
+                traffic_details_destination = get_traffic_details(api_key, destination_coords)
+               
+                if traffic_details_start and traffic_details_destination:
+                    traffic_status_start = get_traffic_status(
+                        traffic_details_start['current_speed'], traffic_details_start['free_flow_speed']
+                    )
+                    traffic_status_destination = get_traffic_status(
+                        traffic_details_destination['current_speed'], traffic_details_destination['free_flow_speed']
+                    )
+                dispatcher.utter_message(
+                    text=f"Traffic is {traffic_status_start} from {source} to {destination} with a current speed of {traffic_details_start['current_speed']} km/h. Estimated travel time is {travel_time:.2f} minutes for a distance of {distance:.2f} km."
+                )
+def fetch_route(source_coords, destination_coords, api_key):
+    base_url = "https://api.tomtom.com/routing/1/calculateRoute"
+    source = f"{source_coords[0]},{source_coords[1]}"
+    destination = f"{destination_coords[0]},{destination_coords[1]}"
+    url = f"{base_url}/{source}:{destination}/json"
+    params = {
+        "key": api_key,
+        "traffic": "true",
+        "routeType": "fastest",
+    }
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return {"error": f"API call failed with status code {response.status_code}"}
+    except Exception as e:
+        return {"error": str(e)}
+
+def get_traffic_details(api_key, location):
+    url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
+    latitude, longitude = location
+    params = {
+        "key": api_key,
+        "point": f"{latitude},{longitude}"
+    }
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        traffic_info = {
+            "current_speed": data['flowSegmentData']['currentSpeed'],
+            "free_flow_speed": data['flowSegmentData']['freeFlowSpeed'],
+            "confidence": data['flowSegmentData']['confidence'] * 100,
+        }
+        return traffic_info
+    except Exception as e:
+        return None
+
+def get_traffic_status(current_speed, free_flow_speed):
+    speed_ratio = current_speed / free_flow_speed
+    if speed_ratio >= 0.8:
+        return "light"
+    elif 0.6 <= speed_ratio < 0.8:
+        return "moderate"
+    else:
+        return "heavy"
+
+#Function to geocode an address using Nominatim
+def geocode_address(address):
+    geolocator = Nominatim(user_agent="mapping_app1.0")
+    
+    #Define the bounding box for Melbourne
+    melbourne_bbox = [(-38.433859,144.593741), (-37.511274,145.512529)]
+    
+    #Geocode the address within the Melbourne bounding box
+    location = geolocator.geocode(address, viewbox=melbourne_bbox, bounded=True)
+    
+    if location:
+        return location.latitude, location.longitude
+    else:
+        print("Address not found within Melbourne.")
+        return None
+
+'''
+-------------------------------------------------------------------------------------------------------
+	Name: Bus and Trains
+	Author: LoganG
+	-------------------------------------------------------------------------------------------------------
+'''
+
+import os
+import sys
+import time
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import logging
+
+# Add the current actions folder to search path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+
+from multimodal_transit_router import MultimodalTransitRouter
+
+logger = logging.getLogger(__name__)
+class ActionRunDirectionScript(Action):
+    def __init__(self):
+        super().__init__()
+        self.router = None
+        logger = logging.getLogger(__name__)
+        logger.info("ActionRunDirectionScript initialized")
+    
+    def name(self) -> Text:
+        return "action_run_direction_script"
+    
+    def _initialize_router(self):
+        """Initialize the router if not already initialized"""
+        if self.router is None:
+            try:
+                init_start = time.time()
+                logger.info("Starting router initialization...")
+                
+                dir_start = time.time()
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                os.chdir(current_dir)
+                logger.info(f"Directory operations took {time.time() - dir_start:.2f} seconds")
+                
+                router_start = time.time()
+                self.router = MultimodalTransitRouter()
+                logger.info(f"Router creation took {time.time() - router_start:.2f} seconds")
+                
+                logger.info(f"Total initialization took {time.time() - init_start:.2f} seconds")
+                
+            except Exception as e:
+                logger.error(f"Failed to initialize transit router: {e}")
+                raise
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            
+        # Log debug information
+        latest_message = tracker.latest_message
+        logger.info("========== START DEBUG INFO ==========")
+        logger.info(f"Latest message text: {latest_message.get('text')}")
+        logger.info(f"Recognized intent: {latest_message.get('intent', {}).get('name')}")
+        logger.info(f"Confidence score: {latest_message.get('intent', {}).get('confidence')}")
+        logger.info(f"Extracted entities: {latest_message.get('entities', [])}")
+        
+        run_start = time.time()
+        logger.info("Starting action execution")
+        
+        # Get locations from slots
+        slots_start = time.time()
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        logger.info(f"Final location_from: {location_from}")
+        logger.info(f"Final location_to: {location_to}")
+        logger.info(f"Slot extraction took {time.time() - slots_start:.2f} seconds")
+        
+        if not location_from or not location_to:
+            error_msg = f"Missing {'origin' if not location_from else 'destination'} location"
+            logger.error(f"Validation failed: {error_msg}")
+            dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
+            return []
+
+        try:
+            self._initialize_router()
+            
+            # Get route
+            route_start = time.time()
+            directions, map_file = self.router.find_route(location_from, location_to)
+            logger.info(f"Route finding took {time.time() - route_start:.2f} seconds")
+            
+            # Send response
+            response_start = time.time()
+            if isinstance(directions, str):
+                # Send all directions in a single message
+                dispatcher.utter_message(text=directions)
+                
+                # Handle map file if it exists
+                if map_file and os.path.exists(map_file):
+                    relative_path = os.path.relpath(map_file, current_dir)
+                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+                    link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                    dispatcher.utter_message(text=link_message, parse_mode="html")
+            else:
+                dispatcher.utter_message(text=directions)  # Error message
+                
+            logger.info(f"Response handling took {time.time() - response_start:.2f} seconds")
+                
+        except Exception as e:
+            error_msg = f"An error occurred while finding the route: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            dispatcher.utter_message(text=error_msg)
+
+        logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
+        return []
+
+
+class ActionFindTransferTramRoute(Action):
+
+    '''
+    ----------------------------------------------------------------------
+    tram routing with transfers
+    by: JubalK
+    -----------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_find_tram_route_with_transfers"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}")
+
+            query = tracker.latest_message.get('text')
+            print(f"User query: {query}")
+
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
+
+            if len(extracted_stations) < 2:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            station_a, station_b = extracted_stations[0], extracted_stations[1]
+
+            print(f"Station A: {station_a}")
+            print(f"Station B: {station_b}")
+
+            tram_stop_times.sort_index(inplace=True)
+
+            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops) #get stop id for starting
+            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops) #get stop id for destination
+
+            print(f"stop id for stop a: {stop_a_id}")
+            print(f"stop id for stop b: {stop_b_id}")
+
+            trip_id = tram_stop_times.loc[stop_b_id].index.get_level_values('trip_id').unique()[0]
+
+            queue = deque([(stop_a_id, [stop_a_id])])
+            visited = set()
+
+            if stop_a_id is None or stop_b_id is None:
+                dispatcher.utter_message(text=f"Sorry, I couldn't find stop IDs for {station_a} and {station_b}.")
+                return []
+
+            best_route = None
+            destination_found = False
+            tram_stop_times_reset = tram_stop_times.reset_index()
+
+            stop_route_data = tram_stop_times_reset.merge(
+                tram_trips[['trip_id', 'route_id']],  on='trip_id'
+            )[['stop_id', 'route_id']] # Ensure tram_trips has 'trip_id' and 'route_id'
+
+            print(f"stop_route data with the station_b id: {stop_route_data[stop_route_data['stop_id'] == stop_b_id]}")
+
+            route_stops = {
+                route_id: set(group['stop_id'])
+                for route_id, group in stop_route_data.groupby('route_id')
+            }
+
+            while queue:
+                current_stop_id, path = queue.popleft()  # Dequeue the current station and path
+
+                if current_stop_id == stop_b_id:
+                    # Destination reached, store the best route
+                    best_route = path
+                    print(f"Destination reached: {station_b}")
+                    destination_found = True
+                    break
+
+                if current_stop_id in visited:
+                    print(f"Station {current_stop_id} already processed, skipping.")
+                    continue
+
+                visited.add(current_stop_id)
+                print(f"Processing station: {current_stop_id}")
+
+                #current_stop_id = GTFSUtils.get_station_id(current_stop_id, tram_stops)
+                current_routes = {route_id for route_id, stops in route_stops.items() if current_stop_id in stops}
+                if current_stop_id is None:
+                    continue
+
+                for route_id in current_routes:
+                    if destination_found:
+                        break
+
+                    for next_stop_id  in route_stops[route_id]:
+                        if destination_found:
+                            break
+
+                        if next_stop_id == stop_b_id:
+                            # Direct route found
+                            best_route = path + [next_stop_id ]
+                            print(f"Direct route found to destination: {station_b}")
+                            queue.clear()
+                            destination_found = True
+                            break
+
+                        if next_stop_id not in visited:
+                            # Add the next station to the queue with the updated path
+                            queue.append((next_stop_id, path + [next_stop_id]))
+                            print(f"Queued station: {next_stop_id}")
+
+            if not best_route:
+                dispatcher.utter_message(
+                    text=f"Sorry, I couldn't find a suitable route from {station_a} to {station_b}.")
+                return []
+
+            best_route_names = [tram_stops.loc[tram_stops['stop_id'] == stop_id, 'stop_name'].values[0] for stop_id in best_route]
+            response = f"The best route from {station_a} to {station_b} involves the following transfers: {', '.join(best_route_names)}.\n"
+
+            dispatcher.utter_message(text=response)
+
+
+        except Exception as e:
+            GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route with transfers", e)
+            raise
+
+        return []
+
+
+class ActionFindTramRoute(Action):
+    '''
+    ----------------------------------------------------------------------
+    tram routing (direct connections)
+    by: JubalK
+    -----------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_check_direct_tram_route"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            query = tracker.latest_message.get('text')
+
+            print(f"tram stops dataframe: {tram_stops.head()}")
+            print(f"tram timings dataframe: {tram_stop_times.head()}")
+            print(f"tram timings columns: {tram_stop_times.columns}")
+            print(f"tram stops dataframe: {tram_stops.columns}")
+
+            query_normalized = query.lower().strip()
+            logger.info(f"Normalized query: {query_normalized}")
+
+            print(f"DataFrame passed to extract_stations_from_query: {tram_stops.head()['normalized_stop_name']}")
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
+
+            if len(extracted_stations) < 2:
+                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
+                return []
+
+            station_a = extracted_stations[0]
+            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
+
+            if not station_a or (not station_b and "to" in query.lower()):
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            stop_a_id = GTFSUtils. get_station_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils. get_station_id(station_b, tram_stops) if station_b else None
+
+            print(f"stop id for stop a: {stop_a_id}")
+            print(f"stop id for stop a: {stop_b_id}")
+
+            print(f"Station A: {station_a}, ID: {stop_a_id}")
+            print(f"Station B: {station_b}, ID: {stop_b_id}")
+
+            if stop_a_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_a} not found.")
+                return []
+            if stop_b_id not in tram_stop_times.index.get_level_values('stop_id'):
+                dispatcher.utter_message(text=f"Stop ID for {station_b} not found.")
+                return []
+
+            if not station_a or not station_b:
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            print(station_a)
+            print(station_b)
+
+            stop_a_times = tram_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+            stop_b_times = tram_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+
+            print(f"stop_a_id for stop a: {stop_a_times}")
+            print(f"stop_b_id for stop a: {stop_b_times}")
+
+            common_trip_ids = set(stop_a_times['trip_id']).intersection(set(stop_b_times['trip_id']))
+            print(f"Common trip IDs: {common_trip_ids}")
+
+            merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+            print(f"Merged stop times:\n{merged.head()}")
+
+            valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+            print(f"valid trips:\n{valid_trips.head()}")
+
+
+            if valid_trips.empty:
+                dispatcher.utter_message(text="No direct route found between the two stations.")
+                return []
+
+            valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
+            valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
+            valid_trips['travel_time'] = (
+                    valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
+
+            print(f"valid trips columns:\n{valid_trips.columns}")
+            print(f"valid trips:\n{valid_trips.head()}")
+
+            best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
+            print(f"best trips:\n{best_trip}")
+
+            route_id = tram_trips.loc[tram_trips['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
+            route_name = tram_routes.loc[tram_routes['route_id'] == route_id, 'route_long_name'].values[0]
+            destination = tram_trips.loc[tram_trips['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
+            print(f"route ID:\n{route_id}")
+            print(f"route name:\n{route_name}")
+            print(f"destination:\n{destination}")
+
+            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination} \n The trip taking approximately {best_trip['travel_time'] / 60:.2f} minutes."
+
+            print(response)
+
+            hyperlink = GTFSUtils.generate_route_map(best_trip['trip_id'], station_a, station_b, tram_stops, tram_stop_times,
+                                                     dataset_path)
+            if hyperlink:
+                response += f"\n{hyperlink}"
+
+            dispatcher.utter_message(text=response)
+
+        except Exception as e: GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
+
+
+
+# Ross Start Actions
+class ActionFindNearestStation(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: TRAIN
+        Name: Find Nearest Station
+        Author: RossP
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_find_nearest_station"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllStation(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest station to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+
+class ActionFindNearestTramStop(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+    ID: TRAM
+    Name: Find Nearest Tram Stop
+    Author: RossP
+    -------------------------------------------------------------------------------------------------------
+    ''' 
+    def name(self) -> Text:
+        return "action_find_nearest_tram_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllTramsStops(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest Tram Stop to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+
+class ActionFindNearestBusStop(Action):    
+    ''' -------------------------------------------------------------------------------------------------------
+    ID: BUS
+    Name: Find Nearest Bus Stop
+    Author: RossP
+    -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_find_nearest_bus_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+
+        unique_val = []
+        seen_val = set()
+        
+        for entity in entities:
+            if entity['value'] not in seen_val:
+                unique_val.append(entity['value'])
+                seen_val.add(entity['value']) 
+            if len(unique_val) == 2:
+                break   
+         
+        address_entity = ", ".join(unique_val) 
+        logger.debug(address_entity)
+        
+        #get lat and long of location form google API
+        addll = GTFSUtils.getAddressLatLong(address = address_entity)
+        logger.debug(addll)
+
+        #check distance to all stations
+        closStat = GTFSUtils.checkDistancetoAllBusStops(addll['latitude'],addll['longitude'])
+                        
+        
+        if address_entity:
+                dispatcher.utter_message(text = f"The closest Bus Stop to {address_entity} is {closStat['closest_station_name']}")
+        else: 
+            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+        
+        
+        return []
+    
+class ActionMapTransportInArea(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        ID: Mulit_01
+        Name: Map transport in area
+        Author: RossP
+        -------------------------------------------------------------------------------------------------------
+   '''
+    def name(self) -> Text:
+        return "action_map_transport_in_area"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        entities = tracker.latest_message.get("entities", [])
+        print(entities)
+        # parse entities for transport mode and location data
+        for entity in entities:
+            if entity['entity'] == 'transport_mode_rp':
+                transport_mode = entity['value']
+            
+            if entity['entity'] == 'locationa':
+                location = entity['value']
+        print(transport_mode,  location)
+        
+        #get lat and long of location form google API
+        locll = GTFSUtils.getAddressLatLong(address = location)
+        logger.debug(locll)
+
+        #get list of lat and long of stations around 1k from location, with transport mode
+        lstns = GTFSUtils.getListOfStationsWithin1k(locll, transport_mode)
+        print(lstns)        
+        
+        try: 
+            # Initialize map
+            melbourne_map = folium.Map(location=[locll['latitude'], locll['longitude']],
+                                       zoom_start=15)
+
+            # Use MarkerCluster for better performance
+            marker_cluster = MarkerCluster().add_to(melbourne_map)
+
+            # Add markers with simplified popups
+            for stns in lstns:
+                folium.Marker(
+                    location=[stns['lat'], stns['lon']],
+                    popup=f"{stns['stop']}",
+                    tooltip=f"{stns['stop']}"
+                ).add_to(marker_cluster)
+
+            # Save map to HTML
+            map_filename = 'stops_map.html'
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True)
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            # Send map link to user
+            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne {transport_mode} stops</a>"
+            dispatcher.utter_message(text=f"A map of {transport_mode} stops within 900 meters of {location} has been generated. {hyperlink}")
+
+        except Exception as e:
+            logging.error(f"Error generating tram map: {e}")
+            dispatcher.utter_message(text="An error occurred while generating the tram map.")
+        return []
+
+# Ross Finish Actions
