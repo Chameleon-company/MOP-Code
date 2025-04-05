@@ -1,0 +1,437 @@
+TimeCreated,Id,ProviderName,LogName,Label,Label_encoded,LevelDisplayName,Message,Message_cleaned
+2018-02-12 03:45:09,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 00:06:44,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 16 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 16 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 18:52:37,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 491 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 491 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 23:31:43,0.1378168710574775,35,,DDoS,0,2,The CDPUserSvc_251cd service entered the running state.,the cdpusersvc_251cd service entered the running state
+2018-02-11 15:25:53,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 04:53:21,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 15:56:21,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 21:15:18,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 02:40:08,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 22:36:52,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 622 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 622 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 21:53:23,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 17:37:13,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 488 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 488 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 23:30:07,0.0002154919092583,15,,DDoS,0,2,The operating system started at system time ?2018?-?02?-?14T12:30:07.492908100Z.,the operating system started at system time 20180214t123007492908100z
+2018-02-13 23:36:04,0.0004701641656545,14,,DDoS,0,2,The boot menu policy was 0x0.,the boot menu policy was 0x0
+2018-02-11 16:17:30,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 13:39:16,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 10:21:41,0.1378168710574775,35,,DDoS,0,2,The Update Orchestrator Service for Windows Update service entered the stopped state.,the update orchestrator service for windows update service entered the stopped state
+2018-02-16 03:24:43,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 106 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 106 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 22:46:45,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 15:01:56,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 418 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 418 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 22:14:58,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 22:14:36,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 23:30:06,0.1378168710574775,35,,DDoS,0,2,The WinRM service entered the running state.,the winrm service entered the running state
+2018-02-11 00:17:41,0.1378168710574775,35,,DDoS,0,2,The Diagnostic System Host service entered the stopped state.,the diagnostic system host service entered the stopped state
+2018-02-14 09:48:20,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 21:35:37,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 595 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 595 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 20:43:05,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 09:32:42,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 269 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 269 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 12:48:04,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 23:46:55,0.1378168710574775,35,,DDoS,0,2,The wlidsvc service entered the running state.,the wlidsvc service entered the running state
+2018-02-14 22:39:46,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 06:47:07,0.000293852603534,15,,DDoS,0,2,The access history in hive \??\C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.ShellExperienceHost_cw5n1h2txyewy\Settings\settings.dat was cleared updating 2 keys and creating 1 modified pages.,the access history in hive cusersadministratorappdatalocalpackagesmicrosoftwindowsshellexperiencehost_cw5n1h2txyewysettingssettingsdat was cleared updating 2 keys and creating 1 modified pages
+2018-02-13 11:46:35,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 330 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 330 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 15:12:28,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 09:35:32,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-16 06:02:35,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 15:02:53,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 22:49:17,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 09:04:55,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 14:01:40,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:27:52,0.1378168710574775,35,,DDoS,0,2,The IPsec Policy Agent service entered the stopped state.,the ipsec policy agent service entered the stopped state
+2018-02-11 00:19:24,0.1378168710574775,35,,DDoS,0,2,The sppsvc service entered the running state.,the sppsvc service entered the running state
+2018-02-11 19:10:38,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 14:40:13,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 07:43:05,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 221 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 221 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 18:25:37,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 01:32:19,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 23:36:24,0.0005093445127923,14,,DDoS,0,2,The boot type was 0x0.,the boot type was 0x0
+2018-02-11 22:22:30,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-10 06:37:20,0.1378168710574775,35,,DDoS,0,2,The DHCP Client service entered the running state.,the dhcp client service entered the running state
+2018-02-11 00:19:05,9.79508678446891e-05,10,,DDoS,0,2,"File System Filter 'luafv' (6.3, ?2017?-?10?-?10T12:36:39.000000000Z) has successfully loaded and registered with Filter Manager.",file system filter luafv 63 20171010t123639000000000z has successfully loaded and registered with filter manager
+2018-02-14 12:14:35,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 06:46:04,0.0008423774634643,31,,DDoS,0,2,Windows Update started downloading an update.,windows update started downloading an update
+2018-02-13 13:43:32,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 06:45:13,0.0019002468361869,20,,DDoS,0,2,Volume \\?\Volume{4a6ec97e-0000-0000-0000-100000000000} (\Device\HarddiskVolume1) is healthy.  No action is needed.,volume volume4a6ec97e000000000000100000000000 deviceharddiskvolume1 is healthy  no action is needed
+2018-02-12 22:42:05,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 15:25:28,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 17:35:09,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-11 16:05:12,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 427 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 427 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 04:33:47,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-16 01:06:47,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:29:55,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 12:39:00,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 15:37:38,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 407 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 407 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-16 03:23:53,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 108 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 108 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-10 23:34:27,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 460 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 460 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 08:37:51,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 245 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 245 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 07:08:26,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 00:46:50,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 32 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 32 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 05:26:08,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 138 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 138 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 08:22:11,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 00:30:48,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 12:07:38,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 339 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 339 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 13:36:14,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-16 00:08:37,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 20 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 20 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 13:25:29,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 06:58:57,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 23:26:41,0.1378168710574775,35,,DDoS,0,2,The Software Protection service entered the stopped state.,the software protection service entered the stopped state
+2018-02-12 00:39:36,0.1378168710574775,35,,DDoS,0,2,The MapsBroker service entered the running state.,the mapsbroker service entered the running state
+2018-02-15 02:58:08,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-11 22:38:07,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-11 17:32:20,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 23:22:43,0.1378168710574775,35,,DDoS,0,2,The Diagnostic System Host service entered the stopped state.,the diagnostic system host service entered the stopped state
+2018-02-10 08:04:11,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:34:19,0.1378168710574775,35,,DDoS,0,2,The Windows Connection Manager service entered the stopped state.,the windows connection manager service entered the stopped state
+2018-02-15 10:35:35,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 299 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 299 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 13:15:31,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 14:09:06,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 395 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 395 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 22:20:43,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 14:24:51,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 23:35:58,0.1378168710574775,35,,DDoS,0,2,The WinHTTP Web Proxy Auto-Discovery Service service entered the running state.,the winhttp web proxy autodiscovery service service entered the running state
+2018-02-12 02:46:31,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 23:42:49,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 22:58:45,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 443 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 443 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 05:28:03,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 07:40:36,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 191 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 191 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 10:21:04,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 19:47:22,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 18:39:20,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 23:36:59,0.0019002468361869,20,,DDoS,0,2,Volume \\?\Volume{4a6ec97e-0000-0000-0000-100000000000} (\Device\HarddiskVolume1) is healthy.  No action is needed.,volume volume4a6ec97e000000000000100000000000 deviceharddiskvolume1 is healthy  no action is needed
+2018-02-14 18:49:01,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 20:21:16,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 12:37:50,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 353 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 353 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-10 06:37:55,3.918034713787564e-05,37,,DDoS,0,2,Service started.,service started
+2018-02-14 00:47:41,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-11 03:12:21,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 14:36:26,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 06:44:25,0.0002154919092583,15,,DDoS,0,2,The operating system started at system time ?2018?-?02?-?09T19:44:23.498515700Z.,the operating system started at system time 20180209t194423498515700z
+2018-02-13 00:00:04,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 13 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 13 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 12:21:52,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 341 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 341 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 07:17:39,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 21:40:19,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 599 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 599 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 05:35:45,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 160 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 160 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 06:45:16,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 193 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 193 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 06:05:42,0.1378168710574775,35,,DDoS,0,2,The Application Experience service entered the stopped state.,the application experience service entered the stopped state
+2018-02-12 09:40:39,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:35:14,0.1378168710574775,35,,DDoS,0,2,The LanmanServer service entered the running state.,the lanmanserver service entered the running state
+2018-02-14 06:17:55,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 182 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 182 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 21:23:11,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 23:22:48,0.0002350820828272,15,,DDoS,0,2,The operating system is shutting down at system time ?2018?-?02?-?15T12:22:48.265691200Z.,the operating system is shutting down at system time 20180215t122248265691200z
+2018-02-12 09:08:24,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 229 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 229 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 05:27:56,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 131 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 131 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 13:16:16,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:30:00,0.000607295380637,14,,DDoS,0,2,The bootmgr spent 0 ms waiting for user input.,the bootmgr spent 0 ms waiting for user input
+2018-02-14 00:16:47,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 08:11:25,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 231 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 231 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 16:27:08,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 06:51:12,0.1378168710574775,35,,DDoS,0,2,The Windows Update service entered the running state.,the windows update service entered the running state
+2018-02-11 06:20:41,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 23:23:30,0.0033499196802883,17,,DDoS,0,2,"Connectivity state in standby: Disconnected, Reason: NIC compliance",connectivity state in standby disconnected reason nic compliance
+2018-02-15 16:19:57,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 457 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 457 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 23:35:25,0.1378168710574775,35,,DDoS,0,2,The AmazonSSMAgent service entered the running state.,the amazonssmagent service entered the running state
+2018-02-16 00:24:27,0.1378952317517533,35,,DDoS,0,2,The start type of the Background Intelligent Transfer Service service was changed from auto start to demand start.,the start type of the background intelligent transfer service service was changed from auto start to demand start
+2018-02-11 00:16:43,0.1378168710574775,35,,DDoS,0,2,The CDPUserSvc_2ff64 service entered the stopped state.,the cdpusersvc_2ff64 service entered the stopped state
+2018-02-14 07:59:20,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:38:27,0.1378168710574775,35,,DDoS,0,2,The User Access Logging Service service entered the running state.,the user access logging service service entered the running state
+2018-02-12 19:58:27,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 524 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 524 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 02:16:27,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 12:46:47,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-10 22:09:41,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 23:24:49,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-10 12:35:25,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 163 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 163 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 13:13:33,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:18:53,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 642 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 642 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 16:28:53,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 457 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 457 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 23:23:07,0.0002154919092583,15,,DDoS,0,2,The operating system started at system time ?2018?-?02?-?15T12:23:07.497735400Z.,the operating system started at system time 20180215t122307497735400z
+2018-02-12 03:32:32,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 03:04:18,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 06:08:13,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 175 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 175 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 14:58:40,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 20:50:23,0.1378168710574775,35,,DDoS,0,2,The Diagnostic System Host service entered the stopped state.,the diagnostic system host service entered the stopped state
+2018-02-12 12:39:17,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 10:24:53,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 15:41:28,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 11:21:02,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 22:19:08,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 583 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 583 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 00:43:13,0.1378168710574775,35,,DDoS,0,2,The UsoSvc service entered the running state.,the usosvc service entered the running state
+2018-02-11 04:51:30,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 19:13:35,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 19:44:56,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 18:52:51,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 491 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 491 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 04:45:22,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 140 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 140 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 15:53:39,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 441 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 441 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 00:37:22,0.1378168710574775,35,,DDoS,0,2,The Server service entered the running state.,the server service entered the running state
+2018-02-14 00:39:59,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 11:57:41,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 336 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 336 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 17:36:29,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 03:53:15,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 120 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 120 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 18:34:06,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 19:33:27,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 08:26:17,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 01:17:11,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 48 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 48 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 11:28:25,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 324 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 324 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-16 07:15:08,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 211 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 211 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 05:24:00,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 158 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 158 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 23:29:59,0.1378168710574775,35,,DDoS,0,2,The NetSetupSvc service entered the stopped state.,the netsetupsvc service entered the stopped state
+2018-02-13 17:58:40,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 500 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 500 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-16 02:24:17,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 82 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 82 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 07:54:40,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 206 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 206 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 16:15:02,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 446 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 446 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 13:08:06,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 10:49:56,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 276 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 276 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 02:01:22,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 37 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 37 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 16:08:47,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 01:37:50,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 23:23:20,0.1378168710574775,35,,DDoS,0,2,The tiledatamodelsvc service entered the running state.,the tiledatamodelsvc service entered the running state
+2018-02-11 11:36:50,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 305 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 305 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 01:23:18,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 51 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 51 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 02:49:54,0.1378168710574775,35,,DDoS,0,2,The Microsoft Account Sign-in Assistant service entered the stopped state.,the microsoft account signin assistant service entered the stopped state
+2018-02-14 15:31:25,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 05:52:22,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 10:51:40,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 03:18:38,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 23:28:54,0.1378168710574775,35,,DDoS,0,2,The gpsvc service entered the running state.,the gpsvc service entered the running state
+2018-02-11 00:49:19,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 13 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 13 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 06:37:31,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 00:38:04,0.0010578693727226,18,,DDoS,0,2,"Processor 0 in group 0 exposes the following power management capabilities:
+
+Idle state type: ACPI Idle (C) States (1 state(s))
+
+Performance state type: None
+Nominal Frequency (MHz): 2400
+Maximum performance percentage: 100
+Minimum performance percentage: 100
+Minimum throttle percentage: 100","processor 0 in group 0 exposes the following power management capabilities
+
+idle state type acpi idle c states 1 states
+
+performance state type none
+nominal frequency mhz 2400
+maximum performance percentage 100
+minimum performance percentage 100
+minimum throttle percentage 100"
+2018-02-12 21:41:33,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 23:30:00,0.1378168710574775,35,,DDoS,0,2,The WpnService service entered the running state.,the wpnservice service entered the running state
+2018-02-14 23:07:45,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 637 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 637 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 02:02:45,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 19:58:36,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 09:57:19,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 00:00:05,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-10 06:30:36,0.000293852603534,15,,DDoS,0,2,The access history in hive \??\C:\Users\Administrator\ntuser.dat was cleared updating 796 keys and creating 113 modified pages.,the access history in hive cusersadministratorntuserdat was cleared updating 796 keys and creating 113 modified pages
+2018-02-13 01:25:38,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 51 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 51 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 03:23:45,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 104 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 104 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 23:06:37,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 10:19:50,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 290 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 290 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 00:03:16,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 13 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 13 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 00:30:25,0.1378168710574775,35,,DDoS,0,2,The Background Intelligent Transfer Service service entered the stopped state.,the background intelligent transfer service service entered the stopped state
+2018-02-13 22:59:24,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 11:17:37,0.1378168710574775,35,,DDoS,0,2,The WinHTTP Web Proxy Auto-Discovery Service service entered the stopped state.,the winhttp web proxy autodiscovery service service entered the stopped state
+2018-02-11 23:32:47,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 631 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 631 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 07:26:39,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-10 06:45:28,0.1378168710574775,35,,DDoS,0,2,The Certificate Propagation service entered the running state.,the certificate propagation service entered the running state
+2018-02-14 17:10:13,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 474 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 474 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 16:14:26,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 446 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 446 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 23:58:22,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 639 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 639 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 11:42:51,0.1378168710574775,35,,DDoS,0,2,The WinHTTP Web Proxy Auto-Discovery Service service entered the running state.,the winhttp web proxy autodiscovery service service entered the running state
+2018-02-15 08:37:36,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 21:54:19,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 603 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 603 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 09:06:55,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 23:43:54,0.1378168710574775,35,,DDoS,0,2,The Data Sharing Service service entered the stopped state.,the data sharing service service entered the stopped state
+2018-02-14 04:23:06,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:29:48,0.1378168710574775,35,,DDoS,0,2,The Dnscache service entered the running state.,the dnscache service entered the running state
+2018-02-15 08:28:10,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 09:40:30,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 00:39:04,0.1378168710574775,35,,DDoS,0,2,The netprofm service entered the running state.,the netprofm service entered the running state
+2018-02-15 10:57:34,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 04:01:37,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 07:16:49,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-11 03:06:40,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 15:29:28,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 432 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 432 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 00:48:57,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 14 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 14 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 18:39:36,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 518 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 518 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 09:21:28,0.1378168710574775,35,,DDoS,0,2,The WinHTTP Web Proxy Auto-Discovery Service service entered the stopped state.,the winhttp web proxy autodiscovery service service entered the stopped state
+2018-02-10 14:05:00,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 204 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 204 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 01:50:19,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 42 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 42 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 16:08:29,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 13:35:49,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:35:09,0.1378168710574775,35,,DDoS,0,2,The iphlpsvc service entered the running state.,the iphlpsvc service entered the running state
+2018-02-13 08:14:46,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 21:06:25,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-15 23:09:06,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 639 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 639 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 16:51:17,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:31:38,0.1378168710574775,35,,DDoS,0,2,The MapsBroker service entered the stopped state.,the mapsbroker service entered the stopped state
+2018-02-13 09:36:29,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 272 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 272 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-10 22:41:37,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 03:28:27,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 76 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 76 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 15:20:47,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 405 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 405 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-09 22:20:27,0.1378168710574775,35,,DDoS,0,2,The Software Protection service entered the running state.,the software protection service entered the running state
+2018-02-16 02:40:46,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 04:26:50,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 134 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 134 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 22:38:28,0.1378168710574775,35,,DDoS,0,2,The WinHTTP Web Proxy Auto-Discovery Service service entered the running state.,the winhttp web proxy autodiscovery service service entered the running state
+2018-02-14 07:18:18,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 207 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 207 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 04:34:51,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:28:06,0.1378168710574775,35,,DDoS,0,2,The Cryptographic Services service entered the stopped state.,the cryptographic services service entered the stopped state
+2018-02-13 23:37:19,0.1378168710574775,35,,DDoS,0,2,The Software Protection service entered the stopped state.,the software protection service entered the stopped state
+2018-02-11 17:36:41,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 14:10:12,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-10 06:46:02,0.1378168710574775,35,,DDoS,0,2,The WinRM service entered the running state.,the winrm service entered the running state
+2018-02-14 17:01:31,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-16 07:32:05,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 05:32:07,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-16 07:09:21,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-16 03:20:09,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 105 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 105 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 01:11:30,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-14 08:17:39,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 06:47:10,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 14:06:12,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-15 23:24:32,0.0080907416839713,24,,DDoS,0,3,Task Scheduler service found a misconfiguration in the NT TASK\Microsoft\Windows\rempl\shell-unlock-sih definition. Additional Data: Error Value: %ProgramFiles%\rempl\remsh.exe.,task scheduler service found a misconfiguration in the nt taskmicrosoftwindowsremplshellunlocksih definition additional data error value programfilesremplremshexe
+2018-02-12 00:38:47,0.1378168710574775,35,,DDoS,0,2,The sppsvc service entered the running state.,the sppsvc service entered the running state
+2018-02-06 20:22:48,0.1378168710574775,35,,DDoS,0,2,The Windows Insider Service service entered the running state.,the windows insider service service entered the running state
+2018-02-10 23:15:31,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 450 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 450 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 12:55:58,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 02:59:55,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 93 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 93 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 14:10:06,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 08:01:42,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 197 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 197 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-10 06:44:58,0.000293852603534,15,,DDoS,0,2,The access history in hive \??\C:\Users\Administrator\ntuser.dat was cleared updating 1483 keys and creating 109 modified pages.,the access history in hive cusersadministratorntuserdat was cleared updating 1483 keys and creating 109 modified pages
+2018-02-15 00:15:21,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 21 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 21 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-13 00:06:07,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 16 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 16 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-15 07:56:30,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-16 08:18:13,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-13 05:01:04,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-12 17:44:27,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 463 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 463 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 17:29:57,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-13 23:23:39,0.1378168710574775,35,,DDoS,0,2,The Windows Insider Service service entered the running state.,the windows insider service service entered the running state
+2018-02-14 20:12:34,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-14 23:30:09,0.0004701641656545,14,,DDoS,0,2,The boot menu policy was 0x0.,the boot menu policy was 0x0
+2018-02-15 18:47:02,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 520 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 520 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-10 06:37:23,0.000293852603534,15,,DDoS,0,2,The access history in hive \SystemRoot\System32\Config\BBI was cleared updating 3 keys and creating 1 modified pages.,the access history in hive systemrootsystem32configbbi was cleared updating 3 keys and creating 1 modified pages
+2018-02-09 10:25:28,0.1378168710574775,35,,DDoS,0,2,The Software Protection service entered the running state.,the software protection service entered the running state
+2018-02-15 18:10:23,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 506 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 506 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-11 00:27:48,0.0008423774634643,31,,DDoS,0,2,Windows Update started downloading an update.,windows update started downloading an update
+2018-02-15 02:26:19,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
+2018-02-11 16:06:17,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 428 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 428 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-12 18:33:43,0.1377189201896328,35,,DDoS,0,1,The Amazon SSM Agent service terminated unexpectedly.  It has done this 482 time(s).  The following corrective action will be taken in 30000 milliseconds: Restart the service.,the amazon ssm agent service terminated unexpectedly  it has done this 482 times  the following corrective action will be taken in 30000 milliseconds restart the service
+2018-02-14 13:00:38,0.1375817889746503,35,,DDoS,0,1,"The Amazon SSM Agent service terminated with the following service-specific error: 
+Incorrect function.","the amazon ssm agent service terminated with the following servicespecific error 
+incorrect function"
+2018-02-12 01:29:58,0.1378168710574775,35,,DDoS,0,2,The Amazon SSM Agent service entered the stopped state.,the amazon ssm agent service entered the stopped state
