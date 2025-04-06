@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/api/usecases/route.js"  ],
   "exclude": [
     "node_modules"
   ]

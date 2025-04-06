@@ -52,6 +52,7 @@ async function handleRequest(req, res) {
                 const useCase = await UseCase.create(req.body);
                 res.status(201).json({ success: true, data: useCase });
             } catch (error) {
+                console.log('haritha error!');
                 res.status(400).json({ success: false, error: error.message });
             }
             break;
