@@ -26,12 +26,6 @@
     font-size: 1.5rem;
 }
 
-.upload-header-left,
-.upload-header-right {
-    padding: 0 2rem;
-    margin: 0 1rem;
-}
-
 .upload-header-right select {
     font-size: 1rem;
 }
@@ -68,12 +62,17 @@
     box-sizing: border-box;
 }
 
-.form-container .column input {
+.form-container .column input,
+.form-container .column select {
     width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+.taginput {
+    width: calc(100% - 20px);
 }
 
 .form-container .column label {
@@ -130,12 +129,6 @@
 
 
 /* Media Queries for Responsive Design */
-
-@media only screen and (max-width: 600px) {
-    .upload-header-left {
-        padding: 0;
-    }
-}
 
 @media only screen and (min-width: 768px) {
     .form-container .column {
