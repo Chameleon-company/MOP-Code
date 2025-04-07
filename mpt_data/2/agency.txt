@@ -1,0 +1,2 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone,agency_fare_url
+"3","Metro","https://www.ptv.vic.gov.au/footer/customer-service/operator-contact-details/?utm_source=open_data_click_agency&utm_medium=open_data_agency_click&utm_campaign=open_data_click","Australia/Melbourne","EN","1800 800 007","https://www.ptv.vic.gov.au/tickets/myki/?utm_source=open_data_click_fare&utm_medium=open_data_fare_click&utm_campaign=open_data_click"

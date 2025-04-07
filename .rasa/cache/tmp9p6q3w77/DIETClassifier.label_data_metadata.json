@@ -1,0 +1,471 @@
+[
+  {
+    "key": "label",
+    "components": [
+      {
+        "key": "sequence",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_0",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_1",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_2",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_3",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_4",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_5",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_6",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_7",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_8",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_9",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_10",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_11",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_12",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_13",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_14",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_15",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_16",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_17",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_18",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_19",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_20",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_21",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_22",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_23",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_24",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_25",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_26",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_27",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_28",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_29",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_30",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_31",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_32",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_33",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_34",
+                "shape": [
+                  1,
+                  40
+                ]
+              },
+              {
+                "type": "sparse",
+                "key": "component_label_sequence_0_35",
+                "shape": [
+                  1,
+                  40
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ids",
+        "number_of_dimensions": 2,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "list",
+                "key": "component_label_ids_0_0_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_1_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_2_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_3_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_4_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_5_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_6_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_7_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_8_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_9_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_10_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_11_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_12_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_13_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_14_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_15_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_16_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_17_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_18_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_19_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_20_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_21_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_22_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_23_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_24_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_25_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_26_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_27_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_28_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_29_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_30_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_31_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_32_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_33_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_34_list"
+              },
+              {
+                "type": "list",
+                "key": "component_label_ids_0_35_list"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sequence_lengths",
+        "number_of_dimensions": 1,
+        "features": [
+          {
+            "type": "list",
+            "key": "component_label_sequence_lengths_0_list"
+          }
+        ]
+      }
+    ]
+  }
+]

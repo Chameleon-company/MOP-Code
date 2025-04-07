@@ -1,0 +1,6 @@
+{
+  "rule_only_slots": [
+    "transport_mode"
+  ],
+  "rule_only_loops": []
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "key": "action_name",
+    "components": [
+      {
+        "key": "mask",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "dense",
+                "key": "component_action_name_mask_0_0_array",
+                "shape": [
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sentence",
+        "number_of_dimensions": 4,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "group",
+                "subcomponents": [
+                  {
+                    "type": "sparse",
+                    "key": "component_action_name_sentence_0_0_0",
+                    "shape": [
+                      0,
+                      81
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "dialogue",
+    "components": [
+      {
+        "key": "length",
+        "number_of_dimensions": 1,
+        "features": [
+          {
+            "type": "list",
+            "key": "component_dialogue_length_0_list"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "entities",
+    "components": [
+      {
+        "key": "mask",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "dense",
+                "key": "component_entities_mask_0_0_array",
+                "shape": [
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sentence",
+        "number_of_dimensions": 4,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "group",
+                "subcomponents": [
+                  {
+                    "type": "sparse",
+                    "key": "component_entities_sentence_0_0_0",
+                    "shape": [
+                      0,
+                      16
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "intent",
+    "components": [
+      {
+        "key": "mask",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "dense",
+                "key": "component_intent_mask_0_0_array",
+                "shape": [
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sentence",
+        "number_of_dimensions": 4,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "group",
+                "subcomponents": [
+                  {
+                    "type": "sparse",
+                    "key": "component_intent_sentence_0_0_0",
+                    "shape": [
+                      0,
+                      41
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "label",
+    "components": [
+      {
+        "key": "ids",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "group",
+                "subcomponents": [
+                  {
+                    "type": "list",
+                    "key": "component_label_ids_0_0_0_list"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "slots",
+    "components": [
+      {
+        "key": "mask",
+        "number_of_dimensions": 3,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "dense",
+                "key": "component_slots_mask_0_0_array",
+                "shape": [
+                  1,
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sentence",
+        "number_of_dimensions": 4,
+        "features": [
+          {
+            "type": "group",
+            "subcomponents": [
+              {
+                "type": "group",
+                "subcomponents": [
+                  {
+                    "type": "sparse",
+                    "key": "component_slots_sentence_0_0_0",
+                    "shape": [
+                      0,
+                      9
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

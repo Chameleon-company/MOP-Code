@@ -1,0 +1,54 @@
+{
+  "action_name": [
+    {
+      "data_type": "sentence",
+      "attribute": "action_name",
+      "origin": "SingleStateFeaturizer",
+      "is_sparse": true,
+      "shape": [
+        0,
+        81
+      ],
+      "safetensors_key": "action_name_0"
+    }
+  ],
+  "entities": [
+    {
+      "data_type": "sentence",
+      "attribute": "entities",
+      "origin": "SingleStateFeaturizer",
+      "is_sparse": true,
+      "shape": [
+        0,
+        16
+      ],
+      "safetensors_key": "entities_0"
+    }
+  ],
+  "slots": [
+    {
+      "data_type": "sentence",
+      "attribute": "slots",
+      "origin": "SingleStateFeaturizer",
+      "is_sparse": true,
+      "shape": [
+        0,
+        9
+      ],
+      "safetensors_key": "slots_0"
+    }
+  ],
+  "intent": [
+    {
+      "data_type": "sentence",
+      "attribute": "intent",
+      "origin": "SingleStateFeaturizer",
+      "is_sparse": true,
+      "shape": [
+        0,
+        41
+      ],
+      "safetensors_key": "intent_0"
+    }
+  ]
+}
