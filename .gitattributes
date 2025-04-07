@@ -1,0 +1,4 @@
+mpt_data/3/stop_times.txt filter=lfs diff=lfs merge=lfs -text
+mpt_data/4/stop_times.txt filter=lfs diff=lfs merge=lfs -text
+mpt_data/2/shapes.txt filter=lfs diff=lfs merge=lfs -text
+mpt_data/2/stop_times.txt filter=lfs diff=lfs merge=lfs -text
