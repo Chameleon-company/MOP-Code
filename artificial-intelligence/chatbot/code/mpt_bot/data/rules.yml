@@ -160,3 +160,18 @@ rules:
     - intent: ask_traffic
     - action: action_fetch_traffic  
 #Awanish  rule----end
+#Gurwinder rules (start) ----------------------------------------------------------
+  - rule: Ask for missing locations
+    condition:
+      - slot_was_set:
+          - location_from_a: null
+    steps:
+      - action: utter_ask_location_from_a
+
+  - rule: Ask for missing destinations
+    condition:
+      - slot_was_set:
+          - location_to_b: null
+    steps:
+      - action: utter_ask_location_to_b
+#Gurwinder rules (end) ----------------------------------------------------------

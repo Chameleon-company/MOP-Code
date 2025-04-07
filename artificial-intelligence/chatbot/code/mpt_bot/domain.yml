@@ -50,7 +50,14 @@ intents:
   - ask_traffic
   - ask_traffic_location
   #Awanish intents (End) -------------------------------------------
-
+  #Gurwinder intents (Start) -------------------------------------------
+  - greet
+  - goodbye
+  - request_route
+  - provide_location_from
+  - provide_location_to
+  - inform_route_not_found
+  #Gurwinder intents (End) -------------------------------------------
 entities:
     # Alex Start entities  -----------------------------------------------------------
   - station_a
@@ -75,6 +82,10 @@ entities:
   - source
   - destination
   #Awanish entities end
+  #Gurwinder entities start
+  - location_from_a
+  - location_to_b
+  #Gurwinder entities end
 
 slots:
     # Alex Start slots  ---------------------------------------------------------------
@@ -143,7 +154,15 @@ slots:
     type: text
     mappings:
       - type: from_text
-      
+
+  #Gurwinder --Slot
+  slots:
+    location_from_a:
+      type: text
+    location_to_b:
+      type: text
+
+
 
 
 responses:
@@ -158,6 +177,7 @@ responses:
     - text: "You want to use this transport mode: {transport_mode}."
   utter_goodbye:
     - text: "Goodbye!"
+    - text: "Goodbye! Have a nice day!"
   utter_challenge:
     - text: "I am a bot, here to help you plan your journey!"
   utter_ask_for_station_b:
@@ -180,6 +200,7 @@ responses:
     - text: "Please specify both the starting and destination stations."
   utter_greet:
     - text: "Hey! How are you?"
+    - text: "Hello! How can I assist you today?"
   utter_cheer_up:
     - text: "Here is something to cheer you up:"
       image: https://i.imgur.com/nGF1K8f.jpg
@@ -238,6 +259,18 @@ responses:
   utter_traffic_details:
     - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
  #Awanish responses (end) -------------------------------------------
+  #Gurwinder responses (Start) -------------------------------------------
+  utter_ask_location_from_a:
+      - text: "Please provide your starting location."
+  utter_ask_location_to_b:
+      - text: "Please provide your destination location."
+  utter_route_not_found:
+      - text: "Sorry, I couldn’t find the route. Please try again."
+  utter_provide_route:
+      - text: "Here is the route from {location_from} to {location_to}. [Hyperlink to the map]"
+
+  #Gurwinder responses (end) -------------------------------------------
+
 
 actions:
  # Alex Start Actions  -----------------------------------------------------------
@@ -279,3 +312,15 @@ actions:
   - action_fetch_traffic
   - action_fetch_traffic_location
   #Awanish actions (end) -------------------------------------------
+  #Gurwinder action(start)------------------------------------------
+  - action_route_planning
+  - action_location_from
+  - action_location_to
+  #Gurwinder action(end)------------------------------------------
+
+
+
+
+
+
+

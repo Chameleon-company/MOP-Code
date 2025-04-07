@@ -447,6 +447,89 @@ nlu:
 
 #Awanish NLU ends ---------------------
 
+#Gurwinder NLU starts
+version: "3.0"
+nlu:
+  - intent: greet
+    examples: |
+      - Hello!
+      - Hi there!
+      - Hey!
+      - Good morning!
+      - How are you?
+      - What's up?
+      - Hi!
+      - Good evening!
+      - Howdy!
+      - Yo!
+
+
+  - intent: request_route
+    examples: |
+      - How do I get from [Flinders Street](location_from_a) to [Melbourne Central](location_to_b)?
+      - What's the best route from [St Kilda](location_from_a) to the [CBD](location_to_b)?
+      - Show me the way from [Docklands](location_from_a) to [Southbank](location_to_b).
+      - How do I get from [Fitzroy](location_from_a) to the [MCG](location_to_b)?
+      - I need directions from [Queen Victoria Market](location_from_a) to [Federation Square](location_to_b).
+      - What’s the route from [Melbourne Zoo](location_from_a) to [Royal Botanic Gardens](location_to_b)?
+      - Can you tell me the way from [Melbourne Airport](location_from_a) to the [city](location_to_b)?
+      - How do I travel from [Melbourne Museum](location_from_a) to [Brighton Beach](location_to_b)?
+      - What’s the best route from [Carlton](location_from_a) to the [Docklands](location_to_b)?
+      - Can you guide me from [Richmond](location_from_a) to [Melbourne Park](location_to_b)?
+
+
+  - intent: provide_location_from_a
+    examples: |
+      - My starting point is [Flinders Street](location_from_a).
+      - I am at [St Kilda](location_from_a).
+      - I am near [Melbourne Central](location_from_a).
+      - I’m at the [MCG](location_from_a).
+      - I’m in [Fitzroy](location_from_a).
+      - I’m at [Queen Victoria Market](location_from_a).
+      - My location is [Docklands](location_from_a).
+      
+
+  - intent: provide_location_to_b
+    examples: |
+      - I want to go to [Melbourne Central](location_to_b).
+      - My destination is the [CBD](location_to_b).
+      - I’m heading to the [Docklands](location_to_b).
+      - I want to go to the [MCG](location_to_b).
+      - I need to get to [Federation Square](location_to_b).
+      - I’m traveling to the [Royal Botanic Gardens](location_to_b).
+      - I need directions to [Melbourne Zoo](location_to_b).
+      - I’m going to the [Brighton Beach](location_to_b).
+      - I’m heading to the [Docklands](location_to_b).
+      - I want to reach [Melbourne Park](location_to_b).
+
+  - intent: route_not_found
+    examples: |
+      - I can’t find that route.
+      - Sorry, I couldn’t find the route.
+      - There seems to be no route for that.
+      - I’m unable to find directions for that location.
+      - The route isn’t available right now.
+      - No upcoming routes found.
+      - Sorry, there’s no way to get from here to there.
+      - The system couldn’t find a route.
+      - I couldn’t get directions for that.
+      - That route doesn’t exist in the system.
+
+  - intent: goodbye
+    examples: |
+      - Goodbye!
+      - Bye!
+      - See you later!
+      - Take care!
+      - Have a good day!
+      - Catch you later!
+      - I’m leaving now, bye!
+      - Talk to you later!
+      - See you soon!
+      - Farewell!
+
+
+#Gurwinder NLU ends
 entities:
   - station_name
   - feature

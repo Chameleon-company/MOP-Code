@@ -252,3 +252,42 @@ stories:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
 #Awanish stories (end)----------------------
+#Gurwinder stories (Start)----------------------
+    - story: Route Planning
+      steps:
+        - intent: greet
+        - action: utter_greet
+        - intent: request_route
+        - action: utter_ask_for_location_from_a
+        - intent: provide_location_from_a
+          entities:
+            - location_from: "Melbourne Central"
+        - action: action_location_from
+        - action: utter_ask_for_location_to_b
+        - intent: provide_location_to_b
+          entities:
+            - location_to: "Dockyards"
+        - action: action_location_to_b
+        - action: action_route_planning
+        - action: utter_route_details
+
+    - story: Invalid Route
+      steps:
+        - intent: greet
+        - action: utter_greet
+        - intent: request_route
+        - action: utter_ask_for_location_from_a
+        - intent: provide_location_from_a
+          entities:
+            - location_from: "Melbourne Central"
+        - action: action_location_from
+        - action: utter_ask_for_location_to_b
+        - intent: provide_location_to_b
+          entities:
+            - location_to: "Invalid Place"
+        - action: action_location_to_b
+        - action: utter_error
+#Gurwinder stories (Start)----------------------
+
+
+

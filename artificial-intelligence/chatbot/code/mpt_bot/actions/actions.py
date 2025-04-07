@@ -1964,3 +1964,223 @@ class ActionMapTransportInArea(Action):
         return []
 
 # Ross Finish Actions
+
+#Gurwinder Start ACtion
+import requests
+import folium
+import os
+from folium.plugins import MarkerCluster
+from rasa_sdk import Action
+from rasa_sdk.executor import CollectingDispatcher
+from typing import Any, Dict, List, Text
+
+
+class ActionRoutePlanning(Action):
+    def name(self) -> Text:
+        return "action_route_planning"
+
+    def get_lat_long(self, location: str) -> Dict[str, float]:
+        """Get latitude and longitude of a location using OpenStreetMap's Nominatim API"""
+        url = f"https://nominatim.openstreetmap.org/search?q={location}&format=json"
+        response = requests.get(url).json()
+        if response:
+            return {"lat": float(response[0]["lat"]), "lon": float(response[0]["lon"])}
+        else:
+            return None
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        entities = tracker.latest_message.get("entities", [])
+        origin, destination = None, None
+
+        # Extract origin and destination from user message
+        for entity in entities:
+            if entity["entity"] == "location_from_a":
+                origin = entity["value"]
+            if entity["entity"] == "location_to_b":
+                destination = entity["value"]
+
+        if not origin or not destination:
+            dispatcher.utter_message(text="Please provide both the starting point and destination.")
+            return []
+
+        # Get lat-long for origin and destination
+        origin_coords = self.get_lat_long(origin)
+        destination_coords = self.get_lat_long(destination)
+
+        if not origin_coords or not destination_coords:
+            dispatcher.utter_message(text="Unable to fetch location coordinates. Please try again.")
+            return []
+
+        # Use OSRM API to get route
+        osrm_url = f"http://router.project-osrm.org/route/v1/driving/{origin_coords['lon']},{origin_coords['lat']};{destination_coords['lon']},{destination_coords['lat']}?overview=full&geometries=geojson"
+        route_response = requests.get(osrm_url).json()
+
+        if "routes" not in route_response or not route_response["routes"]:
+            dispatcher.utter_message(text="Unable to calculate the route. Please try again.")
+            return []
+
+        # Extract route geometry
+        route_geometry = route_response["routes"][0]["geometry"]["coordinates"]
+        route_coords = [(lat, lon) for lon, lat in route_geometry]  # Reverse order for folium
+
+        # Create map
+        route_map = folium.Map(location=[origin_coords["lat"], origin_coords["lon"]], zoom_start=12)
+
+        # Add origin and destination markers
+        folium.Marker([origin_coords["lat"], origin_coords["lon"]], popup="Start",
+                      icon=folium.Icon(color="green")).add_to(route_map)
+        folium.Marker([destination_coords["lat"], destination_coords["lon"]], popup="Destination",
+                      icon=folium.Icon(color="red")).add_to(route_map)
+
+        # Draw the route
+        folium.PolyLine(route_coords, color="blue", weight=5, opacity=0.7).add_to(route_map)
+
+        # Save map to HTML
+        map_filename = "route_map.html"
+        map_folder = os.path.join(os.getcwd(), "maps")
+        os.makedirs(map_folder, exist_ok=True)
+        map_path = os.path.join(map_folder, map_filename)
+        route_map.save(map_path)
+
+        # Generate public link
+        server_base_url = os.getenv("SERVER_BASE_URL", "http://localhost:8080")
+        public_url = f"{server_base_url}/maps/{map_filename}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the route map</a>"
+
+        dispatcher.utter_message(text=f"Here is the driving route from {origin} to {destination}. {hyperlink}")
+
+        return []
+
+
+# ----------------------------------- Action 2: Provide Direct Car Route -----------------------------------
+
+class ActionProvideDirectCarRoute(Action):
+
+    def name(self) -> str:
+        return "action_provide_direct_car_route"
+
+    def get_lat_long(self, location: str) -> Dict[str, float]:
+        """Get latitude and longitude of a location using OpenStreetMap's Nominatim API"""
+        url = f"https://nominatim.openstreetmap.org/search?q={location}&format=json"
+        response = requests.get(url).json()
+        if response:
+            return {"lat": float(response[0]["lat"]), "lon": float(response[0]["lon"])}
+        else:
+            return None
+
+    def run(self, dispatcher: CollectingDispatcher, tracker, domain: Dict[Text, Any]) -> list:
+        location_from = tracker.get_slot("location_from_a")
+        location_to = tracker.get_slot("location_to_b")
+
+        if not location_from or not location_to:
+            dispatcher.utter_message(text="Please provide both the starting and destination locations.")
+            return []
+
+        origin_coords = self.get_lat_long(location_from)
+        destination_coords = self.get_lat_long(location_to)
+
+        if not origin_coords or not destination_coords:
+            dispatcher.utter_message(text="Unable to fetch location coordinates. Please try again.")
+            return []
+
+        osrm_url = f"http://router.project-osrm.org/route/v1/driving/{origin_coords['lon']},{origin_coords['lat']};{destination_coords['lon']},{destination_coords['lat']}?overview=full&geometries=geojson"
+        route_response = requests.get(osrm_url).json()
+
+        if "routes" not in route_response or not route_response["routes"]:
+            dispatcher.utter_message(text="Unable to calculate the direct route. Please try again.")
+            return []
+
+        route_geometry = route_response["routes"][0]["geometry"]["coordinates"]
+        route_coords = [(lat, lon) for lon, lat in route_geometry]
+
+        route_map = folium.Map(location=[origin_coords["lat"], origin_coords["lon"]], zoom_start=12)
+        folium.Marker([origin_coords["lat"], origin_coords["lon"]], popup="Start",
+                      icon=folium.Icon(color="green")).add_to(route_map)
+        folium.Marker([destination_coords["lat"], destination_coords["lon"]], popup="Destination",
+                      icon=folium.Icon(color="red")).add_to(route_map)
+
+        folium.PolyLine(route_coords, color="blue", weight=5, opacity=0.7).add_to(route_map)
+
+        map_filename = "direct_route_map.html"
+        map_folder = os.path.join(os.getcwd(), "maps")
+        os.makedirs(map_folder, exist_ok=True)
+        map_path = os.path.join(map_folder, map_filename)
+        route_map.save(map_path)
+
+        server_base_url = os.getenv("SERVER_BASE_URL", "http://localhost:8080")
+        public_url = f"{server_base_url}/maps/{map_filename}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the direct route map</a>"
+
+        dispatcher.utter_message(text=f"Here is the direct route from {location_from} to {location_to}. {hyperlink}")
+
+        return []
+
+
+# ----------------------------------- Action 3: Provide Car Route With Transfers -----------------------------------
+
+class ActionProvideCarRouteWithTransfers(Action):
+
+    def name(self) -> str:
+        return "action_provide_car_route_with_transfers"
+
+    def get_lat_long(self, location: str) -> Dict[str, float]:
+        """Get latitude and longitude of a location using OpenStreetMap's Nominatim API"""
+        url = f"https://nominatim.openstreetmap.org/search?q={location}&format=json"
+        response = requests.get(url).json()
+        if response:
+            return {"lat": float(response[0]["lat"]), "lon": float(response[0]["lon"])}
+        else:
+            return None
+
+    def run(self, dispatcher: CollectingDispatcher, tracker, domain: Dict[Text, Any]) -> list:
+        location_from = tracker.get_slot("location_from_a")
+        location_to = tracker.get_slot("location_to_b")
+
+        if not location_from or not location_to:
+            dispatcher.utter_message(text="Please provide both the starting and destination locations.")
+            return []
+
+        origin_coords = self.get_lat_long(location_from)
+        destination_coords = self.get_lat_long(location_to)
+
+        if not origin_coords or not destination_coords:
+            dispatcher.utter_message(text="Unable to fetch location coordinates. Please try again.")
+            return []
+
+        # Let's simulate transfers by breaking the route into multiple steps
+        osrm_url = f"http://router.project-osrm.org/route/v1/driving/{origin_coords['lon']},{origin_coords['lat']};{destination_coords['lon']},{destination_coords['lat']}?overview=full&geometries=geojson"
+        route_response = requests.get(osrm_url).json()
+
+        if "routes" not in route_response or not route_response["routes"]:
+            dispatcher.utter_message(text="Unable to calculate the route with transfers. Please try again.")
+            return []
+
+        route_geometry = route_response["routes"][0]["geometry"]["coordinates"]
+        route_coords = [(lat, lon) for lon, lat in route_geometry]
+
+        route_map = folium.Map(location=[origin_coords["lat"], origin_coords["lon"]], zoom_start=12)
+        folium.Marker([origin_coords["lat"], origin_coords["lon"]], popup="Start",
+                      icon=folium.Icon(color="green")).add_to(route_map)
+        folium.Marker([destination_coords["lat"], destination_coords["lon"]], popup="Destination",
+                      icon=folium.Icon(color="red")).add_to(route_map)
+
+        folium.PolyLine(route_coords, color="blue", weight=5, opacity=0.7).add_to(route_map)
+
+        map_filename = "route_with_transfers_map.html"
+        map_folder = os.path.join(os.getcwd(), "maps")
+        os.makedirs(map_folder, exist_ok=True)
+        map_path = os.path.join(map_folder, map_filename)
+        route_map.save(map_path)
+
+        server_base_url = os.getenv("SERVER_BASE_URL", "http://localhost:8080")
+        public_url = f"{server_base_url}/maps/{map_filename}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the route with transfers map</a>"
+
+        dispatcher.utter_message(
+            text=f"Here is the route with transfers from {location_from} to {location_to}. {hyperlink}")
+
+        return []
+
+# Gurwinder Finsh Action
