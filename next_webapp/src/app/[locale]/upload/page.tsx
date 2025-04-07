@@ -80,19 +80,13 @@ const Upload = () => {
     <div className="bg-gray-200">
       <Header />
 
-      <div className="bg-gray-200  flex justify ">
-        <div className="upload-header-left ">
-          <h1 className="font-bold text-[50px] py-11">{"Upload Case Studies"}</h1>
-        </div>
-
+      <div className="bg-gray-200 text-center">
+          <h1 className="font-bold text-2xl sm:text-4xl py-11">{"Upload Case Studies"}</h1>
       </div>
 
       <div className="upload-container">
-        <div className="flex items-center justify-between py-4">
-          <h2 style={{ textAlign: "left" }}>{"Upload Details"}</h2>
-
-
-
+        <div className="text-center sm:text-left sm:text-xl sm:mb-2">
+          <h3>{"Upload Details"}</h3>
         </div>
         <div className="form-container">
           <div className="column">
@@ -102,31 +96,34 @@ const Upload = () => {
 
             {/* <pre>{JSON.stringify(tagselect)}</pre> */}
             <label htmlFor="Tag">{"Tags"}</label>
+            <div className="taginput">
             <TagsInput
               value={tagselect}
               onChange={setTagselect}
               name="tags"
               placeHolder="tags"
             />
+
+            </div>
           </div>
           <div className="column">
 
-            <label htmlFor="description" className="ml-5">{"Description"}</label>
-            <input type="text" id="last-name" className="ml-5" name="last-name" placeholder={"Enter Description"} />
+            <label htmlFor="description">{"Description"}</label>
+            <input type="text" id="last-name"  name="last-name" placeholder={"Enter Description"} />
 
-            <div className="column m-0">
+            
               <label htmlFor="description" className=" text-lg font-medium text-gray-700">{"Trimester"}</label>
-            </div>
-            <div className="column m-0">
-              <select className="border border-gray-300 rounded-md px-[93%] py-3  my-1"
+
+            <select className=" border border-gray-300 rounded-md py-3  my-1"
                 name="trimester"
                 id="trimester" >
                 <option value="option1">{"Trimester 1"}</option>
                 <option value="option2">{"Trimester 2"}</option>
                 <option value="option3">{"Trimester 3"}</option>
               </select>
+              
 
-            </div>
+            
 
           </div>
         </div>
