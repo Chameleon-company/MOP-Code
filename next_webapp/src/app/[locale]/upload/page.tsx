@@ -59,15 +59,6 @@ const Upload = () => {
         return;
       }
 
-
-      // export type CaseStudy = {
-      //   id: number;
-      //   name: string;
-      //   description: string;
-      //   tags: string[];
-      //   filename?: string;
-      // };
-
       try {
         setUploadStatus("uploading");
   
@@ -91,19 +82,7 @@ const Upload = () => {
           }
         );
         console.log('test1');
-        // console.log(formData.values().toArray());
         setUploadStatus("done");
-
-        // let response = await fetch('/api/usecases', {
-        //   cache: 'no-store',
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ title, description, tagselect, selectedFile })
-        // })
-
-        // response = await response.json();
       } catch (error) {
         console.log('test2');
         setUploadStatus("select");
