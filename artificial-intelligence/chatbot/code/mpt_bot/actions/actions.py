@@ -1399,6 +1399,73 @@ def geocode_address(address):
         print("Address not found within Melbourne.")
         return None
 
+
+def create_traffic_map(source_coords, destination_coords, route_points):
+    """Generates a traffic route map using Folium."""
+    map_center = [(source_coords[0] + destination_coords[0]) / 2, (source_coords[1] + destination_coords[1]) / 2]
+    traffic_map = folium.Map(location=map_center, zoom_start=12)
+
+    # Add markers for source and destination
+    folium.Marker(source_coords, tooltip="Start Location", icon=folium.Icon(color='green')).add_to(traffic_map)
+    folium.Marker(destination_coords, tooltip="Destination", icon=folium.Icon(color='red')).add_to(traffic_map)
+
+    # Add polyline for the route
+    folium.PolyLine(route_points, color='blue', weight=5, opacity=0.7).add_to(traffic_map)
+    
+    return traffic_map
+
+class ActionGenerateTrafficMap(Action):
+    def name(self) -> Text:
+        return "action_fetch_traffic_location"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            source = tracker.get_slot("station_a")
+            destination = tracker.get_slot("station_b")
+            
+            source_coords = geocode_address(source)
+            destination_coords = geocode_address(destination)
+            
+            if not source_coords or not destination_coords:
+                dispatcher.utter_message(text="Unable to retrieve coordinates for the given locations.")
+                return []
+            
+            api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+            route_data = fetch_route(source_coords, destination_coords, api_key)
+            
+            if "error" in route_data:
+                dispatcher.utter_message(text=f"Error: {route_data['error']}")
+                return []
+            
+            routes = route_data.get("routes", [])
+            if not routes:
+                dispatcher.utter_message(text="No routes found.")
+                return []
+            
+            route = routes[0]
+            points = [(leg["latitude"], leg["longitude"]) for leg in route["legs"][0]["points"]]
+            
+            traffic_map = create_traffic_map(source_coords, destination_coords, points)
+            
+            # Save map as an HTML file
+            map_filename = "traffic_route_map.html"
+            map_folder = os.path.join(os.getcwd(), "maps")
+            os.makedirs(map_folder, exist_ok=True)
+            map_path = os.path.join(map_folder, map_filename)
+            traffic_map.save(map_path)
+            
+            # Generate public URL
+            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8000')
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the traffic map</a>"
+            
+            dispatcher.utter_message(text=f"Your traffic map has been generated. {hyperlink}")
+        except Exception as e:
+            logging.error(f"Error generating traffic map: {e}")
+            dispatcher.utter_message(text="An error occurred while generating the traffic map.")
+        
+        return []
+
 '''
 -------------------------------------------------------------------------------------------------------
 	Name: Bus and Trains

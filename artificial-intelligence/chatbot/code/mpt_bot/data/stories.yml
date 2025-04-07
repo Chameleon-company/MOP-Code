@@ -252,3 +252,7 @@ stories:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
 #Awanish stories (end)----------------------
+  - story: User asks for a route with traffic details
+    steps:
+    - intent: ask_route
+    - action: action_fetch_traffic_location

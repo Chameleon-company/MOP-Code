@@ -160,3 +160,7 @@ rules:
     - intent: ask_traffic
     - action: action_fetch_traffic  
 #Awanish  rule----end
+  - rule: Respond to route inquiry
+    steps:
+    - intent: ask_route
+    - action: action_fetch_traffic_location

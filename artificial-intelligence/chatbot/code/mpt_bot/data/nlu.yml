@@ -446,7 +446,10 @@ nlu:
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
 
 #Awanish NLU ends ---------------------
-
+- intent: ask_route
+  examples: |
+    - What's the best route to [Southbank](station_b) from [Docklands](station_a)?
+    - Show me the route from [Melbourne Central](station_a) to [Federation Square](station_b)
 entities:
   - station_name
   - feature
