@@ -46,7 +46,8 @@ export async function GET(request) {
 // POST method to uplad use cases to mongoDB
 export async function POST(request: Request) {
 
-  const { title, description, tags, filename } = await request.json();
+  const { title, auth, duration, level, skills, description, tags, filename } = await request.json();
+  // console.log(request);
   
   try {
     const url = process.env.MONGODB_URI;
@@ -58,7 +59,11 @@ export async function POST(request: Request) {
       await newClient.connect();
 
       const newUseCase = new UseCase({ 
-        name: title, 
+        name: title,
+        auth: auth,
+        duration: duration,
+        level: level,
+        skills: skills, 
         description: description, 
         tags: tags, 
         filename: filename }

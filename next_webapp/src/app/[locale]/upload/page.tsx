@@ -21,6 +21,10 @@ const Upload = () => {
   //handlers for upload
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [auth, setAuth] = useState("");
+  const [duration, setDuration] = useState("");
+  const [level, setLevel] = useState("");
+  const [skills, setSkills] = useState("");
 
   useEffect(() => {
     setIsMounted(true);
@@ -50,7 +54,7 @@ const Upload = () => {
   };
 
   const handleUpload = async () => {
-    if (!title || !description) {
+    if (!title) {
       alert('Title and description cannot be null!');
     }
     else {
@@ -62,16 +66,16 @@ const Upload = () => {
       try {
         setUploadStatus("uploading");
   
-        const formData = new FormData();
-        formData.append("name", title);
-        formData.append("description", description);
-        formData.append("tags", tagselect);
-        formData.append("file", selectedFile);
+        // const formData = new FormData();
+        // formData.append("name", title);
+        // formData.append("description", description);
+        // formData.append("tags", tagselect);
+        // formData.append("file", selectedFile);
   
         const response = await axios.post(
           // "http://localhost:3000/en/upload",
           "/api/usecases",
-          {title, description, tagselect, selectedFile},
+          {title, auth, duration, level, skills, description, tagselect, selectedFile},
           {
             onUploadProgress: (progressEvent) => {
               const percentCompleted = Math.round(
@@ -119,18 +123,53 @@ const Upload = () => {
               placeholder={"Enter title"}
             />
 
+          <label htmlFor="auth">{"Authorised by"}</label>
+            <input
+              onChange={(e) => setAuth(e.target.value)}
+              type="text"
+              id="auth"
+              name="auth"
+              placeholder={"Enter name"}
+            />  
+          
+          <label htmlFor="skills">{"Pre-requisite Skills"}</label>
+            <input
+              onChange={(e) => setSkills(e.target.value)}
+              type="text"
+              id="skills"
+              name="skills"
+              placeholder={"Enter pre-requisite skills"}
+            /> 
+
             {/* <pre>{JSON.stringify(tagselect)}</pre> */}
             <label htmlFor="Tag">{"Tags"}</label>
             <TagsInput
               value={tagselect}
               onChange={setTagselect}
               name="tags"
-              placeHolder="tags"
+              placeHolder="Enter tags"
             />
           </div>
           <div className="column">
+          <label htmlFor="duration">{"Duration"}</label>
+            <input
+              onChange={(e) => setDuration(e.target.value)}
+              type="text"
+              id="duration"
+              name="duration"
+              placeholder={"Enter duration"}
+            /> 
 
-            <label htmlFor="description" className="ml-5">{"Description"}</label>
+          <label htmlFor="level">{"Level"}</label>
+            <input
+              onChange={(e) => setLevel(e.target.value)}
+              type="text"
+              id="level"
+              name="level"
+              placeholder={"Enter level"}
+            />        
+
+            {/* <label htmlFor="description" className="ml-5">{"Description"}</label>
             <input
               onChange={(e) => setDescription(e.target.value)}
               type="text"
@@ -152,12 +191,13 @@ const Upload = () => {
                 <option value="option3">{"Trimester 3"}</option>
               </select>
 
-            </div>
+            </div> */}
 
           </div>
         </div>
 
-        <div className="flex justify-center">
+        {/* previous file upload */}
+        {/* <div className="flex justify-center">
           <div className="border-dashed border-2 border-black w-[50rem] h-[25rem] items-center">
             <div className="flex items-center justify-center pt-[8rem]">
               <input ref={inputRef} type="file" onChange={handleFileChange} style={{ display: "none" }} />
@@ -184,7 +224,21 @@ const Upload = () => {
               </div>
             </div>
           </>
-        )}
+        )} */}
+
+
+        <label htmlFor="description" className="ml-5">{"Description"}</label>
+        <div className="flex justify-center pt-4">
+        <input
+              onChange={(e) => setDescription(e.target.value)}
+              type="text"
+              id="description"
+              name="description"
+              placeholder={"Enter description "}
+        />    
+        </div>
+
+
 
         <div className="flex justify-center pt-4">
                 <button

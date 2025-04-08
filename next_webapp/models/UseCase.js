@@ -5,6 +5,22 @@ const UseCaseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    auth: {
+        type: String,
+        required: true,
+    },
+    duration: {
+        type: String,
+        required: true,
+    },
+    level: {
+        type: String,
+        required: true,
+    },
+    skills: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
