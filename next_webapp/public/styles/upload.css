@@ -76,6 +76,14 @@
     border: 1px solid #ccc;
 }
 
+.form-container .column textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 .form-container .column label {
     font-size: small;
 }

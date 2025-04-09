@@ -6,6 +6,9 @@ import { useEffect, useState, useRef } from "react";
 import "../../../../public/img/Upload_use_case.png";
 import axios from "axios";
 import { TagsInput } from "react-tag-input-component";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { marked, Marked } from "marked";
 
 
 const Upload = () => {
@@ -25,6 +28,7 @@ const Upload = () => {
   const [duration, setDuration] = useState("");
   const [level, setLevel] = useState("");
   const [skills, setSkills] = useState("");
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     setIsMounted(true);
@@ -52,6 +56,7 @@ const Upload = () => {
     setProgress(0);
     setUploadStatus("select");
   };
+
 
   const handleUpload = async () => {
     if (!title) {
@@ -149,6 +154,8 @@ const Upload = () => {
               name="tags"
               placeHolder="Enter tags"
             />
+
+
           </div>
           <div className="column">
           <label htmlFor="duration">{"Duration"}</label>
@@ -196,6 +203,35 @@ const Upload = () => {
           </div>
         </div>
 
+        <div className="form-container">
+          <div className="column">
+          <label htmlFor="description">{"Description"}</label>
+            <textarea
+              className="form-control"
+              onChange={(e) => setDescription(e.target.value)}
+              id="description"
+              name="description"
+              placeholder={"Enter description "}
+              rows={5}
+            >
+            </textarea> 
+          </div>
+          <div className="column">
+          <label htmlFor="mdPreview">{"Markdown Preview"}</label>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {description}
+          </ReactMarkdown>
+            {/* <textarea
+              className="form-control"
+              id="mdPreview"
+              name="mdPreview"
+              placeholder={"Preview..."}
+              rows={5}
+            >
+            </textarea>  */}
+          </div>
+        </div>
+
         {/* previous file upload */}
         {/* <div className="flex justify-center">
           <div className="border-dashed border-2 border-black w-[50rem] h-[25rem] items-center">
@@ -225,20 +261,6 @@ const Upload = () => {
             </div>
           </>
         )} */}
-
-
-        <label htmlFor="description" className="ml-5">{"Description"}</label>
-        <div className="flex justify-center pt-4">
-        <input
-              onChange={(e) => setDescription(e.target.value)}
-              type="text"
-              id="description"
-              name="description"
-              placeholder={"Enter description "}
-        />    
-        </div>
-
-
 
         <div className="flex justify-center pt-4">
                 <button
