@@ -1,16 +1,32 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n-navigation';
 import LanguageDropdown from './LanguageDropdown';
 import { HiMenu, HiX } from 'react-icons/hi';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const t = useTranslations('common');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const [user, setUser] = useState(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    router.push('/en/login');
   };
 
   // Object array for navigation items
@@ -55,7 +71,19 @@ const Header = () => {
           </div>
           <div className="flex items-center">
             <LanguageDropdown />
-            <div className='hidden lg:flex'>
+            <div className="hidden lg:flex items-center gap-4">
+              {user ? (
+                <>
+                  <span className="text-sm text-gray-700">Hi, {user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md text-sm font-medium"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
             <Link
               href="/signup"
               className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
@@ -68,6 +96,8 @@ const Header = () => {
             >
               {t('Log In')}
             </Link>
+            </>
+              )}
             </div>
           </div>
         </div>
@@ -84,6 +114,18 @@ const Header = () => {
                   {t(item.name)}
                 </Link>
               ))}
+              {user ? (
+                <>
+                  <span className="block text-green-800 px-3 py-2 text-base font-medium">Hi, {user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left text-red-600 hover:text-red-800 px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
               {/* Add Sign Up and Log In buttons to mobile menu */}
               <Link
                 href="/signup"
@@ -97,7 +139,9 @@ const Header = () => {
               >
                 {t('Log In')}
               </Link>
-            </nav>
+            </>
+              )}
+              </nav>
           </div>
         )}
       </div>
