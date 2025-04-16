@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     try {
         // Parse the request body
         const { email, password } = await request.json();
-        console.log('Login request body:', { email, password });
+        console.log('Login request body:', { email });
 
         // Validate input
         if (!email || !password) {
