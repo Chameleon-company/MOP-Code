@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n-navigation';
 import LanguageDropdown from './LanguageDropdown';
 import { HiMenu, HiX } from 'react-icons/hi';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   const t = useTranslations('common');
@@ -23,7 +24,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm bg-white dark:bg-[#263238] text-black dark:text-white">
        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"></link>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -53,7 +54,8 @@ const Header = () => {
               ))}
             </nav>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center bg-white dark:bg-[#263238] text-black dark:text-white">
+            <ThemeToggle/>
             <LanguageDropdown />
             <div className='hidden lg:flex'>
             <Link
