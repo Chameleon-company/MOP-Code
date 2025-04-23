@@ -147,6 +147,12 @@
         "Remember Me": "Acuérdate de mí",
         "Forgot Password?": "¿Olvidaste tu contraseña?",
         "LOGIN": "ACCESO"
-
-     }
+     },
+     "forgot-password": {
+        "Forgot Password": "Olvidaste Contraseña",
+        "Email": "Correo electrónico",
+        "Continue": "Continuar",
+        "line1": "Código de Verificación de Un Solo Uso (OTP) será enviado",
+        "line2": "a su dirección de correo electrónico"
+    }
 }

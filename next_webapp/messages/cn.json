@@ -147,6 +147,12 @@
     "Remember Me": "记住账号",
     "Forgot Password?": "忘记密码？",
     "LOGIN": "登录"
-
+  },
+  "forgot-password":{
+    "Forgot Password": "忘记密码",
+    "Email": "电子邮件",
+    "Continue": "继续",
+    "line1": "一次性密码 (OTP) 将发送到您的",
+    "line2": "邮箱地址以进行验证"
   }
 }
