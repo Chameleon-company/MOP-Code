@@ -24,7 +24,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm bg-white dark:bg-[#263238] text-black dark:text-white">
+    <header className="bg-white shadow-sm">
        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"></link>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -54,8 +54,8 @@ const Header = () => {
               ))}
             </nav>
           </div>
-          <div className="flex items-center bg-white dark:bg-[#263238] text-black dark:text-white">
-            <ThemeToggle/>
+          <div className="flex items-center">
+            <div className='px-3'><ThemeToggle/></div>
             <LanguageDropdown />
             <div className='hidden lg:flex'>
             <Link
