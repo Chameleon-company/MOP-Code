@@ -139,14 +139,14 @@
         "Moderate":"缓和",
         "Strong":"强的"
   },
-  "login":{
-    "Account Log In": "账户登录",
-    "Please login to continue to your account": "请登录以继续使用您的帐户",
-    "Email": "电子邮件",
-    "Password": "密码",
-    "Remember Me": "记住账号",
-    "Forgot Password?": "忘记密码？",
-    "LOGIN": "登录"
+    "login":{
+        "Account Log In": "账户登录",
+        "Please login to continue to your account": "请登录以继续使用您的帐户",
+        "Email": "电子邮件",
+        "Password": "密码",
+        "Remember Me": "记住账号",
+        "Forgot Password?": "忘记密码？",
+        "LOGIN": "登录"
+    }
 
-  }
 }
