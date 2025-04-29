@@ -325,7 +325,7 @@ const Dashboard = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: style }} />
 
-      <div className="main-wrapper">
+      <div className="main-wrapper bg-white dark:bg-[#263238] text-black dark:text-white">
         <div className="main-container">
           <section className="hero-section">
             <Image src={mainimage} alt={"main image1"} />
