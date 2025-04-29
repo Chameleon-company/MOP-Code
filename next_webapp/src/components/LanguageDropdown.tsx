@@ -59,7 +59,7 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            中文
+            Chinese (中文)
           </a>
           <a
             href="#"
@@ -69,7 +69,7 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            Español
+            Spanish (Español)
           </a>
           <a
             href="#"
@@ -79,8 +79,9 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            Ελληνικά
+            Greek (Ελληνικά)
           </a>
+         
         </div>
       )}
     </div>
