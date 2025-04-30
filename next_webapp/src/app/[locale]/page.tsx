@@ -10,7 +10,6 @@ const Home = () => {
     <div>
       <Header />
       <Dashboard />
-      <DashboardCaseStd />
       <Chatbot />
       <Footer />
     </div>

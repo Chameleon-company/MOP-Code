@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n-navigation';
 import LanguageDropdown from './LanguageDropdown';
 import { HiMenu, HiX } from 'react-icons/hi';
+import ThemeButton from './ThemeButton';
 
 const Header = () => {
   const t = useTranslations('common');
@@ -54,6 +55,7 @@ const Header = () => {
             </nav>
           </div>
           <div className="flex items-center">
+          <div className='px-3'><ThemeButton/></div>
             <LanguageDropdown />
             <div className='hidden lg:flex'>
             <Link

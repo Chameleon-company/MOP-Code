@@ -1,0 +1,81 @@
+.hero-section {
+    margin-top: 3.5rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .hero-section img {
+    width: 100%;
+    height: auto;
+    max-height: 40rem;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .our-vision-section {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    margin: 3rem auto;
+    gap: 2rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1200px;
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 768px) {
+    .our-vision-section {
+      flex-direction: row;
+      height: auto;
+      min-height: 10rem;
+    }
+  }
+  
+  .our-vision-section div {
+    flex: 1;
+    min-width: 0; /* Prevents flex item overflow */
+  }
+  
+  .img-div {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .img-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .recent-case-studies {
+    margin: 6rem auto;
+    padding: 0 2rem;
+    max-width: 1200px;
+    text-align: center;
+  }
+  
+  .recent-case-studies h2 {
+    color: black;  
+    font-family: Poppins, sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+  
+  .recent-case-studies p {
+    font-family: Poppins, sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 400;
+    color: black;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+  }
+  
+  .case-studies {
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 1400px;
+  }
