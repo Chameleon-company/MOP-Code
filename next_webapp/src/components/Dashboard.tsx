@@ -324,7 +324,6 @@ const Dashboard = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: style }} />
-
       <div className="main-wrapper">
         <div className="main-container">
           <section className="hero-section">
