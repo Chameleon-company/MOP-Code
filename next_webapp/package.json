@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "react-icons": "^5.2.1",
     "react-multi-carousel": "^2.8.5",
+    "react-social-media-embed": "^2.5.18",
     "react-tag-input-component": "^2.0.2",
     "save": "^2.9.0"
   },
