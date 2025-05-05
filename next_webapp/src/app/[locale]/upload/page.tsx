@@ -93,12 +93,12 @@ const Upload = () => {
         <div className="form-container">
           <div className="column">
             <label htmlFor="Name">{t("Name")}</label>
-            <input type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
+            <input className='dark:text-[#263238]' type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
 
 
             {/* <pre>{JSON.stringify(tagselect)}</pre> */}
             <label htmlFor="Tag">{"Tags"}</label>
-            <div className="taginput">
+            <div className="taginput dark:text-[#263238]">
             <TagsInput
               value={tagselect}
               onChange={setTagselect}
@@ -111,12 +111,12 @@ const Upload = () => {
           <div className="column">
 
             <label htmlFor="description">{"Description"}</label>
-            <input type="text" id="last-name"  name="last-name" placeholder={"Enter Description"} />
+            <input className="dark:text-[#263238]" type="text" id="last-name"  name="last-name" placeholder={"Enter Description"} />
 
             
               <label htmlFor="trimester">{"Trimester"}</label>
 
-            <select className=" border border-gray-300 rounded-md py-3  my-1 text-gray-500"
+            <select className=" border border-gray-300 rounded-md py-3  my-1 dark:text-[#263238]"
                 name="trimester"
                 id="trimester" >
                 <option value="option1">{t("Trimester 1")}</option>
@@ -148,7 +148,7 @@ const Upload = () => {
               <div className="bg-gray-200 w-[50rem] py-[3rem] px-2 rounded-3xl">
                 <div className="flex">
                   <img className="flex-initial h-8 w-auto" src="../img/document.png" alt="Document Icon" />
-                  <h6 className="flex-1 font-bold items-center pl-2">{selectedFileName}</h6>
+                  <h6 className="flex-1 font-bold items-center pl-2 dark:text-[#263238]">{selectedFileName}</h6>
                   <p> {progress}%</p>
                 </div>
                 <div className="w-full pt-3 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 pl-2">
