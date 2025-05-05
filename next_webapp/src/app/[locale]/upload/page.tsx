@@ -82,7 +82,7 @@ const Upload = () => {
     <div className="bg-gray-200 dark:bg-[#263238] dark:text-white">
       <Header />
 
-      <div className="bg-gray-200 text-center">
+      <div className="text-center">
           <h1 className="font-bold text-2xl sm:text-4xl py-11">{"Upload Case Studies"}</h1>
       </div>
 
