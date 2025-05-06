@@ -168,10 +168,16 @@ export async function POST(request: Request) {
       );
     });
   } else if (searchMode === SEARCH_MODE.CONTENT) {
-    filteredStudies = caseStudies.filter((caseStudy) => {
-      return caseStudy.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
+    filteredStudies = filteredStudies = caseStudies.filter((caseStudy) => {
+      const search = searchTerm.toLowerCase();
+      const inTags = caseStudy.tags.some((tag) =>
+          tag.toLowerCase().includes(search)
       );
+      const inDescription = caseStudy.description
+          .toLowerCase()
+          .includes(search);
+
+      return inTags || inDescription;
     });
   }
 
