@@ -1,61 +1,69 @@
+// app/[locale]/UseCases/page.tsx
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
 import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
-import { useTranslations } from "next-intl";
 
-async function searchUseCases(searchParams: SearchParams) {
-  const response = await fetch("/api/search-use-cases", {
+async function searchUseCases(params: SearchParams) {
+  const res = await fetch("/api/search-use-cases", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(searchParams),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
   });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  return await response.json();
+  if (!res.ok) throw new Error(`Error ${res.status}`);
+  return res.json();
 }
 
-const UseCases = () => {
-  const [caseStudies, setCaseStudies] = useState([])
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState(caseStudies);
+const UseCases: React.FC = () => {
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
+    []
+  );
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
+    null
+  );
 
   useEffect(() => {
-    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL)
-  }, [])
+    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
+  }, []);
 
   const handleSearch = async (
-    searchTerm: string,
-    searchMode: SEARCH_MODE,
-    category: CATEGORY
+    term: string,
+    mode: SEARCH_MODE,
+    cat: CATEGORY
   ) => {
-    const res = await searchUseCases({ searchTerm, searchMode, category });
-    console.log("🚀 ~ UseCases ~ res:", res);
-    setFilteredCaseStudies(res?.filteredStudies);
+    try {
+      const res = await searchUseCases({
+        searchTerm: term,
+        searchMode: mode,
+        category: cat,
+      });
+      setFilteredCaseStudies(res.filteredStudies);
+    } catch {
+      setFilteredCaseStudies([]);
+    }
   };
 
-  const t = useTranslations("usecases");
-
   return (
-    <div className="font-sans bg-gray-100">
+    <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800">
       <Header />
-      <main>
-        <div className="app">
-          <section className="px-10 pt-5">
-            <p>
-              <span className="text-4xl font-bold text-black">
-                {t("User Cases")}
-              </span>
-            </p>
-            <SearchBar onSearch={handleSearch} />
-            <PreviewComponent caseStudies={filteredCaseStudies} />
+      <main className="flex-grow">
+        <div className="max-w-7xl mx-auto px-4 lg:px-10 bg-white dark:bg-gray-800">
+          <section className="py-5 bg-white dark:bg-gray-800">
+            <h1 className="text-4xl font-bold text-black dark:text-white mb-6">
+              Use Cases
+            </h1>
+            {!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
+            <PreviewComponent
+              caseStudies={filteredCaseStudies}
+              trendingCaseStudies={filteredCaseStudies}
+              selectedCaseStudy={selectedCaseStudy}
+              onSelectCaseStudy={setSelectedCaseStudy}
+              onBack={() => setSelectedCaseStudy(null)}
+            />
           </section>
         </div>
       </main>

@@ -2,6 +2,7 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import "../../../../public/styles/upload.css";
+import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import "../../../../public/img/Upload_use_case.png";
 import axios from "axios";
@@ -9,6 +10,7 @@ import { TagsInput } from "react-tag-input-component";
 
 
 const Upload = () => {
+  const t = useTranslations("upload");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isMounted, setIsMounted] = useState(false);
@@ -42,20 +44,20 @@ const Upload = () => {
     inputRef.current.value = "";
     setSelectedFile(null);
     setProgress(0);
-    setUploadStatus("select");
+    setUploadStatus(t("select"));
   };
 
   const handleUpload = async () => {
-    if (uploadStatus === "done") {
+    if (uploadStatus === t("done")) {
       clearFileInput();
       return;
     }
 
     try {
-      setUploadStatus("uploading");
+      setUploadStatus(t("uploading"));
 
       const formData = new FormData();
-      formData.append("file", selectedFile);
+      formData.append(t("file"), selectedFile);
 
       await axios.post(
         "http://localhost:3000/en/upload",
@@ -70,76 +72,73 @@ const Upload = () => {
         }
       );
 
-      setUploadStatus("done");
+      setUploadStatus(t("done"));
     } catch (error) {
-      setUploadStatus("select");
+      setUploadStatus(t("select"));
     }
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 dark:bg-[#263238] dark:text-white">
       <Header />
 
-      <div className="bg-gray-200  flex justify ">
-        <div className="upload-header-left ">
-          <h1 className="font-bold text-[50px] py-11">{"Upload Case Studies"}</h1>
-        </div>
-
+      <div className="text-center">
+          <h1 className="font-bold text-2xl sm:text-4xl py-11">{"Upload Case Studies"}</h1>
       </div>
 
-      <div className="upload-container">
-        <div className="flex items-center justify-between py-4">
-          <h2 style={{ textAlign: "left" }}>{"Upload Details"}</h2>
-
-
-
+      <div className="upload-container bg-white dark:bg-[#263238] dark:text-white">
+        <div className="text-center sm:text-left sm:text-xl sm:mb-2">
+          <h3>{"Upload Details"}</h3>
         </div>
         <div className="form-container">
           <div className="column">
-            <label htmlFor="Name">{"Name"}</label>
-            <input type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
+            <label htmlFor="Name">{t("Name")}</label>
+            <input className='dark:text-[#263238]' type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
 
 
             {/* <pre>{JSON.stringify(tagselect)}</pre> */}
             <label htmlFor="Tag">{"Tags"}</label>
+            <div className="taginput dark:text-[#263238]">
             <TagsInput
               value={tagselect}
               onChange={setTagselect}
               name="tags"
-              placeHolder="tags"
+              placeHolder={t("Tags")}
             />
+
+            </div>
           </div>
           <div className="column">
 
-            <label htmlFor="description" className="ml-5">{"Description"}</label>
-            <input type="text" id="last-name" className="ml-5" name="last-name" placeholder={"Enter Description"} />
+            <label htmlFor="description">{"Description"}</label>
+            <input className="dark:text-[#263238]" type="text" id="last-name"  name="last-name" placeholder={"Enter Description"} />
 
-            <div className="column m-0">
-              <label htmlFor="description" className=" text-lg font-medium text-gray-700">{"Trimester"}</label>
-            </div>
-            <div className="column m-0">
-              <select className="border border-gray-300 rounded-md px-[93%] py-3  my-1"
+            
+              <label htmlFor="trimester">{"Trimester"}</label>
+
+            <select className=" border border-gray-300 rounded-md py-3  my-1 dark:text-[#263238]"
                 name="trimester"
                 id="trimester" >
-                <option value="option1">{"Trimester 1"}</option>
-                <option value="option2">{"Trimester 2"}</option>
-                <option value="option3">{"Trimester 3"}</option>
+                <option value="option1">{t("Trimester 1")}</option>
+                <option value="option2">{t("Trimester 2")}</option>
+                <option value="option3">{t("Trimester 3")}</option>
               </select>
+              
 
-            </div>
+            
 
           </div>
         </div>
 
         <div className="flex justify-center">
-          <div className="border-dashed border-2 border-black w-[50rem] h-[25rem] items-center">
+          <div className="border-dashed border-2 border-black dark:border-white w-[50rem] h-[25rem] items-center">
             <div className="flex items-center justify-center pt-[8rem]">
               <input ref={inputRef} type="file" onChange={handleFileChange} style={{ display: "none" }} />
               <button onClick={onChooseFile}>
                 <img className="h-20 w-auto" src="../img/Upload_use_case.png" alt="Logo" />
               </button>
             </div>
-            <h1 className="text-center text-lg py-[2rem]">{"Click on logo to upload files"}</h1>
+            <h1 className="text-center text-lg py-[2rem]">{t("Click on logo to upload files")}</h1>
           </div>
         </div>
 
@@ -149,7 +148,7 @@ const Upload = () => {
               <div className="bg-gray-200 w-[50rem] py-[3rem] px-2 rounded-3xl">
                 <div className="flex">
                   <img className="flex-initial h-8 w-auto" src="../img/document.png" alt="Document Icon" />
-                  <h6 className="flex-1 font-bold items-center pl-2">{selectedFileName}</h6>
+                  <h6 className="flex-1 font-bold items-center pl-2 dark:text-[#263238]">{selectedFileName}</h6>
                   <p> {progress}%</p>
                 </div>
                 <div className="w-full pt-3 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 pl-2">
@@ -163,7 +162,7 @@ const Upload = () => {
                 className="bg-green-500 text-white px-4 py-2 rounded"
                 onClick={handleUpload}
               >
-                {uploadStatus === "done" ? "Clear" : "Upload File"}
+                {uploadStatus === "done" ? t("Clear") : t("Upload File")}
               </button>
             </div>
           </>
