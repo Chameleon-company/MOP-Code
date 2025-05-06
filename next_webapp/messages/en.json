@@ -138,7 +138,15 @@
         "Weak": "Weak",
         "Moderate":"Moderate",
         "Strong":"Strong"
-      }
-
-
+      },
+        "login": {
+          "Account Log In": "Account Log In",
+          "Please login to continue to your account": "Please login to continue to your account",
+          "Email": "Email",
+          "Password": "Password",
+          "Remember Me": "Remember Me",
+          "Forgot Password?": "Forgot Password?",
+          "LOGIN": "LOGIN"
+        }
+            }
   }
