@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 
+
 interface FormField {
   name: string;
   spanName: string;
@@ -20,7 +21,7 @@ interface FormField {
 const Contact = () => {
   const t = useTranslations("contact");
 
-  const formFields: FormField[] = [
+  const formFields = [
     {
       name: "firstName",
       spanName: t("First Name"),
@@ -55,31 +56,41 @@ const Contact = () => {
     },
     {
       name: "message",
-      spanName: t("What can I help you with"), 
+      spanName: t("Message"),
       type: "textarea",
       placeholder: t("Enter Message"),
       required: true,
       validator: (value: string) => value.trim() !== "",
     },
   ];
-
-  const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [formValues, setFormValues] = useState < { [key: string]: string } > ({});
+  const [errors, setErrors] = useState < { [key: string]: string } > ({});
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
 
+  // Handler to update form values and clear errors
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-    if (errors[name]) validateField(name, value);
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+    // If there's an error previously, validate again and clear if resolved
+    if (errors[name]) {
+      validateField(name, value);
+    }
   };
 
+  // Function to validate individual fields
   const validateField = (name: string, value: string) => {
-    const field = formFields.find((f) => f.name === name);
+    const field = formFields.find((field) => field.name === name);
     if (field?.validator && !field.validator(value)) {
-      setErrors({ ...errors, [name]: `Invalid ${field.spanName.toLowerCase()}` });
+      setErrors({
+        ...errors,
+        [name]: `Invalid ${field.spanName.toLowerCase()}`,
+      });
     } else {
       const newErrors = { ...errors };
       delete newErrors[name];
@@ -87,10 +98,21 @@ const Contact = () => {
     }
   };
 
+  // Form submission handler
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
-    const newErrors: { [key: string]: string } = {};
+    // Validate all fields before submitting
+    formFields.forEach((field) => {
+      if (field.validator && !field.validator(formValues[field.name] || "")) {
+        setErrors((prev) => ({
+          ...prev,
+          [field.name]: `Invalid ${field.spanName.toLowerCase()}`,
+        }));
+        valid = false;
+      }
+    });
+    const newErrors = {};
 
     formFields.forEach((field) => {
       const value = formValues[field.name] || "";
@@ -101,6 +123,7 @@ const Contact = () => {
     });
 
     setErrors(newErrors);
+
     if (!valid) return;
 
     try {
@@ -114,97 +137,86 @@ const Contact = () => {
     }
   };
 
-  return (
-    <div className="bg-white min-h-screen font-sans">
-      <Header />
-      
-      <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-10">
-        <div className="w-full lg:w-1/2">
-          {successMessage && (
-            <p className="text-green-600 text-sm mb-3">{successMessage}</p>
-          )}
-          {failureMessage && (
-            <p className="text-red-600 text-sm mb-3">{failureMessage}</p>
-          )}
-          <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            {formFields.map((field) => (
-              <div key={field.name}>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {field.spanName}
-                </label>
-                {field.type === "textarea" ? (
-                  <textarea
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    className="w-full border border-black rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none h-24" // 🔧 Changed border to black
-                    onChange={handleChange}
-                  />
-                ) : (
-                  <input
-                    name={field.name}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    className="w-full border border-black rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none" // 🔧 Changed border to black
-                    onChange={handleChange}
-                  />
-                )}
-                {errors[field.name] && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors[field.name]}
-                  </p>
-                )}
-              </div>
-            ))}
-            <div className="flex justify-center pt-2">
-              <button
-                type="submit"
-                className="bg-green-600 hover:bg-green-900 text-white uppercase font-bold text-sm px-8 py-3 rounded-md transition duration-200" // 🔧 Submit button: bold, uppercase, centered
-              >
-                {t("Submit")}
-              </button>
-            </div>
-          </form>
-        </div>
+  return (<div className="contactPage font-sans bg-white min-h-screen">
+    <Header />
+    <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
 
-        <div className="w-full lg:w-1/2 bg-[#F0F0F0] p-8 rounded-lg shadow-md">
-          <h2 className="text-4xl font-bold text-black mb-4 text-center">Contact Us</h2>
-          <p className="text-sm text-gray-600 mb-6">
-            Feel free to use the form or drop us an email
-          </p>
-          <div className="mb-4">
-            <div className="flex items-center text-sm text-gray-800 mb-2">
-              <span className="mr-3">📧</span>
-              <span>email@example.com</span>
-            </div>
-            <hr className="mb-4 border-gray-300" /> 
-            <div className="flex items-center text-sm text-gray-800">
-              <span className="mr-3">📞</span>
-              <span>+61 123 456 789</span>
-            </div>
-          </div>
-          {/* <Image
-            src="/img/vic-map.png" // ✅ Ensure this image exists or update the path/URL
-            alt="Map"
-            width={600}
-            height={400}
-            className="rounded-lg shadow-lg border border-gray-300" // 🔧 Enhanced map styling
-          /> */}
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019970066525!2d144.96145431531744!3d-37.81410797975166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f37c3e3f%3A0x5045675218ce6e0!2sMelbourne!5e0!3m2!1sen!2sau!4v1588166683930!5m2!1sen!2sau"
-            height="400"
-               className="mapIframe"
-               allowFullScreen={true}
-               style={{ border: 0 }}
-               loading="lazy"
-               referrerPolicy="no-referrer-when-downgrade"
-               title="Google Maps Embed"
-          ></iframe>
+
+      <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
+
+        <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
+          {t("Contact")}
+          <br />
+          {t("Us")}
+        </span>
+
+
+        <div className="imgWrap relative w-full mt-4 lg:mt-0">
+          <Image
+            src="/img/contact-us-city.png"
+            alt="City"
+            width={800}
+            height={600}
+            className="cityImage block w-full h-auto"
+          />
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+
+      <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8">
+        {successMessage && <p className="text-green-500 mb-3">{successMessage}</p>}
+        {failureMessage && <p className="text-red-500 mb-3">{failureMessage}</p>}
+        <form
+          id="contact"
+          action=""
+          onSubmit={handleSubmit}
+          method="post"
+          className="m-8"
+          noValidate
+        >
+          {formFields.map((field) => (
+            <fieldset
+              key={field.name}
+              className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
+            >
+              <span className="namaSpan text-black">{field.spanName}</span>
+              {field.type === "textarea" ? (
+                <textarea
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
+                  onChange={handleChange}
+                ></textarea>
+              ) : (
+                <input
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
+                  onChange={handleChange}
+                />
+              )}
+              {errors[field.name] && (
+                <span className="text-red-500 text-xs">
+                  {errors[field.name]}
+                </span>
+              )}
+            </fieldset>
+          ))}
+          <div className="flex justify-center items-center">
+            <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
+              {t("Submit")}
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+    <Footer />
+  </div>
+
+
   );
 };
 
