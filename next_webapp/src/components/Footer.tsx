@@ -1,3 +1,9 @@
+'use client'
+import React, { useState, useEffect } from 'react';
+import { Link } from "@/i18n-navigation";
+import { useTranslations } from "next-intl";
+import { FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { FaSquareXTwitter } from "react-icons/fa6";
 // components/Footer.tsx
 
 import React from "react";
@@ -9,6 +15,7 @@ export default function Footer() {
   const t = useTranslations("common");
 
   return (
+    <footer className="bg-green-500 dark:bg-green-800 text-white py-8 mt-16 md:mt-8">
     <footer className="bg-green-500 text-white py-8 dark:bg-green-800">
       <div className="container mx-auto px-4 md:px-2 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
@@ -44,7 +51,7 @@ export default function Footer() {
                 <FaFacebook size={24} />
               </a>
               <a href="#" aria-label="Twitter" className="hover:text-gray-300">
-                <FaTwitter size={24} />
+                <FaSquareXTwitter size={24} />
               </a>
               <a href="#" aria-label="LinkedIn" className="hover:text-gray-300">
                 <FaLinkedin size={24} />
