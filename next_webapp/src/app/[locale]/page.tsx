@@ -7,13 +7,13 @@ import DashboardCaseStd from "@/components/DashboardCaseStd";
 
 const Home = () => {
   return (
-<div>
-  <Header />
-  <Dashboard />
-  <DashboardCaseStd />
-  <Chatbot />
-  <Footer />
-</div>
+  <div>
+    <Header />
+    <Dashboard />
+    <DashboardCaseStd />
+    <Chatbot />
+    <Footer />
+  </div>
   );
 };
 
