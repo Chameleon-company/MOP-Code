@@ -285,6 +285,7 @@ const Dashboard = () => {
   const handleBack = () => {
     setSelectedCaseStudy(undefined);
   };
+  const [expanded, setExpanded] = useState(false);
   const navItems = [
     { to: "/about", icon: "/img/about-icon.png", label: "About Us" },
     { to: "/casestudies", icon: "/img/case-icon.png", label: "Case Studies" },
@@ -349,10 +350,10 @@ const Dashboard = () => {
 
           <section className="case-studies mx-10">
             <Carousel responsive={responsive}>
-              {filteredCaseStudies.slice(0, 6).map((study) => (
+              {filteredCaseStudies.map((study) => (
                 <div
                   key={study.id}
-                  className="bg-white p-4 rounded-lg border-4 shadow-md cursor-pointer hover:shadow-2xl transition-shadow duration-300 case-study"
+                  className="bg-whitesmoke p-4 rounded-lg border-4 shadow-md cursor-pointer hover:shadow-2xl transition-shadow duration-300 case-study"
                   onClick={() => handleCaseStudyClick(study)}
                 >
                   <div className="flex items-center justify-center mb-4">
@@ -367,7 +368,17 @@ const Dashboard = () => {
                     {study.name}
                   </h3>
                   <p className="text-gray-600 text-sm text-center mb-2">
-                    {study.description}
+                  {study.description.split(" ").length > 50 ? (
+                <>
+                  {study.description.split(" ").slice(0, 50).join(" ")}{" "}
+                  <span className="text-blue-500 font-semibold cursor-pointer">
+                    ...see more
+                  </span>
+                </>
+              ) : (
+                study.description
+              )}
+
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
                     <p className="text-sm text-gray-500">Tags:</p>
