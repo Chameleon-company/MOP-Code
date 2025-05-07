@@ -1,0 +1,11 @@
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.6.0
+ultralytics>=8.0.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+seaborn>=0.11.0
+matplotlib>=3.4.0
+opencv-python-headless>=4.5.0 # Use headless unless you need GUI functions
+Pillow>=9.0.0
+ttach>=0.0.3
