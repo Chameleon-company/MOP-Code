@@ -110,19 +110,19 @@
         "p16": "If you have any questions or concerns about our licensing agreement, please contact us at"
       },
       "contact": {
-        "Submit": "Submit",
         "Contact": "Contact",
         "Us": "Us",
         "First Name": "First Name",
-        "Enter Your First name": "Enter Your First name",
         "Last Name": "Last Name",
-        "Enter Your Last name": "Enter Your Last name",
         "Company Email Address": "Company Email Address",
-        "Enter Company Email Address": "Enter Company Email Address",
         "Phone Number": "Phone Number",
+        "What can I help you with": "What can I help you with",
+        "Enter Your First name": "Enter Your First name",
+        "Enter Your Last name": "Enter Your Last name",
+        "Enter Company Email Address": "Enter Company Email Address",
         "Enter Your Phone Number": "Enter Your Phone Number",
-        "Message": "Message",
-        "Enter Message": "Enter Message"
+        "Enter Message": "Enter Message",
+        "Submit": "Submit"
       },
       "signup":{
         "language": "language",
@@ -148,5 +148,4 @@
           "Forgot Password?": "Forgot Password?",
           "LOGIN": "LOGIN"
         }
-            }
-  }
+}
