@@ -1,5 +1,3 @@
-// components/Footer.tsx
-
 import React from "react";
 import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";

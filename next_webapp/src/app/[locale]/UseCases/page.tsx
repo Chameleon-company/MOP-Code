@@ -1,4 +1,3 @@
-
 // app/[locale]/UseCases/page.tsx
 "use client";
 
@@ -21,9 +20,14 @@ async function searchUseCases(params: SearchParams) {
   return res.json();
 }
 
-const UseCases = () => {
+const UseCases: React.FC = () => {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
+    []
+  );
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
+    null
+  );
   const [darkMode, setDarkMode] = useState(false);
 
   const t = useTranslations("usecases");
@@ -46,25 +50,23 @@ const UseCases = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
-const UseCases: React.FC = () => {
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
-    []
-  );
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
-    null
-  );
-
-  useEffect(() => {
-    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
-  }, []);
 
   const handleSearch = async (
     term: string,
     mode: SEARCH_MODE,
     cat: CATEGORY
   ) => {
-    const res = await searchUseCases({ searchTerm, searchMode, category });
-    setFilteredCaseStudies(res?.filteredStudies || []);
+    try {
+      const res = await searchUseCases({
+        searchTerm: term,
+        searchMode: mode,
+        category: cat,
+      });
+      setFilteredCaseStudies(res.filteredStudies);
+    } catch (error) {
+      console.error("Error searching use cases:", error);
+      setFilteredCaseStudies([]);
+    }
   };
 
   const handleToggle = (value: boolean) => {
@@ -76,39 +78,16 @@ const UseCases: React.FC = () => {
     <div className="font-sans bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
       <Header />
 
-      <main>
-        <section className="px-10 pt-5">
-          <p>
-            <span className="text-4xl font-bold">{t("User Cases")}</span>
-          </p>
-          <SearchBar onSearch={handleSearch} />
-          <PreviewComponent caseStudies={filteredCaseStudies} />
-        </section>
-    try {
-      const res = await searchUseCases({
-        searchTerm: term,
-        searchMode: mode,
-        category: cat,
-      });
-      setFilteredCaseStudies(res.filteredStudies);
-    } catch {
-      setFilteredCaseStudies([]);
-    }
-  };
-
-  return (
-    <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800">
-      <Header />
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 lg:px-10 bg-white dark:bg-gray-800">
           <section className="py-5 bg-white dark:bg-gray-800">
             <h1 className="text-4xl font-bold text-black dark:text-white mb-6">
-              Use Cases
+              {t("User Cases")}
             </h1>
             {!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
             <PreviewComponent
               caseStudies={filteredCaseStudies}
-              trendingCaseStudies={filteredCaseStudies}
+              trendingCaseStudies={filteredCaseStudies.slice(0, 3)} // Use first 3 as trending
               selectedCaseStudy={selectedCaseStudy}
               onSelectCaseStudy={setSelectedCaseStudy}
               onBack={() => setSelectedCaseStudy(null)}
