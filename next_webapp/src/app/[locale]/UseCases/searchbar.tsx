@@ -1,72 +1,90 @@
-import { useState } from "react";
+// app/usecases/searchbar.tsx
+
+import React, { useState } from "react";
 import { CATEGORY, SEARCH_MODE } from "../../types";
 import { useTranslations } from "next-intl";
+import { Search } from "lucide-react";
 
-const SearchBar = ({
-  onSearch,
-}: {
-  onSearch: (
-    searchTerm: string,
-    searchMode: SEARCH_MODE,
-    category: CATEGORY
-  ) => void;
-}) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState(CATEGORY.ALL);
-  const [searchMode, setSearchMode] = useState(SEARCH_MODE.TITLE);
+interface SearchBarProps {
+  onSearch: (term: string, mode: SEARCH_MODE, category: CATEGORY) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const [term, setTerm] = useState("");
+  // empty initial value so placeholder shows
+  const [mode, setMode] = useState<string>("");
+  const [category, setCategory] = useState<CATEGORY>(CATEGORY.ALL);
+  const t = useTranslations("usecases");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(searchTerm, searchMode, category);
+    // if no mode selected, default to title
+    const selectedMode = (mode as SEARCH_MODE) || SEARCH_MODE.TITLE;
+    onSearch(term, selectedMode, category);
   };
 
-  const t = useTranslations("usecases");
-
   return (
-    <div className="p-4 flex flex-col pl-0 ml-0">
+    <div className="bg-gray-100 dark:bg-gray-700 py-2 px-4 mb-8 rounded">
       <form
         onSubmit={handleSubmit}
-        className="flex items-center w-full max-w-10xl space-x-3"
+        className="flex flex-col sm:flex-row sm:items-center sm:space-x-3"
       >
-        <input
-          type="search"
-          placeholder={t("Case study name or category")}
-          className="w-full px-4 py-2 border-2 border-gray-300 rounded-l-lg rounded-r-lg focus:outline-none focus:border-green-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <label htmlFor="category-select" className="sr-only">
-          {t("All categories")}
-        </label>
-        <div className="flex-shrink-0">
-          <select
-            id="category-select"
-            className="text-black border-2 border-gray-300 border-l-1 px-4 py-2 focus:outline-none focus:border-green-500 rounded-l-md rounded-r-lg"
-            value={searchMode}
-            onChange={(e) => setSearchMode(e.target.value as SEARCH_MODE)}
-          >
-            <option value={SEARCH_MODE.TITLE}>{t("Search by title")}</option>
-            <option value={SEARCH_MODE.CONTENT}>
-              {t("Search by content")}
-            </option>
-          </select>
-          {/* <select
-            className="text-black mr-3 border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-green-500"
-            value={category}
-            onChange={(e) => setCategory(e.target.value as CATEGORY)}
-          >
-            <option value={CATEGORY.ALL}>{t("All categories")}</option>
-            <option value={CATEGORY.INTERNET}>{t("Internet")}</option>
-            <option value={CATEGORY.EV}>{t("EV")}</option>
-            <option value={CATEGORY.SECURITY}>{t("Security")}</option>
-          </select> */}
+        {/* SEARCH INPUT WITH ICON */}
+        <div className="relative flex-1">
+          <Search
+            size={20}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-300"
+          />
+          <input
+            type="search"
+            placeholder={t("Case study name or category")}
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            className="
+              w-full h-12
+              pl-10 pr-4
+              bg-transparent dark:bg-transparent
+              focus:outline-none focus:border-primary
+            "
+          />
         </div>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-green-500 text-white rounded-r-lg rounded-l-md hover:bg-green-600 focus:outline-none"
-        >
-          {t("Search")}
-        </button>
+
+        {/* SELECT + BUTTON */}
+        <div className="mt-2 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+          <select
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+            className="
+              h-12 px-4
+              bg-white dark:bg-gray-800
+              border border-gray-300 dark:border-gray-600
+              shadow
+              text-black dark:text-white
+              focus:outline-none focus:border-primary
+            "
+          >
+            {/* placeholder option */}
+            <option value="" disabled>
+              Search Category
+            </option>
+            <option value={SEARCH_MODE.TITLE}>Search by title</option>
+            <option value={SEARCH_MODE.CONTENT}>Search by tag</option>
+          </select>
+
+          <button
+            type="submit"
+            className="
+              mt-2 sm:mt-0
+              h-12 px-4
+              bg-primary text-white
+              hover:bg-primary/90
+              focus:outline-none
+              rounded
+            "
+          >
+            {t("Search")}
+          </button>
+        </div>
       </form>
     </div>
   );

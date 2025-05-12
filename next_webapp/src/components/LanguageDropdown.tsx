@@ -35,7 +35,7 @@ const LanguageDropdown: React.FC = () => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-              className="mr-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium"
+        className="mr-2 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium dark:bg-gray-900 dark:hover:bg-green-600 dark:hover:text-gray-900 hover:bg-green-700 hover:text-white"
       >
         {t("Language")}
       </button>
@@ -59,7 +59,7 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            中文
+            Chinese (中文)
           </a>
           <a
             href="#"
@@ -69,7 +69,7 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            Español
+            Spanish (Español)
           </a>
           <a
             href="#"
@@ -79,8 +79,9 @@ const LanguageDropdown: React.FC = () => {
             }}
             className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
           >
-            Ελληνικά
+            Greek (Ελληνικά)
           </a>
+         
         </div>
       )}
     </div>
