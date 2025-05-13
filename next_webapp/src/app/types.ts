@@ -23,3 +23,15 @@ export type CaseStudy = {
   tags: string[];
   filename?: string;
 };
+
+export type UseCase = {
+  id: number;
+  name: String,
+  auth: String,
+  duration: String,
+  level: String,
+  skills: String,
+  description: String,
+  tags: [String],
+  filename?: String
+}

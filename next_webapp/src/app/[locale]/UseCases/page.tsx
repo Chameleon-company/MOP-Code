@@ -4,8 +4,10 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar from "./searchbar";
 import PreviewComponent from "./preview";
+import NewPreviewComponent from "./newPreview"
 import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
 import { useTranslations } from "next-intl";
+import axios from "axios";
 
 async function searchUseCases(searchParams: SearchParams) {
   const response = await fetch("/api/search-use-cases", {
@@ -55,7 +57,9 @@ const UseCases = () => {
               </span>
             </p>
             <SearchBar onSearch={handleSearch} />
-            <PreviewComponent caseStudies={filteredCaseStudies} />
+            {/* <PreviewComponent caseStudies={filteredCaseStudies} /> */}
+            <NewPreviewComponent/>
+            
           </section>
         </div>
       </main>
