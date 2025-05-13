@@ -57,7 +57,7 @@
         "p6": "This privacy policy may be updated periodically.",
         "p7": "By using the Melbourne Open Data Playground, you agree to the terms outlined in this privacy policy. Policy was last updated on 8 Dec 2023."
       },
-      "statistics":{
+      "statistics": {
         "Statistics": "Statistics",
         "All Tags": "All Tags",
         "All Trimesters": "All Trimesters",
@@ -72,7 +72,9 @@
         "Tag": "Tag",
         "number": "Number of Test Cases Published",
         "Popularity": "Popularity",
-        "Rows per page": "Rows per page"
+        "Rows per page": "Rows per page",
+        "Published Cases": "Published Cases",
+        "Most Published Trimester": "Most Published Trimester"
       },
       "usecases": {
         "User Cases": "User Cases",

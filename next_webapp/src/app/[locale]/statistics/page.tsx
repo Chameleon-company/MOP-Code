@@ -1,370 +1,255 @@
 "use client";
-import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
+
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
 import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
+  LinearScale,
+  Title,
+  Tooltip,
   Legend,
-  LinearScale,
-  Title,
-  Tooltip,
 } from "chart.js";
-import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
-import Footer from "../../../components/Footer";
-import Header from "../../../components/Header";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Statistics = () => {
+const StatisticsPage = () => {
+  const t = useTranslations("statistics");
 
-  //Dummy array
-  const dummyArray = [{ id: 1, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "1" },
-  { id: 2, tag: "Environment and Sustainability", publishNumber: "5", popularity: "40%", trimester: "2" },
-  { id: 3, tag: "Business and activity", publishNumber: "8", popularity: "90%", trimester: "3" },
-  { id: 4, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "2" },
-  { id: 5, tag: "Environment and Sustainability", publishNumber: "5", popularity: "90%", trimester: "3" },
-  { id: 6, tag: "Business and activity", publishNumber: "8", popularity: "70%", trimester: "1" },
-  { id: 7, tag: "Safety and Well-being", publishNumber: "4", popularity: "11%", trimester: "2" },
-  { id: 8, tag: "Environment and Sustainability", publishNumber: "5", popularity: "20%", trimester: "2" },
-  { id: 9, tag: "Business and activity", publishNumber: "8", popularity: "60%", trimester: "1" },]
-
-  //Stats array
-  const [caseStudies, setStats] = useState([
-  ])
-
-  //Importing case studies
-  useEffect(() => {
-    searchUseCases({ searchTerm: "", searchMode: SEARCH_MODE.TITLE, category: CATEGORY.ALL }).then((useCases) => {
-      const stats = getStats(useCases.filteredStudies)
-      setStats(stats)
-    })
-
-  }, [])
-  async function searchUseCases(searchParams: SearchParams) {
-    const response = await fetch("/api/search-use-cases", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchParams),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  }
-  //Get stats
-  const getStats = (caseStudiesArray: CaseStudy[]) => {
-    const tagCountMap: { [key: string]: number } = {};
-    let totalTags = 0;
-
-    // Count occurrences of each tag across all case studies
-    caseStudiesArray.forEach(caseStudy => {
-      caseStudy.tags.forEach(tag => {
-        const normalizedTag = tag.trim().toLowerCase(); // Normalize tags for consistency
-        if (!tagCountMap[normalizedTag]) {
-          tagCountMap[normalizedTag] = 0;
-        }
-        tagCountMap[normalizedTag]++;
-        totalTags++;
-      });
-    });
-
-    // Calculate popularity
-    const tagPopularityArray = Object.keys(tagCountMap).map(tag => ({
-      tag: tag,
-      publishNumber: tagCountMap[tag],
-      popularity: `${((tagCountMap[tag] / totalTags) * 100).toFixed(2)}%`,
-      trimester: "2024 T1"
-    }));
-
-    // Sort by popularity
-    tagPopularityArray.sort((a, b) => {
-      const popularityA = parseFloat(a.popularity.replace('%', ''));
-      const popularityB = parseFloat(b.popularity.replace('%', ''));
-      return popularityB - popularityA; // Descending order
-    });
-
-    // Assign IDs after sorting
-    tagPopularityArray.forEach((item, index) => {
-      item.id = index + 1;
-    });
-
-    return tagPopularityArray;
-  };
-
-
-  // State for storing the filtered results and all filters
-  const [filteredStudies, setFilteredStudies] = useState(caseStudies);
+  const [caseStudies, setStats] = useState([]);
+  const [filteredStudies, setFilteredStudies] = useState([]);
   const [tagFilter, setTagFilter] = useState("");
   const [trimesterFilter, setTrimesterFilter] = useState("");
   const [pagefilter, setPageFilter] = useState("5");
   const [search, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isDark, setIsDark] = useState(false); // 🌗 Theme toggle state
 
-  // Distinct tags for the dropdown
-  const tags = Array.from(new Set(caseStudies.map((study) => study.tag)));
-  const trimesters = Array.from(new Set(caseStudies.map((study) => study.trimester)));
+  useEffect(() => {
+    searchUseCases({ searchTerm: "", searchMode: SEARCH_MODE.TITLE, category: CATEGORY.ALL }).then((res) => {
+      const stats = getStats(res.filteredStudies);
+      setStats(stats);
+    });
+  }, []);
 
-  // Effect to handle filtering based on tag and trimester
+  const searchUseCases = async (searchParams: SearchParams) => {
+    const res = await fetch("/api/search-use-cases", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(searchParams),
+    });
+    if (!res.ok) throw new Error(`Error: ${res.status}`);
+    return res.json();
+  };
+
+  const getStats = (caseStudiesArray: CaseStudy[]) => {
+    const tagCountMap = {};
+    let total = 0;
+    caseStudiesArray.forEach((cs) => {
+      cs.tags.forEach((tag) => {
+        const key = tag.trim().toLowerCase();
+        tagCountMap[key] = (tagCountMap[key] || 0) + 1;
+        total++;
+      });
+    });
+
+    const stats = Object.keys(tagCountMap).map((tag, idx) => ({
+      id: idx + 1,
+      tag,
+      publishNumber: tagCountMap[tag],
+      popularity: `${((tagCountMap[tag] / total) * 100).toFixed(2)}%`,
+      trimester: "2024 T1",
+    }));
+
+    setFilteredStudies(stats);
+    return stats;
+  };
+
+  const tags = Array.from(new Set(caseStudies.map((s) => s.tag)));
+  const trimesters = Array.from(new Set(caseStudies.map((s) => s.trimester)));
+
   useEffect(() => {
     let filtered = caseStudies;
-    if (tagFilter) {
-      filtered = filtered.filter((study) => study.tag === tagFilter);
-    }
-    if (trimesterFilter) {
-      filtered = filtered.filter((study) => study.trimester === trimesterFilter);
-    }
+    if (tagFilter) filtered = filtered.filter((s) => s.tag === tagFilter);
+    if (trimesterFilter) filtered = filtered.filter((s) => s.trimester === trimesterFilter);
     setFilteredStudies(filtered);
-  }, [tagFilter, trimesterFilter]);
+  }, [tagFilter, trimesterFilter, caseStudies]);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const recordsPage = parseInt(pagefilter);
   const lastIndex = currentPage * recordsPage;
   const firstIndex = lastIndex - recordsPage;
-  const records = caseStudies.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(caseStudies.length / recordsPage);
+  const records = filteredStudies.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(filteredStudies.length / recordsPage);
 
+  const tri1 = caseStudies.filter((i) => i.trimester === "2024 T1").length;
+  const tri2 = caseStudies.filter((i) => i.trimester === "2").length;
+  const tri3 = caseStudies.filter((i) => i.trimester === "3").length;
 
-  // Counting the values of trimester to plot on the graph
-  const tri1 = caseStudies.filter((item) => item.trimester === "2024 T1").length;
-  const tri2 = caseStudies.filter((item) => item.trimester === "2").length;
-  const tri3 = caseStudies.filter((item) => item.trimester === "3").length;
-
-  // Store the required variables for plotting the graph
-  const data1 = {
-    labels: ["Trimester 1", "Trimester 2", "Trimester 3"],
+  const chartData = {
+    labels: [t("Trimester1"), t("Trimester2"), t("Trimester3")],
     datasets: [
       {
-        label: "Data Series 1",
+        label: t("Published Cases"),
+        data: [tri1, tri2, tri3],
         backgroundColor: "#3EB470",
-        borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
-        data: [tri1, tri2, tri3],
       },
     ],
   };
-
-  const data2 = {
-    labels: ["Trimester 1", "Trimester 2", "Trimester 3"],
-    datasets: [
-      {
-        label: "Data Series 2",
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-        data: [tri1, tri2, tri3],
-      },
-    ],
-  };
-
-  // Responsive chart options
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  const t = useTranslations("statistics");
 
   return (
-    <div
-      style={{
-        margin: "0 auto",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className="font-sans bg-gray-100 text-black"
-      role="main"
-      aria-label="Statistics page"
-    >
-      <Header />
-      <h1 className="text-7xl font-bold px-[2rem] pt-[1rem] pb-[4rem]">
-        {" "}
-        {t("Statistics")}{" "}
-      </h1>
+    <div className={`${isDark ? "dark" : ""}`}>
+      <div className="font-sans bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen flex flex-col transition-colors">
+        <Header />
 
-      {/* Flex container for charts */}
-      <div className="flex flex-col md:flex-row justify-center gap-10 mb-[5rem]">
-        <div className="bg-white shadow-l h-auto w-full md:w-[40rem] mb-[5rem] pb-[10rem]">
-          <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
-          <div className="mx-5">
-            <Bar data={data1} options={options} />
+        <main className="max-w-7xl mx-auto px-4 py-8 flex-grow">
+          {/* Theme Toggle */}
+          <div className="flex justify-end mb-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <span className="text-xl">{isDark ? "🌙" : "☀️"}</span>
+              <div className="relative inline-block w-12 align-middle select-none">
+                <input
+                  type="checkbox"
+                  name="toggle"
+                  id="toggle"
+                  className="sr-only"
+                  checked={isDark}
+                  onChange={() => setIsDark(!isDark)}
+                />
+                <div className="block bg-gray-300 dark:bg-gray-700 w-12 h-6 rounded-full"></div>
+                <div
+                  className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${
+                    isDark ? "translate-x-6" : ""
+                  }`}
+                ></div>
+              </div>
+            </label>
           </div>
-        </div>
-        {/* <div className="bg-white shadow-l h-[30rem] w-[40rem] mb-[5rem] pb-[10rem]">
 
-          <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
-          <div className="mx-5">
-            <Bar data={data2} options={options} />
-          </div>
-        </div> */}
-      </div>
+          <h1 className="text-2xl font-bold mb-6 text-center">{t("Statistics")}</h1>
 
-      <main style={{ flex: "1 0 auto", width: "100%" }}>
-        <div style={{ padding: "0 50px" }}>
-          <section aria-label="Statistics section">
-            {/* Filter Dropdowns */}
+          <div className="flex flex-col md:flex-row gap-3 mb-4 justify-center">
             <select
               value={trimesterFilter}
               onChange={(e) => setTrimesterFilter(e.target.value)}
-              className="p-2 m-2 border shadow-lg"
+              className="text-sm border border-gray-300 rounded bg-gray-200 dark:bg-gray-700 dark:text-white px-3 py-2"
             >
               <option value="">{t("All Trimesters")}</option>
               {trimesters.map((trimester) => (
-                <option key={trimester} value={trimester}>
-                  {`${trimester}`}
-                </option>
+                <option key={trimester} value={trimester}>{trimester}</option>
               ))}
             </select>
 
             <select
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
-              className="p-2 m-2 border shadow-lg"
+              className="text-sm border border-gray-300 rounded bg-gray-200 dark:bg-gray-700 dark:text-white px-3 py-2"
             >
               <option value="">{t("All Tags")}</option>
               {tags.map((tag) => (
-                <option key={tag} value={tag}>
-                  {tag}
-                </option>
+                <option key={tag} value={tag}>{tag}</option>
               ))}
             </select>
 
-            {/* Total Results */}
-            <div className="flex justify-center mb-4">
-              <div className="w-full md:w-1/3 bg-white shadow-xl py-8 px-10">
-                <h2 className="text-2xl font-bold text-gray-400">
-                  {t("Total Results")}
-                </h2>
-                <p className="text-[1.8rem] font-bold text-center pt-[15px] text-black-400">
-                  {filteredStudies.length}
-                </p>
-              </div>
+            <div className="text-sm bg-gray-200 dark:bg-gray-700 border border-gray-300 rounded px-4 py-2">
+              {t("Total Results")}: <strong>{filteredStudies.length}</strong>
             </div>
-            <div className="overflow-hidden p-2 rounded-lg shadow bg-[#3EB470]">
-              <form className="flex items-center w-full">
-                <input
-                  type="search"
-                  placeholder={t("Enter Tag name")}
-                  className="w-2/5 p-4 mr-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </form>
-              <table className="min-w-full bg-white">
-                <thead>
+          </div>
+
+          <input
+            type="text"
+            placeholder={t("Enter Tag name")}
+            className="w-full text-sm border border-gray-300 rounded bg-gray-200 dark:bg-gray-700 dark:text-white px-3 py-2 mb-4"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <div className="flex flex-col md:flex-row md:space-x-4">
+            <div className="flex-1">
+              <table className="w-full text-sm border border-gray-300 dark:border-gray-600">
+                <thead className="bg-[#3EB470] text-white">
                   <tr>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#3EB470] text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      {t("No")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#3EB470]  text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      {t("Tag")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#3EB470]  text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      {t("number")}
-                    </th>
-                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#3EB470]  text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      {t("Popularity")}
-                    </th>
+                    <th className="py-2 px-3 text-left">{t("No")}</th>
+                    <th className="py-2 px-3 text-left">{t("Tag")}</th>
+                    <th className="py-2 px-3 text-left">{t("number")}</th>
+                    <th className="py-2 px-3 text-left">{t("Popularity")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {records
-                    .filter((item) => {
-                      return search.toLowerCase() === ""
-                        ? item
-                        : item.tag.toLowerCase().includes(search);
-                    })
-                    .map((study, index) => (
-                      <tr
-                        key={study.id}
-                        className={index % 2 != 0 ? "bg-[#3EB470] " : "bg-white"} // Every other row green
-                      >
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.id}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.tag}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.publishNumber}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 text-sm">
-                          {study.popularity}
-                        </td>
+                    .filter((item) =>
+                      search === "" ? item : item.tag.toLowerCase().includes(search.toLowerCase())
+                    )
+                    .map((item, idx) => (
+                      <tr key={item.id} className={idx % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-100 dark:bg-gray-700"}>
+                        <td className="py-2 px-3">{item.id}</td>
+                        <td className="py-2 px-3 capitalize">{item.tag}</td>
+                        <td className="py-2 px-3">{item.publishNumber}</td>
+                        <td className="py-2 px-3">{item.popularity}</td>
                       </tr>
                     ))}
                 </tbody>
               </table>
-            </div>
-            <nav className="p-3 mt-5 flex justify-between items-center bg-[#3EB470]">
-              <p>
-                {firstIndex + 1} - {lastIndex} of {filteredStudies.length}
-              </p>
-              <div className="flex justify-between">
-                <button
-                  className={`text-black font-bold py-1 px-2 ${currentPage === 1 ? "cursor-not-allowed opacity-50" : ""}`}
-                  onClick={prePage}
-                  disabled={currentPage === 1}
-                >
-                  {"<"}
-                </button>
-                <p className="text-black py-1 px-2">Page {currentPage}</p>
-                <button
-                  className={`text-black font-bold py-1 px-2 ${currentPage === npage ? "cursor-not-allowed opacity-50" : ""}`}
-                  onClick={nextPage}
-                  disabled={currentPage === npage}
-                >
-                  {">"}
-                </button>
-              </div>
-              <div className="flex justify-between">
-                <p className="py-1">{t("Rows per page")}</p>
+
+              <div className="flex justify-between items-center mt-3 text-sm">
+                <span>
+                  {firstIndex + 1}-{Math.min(lastIndex, filteredStudies.length)} of {filteredStudies.length}
+                </span>
+                <div className="flex items-center gap-3">
+                  <button
+                    disabled={currentPage <= 1}
+                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                    className="px-3 py-1 bg-[#3EB470] text-white rounded disabled:opacity-50"
+                  >
+                    Prev
+                  </button>
+                  <span>Page {currentPage}</span>
+                  <button
+                    disabled={currentPage >= npage}
+                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                    className="px-3 py-1 bg-[#3EB470] text-white rounded disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+                </div>
                 <select
                   value={pagefilter}
                   onChange={(e) => setPageFilter(e.target.value)}
-                  className="p-2 border shadow-lg"
+                  className="border border-gray-300 rounded px-2 py-1"
                 >
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
+                  {[5, 10, 20, 30].map((val) => (
+                    <option key={val} value={val}>{val}</option>
+                  ))}
                 </select>
               </div>
-            </nav>
-          </section>
-        </div>
-      </main>
-      <Footer />
+            </div>
+
+            <div className="w-full md:w-1/3 mt-6 md:mt-0">
+              <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded p-4">
+                <h3 className="text-sm font-semibold mb-2">{t("Most Published Trimester")}</h3>
+                <div className="h-64">
+                  <Bar
+                    data={chartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <Footer />
+      </div>
     </div>
   );
-
-  function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
 };
 
-export default Statistics;
+export default StatisticsPage;
