@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -13,7 +13,7 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
-  
+
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -21,6 +21,12 @@ const SignUpPage = () => {
     password: "",
   });
   const [passwordStrength, setPasswordStrength] = useState<string>("");
+  const[darkMode,setDarkMode]=useState(false)
+    useEffect(() => {
+        const htmlElement = document.documentElement;
+        const hasDarkClass = htmlElement.classList.contains("dark");
+        setDarkMode(hasDarkClass);
+    }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -103,11 +109,11 @@ const SignUpPage = () => {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
-      <div className="signup-page flex flex-col min-h-screen bg-gradient-to-b from-[#2ECC71] to-white text-black font-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>
+      <div className="signup-page flex flex-col min-h-screen bg-gradient-to-b from-[#2ECC71] to-white text-black font-semibold dark:bg-gray-900 dark:text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
         <Header showSignUpButton={false} />
-        <div className="flex flex-col items-center justify-center flex-grow px-4">
-          <div className="w-full max-w-xl p-4">
-            <h2 className="text-4xl font-bold text-center mb-8">{t("Account Sign up")}</h2>
+        <div className="flex flex-col items-center justify-center flex-grow px-4 dark:bg-gray-900 dark:text-white">
+          <div className="w-full max-w-xl p-4 dark:bg-gray-900">
+            <h2 className="text-4xl font-bold text-center mb-8 dark:bg-grey-900 dark:text-white">{t("Account Sign up")}</h2>
             <form onSubmit={handleSubmit} noValidate className="space-y-6">
               <div className="flex gap-4">
                 <div className="w-1/2">
@@ -162,7 +168,7 @@ const SignUpPage = () => {
                     style={{ width: `${Math.min((form.password.length / 10) * 100, 100)}%`, backgroundColor: getPasswordStrengthColor() }}
                   ></div>
                 </div>
-                <p className="text-right text-sm mt-1 italic text-gray-600">{t("Password Strength")}: {passwordStrength}</p>
+                <p className="text-right text-sm mt-1 italic text-gray-600 dark:text-white">{t("Password Strength")}: {passwordStrength}</p>
               </div>
               <button
                 type="submit"
