@@ -13,6 +13,7 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
+  
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
