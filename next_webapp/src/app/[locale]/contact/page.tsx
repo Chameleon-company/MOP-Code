@@ -3,10 +3,11 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import "../../../../public/styles/contact.css";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
+import { Mail, Phone } from "lucide-react";
 
 
 interface FormField {
@@ -136,33 +137,64 @@ const Contact = () => {
       setSuccessMessage("");
     }
   };
+  const[darkMode,setDarkMode]=useState(false)
+    useEffect(() => {
+        const htmlElement = document.documentElement;
+        const hasDarkClass = htmlElement.classList.contains("dark");
+        setDarkMode(hasDarkClass);
+    }, []);
 
-  return (<div className="contactPage font-sans bg-white min-h-screen">
+  return (<div className="contactPage font-sans bg-white min-h-screen dark:bg-black">
     <Header />
-    <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
+    <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12 dark:bg-black">
 
 
-      <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
-
-        <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
-          {t("Contact")}
-          <br />
+    <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2 p-6 bg-[#d9d9d9] dark:bg-[#666666]">
+    <span className="block text-4xl font-bold leading-snug font-montserrat text-black dark:text-white text-center -mt-6 pl-6 lg:pl-0 lg:mt-10 lg:mb-8 lg:text-center z-10 relative lg:top-0 lg:left-0">
+    {t("Contact")} { }
+         
           {t("Us")}
         </span>
+        <div style={{  marginBottom: '16px' }}>
+          <span className="dark:text-white font-bold text-[15px]" style={{ marginLeft: '85px' }}>{"Feel free to use the form or drop us an email"}</span>
+        </div>
+        <div className="flex flex-col gap-4 w-full max-w-md">
+      {/* Email Field */}
+      <div className="flex items-center border-b border-gray-300 px-3 py-2 w-full dark:text-white" style={{ marginLeft: '70px' }}>
+  <Mail className="text-gray-500 mr-2" />
+  <input
+    type="email"
+    placeholder="Email"
+    className="outline-none w-full bg-transparent"
+  />
+</div>
 
-
-        <div className="imgWrap relative w-full mt-4 lg:mt-0">
-          <Image
-            src="/img/contact-us-city.png"
+      {/* Phone Field */}
+      <div className="flex items-center border-b border-gray-300 px-3 py-2 w-full dark:text-white" style={{ marginBottom: '40px',marginLeft: '70px' }}>
+        <Phone className="text-gray-500 mr-2" />
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          className="outline-none w-full bg-transparent"
+        />
+      </div>
+    </div>
+    <div className="imgWrap relative w-full mt-4 lg:mt-0 flex justify-center items-center mt-[50px]">
+    <Image
+            src="/img/map.png"
             alt="City"
-            width={800}
-            height={600}
-            className="cityImage block w-full h-auto"
+            width={600}
+            height={400}
+            className="cityImage block w-200 h-auto "
           />
         </div>
-      </div>
 
-      <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8">
+
+        
+      </div>
+      
+
+      <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8 ">
         {successMessage && <p className="text-green-500 mb-3">{successMessage}</p>}
         {failureMessage && <p className="text-red-500 mb-3">{failureMessage}</p>}
         <form
@@ -178,7 +210,7 @@ const Contact = () => {
               key={field.name}
               className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
             >
-              <span className="namaSpan text-black">{field.spanName}</span>
+              <span className="namaSpan text-black dark:text-white">{field.spanName}</span>
               {field.type === "textarea" ? (
                 <textarea
                   name={field.name}
