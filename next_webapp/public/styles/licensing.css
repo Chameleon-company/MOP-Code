@@ -4,6 +4,12 @@
   background-color: white;
 }
 
+
+
+/* Center vertically + horizontally using Flex on a parent */
+
+
+
 .bullet-list {
   list-style-type: disc;
   padding-left: 20px;
@@ -26,18 +32,18 @@ color: black;
 font-size: 17px;
 }
 /* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-h1 {
-  font-size: 36px; /* Smaller font size for H1 on small devices */
-}
-h2 {
-  font-size: 24px; /* Smaller font size for H2 on small devices */
-}
-p {
-  font-size: 16px; /* Smaller font size for paragraphs on small devices */
-}
-.my-custom-padding-class {
-  padding-left: 20px; /* Reduce left padding on small devices */
-  padding-right: 20px; /* Reduce right padding on small devices */
-}
-}
+  @media (max-width: 768px) {
+  h1 {
+    font-size: 36px; /* Smaller font size for H1 on small devices */
+  }
+  h2 {
+    font-size: 24px; /* Smaller font size for H2 on small devices */
+  }
+  p {
+    font-size: 16px; /* Smaller font size for paragraphs on small devices */
+  }
+  .my-custom-padding-class {
+    padding-left: 20px; /* Reduce left padding on small devices */
+    padding-right: 20px; /* Reduce right padding on small devices */
+  }
+  }
