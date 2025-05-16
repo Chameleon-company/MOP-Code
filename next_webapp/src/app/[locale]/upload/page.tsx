@@ -117,7 +117,7 @@ const Upload = () => {
             <input type="text" id="last-name" className="ml-5" name="last-name" placeholder={"Enter Description"} />
 
             <div className="column m-0">
-              <label htmlFor="description" className=" text-lg font-medium text-gray-700">{"Trimester"}</label>
+              <label htmlFor="description" className=" text-lg font-medium text-gray-700">{t("Trimester")}</label>
             </div>
             <div className="column m-0">
               <select className="border border-gray-300 rounded-md px-[93%] py-3  my-1"
