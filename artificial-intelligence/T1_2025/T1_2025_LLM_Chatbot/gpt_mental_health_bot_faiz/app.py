@@ -23,18 +23,17 @@ Be empathetic, calm, and non-judgmental in your responses.
 Never provide medical advice or make any harmful suggestions.
 """
 
-
 def contains_unsafe_input(text, unsafe_terms):
     words = re.findall(r'\b\w+\b', text.lower())
     return any(term in words for term in unsafe_terms)
 
 unsafe_inputs = [
-    "kill", "suicide", "die", "hurt", "abuse", 
+    "kill", "suicide", "die", "hurt", "abuse",
     "end my life", "worthless", "commit suicide", "kill myself", "want to die"
 ]
 
 unsafe_outputs = [
-    "take your own life", "you should die", "end it all", 
+    "take your own life", "you should die", "end it all",
     "you deserve this", "i recommend suicide", "kill yourself"
 ]
 
@@ -46,7 +45,13 @@ def get_user_log_file():
     if not username:
         return None
     safe_name = "".join(c for c in username if c.isalnum() or c in "_-")
-    return os.path.join(CHAT_LOG_DIR, f"{safe_name}.json")
+    raw_filepath = os.path.join(CHAT_LOG_DIR, f"{safe_name}.json")
+    filepath = os.path.normpath(raw_filepath)
+
+    # Ensure the filepath is within the CHAT_LOG_DIR
+    if not filepath.startswith(os.path.abspath(CHAT_LOG_DIR)):
+        raise Exception("Invalid file path detected.")
+    return filepath
 
 def save_chat_history():
     filepath = get_user_log_file()
@@ -95,7 +100,6 @@ def chat_page():
         user_input = request.form["message"]
 
         if contains_unsafe_input(user_input, unsafe_inputs):
-
             session["history"].append({
                 "role": "bot",
                 "content": (
@@ -128,15 +132,14 @@ def chat_page():
             else:
                 session["history"].append({"role": "bot", "content": response.content})
 
-                # Structured JSON mood detection after every even number of messages
                 if len(session["history"]) >= 6 and len(session["history"]) % 2 == 0:
                     summary_prompt = (
-                    "Summarize the conversation between user and bot. "
-                    "Then, provide a mood label for the user. "
-                    "Choose ONLY ONE from: happy, sad, anxious. "
-                    "Format as JSON like:\n"
-                    "{\n  \"summary\": \"...summary here...\",\n  \"mood\": \"happy\"\n}"
-                )
+                        "Summarize the conversation between user and bot. "
+                        "Then, provide a mood label for the user. "
+                        "Choose ONLY ONE from: happy, sad, anxious. "
+                        "Format as JSON like:\n"
+                        "{\n  \"summary\": \"...summary here...\",\n  \"mood\": \"happy\"\n}"
+                    )
                     recent_msgs = session["history"][-6:]
                     summary_msgs = [SystemMessage(content=summary_prompt)] + [
                         HumanMessage(content=m["content"]) if m["role"] == "user"
@@ -184,8 +187,10 @@ def login():
         if username:
             session["username"] = username
 
-            safe_name = "".join(c for c in username if c.isalnum() or c in "_-")
-            filepath = os.path.join("chat_logs", f"{safe_name}.json")
+            try:
+                filepath = get_user_log_file()
+            except:
+                return "❌ Invalid username."
 
             if os.path.exists(filepath):
                 return redirect(url_for("resume_prompt"))
@@ -193,8 +198,6 @@ def login():
                 session["history"] = []
                 session.pop("summary", None)
                 session.pop("mood", None)
-                if os.path.exists(filepath):
-                    os.remove(filepath)
                 return redirect(url_for("chat_page"))
 
     return render_template("login.html")
@@ -205,17 +208,13 @@ def reset_chat():
     session.pop("summary", None)
     session.pop("mood", None)
 
-    filepath = get_user_log_file()
-    print("🗑 Deleting file:", filepath)
-
-    if filepath and os.path.exists(filepath):
-        try:
+    try:
+        filepath = get_user_log_file()
+        if filepath and os.path.exists(filepath):
             os.remove(filepath)
-            print("✅ File deleted successfully.")
-        except Exception as e:
-            print("❌ Failed to delete file:", e)
-    else:
-        print("⚠️ File does not exist.")
+            print("✅ File deleted:", filepath)
+    except Exception as e:
+        print("❌ Error deleting chat log:", e)
 
     return redirect(url_for("chat_page"))
 
@@ -225,12 +224,12 @@ def summarize():
         return redirect(url_for("chat_page"))
 
     summary_prompt = (
-                    "Summarize the conversation between user and bot. "
-                    "Then, provide a mood label for the user. "
-                    "Choose ONLY ONE from: happy, sad, anxious. "
-                    "Format as JSON like:\n"
-                    "{\n  \"summary\": \"...summary here...\",\n  \"mood\": \"happy\"\n}"
-                )
+        "Summarize the conversation between user and bot. "
+        "Then, provide a mood label for the user. "
+        "Choose ONLY ONE from: happy, sad, anxious. "
+        "Format as JSON like:\n"
+        "{\n  \"summary\": \"...summary here...\",\n  \"mood\": \"happy\"\n}"
+    )
     recent_msgs = session["history"][-6:]
 
     summary_msgs = [SystemMessage(content=summary_prompt)] + [
@@ -268,10 +267,14 @@ def bubbles():
 
 @app.route("/download")
 def download_chat():
-    filepath = get_user_log_file()
-    if filepath and os.path.exists(filepath):
-        return send_file(filepath, as_attachment=True)
+    try:
+        filepath = get_user_log_file()
+        if filepath and os.path.exists(filepath):
+            return send_file(filepath, as_attachment=True)
+    except Exception as e:
+        print("❌ Download error:", e)
     return "No file available."
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5020)
+    debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug_mode, port=5020)
