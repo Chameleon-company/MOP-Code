@@ -1,5 +1,3 @@
-
-// app/[locale]/UseCases/page.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -21,9 +19,9 @@ async function searchUseCases(params: SearchParams) {
   return res.json();
 }
 
-const UseCases = () => {
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+const UseCases: React.FC = () => {
   const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
   const [darkMode, setDarkMode] = useState(false);
 
   const t = useTranslations("usecases");
@@ -31,7 +29,6 @@ const UseCases = () => {
   useEffect(() => {
     handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
 
-    // Load dark mode preference
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
       setDarkMode(true);
@@ -46,65 +43,37 @@ const UseCases = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
-const UseCases: React.FC = () => {
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
-    []
-  );
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
-    null
-  );
-
-  useEffect(() => {
-    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
-  }, []);
-
-  const handleSearch = async (
-    term: string,
-    mode: SEARCH_MODE,
-    cat: CATEGORY
-  ) => {
-    const res = await searchUseCases({ searchTerm, searchMode, category });
-    setFilteredCaseStudies(res?.filteredStudies || []);
-  };
 
   const handleToggle = (value: boolean) => {
     setDarkMode(value);
     localStorage.setItem("theme", value ? "dark" : "light");
   };
 
-  return (
-    <div className="font-sans bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
-      <Header />
-
-      <main>
-        <section className="px-10 pt-5">
-          <p>
-            <span className="text-4xl font-bold">{t("User Cases")}</span>
-          </p>
-          <SearchBar onSearch={handleSearch} />
-          <PreviewComponent caseStudies={filteredCaseStudies} />
-        </section>
+  const handleSearch = async (
+    term: string,
+    mode: SEARCH_MODE,
+    cat: CATEGORY
+  ) => {
     try {
       const res = await searchUseCases({
         searchTerm: term,
         searchMode: mode,
         category: cat,
       });
-      setFilteredCaseStudies(res.filteredStudies);
-    } catch {
+      setFilteredCaseStudies(res.filteredStudies || []);
+    } catch (err) {
+      console.error("Search error:", err);
       setFilteredCaseStudies([]);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800">
+    <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800 text-black dark:text-white transition-all duration-300">
       <Header />
       <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 lg:px-10 bg-white dark:bg-gray-800">
-          <section className="py-5 bg-white dark:bg-gray-800">
-            <h1 className="text-4xl font-bold text-black dark:text-white mb-6">
-              Use Cases
-            </h1>
+        <div className="max-w-7xl mx-auto px-4 lg:px-10">
+          <section className="py-5">
+            <h1 className="text-4xl font-bold mb-6">{t("User Cases")}</h1>
             {!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
             <PreviewComponent
               caseStudies={filteredCaseStudies}
@@ -117,7 +86,7 @@ const UseCases: React.FC = () => {
         </div>
       </main>
 
-      {/* Toggle Dark Mode */}
+      {/* Dark Mode Toggle */}
       <div className="fixed bottom-4 right-4 z-50">
         <Tooglebutton onValueChange={handleToggle} />
       </div>
