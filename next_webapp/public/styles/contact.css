@@ -4,7 +4,7 @@
 .imgWrap::after {
     content: '';
     position: absolute;
-    background-color: black;
+    
 }
 
 .imgWrap::before {
