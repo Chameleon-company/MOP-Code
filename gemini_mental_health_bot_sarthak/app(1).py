@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template_string
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -106,5 +107,6 @@ def home():
 ''', response=response_text)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5005, debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=5005, debug=debug_mode)
 
