@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../../public/styles/login.css';
 import Header from "../../../components/Header";
 import { useTranslations } from "next-intl";
@@ -10,10 +10,21 @@ import Footer from "../../../components/Footer";
 function LoginForm() {
     const t = useTranslations("login");
     const router = useRouter();
+     
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState<string>("");
+    const[darkMode,setDarkMode]=useState(false)
+    useEffect(() => {
+        const htmlElement = document.documentElement;
+        const hasDarkClass = htmlElement.classList.contains("dark");
+        setDarkMode(hasDarkClass);
+    }, []);
+    
+    
+    
+      
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -66,13 +77,13 @@ function LoginForm() {
 
     return (
         <>
-            <div className="w-full fixed top-0 bg-white z-50">
+            <div className="w-full fixed top-0 bg-white z-50 ">
                 <Header />
             </div>
-            <div className="main-content login-container">
-                <div className="login-content mt-16"> {/* Adjusted margin-top for title */}
-                    <h1 className="login-title">{t("Account Log In")}</h1>
-                    <p className="login-subtitle">{t("Please login to continue to your account")}</p>
+            <div className="main-content login-container dark:bg-gray-900 ">
+                <div className="login-content mt-16 "> {/* Adjusted margin-top for title */}
+                <h1 className="login-title dark:text-white">{t("Account Log In")}</h1>
+                    <p className="login-subtitle dark:text-white">{t("Please login to continue to your account")}</p>
                     <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
                         <div className="mb-4">
                             <label htmlFor="emailInput" className="sr-only">
@@ -105,7 +116,7 @@ function LoginForm() {
                                 {passwordVisible ? "👁️" : "👁️‍🗨️"} {/* Eye icon */}
                             </span>
                         </div>
-                        <div className="options-container flex justify-between mb-4">
+                        <div className="options-container flex justify-between mb-4 dark:text-white">
                             <label className="checkbox-label remember-me">
                                 <input type="checkbox" id="remember-me" name="remember-me" />
                                 {t("Remember Me")}
