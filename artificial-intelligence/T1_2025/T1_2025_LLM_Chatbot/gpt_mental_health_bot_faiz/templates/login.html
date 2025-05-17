@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Mental Health Chatbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fffde7, #fff9c4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-box {
+            background: #fffef5;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            border-left: 6px solid #f4d03f;
+            z-index: 2;
+        }
+
+        .login-box h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .login-box p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f4d03f;
+            box-shadow: 0 0 10px rgba(244, 208, 63, 0.4);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            padding: 14px 30px;
+            background: linear-gradient(45deg, #f4d03f, #f9e79f);
+            color: #333;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(244, 208, 63, 0.35);
+        }
+
+        .typing-text {
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .dots::after {
+            content: '...';
+            animation: blink 1.5s infinite;
+        }
+
+        .affirmation {
+            font-size: 14px;
+            color: #555;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        .privacy-note {
+            font-size: 12.5px;
+            color: #888;
+            margin-top: 12px;
+        }
+
+        .illustration {
+            font-size: 64px;
+            margin-bottom: 12px;
+            color: #f4d03f;
+        }
+
+        .background-bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .bubble1 {
+            width: 200px;
+            height: 200px;
+            background: #f4d03f;
+            top: 10%;
+            left: 5%;
+        }
+
+        .bubble2 {
+            width: 150px;
+            height: 150px;
+            background: #fceabb;
+            bottom: 8%;
+            right: 8%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-bubble bubble1"></div>
+    <div class="background-bubble bubble2"></div>
+
+    <div class="login-box">
+        <div class="illustration">💛</div>
+        <h2 id="dynamicGreeting">Welcome</h2>
+        <p>Enter your name to begin chatting with your mental health assistant.</p>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Enter your name" required>
+            <br>
+            <input type="submit" value="Start Chat">
+        </form>
+        <div class="typing-text">Preparing your session<span class="dots"></span></div>
+        <p class="affirmation">"You are worthy of kindness, especially your own." 💛</p>
+        <p class="privacy-note">🔒 Your chats are private and never shared.</p>
+    </div>
+
+    <script>
+        const hour = new Date().getHours();
+        let greeting = "Welcome";
+        if (hour >= 5 && hour < 12) greeting = "Good Morning ☀️";
+        else if (hour >= 12 && hour < 18) greeting = "Good Afternoon 🌤️";
+        else greeting = "Good Evening 🌙";
+        document.getElementById("dynamicGreeting").innerText = greeting;
+    </script>
+</body>
+
+</html>
