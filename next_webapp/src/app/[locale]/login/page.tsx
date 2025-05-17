@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import '../../../../public/styles/login.css';
 import Header from "../../../components/Header";
 import { useTranslations } from "next-intl";
+import { useRouter } from 'next/navigation';
 import Footer from "../../../components/Footer";
 
 function LoginForm() {
     const t = useTranslations("login");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const router = useRouter();
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError] = useState<string>("");
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -23,15 +25,44 @@ function LoginForm() {
         setPasswordVisible(!passwordVisible);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (!email || !password) {
             setError("Please fill in both fields");
             return;
         }
-        console.log("Authentication in progress...");
+
+    try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+        console.log("Login API response:", result);
+
+        if (!response.ok) {
+            setError(result.message || "Login failed");
+            return;
+        }
+
         setError("");
-    };
+        alert("Login successful!");
+
+        // Optionally: Store user data in localStorage/sessionStorage
+        localStorage.setItem("user", JSON.stringify(result.user));
+
+        // Redirect to home page (or dashboard)
+        router.push("/"); // Update to your actual home route
+
+    } catch (error) {
+        console.error("Login error:", error);
+        setError("Something went wrong. Please try again.");
+    }
+};
 
     return (
         <>
