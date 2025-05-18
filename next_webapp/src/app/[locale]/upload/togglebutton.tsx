@@ -1,6 +1,3 @@
-//Divyanga C.S.Lokuhetti #s223590519
-//Team Project(B) - T1 2025
-
 "use client";
 import { useState, useEffect } from "react";
 
