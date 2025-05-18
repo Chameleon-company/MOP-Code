@@ -1,0 +1,51 @@
+{
+  "timestamp": "20250506_061313",
+  "dataset_path": "datasets/colab_gpu_limited_100.json",
+  "num_models": 2,
+  "results": [
+    {
+      "name": "llama2-13b-baseline",
+      "path": "meta-llama/llama-2-13b-chat-hf",
+      "timestamp": "2025-05-06T06:13:13.457481",
+      "metrics": {
+        "rouge1": 0.37505731881531507,
+        "rouge2": 0.11413883420810478,
+        "rougeL": 0.19046134449899768,
+        "bleu": 0.04665919198450439,
+        "bertscore_precision": 0.8559300303459167,
+        "bertscore_recall": 0.8776764869689941,
+        "bertscore_f1": 0.8666044473648071,
+        "meteor": 0.328252617424483,
+        "length_ratio": 1.6711452335252717,
+        "exact_match_rate": 0.0,
+        "avg_ref_len": 156.3,
+        "avg_pred_len": 261.2,
+        "avg_generation_time": 36.05502719879151,
+        "p90_generation_time": 43.035213994979856,
+        "tokens_per_second": 7.244482123390409
+      }
+    },
+    {
+      "name": "llama2-13b-finetuned",
+      "path": "trained_models/llama-2-13b-chat-lora-final-500_merged",
+      "timestamp": "2025-05-06T06:19:58.727961",
+      "metrics": {
+        "rouge1": 0.36538575380130023,
+        "rouge2": 0.10850146602779784,
+        "rougeL": 0.18452299662587662,
+        "bleu": 0.040441651747015396,
+        "bertscore_precision": 0.8524459004402161,
+        "bertscore_recall": 0.8770395517349243,
+        "bertscore_f1": 0.8644617199897766,
+        "meteor": 0.3231953906563264,
+        "length_ratio": 1.7421625079974408,
+        "exact_match_rate": 0.0,
+        "avg_ref_len": 156.3,
+        "avg_pred_len": 272.3,
+        "avg_generation_time": 39.43438699245453,
+        "p90_generation_time": 44.396952390670776,
+        "tokens_per_second": 6.905140938341518
+      }
+    }
+  ]
+}
