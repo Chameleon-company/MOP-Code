@@ -1317,12 +1317,9 @@ class ActionFetchTrafficLocation(Action):
                 summary = route.get("summary", {})
                 distance = summary.get("lengthInMeters", 0) / 1000
                 travel_time = summary.get("travelTimeInSeconds", 0) / 60
-
-                #start_location = tuple(map(float, source_coords.split(',')))  # Melbourne CBD
                 traffic_details_start = get_traffic_details(api_key, source_coords)
                 
                 #traffic details for the destination location
-                #destination_location = tuple(map(float, destination_coords.split(',')))  # Albert Park
                 traffic_details_destination = get_traffic_details(api_key, destination_coords)
                
                 if traffic_details_start and traffic_details_destination:
@@ -1335,6 +1332,13 @@ class ActionFetchTrafficLocation(Action):
                 dispatcher.utter_message(
                     text=f"Traffic is {traffic_status_start} from {source} to {destination} with a current speed of {traffic_details_start['current_speed']} km/h. Estimated travel time is {travel_time:.2f} minutes for a distance of {distance:.2f} km."
                 )
+
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Fetch fastest traffic Route 
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
 def fetch_route(source_coords, destination_coords, api_key):
     base_url = "https://api.tomtom.com/routing/1/calculateRoute"
     source = f"{source_coords[0]},{source_coords[1]}"
@@ -1354,6 +1358,12 @@ def fetch_route(source_coords, destination_coords, api_key):
     except Exception as e:
         return {"error": str(e)}
 
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: To get traffic details
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
 def get_traffic_details(api_key, location):
     url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
     latitude, longitude = location
@@ -1374,6 +1384,7 @@ def get_traffic_details(api_key, location):
     except Exception as e:
         return None
 
+# function to get traffic status
 def get_traffic_status(current_speed, free_flow_speed):
     speed_ratio = current_speed / free_flow_speed
     if speed_ratio >= 0.8:
@@ -1383,14 +1394,17 @@ def get_traffic_status(current_speed, free_flow_speed):
     else:
         return "heavy"
 
-#Function to geocode an address using Nominatim
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Function to geocode an address
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
 def geocode_address(address):
     geolocator = Nominatim(user_agent="mapping_app1.0")
     
-    #Define the bounding box for Melbourne
     melbourne_bbox = [(-38.433859,144.593741), (-37.511274,145.512529)]
     
-    #Geocode the address within the Melbourne bounding box
     location = geolocator.geocode(address, viewbox=melbourne_bbox, bounded=True)
     
     if location:
@@ -1399,21 +1413,104 @@ def geocode_address(address):
         print("Address not found within Melbourne.")
         return None
 
-
-def create_traffic_map(source_coords, destination_coords, route_points):
-    """Generates a traffic route map using Folium."""
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Function to create route map indicating traffic
+	Author: Awanish
+	-------------------------------------------------------------------------------------------------------
+'''
+def create_traffic_map(source_coords, destination_coords, route_points, api_key):
     map_center = [(source_coords[0] + destination_coords[0]) / 2, (source_coords[1] + destination_coords[1]) / 2]
     traffic_map = folium.Map(location=map_center, zoom_start=12)
 
-    # Add markers for source and destination
     folium.Marker(source_coords, tooltip="Start Location", icon=folium.Icon(color='green')).add_to(traffic_map)
     folium.Marker(destination_coords, tooltip="Destination", icon=folium.Icon(color='red')).add_to(traffic_map)
 
-    # Add polyline for the route
-    folium.PolyLine(route_points, color='blue', weight=5, opacity=0.7).add_to(traffic_map)
+    for i in range(len(route_points) - 1):
+        start = route_points[i]
+        end = route_points[i + 1]
+        traffic_status = get_traffic_status_by_point(api_key, start)
+        
+        color = "gray"  
+        if traffic_status == "light":
+            color = "green"
+        elif traffic_status == "moderate":
+            color = "orange"
+        elif traffic_status == "heavy":
+            color = "red"
+        
+        folium.PolyLine([start, end], color=color, weight=5, opacity=0.8).add_to(traffic_map)
+
+    # Calculate bounding box from route for incident search
+    bbox = calculate_bbox(route_points)
+    incidents = get_traffic_incidents(api_key, bbox)
+
+    # Add incident markers
+    for incident in incidents:
+        props = incident.get("properties", {})
+        coords = incident.get("geometry", {}).get("coordinates", [])[0]
+        description = props.get("description", "Traffic Incident")
+
+        folium.Marker(
+            location=[coords[1], coords[0]],  
+            popup=description,
+            icon=folium.Icon(color="blue", icon="exclamation-sign")
+        ).add_to(traffic_map)
     
     return traffic_map
 
+# Function to get traffic status by location points
+def get_traffic_status_by_point(api_key, location):
+    url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
+    latitude, longitude = location
+    params = {
+        "key": api_key,
+        "point": f"{latitude},{longitude}"
+    }
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        current = data['flowSegmentData']['currentSpeed']
+        free_flow = data['flowSegmentData']['freeFlowSpeed']
+        return get_traffic_status(current, free_flow)
+    except:
+        return "unknown"
+
+# bounding box from route for incident 
+def calculate_bbox(route_points):
+    lats = [pt[0] for pt in route_points]
+    lons = [pt[1] for pt in route_points]
+    return f"{min(lats)},{min(lons)},{max(lats)},{max(lons)}"
+
+# Function to get incidents on route
+def get_traffic_incidents(api_key, bbox):
+    url = "https://api.tomtom.com/traffic/services/5/incidents"
+    params = {
+        "key": api_key,
+        "bbox": bbox, 
+        "fields": "id,geometry,properties",
+        "language": "en"
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        return response.json().get("incidents", [])
+    except Exception as e:
+        print(f"Error fetching incidents: {e}")
+        return []
+
+''' -------------------------------------------------------------------------------------------------------
+	
+	Name: Traffic route of fastest route locate it on map and also show traffic details on map using color, and indicate incidents on map
+	Author: Awanish
+
+
+    eg: What is the best route considering traffic from flinder street to Melboune CBD
+        How is traffic in route from Melbourne CBD to Flinders Street?
+	-------------------------------------------------------------------------------------------------------
+'''
 class ActionGenerateTrafficMap(Action):
     def name(self) -> Text:
         return "action_fetch_traffic_location"
@@ -1436,6 +1533,15 @@ class ActionGenerateTrafficMap(Action):
             if "error" in route_data:
                 dispatcher.utter_message(text=f"Error: {route_data['error']}")
                 return []
+            else:
+                routes = route_data.get("routes", [])
+            if not routes:
+                dispatcher.utter_message(text="No routes found.")
+            else:
+                route = routes[0]
+                summary = route.get("summary", {})
+                distance = summary.get("lengthInMeters", 0) / 1000
+                travel_time = summary.get("travelTimeInSeconds", 0) / 60
             
             routes = route_data.get("routes", [])
             if not routes:
@@ -1445,7 +1551,7 @@ class ActionGenerateTrafficMap(Action):
             route = routes[0]
             points = [(leg["latitude"], leg["longitude"]) for leg in route["legs"][0]["points"]]
             
-            traffic_map = create_traffic_map(source_coords, destination_coords, points)
+            traffic_map = create_traffic_map(source_coords, destination_coords, points, api_key)
             
             # Save map as an HTML file
             map_filename = "traffic_route_map.html"
@@ -1457,9 +1563,12 @@ class ActionGenerateTrafficMap(Action):
             # Generate public URL
             server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8000')
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the traffic map</a>"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the route on map</a>"
             
-            dispatcher.utter_message(text=f"Your traffic map has been generated. {hyperlink}")
+            dispatcher.utter_message(
+             text=f"Expected travel time for your Fastest route is {travel_time:.2f} minutes for a distance of {distance:.2f} km. Traffic map has been generated below. {hyperlink}"
+                )
+            
         except Exception as e:
             logging.error(f"Error generating traffic map: {e}")
             dispatcher.utter_message(text="An error occurred while generating the traffic map.")

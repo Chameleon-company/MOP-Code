@@ -149,7 +149,7 @@ rules:
     - action: action_check_direct_tram_route
   #Jubal rules (end) ----------------------------------------------------------
 
-#Awanish rule---start
+#Awanish rule start-----------------------------------------------------------
   - rule: find traffic data between locations
     steps:
     - intent: ask_traffic_location
@@ -159,8 +159,9 @@ rules:
     steps:
     - intent: ask_traffic
     - action: action_fetch_traffic  
-#Awanish  rule----end
+
   - rule: Respond to route inquiry
     steps:
-    - intent: ask_route
+    - intent: ask_traffic_route
     - action: action_fetch_traffic_location
+#Awanish  rule End-------------------------------------------------------------

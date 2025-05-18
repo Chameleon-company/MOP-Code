@@ -445,11 +445,16 @@ nlu:
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
 
-#Awanish NLU ends ---------------------
-- intent: ask_route
+- intent: ask_traffic_route
   examples: |
-    - What's the best route to [Southbank](station_b) from [Docklands](station_a)?
-    - Show me the route from [Melbourne Central](station_a) to [Federation Square](station_b)
+    - What is the best route considering traffic from [Southbank](station_b) to [Docklands](station_a)?
+    - Show me the fastest route from [Melbourne Central](station_a) to [Federation Square](station_b)
+    - Best route considering traffic from [Southbank](station_b) to [Docklands](station_a)?
+    - Tell me the Fastest traffic route from [Southbank](station_b) to [Docklands](station_a)
+    - What is the traffic route from [Southbank](station_b) to [Docklands](station_a)?
+    - How is traffic in route from [Melbourne Central](station_a) to [Federation Square](station_b)?
+#Awanish NLU ends ---------------------    
+
 entities:
   - station_name
   - feature

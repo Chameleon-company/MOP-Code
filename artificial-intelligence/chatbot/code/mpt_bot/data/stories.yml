@@ -246,13 +246,15 @@ stories:
     - intent: ask_tram_route
     - action: action_check_direct_tram_route
 #jubal stories (end)--------------------------------------------------------------------
-#Awanish stories (Start)----------------------
+
+#Awanish stories (Start)------------------------------------------
   - story: User asks about traffic
     steps:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
-#Awanish stories (end)----------------------
+
   - story: User asks for a route with traffic details
     steps:
-    - intent: ask_route
+    - intent: ask_traffic_route
     - action: action_fetch_traffic_location
+#Awanish stories (end)------------------------------------
