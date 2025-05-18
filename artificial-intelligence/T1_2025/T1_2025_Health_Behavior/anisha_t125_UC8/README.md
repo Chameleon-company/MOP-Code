@@ -25,13 +25,21 @@ To recognize and classify physical activities such as walking, running, sitting,
 
 ## Folder Structure
 
-PAMAP2_Dataset/
-├── physicalActivityDashboard.py # Streamlit app
-├── codeLogic.ipynb # Notebook with data prep & training
-├── *.keras / *.h5 # Trained model files
-├── X_test_seq_reduced.npy # Test input sequences
-├── y_test_seq_reduced_enc.npy # Encoded test labels
-├── requirements.txt # Python dependencies
+anisha_t125_UC8/
+├── README.md                          # Project-specific readme
+├── KT_ani_HandlingGithubLargeFilePushIssue.pdf  # KT documentation
+└── UC8_WorkFiles/
+    ├── physicalActivityDashboard.py  # Streamlit dashboard app
+    ├── codeLogic.ipynb               # Notebook with data prep, training, evaluation
+    ├── anisha_projectReport_pdf.pdf        # Project Report
+    ├── requirements.txt              # Python dependencies
+    ├── *.keras / *.h5                # Trained model files (e.g., GRU, LSTM variants)
+    ├── readme.pdf                    # dataset understanding
+    ├── DataCollectionProtocol.pdf    # Supporting activity doc
+    ├── DescriptionOfActivities.pdf   # Activity description
+    ├── PerformedActivitiesSummary.pdf
+    ├── subjectInformation.pdf        # Sensor and participant metadata
+
 
 
 ---
