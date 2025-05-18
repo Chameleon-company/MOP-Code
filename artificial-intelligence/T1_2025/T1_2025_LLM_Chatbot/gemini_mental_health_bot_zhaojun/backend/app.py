@@ -158,8 +158,9 @@ def evaluate():
         return jsonify(results)
     except Exception as e:
         print(f"Error during evaluation: {e}")
-        return jsonify({"error": f"Evaluation failed: {e}"}), 500
+        return jsonify({"error": "An error occurred during evaluation."}), 500
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)  # Changed port to 5001
+    debug_mode = os.getenv("FLASK_ENV") == "development"
+    app.run(debug=debug_mode, port=5001)  # Changed port to 5001
