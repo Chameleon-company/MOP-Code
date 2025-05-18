@@ -1,29 +1,61 @@
-// import required libraries
-import fs from "fs";
+import { promises as fs } from "fs";
 import path from "path";
+import { NextRequest, NextResponse } from "next/server";
 
-// defaults to auto
-// Create a Server Component
-export async function GET(request: Request) {
+interface UseCase {
+  id: string;
+  name: string;
+  description: string;
+  tags: string[];
+  filename: string;
+}
 
-// Extracting Filename from Query Parameters
-  const { searchParams } = new URL(request.url)
-  const fileName = `${searchParams.get('filename')}`
-  console.log(fileName)
+const BASE = path.join(
+  process.cwd(),
+  "datascience",
+  "usecases",
+  "READY TO PUBLISH"
+);
 
-  // Constructing the File Path
-  const filePath = path.join(
-    fileName
-  );
-  // Reading the file
-  const file = await fs.readFileSync(filePath, "utf-8");
+export async function GET(req: NextRequest) {
+  // read all folder names under READY TO PUBLISH
+  const entries = await fs.readdir(BASE, { withFileTypes: true });
+  const all: UseCase[] = [];
 
+  for (const dirent of entries) {
+    if (!dirent.isDirectory()) continue;
+    const folder = dirent.name;
+    const metaFile = path.join(BASE, folder, "metadata.json");
 
-  // Parsing the File's Contents and Returning the Response
-  return new Response(file, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-    },
-  });
+    try {
+      const raw = await fs.readFile(metaFile, "utf-8");
+      const { name, description, tags, filename } = JSON.parse(raw);
+
+      all.push({
+        id: folder,
+        name,
+        description,
+        tags,
+        filename,
+      });
+    } catch (err) {
+      // skip folders without valid metadata.json
+      console.warn(`Skipping ${folder}: no valid metadata.json`);
+    }
+  }
+
+  // check for an incoming ?q=keyword filter
+  const url = new URL(req.url);
+  const q = (url.searchParams.get("q") || "").trim().toLowerCase();
+
+  const results = q
+    ? all.filter((u) =>
+        [u.name, u.description, ...u.tags]
+          .join(" ")
+          .toLowerCase()
+          .includes(q)
+      )
+    : all;
+
+  return NextResponse.json({ results });
 }

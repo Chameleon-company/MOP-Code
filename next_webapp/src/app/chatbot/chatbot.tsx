@@ -1,4 +1,5 @@
 "use client";
+import { CaseStudy } from "@/app/types";
 
 import React, { useState, useEffect, useRef } from "react";
 import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5";
@@ -19,6 +20,15 @@ type Message = {
   text?: string;
 };
 
+export interface LiveUseCase {
+  id: number;
+  name: string;
+  description: string;
+  filename: string;
+  tags: string[];         
+}
+
+
 // Define a type for a use case entry.
 interface UseCase {
   title: string;
@@ -38,7 +48,7 @@ function escapeRegExp(text: string): string {
 const searchLocalUseCases = (query: string): UseCase[] => {
   const results: UseCase[] = [];
   const lowerQuery = query.toLowerCase().trim();
-  if (lowerQuery.length < 3) return results; // skip if too short
+  if (lowerQuery.length < 3) return results; 
 
   const details: { [key: string]: UseCase } = enMessages.use_case_details;
   // Build a regex to match the query as a whole word.
@@ -212,6 +222,16 @@ const Chatbot = () => {
       return [];
     }
   };
+  async function searchUseCases(term: string): Promise<LiveUseCase[]> {
+  const studies = await fetchUseCasesFromAPI(term, "CONTENT");
+  return studies.map((uc: any) => ({
+    id: uc.id,
+    name: uc.name,
+    description: uc.description,
+    htmlPath: uc.filename,
+  }));
+}
+
 
   // Extract plain text from JSX for text-to-speech
   const extractTextFromJSX = (jsxContent: React.ReactNode): string => {
@@ -320,71 +340,42 @@ const Chatbot = () => {
         break;
 
       case "use_cases": {
-        // Perform a local search for relevant use cases.
-        const localResults = searchLocalUseCases(input);
-        if (localResults.length > 0) {
-          responseText = `${enMessages.use_cases.intro} ${localResults
-            .map((cs) => `${cs.title}: ${cs.description}`)
-            .join(". ")}`;
-          setMessages((prev) => [
-            ...prev,
-            {
-              content: (
-                <>
-                  <div>{enMessages.use_cases.intro}</div>
-                  <ul>
-                    {localResults.map((cs, index) => (
-                      <li key={index}>
-                        <strong>{cs.title}</strong>: {cs.description}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ),
-              sender: "bot",
-              text: responseText,
-            },
-          ]);
-        } else {
-          // If no local results, try API or prompt for more details
-          const apiResults = await fetchUseCasesFromAPI(input);
-          if (apiResults.length > 0) {
-            responseText = `${enMessages.use_cases.intro} ${apiResults
-              .map((cs: any) => `${cs.name}: ${cs.description}`)
-              .join(". ")}`;
-            setMessages((prev) => [
-              ...prev,
-              {
-                content: (
-                  <>
-                    <div>{enMessages.use_cases.intro}</div>
-                    <ul>
-                      {apiResults.map((cs: any) => (
-                        <li key={cs.id}>
-                          <strong>{cs.name}</strong>: {cs.description}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ),
-                sender: "bot",
-                text: responseText,
-              },
-            ]);
-          } else {
-            responseText = enMessages.use_case_prompt.response;
-            setMessages((prev) => [
-              ...prev,
-              {
-                content: <>{responseText}</>,
-                sender: "bot",
-                text: responseText,
-              },
-            ]);
-          }
-        }
-        break;
-      }
+      //  Query the live API
+        const raw = await searchUseCases(input);          // LiveUseCase[]
+        const matches: CaseStudy[] = raw.map((u) => ({
+        ...u,
+        tags: u.tags ?? []              // supply empty array if the field is missing
+    }));
+
+      //  Nothing found → prompt for more detail
+    if (matches.length === 0) {
+      const prompt = enMessages.use_case_prompt.response;
+      setMessages(prev => [...prev, { content: <>{prompt}</>, sender:"bot", text: prompt }]);
+      break;
+    }
+
+  // Found something → list up to five 
+  setMessages(prev => [
+    ...prev,
+    {
+      content: (
+        <>
+          <div>{enMessages.use_cases.intro}</div>
+          <ul className="list-disc pl-4">
+            {matches.slice(0,5).map((uc: CaseStudy) => (
+              <li key={uc.id}>
+                <strong>{uc.name}</strong>: {uc.description}
+              </li>
+            ))}
+          </ul>
+        </>
+      ),
+      sender: "bot",
+      text: matches.map((m: CaseStudy) => m.name).join(", ")
+    }
+  ]);
+  break;
+}
 
       case "faq":
         window.location.href = enMessages.initial.faq_url;
@@ -587,7 +578,7 @@ const Chatbot = () => {
       stopSpeaking();
     } else {
       setIsSpeaking(true);
-      // Speak the last bot message if available
+    
       const lastBotMessage = [...messages]
         .reverse()
         .find((msg) => msg.sender === "bot");
@@ -598,11 +589,11 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot fixed bottom-4 right-4 flex flex-col items-end z-50">
+    <div className="chatbot fixed bottom-4 right-4 flex flex-col items-end z-[9999]">
       {isOpen && (
-        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full">
-          <div className="flex justify-between items-center mb-2 border-b pb-2">
-            <h3 className="text-md font-semibold text-green-600">
+        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full text-wrap">
+          <div className="flex justify-between items-center mb-2 border-b pb-2 text-wrap">
+            <h3 className="text-md font-semibold text-green-600 text-wrap">
               Melbourne Open Data Assistant
             </h3>
             <div className="flex space-x-2">
@@ -655,7 +646,7 @@ const Chatbot = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <div className="input-area flex items-center mt-3 border-t pt-3">
+          <div className="input-area flex items-center mt-3 border-t pt-3 text-wrap">
             <input
               type="text"
               className="flex-1 p-2 border rounded-l outline-none focus:ring-2 focus:ring-green-300"
