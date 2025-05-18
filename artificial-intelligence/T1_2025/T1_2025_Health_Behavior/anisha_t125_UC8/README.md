@@ -24,7 +24,7 @@ To recognize and classify physical activities such as walking, running, sitting,
 ---
 
 ## Folder Structure
-
+```
 anisha_t125_UC8/
 ├── README.md                          # Project-specific readme
 ├── KT_ani_HandlingGithubLargeFilePushIssue.pdf  # KT documentation
@@ -40,8 +40,7 @@ anisha_t125_UC8/
     ├── PerformedActivitiesSummary.pdf
     ├── subjectInformation.pdf        # Sensor and participant metadata
 
-
-
+```
 ---
 
 ## How to Run
