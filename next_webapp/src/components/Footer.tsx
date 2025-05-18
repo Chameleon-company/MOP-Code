@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
@@ -7,12 +7,10 @@ const Footer = () => {
   const t = useTranslations("common");
 
   return (
-    <footer className="bg-green-500 text-white py-8 mt-16 md:mt-8">
+    <footer className="bg-green-500 text-white py-8 dark:bg-green-800">
       <div className="container mx-auto px-4 md:px-2 lg:px-8">
         {/* Flexbox container for layout */}
         <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
-          
-          {/* Logo and Navigation */}
           <div className="flex flex-col md:flex-row items-center md:space-x-6 space-y-8 md:space-y-0">
             {/* Logo */}
             <img src="/img/new-logo-white.png" alt="Hameleon logo" className="h-16 lg:h-24 w-auto" />
@@ -38,8 +36,6 @@ const Footer = () => {
               </ul>
             </nav>
           </div>
-
-          {/* Social Icons and External Link */}
           <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6">
             {/* Social Media Icons */}
             <div className="flex space-x-4">
