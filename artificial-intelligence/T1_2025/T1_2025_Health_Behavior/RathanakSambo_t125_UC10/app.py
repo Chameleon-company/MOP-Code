@@ -9,6 +9,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import to_categorical
 from PIL import Image, UnidentifiedImageError
 from datetime import datetime
+from urllib.parse import urljoin
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -46,12 +47,9 @@ LABEL_MAP = {i: label for i, label in enumerate(LABELS)}
 HISTORY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "user_history.txt")
 
 def allowed_file(filename: str) -> bool:
-    """Check if the file has an allowed extension."""
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 def preprocess_image(image_path: str) -> Optional[np.ndarray]:
-    """Process uploaded image for model prediction."""
     try:
         with Image.open(image_path) as img:
             img = img.convert("RGB").resize((192, 192))
@@ -59,70 +57,17 @@ def preprocess_image(image_path: str) -> Optional[np.ndarray]:
             return np.expand_dims(img_array, axis=0)
     except (UnidentifiedImageError, IOError) as e:
         logger.error(f"Invalid image file: {e}")
-    except Exception as e:
-        logger.error(f"Error processing image: {e}")
     return None
 
-def update_history(label_index: int) -> None:
-    """Record prediction in history file with timestamp."""
-    try:
-        with open(HISTORY_FILE, "a") as f:
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"{label_index},{timestamp}\n")
-    except Exception as e:
-        logger.error(f"Error updating history: {e}")
-
-def get_recent_meals(max_meals: int = 7) -> List[str]:
-    """Retrieve recent meal classifications from history."""
-    if not os.path.exists(HISTORY_FILE):
-        return []
-    
-    try:
-        with open(HISTORY_FILE, "r") as f:
-            lines = [line.strip().split(',')[0] for line in f if line.strip()]
-        return [LABEL_MAP.get(int(index), "Unknown ❓") for index in lines[-max_meals:]]
-    except Exception as e:
-        logger.error(f"Error reading history: {e}")
-        return []
-
-def get_lstm_input(max_seq: int = 7, num_classes: int = 3) -> np.ndarray:
-    """Prepare input data for LSTM model."""
-    if not os.path.exists(HISTORY_FILE):
-        lines = []
-    else:
-        try:
-            with open(HISTORY_FILE, "r") as f:
-                lines = [int(line.strip().split(',')[0]) for line in f.readlines()[-max_seq:]]
-        except Exception as e:
-            logger.error(f"Error reading history for LSTM: {e}")
-            lines = []
-
-    padded = [0] * (max_seq - len(lines)) + lines
-    one_hot_seq = to_categorical(padded, num_classes=num_classes)
-    return np.expand_dims(one_hot_seq, axis=0)
-
-def predict_behavior() -> Tuple[str, str]:
-    """Analyze eating habits and provide feedback."""
-    input_seq = get_lstm_input()
-    threshold = 0.4
-    try:
-        pred = lstm_model.predict(input_seq, verbose=0)[0][0]
-        trend = "⚠️ Unhealthy Trend" if pred > threshold else "👍 Balanced"
-
-        with open(HISTORY_FILE, "r") as f:
-            recent = [int(line.strip().split(',')[0]) for line in f.readlines()[-7:]]
-        
-        unhealthy_count = recent.count(2)
-        message = "⚠️ You've had 4+ unhealthy meals recently. Try balancing with healthier choices!" \
-                 if unhealthy_count >= 4 else ""
-        return trend, message
-    except Exception as e:
-        logger.error(f"Error predicting behavior: {e}")
-        return "Error", "Could not analyze your eating habits"
+def safe_redirect(target: str) -> str:
+    """Only allow safe internal redirects using url_for()."""
+    safe_targets = ["index", "reset"]
+    if target in safe_targets:
+        return redirect(url_for(target))
+    return redirect(url_for("index"))
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    """Main application route handling file uploads and predictions."""
     prediction = None
     trend = None
     feedback = None
@@ -131,18 +76,18 @@ def index():
 
     if request.method == "POST":
         if 'file' not in request.files:
-            return redirect(request.url)
-            
+            return safe_redirect("index")
+
         file = request.files['file']
         if file.filename == '':
-            return redirect(request.url)
-            
+            return safe_redirect("index")
+
         if file and allowed_file(file.filename):
             try:
                 safe_filename = secure_filename(file.filename)
                 image_path = os.path.join(app.config['UPLOAD_FOLDER'], safe_filename)
                 file.save(image_path)
-                
+
                 img_array = preprocess_image(image_path)
                 if img_array is not None:
                     pred = cnn_model.predict(img_array, verbose=0)
@@ -154,8 +99,8 @@ def index():
             except Exception as e:
                 logger.error(f"Error processing upload: {e}")
                 return render_template("index.html", 
-                                    error="An error occurred while processing your image",
-                                    recent_meals=recent_meals)
+                                       error="An error occurred while processing your image",
+                                       recent_meals=recent_meals)
 
     return render_template("index.html",
                          prediction=prediction,
@@ -166,13 +111,10 @@ def index():
 
 @app.route("/reset", methods=["POST"])
 def reset():
-    """Reset the meal history."""
+    """Secure reset route with safe redirect."""
     try:
         open(HISTORY_FILE, "w").close()
-        recent_meals = get_recent_meals()
-        return render_template("index.html", 
-                            message="🧹 History reset successfully!", 
-                            recent_meals=recent_meals)
+        return safe_redirect("index")
     except Exception as e:
         logger.error(f"Error resetting history: {e}")
         return render_template("index.html", 
@@ -183,6 +125,27 @@ def reset():
 def health_check():
     """Health check endpoint for monitoring."""
     return {"status": "healthy"}, 200
+
+# Safe history updater
+def update_history(label_index: int) -> None:
+    try:
+        with open(HISTORY_FILE, "a") as f:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"{label_index},{timestamp}\n")
+    except Exception as e:
+        logger.error(f"Error updating history: {e}")
+
+def get_recent_meals(max_meals: int = 7) -> List[str]:
+    if not os.path.exists(HISTORY_FILE):
+        return []
+    
+    try:
+        with open(HISTORY_FILE, "r") as f:
+            lines = [line.strip().split(',')[0] for line in f if line.strip()]
+        return [LABEL_MAP.get(int(index), "Unknown ❓") for index in lines[-max_meals:]]
+    except Exception as e:
+        logger.error(f"Error reading history: {e}")
+        return []
 
 if __name__ == "__main__":
     # Determine environment
