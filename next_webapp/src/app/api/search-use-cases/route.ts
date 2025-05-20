@@ -62,6 +62,32 @@ export async function POST(request: Request) {
         }
       }
     }
+      catch (e) {
+        console.log("Invalid UseCase Format: ", subdirPath, e)
+      }
+    });
+  });
+
+  let filteredStudies: (CaseStudy & { fileContent?: string })[] = [];
+  if (searchMode === SEARCH_MODE.TITLE) {
+
+    filteredStudies = caseStudies.filter((caseStudy) => {
+      return (
+        caseStudy.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  } else if (searchMode === SEARCH_MODE.CONTENT) {
+    filteredStudies = filteredStudies = caseStudies.filter((caseStudy) => {
+      const search = searchTerm.toLowerCase();
+      const inTags = caseStudy.tags.some((tag) =>
+          tag.toLowerCase().includes(search)
+      );
+      const inDescription = caseStudy.description
+          .toLowerCase()
+          .includes(search);
+
+      return inTags || inDescription;
+    });
   }
 
   //  Decide what to return
