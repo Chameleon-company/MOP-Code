@@ -66,13 +66,13 @@ function LoginForm() {
 
     return (
         <>
-            <div className="w-full fixed top-0 bg-white z-50">
+            <div className="w-full fixed top-0 bg-white dark:bg-[#263238] z-50">
                 <Header />
             </div>
-            <div className="main-content login-container">
+            <div className="main-content login-container dark:bg-[#263238]">
                 <div className="login-content mt-16"> {/* Adjusted margin-top for title */}
-                    <h1 className="login-title">{t("Account Log In")}</h1>
-                    <p className="login-subtitle">{t("Please login to continue to your account")}</p>
+                    <h1 className="login-title dark:text-[#FFFFFF]">{t("Account Log In")}</h1>
+                    <p className="login-subtitle dark:text-[#FFFFFF]">{t("Please login to continue to your account")}</p>
                     <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
                         <div className="mb-4">
                             <label htmlFor="emailInput" className="sr-only">
@@ -106,11 +106,11 @@ function LoginForm() {
                             </span>
                         </div>
                         <div className="options-container flex justify-between mb-4">
-                            <label className="checkbox-label remember-me">
+                            <label className="checkbox-label remember-me dark:text-[#FFFFFF]">
                                 <input type="checkbox" id="remember-me" name="remember-me" />
                                 {t("Remember Me")}
                             </label>
-                            <a href="#" className="forgot-password">{t("Forgot Password?")}</a>
+                            <a href="#" className="forgot-password dark:text-[#FFFFFF]">{t("Forgot Password?")}</a>
                         </div>
                         <button type="submit" className="login-button wide-button">{t("LOGIN")}</button> {/* Wider button */}
                     </form>
