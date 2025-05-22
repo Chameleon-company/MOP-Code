@@ -147,6 +147,22 @@
         "Remember Me": "记住账号",
         "Forgot Password?": "忘记密码？",
         "LOGIN": "登录"
+    },
+    "upload": {
+    "Upload Case Studies": "上传案例研究",
+    "Upload Details": "上传详情",
+    "Name": "姓名",
+    "Enter name": "请输入姓名",
+    "Tags": "标签",
+    "Description": "描述",
+    "Enter Description": "请输入描述",
+    "Trimester": "学期",
+    "Trimester 1": "第一学期",
+    "Trimester 2": "第二学期",
+    "Trimester 3": "第三学期",
+    "Click on logo to upload files": "点击标志上传文件",
+    "Upload File": "上传文件",
+    "Clear": "清除"
     }
 
 }
