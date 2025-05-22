@@ -81,7 +81,47 @@ const LanguageDropdown: React.FC = () => {
           >
             Greek (Ελληνικά)
           </a>
-         
+          <a
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              selectLanguage("ar");
+            }}
+            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+          >
+            Arabic (العربية)
+        </a>
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault();
+            selectLanguage("it");
+          }}
+          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+        >
+          Italian (Italiano)
+        </a>
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault();
+            selectLanguage("hi");
+          }}
+          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+        >
+          Hindi (हिन्दी)
+        </a>
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault();
+            selectLanguage("vi");
+          }}
+          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+        >
+          Vietnamese (Tiếng Việt)
+        </a>
+
         </div>
       )}
     </div>
