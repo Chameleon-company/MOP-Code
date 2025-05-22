@@ -139,6 +139,24 @@
         "Moderate":"Moderate",
         "Strong":"Strong"
       },
+      "upload": {
+        "Upload Case Studies": "Upload Case Studies",
+        "Upload Details": "Upload Details",
+        "Name": "Name",
+        "Enter name": "Enter name",
+        "Tags": "Tags",
+        "Description": "Description",
+        "Enter Description": "Enter Description",
+        "Trimester": "Trimester",
+        "Trimester 1": "Trimester 1",
+        "Trimester 2": "Trimester 2",
+        "Trimester 3": "Trimester 3",
+        "Click on logo to upload files": "Click on logo to upload files",
+        "Upload File": "Upload File",
+        "Clear": "Clear"
+      }
+
+  }
         "login": {
           "Account Log In": "Account Log In",
           "Please login to continue to your account": "Please login to continue to your account",

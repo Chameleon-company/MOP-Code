@@ -91,6 +91,52 @@ const Upload = () => {
   return (
     <div className="bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
       <Header />
+
+      <div className="bg-gray-200  flex justify ">
+        <div className="upload-header-left ">
+          <h1 className="font-bold text-[50px] py-11">{t("Upload Case Studies")}</h1>
+        </div>
+
+      </div>
+
+      <div className="upload-container">
+        <div className="flex items-center justify-between py-4">
+          <h2 style={{ textAlign: "left" }}>{t("Upload Details")}</h2>
+
+
+
+        </div>
+        <div className="form-container">
+          <div className="column">
+            <label htmlFor="Name">{t("Name")}</label>
+            <input type="text" id="first-name" name="first-name" placeholder={"Enter  name"} />
+
+
+            {/* <pre>{JSON.stringify(tagselect)}</pre> */}
+            <label htmlFor="Tag">{t("Tags")}</label>
+            <TagsInput
+              value={tagselect}
+              onChange={setTagselect}
+              name="tags"
+              placeHolder={t("Tags")}
+            />
+          </div>
+          <div className="column">
+
+            <label htmlFor="description" className="ml-5">{t("Description")}</label>
+            <input type="text" id="last-name" className="ml-5" name="last-name" placeholder={"Enter Description"} />
+
+            <div className="column m-0">
+              <label htmlFor="description" className=" text-lg font-medium text-gray-700">{t("Trimester")}</label>
+            </div>
+            <div className="column m-0">
+              <select className="border border-gray-300 rounded-md px-[93%] py-3  my-1"
+                name="trimester"
+                id="trimester" >
+                <option value="option1">{t("Trimester 1")}</option>
+                <option value="option2">{t("Trimester 2")}</option>
+                <option value="option3">{t("Trimester 3")}</option>
+              </select>
       <main className="px-8 py-10 font-sans max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-10">{t("Upload Case Studies")}</h1>
 
