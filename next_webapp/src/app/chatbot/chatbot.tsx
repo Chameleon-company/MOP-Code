@@ -250,6 +250,25 @@ const Chatbot = () => {
     return String(jsxContent);
   };
 
+  // Extract plain text from JSX for text-to-speech
+  const extractTextFromJSX = (jsxContent: React.ReactNode): string => {
+    if (typeof jsxContent === "string") {
+      return jsxContent;
+    } else if (Array.isArray(jsxContent)) {
+      return jsxContent.map((item) => extractTextFromJSX(item)).join(" ");
+    } else if (React.isValidElement(jsxContent)) {
+      const { children } = jsxContent.props;
+      return extractTextFromJSX(children);
+    } else if (jsxContent === null || jsxContent === undefined) {
+      return "";
+    } else if (typeof jsxContent === "object") {
+      return Object.values(jsxContent)
+        .map((item) => extractTextFromJSX(item))
+        .join(" ");
+    }
+    return String(jsxContent);
+  };
+
   const handleCommand = async (input: string) => {
     // Determine intent via regex-based NLP.
     const matchedIntent = processInput(input);
@@ -338,6 +357,71 @@ const Chatbot = () => {
         break;
 
       case "use_cases": {
+        // Perform a local search for relevant use cases.
+        const localResults = searchLocalUseCases(input);
+        if (localResults.length > 0) {
+          responseText = `${enMessages.use_cases.intro} ${localResults
+            .map((cs) => `${cs.title}: ${cs.description}`)
+            .join(". ")}`;
+          setMessages((prev) => [
+            ...prev,
+            {
+              content: (
+                <>
+                  <div>{enMessages.use_cases.intro}</div>
+                  <ul>
+                    {localResults.map((cs, index) => (
+                      <li key={index}>
+                        <strong>{cs.title}</strong>: {cs.description}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ),
+              sender: "bot",
+              text: responseText,
+            },
+          ]);
+        } else {
+          // If no local results, try API or prompt for more details
+          const apiResults = await fetchUseCasesFromAPI(input);
+          if (apiResults.length > 0) {
+            responseText = `${enMessages.use_cases.intro} ${apiResults
+              .map((cs: any) => `${cs.name}: ${cs.description}`)
+              .join(". ")}`;
+            setMessages((prev) => [
+              ...prev,
+              {
+                content: (
+                  <>
+                    <div>{enMessages.use_cases.intro}</div>
+                    <ul>
+                      {apiResults.map((cs: any) => (
+                        <li key={cs.id}>
+                          <strong>{cs.name}</strong>: {cs.description}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ),
+                sender: "bot",
+                text: responseText,
+              },
+            ]);
+          } else {
+            responseText = enMessages.use_case_prompt.response;
+            setMessages((prev) => [
+              ...prev,
+              {
+                content: <>{responseText}</>,
+                sender: "bot",
+                text: responseText,
+              },
+            ]);
+          }
+        }
+        break;
+      }
       //  Query the live API
         const raw = await searchUseCases(input);          // LiveUseCase[]
         const matches: CaseStudy[] = raw.map((u) => ({
@@ -576,6 +660,7 @@ const Chatbot = () => {
       stopSpeaking();
     } else {
       setIsSpeaking(true);
+      // Speak the last bot message if available
     
       const lastBotMessage = [...messages]
         .reverse()
@@ -589,6 +674,9 @@ const Chatbot = () => {
   return (
     <div className="chatbot fixed bottom-4 right-4 flex flex-col items-end z-[9999]">
       {isOpen && (
+        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full">
+          <div className="flex justify-between items-center mb-2 border-b pb-2">
+            <h3 className="text-md font-semibold text-green-600">
         <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full text-wrap">
           <div className="flex justify-between items-center mb-2 border-b pb-2 text-wrap">
             <h3 className="text-md font-semibold text-green-600 text-wrap">
@@ -644,6 +732,7 @@ const Chatbot = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
+          <div className="input-area flex items-center mt-3 border-t pt-3">
           <div className="input-area flex items-center mt-3 border-t pt-3 text-wrap">
             <input
               type="text"
