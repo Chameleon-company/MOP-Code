@@ -1,7 +1,7 @@
 "use client";
+
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import "../../../../public/styles/upload.css";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import { TagsInput } from "react-tag-input-component";
@@ -16,8 +16,11 @@ const Upload = () => {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const [progress, setProgress] = useState<number>(0);
   const [uploadStatus, setUploadStatus] = useState<"select" | "uploading" | "done">("select");
-  const [tagselect, setTagselect] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [trimester, setTrimester] = useState("Trimester 1");
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
@@ -73,6 +76,10 @@ const Upload = () => {
 
       const formData = new FormData();
       formData.append("file", selectedFile);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("tags", JSON.stringify(tags));
+      formData.append("trimester", trimester);
 
       await axios.post("/api/upload", formData, {
         onUploadProgress: (event) => {
@@ -91,6 +98,7 @@ const Upload = () => {
   return (
     <div className="bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
       <Header />
+
       <main className="px-8 py-10 font-sans max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-10">{t("Upload Case Studies")}</h1>
 
@@ -102,34 +110,39 @@ const Upload = () => {
               <label className="block mb-2">{t("Name")}</label>
               <input
                 type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Enter name"
                 className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
               />
 
               <label className="block mt-6 mb-2">{t("Tags")}</label>
               <TagsInput
-                value={tagselect}
-                onChange={setTagselect}
+                value={tags}
+                onChange={setTags}
                 name="tags"
-                placeHolder="tags"
+                placeHolder="Tags"
                 classNames={{
                   input: "dark:bg-[#1d1d1d] dark:text-white border border-gray-300 dark:border-gray-600 rounded-md p-2",
                   tag: "bg-green-500 text-white px-2 py-1 rounded",
                 }}
               />
-
             </div>
 
             <div>
               <label className="block mb-2">{t("Description")}</label>
               <input
                 type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter description"
                 className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
               />
 
               <label className="block mt-6 mb-2">{t("Trimester")}</label>
               <select
+                value={trimester}
+                onChange={(e) => setTrimester(e.target.value)}
                 className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
               >
                 <option>{t("Trimester 1")}</option>
@@ -177,11 +190,6 @@ const Upload = () => {
           )}
         </div>
       </main>
-
-      <div className="fixed bottom-4 right-4 z-50">
-        <Tooglebutton onValueChange={handleToggle} />
-      </div>
-
       <Footer />
     </div>
   );
