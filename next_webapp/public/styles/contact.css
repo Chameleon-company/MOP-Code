@@ -55,49 +55,83 @@
         font-size: 70px;
         line-height: 90px;
     }
+
     .contactBody {
-        margin-top: 150px; 
+        margin-top: 150px;
     }
 }
 
+/* Placeholder styles - light mode */
 ::-webkit-input-placeholder {
     color: #888;
 }
-
 :-moz-placeholder {
     color: #888;
 }
-
 ::-moz-placeholder {
     color: #888;
 }
-
 :-ms-input-placeholder {
     color: #888;
 }
 
-
-/* Adjust the position of the contact us text and image */
+/* Responsive image/text layout  */
 .imgContent {
     position: relative;
-    margin-top: -50px; 
-  }
-  
-  .contactUsText {
-    margin-top: -40px; 
+    margin-top: -50px;
+}
+
+.contactUsText {
+    margin-top: -40px;
     font-weight: normal;
     z-index: 10;
-  }
-  
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .imgContent {
-      margin-top: -10px; 
+        margin-top: -10px;
     }
-  
+
     .contactUsText {
-      margin-top: -20px; 
+        margin-top: -20px;
     }
+}
+
+/* Google Map Iframe Handling */
+.mapIframe {
+    border: 0;
+    width: 100%;
+    height: 400px;
+    filter: none !important; /* Ensure map is colored in light mode */
+}
+
+/* Dark Mode Support  */
+@media (prefers-color-scheme: dark) {
+    .mapIframe {
+        filter: grayscale(100%) invert(92%) contrast(90%);
+    }
+
+    ::-webkit-input-placeholder {
+        color: #ccc;
+    }
+
+    :-moz-placeholder {
+        color: #ccc;
+    }
+
+    ::-moz-placeholder {
+        color: #ccc;
+    }
+
+    :-ms-input-placeholder {
+        color: #ccc;
+    }
+
+    .imgWrap::before,
+    .imgWrap::after {
+        background-color: white;
+    }
+}
   }
   .mapIframe {
     border: 0;
