@@ -4,82 +4,92 @@ import Footer from "../../../components/Footer";
 import "../../../../public/styles/upload.css";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
-import "../../../../public/img/Upload_use_case.png";
-import axios from "axios";
 import { TagsInput } from "react-tag-input-component";
-
+import axios from "axios";
+import Tooglebutton from "../Tooglebutton/Tooglebutton";
 
 const Upload = () => {
   const t = useTranslations("upload");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [isMounted, setIsMounted] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFileName, setSelectedFileName] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [uploadStatus, setUploadStatus] = useState("select");
-  const [tagselect, setTagselect] = useState([" "]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [progress, setProgress] = useState<number>(0);
+  const [uploadStatus, setUploadStatus] = useState<"select" | "uploading" | "done">("select");
+  const [tagselect, setTagselect] = useState<string[]>([]);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
   }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
-  const handleFileChange = (event) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
+  const handleToggle = (val: boolean) => {
+    setDarkMode(val);
+    localStorage.setItem("theme", val ? "dark" : "light");
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
       setSelectedFile(file);
       setSelectedFileName(file.name);
     }
   };
 
   const onChooseFile = () => {
-    inputRef.current.click();
+    inputRef.current?.click();
   };
 
   const clearFileInput = () => {
-    inputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = "";
     setSelectedFile(null);
+    setSelectedFileName(null);
     setProgress(0);
-    setUploadStatus(t("select"));
+    setUploadStatus("select");
   };
 
   const handleUpload = async () => {
-    if (uploadStatus === t("done")) {
+    if (uploadStatus === "done") {
       clearFileInput();
       return;
     }
 
+    if (!selectedFile) return;
+
     try {
-      setUploadStatus(t("uploading"));
+      setUploadStatus("uploading");
 
       const formData = new FormData();
-      formData.append(t("file"), selectedFile);
+      formData.append("file", selectedFile);
 
-      await axios.post(
-        "http://localhost:3000/en/upload",
-        formData,
-        {
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setProgress(percentCompleted);
-          },
-        }
-      );
+      await axios.post("/api/upload", formData, {
+        onUploadProgress: (event) => {
+          const percent = Math.round((event.loaded * 100) / (event.total ?? 1));
+          setProgress(percent);
+        },
+      });
 
-      setUploadStatus(t("done"));
-    } catch (error) {
-      setUploadStatus(t("select"));
+      setUploadStatus("done");
+    } catch (err) {
+      console.error("Upload failed", err);
+      setUploadStatus("select");
     }
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
       <Header />
 
       <div className="bg-gray-200  flex justify ">
@@ -127,54 +137,99 @@ const Upload = () => {
                 <option value="option2">{t("Trimester 2")}</option>
                 <option value="option3">{t("Trimester 3")}</option>
               </select>
+      <main className="px-8 py-10 font-sans max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-10">{t("Upload Case Studies")}</h1>
+
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-md p-8">
+          <h2 className="text-2xl font-semibold mb-6">{t("Upload Details")}</h2>
+
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div>
+              <label className="block mb-2">{t("Name")}</label>
+              <input
+                type="text"
+                placeholder="Enter name"
+                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+              />
+
+              <label className="block mt-6 mb-2">{t("Tags")}</label>
+              <TagsInput
+                value={tagselect}
+                onChange={setTagselect}
+                name="tags"
+                placeHolder="tags"
+                classNames={{
+                  input: "dark:bg-[#1d1d1d] dark:text-white border border-gray-300 dark:border-gray-600 rounded-md p-2",
+                  tag: "bg-green-500 text-white px-2 py-1 rounded",
+                }}
+              />
 
             </div>
 
-          </div>
-        </div>
+            <div>
+              <label className="block mb-2">{t("Description")}</label>
+              <input
+                type="text"
+                placeholder="Enter description"
+                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+              />
 
-        <div className="flex justify-center">
-          <div className="border-dashed border-2 border-black w-[50rem] h-[25rem] items-center">
-            <div className="flex items-center justify-center pt-[8rem]">
-              <input ref={inputRef} type="file" onChange={handleFileChange} style={{ display: "none" }} />
-              <button onClick={onChooseFile}>
-                <img className="h-20 w-auto" src="../img/Upload_use_case.png" alt="Logo" />
-              </button>
+              <label className="block mt-6 mb-2">{t("Trimester")}</label>
+              <select
+                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+              >
+                <option>{t("Trimester 1")}</option>
+                <option>{t("Trimester 2")}</option>
+                <option>{t("Trimester 3")}</option>
+              </select>
             </div>
-            <h1 className="text-center text-lg py-[2rem]">{t("Click on logo to upload files")}</h1>
-          </div>
-        </div>
+          </form>
 
-        {selectedFile && (
-          <>
-            <div className="flex pt-8 justify-center items-center">
-              <div className="bg-gray-200 w-[50rem] py-[3rem] px-2 rounded-3xl">
-                <div className="flex">
-                  <img className="flex-initial h-8 w-auto" src="../img/document.png" alt="Document Icon" />
-                  <h6 className="flex-1 font-bold items-center pl-2">{selectedFileName}</h6>
-                  <p> {progress}%</p>
+          {/* File upload section */}
+          <div className="border-2 border-dashed border-gray-400 dark:border-gray-600 rounded-md p-10 text-center">
+            <input ref={inputRef} type="file" onChange={handleFileChange} hidden />
+            <button type="button" onClick={onChooseFile}>
+              <img src="/img/Upload_use_case.png" alt="Upload" className="h-20 w-auto mx-auto" />
+            </button>
+            <p className="text-lg mt-4">{t("Click on logo to upload files")}</p>
+          </div>
+
+          {/* Progress and preview */}
+          {selectedFile && (
+            <div className="mt-8 bg-gray-100 dark:bg-[#1a1a1a] p-6 rounded-lg shadow-inner">
+              <div className="flex justify-between items-center mb-2">
+                <div className="flex items-center gap-2">
+                  <img src="/img/document.png" alt="doc" className="h-6" />
+                  <span>{selectedFileName}</span>
                 </div>
-                <div className="w-full pt-3 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 pl-2">
-                  <div className="bg-green-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
-                </div>
+                <span>{progress}%</span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
+                <div
+                  className="bg-green-500 h-2 rounded-full"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+
+              <div className="mt-6 text-center">
+                <button
+                  className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+                  onClick={handleUpload}
+                >
+                  {uploadStatus === "done" ? t("Clear") : t("Upload File")}
+                </button>
               </div>
             </div>
+          )}
+        </div>
+      </main>
 
-            <div className="flex justify-center pt-4">
-              <button
-                className="bg-green-500 text-white px-4 py-2 rounded"
-                onClick={handleUpload}
-              >
-                {uploadStatus === "done" ? t("Clear") : t("Upload File")}
-              </button>
-            </div>
-          </>
-        )}
+      <div className="fixed bottom-4 right-4 z-50">
+        <Tooglebutton onValueChange={handleToggle} />
       </div>
 
-      <div className="spacer"></div>
       <Footer />
-    </div >
+    </div>
   );
 };
 
