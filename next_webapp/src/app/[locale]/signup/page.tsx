@@ -102,11 +102,11 @@ const SignUpPage = () => {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
-      <div className="signup-page flex flex-col min-h-screen bg-gradient-to-b from-[#2ECC71] to-white text-black font-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>
+      <div className="signup-page flex flex-col min-h-screen bg-gradient-to-b from-[#2ECC71] to-white dark:bg-gradient-to-b dark:from-[#263238] dark:to-[#263238] text-black font-semibold " style={{ fontFamily: 'Poppins, sans-serif' }}>
         <Header showSignUpButton={false} />
         <div className="flex flex-col items-center justify-center flex-grow px-4">
           <div className="w-full max-w-xl p-4">
-            <h2 className="text-4xl font-bold text-center mb-8">{t("Account Sign up")}</h2>
+            <h2 className="text-4xl font-bold text-center mb-8 dark:text-[#FFFFFF]">{t("Account Sign up")}</h2>
             <form onSubmit={handleSubmit} noValidate className="space-y-6">
               <div className="flex gap-4">
                 <div className="w-1/2">
@@ -161,7 +161,7 @@ const SignUpPage = () => {
                     style={{ width: `${Math.min((form.password.length / 10) * 100, 100)}%`, backgroundColor: getPasswordStrengthColor() }}
                   ></div>
                 </div>
-                <p className="text-right text-sm mt-1 italic text-gray-600">{t("Password Strength")}: {passwordStrength}</p>
+                <p className="text-right text-sm mt-1 italic text-gray-600 dark:text-[#FFFFFF]">{t("Password Strength")}: {passwordStrength}</p>
               </div>
               <button
                 type="submit"

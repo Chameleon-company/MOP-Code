@@ -15,10 +15,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="en">
-      <NextIntlClientProvider messages={messages}>
-        <body className={inter.className}>{children}</body>
-      </NextIntlClientProvider>
+    <html lang={locale}>
+      <body className={inter.className}>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }
