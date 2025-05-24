@@ -14,17 +14,17 @@ type Message = {
   text?: string;
 };
 
-export interface LiveUseCase {
+interface UseCase {
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+interface LiveUseCase {
   id: number;
   name: string;
   description: string;
   filename: string;
-  tags: string[];
-}
-
-interface UseCase {
-  title: string;
-  description: string;
   tags: string[];
 }
 
@@ -51,6 +51,7 @@ const searchLocalUseCases = (query: string): UseCase[] => {
       results.push(useCase);
     }
   });
+
   return results;
 };
 
@@ -103,19 +104,11 @@ const Chatbot = () => {
       recognitionRef.current.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         setUserInput(transcript);
-        setTimeout(() => {
-          handleSendVoiceInput(transcript);
-        }, 500);
+        setTimeout(() => handleSendVoiceInput(transcript), 500);
       };
 
-      recognitionRef.current.onerror = (event: any) => {
-        console.error("Speech recognition error:", event.error);
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-      };
+      recognitionRef.current.onerror = () => setIsListening(false);
+      recognitionRef.current.onend = () => setIsListening(false);
     }
 
     if (typeof window !== "undefined" && window.speechSynthesis) {
@@ -134,7 +127,8 @@ const Chatbot = () => {
   }, [messages]);
 
   const toggleChat = () => setIsOpen(!isOpen);
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setUserInput(event.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value);
+
   const toggleListening = () => {
     if (isListening) {
       recognitionRef.current?.abort();
@@ -151,7 +145,6 @@ const Chatbot = () => {
 
   const speakMessage = (text: string) => {
     if (!speechSynthRef.current) return;
-    speechSynthRef.current.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
@@ -164,7 +157,7 @@ const Chatbot = () => {
     setIsSpeaking(false);
   };
 
-  const fetchUseCasesFromAPI = async (searchTerm: string, searchMode: string = "TITLE") => {
+  const fetchUseCasesFromAPI = async (searchTerm: string, searchMode = "TITLE") => {
     try {
       const response = await fetch("/api/search-use-cases", {
         method: "POST",
@@ -174,311 +167,124 @@ const Chatbot = () => {
       const data = await response.json();
       return data.filteredStudies;
     } catch (error) {
-      console.error("Error fetching use cases: ", error);
+      console.error("Error fetching use cases:", error);
       return [];
     }
   };
 
-  const searchUseCases = async (term: string): Promise<LiveUseCase[]> => {
-    const studies = await fetchUseCasesFromAPI(term, "CONTENT");
-    return studies.map((uc: any) => ({
-      id: uc.id,
-      name: uc.name,
-      description: uc.description,
-      filename: uc.filename,
-      tags: uc.tags ?? [],
-    }));
-  };
-
-  // Extract plain text from JSX for text-to-speech
-  const extractTextFromJSX = (jsxContent: React.ReactNode): string => {
-    if (typeof jsxContent === "string") {
-      return jsxContent;
-    } else if (Array.isArray(jsxContent)) {
-      return jsxContent.map((item) => extractTextFromJSX(item)).join(" ");
-    } else if (React.isValidElement(jsxContent)) {
-      const { children } = jsxContent.props;
-      return extractTextFromJSX(children);
-    } else if (jsxContent === null || jsxContent === undefined) {
-      return "";
-    } else if (typeof jsxContent === "object") {
-      return Object.values(jsxContent)
-        .map((item) => extractTextFromJSX(item))
-        .join(" ");
-    }
-    return String(jsxContent);
-  };
-
   const handleCommand = async (input: string) => {
-    const matchedIntent = processInput(input);
+    const intent = processInput(input);
     let responseText = "";
 
-    switch (matchedIntent) {
-      case "greet":
-      case "greet_morning":
-      case "greet_afternoon":
-      case "greet_evening":
-      case "mop_full_form":
-      case "project_overview":
-      case "contact":
-      case "help":
-      case "thank_you":
-      case "bye":
-      case "goodbye":
-        responseText = enMessages[matchedIntent].response;
-        break;
-
-      case "about_mop":
-        responseText = enMessages.about.p1 + " " + enMessages.about.p2;
-        setMessages((prev) => [
-          ...prev,
-          {
-            content: (
-              <>
-                <p>{enMessages.about.p1}</p>
-                <p>{enMessages.about.p2}</p>
-              </>
-            ),
-            sender: "bot",
-            text: responseText,
-          },
-        ]);
-        break;
-
-      case "use_cases": {
-        // Perform a local search for relevant use cases.
-        const localResults = searchLocalUseCases(input);
-        if (localResults.length > 0) {
-          responseText = `${enMessages.use_cases.intro} ${localResults
-            .map((cs) => `${cs.title}: ${cs.description}`)
-            .join(". ")}`;
-          setMessages((prev) => [
-            ...prev,
-            {
-              content: (
-                <>
-                  <div>{enMessages.use_cases.intro}</div>
-                  <ul>
-                    {localResults.map((cs, index) => (
-                      <li key={index}>
-                        <strong>{cs.title}</strong>: {cs.description}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ),
-              sender: "bot",
-              text: responseText,
-            },
-          ]);
-        } else {
-          const matches = await searchUseCases(input);
-          if (matches.length === 0) {
-            responseText = enMessages.use_case_prompt.response;
-          } else {
-            responseText = enMessages.use_cases.intro;
-          // If no local results, try API or prompt for more details
-          const apiResults = await fetchUseCasesFromAPI(input);
-          if (apiResults.length > 0) {
-            responseText = `${enMessages.use_cases.intro} ${apiResults
-              .map((cs: any) => `${cs.name}: ${cs.description}`)
-              .join(". ")}`;
-            setMessages((prev) => [
-              ...prev,
-              {
-                content: (
-                  <>
-                    <div>{enMessages.use_cases.intro}</div>
-                    <ul className="list-disc pl-4">
-                      {matches.slice(0, 5).map((uc) => (
-                        <li key={uc.id}>
-                          <strong>{uc.name}</strong>: {uc.description}
-                    <ul>
-                      {apiResults.map((cs: any) => (
-                        <li key={cs.id}>
-                          <strong>{cs.name}</strong>: {cs.description}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ),
-                sender: "bot",
-                text: matches.map((m) => m.name).join(", "),
-                text: responseText,
-              },
-            ]);
-          } else {
-            responseText = enMessages.use_case_prompt.response;
-            setMessages((prev) => [
-              ...prev,
-              {
-                content: <>{responseText}</>,
-                sender: "bot",
-                text: responseText,
-              },
-            ]);
-          }
-        }
-        break;
-      }
-      //  Query the live API
-        const raw = await searchUseCases(input);          // LiveUseCase[]
-        const matches: CaseStudy[] = raw.map((u) => ({
-        ...u,
-        tags: u.tags ?? []              // supply empty array if the field is missing
-    }));
-
-      //  Nothing found → prompt for more detail
-    if (matches.length === 0) {
-      const prompt = enMessages.use_case_prompt.response;
-      setMessages(prev => [...prev, { content: <>{prompt}</>, sender:"bot", text: prompt }]);
-      break;
-    }
-
-  // Found something → list up to five 
-  setMessages(prev => [
-    ...prev,
-    {
-      content: (
-        <>
-          <div>{enMessages.use_cases.intro}</div>
-          <ul className="list-disc pl-4">
-            {matches.slice(0,5).map((uc: CaseStudy) => (
-              <li key={uc.id}>
-                <strong>{uc.name}</strong>: {uc.description}
-              </li>
-            ))}
-          </ul>
-        </>
-      ),
-      sender: "bot",
-      text: matches.map((m: CaseStudy) => m.name).join(", ")
-    }
-  ]);
-  break;
-}
-
-      case "faq":
-        window.location.href = enMessages.initial.faq_url;
+    if (["greet", "greet_morning", "greet_afternoon", "greet_evening", "mop_full_form", "project_overview", "contact", "help", "thank_you", "bye", "goodbye"].includes(intent)) {
+      responseText = enMessages[intent].response;
+    } else if (intent === "about_mop") {
+      responseText = `${enMessages.about.p1} ${enMessages.about.p2}`;
+    } else if (intent === "use_cases") {
+      const localResults = searchLocalUseCases(input);
+      if (localResults.length > 0) {
+        setMessages(prev => [...prev, {
+          content: (
+            <>
+              <div>{enMessages.use_cases.intro}</div>
+              <ul>{localResults.map((cs, i) => <li key={i}><strong>{cs.title}</strong>: {cs.description}</li>)}</ul>
+            </>
+          ),
+          sender: "bot",
+          text: localResults.map(cs => cs.title).join(", "),
+        }]);
         return;
+      }
 
-      case "navigate_home":
-        router.push("/en/");
-        responseText = enMessages.navigation.home;
-        break;
-      case "navigate_about":
-        router.push("/en/about");
-        responseText = enMessages.navigation.about;
-        break;
-      case "navigate_contact":
-        router.push("/en/contact");
-        responseText = enMessages.navigation.contact;
-        break;
-      case "navigate_statistics":
-        router.push("/en/statistics");
-        responseText = enMessages.navigation.statistics;
-        break;
-      case "navigate_upload":
-        router.push("/en/upload");
-        responseText = enMessages.navigation.upload;
-        break;
-      case "navigate_language":
-        responseText = `${enMessages.language_prompt.response} ${enMessages.language_prompt.languages.join(", ")}`;
-        break;
-      case "navigate_sign_up":
-        router.push("/en/signup");
-        responseText = enMessages.navigation.sign_up;
-        break;
-      case "navigate_log_in":
-        router.push("/en/login");
-        responseText = enMessages.navigation.log_in;
-        break;
+      const apiResults = await fetchUseCasesFromAPI(input);
+      if (apiResults.length > 0) {
+        setMessages(prev => [...prev, {
+          content: (
+            <>
+              <div>{enMessages.use_cases.intro}</div>
+              <ul>{apiResults.slice(0, 5).map((cs: any) => <li key={cs.id}><strong>{cs.name}</strong>: {cs.description}</li>)}</ul>
+            </>
+          ),
+          sender: "bot",
+          text: apiResults.map((cs: any) => cs.name).join(", "),
+        }]);
+        return;
+      }
 
-      default:
-        const fallbackResults = await fetchUseCasesFromAPI(input);
-        if (fallbackResults.length > 0) {
-          responseText = `${enMessages.use_cases.intro} ${fallbackResults
-            .map((cs: any) => `${cs.name}: ${cs.description}`)
-            .join(". ")}`;
-        } else {
-          responseText = enMessages.fallback.response;
-        }
-        break;
+      responseText = enMessages.use_case_prompt.response;
+    } else if (intent.startsWith("navigate_")) {
+      const routeMap: { [key: string]: string } = {
+        navigate_home: "/en/",
+        navigate_about: "/en/about",
+        navigate_contact: "/en/contact",
+        navigate_statistics: "/en/statistics",
+        navigate_upload: "/en/upload",
+        navigate_sign_up: "/en/signup",
+        navigate_log_in: "/en/login"
+      };
+      router.push(routeMap[intent]);
+      responseText = enMessages.navigation[intent.replace("navigate_", "")];
+    } else if (intent === "navigate_language") {
+      responseText = `${enMessages.language_prompt.response} ${enMessages.language_prompt.languages.join(", ")}`;
+    } else if (intent === "faq") {
+      window.location.href = enMessages.initial.faq_url;
+      return;
+    } else {
+      const fallback = await fetchUseCasesFromAPI(input);
+      responseText = fallback.length > 0
+        ? `${enMessages.use_cases.intro} ${fallback.map((cs: any) => `${cs.name}: ${cs.description}`).join(". ")}`
+        : enMessages.fallback.response;
     }
 
-    if (responseText) {
-      setMessages((prev) => [...prev, { content: <>{responseText}</>, sender: "bot", text: responseText }]);
-      if (isSpeaking) speakMessage(responseText);
-    }
-    return responseText;
+    setMessages(prev => [...prev, { content: <>{responseText}</>, sender: "bot", text: responseText }]);
+    if (isSpeaking) speakMessage(responseText);
   };
 
   const handleSend = async () => {
     if (!userInput.trim()) {
-      const emptyInputMessage = enMessages.validation.empty_input;
-      setMessages((prev) => [
-        ...prev,
-        { content: <>{emptyInputMessage}</>, sender: "bot", text: emptyInputMessage },
-      ]);
-      if (isSpeaking) speakMessage(emptyInputMessage);
+      const msg = enMessages.validation.empty_input;
+      setMessages(prev => [...prev, { content: <>{msg}</>, sender: "bot", text: msg }]);
+      if (isSpeaking) speakMessage(msg);
       return;
     }
-    const trimmedInput = userInput.trim();
-    setMessages((prev) => [...prev, { content: <>{userInput}</>, sender: "user", text: userInput }]);
+    const input = userInput.trim();
+    setMessages(prev => [...prev, { content: <>{input}</>, sender: "user", text: input }]);
     setUserInput("");
-    await handleCommand(trimmedInput);
+    await handleCommand(input);
   };
 
   const handleSendVoiceInput = async (transcript: string) => {
     if (!transcript.trim()) return;
-    setMessages((prev) => [...prev, { content: <>{transcript}</>, sender: "user", text: transcript }]);
+    setMessages(prev => [...prev, { content: <>{transcript}</>, sender: "user", text: transcript }]);
     await handleCommand(transcript);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleSend();
   };
 
   const toggleSpeech = () => {
-    if (isSpeaking) {
-      stopSpeaking();
-    } else {
-      setIsSpeaking(true);
-      const lastBotMessage = [...messages].reverse().find((msg) => msg.sender === "bot");
-      if (lastBotMessage?.text) speakMessage(lastBotMessage.text);
-      // Speak the last bot message if available
-    
-      const lastBotMessage = [...messages]
-        .reverse()
-        .find((msg) => msg.sender === "bot");
-      if (lastBotMessage?.text) {
-        speakMessage(lastBotMessage.text);
-      }
+    if (isSpeaking) stopSpeaking();
+    else {
+      const lastBot = [...messages].reverse().find(m => m.sender === "bot");
+      if (lastBot?.text) speakMessage(lastBot.text);
     }
   };
 
   return (
     <div className="chatbot fixed bottom-4 right-4 flex flex-col items-end z-[9999]">
       {isOpen && (
-        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full break-words">
-          <div className="flex justify-between items-center mb-2 border-b pb-2">
-            <h3 className="text-md font-semibold text-green-600">Melbourne Open Data Assistant</h3>
         <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full">
           <div className="flex justify-between items-center mb-2 border-b pb-2">
-            <h3 className="text-md font-semibold text-green-600">
-        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full text-wrap">
-          <div className="flex justify-between items-center mb-2 border-b pb-2 text-wrap">
-            <h3 className="text-md font-semibold text-green-600 text-wrap">
-              Melbourne Open Data Assistant
-            </h3>
+            <h3 className="text-md font-semibold text-green-600">Melbourne Open Data Assistant</h3>
             <div className="flex space-x-2">
               {speechSupported && (
-                <button onClick={toggleSpeech} className="p-1 rounded" title="Toggle speech">
+                <button onClick={toggleSpeech} title="Toggle speech">
                   {isSpeaking ? <BsVolumeUp className="text-green-600" /> : <BsVolumeMute className="text-gray-500" />}
                 </button>
               )}
               {recognitionSupported && (
-                <button onClick={toggleListening} className={`p-1 rounded ${isListening ? "animate-pulse bg-green-100" : ""}`} title="Toggle voice input">
+                <button onClick={toggleListening} title="Toggle voice input" className={isListening ? "animate-pulse bg-green-100" : ""}>
                   {isListening ? <BsMicFill className="text-green-600" /> : <BsMicMuteFill className="text-gray-500" />}
                 </button>
               )}
@@ -486,38 +292,30 @@ const Chatbot = () => {
           </div>
           <div className="messages overflow-auto h-60">
             {messages.map((msg, i) => (
-              <div key={i} className={`message p-2 my-1 rounded-lg ${msg.sender === "bot" ? "bg-green-50 text-green-800 border-l-4 border-green-500" : "bg-gray-100 text-gray-800 text-right"}`}>
+              <div key={i} className={`p-2 my-1 rounded-lg ${msg.sender === "bot" ? "bg-green-50 border-l-4 border-green-500 text-green-800" : "bg-gray-100 text-gray-800 text-right"}`}>
                 {msg.content}
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
           <div className="input-area flex items-center mt-3 border-t pt-3">
-            <input type="text" className="flex-1 p-2 border rounded-l outline-none focus:ring-2 focus:ring-green-300" value={userInput} onChange={handleInputChange} onKeyPress={handleKeyPress} placeholder={isListening ? "Listening..." : "Type a message..."} disabled={isListening} />
-            <button onClick={handleSend} className="bg-green-500 text-white p-2 rounded-r hover:bg-green-600">
-          <div className="input-area flex items-center mt-3 border-t pt-3 text-wrap">
             <input
               type="text"
               className="flex-1 p-2 border rounded-l outline-none focus:ring-2 focus:ring-green-300"
-              onChange={handleInputChange}
               value={userInput}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               placeholder={isListening ? "Listening..." : "Type a message..."}
-              onKeyPress={handleKeyPress}
               disabled={isListening}
-              aria-label="User input"
             />
-            <button
-              onClick={handleSend}
-              className="send-icon bg-green-500 text-white p-2 rounded-r hover:bg-green-600 transition duration-150"
-              aria-label="Send message"
-            >
+            <button onClick={handleSend} className="bg-green-500 text-white p-2 rounded-r hover:bg-green-600">
               <IoSend size={20} />
             </button>
           </div>
           {isListening && <div className="text-xs text-center mt-1 text-green-600">Listening... Speak now!</div>}
         </div>
       )}
-      <button onClick={toggleChat} className="toggle-btn text-3xl text-white bg-green-600 rounded-full p-3 hover:bg-green-700 shadow-lg transition-transform hover:scale-105">
+      <button onClick={toggleChat} className="text-3xl text-white bg-green-600 rounded-full p-3 hover:bg-green-700 shadow-lg">
         <IoChatbubbleEllipsesSharp />
       </button>
     </div>

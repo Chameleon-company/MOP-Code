@@ -27,7 +27,7 @@ const Contact = () => {
       type: "text",
       placeholder: t("Enter Your First name"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
     {
       name: "lastName",
@@ -35,7 +35,7 @@ const Contact = () => {
       type: "text",
       placeholder: t("Enter Your Last name"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
     {
       name: "email",
@@ -43,7 +43,7 @@ const Contact = () => {
       type: "email",
       placeholder: t("Enter Company Email Address"),
       required: true,
-      validator: (email: string) => /^\S+@\S+\.\S+$/.test(email),
+      validator: (email) => /^\S+@\S+\.\S+$/.test(email),
     },
     {
       name: "phone",
@@ -51,16 +51,15 @@ const Contact = () => {
       type: "tel",
       placeholder: t("Enter Your Phone Number"),
       required: true,
-      validator: (phone: string) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
+      validator: (phone) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
     },
     {
       name: "message",
       spanName: t("What can I help you with"),
-      spanName: t("What can I help you with"), 
       type: "textarea",
       placeholder: t("Enter Message"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
   ];
 
@@ -85,18 +84,23 @@ const Contact = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setFormValues((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) validateField(name, value);
   };
 
   const validateField = (name: string, value: string) => {
     const field = formFields.find((f) => f.name === name);
     if (field?.validator && !field.validator(value)) {
-      setErrors({ ...errors, [name]: `Invalid ${field.spanName.toLowerCase()}` });
+      setErrors((prev) => ({
+        ...prev,
+        [name]: `Invalid ${field.spanName.toLowerCase()}`,
+      }));
     } else {
-      const newErrors = { ...errors };
-      delete newErrors[name];
-      setErrors(newErrors);
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
 
@@ -130,7 +134,6 @@ const Contact = () => {
   return (
     <div className="bg-white dark:bg-black min-h-screen font-sans text-black dark:text-white transition-colors duration-300">
       <Header />
-
       <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-10">
         <div className="w-full lg:w-1/2">
           {successMessage && (
@@ -142,22 +145,11 @@ const Contact = () => {
             <p className="text-red-600 dark:text-red-400 text-sm mb-3">
               {failureMessage}
             </p>
-    <div className="bg-white min-h-screen font-sans">
-      <Header />
-      
-      <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-10">
-        <div className="w-full lg:w-1/2">
-          {successMessage && (
-            <p className="text-green-600 text-sm mb-3">{successMessage}</p>
-          )}
-          {failureMessage && (
-            <p className="text-red-600 text-sm mb-3">{failureMessage}</p>
           )}
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             {formFields.map((field) => (
               <div key={field.name}>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
                   {field.spanName}
                 </label>
                 {field.type === "textarea" ? (
@@ -165,9 +157,9 @@ const Contact = () => {
                     name={field.name}
                     placeholder={field.placeholder}
                     required={field.required}
-                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none h-24"
-                    className="w-full border border-black rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none h-24" // 🔧 Changed border to black
+                    value={formValues[field.name] || ""}
                     onChange={handleChange}
+                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none h-24"
                   />
                 ) : (
                   <input
@@ -175,14 +167,13 @@ const Contact = () => {
                     type={field.type}
                     placeholder={field.placeholder}
                     required={field.required}
-                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none"
-                    className="w-full border border-black rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none" // 🔧 Changed border to black
+                    value={formValues[field.name] || ""}
                     onChange={handleChange}
+                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none"
                   />
                 )}
                 {errors[field.name] && (
                   <p className="text-red-500 dark:text-red-400 text-xs mt-1">
-                  <p className="text-red-500 text-xs mt-1">
                     {errors[field.name]}
                   </p>
                 )}
@@ -192,7 +183,6 @@ const Contact = () => {
               <button
                 type="submit"
                 className="bg-green-600 hover:bg-green-900 text-white uppercase font-bold text-sm px-8 py-3 rounded-md transition duration-200"
-                className="bg-green-600 hover:bg-green-900 text-white uppercase font-bold text-sm px-8 py-3 rounded-md transition duration-200" // 🔧 Submit button: bold, uppercase, centered
               >
                 {t("Submit")}
               </button>
@@ -200,32 +190,20 @@ const Contact = () => {
           </form>
         </div>
 
-        <div className="w-full lg:w-1/2 bg-[#F0F0F0] dark:bg-gray-800 p-8 rounded-lg shadow-md dark:shadow-none">
+        <div className="w-full lg:w-1/2 bg-[#F0F0F0] dark:bg-gray-800 p-8 rounded-lg shadow-md">
           <h2 className="text-4xl font-bold text-black dark:text-white mb-4 text-center">
-            Contact Us
+            {t("Contact")} {t("Us")}
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 text-center">
             Feel free to use the form or drop us an email
           </p>
-          <div className="mb-4">
-            <div className="flex items-center text-sm text-gray-800 dark:text-gray-200 mb-2">
+          <div className="mb-4 text-sm text-gray-800 dark:text-gray-200">
+            <div className="flex items-center mb-2">
               <span className="mr-3">📧</span>
               <span>email@example.com</span>
             </div>
             <hr className="mb-4 border-gray-300 dark:border-gray-600" />
-            <div className="flex items-center text-sm text-gray-800 dark:text-gray-200">
-        <div className="w-full lg:w-1/2 bg-[#F0F0F0] p-8 rounded-lg shadow-md">
-          <h2 className="text-4xl font-bold text-black mb-4 text-center">Contact Us</h2>
-          <p className="text-sm text-gray-600 mb-6">
-            Feel free to use the form or drop us an email
-          </p>
-          <div className="mb-4">
-            <div className="flex items-center text-sm text-gray-800 mb-2">
-              <span className="mr-3">📧</span>
-              <span>email@example.com</span>
-            </div>
-            <hr className="mb-4 border-gray-300" /> 
-            <div className="flex items-center text-sm text-gray-800">
+            <div className="flex items-center">
               <span className="mr-3">📞</span>
               <span>+61 123 456 789</span>
             </div>
@@ -233,24 +211,12 @@ const Contact = () => {
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d805190.2361230071!2d144.3937342027546!3d-37.97072605426427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad646b5d2ba4df7%3A0x4045675218ccd90!2sMelbourne%20VIC!5e0!3m2!1sen!2sau!4v1747916966526!5m2!1sen!2sau"
             height="400"
-            className="mapIframe"
-            allowFullScreen={true}
+            className="w-full"
+            allowFullScreen
             style={{ border: 0 }}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Google Maps Embed"
-          ></iframe>
-        </div>
-      </main>
-
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019970066525!2d144.96145431531744!3d-37.81410797975166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f37c3e3f%3A0x5045675218ce6e0!2sMelbourne!5e0!3m2!1sen!2sau!4v1588166683930!5m2!1sen!2sau"
-            height="400"
-               className="mapIframe"
-               allowFullScreen={true}
-               style={{ border: 0 }}
-               loading="lazy"
-               referrerPolicy="no-referrer-when-downgrade"
-               title="Google Maps Embed"
           ></iframe>
         </div>
       </main>
