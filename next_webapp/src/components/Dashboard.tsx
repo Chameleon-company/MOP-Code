@@ -229,6 +229,20 @@ const Dashboard = () => {
   const handleBack = () => {
     setSelectedCaseStudy(undefined);
   };
+  const [expanded, setExpanded] = useState(false);
+  const navItems = [
+    { to: "/about", icon: "/img/about-icon.png", label: "About Us" },
+    { to: "/casestudies", icon: "/img/case-icon.png", label: "Case Studies" },
+    {
+      to: "/resource-center",
+      icon: "/img/resource-icon.png",
+      label: "Resource Center",
+    },
+    { to: "/datasets", icon: "/img/data-icon.png", label: "Data Collection" },
+    { to: "/contact", icon: "/img/contact-icon.png", label: "Contact Us" },
+  ];
+
+  const t = useTranslations("common");
 
   if (selectedCaseStudy) {
     return (
@@ -273,6 +287,48 @@ const Dashboard = () => {
             </div>
           </section>
 
+          <section className="case-studies mx-10">
+            <Carousel responsive={responsive}>
+              {filteredCaseStudies.map((study) => (
+                <div
+                  key={study.id}
+                  className="bg-whitesmoke p-4 rounded-lg border-4 shadow-md cursor-pointer hover:shadow-2xl transition-shadow duration-300 case-study"
+                  onClick={() => handleCaseStudyClick(study)}
+                >
+                  <div className="flex items-center justify-center mb-4">
+                    <FileText size={48} className="text-green-500" />
+                    <FileText size={48} className="text-teal-400 -ml-6" />
+                    <FileText
+                      size={48}
+                      className="text-green-700 -ml-6 rotate-6"
+                    />
+                  </div>
+                  <h3 className="font-bold text-lg text-center mb-2">
+                    {study.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm text-center mb-2">
+                  {study.description.split(" ").length > 50 ? (
+                <>
+                  {study.description.split(" ").slice(0, 50).join(" ")}{" "}
+                  <span className="text-blue-500 font-semibold cursor-pointer">
+                    ...see more
+                  </span>
+                </>
+              ) : (
+                study.description
+              )}
+
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <p className="text-sm text-gray-500">Tags:</p>
+                    {study.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
           <section className="case-studies-wrapper">
             <section className="recent-case-studies">
               <h2>{t("Recent Case Studies")}</h2>
