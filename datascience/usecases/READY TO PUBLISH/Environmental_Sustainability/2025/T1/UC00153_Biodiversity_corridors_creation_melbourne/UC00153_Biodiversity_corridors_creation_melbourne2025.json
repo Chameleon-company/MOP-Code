@@ -1,0 +1,59 @@
+{
+  "title": "UC00153_Biodiversity_Corridors_Creation_Melbourne2025",
+  "name": "UC00153_Biodiversity_Corridors_Creation_Melbourne2025",
+  "description": "This project explores the creation of biodiversity corridors by analyzing laneway greening potential and aligning it with canopy cover and tree planting plans in Melbourne.",
+  "tags": [
+    "biodiversity",
+    "urban greening",
+    "tree canopy",
+    "spatial analysis",
+    "climate resilience",
+    "GIS"
+  ],
+  "difficulty": "Intermediate",
+  "technology": [
+    {
+      "name": "pandas",
+      "alias": "pd",
+      "code": "python"
+    },
+    {
+      "name": "geopandas",
+      "alias": "gpd",
+      "code": "python"
+    },
+    {
+      "name": "folium",
+      "code": "python"
+    },
+    {
+      "name": "matplotlib",
+      "code": "python"
+    },
+    {
+      "name": "seaborn",
+      "alias": "sns",
+      "code": "python"
+    },
+    {
+      "name": "shapely",
+      "code": "python"
+    },
+    {
+      "name": "json",
+      "code": "python"
+    },
+    {
+      "name": "numpy",
+      "alias": "np",
+      "code": "python"
+    }
+  ],
+  "datasets": [
+    "tree canopy data",
+    "laneway boundaries",
+    "greening potential",
+    "Melbourne base map",
+    "2021 tree planting data"
+  ]
+}
