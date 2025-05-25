@@ -148,5 +148,22 @@
         "Forgot Password?": "¿Olvidaste tu contraseña?",
         "LOGIN": "ACCESO"
 
-     }
+     },
+     "upload": {
+        "Upload Case Studies": "Subir estudios de caso",
+        "Upload Details": "Detalles de la subida",
+        "Name": "Nombre",
+        "Enter name": "Ingrese el nombre",
+        "Tags": "Etiquetas",
+        "Description": "Descripción",
+        "Enter Description": "Ingrese la descripción",
+        "Trimester": "Trimestre",
+        "Trimester 1": "Trimestre 1",
+        "Trimester 2": "Trimestre 2",
+        "Trimester 3": "Trimestre 3",
+        "Click on logo to upload files": "Haz clic en el logo para subir archivos",
+        "Upload File": "Subir archivo",
+        "Clear": "Limpiar"
+    }
+
 }

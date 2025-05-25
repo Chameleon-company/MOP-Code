@@ -147,5 +147,22 @@
         "Forgot Password?": "Ξεχάσατε τον κωδικό πρόσβασης;",
         "LOGIN": "ΣΥΝΔΕΣΗ"
 
+    },
+    "upload": {
+    "Upload Case Studies": "Ανέβασμα Μελετών Περίπτωσης",
+    "Upload Details": "Λεπτομέρειες Ανεβάσματος",
+    "Name": "Όνομα",
+    "Enter name": "Εισάγετε όνομα",
+    "Tags": "Ετικέτες",
+    "Description": "Περιγραφή",
+    "Enter Description": "Εισάγετε περιγραφή",
+    "Trimester": "Τρίμηνο",
+    "Trimester 1": "1ο Τρίμηνο",
+    "Trimester 2": "2ο Τρίμηνο",
+    "Trimester 3": "3ο Τρίμηνο",
+    "Click on logo to upload files": "Κάντε κλικ στο λογότυπο για να ανεβάσετε αρχεία",
+    "Upload File": "Ανέβασμα Αρχείου",
+    "Clear": "Καθαρισμός"
     }
+
 }

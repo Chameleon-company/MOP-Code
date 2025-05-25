@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import '../../../../public/styles/login.css';
 import Header from "../../../components/Header";
 import { useTranslations } from "next-intl";
+import { useRouter } from 'next/navigation';
 import Footer from "../../../components/Footer";
 
 function LoginForm() {
     const t = useTranslations("login");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const router = useRouter();
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError] = useState<string>("");
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -23,25 +25,54 @@ function LoginForm() {
         setPasswordVisible(!passwordVisible);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (!email || !password) {
             setError("Please fill in both fields");
             return;
         }
-        console.log("Authentication in progress...");
+
+    try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+        console.log("Login API response:", result);
+
+        if (!response.ok) {
+            setError(result.message || "Login failed");
+            return;
+        }
+
         setError("");
-    };
+        alert("Login successful!");
+
+        // Optionally: Store user data in localStorage/sessionStorage
+        localStorage.setItem("user", JSON.stringify(result.user));
+
+        // Redirect to home page (or dashboard)
+        router.push("/"); // Update to your actual home route
+
+    } catch (error) {
+        console.error("Login error:", error);
+        setError("Something went wrong. Please try again.");
+    }
+};
 
     return (
         <>
-            <div className="w-full fixed top-0 bg-white z-50">
+            <div className="w-full fixed top-0 bg-white dark:bg-[#263238] z-50">
                 <Header />
             </div>
-            <div className="main-content login-container">
+            <div className="main-content login-container dark:bg-[#263238]">
                 <div className="login-content mt-16"> {/* Adjusted margin-top for title */}
-                    <h1 className="login-title">{t("Account Log In")}</h1>
-                    <p className="login-subtitle">{t("Please login to continue to your account")}</p>
+                    <h1 className="login-title dark:text-[#FFFFFF]">{t("Account Log In")}</h1>
+                    <p className="login-subtitle dark:text-[#FFFFFF]">{t("Please login to continue to your account")}</p>
                     <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
                         <div className="mb-4">
                             <label htmlFor="emailInput" className="sr-only">
@@ -75,11 +106,11 @@ function LoginForm() {
                             </span>
                         </div>
                         <div className="options-container flex justify-between mb-4">
-                            <label className="checkbox-label remember-me">
+                            <label className="checkbox-label remember-me dark:text-[#FFFFFF]">
                                 <input type="checkbox" id="remember-me" name="remember-me" />
                                 {t("Remember Me")}
                             </label>
-                            <a href="#" className="forgot-password">{t("Forgot Password?")}</a>
+                            <a href="#" className="forgot-password dark:text-[#FFFFFF]">{t("Forgot Password?")}</a>
                         </div>
                         <button type="submit" className="login-button wide-button">{t("LOGIN")}</button> {/* Wider button */}
                     </form>
