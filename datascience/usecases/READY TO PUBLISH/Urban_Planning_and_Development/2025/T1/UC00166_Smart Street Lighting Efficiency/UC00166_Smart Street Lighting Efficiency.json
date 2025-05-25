@@ -1,0 +1,280 @@
+{
+    "title": "Smart Street Lighting Efficiency",
+    "cells": [
+        {
+            "cell_index": 0,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": " ## Optimizing Smart Street Lighting Based on Pedestrian Movement in Melbourne\n\n**Authored by:** San...",
+            "output_types": []
+        },
+        {
+            "cell_index": 1,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "## Accessing Open Datasets Using APIs\n\nTo begin our analysis, we retrieve two datasets directly from...",
+            "output_types": []
+        },
+        {
+            "cell_index": 2,
+            "cell_type": "code",
+            "execution_count": 3,
+            "source_preview": "import pandas as pd\nimport requests\nfrom io import StringIO\n\ndef API_Unlimited(datasetname, apikey=N...",
+            "output_types": [
+                "display_data",
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 3,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Preview of Datasets\n\nBefore diving into analysis or merging operations, it's essential to unders...",
+            "output_types": []
+        },
+        {
+            "cell_index": 4,
+            "cell_type": "code",
+            "execution_count": 5,
+            "source_preview": "# Preview first few rows of pedestrian data\npedestrian_data.head()\n\n",
+            "output_types": [
+                "execute_result"
+            ]
+        },
+        {
+            "cell_index": 5,
+            "cell_type": "code",
+            "execution_count": 7,
+            "source_preview": "# Preview first few rows of streetlight data\nstreetlight_data.head()\n\n",
+            "output_types": [
+                "execute_result"
+            ]
+        },
+        {
+            "cell_index": 6,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Column Overview\n\nAfter previewing the raw data, we inspect the full list of column names for eac...",
+            "output_types": []
+        },
+        {
+            "cell_index": 7,
+            "cell_type": "code",
+            "execution_count": 9,
+            "source_preview": "# List all columns\n\nprint(\"Pedestrian Columns:\", pedestrian_data.columns.tolist())\nprint(\"Streetligh...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 8,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Missing Value Check\n\nBefore performing analysis or merging datasets, it's important to assess da...",
+            "output_types": []
+        },
+        {
+            "cell_index": 9,
+            "cell_type": "code",
+            "execution_count": 11,
+            "source_preview": "# Check for missing values\nprint(\"Pedestrian missing values:\\n\", pedestrian_data.isnull().sum())\npri...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 10,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Cleaning the Streetlight Dataset\n\nTo prepare the **streetlight dataset** for meaningful analysis...",
+            "output_types": []
+        },
+        {
+            "cell_index": 11,
+            "cell_type": "code",
+            "execution_count": 13,
+            "source_preview": "# Drop irrelevant or mostly empty columns in streetlight data\ncolumns_to_drop = ['name', 'asset_clas...",
+            "output_types": [
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 12,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "## Checking Data Types of Both Datasets\n\nBefore diving deeper into merging or applying transformatio...",
+            "output_types": []
+        },
+        {
+            "cell_index": 13,
+            "cell_type": "code",
+            "execution_count": 15,
+            "source_preview": "# Check data types\nprint(\"Pedestrian data types:\\n\", pedestrian_data.dtypes)\nprint(\"\\nStreetlight da...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 14,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "###  Splitting Geospatial Coordinates into Latitude and Longitude\n\nIn both datasets, geospatial loca...",
+            "output_types": []
+        },
+        {
+            "cell_index": 15,
+            "cell_type": "code",
+            "execution_count": 21,
+            "source_preview": "##Split GPS coordinates into latitude & longitude\n# For pedestrian dataset\npedestrian_data[['Latitud...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 16,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "### Mapping Pedestrian Sensors to Nearest Streetlights Using Nearest Neighbors\n\nTo assess whether sm...",
+            "output_types": []
+        },
+        {
+            "cell_index": 17,
+            "cell_type": "code",
+            "execution_count": 23,
+            "source_preview": "##Use Nearest Neighbors to Match Sensors to Lights\nfrom sklearn.neighbors import NearestNeighbors\nim...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 18,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Analyzing Lighting Efficiency vs Pedestrian Traffic\n\nIn this section, we evaluate whether curren...",
+            "output_types": []
+        },
+        {
+            "cell_index": 19,
+            "cell_type": "code",
+            "execution_count": 31,
+            "source_preview": "import pandas as pd\nimport numpy as np\nfrom sklearn.neighbors import NearestNeighbors\n\n# --- Step 0:...",
+            "output_types": [
+                "stream"
+            ]
+        },
+        {
+            "cell_index": 20,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "### \ud83d\udd26 Visualising Lighting vs Pedestrian Count\n\nThis scatter plot illustrates the relationship betwe...",
+            "output_types": []
+        },
+        {
+            "cell_index": 21,
+            "cell_type": "code",
+            "execution_count": 37,
+            "source_preview": "import matplotlib.pyplot as plt\nimport numpy as np\n\n# Optional: Filter out outliers in pedestrian co...",
+            "output_types": [
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 22,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "###  Time-Based Analysis of Pedestrian Foot Traffic\n\nIn this section, I analyzed how pedestrian foot...",
+            "output_types": []
+        },
+        {
+            "cell_index": 23,
+            "cell_type": "code",
+            "execution_count": 62,
+            "source_preview": "# --- Time-Based Analysis (Temporal Dimension) ---\n\n\n# Convert sensing_date to datetime\npedestrian_d...",
+            "output_types": [
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 24,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Building an Adaptive Lighting Simulator Based on Pedestrian Traffic\n\nTo translate insights into ...",
+            "output_types": []
+        },
+        {
+            "cell_index": 25,
+            "cell_type": "code",
+            "execution_count": 55,
+            "source_preview": "##Create an Adaptive Lighting Simulator\ndef suggest_lux(foot_traffic):\n    if foot_traffic < 50:\n   ...",
+            "output_types": [
+                "execute_result"
+            ]
+        },
+        {
+            "cell_index": 26,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Distribution of Lux Adjustment Needed\n\nTo better understand how lighting should be optimized acr...",
+            "output_types": []
+        },
+        {
+            "cell_index": 27,
+            "cell_type": "code",
+            "execution_count": 57,
+            "source_preview": "import matplotlib.pyplot as plt\n\nplt.figure(figsize=(8,5))\nplt.hist(pedestrian_data['Lux_Difference'...",
+            "output_types": [
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 28,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "##  Clustering Pedestrian Zones for Smart Lighting Strategy\n\nTo better understand how pedestrian foo...",
+            "output_types": []
+        },
+        {
+            "cell_index": 29,
+            "cell_type": "code",
+            "execution_count": 78,
+            "source_preview": "##Group pedestrian sensors using clustering (e.g., KMeans) to create lighting zones:\nfrom sklearn.cl...",
+            "output_types": [
+                "stream",
+                "stream",
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 30,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "###  Predicting Optimal Lux Levels with a Decision Tree Model\n\nTo explore machine learning for adapt...",
+            "output_types": []
+        },
+        {
+            "cell_index": 31,
+            "cell_type": "markdown",
+            "execution_count": null,
+            "source_preview": "### Why Decision Tree Regression?\n\nFor this task, I used a Decision Tree Regressor due to its interp...",
+            "output_types": []
+        },
+        {
+            "cell_index": 32,
+            "cell_type": "code",
+            "execution_count": 87,
+            "source_preview": "from sklearn.tree import DecisionTreeRegressor\nfrom sklearn.metrics import mean_absolute_error, mean...",
+            "output_types": [
+                "stream",
+                "display_data"
+            ]
+        },
+        {
+            "cell_index": 33,
+            "cell_type": "code",
+            "execution_count": null,
+            "source_preview": "",
+            "output_types": []
+        }
+    ],
+    "num_cells": 34
+}
