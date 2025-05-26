@@ -1,0 +1,6 @@
+project_id         = "sit737-25t1-singh-f590599"
+region             = "australia-southeast2"
+zone               = "australia-southeast1-b"
+cluster_name       = "sushma-gke-cluster"
+artifact_repo_name = "sushma-docker-repo"
+mongodb_uri        = "mongodb+srv://s223743838:password-123@cluster0.gpmpazp.mongodb.net/MOP"

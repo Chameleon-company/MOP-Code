@@ -1,19 +1,20 @@
-FROM node:18
+FROM node:18-alpine
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the application code
-COPY . .
+# Install openssl for secure connections to MongoDB Atlas
+RUN apk add --no-cache openssl
 
 # Install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Build the Next.js application
-RUN npm run build
+# Copy the rest of your code
+COPY . .
 
-# Expose the port the app runs on
+# Expose dev port
 EXPOSE 3000
 
-# Start the Next.js application
-CMD ["npm", "start"]
+# Start the app in dev mode
+CMD ["npm", "run", "dev"]

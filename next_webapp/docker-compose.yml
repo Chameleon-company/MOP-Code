@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb+srv://s223743838:password-123@cluster0.gpmpazp.mongodb.net/MOP?retryWrites=true&w=majority&appName=Cluster0
+    volumes:
+      - .:/app
+      - /app/node_modules
