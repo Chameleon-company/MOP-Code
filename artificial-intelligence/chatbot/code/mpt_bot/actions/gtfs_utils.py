@@ -51,7 +51,12 @@ import hmac
 import urllib.parse
 from tabulate import tabulate
 from transformers import pipeline
-
+import heapq
+import urllib.request
+import json
+import logging
+import numpy as np
+import random
 # User ID and API Key
 user_id = "3003120"
 api_key = "0efc8af6-e6c8-445e-a426-fcad4aed37f2"
@@ -108,7 +113,7 @@ class GTFSUtils:
             subfolder_path = os.path.join(dataset_path, subfolder_name)
             
             # Check for GTFS files in each subfolder
-            required_files = ['stops.txt', 'stop_times.txt', 'routes.txt', 'trips.txt', 'calendar.txt']
+            required_files = ['stops.txt', 'stop_times.txt', 'routes.txt', 'shapes.txt', 'trips.txt', 'calendar.txt']
             for file in required_files:
                 file_path = os.path.join(subfolder_path, file)
                 if not os.path.exists(file_path):
@@ -162,7 +167,7 @@ class GTFSUtils:
 
     @staticmethod
     def load_mode_data(path: str, mode: str) -> Optional[
-        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
         """
         Author: AlexT
         Load GTFS data files for a specific transport mode (train, tram, bus).
@@ -177,6 +182,7 @@ class GTFSUtils:
             stops = pd.read_csv(f"{path}/stops.txt")
             stop_times = pd.read_csv(f"{path}/stop_times.txt")
             routes = pd.read_csv(f"{path}/routes.txt")
+            shapes = pd.read_csv(f"{path}/shapes.txt")
             trips = pd.read_csv(f"{path}/trips.txt")
             calendar = pd.read_csv(f"{path}/calendar.txt")
 
@@ -190,7 +196,7 @@ class GTFSUtils:
             GTFSUtils.normalise_gtfs_data(stops, stop_times)
 
             logger.info(f"Successfully loaded and normalised GTFS data for mode: {mode}")
-            return stops, stop_times, routes, trips, calendar
+            return stops, stop_times, routes, shapes, trips, calendar
         except FileNotFoundError as e:
             logger.error(f"File not found for mode '{mode}' in path '{path}': {e}")
         except pd.errors.EmptyDataError as e:
@@ -201,8 +207,46 @@ class GTFSUtils:
         # Return None in case of any error
         return None
 
+    logger = logging.getLogger(__name__)
+
     @staticmethod
-    def load_combined_data( self, train_path: str, tram_path: str, bus_path: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def download_address_data(url: str, path: str) -> pd.DataFrame:
+        # Base API URL (no filters, no limit)
+
+        if os.path.exists(path):
+            print(f"✅ '{path}' already exists. Skipping download.")
+            return pd.read_json(path, lines=True)
+
+        # Initial request
+        response = urllib.request.urlopen(url)
+        data = json.loads(response.read().decode())
+
+        # Pagination logic – collect all records
+        records = data['result']['records']
+        total = data['result']['total']
+        offset = 100  # start from 100 since we already got the first 100
+
+        while offset < total:
+            paginated_url = f"{url}&offset={offset}"
+            response = urllib.request.urlopen(paginated_url)
+            page_data = json.loads(response.read().decode())
+            records.extend(page_data['result']['records'])
+            offset += 100
+            print(f"Fetched {offset}/{total} records...")
+
+            # Save as JSON lines
+        with open(path, "w", encoding="utf-8") as f:
+            for record in records:
+                f.write(json.dumps(record) + "\n")
+
+        print(f"✅ All data saved to '{path}'")
+
+        address_data = pd.DataFrame(records)
+        logger.info("Successfully loaded the address data")
+        return address_data
+
+    @staticmethod
+    def load_combined_data( self, train_path: str, tram_path: str, bus_path: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
         Author: AlexT
         Load and combine GTFS data for train, tram, and bus.
@@ -214,10 +258,11 @@ class GTFSUtils:
         stops = pd.concat([train_data[0], tram_data[0], bus_data[0]], ignore_index=True)
         stop_times = pd.concat([train_data[1], tram_data[1], bus_data[1]], ignore_index=True)
         routes = pd.concat([train_data[2], tram_data[2], bus_data[2]], ignore_index=True)
-        trips = pd.concat([train_data[3], tram_data[3], bus_data[3]], ignore_index=True)
-        calendar = pd.concat([train_data[4], tram_data[4], bus_data[4]], ignore_index=True)
+        shapes = pd.concat([train_data[3], tram_data[3], bus_data[3]], ignore_index=True)
+        trips = pd.concat([train_data[4], tram_data[4], bus_data[4]], ignore_index=True)
+        calendar = pd.concat([train_data[5], tram_data[5], bus_data[5]], ignore_index=True)
 
-        return stops, stop_times, routes, trips, calendar
+        return stops, stop_times, routes, shapes, trips, calendar
 
     @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
@@ -267,6 +312,203 @@ class GTFSUtils:
 
         print(f"Extracted stations: {extracted_stations}")
         return extracted_stations
+
+    @staticmethod
+    def extract_addresses_from_query(query: str) -> List[str]:
+
+        doc = nlp(query)
+        potential_addresses = []
+
+        # Extract entities that are likely to be addresses
+        for ent in doc.ents:
+            if ent.label_ in ("GPE", "LOC", "FAC", "ADDRESS"):  # Common SpaCy labels
+                potential_addresses.append(ent.text)
+
+        print(f"Potential Addresses (SpaCy entities): {potential_addresses}")
+
+        # Additional manual extraction: look for patterns like "number + street name"
+        import re
+        address_pattern = r'\d{1,5}\s[\w\s]+\b(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Way|Drive|Dr|Court|Ct|Place|Pl|Highway|Hwy)\b[\w\s,]*'
+        regex_addresses = re.findall(address_pattern, query, re.IGNORECASE)
+
+        if regex_addresses:
+            print(f"Regex matched addresses: {regex_addresses}")
+            potential_addresses.extend(regex_addresses)
+
+        # Deduplicate
+        extracted_addresses = list(set(potential_addresses))
+        print(f"Extracted Addresses: {extracted_addresses}")
+        return extracted_addresses
+
+    @staticmethod
+    def find_address_match(extracted_address: str, address_data: pd.DataFrame) -> Optional[Tuple[str, float, float]]:
+        extracted_address = extracted_address.lower().strip()
+        address_data["normalized_address"] = address_data["address_pnt"].str.lower().str.strip()
+
+        exact_match = address_data[address_data["normalized_address"] == extracted_address]
+
+        if not exact_match.empty:
+            row = exact_match.iloc[0]
+            return row["address_pnt"], float(row["latitude"]), float(row["longitude"])
+
+        best_match, score, index = process.extractOne(extracted_address, address_data["normalized_address"])
+        if score > 85:
+            row = address_data.iloc[index]
+            return row["address_pnt"], float(row["latitude"]), float(row["longitude"])
+
+        return None
+
+    from typing import List, Tuple
+    import numpy as np
+
+    def haversine_distance(lat1, lon1, lat2, lon2):
+        """
+        Calculate the Haversine distance (in meters) between two coordinates.
+        """
+        R = 6371000  # Radius of Earth in meters
+        lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
+
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+
+        a = np.sin(dlat / 2.0) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2.0) ** 2
+        c = 2 * np.arcsin(np.sqrt(a))
+
+        return R * c
+
+    def find_nearby_tram_stops(lat: float, lon: float, tram_stops_df: pd.DataFrame, radius_meters: float) -> \
+    List[Tuple[str, float, int, float, float]]:
+        """
+        Returns a list of (stop_name, distance_in_m) for tram stops within the given radius.
+        """
+        results = []
+
+        for _, row in tram_stops_df.iterrows():
+            stop_lat = float(row["stop_lat"])
+            stop_lon = float(row["stop_lon"])
+            distance = GTFSUtils.haversine_distance(lat, lon, stop_lat, stop_lon)
+
+            if distance <= radius_meters:
+                results.append((row["stop_name"], round(distance, 2), row["stop_id"], stop_lat, stop_lon))
+
+        # Sort by distance ascending
+        results.sort(key=lambda x: x[1])
+        print(results)
+        return results
+
+    @staticmethod
+    def get_random_color():
+        return "#{:06x}".format(random.randint(0, 0xFFFFFF))
+
+    @staticmethod
+    def find_services_nearby_stops(stop_ids, stop_times_df, trips_df, routes_df):
+        stop_to_routes = {}
+
+        for stop_id in stop_ids:
+            trip_ids = stop_times_df[stop_times_df["stop_id"] == stop_id]["trip_id"].unique()
+            route_ids = trips_df[trips_df["trip_id"].isin(trip_ids)]["route_id"].unique()
+            matched_routes = routes_df[routes_df["route_id"].isin(route_ids)][
+                ["route_short_name", "route_long_name"]
+            ].drop_duplicates()
+
+            route_names = matched_routes.apply(
+                lambda row: f"{row['route_short_name']} - {row['route_long_name']}", axis=1
+            ).tolist()
+
+            stop_to_routes[stop_id] = route_names
+
+        return stop_to_routes
+
+    @staticmethod
+    def get_routes_for_nearby_stops(nearby_trams, tram_stop_times, tram_trips, tram_routes):
+        stop_ids = [entry[2] for entry in nearby_trams]
+        tram_stop_times_df = tram_stop_times.reset_index()
+        stop_to_routes = {}
+
+        for stop_id in stop_ids:
+            trip_ids = tram_stop_times_df[tram_stop_times_df["stop_id"] == stop_id]["trip_id"].unique()
+            route_ids = tram_trips[tram_trips["trip_id"].isin(trip_ids)]["route_id"].unique()
+            get_routes = tram_routes[tram_routes["route_id"].isin(route_ids)][
+                ["route_short_name", "route_long_name"]
+            ].drop_duplicates()
+
+            route_names = get_routes.apply(
+                lambda row: f"{row['route_short_name']} - {row['route_long_name']}", axis=1
+            ).tolist()
+            stop_to_routes[stop_id] = route_names
+
+        return stop_to_routes
+
+    @staticmethod
+    def build_map(address, lat, lon, nearby_trams, stop_to_routes, tram_shapes, tram_trips, tram_routes):
+        melbourne_map = folium.Map(location=[-37.814, 144.96332], zoom_start=13)
+        all_route_names = set(name for route_list in stop_to_routes.values() for name in route_list)
+
+        matching_routes = tram_routes.copy()
+        matching_routes["full_name"] = matching_routes.apply(
+            lambda row: f"{row['route_short_name']} - {row['route_long_name']}", axis=1
+        )
+        filtered_routes_df = matching_routes[matching_routes["full_name"].isin(all_route_names)]
+        filtered_route_ids = filtered_routes_df["route_id"].unique()
+        route_colors = {route_id: GTFSUtils.get_random_color() for route_id in filtered_route_ids}
+
+        for route_id in filtered_route_ids:
+            route_color = route_colors[route_id]
+            shape_ids = tram_trips[tram_trips["route_id"] == route_id]["shape_id"].unique()
+            route_name = tram_routes[tram_routes["route_id"] == route_id]["route_short_name"].values[0]
+
+            for shape_id in shape_ids:
+                shape_points = tram_shapes[tram_shapes["shape_id"] == shape_id].sort_values("shape_pt_sequence")
+                coords = shape_points[["shape_pt_lat", "shape_pt_lon"]].values.tolist()
+                folium.PolyLine(
+                    locations=coords,
+                    color=route_color,
+                    weight=4,
+                    opacity=0.7,
+                    popup=f"Route: {route_name}"
+                ).add_to(melbourne_map)
+
+        for stop, distance, stop_id, stop_lat, stop_lon in nearby_trams:
+            routes = stop_to_routes.get(stop_id, [])
+            routes_html = "<br>".join(routes) if routes else "No routes found"
+            popup_html = (
+                f"<b>{stop}</b><br>"
+                f"Distance: {round(distance)} meters<br>"
+                f"<b>Routes:</b><br>{routes_html}"
+            )
+            folium.Marker(
+                location=[stop_lat, stop_lon],
+                popup=folium.Popup(popup_html, max_width=300),
+                icon=folium.Icon(color="pink", icon="info-sign")
+            ).add_to(melbourne_map)
+
+        address_html = f"<b>You are at:</b><br>{address}"
+        folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup(address_html, max_width=300),
+            icon=folium.Icon(color="red", icon="info-sign")
+        ).add_to(melbourne_map)
+
+        return melbourne_map
+
+    @staticmethod
+    def save_map_to_file(map_obj):
+        current_directory = os.getcwd()
+        map_folder = os.path.join(current_directory, "maps")
+        os.makedirs(map_folder, exist_ok=True)
+        map_path = os.path.join(map_folder, "nearest_tram_services.html")
+        map_obj.save(map_path)
+        return map_path
+
+    @staticmethod
+    def format_text_response(address, nearby_trams, stop_to_routes):
+        response = f"The tram services available near {address} are:\n\n"
+        for stop, distance, stop_id, _, _ in nearby_trams:
+            routes = stop_to_routes.get(stop_id, [])
+            routes_text = "\n".join(routes) if routes else "No routes found"
+            response += f"{stop} which is {round(distance)} meters away:\n{routes_text}\n\n"
+        return response
+
 
     @staticmethod
     def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
@@ -1243,3 +1485,21 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
 
         return False, []
+'''
+    def find_shortest_tram_route(stop_a_id:int, stop_b_id:int, tram_stops:pd.DataFrame, tram_stop_times:pd.DataFrame):
+
+        queue = [(0, stop_a_id, stop_b_id, [stop_a_id])]
+        visited = {}
+
+        while queue:
+            current_time, current_stop_id, path = heapq.heappop(queue)
+
+            if current_stop_id in visited and visited[current_stop_id] <= current_time:
+                continue
+
+            visited[current_stop_id] = current_time
+
+            if current_stop_id == stop_b_id
+                return [tram_stops.loc[tram_stops[]]]
+
+'''

@@ -2,27 +2,25 @@ language: en
 
 pipeline:
 - name: "WhitespaceTokenizer"
-- name: "RegexFeaturizer"
+#- name: "RegexFeaturizer"
 - name: "LexicalSyntacticFeaturizer"
 - name: "CountVectorsFeaturizer"
   analyzer: "word"
-- name: "DIETClassifier"
-- name: "RegexEntityExtractor"
-  analyzer: char_wb
-  min_ngram: 1
-  max_ngram: 4
 - name: "SpacyNLP"
   model: "en_core_web_md"
-- name: DIETClassifier
-  epochs: 100
-- name: RegexEntityExtractor
-  use_lookup_tables: true
-  use_regexes: True
-  entity_recognition: True
-  use_word_boundaries: True
-- name: RegexEntityExtractor
-- name: EntitySynonymMapper
-
+#- name: "rasa_plus.ml.LLMIntentClassifier"
+#  embeddings:
+#    type: "llamacpp"
+#    model_path: "C:/Users/jubal/Documents/SIT374/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+- name: "custom_components.llm_interpreter.LlamaIntentClassifier"
+#- name: "RegexEntityExtractor"
+#  use_lookup_tables: true
+#  use_regexes: true
+#  entity_recognition: true
+#  use_word_boundaries: true
+#- name: EntitySynonymMapper
+#  threshold: 0.4
+#  ambiguity_threshold: 0.3
 
 policies:
 - name: MemoizationPolicy
@@ -30,7 +28,5 @@ policies:
   max_history: 5
   epochs: 100
 - name: RulePolicy
-  core_fallback_action_name: "action_default_fallback"
-  core_fallback_threshold: 0.3
 - name: AugmentedMemoizationPolicy
-assistant_id: 20240808-170718-best-sharp
+assistant_id: 20250401-183224-creamy-sync

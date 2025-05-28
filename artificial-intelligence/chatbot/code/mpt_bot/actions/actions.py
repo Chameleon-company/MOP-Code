@@ -10,6 +10,8 @@ import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
+
+from numpy.ma.core import shape
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
@@ -22,8 +24,14 @@ from geopy.distance import geodesic
 import hashlib
 import hmac
 import urllib.parse
+import random
 from tabulate import tabulate
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
+from llama_cpp import Llama
+from custom_components.llm_interpreter import LlamaIntentClassifier
+from llama_client import LlamaClient
+import urllib.request
+import json
 
 # This is to skip the favicon
 app = Sanic("custom_action_server")
@@ -56,21 +64,26 @@ train_data = GTFSUtils.load_mode_data("mpt_data/2", "train")
 tram_data = GTFSUtils.load_mode_data("mpt_data/3", "tram")
 bus_data = GTFSUtils.load_mode_data("mpt_data/4", "bus")
 
+llm = Llama(model_path="C:/Users/jubal/Documents/SIT374/mistral-7b-instruct-v0.1.Q4_K_M.gguf")
+
+url = 'https://discover.data.vic.gov.au/api/3/action/datastore_search?resource_id=4e997e39-8d4a-449b-a670-a39326c27181'
+address_data = GTFSUtils.download_address_data(url, "mpt_data/address_data.jsonl")
+
 # Unpack dataset for train
 if train_data:
-    stops_df, stop_times_df, routes_df, trips_df, calendar_df = train_data
+    stops_df, stop_times_df, routes_df, shapes_df, trips_df, calendar_df = train_data
 else:
     logger.error("Failed to load Train data.")
 
 # Unpack dataset for bus
 if bus_data:
-    bus_stops, bus_stop_times, bus_routes, bus_trips, bus_calendar = bus_data
+    bus_stops, bus_stop_times, bus_routes, bus_shapes, bus_trips, bus_calendar = bus_data
 else:
     logger.error("Failed to load Bus data.")
 
 # Unpack dataset for tram
 if tram_data:
-    tram_stops, tram_stop_times, tram_routes, tram_trips, tram_calendar = tram_data
+    tram_stops, tram_stop_times, tram_routes, tram_shapes, tram_trips, tram_calendar = tram_data
 else:
     logger.error("Failed to load Tram data.")
 # AlexT - End Global Variables --------------------------------------------------------------------------------------
@@ -83,6 +96,55 @@ station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
+
+#address_url = 'https://discover.data.vic.gov.au/api/3/action/datastore_search?resource_id=4e997e39-8d4a-449b-a670-a39326c27181'
+
+
+
+class ActionLLMIntentRouter(Action):
+    """
+    Maps the intent of the user query to the appropriate action
+    to answer
+    """
+    def name(self) -> Text:
+        return "action_llm_intent_router"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Get the user message from the tracker
+        user_message = tracker.latest_message.get("text", "")
+        print(f"[DEBUG] Inside LLM Router. User Message: {user_message}")
+
+        # Initialize the Llama client and classifier
+        llama_client = LlamaClient(model_path="C:/Users/jubal/Documents/SIT374/mistral-7b-instruct-v0.1.Q4_K_M.gguf")
+        classifier = LlamaIntentClassifier(llama_client, config={})
+
+        # Call the classifier's parse function to get the intent
+        classification_result = classifier.parse(user_message)
+        predicted_intent = classification_result.get("intent", {}).get("name", "nlu_fallback")
+
+        print(f"[DEBUG] Classified Intent: {predicted_intent}")
+
+        # Define the intent-to-action mapping
+        intent_to_action_mapping = {
+            "request_train_map": "action_generate_train_map",
+            "check_disruptions_bus": "action_check_disruptions_bus",
+            "check_disruptions_tram": "action_check_disruptions_tram",
+            "find_nearest_tram_stop" : "action_find_nearest_tram_stop",
+            "find_nearest_station": "action_find_nearest_station",
+            "find_nearest_bus_stop": "action_find_nearest_bus_stop",
+            "nlu_fallback": "action_gpt4_response"
+        }
+
+        # Determine the next action based on the LLM classification
+        selected_action = intent_to_action_mapping.get(predicted_intent, "action_default_fallback")
+
+        dispatcher.utter_message(text=f"Routing to {selected_action} based on classified intent: {predicted_intent}")
+
+        # Follow up with the selected actiocd..n
+        return [FollowupAction(selected_action)]
+
 
 class ActionFindNextTram(Action):
     """
@@ -478,6 +540,8 @@ class ActionFindNextTrain(Action):
 
         try:
             # Extract transport mode (default to train if not provided) # Extract user input and slots
+
+            print("in the action!")
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
             transport_mode = "train"
@@ -1615,10 +1679,36 @@ class ActionFindTramRoute(Action):
 
         except Exception as e: GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
 
+'''
+class ActionTramRouteOptimization(Action):
 
+    def name(self) -> Text:
+        return "action_tram_route_optimization"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        query = tracker.latest_message.get('text')
+        print(f"query: {query}")
+
+        extracted_stations = GTFSUtils.extract_stations_from_query(query, tram_stops)
+
+        if len(extracted_stations) < 2:
+            dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+            return []
+
+        stop_a, stop_b = extracted_stations[0], extracted_stations[1]
+
+        print(f"Station A: {stop_a}")
+        print(f"Station B: {stop_b}")
+
+        stop_a_id = GTFSUtils.get_station_id(stop_a, tram_stops)
+        stop_b_id = GTFSUtils.get_station_id(stop_b, tram_stops)
+
+'''
 
 # Ross Start Actions
-class ActionFindNearestStation(Action):
+"""class ActionFindNearestStation(Action):
     ''' -------------------------------------------------------------------------------------------------------
         ID: TRAIN
         Name: Find Nearest Station
@@ -1661,9 +1751,9 @@ class ActionFindNearestStation(Action):
             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
-        return []
+        return []"""
 
-class ActionFindNearestTramStop(Action):
+"""class ActionFindNearestTramStop(Action):
     ''' -------------------------------------------------------------------------------------------------------
     ID: TRAM
     Name: Find Nearest Tram Stop
@@ -1706,9 +1796,119 @@ class ActionFindNearestTramStop(Action):
             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
+        return []"""
+
+
+class ActionFindNearestTramStop(Action):
+    def name(self) -> Text:
+        return "action_find_nearest_tram_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        query = tracker.latest_message.get('text').lower().strip()
+        logger.info(f"Normalized query: {query}")
+
+        extracted_address = GTFSUtils.extract_addresses_from_query(query)
+        result = GTFSUtils.find_address_match(extracted_address[0], address_data)
+
+        if not result:
+            dispatcher.utter_message("❌ Sorry, I couldn't find a matching address.")
+            return []
+
+        address, lat, lon = result
+        nearby_trams = GTFSUtils.find_nearby_tram_stops(lat, lon, tram_stops, 200)
+        stop_to_routes = GTFSUtils.get_routes_for_nearby_stops(nearby_trams, tram_stop_times, tram_trips, tram_routes)
+
+        melbourne_map = GTFSUtils.build_map(address, lat, lon, nearby_trams, stop_to_routes, tram_shapes, tram_trips, tram_routes)
+        map_path = GTFSUtils.save_map_to_file(melbourne_map)
+
+        response = GTFSUtils.format_text_response(address, nearby_trams, stop_to_routes)
+        dispatcher.utter_message(response)
+
+        server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+        public_url = f"{server_base_url}/maps/{os.path.basename(map_path)}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map</a>"
+        dispatcher.utter_message(text=f"\n\nA map of the nearest tram services has been linked here. {hyperlink}")
+
         return []
 
-class ActionFindNearestBusStop(Action):    
+
+class ActionFindNearestStation(Action):
+
+    def name(self) -> Text:
+        return "action_find_nearest_station"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        query = tracker.latest_message.get('text').lower().strip()
+        logger.info(f"Normalized query: {query}")
+
+        extracted_address = GTFSUtils.extract_addresses_from_query(query)
+        result = GTFSUtils.find_address_match(extracted_address[0], address_data)
+
+        if not result:
+            dispatcher.utter_message("❌ Sorry, I couldn't find a matching address.")
+            return []
+
+        address, lat, lon = result
+        nearby_trains = GTFSUtils.find_nearby_tram_stops(lat, lon, bus_stops, 350)
+        stop_to_routes = GTFSUtils.get_routes_for_nearby_stops(nearby_trains, stop_times_df, trips_df, routes_df)
+
+        melbourne_map = GTFSUtils.build_map(address, lat, lon, nearby_trains, stop_to_routes, shapes_df, trips_df,
+                                            routes_df)
+        map_path = GTFSUtils.save_map_to_file(melbourne_map)
+
+        response = GTFSUtils.format_text_response(address, nearby_trains, stop_to_routes)
+        dispatcher.utter_message(response)
+
+        server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+        public_url = f"{server_base_url}/maps/{os.path.basename(map_path)}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map</a>"
+        dispatcher.utter_message(text=f"\n\nA map of the nearest train services has been linked here. {hyperlink}")
+
+        return []
+
+
+class ActionFindNearestBusStop(Action):
+
+    def name(self) -> Text:
+        return "action_find_nearest_bus_stop"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        query = tracker.latest_message.get('text').lower().strip()
+        logger.info(f"Normalized query: {query}")
+
+        extracted_address = GTFSUtils.extract_addresses_from_query(query)
+        result = GTFSUtils.find_address_match(extracted_address[0], address_data)
+
+        if not result:
+            dispatcher.utter_message("❌ Sorry, I couldn't find a matching address.")
+            return []
+
+        address, lat, lon = result
+        nearby_buses = GTFSUtils.find_nearby_tram_stops(lat, lon, bus_stops, 200)
+        stop_to_routes = GTFSUtils.get_routes_for_nearby_stops(nearby_buses, bus_stop_times, bus_trips, bus_routes)
+
+        melbourne_map = GTFSUtils.build_map(address, lat, lon, nearby_buses, stop_to_routes, bus_shapes, bus_trips,
+                                            bus_routes)
+        map_path = GTFSUtils.save_map_to_file(melbourne_map)
+
+        response = GTFSUtils.format_text_response(address, nearby_buses, stop_to_routes)
+        dispatcher.utter_message(response)
+
+        server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+        public_url = f"{server_base_url}/maps/{os.path.basename(map_path)}"
+        hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map</a>"
+        dispatcher.utter_message(text=f"\n\nA map of the nearest train services has been linked here. {hyperlink}")
+
+        return []
+
+"""class ActionFindNearestBusStop(Action):    
     ''' -------------------------------------------------------------------------------------------------------
     ID: BUS
     Name: Find Nearest Bus Stop
@@ -1747,11 +1947,11 @@ class ActionFindNearestBusStop(Action):
         
         if address_entity:
                 dispatcher.utter_message(text = f"The closest Bus Stop to {address_entity} is {closStat['closest_station_name']}")
-        else: 
+        else:
             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
-        return []
+        return []"""
     
 class ActionMapTransportInArea(Action):
     ''' -------------------------------------------------------------------------------------------------------
@@ -1822,3 +2022,68 @@ class ActionMapTransportInArea(Action):
         return []
 
 # Ross Finish Actions
+
+class ActionJoke(Action):
+    def name(self) -> str:
+        return "action_fun_fact"
+
+    def run(self, dispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Request GPT-4 to generate a joke
+
+        print("In the joke action")
+        prompt = f"You are an AI assistant. Tell me a concise and funny joke relating to public transport"
+        joke_response = llm(
+            prompt,
+            max_tokens = 150,  # Ensure we generate enough words
+            temperature = 1.0,  # Controls randomness
+            top_p = 1.0  # Controls diversity
+        )
+        joke = joke_response["choices"][0]["text"].strip()
+
+        dispatcher.utter_message(text=joke)
+        return []
+
+class ActionChitchat(Action):
+    def name(self) -> str:
+        return "action_general_chitchat"
+
+    def run(self, dispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Request GPT-4 to generate a chit-chat response
+        user_message = tracker.latest_message.get("text")
+        print("In the chit chat action")
+
+        prompt = f"You are an AI assistant. Answer the following question concisely:\n\nUser: {user_message}\nAssistant:"
+
+        chat_response = llm(
+            prompt,
+            max_tokens=150,  # Ensure we generate enough words
+            temperature=0.7,  # Controls randomness
+            top_p=0.9  # Controls diversity
+        )
+        chat_text = chat_response["choices"][0]["text"].strip()
+
+        dispatcher.utter_message(text=chat_text)
+        return []
+
+class ActionGPT4Response(Action):
+    def name(self) -> str:
+        return "action_gpt4_response"
+
+    def run(self, dispatcher, tracker, domain):
+        user_message = tracker.latest_message.get("text")
+
+        print("In the GPT 4 action")
+
+        prompt = f"You are an AI assistant. Answer the following question concisely:\n\nUser: {user_message}\nAssistant:"
+
+        response = llm(
+           prompt,
+           max_tokens=150,  # Ensure we generate enough words
+           temperature=0.7,  # Controls randomness
+           top_p=0.9  # Controls diversity
+        )
+        llm_text = response["choices"][0]["text"].strip()
+
+        dispatcher.utter_message(text=llm_text)
+        return []
+

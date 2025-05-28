@@ -419,8 +419,33 @@ nlu:
 
 # Jubal NLU (end)-------------------------------------------------------------------------------
 
+- intent: ask_fun_fact
+  examples: |
+    - Tell me a tram joke
+    - make me laugh
+    - tell me a joke
+    - Say something funny
+    - Crack a joke for me
+    - Tell me something hilarious
+    - I need a joke
+    - Got any good jokes?
+    - Entertain me with a joke
+    - What’s a funny joke?
+    - Give me a good one-liner
+    - Can you tell me a transport joke?
 
-
+- intent: general_chitchat
+  examples: |
+    - how was your day?
+    - how is your day going?
+    - what's up?
+    - how are you?
+    - how do you feel today?
+    - tell me about yourself
+    - what are you up to?
+    - do you like talking to me?
+    - tell me something interesting
+    - what's your favorite thing to talk about?
 
 entities:
   - station_name

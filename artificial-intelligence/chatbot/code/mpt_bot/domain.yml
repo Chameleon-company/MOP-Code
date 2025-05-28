@@ -5,7 +5,7 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-    # Alex Start  -----------------------------------------------------------
+  # Alex Start  -----------------------------------------------------------
   - greet
   - goodbye
   - affirm
@@ -26,8 +26,8 @@ intents:
   - check_disruptions_tram
   - check_disruptions_bus
   - check_disruptions_train
-  # Alex Finish intents  ----------------------------------------------------------
-  # Ross Start intenets
+  # Alex Finish intents
+  # Ross Start intents
   - find_nearest_station
   - find_nearest_tram_stop
   - find_nearest_bus_stop
@@ -40,13 +40,16 @@ intents:
   - ask_about_feature
   - ask_about_station
   - list_all_stations
-  - nlu_fallback
   - list_stations_with_feature
-  #Jubal intents (start) -------------------------------------------
+  #Jubal intents (start)
   - ask_tram_route
   - ask_tram_route_with_transfers
-  #Jubal intents (start) -------------------------------------------
-
+  #Jubal intents (start)
+  - ask_fun_fact
+  - general_chitchat
+  - nlu_fallback
+  - generic
+  - get_directions
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -65,8 +68,8 @@ entities:
   #Logan entities
   - location
   - station_name
-  - feature  
-  
+  - feature
+
   - location_from
   - location_to
 
@@ -217,8 +220,8 @@ responses:
   # utter_ask_destination:
   # - text: "Great! Now, please provide your destination."
 
-  utter_default:
-  - text: "Sorry I didn't understand. Can you rephrase?"
+  #utter_default:
+  #- text: "Sorry I didn't understand. Can you rephrase?"
 
 actions:
   # Alex Start Actions  -----------------------------------------------------------
@@ -256,3 +259,7 @@ actions:
   - action_check_direct_tram_route
   - action_find_tram_route_with_transfers
   #Jubal actions (end) -------------------------------------------
+  - action_fun_fact
+  - action_general_chitchat
+  - action_gpt4_response
+  - action_llm_intent_router
