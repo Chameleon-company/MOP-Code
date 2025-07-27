@@ -45,13 +45,13 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6">
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <a href="#" aria-label="Facebook" className="hover:text-gray-300">
+              <a href="https://www.facebook.com/cityofmelbourne" aria-label="Facebook" className="hover:text-gray-300">
                 <FaFacebook size={24} />
               </a>
-              <a href="#" aria-label="Twitter" className="hover:text-gray-300">
+              <a href="https://x.com/cityofmelbourne?t=E9gTTEtyOYO455TbVFwiJA&s=09" aria-label="Twitter" className="hover:text-gray-300">
                 <FaSquareXTwitter size={24} />
               </a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-gray-300">
+              <a href="https://www.linkedin.com/company/city-of-melbourne/" aria-label="LinkedIn" className="hover:text-gray-300">
                 <FaLinkedin size={24} />
               </a>
             </div>
