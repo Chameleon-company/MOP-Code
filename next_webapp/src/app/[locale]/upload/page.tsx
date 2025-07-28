@@ -159,9 +159,9 @@ const Upload = () => {
 						/>
 						<button type="button" onClick={onChooseFile}>
 							<img
-								src="/img/Upload_use_case.png"
+								src="/img/Upload_use_case2.png"
 								alt="Upload"
-								className="h-28 w-28 mx-auto transition-transform duration-200 hover:scale-105"
+								className="h-32 w-38 mx-auto transition-transform duration-200 hover:scale-105"
 							/>
 						</button>
 						<p className="text-lg mt-4">{t("Click on logo to upload files")}</p>
