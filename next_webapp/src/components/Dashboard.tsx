@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, FileText } from "lucide-react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import HeroCarousel from "./HeroCarousel";
+
 
 const style = `
 .main-container {
@@ -211,7 +213,8 @@ const Dashboard = () => {
       <div className="main-wrapper bg-white dark:bg-[#263238] text-black dark:text-white min-h-screen">
         <div className="main-container">
           <section className="hero-section">
-            <Image src={mainimage} alt="main image1" />
+             {/*<Image src={mainimage} alt="main image1" />*/}
+            <HeroCarousel />
           </section>
 
           <section className="our-vision-section">
