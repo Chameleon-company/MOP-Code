@@ -91,9 +91,9 @@ const Header = () => {
             <div className="hidden lg:flex">
               <Link
                 href="/signup"
-                className="bg-green-600 text-white hover:bg-green-700 px-8 py-2 rounded-xl text-sm font-semibold shadow"
+                className="bg-green-600 text-white hover:bg-green-700 px-8 py-2 rounded-xl text-sm font-semibold shadow whitespace-nowrap"
               >
-                {t("CREATE ACCOUNT")}
+                {t("SIGN UP")}
               </Link>
               <Link
                 href="/login"
