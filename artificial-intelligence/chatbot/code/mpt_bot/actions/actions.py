@@ -15,7 +15,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
 from collections import deque
 import certifi
-from actions.gtfs_utils import GTFSUtils
+from .gtfs_utils import GTFSUtils
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
@@ -1167,16 +1167,21 @@ class ActionCheckStation(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         station_name = tracker.get_slot("station_name")
+
+        if not station_name:
+            dispatcher.utter_message(text="Sorry, I couldn't identify the station you're asking about. Please try rephrasing.")
+            return []
+
         station_name = station_name.strip().lower()
 
-        if station_name not in station_data['Station Name'].tolist():
+        if station_name not in station_data['Station Name'].str.lower().tolist():
             dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name} station.")
             return []
 
-        station_info = station_data[station_data['Station Name'] == station_name]
+        station_info = station_data[station_data['Station Name'].str.lower() == station_name]
         
         features = station_info.iloc[0].to_dict()
-        feature_descriptions = "\n".join([f"{k}: {v}" for k, v in features.items() if k != "Station Name"])
+        feature_descriptions = "\n".join([f"{k}: {v}" for k, v in features.items() if k.lower() != "station name"])
         dispatcher.utter_message(text=f"Here are the accessibility features for {station_name.capitalize()} station:\n{feature_descriptions}")
         
         return []
@@ -1963,4 +1968,131 @@ class ActionMapTransportInArea(Action):
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
         return []
 
-# Ross Finish Actions
+#rathanak action----------
+# from difflib import get_close_matches
+# import pandas as pd
+# import os
+# import csv
+# from rapidfuzz import fuzz
+# from typing import Any, Text, Dict, List
+# from rasa_sdk import Action, Tracker
+# from rasa_sdk.executor import CollectingDispatcher
+# class ActionFindParkingNearStation(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         Name: Find parking near station
+#         Author: rathanak
+#         Purpose: To find a parking near station
+#         -------------------------------------------------------------------------------------------------------
+#    '''
+#     def name(self) -> Text:
+#         return "action_find_parking_near_station"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         user_input = tracker.get_slot("station") or "unknown"
+#         parking_csv_path = "mpt_data/parking/parking_data.csv"
+
+#         try:
+#             df = pd.read_csv(parking_csv_path)
+#         except Exception as e:
+#             dispatcher.utter_message(text=f"Error loading parking data: {e}")
+#             return []
+
+#         known_stations = df['Nearby Station'].dropna().unique().tolist()
+#         match = get_close_matches(user_input.lower(), [s.lower() for s in known_stations], n=1, cutoff=0.6)
+
+#         if match:
+#             matched_station = next(s for s in known_stations if s.lower() == match[0])
+#             carparks = df[df['Nearby Station'].str.lower() == matched_station.lower()]
+#             if not carparks.empty:
+#                 carpark = carparks.iloc[0]
+#                 response = f"Nearest parking to {matched_station}: {carpark['Parking Name']}, approximately 100m walk."
+#             else:
+#                 response = f"No known parking found near {matched_station}."
+#         else:
+#             response = "Sorry, I couldn't identify the station you're asking about. Please try rephrasing."
+
+#         dispatcher.utter_message(text=response)
+#         return []
+    
+
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import os
+import pandas as pd
+from rapidfuzz import process
+from math import radians, sin, cos, sqrt, atan2
+
+# Load parking and stop data once at module level
+parking_df = pd.read_csv("mpt_data/parking/parking_data.csv")
+stops_df = pd.read_csv("mpt_data/parking/stops.txt")
+
+# Create a mapping: stop_name -> (lat, lon)
+station_coordinates = {
+    row["stop_name"].strip(): (row["stop_lat"], row["stop_lon"])
+    for _, row in stops_df.iterrows()
+}
+
+# Helper to get closest station name using fuzzy matching
+def get_closest_station_name(user_input: str) -> str:
+    station_names = list(station_coordinates.keys())
+    match = process.extractOne(user_input.strip(), station_names, score_cutoff=70)
+    return match[0] if match else None
+
+# Haversine distance between two lat/lon pairs
+def haversine_distance(lat1, lon1, lat2, lon2):
+    R = 6371  # Earth radius in km
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
+
+class ActionFindParkingNearStation(Action):
+    def name(self) -> Text:
+        return "action_find_parking_near_station"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        user_station = tracker.get_slot("station") or ""
+        print("📍 User input:", user_station)
+
+        closest_station = get_closest_station_name(user_station)
+
+        if not closest_station:
+            dispatcher.utter_message(text="Sorry, I couldn't identify the station you're asking about. Please try rephrasing.")
+            return []
+
+        print("✅ Matched to station:", closest_station)
+
+        if closest_station not in station_coordinates:
+            print(f"❌ Station not found in coordinates: {closest_station}")
+            dispatcher.utter_message(text=f"Location data for {closest_station} Station is missing.")
+            return []
+
+        station_lat, station_lon = station_coordinates[closest_station]
+
+        parking_df["Distance_km"] = parking_df.apply(
+            lambda row: haversine_distance(
+                station_lat, station_lon, row["Latitude"], row["Longitude"]
+            ), axis=1
+        )
+
+        nearest_parkings = parking_df.sort_values("Distance_km").head(5)
+
+        if nearest_parkings.empty:
+            response = f"No parking options found near {closest_station} Station."
+        else:
+            response = f"Here are some parking options near {closest_station} Station:\n"
+            for _, row in nearest_parkings.iterrows():
+                maps_link = f"https://www.google.com/maps/search/?api=1&query={row['Latitude']},{row['Longitude']}"
+                response += f"• {row['Parking Name']} ({row['Distance_km']:.2f} km away)\n  📍 [View on Map]({maps_link})\n"
+
+        dispatcher.utter_message(text=response)
+        return []
+

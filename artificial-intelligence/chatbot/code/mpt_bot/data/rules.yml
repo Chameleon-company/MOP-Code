@@ -160,3 +160,9 @@ rules:
     - intent: ask_traffic
     - action: action_fetch_traffic  
 #Awanish  rule----end
+
+#rathanak rule
+  - rule: Find parking near a station
+    steps:
+    - intent: find_parking_near_station
+    - action: action_find_parking_near_station
