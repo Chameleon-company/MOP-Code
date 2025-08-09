@@ -1,43 +1,66 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '../../../../lib/mongodb'; // Import dbConnect to initialize the database connection
-import User from '../../../../models/User'; // Import the Mongoose User model
+import supabase from '../../../../lib/postgresql';
 
-// Define the handler for POST requests
+// Define the request type for clarity
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 export async function POST(request: Request) {
-    console.log('Received POST request at /api/login');
+  try {
+    const body: LoginRequest = await request.json();
 
-    try {
-        // Parse the request body
-        const { email, password } = await request.json();
-        console.log('Login request body:', { email });
+    const { email, password } = body;
 
-        // Validate input
-        if (!email || !password) {
-            return NextResponse.json({ success: false, message: 'Email and password are required.' }, { status: 400 });
-        }
-
-        // Connect to MongoDB
-        await dbConnect(); // This initializes the connection but doesn't return anything directly
-        console.log('Connected to MongoDB');
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            return NextResponse.json({ success: false, message: 'Invalid email or password.' }, { status: 401 });
-        }
-        console.log('User authenticated successfully:', user.email);
-
-        return NextResponse.json({
-            success: true,
-            message: 'Login successful.',
-            user: {
-                id: user._id,
-                name: `${user.firstName} ${user.lastName}`,
-                email: user.email
-            }
-        }, { status: 200 });
-
-    } catch (error) {
-        console.error('Login error:', error);
-        return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
+    if (!email || !password) {
+      return NextResponse.json(
+        { success: false, message: 'Email and password are required.' },
+        { status: 400 }
+      );
     }
+
+    const { data: users, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .limit(1);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { success: false, message: 'Database error.' },
+        { status: 500 }
+      );
+    }
+
+    const user = users?.[0] ?? null;
+
+    // Plain text password check (replace with hash check in production)
+    if (!user || user.password !== password) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid email or password.' },
+        { status: 401 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Login successful.',
+        user: {
+          id: user.id || user._id,
+          name: `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim(),
+          email: user.email,
+        },
+      },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error('Login error:', err);
+    return NextResponse.json(
+      { success: false, message: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
 }
