@@ -30,20 +30,29 @@ const DashboardCaseStd = () => {
   ];
 
   return (
-    <br></br>
-    // <div className="case-studies-wrapper">
-    //   {caseStudies.map((caseStudy) => (
-    //     <Link href={`en/${caseStudy.link}`} key={caseStudy.id}>
-    //       <div className="card-wrapper">
-    //         <div className="top-image">
-    //           <img src={caseStudy.image} alt={caseStudy.title} />
-    //         </div>
-    //         <h4 className="title">{caseStudy.title}</h4>
-    //         <p className="description">{caseStudy.description}</p>
-    //       </div>
-    //     </Link>
-    //   ))}
-    // </div>
+    <div className="case-studies-wrapper p-4">
+      {caseStudies.map((caseStudy) => (
+        <Link href={`en${caseStudy.link}`} key={caseStudy.id}>
+          <a>
+            <div className="card-wrapper bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+              <div className="top-image mb-4">
+                <img
+                  src={caseStudy.image}
+                  alt={caseStudy.title}
+                  className="w-full h-40 object-cover rounded-lg"
+                />
+              </div>
+              <h4 className="title text-xl font-semibold text-black dark:text-white">
+                {caseStudy.title}
+              </h4>
+              <p className="description text-gray-700 dark:text-gray-300">
+                {caseStudy.description}
+              </p>
+            </div>
+          </a>
+        </Link>
+      ))}
+    </div>
   );
 };
 

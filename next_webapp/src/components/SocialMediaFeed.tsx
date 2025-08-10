@@ -1,6 +1,6 @@
-'use client';
-import React from 'react';
-import { InstagramEmbed } from 'react-social-media-embed';
+"use client";
+import React from "react";
+import { InstagramEmbed } from "react-social-media-embed";
 
 const SocialMediaFeed: React.FC = () => {
   return (
@@ -9,10 +9,17 @@ const SocialMediaFeed: React.FC = () => {
       aria-labelledby="instagram-heading"
     >
       <div className="text-center mb-6">
-        <h2 id="instagram-heading" className="text-2xl md:text-3xl font-bold">
+        <h2
+          id="instagram-heading"
+          className="text-2xl md:text-3xl font-bold"
+          aria-describedby="instagram-description"
+        >
           Follow us on Instagram
         </h2>
-        <p className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-300">
+        <p
+          id="instagram-description"
+          className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-300"
+        >
           Explore the latest updates, events, and city stories.
         </p>
       </div>
@@ -22,6 +29,7 @@ const SocialMediaFeed: React.FC = () => {
           <InstagramEmbed
             url="https://www.instagram.com/cityofmelbourne/?igsh=OXFqa25sdno5OTRv#"
             width="100%"
+            height="auto"
           />
         </div>
       </div>
