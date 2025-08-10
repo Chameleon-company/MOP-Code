@@ -35,5 +35,13 @@ describe('Footer component', () => {
     // Check if the copyright text is rendered
     const copyrightText = screen.getByText(/© 2023/i);
     expect(copyrightText).toBeInTheDocument();
+
+    //ensures news section is covered by automated tests
+    const newsletterTitle = screen.getByText(/Subscribe to Our Newsletter/i);
+    expect(newsletterTitle).toBeInTheDocument();
+
+  
+
+
   });
 });
