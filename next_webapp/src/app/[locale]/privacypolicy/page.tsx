@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { HiMoon, HiSun } from "react-icons/hi2";
 import "../../../../public/styles/privacy.css";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 const Privacypolicy: React.FC = () => {
@@ -65,19 +64,21 @@ const Privacypolicy: React.FC = () => {
     setOpenSections({});
   };
 
-  const downloadPDF = () => {
+  // ✅ Fixed downloadPDF to load html2canvas only on the client
+  const downloadPDF = async () => {
     const input = document.querySelector(".policy-box");
     if (!input) return;
 
-    html2canvas(input as HTMLElement).then((canvas: HTMLCanvasElement) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("privacy-policy.pdf");
-    });
+    const html2canvas = (await import("html2canvas")).default;
+
+    const canvas = await html2canvas(input as HTMLElement);
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("privacy-policy.pdf");
   };
 
   return (

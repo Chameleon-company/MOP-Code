@@ -1,9 +1,0 @@
-pandas
-numpy
-dash
-plotly
-scikit-learn
-matplotlib
-seaborn
-flask
-ipywidgets
