@@ -1,7 +1,7 @@
 // app/api/signup/route.ts
 
 import { NextResponse } from 'next/server';
-import dbConnect from '../../../../lib/mongodb'; // Import dbConnect to initialize the database connection
+import dbConnect from '../../../../lib/postgresql'; // Import dbConnect to initialize the database connection
 import User from '../../../../models/User'; // Import the Mongoose User model
 
 // Define the handler for POST requests
