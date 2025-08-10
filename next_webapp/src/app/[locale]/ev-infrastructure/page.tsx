@@ -3,6 +3,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
+
 const EVInfrastructurePage = () => {
   // Dummy station data
   const stations = [
@@ -15,17 +16,120 @@ const EVInfrastructurePage = () => {
       {/* Page Header */}
       <h1 style={{ fontSize: '28px', marginBottom: '10px', color: '#666' }}>EV Infrastructure</h1>
 
-      {/* Nav Bar Placeholder */}
+      {/* Nav Bar Placeholder
       <div style={{ background: '#ccc', padding: '10px', textAlign: 'center', marginBottom: '20px' }}>
         Nav Bar
+      </div> */}
+      {/* Nav Bar */}
+      <div
+        style={{
+          background: "#f4f6f8",
+          padding: "10px 20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        {/* Left: Logo & Home */}
+        <button
+          onClick={() => (window.location.href = "/")} // Or navigate("/") if using React Router
+          style={{
+            background: "#28a745", // green color
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            padding: "8px 14px",
+            fontSize: "16px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          {/* Back arrow icon */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            style={{ width: "20px", height: "20px" }}
+          >
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
+          Back
+        </button>
+
+
+        {/* <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <img
+            src="/img/new-logo-green.png" // replace with your actual path or uploaded file
+            alt="Chameleon Logo"
+            style={{ height: "40px", width: "auto" }}
+          />
+          <button
+            style={{
+              background: "transparent",
+              border: "none",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Back
+          </button>
+        </div> */}
+
+        {/* Right: Search Bar */}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Search..."
+            style={{
+              padding: "6px 10px",
+              borderRadius: "4px",
+              border: "1px solid #999",
+              marginRight: "10px",
+            }}
+          />
+          <button
+            style={{
+              padding: "6px 12px",
+              background: "#007bff",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Search
+          </button>
+        </div>
       </div>
 
-      {/* Hero Section */}
+
+      {/* Hero Section
       <div style={{ background: '#ddd', padding: '60px', textAlign: 'center', marginBottom: '20px' }}>
-        <h2 style={{ marginBottom: '30px' }}>Photo</h2>
+        <h2 style={{ marginBottom: '30px' }}> <img src='/img/ev-banner.png' /></h2>
         <button style={buttonStyle}>Find Charging Station</button>
         <button style={{ ...buttonStyle, marginLeft: '20px' }}>View Live Data</button>
+      </div> */}
+
+      <div
+        style={{
+          backgroundImage: "url('/img/ev-banner.png')",
+          backgroundSize: "cover", // fills while preserving aspect ratio
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          padding: "140px",
+          textAlign: "center",
+          marginBottom: "20px",
+          borderRadius:"25px",
+          boxShadow: "20px",
+        }}
+      >
+        <button style={buttonStyle}>Find Charging Station</button>
+        <button style={{ ...buttonStyle, marginLeft: "20px" }}>View Live Data</button>
       </div>
+
 
       {/* Live Data Section */}
       <h3 style={{ textAlign: 'center', marginBottom: '10px' }}>VIEW LIVE DATA</h3>
