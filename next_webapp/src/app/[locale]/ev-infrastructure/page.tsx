@@ -5,7 +5,6 @@ import 'leaflet/dist/leaflet.css';
 
 
 const EVInfrastructurePage = () => {
-  // Dummy station data
   const stations = [
     { name: 'Federation Square EV Station', lat: -37.8136, lng: 144.9631, status: 'Available' },
     { name: 'Melbourne Central EV Station', lat: -37.815, lng: 144.965, status: 'In Use' },
@@ -16,11 +15,6 @@ const EVInfrastructurePage = () => {
       {/* Page Header */}
       <h1 style={{ fontSize: '28px', marginBottom: '10px', color: '#666' }}>EV Infrastructure</h1>
 
-      {/* Nav Bar Placeholder
-      <div style={{ background: '#ccc', padding: '10px', textAlign: 'center', marginBottom: '20px' }}>
-        Nav Bar
-      </div> */}
-      {/* Nav Bar */}
       <div
         style={{
           background: "#f4f6f8",
@@ -31,7 +25,6 @@ const EVInfrastructurePage = () => {
           marginBottom: "20px",
         }}
       >
-        {/* Left: Logo & Home */}
         <button
           onClick={() => (window.location.href = "/")} // Or navigate("/") if using React Router
           style={{
@@ -59,25 +52,6 @@ const EVInfrastructurePage = () => {
           Back
         </button>
 
-
-        {/* <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <img
-            src="/img/new-logo-green.png" // replace with your actual path or uploaded file
-            alt="Chameleon Logo"
-            style={{ height: "40px", width: "auto" }}
-          />
-          <button
-            style={{
-              background: "transparent",
-              border: "none",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            Back
-          </button>
-        </div> */}
-
         {/* Right: Search Bar */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <input
@@ -104,14 +78,6 @@ const EVInfrastructurePage = () => {
           </button>
         </div>
       </div>
-
-
-      {/* Hero Section
-      <div style={{ background: '#ddd', padding: '60px', textAlign: 'center', marginBottom: '20px' }}>
-        <h2 style={{ marginBottom: '30px' }}> <img src='/img/ev-banner.png' /></h2>
-        <button style={buttonStyle}>Find Charging Station</button>
-        <button style={{ ...buttonStyle, marginLeft: '20px' }}>View Live Data</button>
-      </div> */}
 
       <div
         style={{
@@ -157,13 +123,11 @@ const EVInfrastructurePage = () => {
         </select>
         <button style={buttonStyle}>Filter</button>
       </div>
-
       {/* View Toggle */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '20px' }}>
         <button style={buttonStyle}>Map View</button>
         <button style={buttonStyle}>List View</button>
       </div>
-
       {/* Location Map */}
       <div style={{ height: '400px', marginBottom: '20px' }}>
         <MapContainer center={[-37.8136, 144.9631]} zoom={13} style={{ height: '100%', width: '100%' }}>
@@ -182,24 +146,18 @@ const EVInfrastructurePage = () => {
           ))}
         </MapContainer>
       </div>
-
-      {/* Load More */}
       <div style={{ textAlign: 'center' }}>
         <button style={buttonStyle}>Load More Stations</button>
       </div>
     </div>
   );
 };
-
-// Reusable status bar component
 const StatusBar = ({ label, color }: { label: string; color: string }) => (
   <div style={{ marginBottom: '10px' }}>
     <div style={{ height: '10px', backgroundColor: color, width: '100%' }}></div>
     <span style={{ fontSize: '14px' }}>{label}</span>
   </div>
 );
-
-// Styles
 const buttonStyle: React.CSSProperties = {
   padding: '10px 20px',
   backgroundColor: '#1976d2',
