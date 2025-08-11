@@ -76,14 +76,14 @@ Download and extract into the same directory as Copy_of_Food_101_dataset.ipynb
 📁 Project Structure When Run
 
 Copy_of_Food_101_dataset/
-├── README.md                        # Project documentation
-├── Copy_of_Food_101_dataset.ipynb    # Main notebook (preprocessing + training)
-├── food-101/                         # Dataset directory
-│   ├── images/                       # All images in subfolders per class
-│   └── meta/                         # Official splits and labels
-├── checkpoints/                      # Saved model checkpoints
-├── export/                           # Final model + labels
-└── results/                          # Accuracy/loss plots, confusion matrices, sample predictions
+README.md                        # Project documentation
+Copy_of_Food_101_dataset.ipynb    # Main notebook (preprocessing + training)
+food-101/                         # Dataset directory
+images/                       # All images in subfolders per class
+meta/                         # Official splits and labels
+checkpoints/                      # Saved model checkpoints
+export/                           # Final model + labels
+results/                          # Accuracy/loss plots, confusion matrices, sample predictions
 
 🔬 Methodology
 Data Pipeline
@@ -148,3 +148,4 @@ Train on full dataset with 20–30 epochs
 Advanced augmentation (MixUp, CutMix)
 Hyperparameter tuning
 Integration into dietary tracking platform
+
