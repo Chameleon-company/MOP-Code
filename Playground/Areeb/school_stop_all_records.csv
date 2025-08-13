@@ -1,0 +1,1370 @@
+School_Name,School_Type,LGA_Name,nearest_stop_name,nearest_stop_distance_m
+Warrandyte Primary School,Primary,Manningham (C),Warrandyte Community Church/Yarra St,200.09095258985064
+Bacchus Marsh Primary School,Primary,Moorabool (S),Rotary Park/Lerderderg St,229.7395461131378
+Berwick Primary School,Primary,Casey (C),Piermont Dr/Fairholme Bvd,163.23712438720767
+Cheltenham Primary School,Primary,Bayside (C),Cheltenham Railway Station/Charman Rd,68.09961346919285
+Newport Lakes Primary School,Primary,Hobsons Bay (C),Ross St/Melbourne Rd,362.32551893040545
+St Andrews Primary School,Primary,Nillumbik (S),Hurstbridge Station/Heidelberg-Kinglake Rd,7814.978676742899
+Dromana Primary School,Primary,Mornington Peninsula (S),Visitor Information/Point Nepean Rd,438.07199902729417
+Doncaster Primary School,Primary,Manningham (C),Council St/Doncaster Rd,104.29625204284909
+Eltham Primary School,Primary,Nillumbik (S),Dalton St/Main Rd,186.02060415487196
+Hallam Primary School,Primary,Casey (C),Marshall Pl/Frawley Rd,238.23838933623864
+Flemington Primary School,Primary,Moonee Valley (C),Wellington St/Mt Alexander Rd #26,124.48586796612125
+Footscray Primary School,Primary,Maribyrnong (C),Barkly St/Victoria St,60.59906304265123
+Gisborne Primary School,Primary,Macedon Ranges (S),Fisher St/Aitken St ,184.5960516040891
+Sandringham Primary School,Primary,Bayside (C),Sandringham College/Bluff Rd,190.45722608120624
+Hawthorn West Primary School,Primary,Boroondara (C),Hawthorn Bridge/Bridge Rd #23,177.5294822289414
+Heidelberg Primary School,Primary,Banyule (C),Warringal SC/Cape St,107.17440309744234
+Mount Macedon Primary School,Primary,Macedon Ranges (S),Macedon Station/Victoria St ,2844.3762007469695
+Melton Primary School,Primary,Melton (C),Melton Civic Centre/High St,268.60093565233586
+Fitzroy Primary School,Primary,Yarra (C),Napier St/Johnston St,121.89697803773916
+Burwood East Primary School,Primary,Whitehorse (C),Burwood East PS/Highbury Rd,11.13141116252104
+New Gisborne Primary School,Primary,Macedon Ranges (S),Argyle St/Station Rd ,86.11450099416895
+Essendon Primary School,Primary,Moonee Valley (C),Penleigh & Essendon Grammar Junior School/Raleigh St,139.80054761163728
+Coburg Primary School,Primary,Moreland (C),Coburg PS/Bell St,66.75087049797887
+Mernda Primary School,Primary,Whittlesea (C),Mernda Village Medical/Mernda Village Dr,145.4571927568918
+Riddells Creek Primary School,Primary,Macedon Ranges (S),Riddells Creek Station/Hamilton St ,370.9491841176878
+South Yarra Primary School,Primary,Melbourne (C),Lang St/Punt Rd,33.636436191985844
+Thomastown Primary School,Primary,Whittlesea (C),Clarke St/Spring St,35.48297617140577
+Werribee Primary School,Primary,Wyndham (C),Werribee PS/Wedge St,151.3329551588709
+Wallan Primary School,Primary,Mitchell (S),Wallan PS/Dudley St,208.34031314578996
+Coimadai Primary School,Primary,Moorabool (S),Grantleigh Dr/Cairns Dr,5123.635867480637
+Clayton North Primary School,Primary,Monash (C),Clayton North Primary School/Princes Hwy,26.686930663932905
+Preston South Primary School,Primary,Darebin (C),Osborne Gr/Plenty Rd #44,209.75159681963976
+Mordialloc Beach Primary School,Primary,Kingston (C),Mordialloc Station/Albert St,92.05981084008299
+St Leonards Primary School,Primary,Greater Geelong (C),Wattletree Ave/Murradoc Rd,63.72540157915633
+Lilydale Primary School,Primary,Yarra Ranges (S),Castella St/Maroondah Hwy,427.0356510369313
+Darraweit Guim Primary School,Primary,Macedon Ranges (S),Poa Pl/Roulston Way,6038.192018992697
+Camberwell Primary School,Primary,Boroondara (C),Burke Rd/Camberwell Rd #41,72.43676827743028
+Greenvale Primary School,Primary,Hume (C),Heversham Gr/Greenvale Dr,250.8297241239612
+Rockbank Primary School,Primary,Melton (C),Rockbank Caravan Park/Westcott Pde,166.4624552469805
+Doreen Primary School,Primary,Nillumbik (S),Doctors Gully Rd/Yan Yean Rd,657.9670009867431
+Yarra Glen Primary School,Primary,Yarra Ranges (S),Melba Hwy/Armstrong Gr,546.5357826459093
+Westmeadows Primary School,Primary,Hume (C),Riddell St/Raleigh St,166.8931429828402
+Sunbury Primary School,Primary,Hume (C),Sunbury PS/Circular Dr,208.4252783982155
+Diamond Creek Primary School,Primary,Nillumbik (S),Clyde St/Collins St,172.7341241004306
+Vermont Primary School,Primary,Whitehorse (C),Mitcham Rd/Canterbury Rd,145.60511027196796
+Balwyn Primary School,Primary,Boroondara (C),Whitehorse Rd/Balwyn Rd,87.47762818208778
+Scoresby Primary School,Primary,Knox (C),Hilary St/Borg Cres,343.6635457600871
+Wandin Yallock Primary School,Primary,Yarra Ranges (S),Wandin Fire Brigade/Warburton Hwy,1091.1371333416816
+Yering Primary School,Primary,Yarra Ranges (S),Killara Rd/Maroondah Hwy,2147.9996166106016
+Mickleham Primary School,Primary,Hume (C),Trillium Bvd/Mt Ridley Rd,1455.4378737821846
+Bolinda Primary School,Primary,Macedon Ranges (S),Monegeetta Milk Bar/Melbourne-Lancefield Rd,2222.2385548951593
+Kew Primary School,Primary,Boroondara (C),Holy Trinity Church/High St,222.08575676731266
+Sorrento Primary School,Primary,Mornington Peninsula (S),Ocean Beach Rd/Kerferd Ave,129.96461433949875
+Hastings Primary School,Primary,Mornington Peninsula (S),Hodgins Rd/Victoria St,50.43824040271226
+Moorabbin Primary School,Primary,Kingston (C),Worthing Rd/Nepean Hwy,92.45741823035415
+Panton Hill Primary School,Primary,Nillumbik (S),Hurstbridge Station/Heidelberg-Kinglake Rd,4063.9750181896297
+Leopold Primary School,Primary,Greater Geelong (C),Dunsford Dr/Kensington Rd,45.28317695295213
+Glen Iris Primary School,Primary,Boroondara (C),Barina Rd/High St,179.07626363819705
+Albert Park Primary School,Primary,Port Phillip (C),Bridport St/Victoria Ave #29,55.73543799978824
+Williamstown Primary School,Primary,Hobsons Bay (C),Cole St/Nelson Pl,263.07040179523693
+Queenscliff Primary School,Primary,Queenscliffe (B),Bethune St/King St,273.8565448871666
+Skye Primary School,Primary,Frankston (C),Carrum Downs Plaza/McCormicks Rd,649.7455446769955
+Upper Plenty Primary School,Primary,Mitchell (S),Wallan Station,4709.069136861407
+Carlton North Primary School,Primary,Yarra (C),O'Grady St/Rathdowne St,112.86339631755135
+Lower Plenty Primary School,Primary,Banyule (C),Prosperity Rd/Main Rd ,62.679943880122174
+Clifton Hill Primary School,Primary,Yarra (C),Wellington St/Queens Pde #23,296.2786999241907
+Christmas Hills Primary School,Primary,Nillumbik (S),Herbert St/Melba Hwy,6213.66816913763
+Mount Eliza Primary School,Primary,Mornington Peninsula (S),Wooralla Dr/Nepean Hwy ,118.65843128321823
+Northcote Primary School,Primary,Darebin (C),Mitchell St/High St #32,162.39099433225115
+North Melbourne Primary School,Primary,Melbourne (C),Harcourt St/Courtney St,64.42941912227111
+Dandenong Primary School,Primary,Greater Dandenong (C),Foster St/McCrae St,164.28168601015506
+Williamstown North Primary School,Primary,Hobsons Bay (C),Williamstown North PS/Melbourne Rd,32.92891785097971
+Cairnlea Park Primary School,Primary,Brimbank (C),Cairnlea Park PS/Furlong Rd,147.28674162873537
+Frankston Primary School,Primary,Frankston (C),Frankston Arts Centre/Davey St,135.55203473772724
+Beveridge Primary School,Primary,Mitchell (S),Mantel Grn/Lithgow St,1904.4087187373345
+St Kilda Primary School,Primary,Port Phillip (C),St Kilda Primary School/Brighton Rd #36,56.18372405289058
+Fitzroy North Primary School,Primary,Yarra (C),Alfred Cres/St Georges Rd #21,180.5512903514578
+Preston Primary School,Primary,Darebin (C),Preston Primary School/Tyler St,104.682149624744
+Tooradin Primary School,Primary,Casey (C),Bayview Rd/South Gippsland Hwy,317.69456623751927
+Glenferrie Primary School,Primary,Boroondara (C),Manningtree Rd/Glenferrie Rd #72,88.50066282555255
+Brighton Primary School,Primary,Bayside (C),Brighton PS/Male St,96.30646850460516
+Barwon Heads Primary School,Primary,Greater Geelong (C),Barnett Cl/Golf Links Rd,56.502089288185545
+Keilor Primary School,Primary,Brimbank (C),Keilor SC/Old Calder Hwy,262.4261459933211
+Oakleigh Primary School,Primary,Monash (C),Dandenong Rd/Warrigal Rd,71.65375251174184
+Malvern Central School,Primary,Stonnington (C),De La Salle College/High St #45,184.2466156415303
+Drysdale Primary School,Primary,Greater Geelong (C),Drysdale Primary School/Clifton Springs Rd,49.95717959826882
+Macedon Primary School,Primary,Macedon Ranges (S),Macedon Station/Victoria St ,497.14188003646984
+Arthurs Creek Primary School,Primary,Nillumbik (S),Daisy Hill Rd/Yan Yean Rd,5327.418028846089
+Rye Primary School,Primary,Mornington Peninsula (S),Nelson St/Lyons St,87.6583523818654
+Harkaway Primary School,Primary,Casey (C),Sittella Dr/Whistler Dr,1662.990574968627
+Balnarring Primary School,Primary,Mornington Peninsula (S),Balnarring Village SC/Frankston-Flinders Rd,435.0009267481543
+Silvan Primary School,Primary,Yarra Ranges (S),279 Monbulk Rd,293.7855075702162
+Lysterfield Primary School,Primary,Knox (C),Lakesfield Dr/Napoleon Rd,154.19596640801714
+Abbotsford Primary School,Primary,Yarra (C),Church St/Victoria St #21,224.963480574244
+Windsor Primary School,Primary,Stonnington (C),Hornby St/Dandenong Rd #33,100.79917762476919
+Narre Warren North Primary School,Primary,Casey (C),Randle Ct/Heatherton Rd,453.86965465724006
+Moolap Primary School,Primary,Greater Geelong (C),Point Henry Rd/Portarlington Rd,286.8380875249795
+Footscray City Primary School,Primary,Maribyrnong (C),Footscray City PS/Bristow St,51.08579638682396
+Plenty Parklands Primary School,Primary,Whittlesea (C),Plenty Parklands PS/Blossom Park Dr,76.8096360518785
+Little River Primary School,Primary,Wyndham (C),Little River Station ,262.73403592245944
+Morang South Primary School,Primary,Whittlesea (C),Riverside Dr/Gorge Rd,189.70804912997744
+Mornington Primary School,Primary,Mornington Peninsula (S),Mornington PS/Tanti Ave,201.44560127256722
+Brighton Beach Primary School,Primary,Bayside (C),Windermere Cres/New St,194.78346983171764
+Yarrambat Primary School,Primary,Nillumbik (S),Yarrambat Primary School/Yan Yean Rd ,127.94109837166471
+Greensborough Primary School,Primary,Banyule (C),Church St/Grimshaw St,145.0672502367562
+Cranbourne Primary School,Primary,Casey (C),Sladen St/Narre Warren-Cranbourne Rd ,238.682661869761
+Whittlesea Primary School,Primary,Whittlesea (C),Whittlesea Primary School/Plenty Rd ,74.38504754047378
+Kangaroo Ground Primary School,Primary,Nillumbik (S),Kangaroo Ground PS/Graham Rd,35.610025556754195
+Bayswater Primary School,Primary,Knox (C),Bayswater Uniting Church/Mountain Hwy,192.0137240280296
+Mulgrave Primary School,Primary,Monash (C),Gladeswood Dr/Jacksons Rd,356.62467827448654
+Kinglake Primary School,Primary,Murrindindi (S),Kinglake Police Station/Whittlesea-Kinglake Rd,1812.7373815097064
+Montrose Primary School,Primary,Yarra Ranges (S),Montrose Rd/Leith Rd,133.7770587739086
+Moorooduc Primary School,Primary,Mornington Peninsula (S),Serenity Way/Racecourse Rd,3629.819098135666
+The Basin Primary School,Primary,Knox (C),The Basin PS/Mountain Hwy,146.07415026673465
+Kensington Primary School,Primary,Melbourne (C),Kensington Station/Macaulay Rd,256.62693557572857
+Ivanhoe Primary School,Primary,Banyule (C),Upper Heidelberg Rd/Ivanhoe Pde,115.29991894366394
+Portarlington Primary School,Primary,Greater Geelong (C),Portarlington Town Centre/Newcombe St,169.04539286633428
+Menzies Creek Primary School,Primary,Yarra Ranges (S),Grantulla Rd/Belgrave-Gembrook Rd,671.3675294446747
+St Kilda Park Primary School,Primary,Port Phillip (C),St Kilda Station/Fitzroy St,112.10321231993262
+Diggers Rest Primary School,Primary,Melton (C),Plumpton Rd/Houdini Dr,306.626327847959
+Beaconsfield Upper Primary School,Primary,Cardinia (S),Edebohls Rd/Wellington Rd,5474.300386090326
+Malvern Primary School,Primary,Stonnington (C),Findon St/Tooronga Rd,32.47310217201684
+Carlton Gardens Primary School,Primary,Melbourne (C),Melbourne Museum/Rathdowne St,28.254612467700127
+Ascot Vale Primary School,Primary,Moonee Valley (C),30-Maribyrnong Rd/Mt Alexander Rd,163.10059080601474
+Rosebud Primary School,Primary,Mornington Peninsula (S),Jetty Rd/Point Nepean Rd,193.81915395575996
+Koo Wee Rup Primary School,Primary,Cardinia (S),Koo Wee Rup Bus Interchange/Rossiter Rd,614.9210324564168
+Armadale Primary School,Primary,Stonnington (C),Densham Rd/Rose St,117.34741383985317
+Osborne Primary School,Primary,Mornington Peninsula (S),Osborne PS/Craigie Rd,23.92031406137265
+Somerville Primary School,Primary,Mornington Peninsula (S),Somerville Station/Frankston-Flinders Rd,229.51115959480205
+Fairfield Primary School,Primary,Darebin (C),Duncan St/Station St,204.72857238967802
+Officer Primary School,Primary,Cardinia (S),Tivendale Rd/Princes Hwy,196.96355573568957
+Brunswick South Primary School,Primary,Moreland (C),Lygon St/Brunswick Rd,132.32568099277063
+Surrey Hills Primary School,Primary,Whitehorse (C),Union Railway Station ,268.5580275120904
+Montague Continuing Education Centre,Special,Port Phillip (C),Montague St/Light Rail #126,96.96330382769388
+Middle Park Primary School,Primary,Port Phillip (C),Middle Park PS/Richardson St,39.578067383146355
+Seville Primary School,Primary,Yarra Ranges (S),Seville PS/Warburton Hwy,76.37070914454944
+Yarraville West Primary School,Primary,Maribyrnong (C),Hamilton St/Somerville Rd,201.93994147436595
+Moreland Primary School,Primary,Moreland (C),De Carle St/Moreland Rd #131,69.30736708352262
+Elsternwick Primary School,Primary,Bayside (C),Head St/New St,152.28323376295435
+Carnegie Primary School,Primary,Glen Eira (C),Truganini Rd/Glenhuntly Rd #66,38.8547778615906
+Croydon Primary School,Primary,Maroondah (C),Croydon PS/Croydon Rd,30.617751430235923
+Moonee Ponds West Primary School,Primary,Moonee Valley (C),Bowen St/Maribyrnong Rd #39,214.51564528307853
+Mitcham Primary School,Primary,Whitehorse (C),Doncaster East Rd/Mitcham Rd,56.94058106954409
+Blackburn Primary School,Primary,Whitehorse (C),Whitehorse Rd/Surrey Rd,51.544003501901685
+Port Melbourne Primary School,Primary,Port Phillip (C),Walter St/Graham St,53.633386859469574
+Auburn Primary School,Primary,Boroondara (C),Liddiard Rd/Auburn Rd,426.72655709531017
+Mentone Primary School,Primary,Kingston (C),Mentone Station,151.99641362348538
+Princes Hill Primary School,Primary,Yarra (C),Pigdon St/Lygon St #118,226.30805348792802
+Gruyere Primary School,Primary,Yarra Ranges (S),Seville PS/Warburton Hwy,4642.687642638216
+Research Primary School,Primary,Nillumbik (S),Research PS/Main Rd,115.28560966437043
+Pearcedale Primary School,Primary,Casey (C),Pearcedale Village SC/Baxter-Tooradin Rd,91.3424888035178
+St Albans Primary School,Primary,Brimbank (C),James St/Emily St,351.25197839548764
+Toorak Primary School,Primary,Stonnington (C),Springfield Ave/Orrong Rd,276.79013010411234
+Baxter Primary School,Primary,Mornington Peninsula (S),Baxter PS/Baxter-Tooradin Rd,88.50265148657088
+Beaconsfield Primary School,Primary,Cardinia (S),St Francis Xavier College - Beaconsfield/Beaconsfield Ave ,367.90237039606
+Ormond Primary School,Primary,Glen Eira (C),Wheatley Rd/McKinnon Rd,383.1480422908499
+Crib Point Primary School,Primary,Mornington Peninsula (S),Park Rd/Stony Point Rd,408.146124960511
+Pascoe Vale Primary School,Primary,Moreland (C),Pascoe Vale PS/Gaffney St,64.6064228029696
+Ocean Grove Primary School,Primary,Greater Geelong (C),Ocean Grove Park/Draper St,150.93580168188527
+Merri Creek Primary School,Primary,Yarra (C),Ida St/Miller St,23.266993714844958
+Sunshine Primary School,Primary,Brimbank (C),Corio St/100 Hampshire Rd,104.48922735905727
+Tyabb Primary School,Primary,Mornington Peninsula (S),Flinders College/Mornington-Tyabb Rd,221.752974075905
+Wales Street Primary School,Primary,Darebin (C),Wales Street PS/Wales St,69.01357685041981
+Spensley Street Primary School,Primary,Yarra (C),The Esplanade/Heidelberg Rd,263.98538736878885
+Kew East Primary School,Primary,Boroondara (C),High St/Valerie St,300.0061887014544
+Brunswick East Primary School,Primary,Moreland (C),Stewart St/Nicholson St,53.80936109631437
+Sassafras Primary School,Primary,Yarra Ranges (S),Sassafras PS/Mt Dandenong Tourist Rd,21.424199203406936
+Ferny Creek Primary School,Primary,Yarra Ranges (S),Mt Dandenong Tourist Rd/Old Main Rd,284.9237171692002
+Toolangi Primary School,Primary,Murrindindi (S),Kinglake Police Station/Whittlesea-Kinglake Rd,11672.807898483798
+Wonga Park Primary School,Primary,Manningham (C),Dudley Rd/Jumping Creek Rd,613.0040004532328
+Kinglake West Primary School,Primary,Murrindindi (S),Peregrine Dr/Whittlesea-Kinglake Rd,161.42307470669184
+Perseverance Primary School,Primary,Unincorporated Vic,Stony Point Railway Station,9800.145349380202
+Monbulk Primary School,Primary,Yarra Ranges (S),Emerald-Monbulk Rd/Main Rd,201.42013022919932
+Chum Creek Primary School,Primary,Yarra Ranges (S),Chum Creek Rd/Healesville-Yarra Glen Rd,4931.896180657867
+Mount Dandenong Primary School,Primary,Yarra Ranges (S),Helen Rd/Mt Dandenong Tourist Rd,160.33579246744378
+Middle Kinglake Primary School,Primary,Murrindindi (S),Extons Rd/Whittlesea-Kinglake Rd,354.23757405048394
+Point Lonsdale Primary School,Primary,Queenscliffe (B),Bowen Rd/Point Lonsdale Rd,193.18223875093992
+Clarinda Primary School,Primary,Kingston (C),Crawford Rd/Centre Rd,75.27222479110888
+Chelsea Heights Primary School,Primary,Kingston (C),Chelsea Heights PS/Thames Prom,62.437703115012184
+Wallington Primary School,Primary,Greater Geelong (C),Adventure Park/Bellarine Hwy,950.1578064248829
+Tecoma Primary School,Primary,Yarra Ranges (S),Burwood Hwy/Sandells Rd,113.1009034645873
+Emerald Primary School,Primary,Cardinia (S),Emerald Village/Main St,170.91907715849436
+Carrum Primary School,Primary,Kingston (C),Carrum PS/Walkers Rd,70.20276607610454
+Exford Primary School,Primary,Melton (C),Riversdale Bvd/Exford Rd ,1787.295246110574
+Mount Waverley Primary School,Primary,Monash (C),Talbot Rd/Waverley Rd,342.69785657647805
+Murrumbeena Primary School,Primary,Glen Eira (C),Hobart Rd/Dandenong Rd,147.4054306173369
+Warranwood Primary School,Primary,Maroondah (C),Warranwood Primary School/Wellington Park Dr ,44.146512055801416
+Olinda Primary School,Primary,Yarra Ranges (S),Parsons Lane/Monash Ave,174.58673654218705
+Langwarrin Primary School,Primary,Frankston (C),Elisabeth Murdoch College/Warrandyte Rd,98.99149775552311
+Cockatoo Primary School,Primary,Cardinia (S),Amphlett Ave/Belgrave-Gembrook Rd,94.09455329069388
+Tyabb Railway Station Primary School,Primary,Mornington Peninsula (S),Mornington-Tyabb Rd/Frankston-Flinders Rd,249.97737358543375
+Belgrave South Primary School,Primary,Yarra Ranges (S),Gilmore Ct/Belgrave-Hallam Rd,69.80214269674995
+Yarra Me School,Special,Darebin (C),Dean St/Murray Rd,184.1517723832083
+Sydenham - Hillside Primary School,Primary,Brimbank (C),Overton Lea Reserve/Overton Lea Bvd,213.46526594611728
+Canterbury Primary School,Primary,Boroondara (C),Molesworth St/Prospect Hill Rd,58.97296947781613
+Brunswick North Primary School,Primary,Moreland (C),Thistle St/Albion St,100.82180583815428
+Fawkner Primary School,Primary,Moreland (C),Lesleigh St/Lorne St,158.06682827532796
+Alphington Primary School,Primary,Yarra (C),Yarralea St/Heidelberg Rd,319.7913273209573
+The Austin School,Special,Banyule (C),Austin Hospital/Burgundy St,89.33540697922244
+Banyan Fields Primary School,Primary,Frankston (C),Banyan Fields Primary School/Cadles Rd,49.36105908619234
+Norris Bank Primary School,Primary,Whittlesea (C),Norris Bank Primary School/Settlement Rd ,34.82496105254497
+Macclesfield Primary School,Primary,Yarra Ranges (S),Margaret Rd/Belgrave-Gembrook Rd,3553.5583999971523
+Black Rock Primary School,Primary,Bayside (C),Arkaringa Cres/Bluff Rd,373.75873024205896
+Mount Evelyn Primary School,Primary,Yarra Ranges (S),Clegg Rd/Monbulk Rd,72.90542025894902
+Kilsyth Primary School,Primary,Yarra Ranges (S),Kilsyth Primary School/Mt Dandenong Rd,64.31913819339952
+Spotswood Primary School,Primary,Hobsons Bay (C),Birmingham St/Melbourne Rd,93.05934395518962
+Clyde Primary School,Primary,Casey (C),Clyde PS/Oroya Gr,24.199940370443034
+Noble Park Primary School,Primary,Greater Dandenong (C),Noble Park PS/Buckley St,105.35680124740131
+Deepdene Primary School,Primary,Boroondara (C),Deepdene PS/Burke Rd,49.90071645750766
+Cardinia Primary School,Primary,Cardinia (S),Watercolour Bvd/Pattersons Rd,5291.403873686038
+Glen Huntly Primary School,Primary,Glen Eira (C),Glen Huntly Rail Replacement Bus Stop,376.1120803695958
+Wantirna Primary School,Primary,Knox (C),Wantirna Primary School/Mountain Hwy,43.861235770821835
+Melton South Primary School,Primary,Melton (C),Wilson Rd/Exford Rd,104.89167156265874
+Chelsea Primary School,Primary,Kingston (C),Chelsea Primary School/Argyle Ave,38.63655767507315
+Hampton Primary School,Primary,Bayside (C),Hampton PS/Ludstone St,39.87154109163092
+Victorian College For The Deaf,Special,Melbourne (C),High St/St Kilda Rd #27,154.51709252906934
+Balliang East Primary School,Primary,Moorabool (S),Eighth Mews/Tilley Dr ,11114.245705467782
+Edithvale Primary School,Primary,Kingston (C),Montrose Ave/Edithvale Rd,142.50912176158968
+Penders Grove Primary School,Primary,Darebin (C),Pender St/Victoria Rd,69.95576858762261
+Caulfield Junior College,Primary,Glen Eira (C),Caulfield Junior College/Balaclava Rd #47,39.93391858627243
+Seaford Primary School,Primary,Frankston (C),Seaford Station/Railway Pde,168.45716547913975
+Wattle Park Primary School,Primary,Whitehorse (C),Wattle Park PS/Thomas St,84.89912260552929
+Preston West Primary School,Primary,Darebin (C),Fettling St/Murray Rd,97.59357067498628
+Thornbury Primary School,Primary,Darebin (C),Decision point 2,141.39974514601388
+Footscray West Primary School,Primary,Maribyrnong (C),Argyle St/Essex St,170.40198234916394
+Wandin North Primary School,Primary,Yarra Ranges (S),Wandin North PS/Warburton Hwy,119.0500857935539
+Gardenvale Primary School,Primary,Bayside (C),Alexander St/Hawthorn Rd,316.727389973562
+Beaumaris Primary School,Primary,Bayside (C),Beaumaris Concourse SC/Reserve Rd,409.56264342169885
+Altona Primary School,Primary,Hobsons Bay (C),Altona PS/Blyth St,36.53570635840667
+Devon Meadows Primary School,Primary,Casey (C),Cross Rd/Finsbury Rd,421.30441128992146
+Upper Ferntree Gully Primary School,Primary,Knox (C),Upper Ferntree Gully PS/Talaskia Rd,45.750939195139814
+Bittern Primary School,Primary,Mornington Peninsula (S),Bittern Station/Frankston-Flinders Rd,406.12793378046365
+Hurstbridge Primary School,Primary,Nillumbik (S),Hurstbridge Station/Heidelberg-Kinglake Rd,470.1991367409492
+Coburg West Primary School,Primary,Moreland (C),Bruce St/Reynard St,50.85589010002955
+Elwood Primary School,Primary,Port Phillip (C),Elwood Canal/Glen Huntly Rd,153.03958886199155
+Mont Albert Primary School,Primary,Whitehorse (C),Inglisby Rd/Whitehorse Rd #54,260.4400336296761
+Strathewen Primary School,Primary,Nillumbik (S),Bald Spur Rd/Whittlesea - Kinglake Rd,5383.03403910384
+Reservoir Primary School,Primary,Darebin (C),Barton St/High St,179.60508598521815
+Moonee Ponds Primary School,Primary,Moonee Valley (C),Moonee Ponds PS/Wilson St,26.033664205114306
+Kingsville Primary School,Primary,Maribyrnong (C),Bishop St/Somerville Rd,95.51286052166445
+Kallista Primary School,Primary,Yarra Ranges (S),Kallista PS/Kallista-Emerald Rd,18.440274581133664
+Essendon North Primary School,Primary,Moonee Valley (C),Essendon North PS/Keilor Rd,18.185326529980664
+Ascot Vale West Primary School,Primary,Moonee Valley (C),Kirk St/Charles St,246.22024935419282
+Hartwell Primary School,Primary,Boroondara (C),Oberwyl Rd/Toorak Rd #54,110.53978669856349
+Wattle Glen Primary School,Primary,Nillumbik (S),Park & Ride 2,430.5077589194874
+Hampton Park Primary School,Primary,Casey (C),Hampton Park PS/Somerville Rd,159.74262756431494
+Ripponlea Primary School,Primary,Glen Eira (C),Merton St/Orrong Rd,253.53762766708329
+Montmorency Primary School,Primary,Banyule (C),Montmorency Shopping Village/Rattray Rd,77.02692789015623
+Ringwood North Primary School,Primary,Maroondah (C),Linda Pl/Cormistom Rd,208.8426762055811
+Lloyd Street Primary School,Primary,Stonnington (C),Summerhill Ave/Darling Rd,358.74528630837426
+Bayswater North Primary School,Primary,Maroondah (C),Burdekin Ave/Colbury Rd,75.71357937929656
+Westbreen Primary School,Primary,Moreland (C),Westbreen PS/Pascoe St,47.333137043698
+Point Cook Prep - Year 9 College,Pri/Sec,Wyndham (C),Flower Pot Park/Boardwalk Bvd,356.100844622094
+Footscray North Primary School,Primary,Maribyrnong (C),Rosamond Rd/Ballarat Rd,94.28408629004626
+Camberwell South Primary School,Primary,Boroondara (C),Hillside Pde/Toorak Rd,173.52382381858868
+Parkdale Primary School,Primary,Kingston (C),Beacon St/Imes St,269.1547663611202
+Hughesdale Primary School,Primary,Monash (C),Hughesdale PS/Austin St,121.62709409351736
+Westgarth Primary School,Primary,Darebin (C),Sharp St/Bastings St,183.02318765016648
+Auburn South Primary School,Primary,Boroondara (C),Auburn South PS/Tooronga Rd,13.491528892679286
+Aspendale Primary School,Primary,Kingston (C),School Lane/Station St,178.99878569423464
+Eltham North Primary School,Primary,Nillumbik (S),Short Rd/Wattletree Rd,69.34645354534477
+Dandenong West Primary School,Primary,Greater Dandenong (C),Birdwood Ave/Benga Ave,60.34366447438121
+Yarra Road Primary School,Primary,Maroondah (C),Yarra Road Primary School/Yarra Rd,25.074773507532722
+Aberfeldie Primary School,Primary,Moonee Valley (C),Fawkner St/Buckley St,218.0814059143918
+Dingley Primary School,Primary,Kingston (C),Dingley Primary School/Centre Dandenong Rd,96.63784594433763
+Albion Primary School,Primary,Brimbank (C),Bazentin St/Sydney St,300.65001447658284
+Nepean Special School,Special,Frankston (C),Lorna St/Klauer St,77.15345859768033
+Brunswick South West Primary School,Primary,Moreland (C),Daly St/Dawson St #33,134.95341923957616
+Bell Primary School,Primary,Darebin (C),Oakover Rd/Gilbert Rd #38,191.93489446906702
+Chatham Primary School,Primary,Boroondara (C),Wharton St/Whitehorse Rd #50,393.4895510861407
+Caulfield South Primary School,Primary,Glen Eira (C),Caulfield South PS/Marara Rd,138.71234553532454
+Ashburton Primary School,Primary,Boroondara (C),Victory Bvd/High St,182.90361328479477
+Bentleigh West Primary School,Primary,Glen Eira (C),Brewer Rd/Nepean Hwy,318.4797163981179
+Briar Hill Primary School,Primary,Banyule (C),Community Hall/Mountain View Rd,157.79996928816837
+McKinnon Primary School,Primary,Glen Eira (C),McKinnon PS/Tucker Rd,29.570672372669925
+Clayton South Primary School,Primary,Kingston (C),Clayton South PS/Clayton Rd,43.56257491168696
+Ivanhoe East Primary School,Primary,Banyule (C),Veitch St/Mcarthur Rd,174.88126300268195
+Brunswick North West Primary School,Primary,Moreland (C),Jacobs Reserve/Melville Rd #38,137.36592647234158
+Fleetwood Primary School,Primary,Casey (C),Darling Way/Fleetwood Dr,69.64124413172993
+Sandringham East Primary School,Primary,Bayside (C),Victoria St/Bluff Rd,205.6228728603267
+Seaholme Primary School,Primary,Hobsons Bay (C),Sussex St/Millers Rd,74.46047402998282
+Somers Primary School,Primary,Mornington Peninsula (S),Camp Hill Rd/Tasman Rd,183.69805081806877
+Travancore School,Special,Moonee Valley (C),25-Mount Alexander College/Mt Alexander Rd,101.08013476470998
+Upwey Primary School,Primary,Yarra Ranges (S),Upwey Station/Burwood Hwy,114.12166386881779
+Coburg North Primary School,Primary,Moreland (C),Montifore St/O'Hea St,30.334010861287037
+Rosanna Primary School,Primary,Banyule (C),Dougharty Rd/Waiora Rd,257.37675741458986
+Wantirna South Primary School,Primary,Knox (C),Wantirna South PS/Tyner Rd,14.875504676285807
+Strathmore Primary School,Primary,Moonee Valley (C),Strathmore PS/York St,166.15715207692747
+Balwyn North Primary School,Primary,Boroondara (C),Buchanan Ave/Doncaster Rd #49,311.9031874897734
+Solway Primary School,Primary,Boroondara (C),Winton Rd/Solway St,131.81548918589493
+Newlands Primary School,Primary,Darebin (C),Newlands PS/Elizabeth St,133.05876490274053
+Somers School Camp,Primary,Mornington Peninsula (S),Coolart Wetlands/Lord Somers Rd,76.80660625755897
+Tootgarook Primary School,Primary,Mornington Peninsula (S),Darvall St/Yolland St,123.34087089582431
+Newport Gardens Primary School,Primary,Hobsons Bay (C),Woods St/Maddox Rd,17.60201127404421
+Malvern Valley Primary School,Primary,Stonnington (C),Abbotsford Ave/Chadstone Rd,178.62059774149643
+Belmore School,Special,Boroondara (C),Balwyn Rd/Belmore Rd,147.3122486941373
+Croxton Special School,Special,Darebin (C),Gladstone Ave/St Georges Rd #30,426.10284466890437
+Frankston East Primary School,Primary,Frankston (C),Frankston East PS/Ashleigh Ave,123.43765657433376
+Selby Primary School,Primary,Yarra Ranges (S),Greenwell Rd/Belgrave-Gembrook Rd,93.45132335592773
+Reservoir East Primary School,Primary,Darebin (C),Yarra Ave/Boldrewood Pde,49.720451719208846
+Tucker Road Bentleigh Primary School,Primary,Glen Eira (C),Tucker Rd/South Rd,230.28707439662452
+Greythorn Primary School,Primary,Boroondara (C),Yeneda St/Greythorn Rd,146.02576387332954
+Eastwood Primary School,Primary,Maroondah (C),Shasta Ave/Dublin Rd,474.4669380349752
+Pascoe Vale South Primary School,Primary,Moreland (C),Mitchell Pde/Reynard St,26.974483957771454
+Lalor Primary School,Primary,Whittlesea (C),Ruthven Cres/Burton St,412.54073370020006
+Reservoir West Primary School,Primary,Darebin (C),Locksley Ave/Gilbert Rd,219.47747083758026
+Coatesville Primary School,Primary,Glen Eira (C),Garvey St/Mackie Rd,26.998325433395447
+Old Orchard Primary School,Primary,Whitehorse (C),Merle St/Koonung Rd,26.800760990437826
+Huntingdale Primary School,Primary,Monash (C),Stradbroke St/Haughton Rd,192.63046908121194
+Box Hill North Primary School,Primary,Whitehorse (C),St Philips Pl/Station St,317.1184985973032
+Ferntree Gully North Primary School,Primary,Knox (C),Doysal Ave/Forest Rd,182.56107152714543
+Oak Park Primary School,Primary,Moreland (C),Summit Ave/Devereaux St,224.40625098922928
+Dandenong North Primary School,Primary,Greater Dandenong (C),Dandenong Hospital/Cleeland St,148.51738693639973
+Harrisfield Primary School,Primary,Greater Dandenong (C),Callander Rd/Princes Hwy,101.42764582200492
+Pascoe Vale North Primary School,Primary,Moreland (C),Pascoe Vale North Primary School/187 Derby St,114.66744713049886
+Belle Vue Primary School,Primary,Boroondara (C),Belle Vue Primary School/Bulleen Rd,34.40285948500218
+St Albans East Primary School,Primary,Brimbank (C),Lester Ave/Main Rd East,367.8388105686141
+Sunshine Heights Primary School,Primary,Brimbank (C),Fairbairn Rd/Mayne St,200.4149382941019
+Sunshine North Primary School,Primary,Brimbank (C),Sussex St/Northumberland Rd,383.566819589575
+Banyule Primary School,Primary,Banyule (C),Banyule Primary School/Banyule Rd,159.79678549655844
+Rosanna Golf Links Primary School,Primary,Banyule (C),Cantala Ave/Lower Plenty Rd,253.12358071464823
+Cheltenham East Primary School,Primary,Kingston (C),Coolac St/Centre Dandenong Rd,206.13583153991507
+Cranbourne South Primary School,Primary,Casey (C),Browns Rd/Pearcedale Rd,129.16228664317265
+Preston North East Primary School,Primary,Darebin (C),Crevelli St/Tyler St,49.87203988034925
+Craigieburn Primary School,Primary,Hume (C),Craigieburn PS/Grand Bvd,84.14634285679689
+Valkstone Primary School,Primary,Glen Eira (C),Glen Eira Sports and Aquatic Centre/East Boundary Rd,297.2673574350207
+Overport Primary School,Primary,Frankston (C),Frankston High School/Foot St,200.7324241550279
+Wembley Primary School,Primary,Maribyrnong (C),Wembley Ave/Benbow St,112.36025678999118
+Rosamond Special School,Special,Maribyrnong (C),Errol St/Ballarat Rd,36.168088550689895
+Bonbeach Primary School,Primary,Kingston (C),Haldane St/Patterson St,292.46911991942795
+Heatherhill Primary School,Primary,Greater Dandenong (C),Heatherhill Primary School/Heatherton Rd,128.16088257326066
+Beaumaris North Primary School,Primary,Bayside (C),Beaumaris North Primary School/Reserve Rd ,109.86538406921035
+Yarraman Oaks Primary School,Primary,Greater Dandenong (C),South Eastern Private Hospital/Heatherton Rd,357.1864766745974
+Mount Pleasant Road Nunawading Primary School,Primary,Whitehorse (C),Mount Pleasant Rd/Heather Gr,389.93726402211286
+Glenroy West Primary School,Primary,Moreland (C),33 Belair Ave,184.35685717324185
+Dandenong South Primary School,Primary,Greater Dandenong (C),Dandenong South PS/Kirkham Rd,85.22924411887746
+St Albans North Primary School,Primary,Brimbank (C),Conrad St/Arthur St,389.49829895575033
+Avondale Primary School,Primary,Moonee Valley (C),Alexander St/Military Rd,234.50355093546534
+Beverley Hills Primary School,Primary,Manningham (C),Avocet St/Blackburn Rd,88.99829504476106
+Frankston Heights Primary School,Primary,Frankston (C),Frankston Heights PS/Heatherhill Rd,114.24695324915113
+Kerrimuir Primary School,Primary,Whitehorse (C),Woodhouse Gr/Dorking Rd,153.52120582069975
+Heathmont East Primary School,Primary,Maroondah (C),Grayview Ave/Canterbury Rd,410.82825592138374
+Strathmore North Primary School,Primary,Moonee Valley (C),Amar St/Lebanon St,238.00294282444625
+Oakleigh South Primary School,Primary,Monash (C),Farm Rd/Centre Rd,357.94461784092096
+Thomastown East Primary School,Primary,Whittlesea (C),Acacia St/Alexander Ave,178.604341171876
+Mount Waverley Heights Primary School,Primary,Monash (C),Churchill Ave/Huntingdale Rd,363.5885903543066
+East Bentleigh Primary School,Primary,Glen Eira (C),Moorleigh Community Village/Bignell Rd,198.3377755107101
+Watsonia Primary School,Primary,Banyule (C),Weatherlake St/Watsonia Rd,319.2696452073513
+Parktone Primary School,Primary,Kingston (C),McSwain St/Lower Dandenong Rd,327.9881658857895
+Antonio Park Primary School,Primary,Whitehorse (C),Deep Creek Rd/Whitehorse Rd,24.796887747666773
+Kingsbury Primary School,Primary,Darebin (C),Maryborough Ave/Dunne St,241.56415789653374
+Katandra School,Special,Glen Eira (C),Ormond Railway Station,161.5312985847077
+Ardeer Primary School,Primary,Brimbank (C),Ukrainian Catholic Church/Forrest St ,183.00359339421473
+Westall Primary School,Primary,Kingston (C),Westall PS/Fairbank Rd,113.55149645049426
+Tullamarine Primary School,Primary,Hume (C),Tullamarine PS/Broadmeadows Rd,132.02924926902344
+Park Orchards Primary School,Primary,Manningham (C),Hopetoun Rd/Park Rd,166.54858593105757
+Albion North Primary School,Primary,Brimbank (C),Albion North PS/Furlong Rd,43.762787645857465
+Blackburn Lake Primary School,Primary,Whitehorse (C),Blackburn Lake PS/Milton St,46.32431641663245
+Laburnum Primary School,Primary,Whitehorse (C),RHL Sparks Reserve/Middleborough Rd,250.9428500826661
+Heatherwood School,Special,Manningham (C),Heatherwood School/Springvale Rd,42.193864036594384
+Pinewood Primary School,Primary,Monash (C),Pinewood SC/Blackburn Rd,233.70248880852452
+Broadmeadows Primary School,Primary,Hume (C),Hume Central Secondary College/Blair St ,19.97366459907281
+Moomba Park Primary School,Primary,Moreland (C),Selola Ct/Anderson Rd,19.998044543920535
+Keilor Heights Primary School,Primary,Moonee Valley (C),Clarks Rd/Milleara Rd,188.85614522282762
+Ainslie Parklands Primary School,Primary,Maroondah (C),Hinkley Ave/Maroondah Hwy,257.58828971164075
+Parkmore Primary School,Primary,Whitehorse (C),Michael Ct/Hampshire Rd,166.93046534552053
+Lara Primary School,Primary,Greater Geelong (C),Flinders Ave/Curletts Rd,570.3751064977095
+Mullum Primary School,Primary,Maroondah (C),Panfield Ave/Wonga Rd,161.71242344634257
+Cranbourne Park Primary School,Primary,Casey (C),Alexander St/High St,362.27299542249415
+Viewbank Primary School,Primary,Banyule (C),Martins Lane/Winston Rd,190.20222131166565
+Greenhills Primary School,Primary,Banyule (C),Allumba Dr/Beales Rd,444.9638291176742
+Upwey South Primary School,Primary,Yarra Ranges (S),Upwey South PS/Griffiths Rd,207.93973322213742
+Eltham East Primary School,Primary,Nillumbik (S),Fairdale Ct/Wycliffe Cres,400.52956225302506
+Belvedere Park Primary School,Primary,Frankston (C),Belvedere Park Primary School/Seaford Rd,180.32559254253232
+Essex Heights Primary School,Primary,Monash (C),Essex Rd/Huntingdale Rd,261.8961223846585
+Mountain Gate Primary School,Primary,Knox (C),Aitken Ct/Ferntree Gully Rd,273.8835170258955
+Fairhills Primary School,Primary,Knox (C),Fairhills PS/Manuka Dr,55.9622595016409
+Boronia West Primary School,Primary,Knox (C),Tormore Rd/Boronia Rd,344.66844251753594
+Southmoor Primary School,Primary,Kingston (C),Cochranes Rd/Chesterville Rd,284.44561108541916
+Ringwood Heights Primary School,Primary,Maroondah (C),Lookover Rd/Glenvale Rd,196.38439427210525
+Glenroy Specialist School,Special,Moreland (C),Hilton St/Widford St,334.2623131559724
+Ruskin Park Primary School,Primary,Maroondah (C),Ruskin Ave/Mt Dandenong Rd,163.32396276096785
+Emerson School,Special,Greater Dandenong (C),Emerson School/Heatherton Rd,87.1952635266443
+Karingal Primary School,Primary,Frankston (C),Flam St/Ashleigh Ave,88.81621459061736
+Mount View Primary School,Primary,Monash (C),Mount View PS/Gallaghers Rd,144.65468023033313
+Syndal South Primary School,Primary,Monash (C),Savige Ave/Blackburn Rd,335.8366895938672
+Montmorency South Primary School,Primary,Banyule (C),Rangeview Rd/Main Rd,464.3377054857468
+Berendale School,Special,Bayside (C),Dane Rd/Spring Rd,207.50082873198014
+Altona North Primary School,Primary,Hobsons Bay (C),McArthurs Rd/Millers Rd,203.59555094627478
+Burwood Heights Primary School,Primary,Whitehorse (C),Burwood Heights PS/Hawthorn Rd,43.57204117183146
+Watsonia Heights Primary School,Primary,Banyule (C),Glenice St/Henry St,76.52622757011851
+Pembroke Primary School,Primary,Yarra Ranges (S),Balmoral St/Durham Rd,414.17445104992123
+Mahogany Rise Primary School,Primary,Frankston (C),Mahogany Rise Primary School/Monterey Bvd,206.18118981727224
+Bundoora Primary School,Primary,Banyule (C),Maple Gr/Greenwood Dr,220.30445046732424
+University Park Primary School,Primary,Brimbank (C),Kingsley St/Willaton St,311.9063424920473
+St Albans Heights Primary School,Primary,Brimbank (C),Lester Ave/Main Rd East,350.1675176077465
+Hume Valley School,Special,Hume (C),Cobram St/Pascoe Vale Rd,326.8158689165517
+Mentone Park Primary School,Primary,Kingston (C),Coolabah St/Lower Dandenong Rd,373.1871311472593
+Donvale Primary School,Primary,Manningham (C),Heatherwood School/Springvale Rd,400.9102474085168
+Boronia Heights Primary School,Primary,Knox (C),Landscape Dr/Mountain Hwy,279.03535242312427
+Glenallen School,Special,Monash (C),Central Reserve/Waverley Rd,147.17165089533026
+Bayswater South Primary School,Primary,Knox (C),Tracey St/Sasses Ave,208.6676331853428
+Seaford North Primary School,Primary,Frankston (C),Ireland St/Railway Pde,472.0339989266073
+Lalor East Primary School,Primary,Whittlesea (C),McKimmies Rd/Darebin Dr,76.28356941683732
+Jackson School,Special,Brimbank (C),Jackson School/Mulhall Dr,6.8217663682462675
+Carlton Primary School,Primary,Melbourne (C),Pitt St/Rathdowne St,49.882783561215874
+Templestowe Valley Primary School,Primary,Manningham (C),Birchwood Ave/Thompsons Rd,207.7785841117746
+Highvale Primary School,Primary,Monash (C),Foxley St/Springvale Rd,504.3296998226573
+Watsonia North Primary School,Primary,Banyule (C),Loyola College/Grimshaw St,221.2763891591202
+Wooranna Park Primary School,Primary,Greater Dandenong (C),Wooranna Park Primary School/Carlton Rd,20.980188126131033
+Knox Park Primary School,Primary,Knox (C),Cambden Park Pde/Scoresby Rd,553.5555296184358
+Birralee Primary School,Primary,Manningham (C),Katrina St/Elgar Rd,565.7603505860608
+Derinya Primary School,Primary,Frankston (C),Derinya Dr/Overport Rd,97.37090527220187
+Thomastown West Primary School,Primary,Whittlesea (C),Simpson St/Main St,87.58038922224337
+Rowville Primary School,Primary,Knox (C),Turramurra Dr/Stud Rd,267.6919452313841
+Mossfiel Primary School,Primary,Wyndham (C),Dean St/Mossfiel Dr,272.9048045022054
+Templestowe Heights Primary School,Primary,Manningham (C),Conifer Pl/Lynnwood Pde,156.32568669678926
+Ballam Park Primary School,Primary,Frankston (C),Bogong Ct/Karingal Dr,457.9756640986866
+Sunbury West Primary School,Primary,Hume (C),Sunbury West PS/Elizabeth Dr,59.896880260765684
+Gladstone Park Primary School,Primary,Hume (C),South Circular Rd/Gladstone Park Dr,261.27248184634345
+Manchester Primary School,Primary,Yarra Ranges (S),Monomeith St/Bellara Dr,97.81150006517738
+Glendal Primary School,Primary,Monash (C),Willow Ave SC/Willow Ave,232.15169729253446
+Bimbadeen Heights Primary School,Primary,Yarra Ranges (S),Shadowplay Rd/Manchester Rd,671.6599521572117
+Wattle View Primary School,Primary,Knox (C),Wattletree Rd/Commercial Rd,385.8432137610132
+Sherbourne Primary School,Primary,Banyule (C),Calrossie Ave/Sherbourne Rd,265.0907087590853
+Donburn Primary School,Primary,Manningham (C),Pine Way/Doncaster Rd,226.19411832299477
+Royal Childrens Hospital Education Institute,Special,Melbourne (C),Gatehouse St/Flemington Rd,203.94944344070913
+Vermont South Special School,Special,Whitehorse (C),Pelham Dr/Hanover Rd,421.01014796772654
+Concord School,Special,Banyule (C),Gleeson Dr/Grimshaw St,95.98816436334685
+Deer Park West Primary School,Primary,Brimbank (C),Hogan St/Ballarat Rd,492.3991874636283
+Campbellfield Heights Primary School,Primary,Hume (C),Mason St/Mont Albert Dr,118.52410708622517
+Lalor North Primary School,Primary,Whittlesea (C),Ruthven Cres/Burton St,301.360312595966
+Melton West Primary School,Primary,Melton (C),Melton West Primary School/Westmelton Dr ,39.62644396195719
+Diamond Creek East Primary School,Primary,Nillumbik (S),Diamond Valley College/Main Hurstbridge Rd,39.233824775420985
+Brandon Park Primary School,Primary,Monash (C),Tudawali Cres/Brandon Park Dr,307.2099628243444
+Bayswater West Primary School,Primary,Knox (C),Karalee Ct/Pindari Dr,266.33887284009677
+Mornington Park Primary School,Primary,Mornington Peninsula (S),Mornington Park PS/Robertson Dr,98.28524604498102
+Aldercourt Primary School,Primary,Frankston (C),Telopea Ct/Excelsior Dr,313.7300154490412
+Richmond West Primary School,Primary,Yarra (C),Tweedie Pl/Church St #63,372.97142622795633
+Marlborough Primary School,Primary,Maroondah (C),Clarke Dr/Wantirna Rd,485.0989155689579
+Stevensville Primary School,Primary,Brimbank (C),Westvale Community Centre/Kings Rd,150.9984550687213
+Birmingham Primary School,Primary,Yarra Ranges (S),Birmingham Rd/Swansea Rd,403.8103674104023
+Woodville Primary School,Primary,Wyndham (C),Woodville Park SC/Warringa Cres,265.2401163718873
+Glengala Primary School,Primary,Brimbank (C),Talintyre Rd/Fairbairn Rd,360.762412975149
+Karingal Heights Primary School,Primary,Frankston (C),Havana Cres/Inglenook Cres,178.00218980487506
+Wallarano Primary School,Primary,Greater Dandenong (C),Rutherglen St/Buckley St,188.08911768483435
+Victoria Road Primary School,Primary,Yarra Ranges (S),John St/Maroondah Hwy,484.94838101778595
+Mooroolbark East Primary School,Primary,Yarra Ranges (S),Mark St/Hull Rd,1144.9822090008154
+Ardeer South Primary School,Primary,Brimbank (C),Lorna Cres/Glengala Rd,126.22586568138847
+Gladesville Primary School,Primary,Yarra Ranges (S),Geoffrey Dr/Mt Dandenong Rd,490.38145536230377
+Debney Meadows Primary School,Primary,Moonee Valley (C),24-Mooltan St/Mt Alexander Rd,265.0698865195682
+Fountain Gate Primary School,Primary,Casey (C),Fountain Gate Primary School/Victoria Rd ,88.27848405450078
+Tinternvale Primary School,Primary,Maroondah (C),Central Ave/Bayswater Rd,333.5997176026358
+Naranga Special School,Special,Frankston (C),Lucerne Cres/Karingal Dr,188.42839735116158
+Kent Park Primary School,Primary,Knox (C),Aitken Ct/Ferntree Gully Rd,437.99098474444935
+Deer Park North Primary School,Primary,Brimbank (C),Robert Bruce Reserve/Station Rd,302.6374042766698
+Rosewood Downs Primary School,Primary,Greater Dandenong (C),Murray Rd/Gladstone Rd,326.68959048640073
+Coburn Primary School,Primary,Melton (C),Richard Rd/Station Rd,336.70921407586127
+Manorvale Primary School,Primary,Wyndham (C),Manorvale Primary School/Greaves St ,25.714960654716073
+Gladstone Views Primary School,Primary,Hume (C),Pyke Dr/Carrick Dr,59.881863313661874
+Wheelers Hill Primary School,Primary,Monash (C),Threadbow Cres/Ferntree Gully Rd,566.44932192021
+Ashwood School,Special,Monash (C),Arthur St/Huntingdale Rd,523.0390746311147
+Broadmeadows Valley Primary School,Primary,Hume (C),Broadmeadows Basketball Association/Dimboola Rd,89.88585106586996
+Bulleen Heights School,Special,Manningham (C),Lonsdale St/Pleasant Rd,80.62313289522702
+Kingston Heath Primary School,Primary,Kingston (C),Farm Rd/Warrigal Rd,362.50704908260997
+Andersons Creek Primary School,Primary,Manningham (C),Warrandyte Reserve/Heidelberg-Warrandyte Rd,147.99386567024692
+Waverley Meadows Primary School,Primary,Monash (C),Waverley Meadows Primary School/Columbia Dr ,18.225524513565954
+Kingswood Primary School,Primary,Kingston (C),Plaza Cres/Howard Rd,252.1693275118858
+Ascot Vale Heights School,Special,Moonee Valley (C),28-Middle St/Mt Alexander Rd,233.11942362905327
+Camelot Rise Primary School,Primary,Monash (C),Kalara Pl/Highmont Dr,535.9073420231593
+Livingstone Primary School,Primary,Whitehorse (C),Pelham Dr/Hanover Rd,316.98863585449953
+St Albans Meadows Primary School,Primary,Brimbank (C),Pine St/Mulhall Dr,205.85253063490742
+Silverton Primary School,Primary,Greater Dandenong (C),Silverton Primary School/Jacksons Rd,107.50189589234787
+Kalinda Primary School,Primary,Maroondah (C),Kalinda Rd/Mundara Dr,70.71571905498936
+Coldstream Primary School,Primary,Yarra Ranges (S),Bede Ave/Lauriston Dr,194.6858744377629
+Templestowe Park Primary School,Primary,Manningham (C),Church Rd/Porter St,304.9861532873369
+River Gum Primary School,Primary,Casey (C),Hampton Park SC/Fordholm Rd,362.52149197365685
+Regency Park Primary School,Primary,Knox (C),Amesbury Ave/Boronia Rd,455.73354283353365
+Dorset Primary School,Primary,Maroondah (C),Prospect Hill Rd/Dorset Rd,220.61943415369444
+Eastbourne Primary School,Primary,Mornington Peninsula (S),Mornington Peninsula Fwy/Boneo Rd,517.9873082847553
+Thomastown Meadows Primary School,Primary,Whittlesea (C),The Close/Victoria Dr,194.7584902025882
+Kingsley Park Primary School,Primary,Frankston (C),Kingsley Park PS/Gattinara Dr,158.29460141800126
+James Cook Primary School,Primary,Casey (C),James Cook PS/James Cook Dr,108.12417238771339
+Movelle Primary School,Primary,Brimbank (C),Jacinta Way/Main Rd West,418.8976592035088
+Mount Eliza North Primary School,Primary,Mornington Peninsula (S),Mount Eliza Secondary College,661.7601872316823
+Yarrabah School,Special,Kingston (C),Pine Cres/Station St,294.5104610915016
+Frankston Special Developmental School,Special,Frankston (C),Escabon Gr/Havana Cres,151.0860897319645
+Waratah Special Developmental School,Special,Banyule (C),Perkins Ave/Oriel Rd,232.48183435391863
+Port Phillip Specialist School,Special,Port Phillip (C),Princes St/Bridge St,107.65697663256147
+Monash Special Developmental School,Special,Monash (C),Good Shepherd School/Academy Ave,91.83006527938547
+Iramoo Primary School,Primary,Wyndham (C),Iramoo Primary School/McGrath Rd ,43.487159584552344
+Weeden Heights Primary School,Primary,Whitehorse (C),Fankhauser Dr/Burwood Hwy,416.7647976180342
+Mill Park Primary School,Primary,Whittlesea (C),Mayfield Dr/Plenty Rd,412.05300512425305
+Diamond Valley Special Developmental School,Special,Nillumbik (S),Civic Dr/Diamond Creek Rd,281.6617269166175
+Melton Specialist School,Special,Melton (C),Melton Secondary College/Coburns Rd ,120.60146979637697
+Springvale Park Special Developmental School,Special,Greater Dandenong (C),Springvale Railway Station,77.51171004974316
+Warringa Park School,Special,Wyndham (C),Warringa Park School/Warringa Cres,43.57255255803464
+Serpell Primary School,Primary,Manningham (C),Serpell PS/Tuckers Rd,21.577411221679387
+Mount Martha Primary School,Primary,Mornington Peninsula (S),Kinross St/Somerset Dr,691.6171823565289
+Altona Meadows Primary School,Primary,Hobsons Bay (C),Merton St/Alma Ave,99.73105856136596
+The Patch Primary School,Primary,Yarra Ranges (S),Kallista-Emerald Rd/The Patch Rd,174.8511906512076
+Jells Park Primary School,Primary,Monash (C),Petronella Ave/Jells Rd,270.59026582291193
+Albanvale Primary School,Primary,Brimbank (C),Rialto St/Main Rd West,304.5553333575672
+Kismet Park Primary School,Primary,Hume (C),Kismet Park PS/McEwen Dr,42.49158755483048
+Kunyung Primary School,Primary,Mornington Peninsula (S),Wimborne Ave/Mount Eliza Way,1164.7281621217485
+Apollo Parkways Primary School,Primary,Nillumbik (S),Crana Gr/Plenty River Dr,384.71317945286074
+Bethal Primary School,Primary,Hume (C),Midas Ct/Malmsbury Dr,276.7733459722892
+Cranbourne West Primary School,Primary,Casey (C),Sandhurst Centre/Duff St,243.46734637470038
+Patterson Lakes Primary School,Primary,Kingston (C),Patterson Lakes PS/Gladesville Bvd,100.18663469287168
+Seaford Park Primary School,Primary,Frankston (C),Bambra Ct/Henry Cres,387.2359502214342
+Billanook Primary School,Primary,Yarra Ranges (S),Mount Dandenong Observatory/Observatory Rd,1249.7384711606212
+Chirnside Park Primary School,Primary,Yarra Ranges (S),Vista Dr/Edward Rd,550.9887182938993
+Templeton Primary School,Primary,Knox (C),Marlo St/Templeton St,442.9709840150691
+Sunbury Heights Primary School,Primary,Hume (C),Charter Rd East/Elizabeth Dr,141.12809583994303
+Darley Primary School,Primary,Moorabool (S),Darley Primary School/Nelson St,61.865224329172285
+Wallaroo Primary School,Primary,Mornington Peninsula (S),Kimbla Ct/Stalwart Ave,115.6197480268294
+Mossgiel Park Primary School,Primary,Casey (C),Mossgiel Park Primary School/Scotsburn Way,21.23654981646085
+Wedge Park Primary School,Primary,Melton (C),Cambrian Way Preschool/54 Cambrian Way,49.293509863379775
+Croydon Special Developmental School,Special,Maroondah (C),Paris Ave/Eastfield Rd,488.9577856337287
+Milgate Primary School,Primary,Manningham (C),Landscape Dr/Fullwood Pde,172.3241879658214
+Berwick Lodge Primary School,Primary,Casey (C),Berwick Lodge PS/Mansfield St,15.424263765894187
+Furlong Park School For Deaf Children,Special,Brimbank (C),Cooke Ave/Furlong Rd,74.73709029722991
+Jennings Street School,Special,Hobsons Bay (C),Laverton College/Bladin St,94.16469425999274
+Sunbury And Macedon Ranges Specialist School,Special,Hume (C),Sunbury PS/Circular Dr,54.01356765246833
+Northern School For Autism,Special,Darebin (C),Teresa Ct/Gertz Ave,11.496272557053153
+Botanic Ridge Primary School,Primary,Casey (C),Saddleback Rd/Craig Rd,447.628292577063
+Burwood East Special Developmental School,Special,Whitehorse (C),Tiller St/Burwood Hwy,620.6982202548963
+Meadow Heights Primary School,Primary,Hume (C),Meadow Heights SC/Hudson Cct,209.4112193222344
+Peninsula Specialist College,Special,Mornington Peninsula (S),Don Bosco Camp/Dromana Pde,3031.6015735444726
+Chalcot Lodge Primary School,Primary,Casey (C),Finchley Ct/Kennington Park Dr,271.5039199023711
+Rangebank Primary School,Primary,Casey (C),Lesdon Ave/South Gippsland Hwy,189.59583669372395
+Knox Gardens Primary School,Primary,Knox (C),Harcrest Bvd/Stud Rd,290.22598149367394
+Southern Cross Primary School,Primary,Casey (C),Southern Cross PS/David Collins Dr,70.95588444034856
+Kings Park Primary School,Primary,Brimbank (C),Allandale Rd/Gillespie Rd,39.890343281293305
+Dandenong Valley Special Developmental School,Special,Casey (C),Fountain Gate Sec Col/Victoria Rd,157.49012643399647
+Mornington Special Developmental School,Special,Mornington Peninsula (S),Mornington Park PS/Robertson Dr,47.47454757809588
+Bayside Special Developmental School,Special,Kingston (C),Genoa St/Chesterville Rd,261.67096656821565
+Rolling Hills Primary School,Primary,Yarra Ranges (S),Landscape Dr/Maroondah Hwy,689.963541554273
+Craigieburn South Primary School,Primary,Hume (C),Hothlyn Drive Reserve/Hothlyn Dr,130.7056069533349
+Findon Primary School,Primary,Whittlesea (C),Cuthbert Dr/Roycroft Ave,101.75656754722777
+Yarra Ranges Special Developmental School,Special,Yarra Ranges (S),Fernhill Rd/Hereford Rd,278.627029447869
+Goonawarra Primary School,Primary,Hume (C),Goonawarra PS/Carnoustie Dr,164.9232496198459
+Southern Autistic School,Special,Glen Eira (C),Highview Rd/Chesterville Rd,347.82696876191125
+Bellbridge Primary School,Primary,Wyndham (C),Bellbridge PS/Bellbridge Dr,78.83037676543348
+Croydon Hills Primary School,Primary,Maroondah (C),James Milne Dr/Yarra Rd,335.91545247384266
+Kurunjang Primary School,Primary,Melton (C),Kurunjang Dr/Centenary Ave,457.3020456772967
+Langwarrin Park Primary School,Primary,Frankston (C),Hornsby Dr/Southgateway,282.1047775222733
+Taylors Lakes Primary School,Primary,Brimbank (C),Cocoparra Cres/Chichester Dr,23.60657513558663
+Glen Katherine Primary School,Primary,Banyule (C),Parry Rd/Ryans Rd,267.2166778031455
+Coburg Special Developmental School,Special,Moreland (C),Bishop St/Gaffney St,43.111276106328035
+Broadmeadows Special Developmental School,Special,Hume (C),Hume Central Sec Col/Dimboola Rd,116.23512949626932
+Sunshine Special Developmental School,Special,Brimbank (C),112 Fairbairn Rd,145.75608110779513
+Richmond Primary School,Primary,Yarra (C),Gibbons St/Church St #55,167.87394823473798
+Yarra Primary School,Primary,Yarra (C),Leslie St/Victoria St #23,369.34981384812124
+Yarraville Special Developmental School,Special,Maribyrnong (C),Blackwood St/Williamstown Rd,104.9286153151406
+Clifton Springs Primary School,Primary,Greater Geelong (C),Clifton Springs Primary School/Jetty Rd,67.39109095087672
+Park Ridge Primary School,Primary,Knox (C),Kedleston Way/Wentworth Ave,42.45453951691163
+Merriang Special Developmental School,Special,Whittlesea (C),Lalor Station/Kingsway Dr,210.81856786113227
+Orchard Grove Primary School,Primary,Whitehorse (C),Samuel Rd/Fulton Rd,294.7087632412806
+Meadowglen Primary School,Primary,Whittlesea (C),St Leger Pl/Meadow Glen Dr,170.85905330314222
+Altona Green Primary School,Primary,Hobsons Bay (C),Tatman Dr/Victoria St,112.33974147311463
+Boroondara Park Primary School,Primary,Boroondara (C),Korean Presbyterian Church/Walnut Rd,219.50001942585314
+Western Autistic School,Special,Hobsons Bay (C),Chirnside Cres/Bladin St,234.53623582262512
+Coral Park Primary School,Primary,Casey (C),Coral Park PS/Coral Dr,51.20084562153596
+Maramba Primary School,Primary,Casey (C),Maramba PS/Maramba Dr,20.001782045369325
+Thomas Mitchell Primary School,Primary,Casey (C),Thomas Mitchell Dr/Conran Ave,226.9566551392223
+Karoo Primary School,Primary,Knox (C),Karoo PS/Karoo Rd,22.19867289649066
+Mackellar Primary School,Primary,Brimbank (C),Goldsmith Ave/Kings Rd,305.35014341845795
+Aspendale Gardens Primary School,Primary,Kingston (C),Narelle Dr/Wells Rd,398.63843507887935
+Berwick Fields Primary School,Primary,Casey (C),Bellevue Dr/Centre Rd,257.9835757529062
+Brentwood Park Primary School,Primary,Casey (C),Brentwood Park PS/Chirnside Rd,150.51758447815754
+Eastern Ranges School,Special,Knox (C),Ferntree Gully College/Commercial Rd,107.92014429841969
+Edgars Creek Primary School,Primary,Whittlesea (C),Edgars Creek Secondary College/Edgars Rd,327.9097790760386
+Eynesbury Primary School,Primary,Melton (C),St Arnoud Rd/Eynesbury Rd ,155.45742116139695
+Cambridge Primary School,Primary,Wyndham (C),Carruthers Dr/Dowling Ave,263.5424586272994
+Rowellyn Park Primary School,Primary,Frankston (C),Rowellyn Park Primary School/Rowellyn Ave,45.37163049537278
+Baden Powell P-9 College,Pri/Sec,Wyndham (C),Bronson Cct/Derrimut Rd,426.72720149421207
+Woodlands Primary School,Primary,Frankston (C),Woodlands PS/Gum Nut Dr,55.94153131095982
+Mill Park Heights Primary School,Primary,Whittlesea (C),Mill Park Leisure Centre/Morang Dr,410.9529986055213
+Monmia Primary School,Primary,Brimbank (C),Roseberry Ave/Copernicus Way,60.26476641593799
+Seabrook Primary School,Primary,Hobsons Bay (C),Seabrook PS/Point Cook Rd,25.204868122453224
+Willmott Park Primary School,Primary,Hume (C),Rokeby Dr/Cimberwood Dr,422.08874003419777
+Thomas Chirnside Primary School,Primary,Wyndham (C),Thomas Chirnside Primary School/Walls Rd ,96.133304834611
+Heany Park Primary School,Primary,Knox (C),Buckingham Dr/Liberty Ave,157.95497503080648
+Kilberry Valley Primary School,Primary,Casey (C),Kilberry Valley PS/Kilberry Bvd,73.54053640991161
+Killara Primary School,Primary,Hume (C),Killara PS/Rees Rd,70.75063286774628
+Surfside Primary School,Primary,Greater Geelong (C),Bellarine Secondary College Ocean Grove Campus/Shell Rd ,231.64087135269384
+Orchard Park Primary School,Primary,Cardinia (S),Timbertop Bvd/Princes Hwy,356.7562994231362
+Riverwalk Primary School,Primary,Wyndham (C),Dutchelm Ave/Newmarket Rd,460.91818764455905
+Niddrie Autistic School (interim name),Special,Moonee Valley (C),Ida St/Garnet St,166.0357305356707
+Oatlands Primary School,Primary,Casey (C),Oatlands Primary School/Kurrajong Rd,53.31773313031389
+Westgrove Primary School,Primary,Wyndham (C),Westgrove PS/Thames Bvd,162.58648418620294
+Pentland Primary School,Primary,Moorabool (S),Durham St/Hallets Way,141.91356758279727
+Pakenham Hills Primary School,Primary,Cardinia (S),Pakenham Hills PS/Army Rd,203.29786460932473
+Courtenay Gardens Primary School,Primary,Casey (C),Courtenay Gardens PS/Courtenay Ave,140.55691767412569
+Somerville Rise Primary School,Primary,Mornington Peninsula (S),Somerville Recreation Reserve/Park Lane,625.3474498764576
+Grayling Primary School,Primary,Casey (C),Treefern Lane/Skylark Bvd,138.9647079529236
+Niddrie Primary School,Primary,Moonee Valley (C),Hanson St/Keilor Rd,151.94442587225885
+Keelonith Primary School,Primary,Hume (C),Ventura Way/Blossom Dr,109.04010574348658
+Toolern Vale and District Primary School,Primary,Melton (C),Foxzami Lane/Dalray Cres,5562.728750408744
+Parkhill Primary School,Primary,Monash (C),Cleveland Rd/High Street Rd,482.7149590401786
+Kananook Primary School,Primary,Frankston (C),Kananook Primary School/Boonong Ave,139.51294377867364
+Roberts McCubbin Primary School,Primary,Whitehorse (C),Devon St/Haig St,103.78141590922067
+Le Page Primary School,Primary,Kingston (C),Cavanagh St/Friendship Sq,134.6417497713007
+Glen Waverley Primary School,Primary,Monash (C),Springvale Rd/High Street Rd,63.165208365004204
+Carrington Primary School,Primary,Knox (C),Carrington Primary School/Laura Rd,134.22808520321652
+Albany Rise Primary School,Primary,Monash (C),Albany Rise Primary School/Albany Dr,58.887894857857034
+Amsleigh Park Primary School,Primary,Monash (C),Shafton St/Princes Hwy,273.62652774876545
+Knox Central Primary School,Primary,Knox (C),Lewis Rd/Coleman Rd,295.2255714995168
+Mount Waverley North Primary School,Primary,Monash (C),Josephine Ave/High Street Rd,369.1419267728461
+Rangeview Primary School,Primary,Whitehorse (C),Rangeview PS/Churinga Ave,62.455503611354
+Carwatha College P-12,Pri/Sec,Greater Dandenong (C),Ahern St/Jacksons Rd,308.3308013232761
+Glen Waverley South Primary School,Primary,Monash (C),Capella Ct/Watsons Rd,153.5562412797864
+Streeton Primary School,Primary,Banyule (C),Amaroo Way/Elonera Ave,154.16968780795506
+Roxburgh Homestead Primary School,Primary,Hume (C),Donald Cameron Dr/Roxburgh Park Dr,264.4817550081705
+Dinjerra Primary School,Primary,Maribyrnong (C),Melon St/South Rd,102.33178015912489
+Belle Vue Park Primary School,Primary,Moreland (C),May St/Evell St,127.17791427668877
+Doncaster Gardens Primary School,Primary,Manningham (C),Rieschiecks Reserve/George St,155.70692409327015
+Strathaird Primary School,Primary,Casey (C),Strathaird Primary School/Community Pde ,91.45662585986676
+Marnebek School Cranbourne,Special,Casey (C),Broad Oak Dr/Bradford Dr,472.273341735796
+Great Ryrie Primary School,Primary,Maroondah (C),Aquinas College/Great Ryrie St,79.53471965506114
+Timbarra P-9 College,Pri/Sec,Casey (C),Timbarra Primary School/Parkhill Dr ,36.90994332364062
+Parkwood Green Primary School,Primary,Melton (C),Parkwood Green PS/Gourlay Rd,156.32944029155877
+Hillsmeade Primary School,Primary,Casey (C),Hillsmeade PS/Littlecroft Ave,80.77083569764491
+Roxburgh Park Primary School,Primary,Hume (C),Roxburgh Park Primary School/Thomas Brunton Pde,204.08780144875465
+Carranballac P-9 College,Pri/Sec,Wyndham (C),Carranballac P-9 College/Dunnings Rd,127.49856560708989
+Benton Junior College,Primary,Mornington Peninsula (S),Benton Junior College/Racecourse Rd,63.139877905117196
+Caulfield Primary School,Primary,Glen Eira (C),Glenhuntly Rd/Hawthorn Rd #57,192.93253811392967
+Roxburgh Rise Primary School,Primary,Hume (C),Wattleview Rd/Bridgewater Rd,256.5394338348574
+Lynbrook Primary School,Primary,Casey (C),Paterson Dr/Lynbrook Bvd,328.60891754351593
+Laurimar Primary School,Primary,Whittlesea (C),Bulimba Dr/Hazel Glen Dr,121.29282566784444
+Truganina South Primary School,Primary,Wyndham (C),Federation Bvd/Forsyth Rd,581.2373424187259
+Kororoit Creek Primary School,Primary,Melton (C),Harrison Ct/Westwood Dr,491.9409851213464
+Harvest Home Primary School,Primary,Whittlesea (C),Harvest Home Rd/Edgars Rd,302.7364178569158
+Truganina P-9 College,Pri/Sec,Wyndham (C),Truganina P-9 College/Leakes Rd,183.3377337432584
+Burnside Primary School,Primary,Melton (C),Lexington Dr/Westwood Dr,322.18500915945503
+Berwick Chase Primary School,Primary,Casey (C),Irving Cl/Bridgewater Bvd,301.54704886471956
+Pakenham Lakeside Primary School,Primary,Cardinia (S),Cardinia Road Station/The Parkway,241.25740101095585
+Davis Creek Primary School,Primary,Wyndham (C),Amelie Pde/Bethany Rd,471.0183962227267
+Pakenham Springs Primary School,Primary,Cardinia (S),Livingstone Bvd/Heritage Bvd,100.18274363992644
+Taylors Hill Primary School,Primary,Melton (C),Loddon Dr/Watervale Bvd,115.96689545795252
+Cranbourne Carlisle Primary School,Primary,Casey (C),Courtenay Ave/Thompsons Rd,426.21574628758316
+Aurora School,Special,Whitehorse (C),Holland Rd/Fulton Rd,355.5909072607783
+Derrimut Primary School,Primary,Brimbank (C),Lennon Pkwy/Windsor Bvd,246.6345165754595
+Epping Views Primary School,Primary,Whittlesea (C),Epping Views PS/Lyndarum Dr,107.26417381055067
+Cranbourne East Primary School,Primary,Casey (C),Avalon Cres/Broad Oak Dr,251.48583200394762
+Lyndhurst Primary School,Primary,Casey (C),Marriott Waters SC/Marriott Bvd,358.6148501162559
+Aitken Creek Primary School,Primary,Hume (C),Grevillea St/Waterview Bvd,184.90566007892818
+Reservoir Views Primary School,Primary,Darebin (C),Banff St/Hickford St,26.31409823634316
+Meadows Primary School,Primary,Hume (C),Holberry St/Camp Rd,118.7014176991877
+Mernda Park Primary School,Primary,Whittlesea (C),The Parkway/Riverdale Bvd,239.9802138856783
+Sunshine Harvester Primary School,Primary,Brimbank (C),Sunshine Harvester Primary School/Duke St ,72.6419223992875
+Alamanda K-9 College,Pri/Sec,Wyndham (C),Alamanda College/Alamanda Bvd,87.4870599956778
+Whitehorse Primary School,Primary,Whitehorse (C),Barnsley St/Junction Rd,105.49548529115039
+Lalor Gardens Primary School,Primary,Whittlesea (C),Lalor Gardens PS/Kingsway Dr,72.40795615521895
+Chandler Park Primary School,Primary,Greater Dandenong (C),Cheltenham Rd/Chandler Rd,211.80764312924484
+Keysborough Primary School,Primary,Greater Dandenong (C),Northgate Dr/Paterson Rd,385.11371158501134
+Lyndale Greens Primary School,Primary,Greater Dandenong (C),Lyndale Greens PS/Oakwood Ave,70.20234491977148
+Athol Road Primary School,Primary,Greater Dandenong (C),Athol Road Primary School/Athol Rd,37.89533600144402
+Springvale Rise Primary School,Primary,Greater Dandenong (C),Gove St/Princes Hwy,270.8237722010639
+Spring Parks Primary School,Primary,Greater Dandenong (C),Clarke Rd/Heatherton Rd,212.60787651165617
+Keilor Views Primary School,Primary,Brimbank (C),Keilor Downs Sec Col/Odessa Ave,246.7890326884534
+Wyndham Park Primary School,Primary,Wyndham (C),Nightingale Dr/Kookaburra Ave,79.64044861870221
+Glenroy Central Primary School,Primary,Moreland (C),St Agnes Ct/Melbourne Ave,128.57604856803377
+William Ruthven Primary School,Primary,Darebin (C),William Ruthven Secondary College/Mahoneys Rd ,286.5660382303826
+Newbury Primary School,Primary,Hume (C),Melville Rd/Grand Bvd,81.59533351916909
+Dallas Brooks Community Primary School,Primary,Hume (C),391 Barry Rd,486.5542142652939
+Wyndham Vale Primary School,Primary,Wyndham (C),Ribblesdale Ave/Haines Dr,103.44292877178037
+Officer Specialist School,Special,Cardinia (S),Officer Sec Col/Parker St,41.187939893167105
+Epping Primary School,Primary,Whittlesea (C),Memorial Ave/High St,84.31924721860972
+Hazel Glen College,Pri/Sec,Whittlesea (C),Hazel Glen College/Eminence Bvd,231.4947418716958
+Tulliallan Primary School,Primary,Casey (C),Featherbrook Cct/Arbourlea Bvd,197.7036902791862
+Coolaroo South Primary School,Primary,Hume (C),Exford St/Longford Cres,256.77697012759666
+Jacana School for Autism,Special,Hume (C),Northern School for Autism/Lichfield Ave,36.64916623454825
+Arnolds Creek Primary School,Primary,Melton (C),Arnolds Creek Primary School/Claret Ash Bvd ,103.78593752830352
+Wilandra Rise Primary School,Primary,Casey (C),St Peter's College/Heather Gr,299.76475992874964
+South Melbourne Primary School,Primary,Port Phillip (C),City Rd/Light Rail #126,78.7489188902014
+Barton Primary School,Primary,Casey (C),Barton PS/Everlasting Bvd,135.02658674006605
+John Henry Primary School,Primary,Cardinia (S),Sun Orchid Dr/Henry Rd,27.86103058785075
+South Melbourne Park Primary School,Primary,Port Phillip (C),Melbourne Sports & Aquatic Centre/Albert Rd #131,109.29989679065866
+Bridgewood Primary School,Primary,Cardinia (S),Officer Sec Col/Parker St,762.0205065914461
+Aitken Hill Primary School,Primary,Hume (C),Waterview Bvd/Elevation Bvd,61.3618134327064
+Ashley Park Primary School,Primary,Whittlesea (C),Orchard Rd/Elation Bvd,145.41406842511114
+Casey Fields Primary School,Primary,Casey (C),Casey Complex/Berwick-Cranbourne Rd,558.3815478088283
+Keysborough Gardens Primary School,Primary,Greater Dandenong (C),Homeleigh Rd/Chapel Rd,144.2285376792369
+Docklands Primary School,Primary,Melbourne (C),NewQuay Prom/Docklands Dr #D10,107.18189967586272
+Garrang Wilam Primary School,Primary,Wyndham (C),Aphrodite Dr/Leakes St,945.8132389059507
+Aintree Primary School,Primary,Melton (C),Timbertop Pde/Fields St,228.78120799744593
+Gaayip-Yagila Primary School,Primary,Hume (C),Holy Cross Catholic Primary School/St Georges Bvd,208.23311246992748
+Riverbend Primary School,Primary,Wyndham (C),Evergreen Dr/Ballan Rd,599.2340329790434
+Ramlegh Park Primary School,Primary,Casey (C),Thoroughbred Dr/Heather Gr,336.50012053438724
+Collingwood College,Pri/Sec,Yarra (C),Vere St/Hoddle St,187.540061905435
+Macleod College,Pri/Sec,Banyule (C),Macleod Rail Replacement Bus Stop,281.9226304980865
+Pakenham Consolidated School,Primary,Cardinia (S),Rundell Way/Princes Hwy,48.6310448473782
+Red Hill Consolidated School,Primary,Mornington Peninsula (S),Nepean Hwy/Dromana Pde,4547.142090211305
+Sherbrooke Community School,Pri/Sec,Yarra Ranges (S),The Crescent/Mt Dandenong Tourist Rd,120.29258617805651
+Virtual School Victoria,Pri/Sec,Darebin (C),Clarendon St/Station St,403.71789368032756
+Victorian School Of Languages,Pri/Sec,Darebin (C),Clarendon St/Station St,413.8926439333167
+Avenues Education,Special,Kingston (C),Moorabbin Station/Nepean Hwy,8.25374847202591
+Monash Children's Hospital School,Special,Monash (C),Monash Specialist Centre/Clayton Rd,296.0112133359803
+Mount Erin Secondary College,Secondary,Frankston (C),Mount Erin College/Golf Links Rd,207.6768962516301
+Box Hill Senior Secondary College,Secondary,Whitehorse (C),Malvern Rd/Melrose St,169.73106807895294
+Edgars Creek Secondary College,Secondary,Whittlesea (C),Edgars Creek Secondary College/Edgars Rd,108.963456373901
+Elevation Secondary College,Secondary,Hume (C),Aston Village Shopping Mall/Vantage Bvd,278.34823097198
+Lyndhurst Secondary College,Secondary,Casey (C),Lyndhurst Sec Col/Wentworth St,117.23244845011415
+Dromana Secondary College,Secondary,Mornington Peninsula (S),Prescott Ave/Dromana Pde,3312.882803782442
+Peter Lalor Secondary College,Secondary,Whittlesea (C),Linoak Ave/Kingsway Dr,184.61785306291546
+Lilydale Heights College,Secondary,Yarra Ranges (S),Plaza Ct/Cave Hill Rd,336.44288939003746
+Staughton College,Secondary,Melton (C),Staughton College/Wilson Rd,53.16923271971918
+Bentleigh Secondary College,Secondary,Glen Eira (C),Jackson Lane/East Boundary Rd,156.39027627590124
+Rosehill Secondary College,Secondary,Moonee Valley (C),Rosehill Sec Col/Ida St,140.73473212891057
+Northern College of the Arts and Technology,Secondary,Darebin (C),Northern College Arts & Tech/Murray Rd,62.44877405686929
+Swinburne Senior Secondary College,Secondary,Boroondara (C),Auburn Station/Auburn Rd,381.20193813106545
+Victorian College Of The Arts Secondary School,Secondary,Melbourne (C),Miles St/Sturt St #19,89.81652753598522
+Wyndham Central Secondary College,Secondary,Wyndham (C),Wyndham Central College/Shaws Rd,92.94367472215636
+Whittlesea Secondary College,Secondary,Whittlesea (C),James St/Laurel St,272.24302967096685
+Auburn High School,Secondary,Boroondara (C),Auburn South PS/Tooronga Rd,112.61648398604116
+Balwyn High School,Secondary,Boroondara (C),Buchanan Ave/Doncaster Rd #49,442.8720847858212
+Bayswater Secondary College,Secondary,Knox (C),Bayswater Sec Col/Orchard Rd,23.419536870544192
+Beaumaris Secondary College,Secondary,Bayside (C),Beaumaris  Secondary College/Reserve Rd ,22.995075269050215
+Berwick Secondary College,Secondary,Casey (C),Manuka Rd/Brisbane St,476.09732420520885
+Blackburn High School,Secondary,Whitehorse (C),Blackburn High School/Springfield Rd,29.785053931455998
+Box Hill High School,Secondary,Whitehorse (C),Box Hill HS/Whitehorse Rd,58.484311343690486
+Braybrook College,Secondary,Maribyrnong (C),Braybrook College/Ballarat Rd,80.93668062717832
+Brentwood Secondary College,Secondary,Monash (C),Heath St/Watsons Rd,194.19008687593353
+Brighton Secondary College,Secondary,Bayside (C),Burwah Ave/Marriage Rd,83.54755742751283
+Buckley Park College,Secondary,Moonee Valley (C),Nimmo St/Mary St,248.37236945437274
+Camberwell High School,Secondary,Boroondara (C),Carinda Rd/Prospect Hill Rd,19.105297664093982
+Canterbury Girls Secondary College,Secondary,Boroondara (C),Canterbury Girls Sec Col/Malacca Rd,51.48269766654283
+Cheltenham Secondary College,Secondary,Kingston (C),Cheltenham Sec Col/Bernard St,62.381061186633204
+Cranbourne Secondary College,Secondary,Casey (C),Cranbourne Park SC/Lyall St,239.86982428327195
+Cranbourne West Secondary College,Secondary,Casey (C),Bradman Dr/Hall Rd,246.13299244321283
+Croydon Community School,Secondary,Maroondah (C),Anzac St/Mt Dandenong Rd,87.07306628797149
+Mount Alexander 7-12 College,Secondary,Moonee Valley (C),25-Mount Alexander College/Mt Alexander Rd,69.80966879355528
+East Doncaster Secondary College,Secondary,Manningham (C),East Doncaster Sec Col/George St,54.37520696877827
+Doncaster Secondary College,Secondary,Manningham (C),Church Rd/Doncaster Rd,198.1027276265077
+Eltham High School,Secondary,Nillumbik (S),Eltham High School/Ely St,227.8908572058819
+Elwood College,Secondary,Port Phillip (C),Spray St/Glen Huntly Rd,61.35024536955977
+Epping Secondary College,Secondary,Whittlesea (C),Scarborough Rd/McDonalds Rd,149.5789374401862
+Fairhills High School,Secondary,Knox (C),Fairhills High School/Scoresby Rd,46.346657965790975
+Footscray High School,Secondary,Maribyrnong (C),Footscray City College/Farnsworth Ave,96.37692566474944
+Frankston High School,Secondary,Frankston (C),Towerhill Rd/Foot St,155.42624126957202
+Gisborne Secondary College,Secondary,Macedon Ranges (S),Gisborne Sec Col/Gisborne Melton Rd,268.2537398587061
+Gladstone Park Secondary College,Secondary,Hume (C),School of the Good Shepherd/South Circular Rd,246.05001906226218
+Bundoora Secondary College,Secondary,Banyule (C),Noorong Ave/Greenwood Dr,257.9046617773773
+Western Port Secondary College,Secondary,Mornington Peninsula (S),Phillip Ct/Frankston-Flinders Rd,641.7916179051001
+Highvale Secondary College,Secondary,Monash (C),Vigil Ave/Camelot Dr,414.69800607662125
+Kensington Community High School,Secondary,Melbourne (C),Smithfield Rd/Racecourse Rd #28,27.66794267806513
+Kew High School,Secondary,Boroondara (C),Kew High School/Burke Rd,37.88958707568326
+Koonung Secondary College,Secondary,Whitehorse (C),Horfield Ave/Elgar Rd,35.563729265112656
+Koo Wee Rup Secondary College,Secondary,Cardinia (S),Koo Wee Rup Bus Interchange/Rossiter Rd,580.1298804648281
+Lalor Secondary College,Secondary,Whittlesea (C),Deakin Ave/Dalton Rd,112.18289078972508
+Lalor North Secondary College,Secondary,Whittlesea (C),Lalor North Secondary College/Childs Rd,93.3408374123144
+Lilydale High School,Secondary,Yarra Ranges (S),Lilydale Marketplace/Hutchinson St,306.56448195394677
+Lyndale Secondary College,Secondary,Greater Dandenong (C),Carlton Rd/Gladstone Rd,88.3337021960601
+Lynall Hall Community School,Secondary,Yarra (C),Highett St/Church St #62,233.14500273865514
+Maribyrnong Secondary College,Secondary,Maribyrnong (C),Maribyrnong College/River St #53,12.971117527431216
+Melbourne High School,Secondary,Stonnington (C),Malcolm St/Chapel St #51,63.76369839909629
+Melton Secondary College,Secondary,Melton (C),Melton Secondary College/Coburns Rd ,100.75740895344488
+Mentone Girls Secondary College,Secondary,Kingston (C),Mentone Girls Secondary College/Balcombe Rd ,34.58549748766956
+Monbulk College,Secondary,Yarra Ranges (S),Monbulk Secondary College/Cavey Rd,26.535439094931796
+Montmorency Secondary College,Secondary,Banyule (C),Montmorency Secondary College/Para Rd ,135.0037673488531
+Mooroolbark College,Secondary,Yarra Ranges (S),Shirley St/Manchester Rd,146.01542335541333
+Mordialloc College,Secondary,Kingston (C),Attenborough Rd/Station St,79.18253912062767
+Mount Eliza Secondary College,Secondary,Mornington Peninsula (S),Mount Eliza Secondary College,117.30711253012518
+Mount Waverley Secondary College,Secondary,Monash (C),Stephensons Rd/High Street Rd,166.63048811938842
+McKinnon Secondary College,Secondary,Glen Eira (C),McKinnon Sec Col/McKinnon Rd,64.29898494295433
+MacRobertson Girls High School,Secondary,Port Phillip (C),Anzac Station/St Kilda Rd ,262.55574513875877
+Northcote High School,Secondary,Darebin (C),Westbourne Gr/St Georges Rd #27,54.551390403728355
+Norwood Secondary College,Secondary,Maroondah (C),Byron St/Wonga Rd,166.24681495528185
+Pakenham Secondary College,Secondary,Cardinia (S),Pakenham Secondary College/Princes Hwy,59.94575860663075
+Edenbrook Secondary College,Secondary,Cardinia (S),Sun Orchid Dr/Henry Rd,185.32231910421825
+Parkdale Secondary College,Secondary,Kingston (C),Warren Rd/Morris St,399.96538567436613
+Pascoe Vale Girls Secondary College,Secondary,Moreland (C),Westbreen PS/Pascoe St,136.74499778802
+Prahran High School,Secondary,Stonnington (C),Prahran Station/High St #30,134.5737453730542
+Preston High School,Secondary,Darebin (C),David St/Plenty Rd #47,217.0523895597364
+Princes Hill Secondary College,Secondary,Yarra (C),Richardson St/Lygon St #117,418.7471949123529
+Homestead Senior Secondary College,Secondary,Wyndham (C),Brookdale Rd/Saltwater Prom,546.8271464673031
+Bellarine Secondary College,Secondary,Greater Geelong (C),Hackwill Pl/Portarlington Rd,886.049625657212
+Ringwood Secondary College,Secondary,Maroondah (C),Lena Gr/Bedford Rd,61.185046219568264
+Richmond High School,Secondary,Yarra (C),Coppin St/Bridge Rd #20,186.74756370870546
+Rosebud Secondary College,Secondary,Mornington Peninsula (S),Eastbourne Rd/Boneo Rd,204.4964401422784
+Saltwater P-9 College,Pri/Sec,Wyndham (C),Warunda Pde/Saltwater Prom,66.5429471660266
+Scoresby Secondary College,Secondary,Knox (C),Scoresby Sec Col/Zerfas St ,200.66255045802714
+St Albans Secondary College,Secondary,Brimbank (C),Lester Ave/Main Rd East,159.70932472401506
+Oakwood School,Secondary,Glen Eira (C),Kambrook Rd/Balaclava Rd #54,144.82495576667333
+Strathmore Secondary College,Secondary,Moonee Valley (C),Pascoe Vale Rd/Pascoe Ave,360.05825738451273
+Sunbury College,Secondary,Hume (C),Sunbury Sec Col/Racecourse Rd,42.4144671525938
+Sydney Road Community School,Secondary,Moreland (C),Albert St/Sydney Rd #22,83.71968669051516
+Thomastown Secondary College,Secondary,Whittlesea (C),Simpson St/Main St,31.182825418073953
+Dohertys Creek P-9 College,Pri/Sec,Wyndham (C),Mainview Bvd/Leakes Rd,509.9673733037899
+University High School,Secondary,Melbourne (C),Royal Melbourne Hospital/Royal Pde,213.0672984132037
+Roxburgh College,Secondary,Hume (C),Roxburgh College/Donald Cameron Dr,120.5260405143468
+Upwey High School,Secondary,Yarra Ranges (S),Chosen Ave/Burwood Hwy,120.185053336126
+Vermont Secondary College,Secondary,Whitehorse (C),Vermont Sec Col/Morack Rd,66.98459092787012
+Kambrya College,Secondary,Casey (C),Kambrya College/Bemersyde Dr,105.07735546911466
+Carrum Downs Secondary College,Secondary,Frankston (C),Stable Gr/McCormicks Rd,154.5935408215799
+Wantirna College,Secondary,Knox (C),Salford Park Ret Village/Harold St,154.2500101974922
+Warrandyte High School,Secondary,Manningham (C),Warrandyte High School,35.181456732567256
+Wellington Secondary College,Secondary,Monash (C),Wellington Sec College/Police Rd,18.0568511135066
+Werribee Secondary College,Secondary,Wyndham (C),Werribee Sec Col/Duncans Rd,68.53179322057294
+Westall Secondary College,Secondary,Kingston (C),Brady Ave/Rosebank Ave,186.82999281654807
+Wheelers Hill Secondary College,Secondary,Monash (C),St Matthews Anglican Church/Earlwood Dr,312.83252893204155
+Williamstown High School,Secondary,Hobsons Bay (C),Williamstown Beach Rail Replacement Bus Stop,111.22086996673521
+Glen Eira College,Secondary,Glen Eira (C),Glen Eira College/Booran Rd,105.75713534021376
+Craigieburn Secondary College,Secondary,Hume (C),Hothlyn Drive Reserve/Hothlyn Dr,129.23853917996055
+Emerald Secondary College,Secondary,Cardinia (S),Emerald Secondary College/Belgrave-Gembrook Rd,111.89616282596819
+Reservoir High School,Secondary,Darebin (C),Reservoir High School/Plenty Rd,53.27851723620023
+Hampton Park Secondary College,Secondary,Casey (C),Hampton Park SC/Fordholm Rd,412.92293067327165
+Hoppers Crossing Secondary College,Secondary,Wyndham (C),Stella Way/Pannam Dr,240.1584739630231
+Keilor Downs Secondary College,Secondary,Brimbank (C),Keilor Downs Sec Col/Odessa Ave,58.17034047084253
+Kurunjang Secondary College,Secondary,Melton (C),Kurunjang Dr/Centenary Ave,201.8508034834639
+Elisabeth Murdoch College,Secondary,Frankston (C),Elisabeth Murdoch College/Warrandyte Rd,39.860409220040495
+Sunbury Downs Secondary College,Secondary,Hume (C),Sunbury Downs Sec Col/Mitchells Lane,46.283970914072206
+Forest Hill College,Secondary,Whitehorse (C),Burwood Heights PS/Hawthorn Rd,204.89234496210682
+Patterson River Secondary College,Secondary,Frankston (C),Eel Race Rd/Whatley St,149.78903301920153
+St Helena Secondary College,Secondary,Banyule (C),St Helena Secondary College/Wallowa Rd ,49.78157390857906
+Rowville Secondary College,Secondary,Knox (C),Turramurra Dr/Stud Rd,267.2144939754711
+Sandringham College,Secondary,Bayside (C),Victoria St/Bluff Rd,275.3964069532848
+Fitzroy High School,Secondary,Yarra (C),Fitzroy High School/Michael St,79.23038602496395
+Ashwood High School,Secondary,Monash (C),Vannam Dr/High Street Rd,269.0149182711447
+Mullauna Secondary College,Secondary,Whitehorse (C),Mullauna College/Springfield Rd,39.75075268278527
+Diamond Valley College,Secondary,Nillumbik (S),Diamond Valley College/Main Hurstbridge Rd,62.705760109312834
+Blackburn English Language School,Language,Whitehorse (C),Blackburn English Language School/Bonview Cres,84.99465130974673
+Collingwood English Language School,Language,Yarra (C),Smith St/Victoria Pde,129.9506299122492
+Noble Park English Language School,Language,Greater Dandenong (C),Bloomfield Rd/Rich St,253.4295730784959
+Greensborough Secondary College,Secondary,Banyule (C),Medbury Ave/Delta Rd,429.4183909278307
+Mill Park Secondary College,Secondary,Whittlesea (C),Moorhead Dr/Redleap Ave,148.64124921065286
+Bacchus Marsh College,Secondary,Moorabool (S),Bacchus Marsh College/Griffith St,175.4656177555657
+The Grange P-12 College,Pri/Sec,Wyndham (C),The Grange Secondary Campus/Bethany Rd,207.68784819986772
+Springside West Secondary College,Secondary,Melton (C),Royale Dr/City Vista Ct,46.829632645453216
+Taylors Lakes Secondary College,Secondary,Brimbank (C),Chichester Dr/Apollo Rd,102.58816440008185
+Sunshine College,Secondary,Brimbank (C),Dalpura Dr/Wright St,240.99798635038385
+Wallan Secondary College,Secondary,Mitchell (S),High St/Duke St,323.54638618652365
+Thornbury High School,Secondary,Darebin (C),Thornbury High School/Dundas St,170.2383986327134
+Copperfield College,Secondary,Brimbank (C),Copperfield College/Copperfield Dr,145.6314440705524
+Bayside P-12 College,Pri/Sec,Hobsons Bay (C),Bayside College/Kororoit Creek Rd,95.11553511504069
+South Oakleigh Secondary College,Secondary,Monash (C),Pitt St/Cameron Ave,216.65516861040612
+Mornington Secondary College,Secondary,Mornington Peninsula (S),Peninsula Home SC/Nepean Hwy,283.01757344554386
+Essendon Keilor College,Secondary,Moonee Valley (C),Dennis Ave/Quinn Gr,63.45422657363305
+Brunswick Secondary College,Secondary,Moreland (C),Brunswick Secondary College/Dawson St ,29.461676851258364
+Glen Waverley Secondary College,Secondary,Monash (C),Glen Waverley Station/Railway Pde,127.17016785845139
+Monterey Secondary College,Secondary,Frankston (C),Eric Bell Reserve/Forest Dr,255.58648642412498
+Viewbank College,Secondary,Banyule (C),Viewbank  College,181.06878450632314
+Noble Park Secondary College,Secondary,Greater Dandenong (C),Ellendale Rd/Heatherton Rd,444.5367923750993
+Yarra Hills Secondary College,Secondary,Yarra Ranges (S),Yarra Hills Sec Col/Cambridge Rd,302.61744142903643
+Heathmont College,Secondary,Maroondah (C),Clarke Dr/Wantirna Rd,479.58928332051045
+Melbourne Girls College,Secondary,Yarra (C),Yarra Bvd/Bridge Rd #22,269.21617227068015
+Templestowe College,Secondary,Manningham (C),Conifer Pl/Lynnwood Pde,196.59737186450883
+McClelland Secondary College,Secondary,Frankston (C),Bogong Ct/Karingal Dr,362.9296029462762
+Western English Language School,Language,Maribyrnong (C),Rochester St/South Rd,98.17552048400823
+Narre Warren South P-12 College,Pri/Sec,Casey (C),Narre Warren South College/Ormond Rd ,62.59698697147872
+Lara Secondary College,Secondary,Greater Geelong (C),The Centreway/Waverley Rd,472.1645435908738
+The Lakes South Morang College,Pri/Sec,Whittlesea (C),The Lakes South Morang College/Jardier Tce,112.61321346682392
+Point Cook Senior Secondary College,Secondary,Wyndham (C),Point Cook Secondary College/Boardwalk Bvd ,63.15694947046328
+Manor Lakes P-12 College,Pri/Sec,Wyndham (C),Manor Lakes College/Manor Lakes Bvd,386.6419266723749
+Coburg High School,Secondary,Moreland (C),Pentridge Bvd/Bell St,179.66363662902336
+Mount Ridley P-12 College,Pri/Sec,Hume (C),Mount Ridley College/Windrock Ave,187.68711807607514
+Tarneit Senior College,Secondary,Wyndham (C),Tarneit Senior College/Leakes Rd,57.20911773556777
+John Monash Science School,Secondary,Monash (C),Wellington Rd/Princes Hwy,112.40857488716944
+Altona College,Pri/Sec,Hobsons Bay (C),Belmar Ave/Grieve Pde,79.43981010576071
+Dandenong High School,Secondary,Greater Dandenong (C),Dandenong High School/James St,139.9052461027581
+Laverton P-12 College,Pri/Sec,Hobsons Bay (C),Laverton College/Bladin St,18.53511682327607
+Hume Central Secondary College,Secondary,Hume (C),Broadmeadows Basketball Association/Dimboola Rd,135.98979551022927
+Nossal High School,Secondary,Casey (C),Federation University Berwick/Clyde Rd,496.4376330912007
+Suzanne Cory High School,Secondary,Wyndham (C),Victoria University Sports Complex/Hoppers Lane,76.79121414771264
+Keysborough Secondary College,Secondary,Greater Dandenong (C),Heatherhill Primary School/Heatherton Rd,411.20940476672524
+Hallam Senior Secondary College,Secondary,Casey (C),Hallam Senior Sec Col/Frawley Rd,19.328650291206632
+Gleneagles Secondary College,Secondary,Casey (C),Brando Ct/Reema Bvd,35.81935073458403
+Fountain Gate Secondary College,Secondary,Casey (C),Fountain Gate Sec Col/Victoria Rd,160.73373960948484
+Alkira Secondary College,Secondary,Casey (C),Merrowland Ave/Glasscocks Rd,319.2954363307241
+Somerville Secondary College,Secondary,Mornington Peninsula (S),Graf Rd/Eramosa Rd,480.6922784451414
+Tarneit Rise Primary School,Primary,Wyndham (C),Rifflebird Dr/Hummingbird Bvd,14.29013818156975
+Albert Park College,Secondary,Port Phillip (C),Graham St/Pickles St,229.36575125652232
+Charles La Trobe P-12 College,Pri/Sec,Darebin (C),Charles La Trobe P-12 College/Kingsbury Dr,55.54888629029452
+Victoria University Secondary College,Secondary,Brimbank (C),John St/Jamieson St,172.59400009376333
+Glenroy Secondary College,Secondary,Moreland (C),St Agnes Ct/Melbourne Ave,165.03648699742786
+John Fawkner Secondary College,Secondary,Moreland (C),John Fawkner College/Jukes Rd,47.14529767620543
+William Ruthven Secondary College,Secondary,Darebin (C),William Ruthven Secondary College/Mahoneys Rd ,286.21219601054264
+Mernda Central P-12 College,Pri/Sec,Whittlesea (C),Vasari Gdns/Breadalbane Ave,195.5484938522106
+Cranbourne East Secondary College,Secondary,Casey (C),Cranbourne East Secondary College/Broad Oak Dr,368.98204772442006
+Featherbrook P-9 College,Pri/Sec,Wyndham (C),Pangana Dr/The Boardwalk,51.58511937462443
+Doveton College,Pri/Sec,Casey (C),Doveton Pool In The Park/Tristania St,105.8422074573083
+Officer Secondary College,Secondary,Cardinia (S),Officer Sec Col/Parker St,177.0908261856538
+Brookside P-9 College,Pri/Sec,Melton (C),Christ the Priest PS/Caroline Springs Bvd,138.56303301205867
+Creekside K-9 College,Pri/Sec,Melton (C),Creekside College/The Crossing,116.06824150693164
+Lakeview Senior College,Secondary,Melton (C),College St/Caroline Springs Bvd,116.98883805162559
+Springside Primary School,Primary,Melton (C),Springside PS/Hume Dr,145.60233681953844
+Melba Secondary College,Secondary,Maroondah (C),Wilhelmina Ct/Maroondah Hwy,274.62192590711567
+Boronia K-12 College,Pri/Sec,Knox (C),Bambury St/Albert Ave,124.9181303655935
+Tarneit P-9 College,Pri/Sec,Wyndham (C),Tarneit P-9 College/Crossway Ave,135.55131297245197
+Parkville College,Special,Melbourne (C),Grantham St/Brunswick Rd,149.47796014299774
+Wesley College,Pri/Sec,Melbourne (C),Lorne St/St Kilda Rd #27,172.83189096606318
+Korowa Anglican Girls' School,Pri/Sec,Stonnington (C),Boyanda Rd/High St #52,189.6704347824153
+Parade College,Secondary,Banyule (C),Parade College/Plenty Rd,152.44008556967324
+Simonds Catholic College,Secondary,Melbourne (C),Chetwynd St/Victoria St #10,66.46258807644648
+St Marys College Melbourne,Secondary,Port Phillip (C),Westbury St/Dandenong Rd #34,106.2234294402306
+Sacred Heart School,Primary,Hobsons Bay (C),Newcastle St/Melbourne Rd,119.06118442358662
+St Mary's School,Primary,Hobsons Bay (C),Cole St/Nelson Pl,210.45962169426252
+Ruyton Girls' School,Pri/Sec,Boroondara (C),Wellington St/Glenferrie Rd #79,177.1696470094113
+Caulfield Grammar School,Pri/Sec,Glen Eira (C),Caulfield Grammar School/Glen Eira Rd,37.23627382553957
+St Michael's School,Primary,Melbourne (C),Abbotsford St Interchange/Abbotsford St #19,93.4634469407648
+Presentation College Windsor,Secondary,Stonnington (C),Hornby St/Dandenong Rd #33,106.24208501979064
+St Mary's School,Primary,Port Phillip (C),Westbury St/Dandenong Rd #34,57.14745190454814
+St Brendan's School,Primary,Moonee Valley (C),25-Mount Alexander College/Mt Alexander Rd,302.4935253439105
+St Joseph's School,Primary,Boroondara (C),Urquhart St/Glenferrie Rd #71,53.46640558843461
+Sacre Coeur,Pri/Sec,Stonnington (C),Burke Rd/High St #51,251.71971439000916
+St Joseph's School,Primary,Darebin (C),Northcote Town Hall/High St #31,98.84383493000756
+Sacred Heart School,Primary,Darebin (C),Bell St/High St,87.4015330628845
+Star of the Sea College,Secondary,Bayside (C),Star Of The Sea College/Martin St,35.990639665131276
+St James' School,Primary,Bayside (C),Star Of The Sea College/Martin St,155.38353673605047
+St Peter's School,Primary,Glen Eira (C),Dover St/Centre Rd,84.71816543472471
+Methodist Ladies' College,Pri/Sec,Boroondara (C),Barkers Rd/Glenferrie Rd #77,156.28877544422042
+Christ Church Grammar School,Primary,Melbourne (C),Toorak Rd/Punt Rd,62.402776660459814
+St Paul's School,Primary,Moreland (C),St Pauls Catholic Church/Sydney Rd #35,177.87594845411638
+St Andrew's School,Primary,Wyndham (C),St Andrews Church/Greaves St,122.49237299030416
+St Brigid's School,Primary,Macedon Ranges (S),Fisher St/Aitken St ,42.83223272034541
+Our Lady of Mount Carmel School,Primary,Hume (C),Our Lady of Mt Carmel Catholic PS/Macedon St,56.343392089277096
+Fintona Girls' School,Pri/Sec,Boroondara (C),Fintona Girls School/Balwyn Rd,60.457825843796776
+St Patrick's School,Primary,Cardinia (S),St Patricks Primary School/The Avenue ,93.4692712384863
+Lauriston Girls' School,Pri/Sec,Stonnington (C),Lauriston Girls School/Malvern Rd #42,166.1120518351637
+Xavier College,Pri/Sec,Boroondara (C),Barkers Rd/Glenferrie Rd #77,505.38700021488836
+St Bernard's School,Primary,Moorabool (S),Gisborne Rd/Lerderderg St,183.9202029425295
+Trinity Grammar School Kew,Pri/Sec,Boroondara (C),Wellington St/Glenferrie Rd #79,188.53919707348047
+Academy of Mary Immaculate,Secondary,Yarra (C),Moor St/Nicholson St #12,202.22594568586825
+Sacred Heart School,Primary,Yarra (C),King William St/Brunswick St #14,96.21021927050414
+Mount Lilydale Mercy College,Secondary,Yarra Ranges (S),Queen Rd/Maroondah Hwy,608.9028227357101
+St Monica's School,Primary,Maribyrnong (C),Moreland St/Hopkins St,56.52297306741321
+St Augustine's School,Primary,Maribyrnong (C),Somerville Rd/Gamon St,103.06245477932715
+Kilbreda College,Secondary,Kingston (C),Kilbreda College/Como Pde,48.23724876634301
+Padua College,Secondary,Mornington Peninsula (S),Shotton Rd/Nepean Hwy,808.5424123730335
+Melbourne Girls Grammar,Pri/Sec,Melbourne (C),Melbourne Girls Grammar/Anderson St,66.94870949498205
+St John's School,Primary,Yarra (C),Wellington St/Queens Pde #23,68.28392297116127
+Saint Ignatius College Geelong,Secondary,Greater Geelong (C),Hackwill Pl/Portarlington Rd,593.8720408245366
+Presbyterian Ladies' College,Pri/Sec,Whitehorse (C),McIntyre St/Burwood Hwy ,156.98390664825848
+St Monica's Primary School,Primary,Moonee Valley (C),Crawford St/Mt Alexander Rd,207.65496199157369
+St Patrick's School,Primary,Yarra Ranges (S),Lilydale Station,509.54634690966805
+Catholic Ladies' College Ltd,Secondary,Nillumbik (S),Eltham Station,426.6822621674273
+St Joseph's School,Primary,Yarra (C),Wellington St/Johnston St,164.09386332637823
+Sacred Heart School,Primary,Boroondara (C),Cotham Rd/Glenferrie Rd #80,63.68525972429004
+St Aloysius College,Secondary,Melbourne (C),Melrose St/Flemington Rd #20,273.26096281215587
+Our Holy Redeemer School,Primary,Boroondara (C),Our Holy Redeemer School/Mont Albert Rd ,34.06287972218913
+St Columba's College,Secondary,Moonee Valley (C),St Columba's College/Buckley St,45.963545556959744
+Genazzano FCJ College,Pri/Sec,Boroondara (C),Melbourne Life Christian Church/Cotham Rd,111.32150041895838
+St Michael's Grammar School,Pri/Sec,Port Phillip (C),St Michaels Grammar School/Chapel St #41,28.65528245633147
+St Patrick's School,Primary,Kingston (C),St Patricks Primary School/Warrigal Rd,76.84349970642226
+Firbank Grammar School,Pri/Sec,Bayside (C),Snooks Ct/Bay St,149.06378773034047
+St John's School,Primary,Banyule (C),Cape St/Burgundy St,146.47977562176354
+Our Lady of Mercy College,Secondary,Banyule (C),Yarra St/Lower Heidelberg Rd,164.62743523124047
+St Joseph's School,Primary,Moreland (C),St Joseph's Catholic Church/Hope St,95.67111616563014
+St Brigid's School,Primary,Kingston (C),Albert St/Park St,173.69389854473678
+Our Lady Help of Christians School,Primary,Moreland (C),Miller St/Nicholson St #20,83.64194958640661
+St Anthony's School,Primary,Glen Eira (C),Grange Rd/Neerim Rd,70.19111105425706
+St Mary's School,Primary,Greater Dandenong (C),St Marys PS/McCrae St,78.70589148197145
+Sacred Heart School,Primary,Bayside (C),Sacred Heart PS/Bay Rd,107.69931890393839
+St Mary's School,Primary,Moonee Valley (C),Epsom Rd/Mirams St,298.6445561454081
+De La Salle College,Pri/Sec,Stonnington (C),De La Salle College/High St #45,83.49234586204591
+St Margaret Mary's School,Primary,Moreland (C),Austin Tce/Albion St,309.8948517248583
+Westbourne Grammar School,Primary,Hobsons Bay (C),Yarra St/Douglas Pde,69.96933994188639
+Ivanhoe Grammar School,Pri/Sec,Banyule (C),The Ridgeway/Lower Heidelberg Rd,117.4943018270925
+Scotch College,Pri/Sec,Boroondara (C),Callantina Rd/Glenferrie Rd #68,104.93475621590629
+St Mary's School,Primary,Stonnington (C),Grant St/Burke Rd,366.8971170456905
+St Leonard's College,Pri/Sec,Bayside (C),St Leonards College/South Rd,114.51588693676
+Holy Rosary School,Primary,Melbourne (C),Kensington Station/Macaulay Rd,144.6096581558633
+St Aloysius' School,Primary,Queenscliffe (B),Bethune St/King St,99.10237066465352
+St Anthony's School,Primary,Darebin (C),Fairfield Station/Station St,202.80662713125253
+St Joseph's School,Primary,Stonnington (C),De La Salle College/High St #45,164.89158798934204
+St Columba's School,Primary,Port Phillip (C),Wilton Gr/Glen Huntly Rd,75.86109458211192
+Tintern Grammar,Pri/Sec,Maroondah (C),Smithdene Ave/Railway Ave,553.0684971429185
+Toorak College,Pri/Sec,Mornington Peninsula (S),Stephens Rd/Old Mornington Rd,155.38284692779362
+St Mary's School,Primary,Mornington Peninsula (S),The Bays Hospital/Victoria St,104.20361478455513
+Our Lady of the Immaculate Conception School,Primary,Brimbank (C),Whitty St/Monash St,50.131742991326945
+St Mary's School,Primary,Darebin (C),Mansfield St/High St #40,56.101771918405035
+St Catherine's School,Pri/Sec,Stonnington (C),Heyington Rail Replacement Bus Stop,396.63537543944443
+Lowther Hall Anglican Grammar School,Pri/Sec,Moonee Valley (C),Lowther Hall Grammar School/Leslie Rd,67.73336353729118
+St Joan of Arc School,Primary,Bayside (C),Dendy St/Burrows St,111.02267210912296
+Penleigh & Essendon Grammar School,Pri/Sec,Moonee Valley (C),Penleigh and Essendon Grammar,192.24694450582984
+St John's School,Primary,Maribyrnong (C),Everard St/Essex St,20.557712883144827
+Shelford Girls' Grammar,Pri/Sec,Glen Eira (C),Hood Cres/Glen Eira Rd,85.99843515355099
+Mary Immaculate School,Primary,Banyule (C),Upper Heidelberg Rd/Heidelberg Rd,187.5754564799996
+Our Lady of Lourdes School,Primary,Stonnington (C),Airlie Ave/High St #37,171.62359403325215
+Mentone Grammar School,Pri/Sec,Kingston (C),Mentone Grammar School/Como Pde,114.47405029535588
+Ivanhoe Girls' Grammar School,Pri/Sec,Banyule (C),Ivanhoe Civic Centre/Upper Heidelberg Rd,155.02063143101952
+Carey Baptist Grammar School,Pri/Sec,Boroondara (C),Carey Baptist Grammar School/Wrixon St,127.99150651675893
+Kilvington Grammar School,Pri/Sec,Glen Eira (C),Lillimur Rd/Leila Rd,115.80543029251812
+Haileybury College,Pri/Sec,Greater Dandenong (C),Haileybury Keysborough Campus/Springvale Rd ,227.02145244928508
+St Therese's School,Primary,Moonee Valley (C),Lincoln Rd/Florence St,85.17525172909876
+Our Lady of Good Counsel School,Primary,Boroondara (C),Deepdene Shopping Centre/Whitehorse Rd #43,173.20875774355406
+Strathcona Baptist Girls' Grammar,Pri/Sec,Boroondara (C),Strathcona Girls Grammar/Prospect Hill Rd,184.19641949225579
+St Kevin's School,Primary,Glen Eira (C),Ormond Station,55.427105379448385
+Mentone Girls' Grammar School,Pri/Sec,Kingston (C),Mentone Girls Grammar/Mentone Pde,136.20914344770932
+St Joseph's School,Primary,Kingston (C),St Josephs Catholic School/Argyle Ave,53.87499521279211
+St Finbar's School,Primary,Bayside (C),Ward St/Centre Rd,96.42406290033402
+Loreto Mandeville Hall,Pri/Sec,Stonnington (C),Clendon Rd/Malvern Rd #38,163.41555032866222
+St Dominic's School,Primary,Boroondara (C),Highfield Rd/Riversdale Rd #51,500.01368791825655
+St Mary's School,Primary,Bayside (C),St Marys PS/Holyrood St,85.6460182538882
+Camberwell Grammar School,Pri/Sec,Boroondara (C),Deepdene Park/Whitehorse Rd #44,560.3129276221842
+St Joseph's School,Primary,Mornington Peninsula (S),Park Rd/Stony Point Rd,310.09969748018483
+Brighton Grammar School,Pri/Sec,Bayside (C),Church St/St Andrews St,99.64918850380438
+St Fidelis' School,Primary,Moreland (C),Reynard St/Gordon St,404.6299195098455
+Huntingtower School,Pri/Sec,Monash (C),Mt Waverley SC/Stephensons Rd,634.2332199648598
+St Francis Xavier's School,Primary,Whitehorse (C),Whitehorse Rd/Dorking Rd,73.30851259823818
+St Mary's School,Primary,Hobsons Bay (C),Altona Station,108.62252299810268
+Our Lady Help of Christians School,Primary,Nillumbik (S),Library Pl/Main Rd,68.31604910402312
+St Francis Xavier School,Primary,Frankston (C),Frankston Tennis Club/Yuille St,188.42489660267944
+Our Lady of Sion College,Secondary,Whitehorse (C),Our Lady of Sion College/Whitehorse Rd,46.94313089875426
+St Gabriel's School,Primary,Darebin (C),Cleeland St/Spring St,54.082694620050056
+St Paul's School,Primary,Glen Eira (C),Bentleigh Reserve/Jasper Rd,137.362130108438
+St Joseph's School,Primary,Bayside (C),Hunter Ave/Balcombe Rd,84.15602369150655
+Salesian College,Secondary,Hume (C),Grapeview Gr/Curtis Ave,628.8129343668223
+Kingswood College,Pri/Sec,Whitehorse (C),Devon St/Station St,229.97068374652955
+St Patrick's School,Primary,Glen Eira (C),St Patricks PS/Murrumbeena Rd,80.37805007943402
+St Roch's School,Primary,Stonnington (C),Burke Rd/High St #51,236.69795485994237
+St Margaret's School,Pri/Sec,Casey (C),Reserve St/Clyde Rd,306.881696109719
+Camberwell Girls Grammar School,Pri/Sec,Boroondara (C),Camberwell Girls Grammar/Burke Rd #67,52.40782997906481
+St Anne's School,Primary,Boroondara (C),Birdwood St/Kilby Rd,383.8386150601798
+Our Lady of Perpetual Help School,Primary,Maroondah (C),Wilana St/Bedford Rd,80.92456558711211
+St Francis Xavier's School,Primary,Banyule (C),Montmorency Rail Replacement Bus Stop,429.1242628199368
+St Joseph's School,Primary,Mornington Peninsula (S),Ocean Beach Rd/Kerferd Ave,155.41689533024706
+St Cecilia's School,Primary,Boroondara (C),Cusdin St/Glen Iris Rd,297.54629273849594
+St Joseph's School,Primary,Glen Eira (C),Sandham St/Orrong Rd,90.04943472611109
+"Preshil, The Margaret Lyttle Memorial School",Pri/Sec,Boroondara (C),John St/Sackville St,335.0882996273648
+St Peter's School,Primary,Whittlesea (C),Coulstock St/Davisson St,216.7669650467445
+Santa Maria College,Secondary,Darebin (C),Northcote Plaza SC/Separation St,69.18190672703486
+Sacred Heart School,Primary,Monash (C),Warrigal Rd/Kangaroo Rd,102.3278353375681
+St Mark's School,Primary,Moreland (C),St Mark's Church/Sydney Rd,92.9610420737124
+St John the Baptist School,Primary,Knox (C),Spring St/Selman Ave,62.36724733810187
+St John's School,Primary,Whitehorse (C),Alexander St/Whitehorse Rd,107.11573528703917
+St Raphael's School,Primary,Darebin (C),Cooper St/Gilbert Rd #44,175.5691897739815
+St Kevin's College,Pri/Sec,Stonnington (C),Heyington Station,191.80536883270977
+St John the Baptist's School,Primary,Cardinia (S),Koo Wee Rup Bus Interchange/Rossiter Rd,518.8751536734343
+St Vincent de Paul's School,Primary,Moonee Valley (C),St Vincent de Paul PS/Woodland St,105.3163904855855
+St Joseph's School,Primary,Greater Dandenong (C),Union Gr/Springvale Rd,140.65981754585854
+St Bede's College,Secondary,Kingston (C),St Bedes College/Naples Rd,111.52905228811082
+Holy Name School,Primary,Darebin (C),Ethel Gr/Plenty Rd #53,157.2918476401572
+Siena College Ltd,Secondary,Boroondara (C),Wattle Valley Rd/Riversdale Rd #50,116.75402029412278
+St Bernard's School,Primary,Moreland (C),Darlington Gr/Harding St,189.67719894130448
+St Benedict's School,Primary,Whitehorse (C),Warrigal Rd/Burwood Hwy,108.00226291588115
+St Oliver Plunkett's School,Primary,Moreland (C),St Oliver Plunkett's PS/Gaffney St,125.75454047677215
+Corpus Christi School,Primary,Maribyrnong (C),Ormond Rd/Geelong Rd,85.72293033012488
+St Bernard's College,Secondary,Moonee Valley (C),St Bernards College/Hampton Rd,179.38833382201594
+Whitefriars College Inc,Secondary,Manningham (C),Whitefriars College/Park Rd,127.62923237713345
+St Michael's School,Primary,Boroondara (C),Morotai Ave/High St,35.25398628576989
+Our Lady of the Sacred Heart College,Secondary,Glen Eira (C),London St/Jasper Rd,142.8740345352099
+St Bede's School,Primary,Boroondara (C),North Balwyn Shopping Centre/Doncaster Rd #47,89.73063527238632
+Salesian College,Secondary,Monash (C),Bosco St/Waverley Rd,132.73773847170867
+Mount Scopus Memorial College,Pri/Sec,Whitehorse (C),Bronte Ave/Station St,235.45530047871458
+Marcellin College,Secondary,Manningham (C),Barak St/Thompsons Rd,393.6423718463464
+St Theresa's School,Primary,Brimbank (C),King Edward Ave/Sydney St,192.54017023889313
+St Bernadette's School,Primary,Banyule (C),Ford St/Oriel Rd,165.87594193634277
+St Agnes' School,Primary,Bayside (C),Spring Rd/Highett Rd,157.2662851952819
+Our Lady of the Assumption School,Primary,Kingston (C),Nepean Hwy/Centre Dandenong Rd,39.01385331144953
+Nunawading Christian College-Primary,Primary,Whitehorse (C),Joyce St/Central Rd,342.0760436219643
+Sacred Heart School,Primary,Maroondah (C),Mingara Ret Village/Wicklow Ave,231.37178341510563
+Heritage College,Pri/Sec,Casey (C),Heritage College/Centre Rd,140.67895465447046
+Resurrection House,Primary,Moonee Valley (C),Combermere St/Buckley St,107.21658237470103
+Adass Israel School,Pri/Sec,Glen Eira (C),Shoobra Rd/Glenhuntly Rd #47,172.56353728758958
+Holy Spirit School,Primary,Darebin (C),Clyde St/Victoria Rd,288.27140210079835
+Sacred Heart School,Primary,Brimbank (C),Westvale Church/Alfrieda St,138.53921760110978
+St Thomas The Apostle School,Primary,Whitehorse (C),Gordon Cres/Central Rd,116.59930553484139
+St Pius X School,Primary,Banyule (C),Sackville St/Altona St,134.32733914907243
+St Margaret Mary's School,Primary,Hobsons Bay (C),Hudsons Rd/Stephenson St,237.42984149476536
+St Mary Magdalen's Parish Primary School,Primary,Monash (C),Baradine St/Waverley Rd,202.8247562422438
+St Anthony's School,Primary,Greater Dandenong (C),Agnes St/Buckley St,113.38682328690875
+St Peter's School,Primary,Monash (C),Clayton Station/Carinish Rd,179.5975419768313
+Yeshivah College,Pri/Sec,Glen Eira (C),Balaclava Rd/Hotham St,132.0968525966237
+St John Bosco's School,Primary,Moonee Valley (C),Hoffmans Rd/Vaynor St,201.77584308359218
+St Mary's School,Primary,Banyule (C),St Mary's Parish Primary School/Grimshaw St ,120.26284232741915
+Mother of God School,Primary,Brimbank (C),Ukrainian Catholic Church/Forrest St ,358.4512839920157
+St Peter Chanel School,Primary,Brimbank (C),St Peter Chanel/Ballarat Rd,61.17528362024481
+Christ the King Primary School,Primary,Maribyrnong (C),Christ The King PS/Churchill Ave,142.26279697195838
+Corpus Christi School,Primary,Moreland (C),Corpus Christi School/Widford St,63.293120507408396
+Killester College,Secondary,Greater Dandenong (C),Killester College/Springvale Rd,104.47552016812138
+St Paul's School,Primary,Brimbank (C),Links St/Glengala Rd,96.51789750264781
+Stella Maris School,Primary,Bayside (C),Cloris Ave/Tramway Pde,278.14809565115957
+St Bernadette's School,Primary,Brimbank (C),Suffolk Rd/McIntyre Rd,473.5595292829425
+Rossbourne School,Special,Boroondara (C),Burwood Rd/Power St #27,145.48711519203528
+Beth Rivkah Ladies College,Pri/Sec,Glen Eira (C),Empress Rd/Balaclava Rd #41,80.58314591497776
+St Margaret's Primary School,Primary,Maribyrnong (C),Warrs Rd/Raleigh Rd,226.9407555330842
+Holy Family School,Primary,Monash (C),Holy Family Primary School/Stephensons Rd ,51.45595101497655
+St Gerard's School,Primary,Greater Dandenong (C),St Gerards Catholic School/Gladstone Rd,117.26871139853213
+Our Lady of Perpetual Succour School,Primary,Whitehorse (C),Erasmus St/Elgar Rd,103.35416313980429
+St Catherine's School,Primary,Kingston (C),G R Bricker Reserve/Rowans Rd,229.67716831704257
+Sacred Heart Girls' College,Secondary,Monash (C),Sacred Heart Girls College/Warrigal Rd,59.898397308708425
+St Stephen's School,Primary,Darebin (C),Black St/Whitelaw St,126.98511543363597
+St Martin of Tours School,Primary,Banyule (C),Cantala Ave/Lower Plenty Rd,91.6078588012689
+Christ Our Holy Redeemer School,Primary,Monash (C),Ferntree Gully Rd/Huntingdale Rd,42.6956006408513
+Our Lady of the Nativity School,Primary,Moonee Valley (C),Cooper St/Buckley St,195.34757745536402
+St John's Regional College,Secondary,Greater Dandenong (C),Robert Booth Reserve/Clow St,454.4145661394658
+Emmaus College,Secondary,Whitehorse (C),Emmaus College/Springvale Rd,298.99964875719854
+St Dominic's School,Primary,Hume (C),Martell St/Joseph St,113.58328487023918
+St Bridget's School,Primary,Boroondara (C),Sweyn St/Greythorn Rd,411.3902323520915
+St Leonard's School,Primary,Monash (C),St Leonard's Primary School/Springvale Rd ,42.861994410798744
+St Scholastica's School,Primary,Whitehorse (C),Pheasant St/Burwood Hwy,39.24949433734961
+St Christopher's School,Primary,Monash (C),Doon Ave/Blackburn Rd,146.38934993501604
+St John Vianney's School,Primary,Kingston (C),Warren Rd/Morris St,364.4100483914016
+Ss Peter & Paul's School,Primary,Manningham (C),Leeds St/Doncaster Rd,264.14315524211884
+Holy Family School,Primary,Casey (C),Photinia St/Power Rd,68.03017341323746
+Aquinas College,Secondary,Maroondah (C),Aquinas College/Great Ryrie St,224.74944115324854
+Leibler Yavneh College,Pri/Sec,Glen Eira (C),Shoobra Rd/Riddell Pde,146.0351288830795
+Peninsula Grammar,Pri/Sec,Mornington Peninsula (S),Koetong Pde/Nepean Hwy,266.7123351127058
+St Matthew's School,Primary,Moreland (C),Hogan St/Anderson Rd,267.46973076380687
+St John Vianney's School,Primary,Monash (C),VMCH John R Hannah Residental Aged Care/Police Rd,103.01504183763636
+St Luke's School,Primary,Whittlesea (C),Chowne St/Derrick St,142.40638599059912
+St Francis de Sales School,Primary,Moreland (C),Oak Park Station,87.14496117808051
+St Thomas More's School,Primary,Yarra Ranges (S),St Thomas More's Primary School,43.39145446443383
+St Christopher's School,Primary,Moonee Valley (C),Altna Ave/McNamara Ave,141.28441758899407
+Sacred Heart School,Primary,Nillumbik (S),Diamond Creek Station/Station St,118.15810418468092
+St Michael's School,Primary,Casey (C),Bain St/Princes Hwy,111.66644663481793
+Ave Maria College,Secondary,Moonee Valley (C),Ave Maria College/Alma St,77.69470037533465
+Bialik College,Pri/Sec,Boroondara (C),Buley St/Tooronga Rd,205.47563527309885
+Our Lady of the Way School,Primary,Darebin (C),Link St/Dunne St,192.31877960127326
+St Luke the Evangelist School,Primary,Whitehorse (C),Wreford Rd/Canterbury Rd,441.88110749160666
+Luther College,Secondary,Maroondah (C),Luther College/Plymouth Rd,69.10797506368539
+Marian College,Secondary,Brimbank (C),Marian College/Glengala Rd,36.05154216760183
+Mount St Joseph Girls' College,Secondary,Hobsons Bay (C),Westona Station/Maidstone St,91.86079833000642
+St Clement of Rome School,Primary,Manningham (C),Ronald Ave/Manningham Rd,109.827285657839
+St Joseph's Primary School,Primary,Knox (C),St Josephs Catholic Church/Boronia Rd,145.10992389822647
+Mater Christi College,Secondary,Yarra Ranges (S),Creek Rd/Belgrave-Gembrook Rd,262.34770386181924
+Our Lady of Lourdes School,Primary,Knox (C),Mitre Cres/Scoresby Rd,305.71997759757807
+St Joseph's College,Secondary,Knox (C),St Josephs College/Brenock Park Dr,62.60740937947301
+St Paul's College Balwyn,Special,Boroondara (C),Northcote Ave/Whitehorse Rd #49,155.02133967976178
+Annunciation School,Primary,Hobsons Bay (C),Eames Ave/Millers Rd,112.89971098584684
+St Louis de Montfort's School,Primary,Kingston (C),Lyle Gr/Station St,461.3392751712382
+St Thomas More's School,Primary,Moreland (C),Regent St/Hilton St,498.19468325170783
+Avila College,Secondary,Monash (C),Holy Family Primary School/Stephensons Rd ,348.0330970301671
+St Philip's School,Primary,Whitehorse (C),Barnsley St/Junction Rd,141.18724665360267
+Holy Child School,Primary,Hume (C),Holy Child PS/Blair St,81.76330546423533
+Emmanuel College,Secondary,Hobsons Bay (C),St Paul's Catholic College/Chambers Rd,73.95493092598582
+St Peter Julian Eymard,Primary,Yarra Ranges (S),Mooroolbark Community Centre/Brice Ave,216.805222669379
+St Damian's School,Primary,Whittlesea (C),Cook St/Settlement Rd,112.52940666773172
+St Monica's College,Secondary,Whittlesea (C),Melbourne Polytechnic/Dalton Rd,75.74834458368149
+Yarra Valley Grammar,Pri/Sec,Maroondah (C),Plymouth Rd/Bemboka Rd,340.59537809438467
+Mercy College,Secondary,Moreland (C),Mercy College/Sydney Rd,63.92809760954215
+St Timothy's School,Primary,Whitehorse (C),Husband Rd/Stevens Rd,50.042128005416195
+St Macartan's School,Primary,Mornington Peninsula (S),Fitzgerald St/Robertson Dr,656.8142440887477
+St John's School,Primary,Frankston (C),Frankston East PS/Ashleigh Ave,294.75020879731017
+St Mary's College for the Deaf,Special,Knox (C),Exell Ct/Wallace Rd,177.6237995945093
+John Paul College,Secondary,Frankston (C),John Paul College/McMahons Rd,113.59675642934968
+St Anne's School,Primary,Frankston (C),St Annes Catholic PS/Brunel Rd,56.283640686392225
+Mazenod College,Secondary,Monash (C),Drysdale Ct/Brandon Park Dr,233.96152291795482
+St Martin de Porres School,Primary,Moonee Valley (C),Davis Ave/Military Rd,111.18963344383445
+St Gregory the Great School,Primary,Manningham (C),Manningham Rd/Williamsons Rd,100.49431609015491
+Maranatha Christian School,Pri/Sec,Casey (C),Maranatha Christian School/Reema Bvd,127.14437688177742
+St Kevin's School,Primary,Manningham (C),Herlihys Rd/Foote St,332.54712879120217
+St James' School,Primary,Whitehorse (C),Centre Rd/Blanche Dr,201.03398737385032
+Good Shepherd School,Primary,Monash (C),Good Shepherd School/Academy Ave,145.1273545085135
+MacKillop Catholic Regional College,Secondary,Wyndham (C),MacKillop Catholic College/Russell St,103.91676485571737
+St James'  College,Secondary,Glen Eira (C),St James Catholic College/Bignell Rd,68.16614930486061
+St Leo the Great Primary School,Primary,Hobsons Bay (C),Fourth Ave/Mason St,91.92950124447128
+St Peter's School,Primary,Moonee Valley (C),Parkside Ave/Lauricella Ave,138.18369730198947
+St Martin de Porres School,Primary,Hobsons Bay (C),Barwise St/Bladin St,136.41275580442598
+St Jude the Apostle School,Primary,Knox (C),George St/Argyle Way,157.40036162765603
+Mount Evelyn Christian School/Ranges TEC,Pri/Sec,Yarra Ranges (S),Karen Ct/York Rd,226.8492343834767
+Melbourne Rudolf Steiner School,Pri/Sec,Maroondah (C),Warranwood Rd/Wonga Rd,106.3389291099412
+St Mark's School,Primary,Kingston (C),St Marks Primary School/Lower Dandenong Rd,263.9506996421361
+The Currajong School,Special,Stonnington (C),Olive St/Darling Rd,68.39752496104963
+Nunawading Christian College-Secondary,Secondary,Whitehorse (C),Joyce St/Central Rd,249.670224674165
+Eltham College,Pri/Sec,Nillumbik (S),Eltham College/Eltham-Yarra Glen Rd,245.7372991859773
+Holy Eucharist School,Primary,Brimbank (C),Ginifer Station/Mulhall Dr,188.88573720791015
+Learning Co-Operative School,Primary,Nillumbik (S),Hurstbridge Station/Heidelberg-Kinglake Rd,1993.038088943019
+St Peter Apostle School,Primary,Wyndham (C),Dean St/Mossfiel Dr,315.0177028165647
+Donvale Christian College,Pri/Sec,Manningham (C),Donvale Christian College,76.27906993135282
+Berengarra School,Special,Whitehorse (C),Alan St/Dorking Rd,115.68342690358119
+Sholem Aleichem College,Primary,Glen Eira (C),Elsternwick Railway Station/Glenhuntly Rd #44,218.8349956462797
+St John XXIII Primary School,Primary,Whittlesea (C),Bickley Ave/McKimmies Rd,305.3914432207008
+School of the Good Shepherd,Primary,Hume (C),School of the Good Shepherd/South Circular Rd,105.16261434215653
+St Agatha's School,Primary,Casey (C),Cranbourne Integrated Care/Sladen St,233.42813940595977
+Resurrection School,Primary,Greater Dandenong (C),Resurrection Church/Corrigan Rd,68.2399562849095
+St Dominic's School,Primary,Melton (C),Melton Bus Interchange/Palmerston St,199.18859499468127
+Gilson College,Pri/Sec,Melton (C),Gilson College/Taylors Rd,124.94362488989769
+Cheshire School,Special,Monash (C),Rosemary Ct/Ferntree Gully Rd,79.94260807586366
+Holy Spirit School,Primary,Maroondah (C),Oban Rd/Warrandyte Rd,122.40988044272441
+Holy Saviour Parish School,Primary,Whitehorse (C),Highbury Rd/Springvale Rd,516.640994101127
+St Clare's School,Primary,Whittlesea (C),Main St/Edgars Rd,151.3587947348445
+St Anne's School,Primary,Hume (C),St Anne's Catholic PS/Stewarts Lane,108.0041406749986
+Our Lady of the Pines School,Primary,Manningham (C),Landscape Dr/Fullwood Pde,197.2366346796059
+St Jude's School,Primary,Frankston (C),Athol Ct/Warrandyte Rd,278.13202666151886
+St Paul's Kealba Catholic School,Primary,Brimbank (C),St Pauls Catholic PS/248 Sunshine Ave,99.52968718742989
+St Elizabeth's School,Primary,Greater Dandenong (C),Eagle Dr/Bakers Rd,100.29564080076536
+St Joseph the Worker School,Primary,Darebin (C),Godley St/Massey Ave,291.9163039044606
+Resurrection School,Primary,Brimbank (C),Maplewood Rd/Gillespie Rd,288.7912154910224
+Catholic Regional College,Secondary,Brimbank (C),Craigielea Ave/Alfrieda St,228.21842948257958
+St Francis Xavier College,Secondary,Cardinia (S),St Francis Xavier College - Beaconsfield/Beaconsfield Ave ,65.79420343286607
+North-Eastern Montessori School,Primary,Banyule (C),St Helena Marketplace/Aqueduct Rd,37.47204978610267
+Waverley Christian College,Pri/Sec,Knox (C),Cathies Lane/High Street Rd,369.3868274649557
+The King David School,Pri/Sec,Stonnington (C),Barnato Gr/Orrong Rd,103.0549257604967
+Westbourne Grammar School,Pri/Sec,Wyndham (C),Westbourne Grammar School/Sayers Rd,152.27833760727927
+St Augustine's Primary School,Primary,Brimbank (C),St Augustine's PS/Old Calder Hwy,62.83442278835171
+St Anthony's School,Primary,Melton (C),Wilson Rd/Exford Rd,72.06287515464493
+St Thomas the Apostle School,Primary,Nillumbik (S),St Thomas Primary School/Diamond Creek Rd ,76.85497937656677
+St Luke's School,Primary,Knox (C),Thaxted Pde/Boronia Rd,400.05987355553
+St Peter's School,Primary,Brimbank (C),Bennett St/Fairbairn Rd,116.49841746912693
+Northside Christian College,Pri/Sec,Whittlesea (C),Brownhill St/Settlement Rd,256.4603000600458
+St John's College Preston,Pri/Sec,Darebin (C),Park & Ride,133.70002488783342
+Good Shepherd Lutheran Primary School,Primary,Maroondah (C),McAdam Sq/Plymouth Rd,20.783162199963108
+Oxley Christian College,Pri/Sec,Yarra Ranges (S),Chirnside Homemaker Centre/Maroondah Hwy,142.85081466121625
+Mountain District Christian School,Pri/Sec,Yarra Ranges (S),Monbulk-Seville Rd/Monbulk Rd,2636.110127627679
+Caroline Chisholm Catholic College,Secondary,Maribyrnong (C),Caroline Chisholm College/Churchill Ave,98.43139877117956
+St Mary's School,Primary,Yarra Ranges (S),Aqueduct Ave/Monbulk Rd,659.2466651268352
+St Anne's School,Primary,Manningham (C),Park Orchards Tennis Club/Park Rd,609.28915384151
+Our Lady's School,Primary,Hume (C),DS Aitken Reserve/Craigieburn Rd,98.26421409628288
+St Augustine's School,Primary,Frankston (C),Frankston Golf Club/Golf Links Rd,121.13411192237577
+St Francis of Assisi School,Primary,Whittlesea (C),St Francis Of Assisi Primary School/Childs Rd,62.33414205905864
+Loyola College,Secondary,Banyule (C),Loyola College/Grimshaw St,197.43534589524947
+Catholic Regional College,Secondary,Melton (C),Bulmans Rd/Sovereign Bvd,224.04907640043925
+Billanook College,Pri/Sec,Yarra Ranges (S),Summerhill Park Dr/Hull Rd,1325.5605164689978
+Fitzroy Community School,Primary,Yarra (C),Fitzroy Bowls Club/Brunswick St #20,100.49578052427941
+St Paul Apostle South School,Primary,Casey (C),St Paul Apostle South School/Matthew Flinders Ave,153.87018301226996
+St Andrew's School,Primary,Kingston (C),St Andrews Primary School/Bunney Rd ,37.82501277760935
+St Thomas More's School,Primary,Mornington Peninsula (S),Wooralla Dr/Nepean Hwy ,936.639981182814
+Plenty Valley Christian College,Pri/Sec,Nillumbik (S),Yan Yean Rd/Orchard Rd,267.2549009118517
+St James the Apostle School,Primary,Wyndham (C),Bronson Cct/Derrimut Rd,278.2964418970329
+St Simon's School,Primary,Knox (C),St Simons Catholic PS/Taylors Lane,83.09782440798881
+Queen of Peace Primary School,Primary,Hobsons Bay (C),Harvey Cl/Queen St,267.17683388012625
+Don Bosco School,Primary,Casey (C),Verdun Dr/Princes Hwy,148.31741191325972
+Our Lady Star of the Sea School,Primary,Greater Geelong (C),Bellarine Secondary College Ocean Grove Campus/Shell Rd ,217.13309634571647
+Catholic Regional College Institute of Training,Secondary,Brimbank (C),Watergardens Station/Watergardens Circuit Rd,253.00367559304476
+Catholic Regional College North Keilor,Secondary,Brimbank (C),Catholic Regional College/Santa Monica Dr,10.29817805520208
+Village School,Primary,Maroondah (C),Holloway Rd/Lyons Rd,415.73027224109177
+Bayside Christian College,Pri/Sec,Frankston (C),Heatherhill Rd/Robinsons Rd,844.5164575282262
+Andale School,Special,Boroondara (C),Charles St/High St #35,55.86070972539234
+The Knox School,Pri/Sec,Knox (C),The Knox School/Burwood Hwy,189.54649399253958
+Heathdale Christian College,Pri/Sec,Wyndham (C),Aqua Pulse Leisure Centre/Derrimut Rd ,104.94558531257964
+Hillcrest Christian College,Pri/Sec,Casey (C),Soldiers Rd/Skylark Bvd,333.8180147326668
+Sunshine Christian School,Primary,Brimbank (C),Westmoreland Rd/Berkshire Rd,388.6550805446134
+Frank Dando Sports Academy,Special,Monash (C),Teck St/High Street Rd,118.51299551107417
+Beaconhills College,Pri/Sec,Cardinia (S),Beaconhills College/Toomuc Valley Rd,29.95833601885446
+Ghilgai School,Primary,Yarra Ranges (S),Collier Rd/Rendcomb St,1200.6744429343248
+St Bernadette's Catholic Primary School,Primary,Knox (C),St Bernadettes PS/Mountain Hwy,151.37441870051398
+St Catherine's School,Primary,Whittlesea (C),Kingsway Dr/Edgars Rd,159.86525941043274
+St Mary's School,Primary,Whittlesea (C),Fir St/Church St,355.2938428308399
+St Charles Borromeo School,Primary,Manningham (C),Bali Hi Bvd/Serpells Rd,98.6090010826015
+Belgrave Heights Christian School,Pri/Sec,Yarra Ranges (S),Grey St/Best St,500.60409368550796
+Oakleigh Grammar,Pri/Sec,Monash (C),Carlisle Cres/Richardson St,374.58490078057605
+St Andrews Christian College,Pri/Sec,Knox (C),Ravenhill Way/High Street Rd,202.0663865532656
+Australian International Academy of Education,Pri/Sec,Moreland (C),Rogers St/Sydney Rd #36,54.769553069219896
+Flinders Christian Community College,Pri/Sec,Mornington Peninsula (S),Flinders College/Mornington-Tyabb Rd,122.77793858471155
+St Mary MacKillop Primary School,Primary,Brimbank (C),St Mary MacKillop PS/Sunshine Ave,58.78104577289671
+St Catherine of Siena School,Primary,Melton (C),Bulmans Rd/Sovereign Bvd,395.6123848686686
+St Paul's School,Primary,Yarra Ranges (S),Invermay Rd/Monbulk Rd,307.6630452929764
+Our Lady of Fatima School,Primary,Mornington Peninsula (S),Besgrove St/Boneo Rd,707.944290594971
+St Justin's School,Primary,Monash (C),Woodington Dr/Whalley Dr,92.55525578464298
+St Richard's Primary School,Primary,Yarra Ranges (S),St Richards Primary School/Mt Dandenong Rd,88.62852981269258
+Holy Trinity School,Primary,Knox (C),Exell Ct/Wallace Rd,129.74117946558457
+Melton Christian College,Pri/Sec,Melton (C),Melton Christian College/Brooklyn Rd,116.52836934630416
+St Paul Apostle North School,Primary,Casey (C),Mossgiel Park Dr/Kennington Park Dr,172.26277227913138
+Corpus Christi School,Primary,Wyndham (C),MacKillop Catholic College/Russell St,64.63086128401078
+Nazareth College,Secondary,Greater Dandenong (C),Omeo St/Manning Dr,113.17413333236472
+Japanese School of Melbourne,Pri/Sec,Glen Eira (C),Princes Park/Hawthorn Rd #59,136.40946959514199
+Sophia Mundi Steiner School,Pri/Sec,Yarra (C),Yarra Bend Park/Studley Park Rd,263.7463366981137
+Al-Taqwa College,Pri/Sec,Wyndham (C),Al-Taqwa College/Sayers Rd,74.06508408634713
+Overnewton Anglican Community College,Pri/Sec,Brimbank (C),Overnewton College/30 Overnewton Rd,165.02736826521783
+St Joachim's School,Primary,Frankston (C),Spoonbill Ct/Currawong Dr,312.31974368689373
+Holy Trinity Primary School,Primary,Banyule (C),113 Weidlich Rd,160.75225530001592
+St Carlo Borromeo School,Primary,Hume (C),St Carlo Borromeo PS/Drummond St,68.60873923120043
+St Kevin's School,Primary,Casey (C),St Kevin's PS/Hallam Rd ,94.15499042373267
+Bacchus Marsh Grammar,Pri/Sec,Moorabool (S),Bacchus Marsh College/Griffith St,447.0810324427272
+St Peter's College,Secondary,Casey (C),St Peters College/Cranbourne-Frankston Rd,159.32241771410085
+Lighthouse Christian College,Pri/Sec,Greater Dandenong (C),Keylana Dr/Springvale Rd,174.96577819234057
+Alphington Grammar School,Pri/Sec,Yarra (C),Old Heidelberg Rd/Heidelberg Rd,161.54861338486458
+St Therese's School,Primary,Casey (C),Wentworth St/Endeavour Dr,182.02022674859612
+Yarralinda School,Primary,Yarra Ranges (S),Landscape Dr/Maroondah Hwy,520.3056645604139
+St Mary's Coptic Orthodox College,Pri/Sec,Hume (C),St Marys Coptic Orthodox College/Thorpdale Ave,46.42210554505551
+Minaret College,Pri/Sec,Greater Dandenong (C),Pullen Ct/Springvale Rd,547.870372280768
+Galilee Regional Catholic Primary School,Primary,Port Phillip (C),Montague St/Park St #27,133.45118108027992
+Casey Grammar School,Pri/Sec,Casey (C),New Holland Dr/Narre Warren-Cranbourne Rd ,188.06518142601126
+St Brendan's School,Primary,Mornington Peninsula (S),Bungower Rd/Jones Rd,570.3186924506178
+Mary MacKillop School,Primary,Casey (C),Mary Mackillop Catholic PS/Ernst Wanke Rd,82.47545363397127
+Bethany Catholic Primary School,Primary,Wyndham (C),Perez Ct/Thames Bvd,46.27045337211577
+Ilim College,Pri/Sec,Hume (C),Lynda Blundell Centre/186 Blair St,216.1720855526468
+Penola Catholic College,Secondary,Hume (C),Pascoe Vale Rd/Lichfield Ave,246.12351911015597
+Good Samaritan Catholic Primary School,Primary,Hume (C),Good Samaritan Catholic School/Donald Cameron Dr,120.06297901912718
+Erasmus Primary School,Primary,Boroondara (C),Fordholm Rd/Riversdale Rd #31,141.58511490692803
+Holy Cross Primary School,Primary,Macedon Ranges (S),Holy Cross Catholic PS/Hamilton Rd ,63.59612318947191
+St Catherine's Primary School,Primary,Casey (C),St Catherines PS/Clyde Rd,58.458704711292924
+Good News Lutheran College,Pri/Sec,Wyndham (C),Good News Lutheran College/Tarneit Rd ,130.3471338249977
+Sirius College,Pri/Sec,Hume (C),Beulah St/Camp Rd,272.10906258243585
+Emmaus Catholic Primary School,Primary,Brimbank (C),Watergardens Station/Watergardens Circuit Rd,123.94294726724978
+Red Rock Christian College,Pri/Sec,Hume (C),Bundanoon Ave/Canterbury Ave,4387.655414347021
+Maharishi School of the Age of Enlightenment,Primary,Darebin (C),Keon Park PS/Borrie St,133.2396550938482
+Thomas Carr College,Secondary,Wyndham (C),Thomas Carr Dr/Sayers Rd,250.02958584064623
+St Thomas Primary School,Primary,Greater Geelong (C),Hackwill Pl/Portarlington Rd,599.5808302620857
+Darul Ulum College of Victoria,Pri/Sec,Moreland (C),Miller St/Major Rd,281.46583610183944
+East Preston Islamic College,Pri/Sec,Darebin (C),Seston St/Tyler St,270.53133083832995
+Dandenong Ranges Steiner School,Primary,Cardinia (S),Edebohls Rd/Wellington Rd,1503.2888787855572
+Aitken College,Pri/Sec,Hume (C),Napoli Park/Napoli Cct,545.02259371391
+Alia College,Secondary,Boroondara (C),Cato St/Tooronga Rd,15.179205110829228
+Christ the Priest Catholic Primary School,Primary,Melton (C),Christ the Priest PS/Caroline Springs Bvd,52.521517176312514
+Gisborne Montessori School,Primary,Macedon Ranges (S),Holy Cross Catholic PS/Hamilton Rd ,341.2967618328477
+Mt Hira College,Pri/Sec,Greater Dandenong (C),Mount Hira College/Perry Rd,119.85292108471062
+Lumen Christi School,Primary,Wyndham (C),Lumen Christi PS/Point Cook Rd,134.0723241996285
+Trinity Catholic Primary School,Primary,Casey (C),Raleigh Dr/Baringa Park Dr,225.34838498344547
+Stott's Colleges,Secondary,Melbourne (C),Russell St/Bourke St #7,160.28223300344132
+OneSchool Global Vic,Pri/Sec,Whittlesea (C),Scanlon Dr/Cooper St,499.51433623887465
+Kamaruka,Special,Stonnington (C),Malcolm St/Chapel St #51,163.14890789135407
+Haileybury Girls College,Pri/Sec,Greater Dandenong (C),Haileybury Keysborough Campus/Springvale Rd ,73.35719477567503
+Antonine College,Pri/Sec,Moreland (C),Brearley Pde/Melville Rd #44,228.0147247450317
+Ozford College,Secondary,Melbourne (C),Spencer St/La Trobe St #1,135.8433361431324
+Berry Street Victoria Inc,Special,Greater Dandenong (C),Yarraman Railway Station,385.9614824512598
+Yesodei HaTorah College,Pri/Sec,Port Phillip (C),Dickens St/Mitford St,73.78081879704187
+Cana Catholic Primary School,Primary,Melton (C),Cana Catholic PS/Banchory Ave,107.00184198493054
+Holmes Secondary College,Secondary,Melbourne (C),Parliament Station,90.48348457993036
+Marymede Catholic College,Pri/Sec,Whittlesea (C),Bike and Ride,94.30096707131923
+Stella Maris Catholic Primary School,Primary,Wyndham (C),Juniper Ave/Boardwalk Bvd,308.87340169711547
+Lakeside College,Pri/Sec,Cardinia (S),Village Lakeside SC/Lakeside Bvd ,162.11123741633725
+Trinity Catholic School,Primary,Yarra (C),Burnley St/Bridge Rd #21,404.81343260977286
+Balcombe Grammar School,Pri/Sec,Mornington Peninsula (S),Balcombe Grammar School/Nepean Hwy,62.78911393151457
+Catholic Regional College Caroline Springs,Secondary,Melton (C),Commercial Rd/Caroline Springs Bvd,140.00119825949895
+Deutsche Schule Melbourne,Primary,Yarra (C),Porter St/Holden St,92.61363998799159
+Kolbe Catholic College,Secondary,Hume (C),Kolbe College/Lysterfield Dr,63.80501755733176
+Hume Anglican Grammar,Pri/Sec,Hume (C),Hume Anglican Grammar School/Mt Ridley Rd,49.44983857940494
+Lighthouse Christian College Cranbourne,Pri/Sec,Casey (C),Devon Rd/South Gippsland Hwy,104.26586304899045
+Mother Teresa School,Primary,Hume (C),Mother Teresa PS/Windrock Ave,15.92776815861156
+Our Lady of the Southern Cross,Primary,Wyndham (C),Clarence St/Manor Lakes Bvd,145.72658655985416
+St George Preca School,Primary,Melton (C),Taylors Hill Village SC/Gourlay Rd,308.9932667195383
+St Joseph's School,Primary,Whittlesea (C),Mernda Village Medical/Mernda Village Dr,168.78031313275673
+Al Siraat College,Pri/Sec,Whittlesea (C),Hayston Park/Hayston Bvd,756.1588593844054
+Woodleigh School,Pri/Sec,Frankston (C),St Kilda St/Baxter-Tooradin Rd,652.4974511725547
+St Brigid's School,Primary,Cardinia (S),Bayview Rd/Princes Hwy,509.2346104567654
+St Francis de Sales Catholic Primary School,Primary,Casey (C),Lynbrook Rail Replacement Bus Stop,155.34999944459545
+St Lawrence Catholic Primary School,Primary,Brimbank (C),Dartmouth Way/Windsor Bvd,82.16291406381265
+Heritage College Knox,Primary,Knox (C),Austin St/Burwood Hwy,91.35936902688842
+Melbourne Grammar School,Pri/Sec,Melbourne (C),Anzac Station/Domain Rd ,267.7028120881756
+Islamic College of Melbourne,Pri/Sec,Wyndham (C),Amelie Pde/Bethany Rd,302.22774569938446
+Southern Cross Grammar,Pri/Sec,Melton (C),Kirribilli Bvd/Gourlay Rd,149.63791842860755
+Cornish College,Pri/Sec,Greater Dandenong (C),Fielding Dr/Wells Rd,496.239328121135
+Melbourne Montessori School,Pri/Sec,Glen Eira (C),Glenhuntly Tram Depot/Glenhuntly Rd #53,123.7846237884272
+St Francis of Assisi Catholic Primary School,Primary,Wyndham (C),Silkwood Bvd/Sayers Rd,155.3644397063389
+St Joseph's Flexible Learning Centre Melbourne,Special,Melbourne (C),Queensberry St/Peel St #11,134.6467833563654
+Glenroy Private,Pri/Sec,Moreland (C),Glen St/Daley St,82.53709974746047
+Divrei Emineh,Pri/Sec,Glen Eira (C),Wheatley Rd/North Rd,34.0465877486895
+St Mary of the Cross MacKillop Catholic Parish Primary School,Primary,Whittlesea (C),Farmhouse Bvd/Greenfields Dr,269.10368170823335
+St Mary of the Cross Catholic Primary School,Primary,Wyndham (C),Casino Dr/Saltwater Prom,289.9007540802555
+St Thomas the Apostle Catholic Primary School,Primary,Casey (C),Shopping on Clyde/Berwick-Cranbourne Rd,230.13304382087367
+Cire Community School | Cire Training,Special,Yarra Ranges (S),Lilydale Post Office/Maroondah Hwy,153.98319390539774
+St John the Apostle Catholic Primary School,Primary,Wyndham (C),Cottesloe Boulevard Wetlands/Leakes Rd ,251.9420753808441
+St Clare's Catholic Primary School,Primary,Wyndham (C),Vanderbilt Ave/Marquands Rd,228.63158122414535
+St Clare's Primary School,Primary,Cardinia (S),Cardinia Rd/Princes Hwy,325.7396705044263
+St Paul the Apostle Catholic Primary School,Primary,Whittlesea (C),Eminence Bvd/Bassetts Rd,217.75038304304346
+Heatherton Christian College,Pri/Sec,Kingston (C),Heatherton Christian College/Kingston Rd,47.879715943081344
+Melbourne Indigenous Transition School,Special,Melbourne (C),Rowena Pde/Punt Rd,166.06885599379657
+Alice Miller School,Secondary,Macedon Ranges (S),Macedon Station,3486.814075253647
+Hoa Nghiem Primary School,Primary,Greater Dandenong (C),Ealing Cres/Springvale Rd,172.09778152540832
+Al Iman College,Pri/Sec,Melton (C),Al Iman College/Rees Rd,145.9175508269229
+Edinburgh College,Pri/Sec,Yarra Ranges (S),Olinda Creek Trail/Swansea Rd,870.0237887991876
+Giant Steps Melbourne,Special,Boroondara (C),Molesworth St/Princess St,161.10852908880682
+Harkaway Hills College,Primary,Casey (C),Claire Robinson Park Ct/Heatherton Rd ,522.8307436571175
+Lumineer Academy - Williamstown,Primary,Hobsons Bay (C),Cole St/Nelson Pl,154.94384025925248
+Advance College of Education Incorporated,Special,Mornington Peninsula (S),Mornington Peninsula Fwy/Boneo Rd,881.2353251827146
+Preston Reservoir Adult Community Education Inc | PRACE College,Special,Darebin (C),Asquith St/Hughes Pde,146.52642751373398
+River Nile School,Special,Melbourne (C),Victoria St/Peel St,80.44013788863003
+Brotherhood of St Laurence|David Scott School,Special,Yarra (C),Gertrude St/Brunswick St #13,116.39350239362247
+Hester Hornbrook Academy,Special,Melbourne (C),William St/Bourke St #3,149.2429382607577
+SEDA College (Victoria),Secondary,Boroondara (C),Camberwell Tram Depot/Riversdale Rd #39,46.17064198258911
+Cheder Levi Yitzchok Inc,Pri/Sec,Port Phillip (C),Alma Rd/Chapel St #40,90.91798996980846
+Oscar Romero Catholic Primary School,Primary,Hume (C),Marathon Bvd/Highlander Dr,118.01177853162436
+Our Lady of the Way Catholic Primary School,Primary,Mitchell (S),Blue Lake Dr/Wallara Waters Bvd,456.549027158919
+Maxwell Creative School,Primary,Knox (C),1387 Mountain Hwy ,66.03267971193472
+Holy Trinity Catholic Primary School,Primary,Hume (C),Sunbury Downs Sec Col/Mitchells Lane,67.92582198874524
+Glowrey Catholic Primary School,Primary,Whittlesea (C),Fulham Way/Epping Rd,181.00364000973525
+Fitra Community School,Primary,Kingston (C),Fairbank Rd/Westall Rd,31.66346893459054
+Clyde Grammar,Primary,Casey (C),New Holland Dr/Narre Warren-Cranbourne Rd ,194.90146720145054
+Tombolo Academy,Secondary,Bayside (C),Fewster Rd/Bluff Rd,24.69019043616539
+Lyrebird College,Special,Yarra Ranges (S),Bede Ave/Lauriston Dr,178.21886008724536
+St Josephs Catholic Primary School,Primary,Wyndham (C),Vaughan Ch/Blackforest Rd,464.82554717757256
+Youth2Industry College,Secondary,Port Phillip (C),Albert Rd/Clarendon St #130,314.62914832480817
+My College,Primary,Hume (C),Millewa Cres/Riggall St,165.32898110101968
+Brosnan Learning Centre,Secondary,Yarra (C),St Ignatius Church/Church St #59,10.230564774205996
