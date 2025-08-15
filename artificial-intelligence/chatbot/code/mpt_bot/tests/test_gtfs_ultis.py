@@ -2,12 +2,14 @@ import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
 import spacy
+from datetime import datetime, timedelta
 from fuzzywuzzy import process
 from rasa_sdk import Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.gtfs_utils import GTFSUtils
 import requests
 import logging
+import json
 
 # Setup logger to debug
 logging.basicConfig(level=logging.DEBUG)
@@ -194,49 +196,24 @@ class TestGTFSUtils(unittest.TestCase):
     #     self.assertEqual(result['transfers'][0]['stop_name'], 'Camberwell Station')
     #     self.assertAlmostEqual(result['total_time'], 35.0, places=1)  # 08:00 to 08:35
 
-    def test_check_route_and_fetch_disruptions(self):
+    def test_check_route_and_fetch_disruptions_train(self):
         """Test check_route_and_fetch_disruptions with mocked PTV API."""
-        self.mock_requests.return_value = MagicMock(
-            status_code=200,
-            json=lambda: {
-                "disruptions": {
-                    "general": [],
-                    "metro_train": [
-                    {
-                        "disruption_id": 341246,
-                        "title": "Werribee Line: Buses replace trains from first service Thursday 14 August to 8.30pm Friday 15 August 2025",
-                        "url": "http://ptv.vic.gov.au/live-travel-updates/article/werribee-line-buses-replace-trains-from-first-service-to-830pm-each-day-from-thursday-14-august-to-8-30pm-friday-15-august-2025",
-                        "description": "Buses replace trains between Laverton and Werribee from first service Thursday 14 August to 8.30pm Friday 15 August, due to level crossing removal works.",
-                        "disruption_status": "Current",
-                        "disruption_type": "Planned Works",
-                        "published_on": "2025-08-11T22:48:51Z",
-                        "last_updated": "2025-08-13T17:01:35Z",
-                        "from_date": "2025-08-13T17:00:00Z",
-                        "to_date": "2025-08-15T10:30:00Z",
-                        "routes": [
-                        {
-                            "route_type": 0,
-                            "route_id": 16,
-                            "route_name": "Werribee",
-                            "route_number": "",
-                            "route_gtfs_id": "2-WER",
-                            "direction": null
-                        }
-                        ],
-                        "stops": [],
-                        "colour": "#ffd500",
-                        "display_on_board": false,
-                        "display_status": false
-                    }]
-                }
-            }
-        )
-        
-        result = GTFSUtils.check_route_and_fetch_disruptions('Werribee', 'train', self.routes_df)
-        print(result)
-        self.assertTrue(result)
-        #self.assertEqual(result[0]['disruption_id'], 123)
-        #self.assertEqual(result[0]['title'], 'Delay on Frankston Line')
+        # Load mocked data from JSON file
+        with open('tests/data/disruptions.json', 'r') as f:
+            mock_data = json.load(f)
+        with patch('requests.get') as mock_get:
+            mock_response = MagicMock()
+            mock_response.status_code = 200
+            mock_response.json.return_value = mock_data
+            mock_get.return_value = mock_response
+            disruption_list = GTFSUtils.check_route_and_fetch_disruptions('Werribee', 'train', routes_df)
+
+        current_time = datetime.utcnow()
+        self.assertIsInstance(disruption_list, list)
+        for d in disruption_list:
+            self.assertTrue(any (route['route_name'] == 'Werribee' for route in d['routes']))
+            self.assertTrue(datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time <= datetime.fromisoformat(d["to_date"].replace("Z", "")))
+
 
     # def test_check_route_and_fetch_disruptions_no_disruptions(self):
     #     """Test check_route_and_fetch_disruptions with no disruptions."""

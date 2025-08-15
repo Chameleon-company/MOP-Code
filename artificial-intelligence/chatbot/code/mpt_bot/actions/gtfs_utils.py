@@ -736,7 +736,6 @@ class GTFSUtils:
         signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
 
         result = f"{full_url}&signature={signature.upper()}"
-        print(result)
         return result
 
     @staticmethod
@@ -762,13 +761,13 @@ class GTFSUtils:
     def filter_active_disruptions(disruptions):
         """
         Author: AlexT
+        Modifier: Andre Nguyen
         Filter currently active disruptions.
         """
         current_time = datetime.utcnow()
         active_disruptions = [
             d for d in disruptions
-            if datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time <= datetime.fromisoformat(
-                d["to_date"].replace("Z", ""))
+            if d["from_date"] and datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time
         ]
         return active_disruptions
 
@@ -807,13 +806,14 @@ class GTFSUtils:
 
         # Process disruptions
         disruption_list = []
+        count = 0
         for disruption in disruptions:
             disruption_dict = {
                 'disruption_id': disruption.get('disruption_id'),
                 'title': disruption.get('title', 'No title available'),
                 'description': disruption.get('description', 'No description available'),
                 'status': disruption.get('disruption_status', 'Unknown'),
-                'type': disruption.get('disruption_type', 'Unknown'),
+                'disruption_type': disruption.get('disruption_type', 'Unknown'),
                 'from_date': disruption.get('from_date'),
                 'to_date': disruption.get('to_date'),
                 'routes': [{
@@ -823,13 +823,13 @@ class GTFSUtils:
             }
             # Filter by route_name if provided
             if route_name:
-                if any(route.get('route_name') == route_name for route in disruption.get('routes', [])):
+                if any((route.get('route_name').lower()) == route_name for route in disruption.get('routes', [])):
                     disruption_list.append(disruption_dict)
-            else:  # Return all disruptions if no specific route
+            else:
                 disruption_list.append(disruption_dict)
         # Filter active disruptions
         active_disruptions = GTFSUtils.filter_active_disruptions(disruption_list)
-        return active_disruptions
+        return active_disruptions, route_id, None
 
     @staticmethod
     def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
@@ -857,9 +857,6 @@ class GTFSUtils:
             # Convert columns to lists for matching
             route_short_names = routes_df["route_short_name"].tolist()
             route_long_names = routes_df["route_long_name"].tolist()
-
-            print(f"Available route short names: {route_short_names}")
-            print(f"Available route long names: {route_long_names}")
 
             # Check if a route short name matches directly in the query
             for short_name in route_short_names:
