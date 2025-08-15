@@ -226,6 +226,7 @@ class GTFSUtils:
             Author: AlexT
             Find the best matching station name from the stops DataFrame.
         """
+        stops_df = stops_df.astype(str)
         user_input = user_input.lower().strip()
         stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
 
@@ -779,9 +780,14 @@ class GTFSUtils:
         Check the route and fetch disruptions for tram, bus, or train of the route.
         """
         # Match the route in the provided routes DataFrame
+        routes_df = routes_df.astype(str)
+        # Normalize the DataFrame for comparison
+        routes_df["route_short_name"] = routes_df["route_short_name"].str.strip().str.lower()
+        routes_df["route_long_name"] = routes_df["route_long_name"].str.strip().str.lower()
+
         matched_routes = routes_df[
             (routes_df["route_short_name"] == route_name) | (routes_df["route_long_name"] == route_name)
-            ]
+        ]
 
         if matched_routes.empty:
             return None, None, f"No routes found for '{route_name}'. Please check your input."
@@ -803,7 +809,6 @@ class GTFSUtils:
             disruptions = disruptions_data.get("disruptions", {}).get("metro_train", [])
         else:
             return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
-
         # Process disruptions
         disruption_list = []
         count = 0
@@ -818,13 +823,22 @@ class GTFSUtils:
                 'to_date': disruption.get('to_date'),
                 'routes': [{
                     'route_name': route.get('route_name', 'Unknown Route'),
+                    "route_id": route.get('route_id', 'Unknown Route Id'),
+                    "route_number": route.get('route_number', 'Unknown Route Number'),
+                    "route_gtfs_id": route.get('route_gtfs_id', 'Unknown Route GTFS Id'),
                     'direction': route.get('direction')  # Allow None for null
                 } for route in disruption.get('routes', [])]
             }
             # Filter by route_name if provided
             if route_name:
-                if any((route.get('route_name').lower()) == route_name for route in disruption.get('routes', [])):
-                    disruption_list.append(disruption_dict)
+                if mode == "train":
+                    if any((route.get('route_name').lower()) == route_name for route in disruption.get('routes', [])):
+                        disruption_list.append(disruption_dict)
+                else:
+                    for route in disruption.get('routes', []):
+                        if route.get("route_number") == route_name: # Should check for route long name, will add later
+                            disruption_list.append(disruption_dict)
+                            break
             else:
                 disruption_list.append(disruption_dict)
         # Filter active disruptions
@@ -841,6 +855,7 @@ class GTFSUtils:
         :return: The extracted route short name if valid, or None if no match is found.
         """
         try:
+            routes_df = routes_df.astype(str)
             # Normalise query for consistent matching
             if not isinstance(query, str):
                 print("Error: Query is not a string.")
@@ -858,9 +873,12 @@ class GTFSUtils:
             route_short_names = routes_df["route_short_name"].tolist()
             route_long_names = routes_df["route_long_name"].tolist()
 
+            # split the query by whitespace
+            query_split = query.split(' ')
+
             # Check if a route short name matches directly in the query
             for short_name in route_short_names:
-                if short_name in query:
+                if short_name in query_split:
                     print(f"Direct match found for route_short_name: {short_name}")
                     return short_name
 
