@@ -18,6 +18,7 @@
 		- find_best_route_with_transfers: (Author: AlexT)
 		- handle_error: handle error and logging: (Author: AlexT)
 		- generate_signature: signature required for PTV API: (Author: AlexT)
+        - generate_signature: generate signature (by request) required for PTV API: (Author: Andre Nguyen)
         - fetch_disruptions: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
         - check_route_and_fetch_disruptions: (Author: AlexT)
@@ -718,6 +719,25 @@ class GTFSUtils:
         signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
 
         return f"{full_url}&signature={signature}"
+    @staticmethod
+    def generate_signature(request):
+        """
+        Author: Andre Nguyen
+        Generate API signature by request.
+        The return url should look like this:
+        https://timetableapi.ptv.vic.gov.au/{request}?{devid=...}&{signature=....}
+        """
+        url_path = request
+        query_string = f"devid={user_id}"
+        full_url = f"{base_url}{url_path}?{query_string}"
+
+        parsed_url = urllib.parse.urlparse(full_url)
+        url_to_sign = parsed_url.path + "?" + parsed_url.query
+        signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
+
+        result = f"{full_url}&signature={signature.upper()}"
+        print(result)
+        return result
 
     @staticmethod
     def fetch_disruptions(signed_url):
@@ -756,7 +776,8 @@ class GTFSUtils:
     def check_route_and_fetch_disruptions(route_name, mode, routes_df):
         """
         Author: AlexT
-        Check the route and fetch disruptions for tram, bus, or train.
+        Modifier: Andre Nguyen
+        Check the route and fetch disruptions for tram, bus, or train of the route.
         """
         # Match the route in the provided routes DataFrame
         matched_routes = routes_df[
@@ -767,7 +788,9 @@ class GTFSUtils:
             return None, None, f"No routes found for '{route_name}'. Please check your input."
 
         route_id = matched_routes.iloc[0]["route_id"]
-        signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
+        # signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
+        request = "/v3/disruptions"
+        signed_url = GTFSUtils.generate_signature(request)
         disruptions_data = GTFSUtils.fetch_disruptions(signed_url)
 
         print(f"check_route_and_fetch_disruptions MODE: {mode}")
@@ -782,10 +805,31 @@ class GTFSUtils:
         else:
             return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
 
+        # Process disruptions
+        disruption_list = []
+        for disruption in disruptions:
+            disruption_dict = {
+                'disruption_id': disruption.get('disruption_id'),
+                'title': disruption.get('title', 'No title available'),
+                'description': disruption.get('description', 'No description available'),
+                'status': disruption.get('disruption_status', 'Unknown'),
+                'type': disruption.get('disruption_type', 'Unknown'),
+                'from_date': disruption.get('from_date'),
+                'to_date': disruption.get('to_date'),
+                'routes': [{
+                    'route_name': route.get('route_name', 'Unknown Route'),
+                    'direction': route.get('direction')  # Allow None for null
+                } for route in disruption.get('routes', [])]
+            }
+            # Filter by route_name if provided
+            if route_name:
+                if any(route.get('route_name') == route_name for route in disruption.get('routes', [])):
+                    disruption_list.append(disruption_dict)
+            else:  # Return all disruptions if no specific route
+                disruption_list.append(disruption_dict)
         # Filter active disruptions
-        active_disruptions = GTFSUtils.filter_active_disruptions(disruptions)
-        return active_disruptions, route_id, None
-
+        active_disruptions = GTFSUtils.filter_active_disruptions(disruption_list)
+        return active_disruptions
 
     @staticmethod
     def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
