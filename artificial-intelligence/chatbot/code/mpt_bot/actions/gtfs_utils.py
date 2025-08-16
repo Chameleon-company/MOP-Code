@@ -76,7 +76,7 @@ class GTFSUtils:
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
         stops_df['stop_id'] = stops_df['stop_id'].astype(str).str.strip()
 
-        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower()
+        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower().str.replace("station", "").str.replace("railway", "").str.replace('(',"").str.replace(')',"")
 
         stop_times_df['stop_id'] = stop_times_df['stop_id'].astype(str).str.strip()
         expected_columns = ['stop_id', 'trip_id', 'arrival_time', 'departure_time']
@@ -224,42 +224,68 @@ class GTFSUtils:
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
+            Modifier: Andre Nguyen
             Find the best matching station name from the stops DataFrame.
         """
         stops_df = stops_df.astype(str)
         user_input = user_input.lower().strip()
         stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
 
-        exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
-        if not exact_match.empty:
-            return exact_match.iloc[0]['stop_name']
+        # exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
+        potential_station_list = []
+        remove_list = {
+            "station": "",
+            "railway": "",
+            "(": "",
+            ")": ""
+        }
+        normalised_user_input = user_input
+        for old, new in remove_list.items():
+            normalised_user_input = normalised_user_input.replace(old, new)
+        user_input_split = normalised_user_input.split(" ")
+        for index, stop in stops_df.iterrows():
+            stop_name_list = stop['normalized_stop_name'].split(" ")
+            flag = 1
+            for word in stop_name_list:
+                if word not in user_input_split:
+                    flag = 0
+            if flag == 1 and stop["parent_station"] == "nan":
+                potential_station_list.append(stop["stop_name"])
+       
 
-        keyword_matches = stops_df[stops_df['normalized_stop_name'].str.contains(user_input, na=False)].copy()
-
-        if not keyword_matches.empty:
-            keyword_matches['match_score'] = keyword_matches['normalized_stop_name'].apply(
-                lambda name: sum(name.count(word) for word in user_input.split())
-            )
-            keyword_matches = keyword_matches.sort_values(by=['match_score', 'word_count'], ascending=[False, True])
-            return keyword_matches.iloc[0]['stop_name']
-
-        best_match, score, _ = process.extractOne(user_input, stops_df['stop_name'])
-        if score > 80:
-            return best_match
-
-        return None
+        if len(potential_station_list) > 0:
+            return potential_station_list
+        
+        # Using FuzzyWuzzy to find all station name in user query
+        best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+        while score > 80:
+            if len(potential_station_list) == 2:
+                break
+            for index, stop in stops_df.iterrows():
+                if stop["stop_name"] in potential_station_list:
+                    break
+                if stop['normalized_stop_name'] == best_match:
+                    potential_station_list.append(stop["stop_name"])
+                    for word in best_match.split(" "):
+                        normalised_user_input = normalised_user_input.replace(word, "")
+                    break
+            best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+        
+        return potential_station_list
 
     @staticmethod
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
+            Modifier: Andre Nguyen
             Extract potential station names from a query using NLP and fuzzy matching.
         """
         doc = nlp(query)
-        potential_stations = [ent.text for ent in doc.ents]
-        print(f"Potential Stations (SpaCy): {potential_stations}")
+        potential_stations = GTFSUtils.find_station_name(query, stops_df)
+        print(f"Potential station: {potential_stations}")
         if not potential_stations:
-            potential_stations = [GTFSUtils.find_station_name(query, stops_df)]
+            potential_stations = [ent.text for ent in doc.ents]
+            print(f"Potential Stations (SpaCy): {potential_stations}")
 
         extracted_stations = []
         for station in potential_stations:
