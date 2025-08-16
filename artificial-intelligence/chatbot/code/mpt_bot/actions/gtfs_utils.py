@@ -256,20 +256,26 @@ class GTFSUtils:
         if len(potential_station_list) > 0:
             return potential_station_list
         
-        # Using FuzzyWuzzy to find all station name in user query
+        # Using FuzzyWuzzy to find station name in user query
         best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
-        while score > 80:
+        while score >= 60:         
             if len(potential_station_list) == 2:
                 break
             for index, stop in stops_df.iterrows():
-                if stop["stop_name"] in potential_station_list:
-                    break
-                if stop['normalized_stop_name'] == best_match:
+                if stop["stop_name"] not in potential_station_list and stop['normalized_stop_name'] == best_match:
                     potential_station_list.append(stop["stop_name"])
-                    for word in best_match.split(" "):
-                        normalised_user_input = normalised_user_input.replace(word, "")
+                    highest_score = 0
+                    word_to_remove = ""
+                    for word in normalised_user_input.split(" "):
+                        current_score = fuzz.ratio(best_match, word)
+                        if current_score > highest_score:
+                            word_to_remove = word
+                            highest_score = current_score
+                    normalised_user_input = normalised_user_input.replace(word_to_remove, "")
+                    print(normalised_user_input)
                     break
             best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+            
         
         return potential_station_list
 
