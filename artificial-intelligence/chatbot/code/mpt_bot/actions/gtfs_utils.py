@@ -258,12 +258,10 @@ class GTFSUtils:
         
         # Using FuzzyWuzzy to find station name in user query
         best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
-        while score >= 60:         
-            if len(potential_station_list) == 2:
-                break
+        while len(potential_station_list) < 2: # match at most two stations in the query
             for index, stop in stops_df.iterrows():
-                if stop["stop_name"] not in potential_station_list and stop['normalized_stop_name'] == best_match:
-                    potential_station_list.append(stop["stop_name"])
+                if stop['normalized_stop_name'] == best_match:
+                    # find the word with highest score to remove in the query
                     highest_score = 0
                     word_to_remove = ""
                     for word in normalised_user_input.split(" "):
@@ -272,6 +270,8 @@ class GTFSUtils:
                             word_to_remove = word
                             highest_score = current_score
                     normalised_user_input = normalised_user_input.replace(word_to_remove, "")
+                    if stop["stop_name"] not in potential_station_list:
+                        potential_station_list.append(stop["stop_name"])
                     print(normalised_user_input)
                     break
             best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
