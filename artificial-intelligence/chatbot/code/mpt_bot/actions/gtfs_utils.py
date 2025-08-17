@@ -7,11 +7,12 @@
 	    - find_common_routes:  Find common routes between two stops (Author: AlexT)
 	    - load_data: - Author: AlexT (Download and load data for Train only)
 		- normalise_gtfs_data: (Author: AlexT)
-		- find_station_name: (Author: AlexT)
+		- find_station_name: (Author: AlexT, Modified by: Andre Nguyen)
+        - find_parent_station: (Author: Andre Nguyen)
 		- convert_gtfs_time: (Author: AlexT)
 		- parse_time: (Author: AlexT)
 		- get_station_id: (Author: AlexT)
-		- extract_stations_from_query: (Author: AlexT)
+		- extract_stations_from_query: (Author: AlexT, Modified by Andre Nguyen)
 		- check_direct_route: (Author: AlexT)
 		- calculate_route_travel_time: (Author: AlexT)
 		- calculate_transfers: (Author: AlexT)
@@ -21,7 +22,7 @@
         - generate_signature: generate signature (by request) required for PTV API: (Author: Andre Nguyen)
         - fetch_disruptions: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
-        - check_route_and_fetch_disruptions: (Author: AlexT)
+        - check_route_and_fetch_disruptions: (Author: AlexT, Modified by Andre Nguyen)
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
@@ -221,6 +222,97 @@ class GTFSUtils:
         return stops, stop_times, routes, trips, calendar
 
     @staticmethod
+    def find_parent_station(station_name_list: List[str], stops_df: pd.DataFrame) -> List[str]:
+        """
+            Author: Andre Nguyen
+            Find the parent station from list of station name
+        """
+        parent_stations = []
+        for station_name in station_name_list:
+            for index, stop in stops_df.iterrows():
+                # If it's not parent station
+                if stop['stop_name'] == station_name and stop['parent_station'] != 'nan':
+                    parent_station_id = stop['parent_station']
+                    parent_station_df = stops_df[stops_df['stop_id'] == parent_station_id]
+                    if len(parent_station_df) > 0:
+                        parent_stations.append(parent_station_df.iloc[0]['stop_name'])
+                        break
+                # If it's parent station
+                if stop['stop_name'] == station_name and stop['parent_station'] == 'nan':
+                    parent_stations.append(station_name)
+                    break
+        return parent_stations
+    
+    @staticmethod
+    def keep_staion_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
+        """
+            Author:  Andre Nguyen
+            Keep stations in mentioned order in the query (from - to order)
+        """
+        normalised_user_input_split = normalised_user_input.split(" ")
+        from_index = 0
+        to_index = 0
+        for i in range(len(normalised_user_input_split)):
+            if normalised_user_input_split[i] == "from":
+                from_index = i
+            elif normalised_user_input_split[i] == "to":
+                to_index = i
+        station_dict = dict({})
+        ordered_station_list = []
+        for station_name in station_name_list:
+            highest_score = 0
+            station_index = 0
+            # update index until found the index of word that has highest score of matching
+            for i in range(len(normalised_user_input_split)):
+                score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("statiion", ""))
+                if score >= highest_score:
+                    highest_score = score
+                    station_index = i
+            station_dict.update({station_name: station_index}) # Found the index of the station
+            
+        print(station_dict)
+        # Sort station name by index in ascending order if "from" occur before "to" or "station_a - station_b", otherwise, in descending order
+        if from_index < to_index or (from_index == 0 and to_index == 0):
+            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
+        else:
+            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1], reverse=True)
+        for station in sorted_by_index_station_dict:
+            ordered_station_list.append(station[0])
+        return ordered_station_list
+
+    @staticmethod
+    def find_station_name_by_fuzzy(normalised_user_input: str, stops_df: pd.DataFrame) -> List[str]:
+        """
+            Author:  Andre Nguyen
+            Find the best matching station name from the stops DataFrame by fuzzywuzzy.
+        """
+        potential_station_list = []
+        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+        # Using FuzzyWuzzy to find station name in user query
+        best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+        shorten_user_input = normalised_user_input
+        while score >= 40 : # match at most two stations in the query
+            print(f"best match is: {best_match}")
+            if len(potential_station_list) >= 2:
+                break
+            for index, stop in stops_df.iterrows():
+                if stop['normalized_stop_name'] == best_match:
+                    # find the word with highest matching score to remove in the query
+                    highest_score = 0
+                    word_to_remove = ""
+                    for word in shorten_user_input.split(" "):
+                        current_score = fuzz.ratio(best_match, word)
+                        if current_score > highest_score:
+                            word_to_remove = word
+                            highest_score = current_score
+                    shorten_user_input = shorten_user_input.replace(word_to_remove, "")
+                    if stop["stop_name"] not in potential_station_list:
+                        potential_station_list.append(stop["stop_name"])
+                    break
+            best_match, score, _  = process.extractOne(shorten_user_input, stops_df['normalized_stop_name'])
+        return potential_station_list # list of normalized stop name
+
+    @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
@@ -230,7 +322,7 @@ class GTFSUtils:
         stops_df = stops_df.astype(str)
         user_input = user_input.lower().strip()
         stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
-
+        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
         # exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
         potential_station_list = []
         remove_list = {
@@ -253,32 +345,21 @@ class GTFSUtils:
                 potential_station_list.append(stop["stop_name"])
        
 
-        if len(potential_station_list) > 0:
+        if len(potential_station_list) >= 2:
+            print(f"before: {potential_station_list}")
+            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+            print(f"after: {potential_station_list}")
             return potential_station_list
+        else:
+            potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
+            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
         
-        # Using FuzzyWuzzy to find station name in user query
-        best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
-        while len(potential_station_list) < 2: # match at most two stations in the query
-            for index, stop in stops_df.iterrows():
-                if stop['normalized_stop_name'] == best_match:
-                    # find the word with highest score to remove in the query
-                    highest_score = 0
-                    word_to_remove = ""
-                    for word in normalised_user_input.split(" "):
-                        current_score = fuzz.ratio(best_match, word)
-                        if current_score > highest_score:
-                            word_to_remove = word
-                            highest_score = current_score
-                    normalised_user_input = normalised_user_input.replace(word_to_remove, "")
-                    if stop["stop_name"] not in potential_station_list:
-                        potential_station_list.append(stop["stop_name"])
-                    print(normalised_user_input)
-                    break
-            best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
-            
+        
+        potential_station_list = GTFSUtils.find_parent_station(potential_station_list, stops_df)
         
         return potential_station_list
 
+    
     @staticmethod
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
         """
@@ -288,19 +369,18 @@ class GTFSUtils:
         """
         doc = nlp(query)
         potential_stations = GTFSUtils.find_station_name(query, stops_df)
-        print(f"Potential station: {potential_stations}")
         if not potential_stations:
             potential_stations = [ent.text for ent in doc.ents]
             print(f"Potential Stations (SpaCy): {potential_stations}")
 
-        extracted_stations = []
-        for station in potential_stations:
-            matched_station = GTFSUtils.find_station_name(station, stops_df)
-            if matched_station:
-                extracted_stations.append(matched_station)
+        # extracted_stations = []
+        # for station in potential_stations:
+        #     matched_station = GTFSUtils.find_station_name(station, stops_df)
+        #     if matched_station:
+        #         extracted_stations.append(matched_station)
 
-        print(f"Extracted stations: {extracted_stations}")
-        return extracted_stations
+        print(f"Extracted stations: {potential_stations}")
+        return potential_stations
 
     @staticmethod
     def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
