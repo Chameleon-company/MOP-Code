@@ -159,21 +159,31 @@ nlu:
     - Show me the map of bus stops
     - Generate a bus stop map
 
-- intent: check_disruptions_tram
-  examples: |
-    - Are there any tram disruptions on route [109](route_name)?
-    - Check tram disruptions for route [Port Melbourne - Box Hill](route_name).
+# - intent: check_disruptions_tram
+#   examples: |
+#     - Does tram route [64](route_number) have disruptions?
+#     - Does tram route [64](route_number) have good services?
+#     - Check tram disruptions for route [Port Melbourne - Box Hill](route_name).
 
-- intent: check_disruptions_bus
-  examples: |
-    - Are there any bus disruptions on route [279](route_name)?
-    - Check bus disruptions for route [903](route_name).
+# - intent: check_disruptions_bus
+#   examples: |
+#     - Is bus [279](route_number) having disruptions?
+#     - Does bus [428](route_number) have good services?
+#     - Check bus disruptions for route [903](route_number).
 
-- intent: check_disruptions_train
-  examples: |
-    - Are there any train disruptions on route [Frankston](route_name)?
-    - Check train disruptions for route [Frankston - City](route_name).
+# - intent: check_disruptions_train
+#   examples: |
+#     - Are there any train disruptions on route [Frankston](route_name)?
+#     - Check train disruptions for route [Frankston - City](route_name).
 # Alex Finish - Transport Intents --------------------------------------------------------------------------------
+
+- intent: check_disruptions
+  examples: |
+    - Are there any [train](transport_mode) disruptions on route [Frankston](route_name)?
+    - Check [train](transport_mode) disruptions for route [Frankston - City](route_name)
+    - Is [bus](transport_mode) [279](route_name) having disruptions?
+    - Does [tram](transport_mode) [3](route_name) have disruptions?
+    - Check [tram](transport_mode) disruptions for route [Port Melbourne - Box Hill](route_name)
 
 # Ross Start - Intents
 - intent: find_nearest_station
@@ -447,9 +457,11 @@ nlu:
 
 #Awanish NLU ends ---------------------
 
-entities:
-  - station_name
-  - feature
+# entities:
+#   - station_name
+#   - feature
+#   - transport_mode
+#   - route_name
 
 synonyms:
   flinders street station:
