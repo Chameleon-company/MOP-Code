@@ -6,6 +6,7 @@ pipeline:
 - name: "LexicalSyntacticFeaturizer"
 - name: "CountVectorsFeaturizer"
   analyzer: "word"
+- name: CountVectorsFeaturizer      # char-level
 - name: "DIETClassifier"
 - name: "RegexEntityExtractor"
   analyzer: char_wb

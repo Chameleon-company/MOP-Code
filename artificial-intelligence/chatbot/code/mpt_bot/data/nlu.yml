@@ -19,7 +19,6 @@ nlu:
     - hello there
     - good morning
     - good evening
-    - moinhellp
     - hey there
     - let's go
     - hey dude
@@ -29,7 +28,6 @@ nlu:
     - hi there
 - intent: goodbye
   examples: |
-    - good afternoon
     - cu
     - good by
     - cee you later
@@ -44,10 +42,24 @@ nlu:
   examples: |
     - yes
     - y
+    - yep
+    - yup
+    - yeah
+    - ya
+    - ok
+    - okay
+    - sure
+    - absolutely
     - indeed
     - of course
-    - that sounds good
+    - ofc
+    - that's right
     - correct
+    - sounds good
+    - that sounds good
+    - that sound good
+    - works for me
+    - great, carry on
 - intent: deny
   examples: |
     - no
