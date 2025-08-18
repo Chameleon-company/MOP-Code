@@ -244,10 +244,24 @@ class GTFSUtils:
         return parent_stations
     
     @staticmethod
+    def find_child_station(parent_station_id: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
+        """
+            Author: Andre Nguyen
+            Find all child stations and return list of their id
+        """
+        child_station_id_list = []
+        stop_times_data = stop_times_df.reset_index()
+        for index, stop in stops_df.iterrows():
+            if stop['parent_station'] == parent_station_id:
+                if not stop_times_data.loc[stop_times_data['stop_id'] == stop['stop_id']].empty:
+                    child_station_id_list.append(stop['stop_id'])
+        return child_station_id_list
+    
+    @staticmethod
     def keep_staion_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
         """
             Author:  Andre Nguyen
-            Keep stations in mentioned order in the query (from - to order)
+            Keep stations in mentioned order in the query (from - to order) as in user query
         """
         normalised_user_input_split = normalised_user_input.split(" ")
         from_index = 0
@@ -264,17 +278,16 @@ class GTFSUtils:
             station_index = 0
             # update index until found the index of word that has highest score of matching
             for i in range(len(normalised_user_input_split)):
-                score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("statiion", ""))
+                score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("station", ""))
                 if score >= highest_score:
                     highest_score = score
                     station_index = i
             station_dict.update({station_name: station_index}) # Found the index of the station
-            
-        print(station_dict)
+
         # Sort station name by index in ascending order if "from" occur before "to" or "station_a - station_b", otherwise, in descending order
         if from_index < to_index or (from_index == 0 and to_index == 0):
             sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
-        else:
+        elif from_index > to_index:
             sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1], reverse=True)
         for station in sorted_by_index_station_dict:
             ordered_station_list.append(station[0])
@@ -291,13 +304,13 @@ class GTFSUtils:
         # Using FuzzyWuzzy to find station name in user query
         best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
         shorten_user_input = normalised_user_input
-        while score >= 40 : # match at most two stations in the query
-            print(f"best match is: {best_match}")
-            if len(potential_station_list) >= 2:
+        while score >= 50 : # match at most two stations in the query
+            if len(potential_station_list) == 2:
                 break
             for index, stop in stops_df.iterrows():
                 if stop['normalized_stop_name'] == best_match:
                     # find the word with highest matching score to remove in the query
+                    # so next matching will not have duplicate result
                     highest_score = 0
                     word_to_remove = ""
                     for word in shorten_user_input.split(" "):
@@ -346,9 +359,7 @@ class GTFSUtils:
        
 
         if len(potential_station_list) >= 2:
-            print(f"before: {potential_station_list}")
             potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
-            print(f"after: {potential_station_list}")
             return potential_station_list
         else:
             potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
@@ -388,7 +399,7 @@ class GTFSUtils:
             Author: AlexT
             Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
         """
-        matched_station_name = GTFSUtils.find_station_name(station_name, stops_df)
+        matched_station_name = GTFSUtils.find_station_name(station_name, stops_df)[0]
         if matched_station_name:
             station_row = stops_df.loc[stops_df['stop_name'] == matched_station_name]
             if not station_row.empty:
@@ -893,6 +904,7 @@ class GTFSUtils:
         """
         # Match the route in the provided routes DataFrame
         routes_df = routes_df.astype(str)
+        route_name = route_name.lower()
         # Normalize the DataFrame for comparison
         routes_df["route_short_name"] = routes_df["route_short_name"].str.strip().str.lower()
         routes_df["route_long_name"] = routes_df["route_long_name"].str.strip().str.lower()
