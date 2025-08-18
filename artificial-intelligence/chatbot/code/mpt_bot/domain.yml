@@ -50,6 +50,9 @@ intents:
   - ask_traffic
   - ask_traffic_location
   #Awanish intents (End) -------------------------------------------
+  #Andre intents (start) ------------------------------------------
+  - ask_direct_tram_route
+  - check_disruptions
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -59,6 +62,7 @@ entities:
   - current_latitude
   - transport_mode
   - route_name
+  # - route_number
   # Alex Finish entities  ----------------------------------------------------------
   # Ross Start entities
   - address
@@ -94,12 +98,19 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
+      - type: from_entity
+        entity: transport_mode
   route_name:
     type: text
     mappings:
       - type: from_entity
         entity: route_name
+  
+  # route_number:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: route_number
   # Alex Finish slots  ---------------------------------------------------------------
 
   # user_location:
@@ -254,9 +265,10 @@ actions:
   - action_check_train_change
   - action_find_route_with_least_stops
   - action_generate_route_map
-  - action_check_disruptions_tram
-  - action_check_disruptions_bus
-  - action_check_disruptions_train
+  # - action_check_disruptions_tram
+  # - action_check_disruptions_bus
+  # - action_check_disruptions_train
+  - action_check_disruptions
   - validate_transport_mode
   # Alex Finish Actions  -----------------------------------------------------------
   # Ross Start actions
