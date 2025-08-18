@@ -15,7 +15,7 @@ export default function SafetyPage() {
         attribution: '&copy; OpenStreetMap contributors',
       }).addTo(map);
 
-      // 添加默认图标（可正常显示）
+
       const defaultIcon = L.icon({
         iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png',
         iconSize: [25, 41],
@@ -31,7 +31,6 @@ export default function SafetyPage() {
         .bindPopup('Melbourne')
         .openPopup();
 
-      // 添加图例
     const legend = (L as any).control({ position: 'bottomright' });
       legend.onAdd = function () {
      const div = L.DomUtil.create('div', 'safety-legend');
