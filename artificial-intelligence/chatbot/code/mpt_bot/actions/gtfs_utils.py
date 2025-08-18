@@ -7,20 +7,22 @@
 	    - find_common_routes:  Find common routes between two stops (Author: AlexT)
 	    - load_data: - Author: AlexT (Download and load data for Train only)
 		- normalise_gtfs_data: (Author: AlexT)
-		- find_station_name: (Author: AlexT)
+		- find_station_name: (Author: AlexT, Modified by: Andre Nguyen)
+        - find_parent_station: (Author: Andre Nguyen)
 		- convert_gtfs_time: (Author: AlexT)
 		- parse_time: (Author: AlexT)
 		- get_station_id: (Author: AlexT)
-		- extract_stations_from_query: (Author: AlexT)
+		- extract_stations_from_query: (Author: AlexT, Modified by Andre Nguyen)
 		- check_direct_route: (Author: AlexT)
 		- calculate_route_travel_time: (Author: AlexT)
 		- calculate_transfers: (Author: AlexT)
 		- find_best_route_with_transfers: (Author: AlexT)
 		- handle_error: handle error and logging: (Author: AlexT)
 		- generate_signature: signature required for PTV API: (Author: AlexT)
+        - generate_signature: generate signature (by request) required for PTV API: (Author: Andre Nguyen)
         - fetch_disruptions: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
-        - check_route_and_fetch_disruptions: (Author: AlexT)
+        - check_route_and_fetch_disruptions: (Author: AlexT, Modified by Andre Nguyen)
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
@@ -75,7 +77,7 @@ class GTFSUtils:
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
         stops_df['stop_id'] = stops_df['stop_id'].astype(str).str.strip()
 
-        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower()
+        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower().str.replace("station", "").str.replace("railway", "").str.replace('(',"").str.replace(')',"")
 
         stop_times_df['stop_id'] = stop_times_df['stop_id'].astype(str).str.strip()
         expected_columns = ['stop_id', 'trip_id', 'arrival_time', 'departure_time']
@@ -220,53 +222,165 @@ class GTFSUtils:
         return stops, stop_times, routes, trips, calendar
 
     @staticmethod
+    def find_parent_station(station_name_list: List[str], stops_df: pd.DataFrame) -> List[str]:
+        """
+            Author: Andre Nguyen
+            Find the parent station from list of station name
+        """
+        parent_stations = []
+        for station_name in station_name_list:
+            for index, stop in stops_df.iterrows():
+                # If it's not parent station
+                if stop['stop_name'] == station_name and stop['parent_station'] != 'nan':
+                    parent_station_id = stop['parent_station']
+                    parent_station_df = stops_df[stops_df['stop_id'] == parent_station_id]
+                    if len(parent_station_df) > 0:
+                        parent_stations.append(parent_station_df.iloc[0]['stop_name'])
+                        break
+                # If it's parent station
+                if stop['stop_name'] == station_name and stop['parent_station'] == 'nan':
+                    parent_stations.append(station_name)
+                    break
+        return parent_stations
+    
+    @staticmethod
+    def keep_staion_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
+        """
+            Author:  Andre Nguyen
+            Keep stations in mentioned order in the query (from - to order)
+        """
+        normalised_user_input_split = normalised_user_input.split(" ")
+        from_index = 0
+        to_index = 0
+        for i in range(len(normalised_user_input_split)):
+            if normalised_user_input_split[i] == "from":
+                from_index = i
+            elif normalised_user_input_split[i] == "to":
+                to_index = i
+        station_dict = dict({})
+        ordered_station_list = []
+        for station_name in station_name_list:
+            highest_score = 0
+            station_index = 0
+            # update index until found the index of word that has highest score of matching
+            for i in range(len(normalised_user_input_split)):
+                score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("statiion", ""))
+                if score >= highest_score:
+                    highest_score = score
+                    station_index = i
+            station_dict.update({station_name: station_index}) # Found the index of the station
+            
+        print(station_dict)
+        # Sort station name by index in ascending order if "from" occur before "to" or "station_a - station_b", otherwise, in descending order
+        if from_index < to_index or (from_index == 0 and to_index == 0):
+            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
+        else:
+            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1], reverse=True)
+        for station in sorted_by_index_station_dict:
+            ordered_station_list.append(station[0])
+        return ordered_station_list
+
+    @staticmethod
+    def find_station_name_by_fuzzy(normalised_user_input: str, stops_df: pd.DataFrame) -> List[str]:
+        """
+            Author:  Andre Nguyen
+            Find the best matching station name from the stops DataFrame by fuzzywuzzy.
+        """
+        potential_station_list = []
+        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+        # Using FuzzyWuzzy to find station name in user query
+        best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+        shorten_user_input = normalised_user_input
+        while score >= 40 : # match at most two stations in the query
+            print(f"best match is: {best_match}")
+            if len(potential_station_list) >= 2:
+                break
+            for index, stop in stops_df.iterrows():
+                if stop['normalized_stop_name'] == best_match:
+                    # find the word with highest matching score to remove in the query
+                    highest_score = 0
+                    word_to_remove = ""
+                    for word in shorten_user_input.split(" "):
+                        current_score = fuzz.ratio(best_match, word)
+                        if current_score > highest_score:
+                            word_to_remove = word
+                            highest_score = current_score
+                    shorten_user_input = shorten_user_input.replace(word_to_remove, "")
+                    if stop["stop_name"] not in potential_station_list:
+                        potential_station_list.append(stop["stop_name"])
+                    break
+            best_match, score, _  = process.extractOne(shorten_user_input, stops_df['normalized_stop_name'])
+        return potential_station_list # list of normalized stop name
+
+    @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
+            Modifier: Andre Nguyen
             Find the best matching station name from the stops DataFrame.
         """
+        stops_df = stops_df.astype(str)
         user_input = user_input.lower().strip()
         stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
+        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+        # exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
+        potential_station_list = []
+        remove_list = {
+            "station": "",
+            "railway": "",
+            "(": "",
+            ")": ""
+        }
+        normalised_user_input = user_input
+        for old, new in remove_list.items():
+            normalised_user_input = normalised_user_input.replace(old, new)
+        user_input_split = normalised_user_input.split(" ")
+        for index, stop in stops_df.iterrows():
+            stop_name_list = stop['normalized_stop_name'].split(" ")
+            flag = 1
+            for word in stop_name_list:
+                if word not in user_input_split:
+                    flag = 0
+            if flag == 1 and stop["parent_station"] == "nan":
+                potential_station_list.append(stop["stop_name"])
+       
 
-        exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
-        if not exact_match.empty:
-            return exact_match.iloc[0]['stop_name']
+        if len(potential_station_list) >= 2:
+            print(f"before: {potential_station_list}")
+            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+            print(f"after: {potential_station_list}")
+            return potential_station_list
+        else:
+            potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
+            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+        
+        
+        potential_station_list = GTFSUtils.find_parent_station(potential_station_list, stops_df)
+        
+        return potential_station_list
 
-        keyword_matches = stops_df[stops_df['normalized_stop_name'].str.contains(user_input, na=False)].copy()
-
-        if not keyword_matches.empty:
-            keyword_matches['match_score'] = keyword_matches['normalized_stop_name'].apply(
-                lambda name: sum(name.count(word) for word in user_input.split())
-            )
-            keyword_matches = keyword_matches.sort_values(by=['match_score', 'word_count'], ascending=[False, True])
-            return keyword_matches.iloc[0]['stop_name']
-
-        best_match, score, _ = process.extractOne(user_input, stops_df['stop_name'])
-        if score > 80:
-            return best_match
-
-        return None
-
+    
     @staticmethod
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
+            Modifier: Andre Nguyen
             Extract potential station names from a query using NLP and fuzzy matching.
         """
         doc = nlp(query)
-        potential_stations = [ent.text for ent in doc.ents]
-        print(f"Potential Stations (SpaCy): {potential_stations}")
+        potential_stations = GTFSUtils.find_station_name(query, stops_df)
         if not potential_stations:
-            potential_stations = [GTFSUtils.find_station_name(query, stops_df)]
+            potential_stations = [ent.text for ent in doc.ents]
+            print(f"Potential Stations (SpaCy): {potential_stations}")
 
-        extracted_stations = []
-        for station in potential_stations:
-            matched_station = GTFSUtils.find_station_name(station, stops_df)
-            if matched_station:
-                extracted_stations.append(matched_station)
+        # extracted_stations = []
+        # for station in potential_stations:
+        #     matched_station = GTFSUtils.find_station_name(station, stops_df)
+        #     if matched_station:
+        #         extracted_stations.append(matched_station)
 
-        print(f"Extracted stations: {extracted_stations}")
-        return extracted_stations
+        print(f"Extracted stations: {potential_stations}")
+        return potential_stations
 
     @staticmethod
     def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
@@ -718,6 +832,24 @@ class GTFSUtils:
         signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
 
         return f"{full_url}&signature={signature}"
+    @staticmethod
+    def generate_signature(request):
+        """
+        Author: Andre Nguyen
+        Generate API signature by request.
+        The return url should look like this:
+        https://timetableapi.ptv.vic.gov.au/{request}?{devid=...}&{signature=....}
+        """
+        url_path = request
+        query_string = f"devid={user_id}"
+        full_url = f"{base_url}{url_path}?{query_string}"
+
+        parsed_url = urllib.parse.urlparse(full_url)
+        url_to_sign = parsed_url.path + "?" + parsed_url.query
+        signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
+
+        result = f"{full_url}&signature={signature.upper()}"
+        return result
 
     @staticmethod
     def fetch_disruptions(signed_url):
@@ -742,13 +874,13 @@ class GTFSUtils:
     def filter_active_disruptions(disruptions):
         """
         Author: AlexT
+        Modifier: Andre Nguyen
         Filter currently active disruptions.
         """
         current_time = datetime.utcnow()
         active_disruptions = [
             d for d in disruptions
-            if datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time <= datetime.fromisoformat(
-                d["to_date"].replace("Z", ""))
+            if d["from_date"] and datetime.fromisoformat(d["from_date"].replace("Z", "")) <= current_time
         ]
         return active_disruptions
 
@@ -756,18 +888,26 @@ class GTFSUtils:
     def check_route_and_fetch_disruptions(route_name, mode, routes_df):
         """
         Author: AlexT
-        Check the route and fetch disruptions for tram, bus, or train.
+        Modifier: Andre Nguyen
+        Check the route and fetch disruptions for tram, bus, or train of the route.
         """
         # Match the route in the provided routes DataFrame
+        routes_df = routes_df.astype(str)
+        # Normalize the DataFrame for comparison
+        routes_df["route_short_name"] = routes_df["route_short_name"].str.strip().str.lower()
+        routes_df["route_long_name"] = routes_df["route_long_name"].str.strip().str.lower()
+
         matched_routes = routes_df[
             (routes_df["route_short_name"] == route_name) | (routes_df["route_long_name"] == route_name)
-            ]
+        ]
 
         if matched_routes.empty:
             return None, None, f"No routes found for '{route_name}'. Please check your input."
 
         route_id = matched_routes.iloc[0]["route_id"]
-        signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
+        # signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
+        request = "/v3/disruptions"
+        signed_url = GTFSUtils.generate_signature(request)
         disruptions_data = GTFSUtils.fetch_disruptions(signed_url)
 
         print(f"check_route_and_fetch_disruptions MODE: {mode}")
@@ -781,11 +921,41 @@ class GTFSUtils:
             disruptions = disruptions_data.get("disruptions", {}).get("metro_train", [])
         else:
             return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
-
+        # Process disruptions
+        disruption_list = []
+        count = 0
+        for disruption in disruptions:
+            disruption_dict = {
+                'disruption_id': disruption.get('disruption_id'),
+                'title': disruption.get('title', 'No title available'),
+                'description': disruption.get('description', 'No description available'),
+                'status': disruption.get('disruption_status', 'Unknown'),
+                'disruption_type': disruption.get('disruption_type', 'Unknown'),
+                'from_date': disruption.get('from_date'),
+                'to_date': disruption.get('to_date'),
+                'routes': [{
+                    'route_name': route.get('route_name', 'Unknown Route'),
+                    "route_id": route.get('route_id', 'Unknown Route Id'),
+                    "route_number": route.get('route_number', 'Unknown Route Number'),
+                    "route_gtfs_id": route.get('route_gtfs_id', 'Unknown Route GTFS Id'),
+                    'direction': route.get('direction')  # Allow None for null
+                } for route in disruption.get('routes', [])]
+            }
+            # Filter by route_name if provided
+            if route_name:
+                if mode == "train":
+                    if any((route.get('route_name').lower()) == route_name for route in disruption.get('routes', [])):
+                        disruption_list.append(disruption_dict)
+                else:
+                    for route in disruption.get('routes', []):
+                        if route.get("route_number") == route_name: # Should check for route long name, will add later
+                            disruption_list.append(disruption_dict)
+                            break
+            else:
+                disruption_list.append(disruption_dict)
         # Filter active disruptions
-        active_disruptions = GTFSUtils.filter_active_disruptions(disruptions)
+        active_disruptions = GTFSUtils.filter_active_disruptions(disruption_list)
         return active_disruptions, route_id, None
-
 
     @staticmethod
     def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
@@ -797,6 +967,7 @@ class GTFSUtils:
         :return: The extracted route short name if valid, or None if no match is found.
         """
         try:
+            routes_df = routes_df.astype(str)
             # Normalise query for consistent matching
             if not isinstance(query, str):
                 print("Error: Query is not a string.")
@@ -814,12 +985,12 @@ class GTFSUtils:
             route_short_names = routes_df["route_short_name"].tolist()
             route_long_names = routes_df["route_long_name"].tolist()
 
-            print(f"Available route short names: {route_short_names}")
-            print(f"Available route long names: {route_long_names}")
+            # split the query by whitespace
+            query_split = query.split(' ')
 
             # Check if a route short name matches directly in the query
             for short_name in route_short_names:
-                if short_name in query:
+                if short_name in query_split:
                     print(f"Direct match found for route_short_name: {short_name}")
                     return short_name
 
