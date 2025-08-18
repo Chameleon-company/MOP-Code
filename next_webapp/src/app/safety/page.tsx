@@ -25,7 +25,7 @@ export default function SafetyPage() {
         shadowSize: [41, 41],
       });
 
-      // 添加默认标记点
+
       L.marker([-37.8136, 144.9631], { icon: defaultIcon })
         .addTo(map)
         .bindPopup('Melbourne')
