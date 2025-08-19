@@ -195,7 +195,7 @@ class ActionFindNextTram(Action):
 #                 return []
 
 #             # Fetch disruptions for the route
-#             active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, "train", routes_df)
+#             active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(route_name, "train", routes_df)
 #             if error:
 #                 dispatcher.utter_message(text=error)
 #                 return []
@@ -248,7 +248,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(
 #             route_name, "tram", tram_routes
 #         )
 #         if error:
@@ -301,7 +301,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(
 #             route_name, "bus", bus_routes
 #         )
 #         if error:
@@ -365,7 +365,7 @@ class ActionCheckDisruptions(Action):
                 return []
 
             # Fetch disruptions for the route
-            active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, transport_mode, routes_dataframe)
+            active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(route_name, transport_mode, routes_dataframe)
             if error:
                 dispatcher.utter_message(text=error)
                 return []

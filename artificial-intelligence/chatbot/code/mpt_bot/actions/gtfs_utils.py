@@ -7,7 +7,8 @@
 	    - find_common_routes:  Find common routes between two stops (Author: AlexT)
 	    - load_data: - Author: AlexT (Download and load data for Train only)
 		- normalise_gtfs_data: (Author: AlexT)
-		- find_station_name: (Author: AlexT, Modified by: Andre Nguyen)
+		- find_station_name: (Author: AlexT)
+        - find_station_name_from_query: (Author: Andre Nguyen)
         - find_parent_station: (Author: Andre Nguyen)
 		- convert_gtfs_time: (Author: AlexT)
 		- parse_time: (Author: AlexT)
@@ -20,9 +21,9 @@
 		- handle_error: handle error and logging: (Author: AlexT)
 		- generate_signature: signature required for PTV API: (Author: AlexT)
         - generate_signature: generate signature (by request) required for PTV API: (Author: Andre Nguyen)
-        - fetch_disruptions: (Author: AlexT)
+        - fetch_data: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
-        - check_route_and_fetch_disruptions: (Author: AlexT, Modified by Andre Nguyen)
+        - fetch_disruptions: (Author: AlexT, Modified by Andre Nguyen)
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
@@ -326,7 +327,7 @@ class GTFSUtils:
         return potential_station_list # list of normalized stop name
 
     @staticmethod
-    def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
+    def find_station_name_from_query(user_input: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
             Modifier: Andre Nguyen
@@ -370,6 +371,33 @@ class GTFSUtils:
         
         return potential_station_list
 
+    @staticmethod
+    def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
+        """
+            Author: AlexT
+            Find the best matching station name from the stops DataFrame.
+        """
+        user_input = user_input.lower().strip()
+        stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
+
+        exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
+        if not exact_match.empty:
+            return exact_match.iloc[0]['stop_name']
+
+        keyword_matches = stops_df[stops_df['normalized_stop_name'].str.contains(user_input, na=False)].copy()
+
+        if not keyword_matches.empty:
+            keyword_matches['match_score'] = keyword_matches['normalized_stop_name'].apply(
+                lambda name: sum(name.count(word) for word in user_input.split())
+            )
+            keyword_matches = keyword_matches.sort_values(by=['match_score', 'word_count'], ascending=[False, True])
+            return keyword_matches.iloc[0]['stop_name']
+
+        best_match, score, _ = process.extractOne(user_input, stops_df['stop_name'])
+        if score > 80:
+            return best_match
+
+        return None
     
     @staticmethod
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
@@ -379,7 +407,7 @@ class GTFSUtils:
             Extract potential station names from a query using NLP and fuzzy matching.
         """
         doc = nlp(query)
-        potential_stations = GTFSUtils.find_station_name(query, stops_df)
+        potential_stations = GTFSUtils.find_station_name_from_query(query, stops_df)
         if not potential_stations:
             potential_stations = [ent.text for ent in doc.ents]
             print(f"Potential Stations (SpaCy): {potential_stations}")
@@ -427,8 +455,7 @@ class GTFSUtils:
         except KeyError:
             return []
     @staticmethod
-    def check_direct_route(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> (
-    bool, List[str]):
+    def check_direct_route(station_a: str, station_b: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> (bool, List[str]):
         """
             Author: AlexT
             Check if there is a direct train between two stations.
@@ -448,6 +475,10 @@ class GTFSUtils:
         if not valid_trips.empty:
             return True, valid_trips['trip_id'].unique()
         return False, []
+
+    def check_direct_route_real_time(station_a: str, station_b: str):
+
+    
 
     @staticmethod
     def calculate_route_travel_time(route: List[str], stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> Optional[float]:
@@ -844,7 +875,7 @@ class GTFSUtils:
 
         return f"{full_url}&signature={signature}"
     @staticmethod
-    def generate_signature(request):
+    def generate_signature(request: str, params={}):
         """
         Author: Andre Nguyen
         Generate API signature by request.
@@ -853,6 +884,11 @@ class GTFSUtils:
         """
         url_path = request
         query_string = f"devid={user_id}"
+        if params:
+            string_to_concat = ""
+            for param, value in params.item():
+                string_to_concat = str(param) + "=" + str(value).lower() + "&"
+            query_string = string_to_concat + query_string
         full_url = f"{base_url}{url_path}?{query_string}"
 
         parsed_url = urllib.parse.urlparse(full_url)
@@ -862,11 +898,30 @@ class GTFSUtils:
         result = f"{full_url}&signature={signature.upper()}"
         return result
 
+    # @staticmethod
+    # def fetch_disruptions(signed_url):
+    #     """
+    #     Author: AlexT
+    #     Fetch disruptions from the API and ensure all transport modes (tram, bus, train) are handled.
+    #     """
+    #     try:
+    #         response = requests.get(signed_url)
+    #         response.raise_for_status()
+    #         return response.json()
+    #     except requests.exceptions.HTTPError as e:
+    #         print(f"HTTP error while fetching disruptions: {e}")
+    #         # Return an empty structure for all modes to ensure consistency
+    #         return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+    #     except Exception as e:
+    #         print(f"Unexpected error while fetching disruptions: {e}")
+    #         # Handle other exceptions gracefully
+    #         return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+    
     @staticmethod
-    def fetch_disruptions(signed_url):
-        """
-        Author: AlexT
-        Fetch disruptions from the API and ensure all transport modes (tram, bus, train) are handled.
+    def fetch_data(signed_url):
+            """
+        Author: Andre Nguyen
+        Fetch departures from the API and ensure all transport modes (tram, bus, train) are handled.
         """
         try:
             response = requests.get(signed_url)
@@ -874,12 +929,11 @@ class GTFSUtils:
             return response.json()
         except requests.exceptions.HTTPError as e:
             print(f"HTTP error while fetching disruptions: {e}")
-            # Return an empty structure for all modes to ensure consistency
-            return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+            return {}
         except Exception as e:
             print(f"Unexpected error while fetching disruptions: {e}")
-            # Handle other exceptions gracefully
-            return {"disruptions": {"metro_tram": [], "metro_bus": [], "metro_train": []}}
+            return {}
+
 
     @staticmethod
     def filter_active_disruptions(disruptions):
@@ -896,11 +950,11 @@ class GTFSUtils:
         return active_disruptions
 
     @staticmethod
-    def check_route_and_fetch_disruptions(route_name, mode, routes_df):
+    def check_route_name(route_name, routes_df):
         """
         Author: AlexT
         Modifier: Andre Nguyen
-        Check the route and fetch disruptions for tram, bus, or train of the route.
+        Filter currently active disruptions.
         """
         # Match the route in the provided routes DataFrame
         routes_df = routes_df.astype(str)
@@ -914,15 +968,30 @@ class GTFSUtils:
         ]
 
         if matched_routes.empty:
-            return None, None, f"No routes found for '{route_name}'. Please check your input."
+            return None, f"No routes found for '{route_name}'. Please check your input."
 
         route_id = matched_routes.iloc[0]["route_id"]
+        return route_id
+
+    @staticmethod
+    def fetch_disruptions(route_name, mode, routes_df):
+        """
+        Author: AlexT
+        Modifier: Andre Nguyen
+        Check the route and fetch disruptions for tram, bus, or train of the route.
+        """
+        # find route_id based on route_name
+        route_id = check_route_name(route_name, routes_df)
+
         # signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
         request = "/v3/disruptions"
         signed_url = GTFSUtils.generate_signature(request)
-        disruptions_data = GTFSUtils.fetch_disruptions(signed_url)
+        disruptions_data = GTFSUtils.fetch_data(signed_url)
 
-        print(f"check_route_and_fetch_disruptions MODE: {mode}")
+        if not disruptions_data.get("disruptions", {}):
+            return None, route_id, "No data after fetching disruptions!!!"
+
+        print(f"fetch_disruptions MODE: {mode}")
 
         # Fetch disruptions based on the mode
         if mode == "tram":
