@@ -186,26 +186,46 @@ nlu:
     - Check [tram](transport_mode) disruptions for route [Port Melbourne - Box Hill](route_name)
 
 # Ross Start - Intents
-- intent: find_nearest_station
-  examples: |
-    - how to find nearest [train] station?(transport_mode_rp)
-    - where is the nearest [Train] station?(transport_mode_rp)
-    - can you tell me whre the nearest [train]station is?(transport_mode_rp)
+# - intent: find_nearest_station
+#   examples: |
+#     - how to find nearest [train](transport_mode) station?
+#     - where is the nearest [train](transport_mode) station?
+#     - can you tell me whre the nearest [train](transport_mode)station is?
 
-- intent: find_nearest_tram_stop
-  examples: |
-    - how to find nearest [tram] station?(transport_mode_rp)
-    - where is the nearest [Tram] stop?(transport_mode_rp)
-    - can you tell me whre the nearest [tram] stop is?(transport_mode_rp)
+# - intent: find_nearest_tram_stop
+#   examples: |
+#     - how to find nearest [tram] station?
+#     - where is the nearest [Tram] stop?
+#     - can you tell me whre the nearest [tram] stop is?
 
-- intent: find_nearest_bus_stop
-  examples: |
-    - how to find nearest [bus]?(transport_mode_rp)
-    - where is the nearest [Bus] stop?(transport_mode_rp)
-    - can you tell me whre the nearest [bus] stop is?(transport_mode_rpv)
-    - Which [bus] station is closest to my location?(transport_mode_rp)
+# - intent: find_nearest_bus_stop
+#   examples: |
+#     - how to find nearest [bus]?
+#     - where is the nearest [Bus] stop?
+#     - can you tell me whre the nearest [bus] stop is?
+#     - Which [bus] station is closest to my location?
 
-- intent: find_user_address
+- intent: find_nearest_public_transport
+  examples: |
+    - How to find public transport near me?
+    - How can I get to the nearest public transport?
+    - Where are the nearest tram stops?
+    - Can you tell me where the nearest train station?
+    - How to find nearest bus stops?
+    - Help me to find train station nearby!
+    - Find me nearest train station
+
+- intent: inform_public_transport
+  examples: |
+    - I would like to find [Train](transport_mode)
+    - [Train](transport_mode)
+    - I am finding [Bus](transport_mode) near me
+    - [Tram](transport_mode)
+    - [Bus](transport_mode)
+    - [Bus](transport_mode) stops near me
+    - Is there any (train)[transport_mode] around me?
+
+- intent: inform_address
   examples: |
     - My address is [The Esplanade 138, St Kilda](address)
     - It's [464 St Kilda Road, Melbourne](address)
@@ -215,7 +235,7 @@ nlu:
     - I am currently at [62 Glengarry Avenue, Burwood](address)
     - Am at [38 Little Bourke Place, Melbourne](address)
     - [11 Natasha Close, St Helana](address)
-    - I am at [426 Blackheath Mews, Waurn Ponds]
+    - I am at [426 Blackheath Mews, Waurn Ponds](address)
 
 - intent: map_transport_in_area
   examples: |
@@ -433,7 +453,7 @@ nlu:
 
 
 #awanish NLU Start --------------------------------------
-- intent: ask_traffic_location
+- intent: ask_traffic_between_two_locations
   examples: |
     - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
     - what is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
