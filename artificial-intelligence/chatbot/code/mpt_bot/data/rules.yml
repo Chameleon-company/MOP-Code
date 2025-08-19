@@ -87,14 +87,36 @@ rules:
   #     - action: action_check_disruptions_train
 
   # Alex Finish  -------------------------------------------------------------------------------------------
+  # Andre Start -------------------------------------------------------------------------------------------
   - rule: Check disruptions
     steps:
     - intent: check_disruptions
     - slot_was_set:
-        - transport_mode
-        - route_name
+      - transport_mode
+      - route_name
     - action: action_check_disruptions
+    - action: action_reset_all_slots
 
+  - rule: Activate nearest transport form
+    steps:
+    - intent: find_nearest_public_transport
+    - action: nearest_transport_form
+    - active_loop: nearest_transport_form
+
+  - rule: Submit nearest transport form
+    condition:
+    - active_loop: nearest_transport_form
+    steps:
+    # Form is deactivated
+    - action: nearest_transport_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_nearest_tranport_slot
+    - action: action_submit_nearest_transport
+    - action: action_reset_all_slots
+    
+  # Andre Finish -------------------------------------------------------------------------------------------
   - rule: Respond to asking about a specific feature
     steps:
     - intent: ask_about_feature
@@ -165,11 +187,12 @@ rules:
 #Awanish rule---start
   - rule: find traffic data between locations
     steps:
-    - intent: ask_traffic_location
+    - intent: ask_traffic_between_two_locations
     - slot_was_set:
           - station_a
           - station_b
     - action: action_fetch_traffic_location
+    - action: action_reset_all_slots
 
   - rule: User asks about traffic
     steps:
