@@ -154,30 +154,38 @@ stories:
       - intent: request_bus_map
       - action: action_generate_bus_map
 
-  - story: User asks for tram disruptions
-    steps:
-      - intent: check_disruptions_tram
-        entities:
-          - transport_mode: tram
-          - route_name: "{route_name}"
-      - action: action_check_disruptions_tram
+  # - story: User asks for tram disruptions
+  #   steps:
+  #     - intent: check_disruptions_tram
+  #       entities:
+  #         - transport_mode: tram
+  #         - route_number
+  #     - action: action_check_disruptions_tram
 
-  - story: User asks for bus disruptions
-    steps:
-      - intent: check_disruptions_bus
-        entities:
-          - transport_mode: bus
-          - route_name: "{route_name}"
-      - action: action_check_disruptions_bus
+  # - story: User asks for bus disruptions
+  #   steps:
+  #     - intent: check_disruptions_bus
+  #       entities:
+  #         - transport_mode: bus
+  #         - route_number
+  #     - action: action_check_disruptions_bus
 
-  - story: User asks for train disruptions
-    steps:
-      - intent: check_disruptions_train
-        entities:
-          - transport_mode: train
-          - route_name: "{route_name}"
-      - action: action_check_disruptions_train
+  # - story: User asks for train disruptions
+  #   steps:
+  #     - intent: check_disruptions_train
+  #       entities:
+  #         - transport_mode: train
+  #         - route_name
+  #     - action: action_check_disruptions_train
 # Alex Finish  -------------------------------------------------------------------------------------------
+
+  - story: User asks for disruptions
+    steps:
+      - intent: check_disruptions
+        entities:
+          - transport_mode
+          - route_name
+      - action: action_check_disruptions
 
 #Ross Start - Stories
   - story: Find Nearest Station

@@ -70,22 +70,35 @@ rules:
           - transport_mode: bus
       - action: action_find_next_bus
 
-  - rule: Check tram disruptions
-    steps:
-      - intent: check_disruptions_tram
-      - action: action_check_disruptions_tram
+  # - rule: Check tram disruptions
+  #   steps:
+  #     - intent: check_disruptions_tram
+  #     - slot_was_set:
+  #         - route_number
+  #     - action: action_check_disruptions_tram
 
-  - rule: Check bus disruptions
-    steps:
-      - intent: check_disruptions_bus
-      - action: action_check_disruptions_bus
+  # - rule: Check bus disruptions
+  #   steps:
+  #     - intent: check_disruptions_bus
+  #     - slot_was_set:
+  #         - route_number
+  #     - action: action_check_disruptions_bus
 
-  - rule: Check train disruptions
-    steps:
-      - intent: check_disruptions_train
-      - action: action_check_disruptions_train
+  # - rule: Check train disruptions
+  #   steps:
+  #     - intent: check_disruptions_train
+  #     - slot_was_set:
+  #         - route_name
+  #     - action: action_check_disruptions_train
 
   # Alex Finish  -------------------------------------------------------------------------------------------
+  - rule: Check disruptions
+    steps:
+    - intent: check_disruptions
+    - slot_was_set:
+        - transport_mode
+        - route_name
+    - action: action_check_disruptions
 
   - rule: Respond to asking about a specific feature
     steps:
@@ -138,10 +151,10 @@ rules:
   #   - action: action_run_direction_script
 
   #Logan new
-  - rule: Direct directions request
-    steps:
-    - intent: get_directions
-    - action: action_run_direction_script
+  # - rule: Direct directions request
+  #   steps:
+  #   - intent: get_directions
+  #   - action: action_run_direction_script
   #Jubal rules (start) ----------------------------------------------------------
   - rule: Find tram route with transfers
     steps:
@@ -158,6 +171,9 @@ rules:
   - rule: find traffic data between locations
     steps:
     - intent: ask_traffic_location
+    - slot_was_set:
+          - station_a
+          - station_b
     - action: action_fetch_traffic_location
 
   - rule: User asks about traffic

@@ -2,8 +2,6 @@ import spacy
 import folium
 from folium.plugins import MarkerCluster
 import os
-import re
-import shutil
 from io import BytesIO
 import zipfile
 import requests
@@ -30,8 +28,6 @@ from tabulate import tabulate
 from rasa_sdk.events import SlotSet
 # This is to skip the favicon
 app = Sanic("custom_action_server")
-import os  # if not already imported above
-app.static('/maps', os.path.join(os.getcwd(), 'maps'))
 @app.route("/favicon.ico")
 async def favicon(request):
     return text("")  # Ignore the favicon request
@@ -173,15 +169,167 @@ class ActionFindNextTram(Action):
 
         return []
 
-class ActionCheckDisruptionsTrain(Action):
+# class ActionCheckDisruptionsTrain(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         ID: REQ_06
+#         Name: Real-time train updates
+#         Author: AlexT
+#         -------------------------------------------------------------------------------------------------------
+#     '''
+#     def name(self) -> Text:
+#         return "action_check_disruptions_train"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         try:
+#             # Extract route name from user query
+#             query = tracker.latest_message.get('text')
+#             station_name = tracker.get_slot('route_name')
+#             #route_name = GTFSUtils.extract_route_name(query, routes_df)
+#             route_name = GTFSUtils.extract_route_name(station_name, routes_df)
+
+#             if not route_name:
+#                 dispatcher.utter_message(text="I couldn't determine the train route. Please provide a valid route name (e.g., 'Frankston').")
+#                 return []
+
+#             # Fetch disruptions for the route
+#             active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, "train", routes_df)
+#             if error:
+#                 dispatcher.utter_message(text=error)
+#                 return []
+
+#             # Generate response based on disruptions
+#             if active_disruptions:
+#                 table = [
+#                     [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+#                     for d in active_disruptions
+#                 ]
+#                 response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+#                 dispatcher.utter_message(text=f"Active disruptions for the train {route_name} route:\n{response}")
+#             else:
+#                 dispatcher.utter_message(text=f"There are no active train disruptions for the {route_name} route.")
+
+#         except Exception as e:
+#             dispatcher.utter_message(text="An error occurred while checking disruptions. Please try again.")
+#             logger.error(f"Failed to check disruptions: {str(e)}")
+
+#         return []
+
+# class ActionCheckDisruptionsTram(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         ID: TRAM_07
+#         Name: Real-time Tram updates
+#         Author: AlexT
+#         -------------------------------------------------------------------------------------------------------
+#     '''
+#     def name(self) -> Text:
+#         return "action_check_disruptions_tram"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+#         query = tracker.latest_message.get("text").lower()  # Get the user's query
+#         print(f"Received query for tram: {query}")  # Debugging
+
+#         tram_number = tracker.get_slot("route_number")
+
+#         # Debug the dataset
+#         print("Loading tram routes dataset...")
+
+#         #route_name = GTFSUtils.extract_route_name(query, tram_routes)
+#         route_name = GTFSUtils.extract_route_name(tram_number, tram_routes)
+#         if not route_name:
+#             dispatcher.utter_message(
+#                 text="I couldn't determine the tram route. Please provide a valid route name (e.g., '109')."
+#             )
+#             return []
+
+#         # Fetch disruptions
+#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#             route_name, "tram", tram_routes
+#         )
+#         if error:
+#             dispatcher.utter_message(text=error)
+#             return []
+
+#         # Respond with disruptions
+#         if active_disruptions:
+#             table = [
+#                 [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+#                 for d in active_disruptions
+#             ]
+#             response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+#             dispatcher.utter_message(text=f"Active tram disruptions for Route {route_id}:\n{response}")
+#         else:
+#             dispatcher.utter_message(
+#                 text=f"There are no active tram disruptions for Route {route_name} ({route_id})."
+#             )
+#         return []
+
+
+# class ActionCheckDisruptionsBus(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         ID: BUS_07
+#         Name: Real-time BUS updates
+#         Author: AlexT
+#         -------------------------------------------------------------------------------------------------------
+#     '''
+#     def name(self) -> Text:
+#         return "action_check_disruptions_bus"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         query = tracker.latest_message.get("text").lower()  # Get the user's query
+#         print(f"Received query for bus: {query}")  # Debugging
+
+#         bus_number = tracker.get_slot("route_number")
+
+#         # Debug the dataset
+#         print("Loading bus routes dataset...")
+
+
+#         # route_name = GTFSUtils.extract_route_name(query, bus_routes)
+#         route_name = GTFSUtils.extract_route_name(bus_number, bus_routes)
+#         if not route_name:
+#             dispatcher.utter_message(
+#                 text="I couldn't determine the bus route. Please provide a valid route name (e.g., '903')."
+#             )
+#             return []
+
+#         # Fetch disruptions
+#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#             route_name, "bus", bus_routes
+#         )
+#         if error:
+#             dispatcher.utter_message(text=error)
+#             return []
+
+#         # Respond with disruptions
+#         if active_disruptions:
+#             table = [
+#                 [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
+#                 for d in active_disruptions
+#             ]
+#             response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
+#             dispatcher.utter_message(text=f"Active bus disruptions for Route {route_id}:\n{response}")
+#         else:
+#             dispatcher.utter_message(
+#                 text=f"There are no active bus disruptions for Route {route_name} ({route_id})."
+#             )
+#         return []
+
+class ActionCheckDisruptions(Action):
     ''' -------------------------------------------------------------------------------------------------------
-        ID: REQ_06
-        Name: Real-time train updates
-        Author: AlexT
+        
+        Name: Real-time disruption updates
+        Author: Andre
         -------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
-        return "action_check_disruptions_train"
+        return "action_check_disruptions"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -189,14 +337,23 @@ class ActionCheckDisruptionsTrain(Action):
         try:
             # Extract route name from user query
             query = tracker.latest_message.get('text')
-            route_name = GTFSUtils.extract_route_name(query, routes_df)
+            route_name = tracker.get_slot('route_name')
+            transport_mode = tracker.get_slot('transport_mode')
+            #route_name = GTFSUtils.extract_route_name(query, routes_df)
+            routes_dataframe = routes_df
+            if transport_mode.lower() == "bus":
+                routes_dataframe = bus_routes
+            elif transport_mode.lower() == "tram":
+                routes_dataframe = tram_routes
+
+            route_name = GTFSUtils.extract_route_name(route_name, routes_dataframe)
 
             if not route_name:
                 dispatcher.utter_message(text="I couldn't determine the train route. Please provide a valid route name (e.g., 'Frankston').")
                 return []
 
             # Fetch disruptions for the route
-            active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, "train", routes_df)
+            active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, transport_mode, routes_dataframe)
             if error:
                 dispatcher.utter_message(text=error)
                 return []
@@ -210,113 +367,12 @@ class ActionCheckDisruptionsTrain(Action):
                 response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
                 dispatcher.utter_message(text=f"Active disruptions for the train {route_name} route:\n{response}")
             else:
-                dispatcher.utter_message(text=f"There are no active train disruptions for the {route_name} route.")
+                dispatcher.utter_message(text=f"There are no active {transport_mode} disruptions for the {route_name} route.")
 
         except Exception as e:
             dispatcher.utter_message(text="An error occurred while checking disruptions. Please try again.")
             logger.error(f"Failed to check disruptions: {str(e)}")
 
-        return []
-
-class ActionCheckDisruptionsTram(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-        ID: TRAM_07
-        Name: Real-time Tram updates
-        Author: AlexT
-        -------------------------------------------------------------------------------------------------------
-    '''
-    def name(self) -> Text:
-        return "action_check_disruptions_tram"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        query = tracker.latest_message.get("text").lower()  # Get the user's query
-        print(f"Received query for tram: {query}")  # Debugging
-
-        # Debug the dataset
-        print("Loading tram routes dataset...")
-        print(f"Available tram routes (short names): {tram_routes['route_short_name'].tolist()}")
-        print(f"Available tram routes (long names): {tram_routes['route_long_name'].tolist()}")
-
-        route_name = GTFSUtils.extract_route_name(query, tram_routes)
-        if not route_name:
-            dispatcher.utter_message(
-                text="I couldn't determine the tram route. Please provide a valid route name (e.g., '109')."
-            )
-            return []
-
-        # Fetch disruptions
-        active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
-            route_name, "tram", tram_routes
-        )
-        if error:
-            dispatcher.utter_message(text=error)
-            return []
-
-        # Respond with disruptions
-        if active_disruptions:
-            table = [
-                [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
-                for d in active_disruptions
-            ]
-            response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
-            dispatcher.utter_message(text=f"Active tram disruptions for Route {route_id}:\n{response}")
-        else:
-            dispatcher.utter_message(
-                text=f"There are no active tram disruptions for Route {route_name} ({route_id})."
-            )
-        return []
-
-
-class ActionCheckDisruptionsBus(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-        ID: BUS_07
-        Name: Real-time BUS updates
-        Author: AlexT
-        -------------------------------------------------------------------------------------------------------
-    '''
-    def name(self) -> Text:
-        return "action_check_disruptions_bus"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        query = tracker.latest_message.get("text").lower()  # Get the user's query
-        print(f"Received query for bus: {query}")  # Debugging
-
-        # Debug the dataset
-        print("Loading bus routes dataset...")
-        print(f"Available bus routes (short names): {bus_routes['route_short_name'].tolist()}")
-        print(f"Available bus routes (long names): {bus_routes['route_long_name'].tolist()}")
-
-        route_name = GTFSUtils.extract_route_name(query, bus_routes)
-        if not route_name:
-            dispatcher.utter_message(
-                text="I couldn't determine the bus route. Please provide a valid route name (e.g., '903')."
-            )
-            return []
-
-        # Fetch disruptions
-        active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
-            route_name, "bus", bus_routes
-        )
-        if error:
-            dispatcher.utter_message(text=error)
-            return []
-
-        # Respond with disruptions
-        if active_disruptions:
-            table = [
-                [d["disruption_id"], d["title"], d["disruption_type"], d["from_date"], d["to_date"]]
-                for d in active_disruptions
-            ]
-            response = tabulate(table, headers=["ID", "Title", "Type", "Start", "End"], tablefmt="pretty")
-            dispatcher.utter_message(text=f"Active bus disruptions for Route {route_id}:\n{response}")
-        else:
-            dispatcher.utter_message(
-                text=f"There are no active bus disruptions for Route {route_name} ({route_id})."
-            )
         return []
 
 class ActionGenerateTrainMap(Action):
@@ -471,6 +527,7 @@ class ActionFindNextTrain(Action):
     	ID: REQ_02 implementation
     	Name: Schedule Information
     	Author: AlexT
+        Modifier: Andre Nguyen
     	-------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
@@ -503,6 +560,10 @@ class ActionFindNextTrain(Action):
 
             stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
             stop_b_id = GTFSUtils.get_station_id(station_b, stops_df) if station_b else None
+
+            # Andre Nguyen's code
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df)
 
             current_time = datetime.now().strftime('%H:%M:%S')
 
@@ -565,17 +626,17 @@ class ActionFindBestRoute(Action):
     def name(self) -> Text:
         return "action_find_best_route"
 
-    def run(self,
-            dispatcher: CollectingDispatcher,
+    def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
-            # --- extract stations from user query ---
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
-            transport_mode = "train"  # default (kept for logging)
-            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
 
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
@@ -591,88 +652,67 @@ class ActionFindBestRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            # --- map stations to stop_ids ---
             stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
             stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
 
-            # --- pull stop times for both stops ---
-            stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
-            stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+            # stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+            # stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
 
-            # --- match trips and keep those where A comes before B ---
-            merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
-            valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+            # merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
 
-            if valid_trips.empty:
+            # valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+
+            # if valid_trips.empty:
+            #     dispatcher.utter_message(text="No direct route found between the two stations.")
+            #     return []
+
+            # Andre Nguyen's code
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
+            valid_trips_list = []
+            for stop_a_id in list_of_child_station_a:
+                stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+                # re-create the stop_id column of stop_a
+                list_stop_a_id = [stop_a_id] * len(stop_a_times['stop_sequence'])
+                stop_a_times['stop_id'] = list_stop_a_id
+                for stop_b_id in list_of_child_station_b:
+                    stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+                    # re-create the stop_id column of stop_b
+                    list_stop_b_id = [stop_b_id] * len(stop_b_times['stop_sequence'])
+                    stop_b_times['stop_id'] = list_stop_b_id
+                    merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+                    valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+                    if len(valid_trips) > 0:
+                        valid_trips_list.append(valid_trips)
+
+            if len(valid_trips_list) == 0:
                 dispatcher.utter_message(text="No direct route found between the two stations.")
                 return []
-
-            # --- compute travel times and pick the fastest trip ---
+            
+            valid_trips = valid_trips_list[0]
+            # End of Andre N's code
             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
             valid_trips['travel_time'] = (valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
-
             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
 
+            stop_a_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_a'], 'stop_name'].values[0]
+            stop_b_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_b'], 'stop_name'].values[0]
             route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
             destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
 
-            response = (
-                f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}.\n"
-                f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            response = f"The best route from {stop_a_name} to {stop_b_name} is on the {route_name} towards {destination}.\n"
+            response += f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
+
+            # Create the route map given the trip id, including the transfers_df to highlight transfer stations
+            hyperlink = GTFSUtils.generate_route_map(
+                best_trip['trip_id'], stop_a_name, stop_b_name, stops_df, stop_times_df, dataset_path
             )
-
-            # --- generate the map and build a WORKING link ---
-            hyperlink_or_path = GTFSUtils.generate_route_map(
-                best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path
-            )
-
-            # Always try to serve from ./maps via Sanic: http://localhost:8000/maps/<file>.html
-            maps_dir = os.path.join(os.getcwd(), "maps")
-            os.makedirs(maps_dir, exist_ok=True)
-
-            final_link = None
-            if hyperlink_or_path:
-                s = str(hyperlink_or_path).strip()
-
-                # Case 1: <a href="...">...</a> -> extract href
-                m = re.search(r'href=[\'"]([^\'"]+)[\'"]', s, flags=re.IGNORECASE)
-                if m:
-                    href = m.group(1)
-                    if href.lower().endswith(".html") and os.path.exists(href):
-                        # local file path; copy to ./maps
-                        filename = os.path.basename(href)
-                        dest = os.path.join(maps_dir, filename)
-                        if os.path.abspath(href) != os.path.abspath(dest):
-                            shutil.copyfile(href, dest)
-                        final_link = f"http://localhost:8000/maps/{filename}"
-                    else:
-                        # maybe an http url; reuse filename and point to our /maps
-                        filename = os.path.basename(href)
-                        if filename.lower().endswith(".html"):
-                            final_link = f"http://localhost:8000/maps/{filename}"
-
-                # Case 2: looks like a filesystem path to .html
-                elif s.lower().endswith(".html"):
-                    abs_path = s if os.path.isabs(s) else os.path.abspath(s)
-                    if os.path.exists(abs_path):
-                        filename = os.path.basename(abs_path)
-                        dest = os.path.join(maps_dir, filename)
-                        if os.path.abspath(abs_path) != os.path.abspath(dest):
-                            shutil.copyfile(abs_path, dest)
-                        final_link = f"http://localhost:8000/maps/{filename}"
-
-            # append link to response
-            if final_link:
-                response += f"\n<a href='{final_link}' target='_blank'>Click here to view the map</a>"
-            elif hyperlink_or_path:
-                # fallback to whatever string was returned originally
-                response += f"\n{hyperlink_or_path}"
+            if hyperlink:
+                response += f"\n{hyperlink}"
 
             dispatcher.utter_message(text=response)
-            return []
-
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise
@@ -1323,7 +1363,7 @@ class ActionFetchTraffic(Action):
         #source_coords = getAddressLatLong( address = source)
         #destination_coords = getAddressLatLong( address = destination )
 
-        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        api_key = "cBr8gVX64Y3q18xGfTKnxHvsGl7AcnMw"
         
         traffic_details_location = get_traffic_details(api_key, source_coords)
         traffic_status_start = get_traffic_status(
@@ -1346,13 +1386,15 @@ class ActionFetchTrafficLocation(Action):
     def run(self, dispatcher, tracker, domain):
         source = tracker.get_slot("station_a")
         destination = tracker.get_slot("station_b")
+        print(f"from: {source}")
+        print(f"to: {destination}")
         
         source_coords = geocode_address(source)
         destination_coords = geocode_address(destination)
         #source_coords = getAddressLatLong( address = source)
         #destination_coords = getAddressLatLong( address = destination )
         
-        api_key = "1ktSQErBv5y6ykTlW0LmDKQ6cPH5yF8V"
+        api_key = "cBr8gVX64Y3q18xGfTKnxHvsGl7AcnMw"
         route_data = fetch_route(source_coords, destination_coords, api_key)
        
         if "error" in route_data:
@@ -1388,14 +1430,16 @@ def fetch_route(source_coords, destination_coords, api_key):
     base_url = "https://api.tomtom.com/routing/1/calculateRoute"
     source = f"{source_coords[0]},{source_coords[1]}"
     destination = f"{destination_coords[0]},{destination_coords[1]}"
-    url = f"{base_url}/{source}:{destination}/json"
     params = {
-        "key": api_key,
-        "traffic": "true",
         "routeType": "fastest",
+        "traffic": "true",
+        "travelMode": "bus", # or car
+        "key": api_key
     }
+    url = f"{base_url}/{source}:{destination}/json"
+    
     try:
-        response = requests.get(url, params=params)
+        response = requests.get(url, params = params)
         if response.status_code == 200:
             return response.json()
         else:
@@ -1407,11 +1451,13 @@ def get_traffic_details(api_key, location):
     url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
     latitude, longitude = location
     params = {
-        "key": api_key,
-        "point": f"{latitude},{longitude}"
+        "point": f"{latitude},{longitude}",
+        "unit": "KMPH",
+        "openLr": "false",
+        "key": api_key
     }
     try:
-        response = requests.get(url, params=params)
+        response = requests.get(url, params = params)
         response.raise_for_status()
         data = response.json()
         traffic_info = {
@@ -1434,7 +1480,7 @@ def get_traffic_status(current_speed, free_flow_speed):
 
 #Function to geocode an address using Nominatim
 def geocode_address(address):
-    geolocator = Nominatim(user_agent="mapping_app1.0")
+    geolocator = Nominatim(user_agent="andre_nguyen")
     
     #Define the bounding box for Melbourne
     melbourne_bbox = [(-38.433859,144.593741), (-37.511274,145.512529)]
