@@ -19,11 +19,11 @@ def main():
     print("EDA dataset shape:", df.shape)
     print(df.head(5))
 
-    # --- Summary statistics ---
+    # Summary statistics 
     print("\n--- Summary statistics ---")
     print(df.describe(include="all"))
 
-    # --- Population trend by year ---
+    # Population trend by year 
     if "year" in df.columns and "value" in df.columns:
         yearly = df.groupby("year")["value"].sum().reset_index()
         print("\n--- Total population by year ---")
@@ -40,7 +40,7 @@ def main():
         plt.close()
         print("Saved yearly trend plot ->", out_path)
 
-    # --- Population distribution by age (latest year) ---
+    # Population distribution by age (latest year)
     if {"year", "age", "value"}.issubset(df.columns):
         latest_year = df["year"].max()
         subset = df[df["year"] == latest_year].groupby("age")["value"].sum().reset_index()

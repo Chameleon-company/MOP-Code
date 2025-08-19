@@ -1,14 +1,14 @@
 # make_report.py
 # Bundles your outputs (CSV summaries + PNG charts) into a single HTML report.
 # Input files expected next to this script:
-#   - population_forecasts_clean.csv
-#   - yoy_growth_by_year.csv
-#   - top_geographies_total.csv
-#   - projection_totals_next5.csv
-#   - population_trend.png (from eda.py)
-#   - projection_totals_next5.png (from analysis.py)
+#    population_forecasts_clean.csv
+#    yoy_growth_by_year.csv
+#    top_geographies_total.csv
+#    projection_totals_next5.csv
+#   population_trend.png (from eda.py)
+#    projection_totals_next5.png (from analysis.py)
 # Output:
-#   - report_population_forecasts.html
+#  report_population_forecasts.html
 
 import os
 import base64

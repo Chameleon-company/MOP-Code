@@ -16,7 +16,7 @@ def main():
 
     df = pd.read_csv(IN_CSV)
 
-    # --- Normalise column names ---
+    # Normalise column names 
     df.columns = (
         df.columns
         .str.strip()
@@ -26,22 +26,22 @@ def main():
     )
     # Expected from your run: geography | year | gender | age | value
 
-    # --- Basic tidy ---
+    # Basic tidy 
     df = df.dropna(how="all").copy()            # drop fully empty rows
     df = df.drop_duplicates().copy()            # remove exact dupes
 
-    # --- Coerce types ---
+    # Coerce types 
     if "year" in df.columns:
         df["year"] = pd.to_numeric(df["year"], errors="coerce").astype("Int64")
     if "value" in df.columns:
         df["value"] = pd.to_numeric(df["value"], errors="coerce")
 
-    # --- Clean strings ---
+    # Clean strings 
     for col in ["geography", "gender", "age"]:
         if col in df.columns:
             df[col] = df[col].astype(str).str.strip()
 
-    # --- Drop rows with missing criticals (optional but sensible) ---
+    # Drop rows with missing criticals (optional but sensible) 
     keep_cols = [c for c in ["geography", "year", "value"] if c in df.columns]
     if keep_cols:
         before = len(df)

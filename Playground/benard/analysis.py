@@ -1,9 +1,8 @@
 # analysis.py
 # Deeper insights on the City of Melbourne population forecasts:
-# - Year-over-year (YoY) growth
-# - Top geographies by total population (value)
-# - Simple 5-year projection using a linear trend (no extra deps)
-#
+#  Year-over-year (YoY) growth
+# Top geographies by total population (value)
+#  Simple 5-year projection using a linear trend 
 # Saves summary CSVs and a projection plot.
 
 import os
@@ -14,7 +13,7 @@ import matplotlib.pyplot as plt
 HERE = os.path.dirname(os.path.abspath(__file__))
 IN_CSV = os.path.join(HERE, "population_forecasts_clean.csv")
 
-OUT_DIR = HERE  # keep outputs next to scripts for now
+OUT_DIR = HERE  
 YOY_CSV = os.path.join(OUT_DIR, "yoy_growth_by_year.csv")
 TOP_GEO_CSV = os.path.join(OUT_DIR, "top_geographies_total.csv")
 PROJ_CSV = os.path.join(OUT_DIR, "projection_totals_next5.csv")
@@ -43,7 +42,7 @@ def main():
     # Drop rows that can't be used
     df = df.dropna(subset=["year", "value"]).copy()
 
-    # ---------- 1) Year-over-year growth (total) ----------
+    # Year-over-year growth (total) 
     yearly = df.groupby("year")["value"].sum().sort_index()
     yoy = yearly.diff().dropna()  # change from previous year
     yoy_df = yoy.reset_index(name="yoy_growth")
@@ -51,7 +50,7 @@ def main():
     print(f"Saved YoY growth -> {YOY_CSV}")
     print(yoy_df.tail(10))
 
-    # ---------- 2) Top geographies by total population ----------
+    #Top geographies by total population 
     if "geography" in df.columns:
         top_geo = (
             df.groupby("geography")["value"]
@@ -65,7 +64,7 @@ def main():
     else:
         print("Column 'geography' not found; skipping top geographies.")
 
-    # ---------- 3) Simple 5-year projection (linear trend on totals) ----------
+    # Simple 5-year projection (linear trend on totals) 
     # Use numpy.polyfit to fit a line: total_value = a*year + b
     years = yearly.index.values.astype(float)
     totals = yearly.values.astype(float)

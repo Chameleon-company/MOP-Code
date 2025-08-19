@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ce2f04bb99717fff63ffa75acf868d30 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ce2f04bb99717fff63ffa75acf868d30" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ce2f04bb99717fff63ffa75acf868d30 = L.map(
+                "map_ce2f04bb99717fff63ffa75acf868d30",
+                {
+                    center: [-37.8136, 144.9631],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+
+            
+
+        
+    
+            var tile_layer_d94e319b992d9effcf284eb82befcb3d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_d94e319b992d9effcf284eb82befcb3d.addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+            var circle_marker_4680b830dda9a91d57c952e8ab4c7c19 = L.circleMarker(
+                [-37.824, 144.964],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 13.361955775151483, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_be789dbeb9dde654234d45610297e9e6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9d2df731e6be2a8f894e285a7792f057 = $(`<div id="html_9d2df731e6be2a8f894e285a7792f057" style="width: 100.0%; height: 100.0%;"><b>Southbank</b><br/>Year: 2043<br/>Forecast total: 44,452</div>`)[0];
+                popup_be789dbeb9dde654234d45610297e9e6.setContent(html_9d2df731e6be2a8f894e285a7792f057);
+            
+        
+
+        circle_marker_4680b830dda9a91d57c952e8ab4c7c19.bindPopup(popup_be789dbeb9dde654234d45610297e9e6)
+        ;
+
+        
+    
+    
+            circle_marker_4680b830dda9a91d57c952e8ab4c7c19.bindTooltip(
+                `<div>
+                     Southbank: 44,452
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec735828f67e8c4ee3be452025a3cbea = L.circleMarker(
+                [-37.8, 144.943],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 12.407004553139615, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_e395b1e0df0672cf2c78c4272b788157 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e3e03c3cb19b9eef040d06fde75577d = $(`<div id="html_9e3e03c3cb19b9eef040d06fde75577d" style="width: 100.0%; height: 100.0%;"><b>North Melbourne</b><br/>Year: 2043<br/>Forecast total: 35,846</div>`)[0];
+                popup_e395b1e0df0672cf2c78c4272b788157.setContent(html_9e3e03c3cb19b9eef040d06fde75577d);
+            
+        
+
+        circle_marker_ec735828f67e8c4ee3be452025a3cbea.bindPopup(popup_e395b1e0df0672cf2c78c4272b788157)
+        ;
+
+        
+    
+    
+            circle_marker_ec735828f67e8c4ee3be452025a3cbea.bindTooltip(
+                `<div>
+                     North Melbourne: 35,846
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1f3b70595019e742049873f1d8f5b91b = L.circleMarker(
+                [-37.8166, 144.942],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 11.801194543534091, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_3a9bff400e8fa85dee56ebb718a4e8b7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0558e504ff990c10a7f499fb94d05fe1 = $(`<div id="html_0558e504ff990c10a7f499fb94d05fe1" style="width: 100.0%; height: 100.0%;"><b>Docklands</b><br/>Year: 2043<br/>Forecast total: 30,866</div>`)[0];
+                popup_3a9bff400e8fa85dee56ebb718a4e8b7.setContent(html_0558e504ff990c10a7f499fb94d05fe1);
+            
+        
+
+        circle_marker_1f3b70595019e742049873f1d8f5b91b.bindPopup(popup_3a9bff400e8fa85dee56ebb718a4e8b7)
+        ;
+
+        
+    
+    
+            circle_marker_1f3b70595019e742049873f1d8f5b91b.bindTooltip(
+                `<div>
+                     Docklands: 30,866
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_838f56195f995e6262b770f3c52e0d8e = L.circleMarker(
+                [-37.8, 144.966],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 11.474242997126009, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_22ef1fd2bb92ff40d9d55ea33fb3f5cf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1fec0a6354df1f77eb536cf03bc52705 = $(`<div id="html_1fec0a6354df1f77eb536cf03bc52705" style="width: 100.0%; height: 100.0%;"><b>Carlton</b><br/>Year: 2043<br/>Forecast total: 28,333</div>`)[0];
+                popup_22ef1fd2bb92ff40d9d55ea33fb3f5cf.setContent(html_1fec0a6354df1f77eb536cf03bc52705);
+            
+        
+
+        circle_marker_838f56195f995e6262b770f3c52e0d8e.bindPopup(popup_22ef1fd2bb92ff40d9d55ea33fb3f5cf)
+        ;
+
+        
+    
+    
+            circle_marker_838f56195f995e6262b770f3c52e0d8e.bindTooltip(
+                `<div>
+                     Carlton: 28,333
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0ec51b78e691816c7b6112fbb44ef157 = L.circleMarker(
+                [-37.794, 144.927],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 10.29236056289272, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_25e27b6e539b49eaba6ed78ac9093daa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3c0f0296d167f50b477fa6ca4187b1c = $(`<div id="html_d3c0f0296d167f50b477fa6ca4187b1c" style="width: 100.0%; height: 100.0%;"><b>Kensington</b><br/>Year: 2043<br/>Forecast total: 20,081</div>`)[0];
+                popup_25e27b6e539b49eaba6ed78ac9093daa.setContent(html_d3c0f0296d167f50b477fa6ca4187b1c);
+            
+        
+
+        circle_marker_0ec51b78e691816c7b6112fbb44ef157.bindPopup(popup_25e27b6e539b49eaba6ed78ac9093daa)
+        ;
+
+        
+    
+    
+            circle_marker_0ec51b78e691816c7b6112fbb44ef157.bindTooltip(
+                `<div>
+                     Kensington: 20,081
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_23c48e538e1bf0ca2c32a9696ffe0b11 = L.circleMarker(
+                [-37.786, 144.956],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 8.905171971799327, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_fcc89703d166cf7711938180e03a52cf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a096212849064e2643c6c5b2ebb30731 = $(`<div id="html_a096212849064e2643c6c5b2ebb30731" style="width: 100.0%; height: 100.0%;"><b>Parkville</b><br/>Year: 2043<br/>Forecast total: 12,203</div>`)[0];
+                popup_fcc89703d166cf7711938180e03a52cf.setContent(html_a096212849064e2643c6c5b2ebb30731);
+            
+        
+
+        circle_marker_23c48e538e1bf0ca2c32a9696ffe0b11.bindPopup(popup_fcc89703d166cf7711938180e03a52cf)
+        ;
+
+        
+    
+    
+            circle_marker_23c48e538e1bf0ca2c32a9696ffe0b11.bindTooltip(
+                `<div>
+                     Parkville: 12,203
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_88f99e9e3fa08170e07cb06feb5195f5 = L.circleMarker(
+                [-37.813, 144.983],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 7.8413848728068, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_04b8debc72002e61e739f9c9e8e99a97 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_12e58356167ad5ad0999834d98c816d8 = $(`<div id="html_12e58356167ad5ad0999834d98c816d8" style="width: 100.0%; height: 100.0%;"><b>East Melbourne</b><br/>Year: 2043<br/>Forecast total: 7,484</div>`)[0];
+                popup_04b8debc72002e61e739f9c9e8e99a97.setContent(html_12e58356167ad5ad0999834d98c816d8);
+            
+        
+
+        circle_marker_88f99e9e3fa08170e07cb06feb5195f5.bindPopup(popup_04b8debc72002e61e739f9c9e8e99a97)
+        ;
+
+        
+    
+    
+            circle_marker_88f99e9e3fa08170e07cb06feb5195f5.bindTooltip(
+                `<div>
+                     East Melbourne: 7,484
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_87d1a019ead2fb433e164ea5eb0df3d1 = L.circleMarker(
+                [-37.84, 144.993],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 7.372064771732791, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_3ddf152d873d3ba33f1d1ff07f5d9d4d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15095c32373b423fa64721b7c41cbd26 = $(`<div id="html_15095c32373b423fa64721b7c41cbd26" style="width: 100.0%; height: 100.0%;"><b>South Yarra</b><br/>Year: 2043<br/>Forecast total: 5,767</div>`)[0];
+                popup_3ddf152d873d3ba33f1d1ff07f5d9d4d.setContent(html_15095c32373b423fa64721b7c41cbd26);
+            
+        
+
+        circle_marker_87d1a019ead2fb433e164ea5eb0df3d1.bindPopup(popup_3ddf152d873d3ba33f1d1ff07f5d9d4d)
+        ;
+
+        
+    
+    
+            circle_marker_87d1a019ead2fb433e164ea5eb0df3d1.bindTooltip(
+                `<div>
+                     South Yarra: 5,767
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a777ef756b1b4036477ad0a2e9e21b2c = L.circleMarker(
+                [-37.839, 144.942],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.8, "radius": 5.945680591470928, "stroke": true, "weight": 3}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+        var popup_61f543712ef09ef627d2f8ab66923121 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4d19caeef3e827c947e508811e12ff19 = $(`<div id="html_4d19caeef3e827c947e508811e12ff19" style="width: 100.0%; height: 100.0%;"><b>Port Melbourne</b><br/>Year: 2043<br/>Forecast total: 1,920</div>`)[0];
+                popup_61f543712ef09ef627d2f8ab66923121.setContent(html_4d19caeef3e827c947e508811e12ff19);
+            
+        
+
+        circle_marker_a777ef756b1b4036477ad0a2e9e21b2c.bindPopup(popup_61f543712ef09ef627d2f8ab66923121)
+        ;
+
+        
+    
+    
+            circle_marker_a777ef756b1b4036477ad0a2e9e21b2c.bindTooltip(
+                `<div>
+                     Port Melbourne: 1,920
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_aa5c0af01778ade13c4b3861ae5829ae = L.marker(
+                [-37.845, 144.935],
+                {
+}
+            ).addTo(map_ce2f04bb99717fff63ffa75acf868d30);
+        
+    
+            var div_icon_71d87fd9a39ca7bcbeb2d3e0d22470ac = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:12px;background:white;padding:8px;border:1px solid #ccc;\u0027\u003e\u003cb\u003eMapping Access to Health Services \u2013 Population (Year 2043)\u003c/b\u003e\u003cbr\u003eCircle size \u221d forecast population (sum of \u0027value\u0027). Missing centroids for: 5 suburbs\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_aa5c0af01778ade13c4b3861ae5829ae.setIcon(div_icon_71d87fd9a39ca7bcbeb2d3e0d22470ac);
+            
+</script>
+</html>

@@ -1,6 +1,6 @@
-# 01_data_extraction.py
-# Downloads the population forecasts dataset from City of Melbourne (no API key).
-# Writes: population_forecasts.csv in the same folder as this script.
+# data_extraction.py
+# Downloads the population forecasts dataset from City of Melbourne.
+# Writes population_forecasts.csv 
 
 import os
 import requests
@@ -11,10 +11,9 @@ DATASET_ID = "city-of-melbourne-population-forecasts-by-small-area-2020-2040"
 BASE_URL = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets"
 
 def _read_csv_any_delim(text: str) -> pd.DataFrame:
-    # Try semicolon first (Socrata often exports ';'), fall back to comma
     try:
         df = pd.read_csv(StringIO(text), delimiter=';')
-        if df.shape[1] == 1:  # wrong delimiter → fallback
+        if df.shape[1] == 1:  
             return pd.read_csv(StringIO(text))
         return df
     except Exception:
