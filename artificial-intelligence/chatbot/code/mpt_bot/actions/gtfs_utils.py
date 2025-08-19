@@ -12,7 +12,7 @@
         - find_parent_station: (Author: Andre Nguyen)
 		- convert_gtfs_time: (Author: AlexT)
 		- parse_time: (Author: AlexT)
-		- get_station_id: (Author: AlexT)
+		- get_stop_id: (Author: AlexT)
 		- extract_stations_from_query: (Author: AlexT, Modified by Andre Nguyen)
 		- check_direct_route: (Author: AlexT)
 		- calculate_route_travel_time: (Author: AlexT)
@@ -23,7 +23,7 @@
         - generate_signature: generate signature (by request) required for PTV API: (Author: Andre Nguyen)
         - fetch_data: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
-        - fetch_disruptions: (Author: AlexT, Modified by Andre Nguyen)
+        - fetch_disruptions_by_route: (Author: AlexT, Modified by Andre Nguyen)
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
@@ -422,17 +422,17 @@ class GTFSUtils:
         return potential_stations
 
     @staticmethod
-    def get_station_id(station_name: str, stops_df: pd.DataFrame) -> Optional[str]:
+    def get_stop_id(stop_name: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
             Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
         """
-        matched_station_name = GTFSUtils.find_station_name(station_name, stops_df)[0]
+        matched_station_name = GTFSUtils.find_station_name(stop_name, stops_df)
         if matched_station_name:
             station_row = stops_df.loc[stops_df['stop_name'] == matched_station_name]
             if not station_row.empty:
                 return station_row['stop_id'].values[0]
-        logger.error(f"Station name {station_name} not found in stops_df.")
+        logger.error(f"Station name {stop_name} not found in stops_df.")
         return None
 
     @staticmethod
@@ -460,8 +460,8 @@ class GTFSUtils:
             Author: AlexT
             Check if there is a direct train between two stations.
         """
-        stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-        stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
         try:
             stop_a_times = stop_times_df.xs(stop_a_id, level='stop_id')
@@ -476,7 +476,7 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
         return False, []
 
-    def check_direct_route_real_time(station_a: str, station_b: str):
+    # def check_direct_route_real_time(station_a: str, station_b: str):
 
     
 
@@ -499,8 +499,8 @@ class GTFSUtils:
                 return None
 
             best_trip_id = trip_ids[0]
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
             try:
                 stop_a_time = stop_times_df.loc[(stop_a_id, best_trip_id), 'departure_time']
@@ -548,8 +548,8 @@ class GTFSUtils:
             return 0, []  # No transfers needed, no transfer points
 
         # Get stop IDs for both stations
-        stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-        stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
         if stop_a_id is None or stop_b_id is None:
             return -1, []  # Indicates that one of the stations could not be found
@@ -618,8 +618,8 @@ class GTFSUtils:
         queue = deque([(station_a, [station_a])])
         visited = set()
 
-        stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-        stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
         if stop_a_id is None or stop_b_id is None:
             return None
@@ -636,7 +636,7 @@ class GTFSUtils:
             if direct_route_exists:
                 return path + [station_b]
 
-            current_stop_id = GTFSUtils.get_station_id(current_station, stops_df)
+            current_stop_id = GTFSUtils.get_stop_id(current_station, stops_df)
             if current_stop_id is None:
                 continue
 
@@ -675,7 +675,7 @@ class GTFSUtils:
         """
         try:
             # Get the stop IDs for each station in the best route
-            stop_ids = [GTFSUtils.get_station_id(station, stops_df) for station in best_route]
+            stop_ids = [GTFSUtils.get_stop_id(station, stops_df) for station in best_route]
 
             if None in stop_ids:
                 raise ValueError("One or more station IDs could not be found for the provided route.")
@@ -886,7 +886,7 @@ class GTFSUtils:
         query_string = f"devid={user_id}"
         if params:
             string_to_concat = ""
-            for param, value in params.item():
+            for param, value in params.items():
                 string_to_concat = str(param) + "=" + str(value).lower() + "&"
             query_string = string_to_concat + query_string
         full_url = f"{base_url}{url_path}?{query_string}"
@@ -899,7 +899,7 @@ class GTFSUtils:
         return result
 
     # @staticmethod
-    # def fetch_disruptions(signed_url):
+    # def fetch_disruptions_by_route(signed_url):
     #     """
     #     Author: AlexT
     #     Fetch disruptions from the API and ensure all transport modes (tram, bus, train) are handled.
@@ -919,9 +919,9 @@ class GTFSUtils:
     
     @staticmethod
     def fetch_data(signed_url):
-            """
+        """
         Author: Andre Nguyen
-        Fetch departures from the API and ensure all transport modes (tram, bus, train) are handled.
+        Fetch data from the API and ensure all transport modes (tram, bus, train) are handled.
         """
         try:
             response = requests.get(signed_url)
@@ -974,7 +974,7 @@ class GTFSUtils:
         return route_id
 
     @staticmethod
-    def fetch_disruptions(route_name, mode, routes_df):
+    def fetch_disruptions_by_route(route_name, mode, routes_df):
         """
         Author: AlexT
         Modifier: Andre Nguyen
@@ -991,7 +991,7 @@ class GTFSUtils:
         if not disruptions_data.get("disruptions", {}):
             return None, route_id, "No data after fetching disruptions!!!"
 
-        print(f"fetch_disruptions MODE: {mode}")
+        print(f"fetch_disruptions_by_route MODE: {mode}")
 
         # Fetch disruptions based on the mode
         if mode == "tram":
@@ -1004,7 +1004,6 @@ class GTFSUtils:
             return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
         # Process disruptions
         disruption_list = []
-        count = 0
         for disruption in disruptions:
             disruption_dict = {
                 'disruption_id': disruption.get('disruption_id'),
@@ -1037,6 +1036,58 @@ class GTFSUtils:
         # Filter active disruptions
         active_disruptions = GTFSUtils.filter_active_disruptions(disruption_list)
         return active_disruptions, route_id, None
+
+    @staticmethod
+    def fetch_departures_of_stop(stop_name, mode, stops_df):
+        """
+        Author: Andre Nguyen
+        fetch departures of given stop name for tram, bus, or train of the route.
+        """
+        mode_num = 0
+        if mode == "train":
+            mode_num = 0
+        elif mode == "tram":
+            mode_num = 1
+        elif mode == "bus":
+            mode_num = 2
+        else:
+            return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
+
+        stop_id = GTFSUtils.get_stop_id(stop_name, stops_df)
+        print(f"Stop id found: {stop_id}")
+        request = f"/v3/departures/route_type/{mode_num}/stop/{stop_id}"
+        params = {
+            "gtfs": "true",
+        }
+        signed_url = GTFSUtils.generate_signature(request, params)
+        departures_data = GTFSUtils.fetch_data(signed_url)
+        departures = departures_data.get("departures", [])
+        departure_list = []
+        for departure in departures:
+            departure_dict = {
+                'stop_id': departure.get('stop_id'),
+                'route_id': departure.get('route_id', 'No title available'),
+                'run_id': departure.get('run_id', 'No description available'),
+                'run_ref': departure.get('run_ref', 'Unknown'),
+                'direction_id': departure.get('direction_id', 'Unknown'),
+                'disruption_ids': departure.get('disruption_ids', []),
+                "scheduled_departure_utc": departure.get('run_id', 'No scheduled_departure_utc available'),
+                "estimated_departure_utc": departure.get('run_id', 'No estimated_departure_utc available'),
+                "at_platform": departure.get('at_platform', 'No at_platform available'),
+                "platform_number": departure.get('platform_number', 'No platform_number available'),
+                "flags": departure.get('flags', 'No flags available'),
+                "departure_sequence": departure.get('departure_sequence', 'No departure_sequence available'),
+                "departure_note": departure.get('departure_note', 'No departure_note available'),
+            }
+            departure_list.append(departure_dict)
+        if len(departure_list) > 0:
+            # This route id is different from gtfs_data's
+            route_id_ptv = departure_list[0]["route_id"]
+            return departure_list, route_id_ptv, None
+        return None, None, f"Error, no departure data found for {stop_name} with mode: {mode}"
+
+        
+
 
     @staticmethod
     def extract_route_name(query: str, routes_df: pd.DataFrame) -> Optional[str]:
@@ -1259,7 +1310,7 @@ class GTFSUtils:
 
                 if station_a:
                     # Schedule for a specific stop
-                    stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
+                    stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
                     matching_trips = stop_times_df[stop_times_df['stop_id'] == stop_a_id]
                     upcoming_trips = matching_trips[matching_trips['departure_time'] >= current_time].sort_values(
                         'departure_time').head(5)
@@ -1477,8 +1528,8 @@ class GTFSUtils:
         -----------------------------------------------------------------------
         '''
 
-        stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
-        stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+        stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops)
 
         stop_a_times = tram_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
         stop_b_times = tram_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
