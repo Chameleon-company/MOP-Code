@@ -2,6 +2,8 @@ import spacy
 import folium
 from folium.plugins import MarkerCluster
 import os
+import re
+import shutil
 from io import BytesIO
 import zipfile
 import requests
@@ -28,6 +30,8 @@ from tabulate import tabulate
 from rasa_sdk.events import SlotSet
 # This is to skip the favicon
 app = Sanic("custom_action_server")
+import os  # if not already imported above
+app.static('/maps', os.path.join(os.getcwd(), 'maps'))
 @app.route("/favicon.ico")
 async def favicon(request):
     return text("")  # Ignore the favicon request
@@ -561,17 +565,17 @@ class ActionFindBestRoute(Action):
     def name(self) -> Text:
         return "action_find_best_route"
 
-    def run(self, dispatcher: CollectingDispatcher,
+    def run(self,
+            dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
-            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            # --- extract stations from user query ---
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
-            transport_mode = "train"
-            logger.info(
-                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+            transport_mode = "train"  # default (kept for logging)
+            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
 
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
@@ -587,24 +591,26 @@ class ActionFindBestRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
+            # --- map stations to stop_ids ---
             stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
             stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
 
+            # --- pull stop times for both stops ---
             stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
             stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
 
+            # --- match trips and keep those where A comes before B ---
             merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
-
             valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
 
             if valid_trips.empty:
                 dispatcher.utter_message(text="No direct route found between the two stations.")
                 return []
 
+            # --- compute travel times and pick the fastest trip ---
             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
-            valid_trips['travel_time'] = (
-                        valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
+            valid_trips['travel_time'] = (valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
 
             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
 
@@ -612,17 +618,61 @@ class ActionFindBestRoute(Action):
             route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
             destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
 
-            response = f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}.\n"
-            response += f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            response = (
+                f"The best route from {station_a} to {station_b} is on the {route_name} towards {destination}.\n"
+                f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            )
 
-            # Create the route map given the trip id, including the transfers_df to highlight transfer stations
-            hyperlink = GTFSUtils.generate_route_map(
+            # --- generate the map and build a WORKING link ---
+            hyperlink_or_path = GTFSUtils.generate_route_map(
                 best_trip['trip_id'], station_a, station_b, stops_df, stop_times_df, dataset_path
             )
-            if hyperlink:
-                response += f"\n{hyperlink}"
+
+            # Always try to serve from ./maps via Sanic: http://localhost:8000/maps/<file>.html
+            maps_dir = os.path.join(os.getcwd(), "maps")
+            os.makedirs(maps_dir, exist_ok=True)
+
+            final_link = None
+            if hyperlink_or_path:
+                s = str(hyperlink_or_path).strip()
+
+                # Case 1: <a href="...">...</a> -> extract href
+                m = re.search(r'href=[\'"]([^\'"]+)[\'"]', s, flags=re.IGNORECASE)
+                if m:
+                    href = m.group(1)
+                    if href.lower().endswith(".html") and os.path.exists(href):
+                        # local file path; copy to ./maps
+                        filename = os.path.basename(href)
+                        dest = os.path.join(maps_dir, filename)
+                        if os.path.abspath(href) != os.path.abspath(dest):
+                            shutil.copyfile(href, dest)
+                        final_link = f"http://localhost:8000/maps/{filename}"
+                    else:
+                        # maybe an http url; reuse filename and point to our /maps
+                        filename = os.path.basename(href)
+                        if filename.lower().endswith(".html"):
+                            final_link = f"http://localhost:8000/maps/{filename}"
+
+                # Case 2: looks like a filesystem path to .html
+                elif s.lower().endswith(".html"):
+                    abs_path = s if os.path.isabs(s) else os.path.abspath(s)
+                    if os.path.exists(abs_path):
+                        filename = os.path.basename(abs_path)
+                        dest = os.path.join(maps_dir, filename)
+                        if os.path.abspath(abs_path) != os.path.abspath(dest):
+                            shutil.copyfile(abs_path, dest)
+                        final_link = f"http://localhost:8000/maps/{filename}"
+
+            # append link to response
+            if final_link:
+                response += f"\n<a href='{final_link}' target='_blank'>Click here to view the map</a>"
+            elif hyperlink_or_path:
+                # fallback to whatever string was returned originally
+                response += f"\n{hyperlink_or_path}"
 
             dispatcher.utter_message(text=response)
+            return []
+
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise
