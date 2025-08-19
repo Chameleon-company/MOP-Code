@@ -120,8 +120,8 @@ class ActionFindNextTram(Action):
                 return []
 
             # Use preloaded tram_stops to find stop IDs
-            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
-            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops)
 
             if not stop_a_id or not stop_b_id:
                 dispatcher.utter_message(
@@ -195,7 +195,7 @@ class ActionFindNextTram(Action):
 #                 return []
 
 #             # Fetch disruptions for the route
-#             active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(route_name, "train", routes_df)
+#             active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(route_name, "train", routes_df)
 #             if error:
 #                 dispatcher.utter_message(text=error)
 #                 return []
@@ -248,7 +248,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(
 #             route_name, "tram", tram_routes
 #         )
 #         if error:
@@ -301,7 +301,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(
 #             route_name, "bus", bus_routes
 #         )
 #         if error:
@@ -365,7 +365,7 @@ class ActionCheckDisruptions(Action):
                 return []
 
             # Fetch disruptions for the route
-            active_disruptions, route_id, error = GTFSUtils.fetch_disruptions(route_name, transport_mode, routes_dataframe)
+            active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(route_name, transport_mode, routes_dataframe)
             if error:
                 dispatcher.utter_message(text=error)
                 return []
@@ -440,17 +440,20 @@ class ActionFindNearestPublicTransport(Action):
             address_split = address.split(',')
             user_lat, user_lon = address_split[0], address_split[1]
             stops_data = stops_df
+            routes_data = routes_df
             if transport_mode == "tram":
                 stops_data = tram_stops
+                routes_data = tram_routes
             elif transport_mode == "bus":
                 stops_data = bus_stops
+                routes_data = bus_routes
             
             # Calculate distance to each stop
             stops_data['distance'] = stops_data.apply(
                 lambda row: geodesic((user_lat, user_lon), (row['stop_lat'], row['stop_lon'])).km,
                 axis=1
             )
-            nearby_stops = stops_data[stops_data['distance'] <= 30].copy()  # less than 20 kilometers
+            nearby_stops = stops_data[stops_data['distance'] <= 30].copy()  # less than 30 kilometers
             
 
             if nearby_stops.empty:
@@ -458,6 +461,8 @@ class ActionFindNearestPublicTransport(Action):
                 return []
             
             nearby_stops = nearby_stops.sort_values('distance').drop_duplicates(subset=['stop_name'], keep='first')
+
+            # disruptions, route_id, _ = GTFSUtils.fetch_disruptions_by_route(route_name, transport_mode, routes_data)
 
             table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance']].copy().head(10)
             table_data['wheelchair_boarding'] = table_data['wheelchair_boarding'].apply(
@@ -688,8 +693,8 @@ class ActionFindNextTrain(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df) if station_b else None
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
 
             # Andre Nguyen's code
             list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df)
@@ -782,8 +787,8 @@ class ActionFindBestRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
             # stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
             # stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
@@ -1153,8 +1158,8 @@ class ActionFindRouteWithLeastStops(Action):
                 dispatcher.utter_message(text="Error: 'normalized_stop_name' column missing from stops_df.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
             if stop_a_id is None or stop_b_id is None:
                 dispatcher.utter_message(text=f"Unable to find Station IDs for either {station_a} or {station_b}. Please check the station names.")
@@ -1778,8 +1783,8 @@ class ActionFindTransferTramRoute(Action):
 
             tram_stop_times.sort_index(inplace=True)
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops) #get stop id for starting
-            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops) #get stop id for destination
+            stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops) #get stop id for starting
+            stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops) #get stop id for destination
 
             print(f"stop id for stop a: {stop_a_id}")
             print(f"stop id for stop b: {stop_b_id}")
@@ -1825,7 +1830,7 @@ class ActionFindTransferTramRoute(Action):
                 visited.add(current_stop_id)
                 print(f"Processing station: {current_stop_id}")
 
-                #current_stop_id = GTFSUtils.get_station_id(current_stop_id, tram_stops)
+                #current_stop_id = GTFSUtils.get_stop_id(current_stop_id, tram_stops)
                 current_routes = {route_id for route_id, stops in route_stops.items() if current_stop_id in stops}
                 if current_stop_id is None:
                     continue
@@ -1908,8 +1913,8 @@ class ActionFindTramRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils. get_station_id(station_a, tram_stops)
-            stop_b_id = GTFSUtils. get_station_id(station_b, tram_stops) if station_b else None
+            stop_a_id = GTFSUtils. get_stop_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils. get_stop_id(station_b, tram_stops) if station_b else None
 
             print(f"stop id for stop a: {stop_a_id}")
             print(f"stop id for stop a: {stop_b_id}")
