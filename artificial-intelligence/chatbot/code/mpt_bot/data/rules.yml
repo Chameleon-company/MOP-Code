@@ -168,10 +168,10 @@ rules:
   #   - action: action_run_direction_script
 
   #Logan new
-  # - rule: Direct directions request
-  #   steps:
-  #   - intent: get_directions
-  #   - action: action_run_direction_script
+  - rule: Direct directions request
+    steps:
+    - intent: get_directions
+    - action: action_run_direction_script
   #Jubal rules (start) ----------------------------------------------------------
   - rule: Find tram route with transfers
     steps:

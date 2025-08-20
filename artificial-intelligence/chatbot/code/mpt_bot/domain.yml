@@ -55,6 +55,7 @@ intents:
   - find_nearest_public_transport
   - inform_address
   - inform_public_transport
+  - get_directions
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
