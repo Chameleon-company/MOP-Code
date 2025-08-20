@@ -416,7 +416,8 @@ class ValidateNearestTransportForm(FormValidationAction):
             potential_address = [ent.text for ent in doc.ents]
             
             if len(potential_address) > 0:
-                user_lat, user_lon = geocode_address(potential_address[0])
+                dispatcher.utter_message(text=f"your address is: {value}")
+                user_lat, user_lon = geocode_address(value)
                 return {"address": f"{user_lat},{user_lon}"}
         dispatcher.utter_message(text="Please provide a valid address.")
         return {"address": None}
@@ -453,7 +454,7 @@ class ActionFindNearestPublicTransport(Action):
                 lambda row: geodesic((user_lat, user_lon), (row['stop_lat'], row['stop_lon'])).km,
                 axis=1
             )
-            nearby_stops, message = GTFSUtils.find_all_nearby_stops(address, "train", self.stops_data)
+            nearby_stops, message = GTFSUtils.find_all_nearby_stops(address, transport_mode, stops_data)
             if not nearby_stops.empty:
                 table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance', 'num_of_disruption']].copy().head(10)
                 table_data["wheelchair_boarding"] = table_data["wheelchair_boarding"].astype(str)

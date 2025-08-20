@@ -985,7 +985,7 @@ class GTFSUtils:
         Note that: filter list can have route and stop, however, the route_id and stop_id are not the same as gtfs_data's
         """
         # find route_id based on route_name
-        route_id = check_route_name(route_name, routes_df)
+        route_id = GTFSUtils.check_route_name(route_name, routes_df)
 
         # signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
         request = "/v3/disruptions"
