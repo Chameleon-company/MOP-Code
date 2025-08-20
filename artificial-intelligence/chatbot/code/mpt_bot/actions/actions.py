@@ -447,39 +447,35 @@ class ActionFindNearestPublicTransport(Action):
             elif transport_mode == "bus":
                 stops_data = bus_stops
                 routes_data = bus_routes
-            
+
             # Calculate distance to each stop
             stops_data['distance'] = stops_data.apply(
                 lambda row: geodesic((user_lat, user_lon), (row['stop_lat'], row['stop_lon'])).km,
                 axis=1
             )
-            nearby_stops = stops_data[stops_data['distance'] <= 30].copy()  # less than 30 kilometers
+            nearby_stops, message = GTFSUtils.find_all_nearby_stops(address, "train", self.stops_data)
+            if not nearby_stops.empty:
+                table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance', 'num_of_disruption']].copy().head(10)
+                table_data["wheelchair_boarding"] = table_data["wheelchair_boarding"].astype(str)
+                table_data['wheelchair_boarding'] = table_data['wheelchair_boarding'].apply(
+                    lambda x: 'Yes' if x == "1.0" else 'No'
+                )
+
+                # Format table using tabulate
+                table = tabulate(
+                    table_data,
+                    headers=['Name', 'Wheelchair Boarding', 'Distance', 'Number of disruption'],
+                    tablefmt='pretty',
+                    floatfmt='.2f',
+                    showindex=False
+                )
+
+                # Send response
+                dispatcher.utter_message(text="Ensure to check disruption of your prefered station!")
+                message = f"{transport_mode.upper()} Stops within 20 km of {address} for :\n\n{table}"
             
-
-            if nearby_stops.empty:
-                dispatcher.utter_message(text=f"No {transport_mode} stops found within 30 km of {address}.")
-                return []
-            
-            nearby_stops = nearby_stops.sort_values('distance').drop_duplicates(subset=['stop_name'], keep='first')
-
-            # disruptions, route_id, _ = GTFSUtils.fetch_disruptions_by_route(route_name, transport_mode, routes_data)
-
-            table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance']].copy().head(10)
-            table_data['wheelchair_boarding'] = table_data['wheelchair_boarding'].apply(
-                lambda x: 'Yes' if x == '1' else 'No'
-            )
-
-            # Format table using tabulate
-            table = tabulate(
-                table_data,
-                headers=['stop_name', 'wheelchair_boarding', 'distance'],
-                tablefmt='pretty',
-                floatfmt='.2f'
-            )
-
-            # Send response
-            message = f"{transport_mode} Stops within 20 km of {address} for :\n\n{table}"
             dispatcher.utter_message(text=message)
+
             return []
 
         except Exception as e:
