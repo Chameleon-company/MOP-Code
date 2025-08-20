@@ -245,17 +245,17 @@ nlu:
     - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).  
 #Ross Finish - Intents
 
-- intent: run_direction_script
-  examples: |
-    - run the direction script
-    - I need directions to a place.
-    - I want to go somewhere
-    - Can you help me get somewhere?
-    - I need to take the train
-    - Can you show me the way?
-    - Guide me to a location.
-    - I want to find how to reach a place
-    - Im looking for directions
+# - intent: run_direction_script
+#   examples: |
+#     - run the direction script
+#     - I need directions to a place.
+#     - I want to go somewhere
+#     - Can you help me get somewhere?
+#     - I need to take the train
+#     - Can you show me the way?
+#     - Guide me to a location.
+#     - I want to find how to reach a place
+#     - Im looking for directions
 
 #Logan: Temporary location solution, working on better method
 
