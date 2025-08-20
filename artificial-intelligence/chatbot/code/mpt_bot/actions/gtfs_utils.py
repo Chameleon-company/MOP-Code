@@ -24,6 +24,7 @@
         - fetch_data: (Author: AlexT)
         - filter_active_disruptions: (Author: AlexT)
         - fetch_disruptions_by_route: (Author: AlexT, Modified by Andre Nguyen)
+        - fetch_departures_by_stop: (Author: Andre Nguyen)
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
@@ -54,6 +55,8 @@ import hmac
 import urllib.parse
 from tabulate import tabulate
 from transformers import pipeline
+from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
 
 # User ID and API Key
 user_id = "3003120"
@@ -899,7 +902,7 @@ class GTFSUtils:
         return result
 
     # @staticmethod
-    # def fetch_disruptions_by_route(signed_url):
+    # def fetch_disruptions(signed_url):
     #     """
     #     Author: AlexT
     #     Fetch disruptions from the API and ensure all transport modes (tram, bus, train) are handled.
@@ -974,17 +977,27 @@ class GTFSUtils:
         return route_id
 
     @staticmethod
-    def fetch_disruptions_by_route(route_name, mode, routes_df):
+    def fetch_disruptions_by_route(route_name, mode, routes_df, filter_list={}):
         """
         Author: AlexT
         Modifier: Andre Nguyen
         Check the route and fetch disruptions for tram, bus, or train of the route.
+        Note that: filter list can have route and stop, however, the route_id and stop_id are not the same as gtfs_data's
         """
         # find route_id based on route_name
         route_id = check_route_name(route_name, routes_df)
 
         # signed_url = GTFSUtils.generate_signature(base_url, user_id, api_key, route_id)
         request = "/v3/disruptions"
+        if filter_list:
+            if "disruption_id" not in filter_list:
+                for f, value in filter_list:
+                    # request could be /v3/disruptions/route/{route_id}/stop/{stop_id}
+                    request = request + f"/{f}/{value}"
+            else:
+                disruption_id = filter_list["disruption_id"]
+                request = request + f"/{disruption_id}"
+        
         signed_url = GTFSUtils.generate_signature(request)
         disruptions_data = GTFSUtils.fetch_data(signed_url)
 
@@ -1038,7 +1051,7 @@ class GTFSUtils:
         return active_disruptions, route_id, None
 
     @staticmethod
-    def fetch_departures_of_stop(stop_name, mode, stops_df):
+    def fetch_departures_by_stop(stop_name, mode, stops_df):
         """
         Author: Andre Nguyen
         fetch departures of given stop name for tram, bus, or train of the route.
@@ -1054,7 +1067,7 @@ class GTFSUtils:
             return None, None, f"Invalid mode: {mode}. Supported modes are 'tram', 'bus', and 'train'."
 
         stop_id = GTFSUtils.get_stop_id(stop_name, stops_df)
-        print(f"Stop id found: {stop_id}")
+
         request = f"/v3/departures/route_type/{mode_num}/stop/{stop_id}"
         params = {
             "gtfs": "true",
@@ -1086,6 +1099,49 @@ class GTFSUtils:
             return departure_list, route_id_ptv, None
         return None, None, f"Error, no departure data found for {stop_name} with mode: {mode}"
 
+    def find_all_nearby_stops(coordinates: str, transport_mode: str, stops_data: pd.DataFrame):
+        """
+        Author: Andre Nguyen
+        Find all stops (train, tram or bus) within 10km
+        the returned dataframe will have more columns: distance and number of disruption
+        """
+        stops_data["parent_station"] = stops_data["parent_station"].astype(str)
+
+        coordinates_split = coordinates.split(',')
+        user_lat, user_lon = coordinates_split[0], coordinates_split[1]
+
+        # Calculate distance to each stop
+        stops_data['distance'] = stops_data.apply(
+            lambda row: geodesic((user_lat, user_lon), (row['stop_lat'], row['stop_lon'])).km,
+            axis=1
+        )
+        nearby_stops = stops_data[(stops_data['distance'] <= 10)].copy()  # less than 10 kilometers
+        nearby_stops = nearby_stops[nearby_stops['stop_id'].str.isdigit()]
+
+        if nearby_stops.empty:
+            message = f"No {transport_mode} stops found within 10 km of {coordinates}."
+            return pd.DataFrame(), message
+        
+        nearby_stops = nearby_stops.sort_values('distance').drop_duplicates(subset=['stop_name'], keep='first')
+
+        # initialize number of disruption column
+        nearby_stops["num_of_disruption"] = ''
+        # collect disruption id list by fetch departures on every stop_name
+        count = 0
+        for index, stop in nearby_stops.iterrows():
+            if count >= 10: 
+                # only take less than 10 stops
+                break
+
+            departures_list, route_id_ptv, _ = GTFSUtils.fetch_departures_by_stop(stop['stop_name'], transport_mode, stops_data)
+            if departures_list:
+                disruption_ids = departures_list[0]["disruption_ids"]
+                nearby_stops.at[index, "num_of_disruption"] = len(disruption_ids)
+            else:
+                nearby_stops.at[index, "num_of_disruption"] = "Unknown"
+            count += 1
+        
+        return nearby_stops, None
         
 
 
