@@ -8,6 +8,8 @@ intents:
     # Alex Start  -----------------------------------------------------------
   - greet
   - goodbye
+  - mood_great
+  - mood_unhappy
   - affirm
   - deny
   - bot_challenge
@@ -223,12 +225,13 @@ responses:
   utter_greet:
     - text: "Hey! How are you?"
   utter_cheer_up:
-    - text: "Here is something to cheer you up:"
-      image: https://i.imgur.com/nGF1K8f.jpg
+    - text: "Here's a quick joke: Why did the train get a job? It had great track records. 🚆"
+    - text: "Here's one: I told my computer I needed a break— it said, 'No problem, I’ll go to sleep.' 😴"
+    - text: "Quick laugh: Debugging is like being a detective in a crime movie where you are also the murderer. 🕵️‍♂️💻"
   utter_did_that_help:
     - text: "Did that help you?"
   utter_happy:
-    - text: "Great, carry on!"
+    - text: "Awesome — that's great to hear! If you're happy, I'm happy too 🙂"
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."
   utter_ask_station_for_bus:

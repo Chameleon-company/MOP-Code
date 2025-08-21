@@ -29,17 +29,12 @@ nlu:
     - hi there
 - intent: goodbye
   examples: |
-    - good afternoon
-    - cu
-    - good by
-    - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
-    - see you around
+    - see you
     - bye bye
-    - see you later
+    - talk to you later
+
 - intent: affirm
   examples: |
     - yes
@@ -75,20 +70,12 @@ nlu:
     - so perfect
 - intent: mood_unhappy
   examples: |
-    - my day was horrible
+    - no
+    - never
+    - not really
     - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - bad day
+    - feeling down
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -146,13 +133,29 @@ nlu:
 
 - intent: request_train_map
   examples: |
-    - Show me a map of Melbourne train stations.
-    - Generate a train station map.
+    - show me a train map
+    - train map
+    - display the train map
+    - open the train network map
+    - can I see the train map?
+    - please show the train map
+    - map of trains
+    - rail map
+    - metro train map
 
 - intent: request_tram_map
-  examples: |    
-    - Generate a tram stop map
-    - Where are the tram stops located?
+  examples: |
+    - show me a tram map
+    - tram map
+    - display the tram map
+    - open the tram network map
+    - can I see the tram map?
+    - please show the tram map
+    - map of trams
+    - show tram routes
+    - tramp map
+    - show me a tramp map
+
 
 - intent: request_bus_map
   examples: |

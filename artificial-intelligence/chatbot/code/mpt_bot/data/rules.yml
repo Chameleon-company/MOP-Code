@@ -7,6 +7,17 @@ rules:
     steps:
       - intent: goodbye
       - action: utter_goodbye
+  # Mood rules
+  - rule: Respond to positive mood
+    steps:
+    - intent: mood_great
+    - action: utter_happy
+
+  - rule: Cheer up when user is unhappy
+    steps:
+    - intent: mood_unhappy
+    - action: utter_cheer_up
+
 
   # Route Queries
   - rule: Direct route inquiry
