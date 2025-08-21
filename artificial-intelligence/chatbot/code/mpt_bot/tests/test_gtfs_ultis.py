@@ -10,6 +10,7 @@ from actions.gtfs_utils import GTFSUtils
 from actions.actions import fetch_route, get_traffic_details, get_traffic_status, geocode_address
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+from tabulate import tabulate
 import requests
 import logging
 import json
@@ -139,7 +140,7 @@ class TestGTFSUtils(unittest.TestCase):
     # def test_check_direct_route_true(self):
     #     """Test check_direct_route for a direct route."""
     #     result, trip_ids = GTFSUtils.check_direct_route(
-    #         'Box Hill Station', 'Flinders Street Station', self.stops_data, self.stop_times_data
+    #         'Sunshine Station', 'Flinders Street Station', self.stops_data, self.stop_times_data
     #     )
     #     self.assertTrue(result)
     #     self.assertTrue(trip_ids)
@@ -350,6 +351,41 @@ class TestGTFSUtils(unittest.TestCase):
     #     #traffic_data = get_traffic_details(api_key, source_coords)
     #     #route_data = fetch_route(source_coords, destination_coords, api_key)
     #     print(route_data)
+
+    def test_find_all_nearby_stops(self):
+        # stop_name = "Albert St/Gisborne St #11"
+        # Calculate distance to each stop
+        geolocator = Nominatim(user_agent="andre")
+        location = geolocator.geocode("Oak Valley South Australia")
+
+        address = f"{location.latitude},{location.longitude}"
+        print(f"Address coordinate: {address}")
+        nearby_stops, message = GTFSUtils.find_all_nearby_stops(address, "train", self.stops_data)
+        if not nearby_stops.empty:
+            table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance', 'num_of_disruption']].copy().head(10)
+            table_data["wheelchair_boarding"] = table_data["wheelchair_boarding"].astype(str)
+            table_data['wheelchair_boarding'] = table_data['wheelchair_boarding'].apply(
+                lambda x: 'Yes' if x == "1.0" else 'No'
+            )
+
+            # Format table using tabulate
+            table = tabulate(
+                table_data,
+                headers=['Name', 'Wheelchair Boarding', 'Distance', 'Number of disruption'],
+                tablefmt='pretty',
+                floatfmt='.2f',
+                showindex=False
+            )
+
+            print(table)
+        print(message)
+
+        #departure_list, route_id, error = GTFSUtils.fetch_departures_by_stop(stop_name, "tram", self.tram_stops)
+        # print(departure_list[0])
+        # self.assertIsInstance(departure_list, list)
+        
+
+
 
 
 if __name__ == '__main__':
