@@ -28,10 +28,9 @@ intents:
   - check_disruptions_train
   # Alex Finish intents  ----------------------------------------------------------
   # Ross Start intenets
-  - find_nearest_station
-  - find_nearest_tram_stop
-  - find_nearest_bus_stop
-  - find_user_address
+  # - find_nearest_station
+  # - find_nearest_tram_stop
+  # - find_nearest_bus_stop
   - map_transport_in_area
   # Ross Finish intents
   - run_direction_script
@@ -48,11 +47,15 @@ intents:
   #Jubal intents (End) -------------------------------------------
   #Awanish intents (start) -------------------------------------------
   - ask_traffic
-  - ask_traffic_location
+  - ask_traffic_between_two_locations
   #Awanish intents (End) -------------------------------------------
   #Andre intents (start) ------------------------------------------
   - ask_direct_tram_route
   - check_disruptions
+  - find_nearest_public_transport
+  - inform_address
+  - inform_public_transport
+  - get_directions
 
 entities:
     # Alex Start entities  -----------------------------------------------------------
@@ -62,7 +65,7 @@ entities:
   - current_latitude
   - transport_mode
   - route_name
-  # - route_number
+  
   # Alex Finish entities  ----------------------------------------------------------
   # Ross Start entities
   - address
@@ -79,6 +82,9 @@ entities:
   - source
   - destination
   #Awanish entities end
+  # Andre Start entities -------------------------
+
+  # Andre finish entities ------------------------
 
 slots:
     # Alex Start slots  ---------------------------------------------------------------
@@ -94,18 +100,10 @@ slots:
     mappings:
       - type: from_entity
         entity: station_b
-  transport_mode:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: transport_mode
-  route_name:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: route_name
+
+
   
+
   # route_number:
   #   type: text
   #   mappings:
@@ -148,14 +146,47 @@ slots:
     mappings:
       - type: from_entity
         entity: location_to
-  
+
   #Awanish --Slot
-  source:
+  # source:
+  #   type: text
+  #   mappings:
+  #     - type: from_text
+      
+# Andre Slot Start
+  transport_mode:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: transport_mode
+        
+  
+  address:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: address
+        conditions:
+        - active_loop: nearest_transport_form
+          requested_slot: address
+  route_name:
     type: text
     mappings:
-      - type: from_text
-      
-
+      - type: from_entity
+        entity: route_name
+  
+# Andre Slot end
+  
+# Andre form start
+forms:
+  nearest_transport_form:
+    required_slots:
+      - transport_mode
+      - address
+    
+# Andre form end
 
 responses:
     # Alex Start responses -----------------------------------------------------------
@@ -250,6 +281,13 @@ responses:
     - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
  #Awanish responses (end) -------------------------------------------
 
+# Andre responses (Start) ----------------------------------------
+  utter_nearest_tranport_slot:
+  - text: I will find {transport_mode} near your address "{address}".....
+  # utter_ask_transport_mode:
+  # - text: Please choose your nearby mode of public transport [Train, Tram or Bus]
+ # Andre responses (End) ------------------------------------------
+
 actions:
  # Alex Start Actions  -----------------------------------------------------------
   - action_generate_train_map
@@ -268,14 +306,21 @@ actions:
   # - action_check_disruptions_tram
   # - action_check_disruptions_bus
   # - action_check_disruptions_train
-  - action_check_disruptions
   - validate_transport_mode
   # Alex Finish Actions  -----------------------------------------------------------
+
+  # Andre Start Actions  -----------------------------------------------------------
+  - action_check_disruptions
+  - action_ask_transport_mode
+  - validate_nearest_transport_form
+  - action_submit_nearest_transport
+  - action_reset_all_slots
+
+  # Andre End Actions  -----------------------------------------------------------
   # Ross Start actions
-  - action_find_user_address
-  - action_find_nearest_station
-  - action_find_nearest_tram_stop
-  - action_find_nearest_bus_stop
+  # - action_find_nearest_station
+  # - action_find_nearest_tram_stop
+  # - action_find_nearest_bus_stop
   - action_map_transport_in_area
   # Ross finish Actions
   - action_run_direction_script

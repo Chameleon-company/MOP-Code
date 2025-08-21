@@ -179,44 +179,93 @@ stories:
   #     - action: action_check_disruptions_train
 # Alex Finish  -------------------------------------------------------------------------------------------
 
-  - story: User asks for disruptions
+# Andre Start - Stories
+  - story: User asks for disruptions and check traffic between two location
     steps:
       - intent: check_disruptions
-        entities:
+      - slot_was_set:
           - transport_mode
           - route_name
       - action: action_check_disruptions
+      - action: action_reset_all_slots
+      - intent: ask_traffic_between_two_locations
+      - slot_was_set:
+          - station_a
+          - station_b
+      - action: action_fetch_traffic_location
+      - action: action_reset_all_slots
+
+  # For testing purposes, must reset all slots after each action
+  # If those actions work properly, remove all reset action
+  - story: Find nearest public transport and ask for more information related transportation
+    steps:
+    - intent: find_nearest_public_transport
+    - action: nearest_transport_form
+    - active_loop: nearest_transport_form
+    - slot_was_set:
+      - requested_slot: transport_mode
+    - slot_was_set:
+      - requested_slot: address
+    - slot_was_set:
+      - requested_slot: null
+    - active_loop: null
+    - action: utter_nearest_tranport_slot
+    - action: action_submit_nearest_transport
+    - action: action_reset_all_slots 
+    # User may ask about disruption of nearby public transport
+    - intent: check_disruptions
+    - action: action_check_disruptions
+    - action: action_reset_all_slots 
+    # If having disruptions, user may ask for traffic between two station
+    - intent: ask_traffic_between_two_locations
+    - slot_was_set:
+        - station_a
+        - station_b
+    - action: action_fetch_traffic_location
+    - action: action_reset_all_slots # For testing purposes, must reset all slots after each question
+
+    
+  
+  # - story: Get directions using user address
+  #   steps:
+  #   - intent: get_directions
+  #   - action: utter_ask_address
+  #   - intent: find_user_address
+  #     entities:
+  #       - address
+  #   - action: action_store_address
+  #   - action: action_run_direction_script
 
 #Ross Start - Stories
-  - story: Find Nearest Station
-    steps:
-    - intent: find_nearest_station
-    - action: utter_ask_address
-    - intent: find_user_address
-      entities:
-       - address
-       - tranport_mode_rp
-    - action: action_find_nearest_station
+  # - story: Find Nearest Station
+  #   steps:
+  #   - intent: find_nearest_station
+  #   - action: utter_ask_address
+  #   - intent: find_user_address
+  #     entities:
+  #      - address
+  #      - tranport_mode_rp
+  #   - action: action_find_nearest_station
 
-  - story: Find Nearest Tram
-    steps:
-    - intent: find_nearest_tram_stop
-    - action: utter_ask_address
-    - intent: find_user_address
-      entities:
-       - address
-       - transport_mode_rp    
-    - action: action_find_nearest_tram_stop
+  # - story: Find Nearest Tram
+  #   steps:
+  #   - intent: find_nearest_tram_stop
+  #   - action: utter_ask_address
+  #   - intent: find_user_address
+  #     entities:
+  #      - address
+  #      - transport_mode_rp    
+  #   - action: action_find_nearest_tram_stop
 
-  - story: Find Nearest Bus Stop
-    steps:
-    - intent: find_nearest_bus_stop
-    - action: utter_ask_address
-    - intent: find_user_address
-      entities:
-       - address
-       - transport_mode_rp
-    - action: action_find_nearest_bus_stop
+  # - story: Find Nearest Bus Stop
+  #   steps:
+  #   - intent: find_nearest_bus_stop
+  #   - action: utter_ask_address
+  #   - intent: find_user_address
+  #     entities:
+  #      - address
+  #      - transport_mode_rp
+  #   - action: action_find_nearest_bus_stop
 
   - story: Map Transport In Area
     steps:
@@ -255,6 +304,15 @@ stories:
     - action: action_check_direct_tram_route
 #jubal stories (end)--------------------------------------------------------------------
 #Awanish stories (Start)----------------------
+  - story: User asks about traffic between two locations
+    steps:
+    - intent: ask_traffic_between_two_locations
+      entities:
+        - station_a
+        - station_b
+    - action: action_fetch_traffic_location
+    - action: action_reset_all_slots
+  
   - story: User asks about traffic
     steps:
     - intent: ask_user_about_location_for_traffic

@@ -10,7 +10,7 @@ import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
 from collections import deque
@@ -20,12 +20,13 @@ from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+from rasa_sdk.types import DomainDict
 #from actions.traffic_route 
 import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, EventType, AllSlotsReset
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -119,8 +120,8 @@ class ActionFindNextTram(Action):
                 return []
 
             # Use preloaded tram_stops to find stop IDs
-            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops)
-            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops)
 
             if not stop_a_id or not stop_b_id:
                 dispatcher.utter_message(
@@ -194,7 +195,7 @@ class ActionFindNextTram(Action):
 #                 return []
 
 #             # Fetch disruptions for the route
-#             active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, "train", routes_df)
+#             active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(route_name, "train", routes_df)
 #             if error:
 #                 dispatcher.utter_message(text=error)
 #                 return []
@@ -247,7 +248,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(
 #             route_name, "tram", tram_routes
 #         )
 #         if error:
@@ -300,7 +301,7 @@ class ActionFindNextTram(Action):
 #             return []
 
 #         # Fetch disruptions
-#         active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(
+#         active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(
 #             route_name, "bus", bus_routes
 #         )
 #         if error:
@@ -321,11 +322,22 @@ class ActionFindNextTram(Action):
 #             )
 #         return []
 
+## Andre Start Action ==========================
+
+class ActionResetAllSlots(Action):
+    def name(self):
+        return "action_reset_all_slots"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]):
+        return [AllSlotsReset()]
+
 class ActionCheckDisruptions(Action):
     ''' -------------------------------------------------------------------------------------------------------
-        
         Name: Real-time disruption updates
-        Author: Andre
+        Author: AlexT
+        Modifier: Andre Nguyen
         -------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
@@ -353,7 +365,7 @@ class ActionCheckDisruptions(Action):
                 return []
 
             # Fetch disruptions for the route
-            active_disruptions, route_id, error = GTFSUtils.check_route_and_fetch_disruptions(route_name, transport_mode, routes_dataframe)
+            active_disruptions, route_id, error = GTFSUtils.fetch_disruptions_by_route(route_name, transport_mode, routes_dataframe)
             if error:
                 dispatcher.utter_message(text=error)
                 return []
@@ -373,8 +385,128 @@ class ActionCheckDisruptions(Action):
             dispatcher.utter_message(text="An error occurred while checking disruptions. Please try again.")
             logger.error(f"Failed to check disruptions: {str(e)}")
 
+        return [SlotSet("transport_mode", None)]
+
+ALLOWED_PUBLIC_TRANSPORT = ["train", "tram", "bus"]
+class ValidateNearestTransportForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_nearest_transport_form"
+
+    def validate_transport_mode(
+        self,
+        value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        if value and value.lower() in ALLOWED_PUBLIC_TRANSPORT:
+            return {"transport_mode": value.lower()}
+        dispatcher.utter_message(text="Please specify a valid transport mode (train, tram, or bus).")
+        return {"transport_mode": None}
+
+    def validate_address(
+        self,
+        value: Text,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        if value and isinstance(value, str):
+            doc = nlp(value)
+            potential_address = [ent.text for ent in doc.ents]
+            
+            if len(potential_address) > 0:
+                dispatcher.utter_message(text=f"your address is: {value}")
+                user_lat, user_lon = geocode_address(value)
+                return {"address": f"{user_lat},{user_lon}"}
+        dispatcher.utter_message(text="Please provide a valid address.")
+        return {"address": None}
+
+class ActionFindNearestPublicTransport(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        Name: Store user's address
+        Author: Andre Nguyen
+        -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_submit_nearest_transport"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        try:
+            address = tracker.get_slot("address")
+            transport_mode = tracker.get_slot("transport_mode")
+ 
+            address_split = address.split(',')
+            user_lat, user_lon = address_split[0], address_split[1]
+            stops_data = stops_df
+            routes_data = routes_df
+            if transport_mode == "tram":
+                stops_data = tram_stops
+                routes_data = tram_routes
+            elif transport_mode == "bus":
+                stops_data = bus_stops
+                routes_data = bus_routes
+
+            # Calculate distance to each stop
+            stops_data['distance'] = stops_data.apply(
+                lambda row: geodesic((user_lat, user_lon), (row['stop_lat'], row['stop_lon'])).km,
+                axis=1
+            )
+            nearby_stops, message = GTFSUtils.find_all_nearby_stops(address, transport_mode, stops_data)
+            if not nearby_stops.empty:
+                table_data = nearby_stops[['stop_name', 'wheelchair_boarding', 'distance', 'num_of_disruption']].copy().head(10)
+                table_data["wheelchair_boarding"] = table_data["wheelchair_boarding"].astype(str)
+                table_data['wheelchair_boarding'] = table_data['wheelchair_boarding'].apply(
+                    lambda x: 'Yes' if x == "1.0" else 'No'
+                )
+
+                # Format table using tabulate
+                table = tabulate(
+                    table_data,
+                    headers=['Name', 'Wheelchair Boarding', 'Distance', 'Number of disruption'],
+                    tablefmt='pretty',
+                    floatfmt='.2f',
+                    showindex=False
+                )
+
+                # Send response
+                dispatcher.utter_message(text="Ensure to check disruption of your prefered station!")
+                message = f"{transport_mode.upper()} Stops within 20 km of {address} for :\n\n{table}"
+            
+            dispatcher.utter_message(text=message)
+
+            return []
+
+        except Exception as e:
+            dispatcher.utter_message(text=f"Error occurred in finding {transport_mode} near the address: {address}. Please try again.")
+            logger.error(f"Failed to find nearest public transport: {transport_mode}: {str(e)}")
+
         return []
 
+class ActionAskForPublicTransportMode(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        Name: Find nearest public transport
+        Author: Andre Nguyen
+        -------------------------------------------------------------------------------------------------------
+    '''
+    def name(self) -> Text:
+        return "action_ask_transport_mode"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[EventType]:
+        transport_mode = ["Train", "Tram", "Bus"]
+        dispatcher.utter_message(
+            text="Please choose your mode of public transport: [Train, Tram or Bus]",
+            buttons=[{"title": mode, "payload": mode} for mode in transport_mode],
+        )
+
+        return []
+
+
+## Andre End Action
 class ActionGenerateTrainMap(Action):
     ''' -------------------------------------------------------------------------------------------------------
     	ID: REQ_13
@@ -558,8 +690,8 @@ class ActionFindNextTrain(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df) if station_b else None
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
 
             # Andre Nguyen's code
             list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df)
@@ -652,8 +784,8 @@ class ActionFindBestRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
             # stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
             # stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
@@ -1023,8 +1155,8 @@ class ActionFindRouteWithLeastStops(Action):
                 dispatcher.utter_message(text="Error: 'normalized_stop_name' column missing from stops_df.")
                 return []
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_station_id(station_b, stops_df)
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
             if stop_a_id is None or stop_b_id is None:
                 dispatcher.utter_message(text=f"Unable to find Station IDs for either {station_a} or {station_b}. Please check the station names.")
@@ -1648,8 +1780,8 @@ class ActionFindTransferTramRoute(Action):
 
             tram_stop_times.sort_index(inplace=True)
 
-            stop_a_id = GTFSUtils.get_station_id(station_a, tram_stops) #get stop id for starting
-            stop_b_id = GTFSUtils.get_station_id(station_b, tram_stops) #get stop id for destination
+            stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops) #get stop id for starting
+            stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops) #get stop id for destination
 
             print(f"stop id for stop a: {stop_a_id}")
             print(f"stop id for stop b: {stop_b_id}")
@@ -1695,7 +1827,7 @@ class ActionFindTransferTramRoute(Action):
                 visited.add(current_stop_id)
                 print(f"Processing station: {current_stop_id}")
 
-                #current_stop_id = GTFSUtils.get_station_id(current_stop_id, tram_stops)
+                #current_stop_id = GTFSUtils.get_stop_id(current_stop_id, tram_stops)
                 current_routes = {route_id for route_id, stops in route_stops.items() if current_stop_id in stops}
                 if current_stop_id is None:
                     continue
@@ -1778,8 +1910,8 @@ class ActionFindTramRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils. get_station_id(station_a, tram_stops)
-            stop_b_id = GTFSUtils. get_station_id(station_b, tram_stops) if station_b else None
+            stop_a_id = GTFSUtils. get_stop_id(station_a, tram_stops)
+            stop_b_id = GTFSUtils. get_stop_id(station_b, tram_stops) if station_b else None
 
             print(f"stop id for stop a: {stop_a_id}")
             print(f"stop id for stop a: {stop_b_id}")
@@ -1855,140 +1987,140 @@ class ActionFindTramRoute(Action):
 
 
 # Ross Start Actions
-class ActionFindNearestStation(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-        ID: TRAIN
-        Name: Find Nearest Station
-        Author: RossP
-        -------------------------------------------------------------------------------------------------------
-   '''
-    def name(self) -> Text:
-        return "action_find_nearest_station"
+# class ActionFindNearestStation(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         ID: TRAIN
+#         Name: Find Nearest Station
+#         Author: RossP
+#         -------------------------------------------------------------------------------------------------------
+#    '''
+#     def name(self) -> Text:
+#         return "action_find_nearest_station"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        entities = tracker.latest_message.get("entities", [])
+#         entities = tracker.latest_message.get("entities", [])
 
-        unique_val = []
-        seen_val = set()
+#         unique_val = []
+#         seen_val = set()
         
-        for entity in entities:
-            if entity['value'] not in seen_val:
-                unique_val.append(entity['value'])
-                seen_val.add(entity['value']) 
-            if len(unique_val) == 2:
-                break   
+#         for entity in entities:
+#             if entity['value'] not in seen_val:
+#                 unique_val.append(entity['value'])
+#                 seen_val.add(entity['value']) 
+#             if len(unique_val) == 2:
+#                 break   
          
-        address_entity = ", ".join(unique_val) 
-        logger.debug(address_entity)
+#         address_entity = ", ".join(unique_val) 
+#         logger.debug(address_entity)
         
-        #get lat and long of location form google API
-        addll = GTFSUtils.getAddressLatLong(address = address_entity)
-        logger.debug(addll)
+#         #get lat and long of location form google API
+#         addll = GTFSUtils.getAddressLatLong(address = address_entity)
+#         logger.debug(addll)
 
-        #check distance to all stations
-        closStat = GTFSUtils.checkDistancetoAllStation(addll['latitude'],addll['longitude'])
+#         #check distance to all stations
+#         closStat = GTFSUtils.checkDistancetoAllStation(addll['latitude'],addll['longitude'])
                         
         
-        if address_entity:
-                dispatcher.utter_message(text = f"The closest station to {address_entity} is {closStat['closest_station_name']}")
-        else: 
-            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+#         if address_entity:
+#                 dispatcher.utter_message(text = f"The closest station to {address_entity} is {closStat['closest_station_name']}")
+#         else: 
+#             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
-        return []
+#         return []
 
-class ActionFindNearestTramStop(Action):
-    ''' -------------------------------------------------------------------------------------------------------
-    ID: TRAM
-    Name: Find Nearest Tram Stop
-    Author: RossP
-    -------------------------------------------------------------------------------------------------------
-    ''' 
-    def name(self) -> Text:
-        return "action_find_nearest_tram_stop"
+# class ActionFindNearestTramStop(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#     ID: TRAM
+#     Name: Find Nearest Tram Stop
+#     Author: RossP
+#     -------------------------------------------------------------------------------------------------------
+#     ''' 
+#     def name(self) -> Text:
+#         return "action_find_nearest_tram_stop"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        entities = tracker.latest_message.get("entities", [])
+#         entities = tracker.latest_message.get("entities", [])
 
-        unique_val = []
-        seen_val = set()
+#         unique_val = []
+#         seen_val = set()
         
-        for entity in entities:
-            if entity['value'] not in seen_val:
-                unique_val.append(entity['value'])
-                seen_val.add(entity['value']) 
-            if len(unique_val) == 2:
-                break   
+#         for entity in entities:
+#             if entity['value'] not in seen_val:
+#                 unique_val.append(entity['value'])
+#                 seen_val.add(entity['value']) 
+#             if len(unique_val) == 2:
+#                 break   
          
-        address_entity = ", ".join(unique_val) 
-        logger.debug(address_entity)
+#         address_entity = ", ".join(unique_val) 
+#         logger.debug(address_entity)
         
-        #get lat and long of location form google API
-        addll = GTFSUtils.getAddressLatLong(address = address_entity)
-        logger.debug(addll)
+#         #get lat and long of location form google API
+#         addll = GTFSUtils.getAddressLatLong(address = address_entity)
+#         logger.debug(addll)
 
-        #check distance to all stations
-        closStat = GTFSUtils.checkDistancetoAllTramsStops(addll['latitude'],addll['longitude'])
+#         #check distance to all stations
+#         closStat = GTFSUtils.checkDistancetoAllTramsStops(addll['latitude'],addll['longitude'])
                         
         
-        if address_entity:
-                dispatcher.utter_message(text = f"The closest Tram Stop to {address_entity} is {closStat['closest_station_name']}")
-        else: 
-            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+#         if address_entity:
+#                 dispatcher.utter_message(text = f"The closest Tram Stop to {address_entity} is {closStat['closest_station_name']}")
+#         else: 
+#             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
-        return []
+#         return []
 
-class ActionFindNearestBusStop(Action):    
-    ''' -------------------------------------------------------------------------------------------------------
-    ID: BUS
-    Name: Find Nearest Bus Stop
-    Author: RossP
-    -------------------------------------------------------------------------------------------------------
-    '''
-    def name(self) -> Text:
-        return "action_find_nearest_bus_stop"
+# class ActionFindNearestBusStop(Action):    
+#     ''' -------------------------------------------------------------------------------------------------------
+#     ID: BUS
+#     Name: Find Nearest Bus Stop
+#     Author: RossP
+#     -------------------------------------------------------------------------------------------------------
+#     '''
+#     def name(self) -> Text:
+#         return "action_find_nearest_bus_stop"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        entities = tracker.latest_message.get("entities", [])
+#         entities = tracker.latest_message.get("entities", [])
 
-        unique_val = []
-        seen_val = set()
+#         unique_val = []
+#         seen_val = set()
         
-        for entity in entities:
-            if entity['value'] not in seen_val:
-                unique_val.append(entity['value'])
-                seen_val.add(entity['value']) 
-            if len(unique_val) == 2:
-                break   
+#         for entity in entities:
+#             if entity['value'] not in seen_val:
+#                 unique_val.append(entity['value'])
+#                 seen_val.add(entity['value']) 
+#             if len(unique_val) == 2:
+#                 break   
          
-        address_entity = ", ".join(unique_val) 
-        logger.debug(address_entity)
+#         address_entity = ", ".join(unique_val) 
+#         logger.debug(address_entity)
         
-        #get lat and long of location form google API
-        addll = GTFSUtils.getAddressLatLong(address = address_entity)
-        logger.debug(addll)
+#         #get lat and long of location form google API
+#         addll = GTFSUtils.getAddressLatLong(address = address_entity)
+#         logger.debug(addll)
 
-        #check distance to all stations
-        closStat = GTFSUtils.checkDistancetoAllBusStops(addll['latitude'],addll['longitude'])
+#         #check distance to all stations
+#         closStat = GTFSUtils.checkDistancetoAllBusStops(addll['latitude'],addll['longitude'])
                         
         
-        if address_entity:
-                dispatcher.utter_message(text = f"The closest Bus Stop to {address_entity} is {closStat['closest_station_name']}")
-        else: 
-            dispatcher.utter_message(text = 'Sorry Address not found please try again')
+#         if address_entity:
+#                 dispatcher.utter_message(text = f"The closest Bus Stop to {address_entity} is {closStat['closest_station_name']}")
+#         else: 
+#             dispatcher.utter_message(text = 'Sorry Address not found please try again')
         
         
-        return []
+#         return []
     
 class ActionMapTransportInArea(Action):
     ''' -------------------------------------------------------------------------------------------------------
