@@ -4,6 +4,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Footer from '../components/Footer'; // Update the path to Footer.tsx
+import Link from 'next/link';
+// …
+<li><Link href="/upload">Contribute Data</Link></li>
 
 
 
@@ -35,5 +38,13 @@ describe('Footer component', () => {
     // Check if the copyright text is rendered
     const copyrightText = screen.getByText(/© 2023/i);
     expect(copyrightText).toBeInTheDocument();
+
+    //ensures news section is covered by automated tests
+    const newsletterTitle = screen.getByText(/Subscribe to Our Newsletter/i);
+    expect(newsletterTitle).toBeInTheDocument();
+
+  
+
+
   });
 });
