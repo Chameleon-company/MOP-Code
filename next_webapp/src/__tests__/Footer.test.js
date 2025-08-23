@@ -4,6 +4,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Footer from '../components/Footer'; // Update the path to Footer.tsx
+import Link from 'next/link';
+// …
+<li><Link href="/upload">Contribute Data</Link></li>
 
 
 
