@@ -1,0 +1,122 @@
+//----------------------------------------------------------//
+//	ACCORDION
+//----------------------------------------------------------//
+.accordion-wrapper {
+  .card {
+    margin-bottom: 1.25rem;
+    &.plain {
+      background: none;
+      border: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+      .card-body {
+        padding: 0 0 0 1.1rem;
+      }
+      .card-header {
+        padding: 0 0 0.8rem 0;
+        button {
+          padding: 0 0 0 1.1rem;
+          &:before {
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+  .card-header {
+    margin-bottom: 0;
+    background: none;
+    border: 0;
+    padding: 0.9rem 1.3rem 0.85rem;
+    button {
+      cursor: pointer;
+      width: 100%;
+      padding: 0 0 0 1rem;
+      text-align: left;
+      margin: 0;
+      border: 0;
+      @include font-size(0.85rem);
+      font-weight: $font-weight-bold;
+      color: $main-color;
+      @include transition(all 150ms ease-in-out);
+      background: none;
+      &:before {
+        font-family: $font-family-unicons;
+        position: absolute;
+        left: 1.3rem;
+        content: $icon-caret-up;
+        @include font-size(1.15rem);
+        font-weight: normal;
+        width: 1rem;
+        margin-top: -0.25rem;
+        margin-left: -0.3rem;
+        display: inline-block;
+        color: $main-color;
+      }
+      &.collapsed {
+        color: $main-dark;
+        &:before {
+          content: $icon-caret-down;
+        }
+      }
+      &:hover {
+        color: $main-color;
+      }
+    }
+  }
+}
+.accordion-item .card-body {
+  padding: 0 1.25rem 0.25rem 2.35rem;
+}
+.accordion-item.icon {
+  .card-body {
+    padding: 0 1.25rem 0.25rem 2.8rem;
+  }
+  button {
+    padding: 0 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    &:before {
+      display: none;
+    }
+    > span {
+      position: absolute;
+      left: 1.3rem;
+      i {
+        @include font-size(1rem);
+      }
+    }
+  }
+}
+//----------------------------------------------------------//
+//	COLLAPSE
+//----------------------------------------------------------//
+.collapse-link {
+  @include font-size(0.85rem);
+  font-weight: $font-weight-bold;
+  color: $main-color;
+  &:before {
+    font-family: $font-family-unicons;
+    content: $icon-caret-up;
+    @include font-size(1.15rem);
+    font-weight: normal;
+    width: 1rem;
+    margin-left: -0.3rem;
+    margin-right: 0.4rem;
+    display: inline-block;
+    vertical-align: -4px;
+  }
+  &.collapsed {
+    color: $main-dark;
+    &:before {
+      content: $icon-caret-down;
+    }
+  }
+  &:hover {
+    color: $main-color;
+  }
+}
+.accordion-collapse > .card-footer {
+  background: $pre-bg;
+  padding: 0;
+}

@@ -1,0 +1,434 @@
+//----------------------------------------------------------//
+//	CONTROLS
+//----------------------------------------------------------//
+.swiper-controls {
+  position: absolute !important;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  .swiper-navigation {
+    pointer-events: all;
+    .swiper-button {
+      background: rgba($white, 0.7);
+      color: $main-dark;
+      border: 0;
+      box-shadow: $box-shadow-sm;
+      width: 2.2rem;
+      height: 2.2rem;
+      line-height: inherit;
+      border-radius: 100%;
+      text-shadow: none;
+      @include transition($link-transition);
+      &:hover {
+        background: rgba($white, 0.9);
+      }
+      &:focus {
+        outline: 0;
+      }
+      &:after {
+        font-family: $font-family-unicons;
+        @include font-size(1.2rem);
+      }
+      &.swiper-button-prev {
+        left: 1rem;
+        &:after {
+          content: $icon-prev;
+        }
+      }
+      &.swiper-button-next {
+        right: 1rem;
+        &:after {
+          content: $icon-next;
+        }
+      }
+      &.swiper-button-disabled {
+        background: rgba($white, 0.7);
+      }
+    }
+  }
+
+  .swiper-pagination {
+    bottom: -2.8rem;
+    position: absolute !important;
+    pointer-events: all;
+    .swiper-pagination-bullet {
+      -webkit-backface-visibility: visible;
+      @include transition($link-transition);
+      position: relative;
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      margin: 0 0.3rem;
+      padding: 0;
+      background: $secondary;
+      opacity: 0.5;
+      border-radius: 100%;
+      border: 3px solid transparent;
+      transform: scale(0.6);
+      &:hover {
+        transform: scale(1);
+      }
+      &:focus {
+        outline: 0;
+      }
+      &.swiper-pagination-bullet-active {
+        transform: scale(1);
+        background: none;
+        border-color: $secondary;
+      }
+    }
+  }
+}
+
+.swiper-container {
+  -webkit-user-select: none;
+  position: relative;
+  z-index: 10 !important;
+  &.clients .swiper {
+    display: flex;
+    align-items: center;
+  }
+  .swiper {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &.nav-color .swiper-button,
+  &.nav-color .swiper-slide figure .item-link {
+    background: rgba($main-color, 0.9) !important;
+    color: $white !important;
+    &.swiper-button-disabled {
+      background: rgba($main-color, 0.7) !important;
+    }
+    &:hover {
+      background: $main-color !important;
+    }
+  }
+  &.nav-dark .swiper-button,
+  &.nav-dark .swiper-slide figure .item-link {
+    background: $lightbox-icon-bg !important;
+    color: $lightbox-icon-color !important;
+    &.swiper-button-disabled {
+      background: rgba($black, 0.1) !important;
+    }
+    &:hover {
+      background: $lightbox-icon-hover-bg !important;
+    }
+  }
+  &.nav-bottom {
+    .swiper-navigation {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      transform: none;
+      position: absolute !important;
+      bottom: -3.2rem;
+      left: 0;
+      width: 100%;
+      .swiper-button {
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: 0;
+        position: relative;
+        margin: 0 0.2rem;
+      }
+      + .swiper-pagination {
+        bottom: -5.2rem;
+      }
+    }
+    &.nav-far .swiper-navigation {
+      bottom: -4.1rem;
+    }
+    &.nav-start .swiper-navigation {
+      text-align: left;
+      justify-content: flex-start;
+      .swiper-button {
+        margin: 0 0.4rem 0 0;
+      }
+    }
+  }
+  &.dots-over {
+    .swiper-pagination {
+      bottom: 0.6rem;
+      .swiper-pagination-bullet {
+        background: $white;
+        opacity: 1;
+        box-shadow: $box-shadow-sm;
+        &.swiper-pagination-bullet-active {
+          background: none;
+          border-color: $white;
+        }
+      }
+    }
+  }
+  &.dots-start .swiper-pagination {
+    text-align: left;
+    justify-content: flex-start;
+  }
+  &.dots-light .swiper-pagination .swiper-pagination-bullet {
+    background: $white;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background: none;
+      border-color: $white;
+    }
+  }
+  &.dots-dark .swiper-pagination .swiper-pagination-bullet {
+    background: $lightbox-icon-bg;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background: none;
+      border-color: $lightbox-icon-bg;
+    }
+  }
+  &.dots-light.dots-light-75 .swiper-pagination .swiper-pagination-bullet {
+    opacity: 0.75;
+  }
+  &.dots-closer .swiper-pagination {
+    bottom: -2rem;
+  }
+}
+//----------------------------------------------------------//
+//	OVERLAY
+//----------------------------------------------------------//
+.swiper-slide {
+  &.bg-overlay:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba($gray-900, 0.5);
+  }
+  &.rounded.bg-overlay:before {
+    border-radius: $border-radius;
+  }
+  &.bg-overlay-300:before {
+    background: rgba($gray-900, 0.3);
+  }
+  &.bg-overlay-400:before {
+    background: rgba($gray-900, 0.4);
+  }
+  &.bg-overlay [class*='container'] > *,
+  &.bg-overlay .caption-wrapper > * {
+    position: relative;
+    z-index: 3;
+  }
+  .caption-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    .caption {
+      display: flex;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .caption-wrapper {
+    display: none !important;
+  }
+}
+//----------------------------------------------------------//
+//	HERO
+//----------------------------------------------------------//
+.swiper-hero,
+.swiper-hero .swiper-slide {
+  height: $hero-slider-height !important;
+}
+.swiper-hero {
+  .swiper-slide {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+@media (max-width: 767px) {
+  .swiper-hero,
+  .swiper-hero .swiper-slide {
+    height: $hero-slider-height-mobile !important;
+  }
+  .swiper-hero .swiper-navigation {
+    display: none;
+  }
+}
+//----------------------------------------------------------//
+//	FULLSCREEN
+//----------------------------------------------------------//
+.swiper-fullscreen {
+  height: 100vh;
+  .swiper:not(.swiper-thumbs) .swiper-slide {
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+  }
+  .swiper-thumbs {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    .swiper-slide {
+      cursor: pointer;
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 100%;
+      }
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: '';
+        display: block;
+        z-index: 2;
+        transition: all 150ms ease-in-out;
+        box-sizing: border-box;
+        border: 2px solid transparent;
+        border-radius: 100%;
+      }
+      &.swiper-slide-thumb-active:after {
+        border-color: rgba($white, 0.6);
+      }
+    }
+  }
+}
+@media (max-width: 1199.98px) {
+  .swiper-fullscreen,
+  .swiper-fullscreen .swiper:not(.swiper-thumbs) .swiper-slide {
+    height: $hero-slider-height !important;
+  }
+}
+@media (max-width: 767px) {
+  .swiper-fullscreen,
+  .swiper-fullscreen .swiper:not(.swiper-thumbs) .swiper-slide {
+    height: $hero-slider-height-mobile !important;
+  }
+}
+//----------------------------------------------------------//
+//	AUTO
+//----------------------------------------------------------//
+@media (min-width: 1024px) {
+  .swiper-auto .swiper-slide {
+    width: 850px;
+  }
+  .swiper-auto.swiper-auto-xs .swiper-slide {
+    width: 600px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .swiper-auto .swiper-slide {
+    width: 600px;
+  }
+  .swiper-auto.swiper-auto-xs .swiper-slide {
+    width: 400px;
+  }
+}
+@media (max-width: 767px) {
+  .swiper-auto.swiper-auto-xs .swiper-slide {
+    width: 300px;
+  }
+}
+//----------------------------------------------------------//
+//	ANIMATIONS
+//----------------------------------------------------------//
+.swiper-container .swiper-slide [class*='animate__'] {
+  animation-name: none;
+  visibility: hidden;
+}
+.swiper-container .swiper-slide.swiper-slide-active {
+  [class*='animate__'] {
+    visibility: visible;
+    &.animate__fadeInUp {
+      animation-name: fadeInUp;
+    }
+    &.animate__fadeInDown {
+      animation-name: fadeInDown;
+    }
+    &.animate__fadeInTopRight {
+      animation-name: fadeInTopRight;
+    }
+    &.animate__slideInUp {
+      animation-name: slideInUp;
+    }
+    &.animate__slideInDown {
+      animation-name: slideInDown;
+    }
+    &.animate__slideInLeft {
+      animation-name: slideInLeft;
+    }
+    &.animate__slideInRight {
+      animation-name: slideInRight;
+    }
+    &.animate__zoomIn {
+      animation-name: zoomIn;
+    }
+  }
+}
+//----------------------------------------------------------//
+//	INNER
+//----------------------------------------------------------//
+.item-inner {
+  padding: 1rem 0.75rem;
+}
+//----------------------------------------------------------//
+//	THUMBNAILS
+//----------------------------------------------------------//
+.swiper-thumbs-container:not(.swiper-fullscreen) {
+  .swiper-main {
+    position: relative;
+  }
+  .swiper:not(.swiper-thumbs) {
+    margin-bottom: 0.5rem;
+  }
+  &:not(.swiper-fullscreen) .swiper-thumbs {
+    .swiper-slide {
+      cursor: pointer;
+      opacity: 0.7;
+      &.swiper-slide-thumb-active {
+        opacity: 1;
+      }
+    }
+  }
+}
+//----------------------------------------------------------//
+//	STATIC CAPTIONS
+//----------------------------------------------------------//
+.swiper-static {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+@media (min-width: 1400px) {
+  .container-custom {
+    max-width: 80%;
+  }
+}
+@media (min-width: 1200px) {
+  .container-custom {
+    max-width: 90%;
+  }
+}
+//----------------------------------------------------------//
+//	TICKER MODE
+//----------------------------------------------------------//
+.swiper-wrapper.ticker {
+  transition-timing-function: linear !important;
+}

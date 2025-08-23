@@ -1,0 +1,57 @@
+//----------------------------------------------------------//
+//	CARET
+//----------------------------------------------------------//
+@mixin caret-down {
+  border: 0;
+  content: $icon-caret-down;
+}
+@mixin caret-up {
+  border: 0;
+  content: $icon-caret-up;
+}
+@mixin caret-end {
+  border: 0;
+  content: $icon-caret-end;
+}
+@mixin caret-start {
+  border: 0;
+  content: $icon-caret-start;
+}
+@mixin caret($direction: down) {
+  @if $enable-caret {
+    &::after {
+      font-family: $font-family-unicons;
+      display: inline-block;
+      margin-left: $caret-spacing;
+      vertical-align: $caret-vertical-align;
+      font-weight: 700 !important;
+      content: "";
+      @if $direction == down {
+        @include caret-down();
+      } @else if $direction == up {
+        @include caret-up();
+      } @else if $direction == end {
+        @include caret-end();
+      } @else if $direction == start {
+        @include caret-start();
+      }
+    }
+    &:empty::after {
+      margin-left: 0;
+    }
+  }
+}
+//----------------------------------------------------------//
+//	SHAPES
+//----------------------------------------------------------//
+@mixin bg-dot-variant($color) {
+  background-image: radial-gradient($color 2px, transparent 2.5px);
+}
+@mixin bg-line-variant($color) {
+  background: repeating-linear-gradient(-55deg,
+      rgba($white, 0) 0.8px,
+      $color 1.6px,
+      $color 3px,
+      rgba($white, 0) 3.8px,
+      rgba($white, 0) 10px);
+}

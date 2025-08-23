@@ -1,0 +1,17 @@
+// Bootstrap Functions
+@import "../../../../node_modules/bootstrap/scss/functions";
+
+// Theme colors
+@import "../theme-colors";
+
+// User variables
+@import '../user-variables';
+
+// Color
+$primary: $fuchsia;
+
+// Theme variables
+@import "../variables";
+
+// Color styles
+@import "../theme/colors";
