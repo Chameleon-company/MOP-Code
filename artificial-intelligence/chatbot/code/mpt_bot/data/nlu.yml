@@ -99,12 +99,12 @@ nlu:
 # Alex Start - Transport Intents --------------------------------------------------------------------------------
 - intent: find_best_route
   examples: |
-    - What is the best route from [Southern Cross](station_a) to [Richmond](station_b)?
-    - Show me the fastest route from [North Melbourne](station_a) to [Footscray](station_b)
-    - Recommend the best train route from [Dandenong](station_a) to [Caulfield](station_b)
-    - What is the best route from [Box Hill](station_a) to [Glenferrie](station_b) by [tram](transport_mode)?
-    - How do I get from [Richmond](station_a) to [Melbourne Central](station_b) by [train](transport_mode)?
-    - What’s the best way to go from [Box Hill](station_a) to [Glenferrie](station_b)?
+    - What is the best [train](transport_mode) route without transfer from [Southern Cross](station_a) to [Richmond](station_b)?
+    - Show me the fastest [train](transport_mode) route without transfer from [North Melbourne](station_a) to [Footscray](station_b)
+    - Recommend the best [train](transport_mode) route no transfer from [Dandenong](station_a) to [Caulfield](station_b)
+    - What is the best direct route from [Box Hill](station_a) to [Glenferrie](station_b) by [tram](transport_mode)?
+    - How do I get directly from [Richmond](station_a) to [Melbourne Central](station_b) by [train](transport_mode)?
+    - What’s the best way to go from [Box Hill](station_a) to [Glenferrie](station_b) by [bus](transport_mode)?
 
 - intent: ask_direct_route
   examples: |
@@ -116,10 +116,12 @@ nlu:
     - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
     - How many train changes between [Melbourne Central](station_a) and [Glenferrie](station_b)?
 
-- intent: ask_best_route
+- intent: ask_best_route_with_transfer
   examples: |
-    - What is the best route from [Richmond](station_a) to [North Melbourne](station_b)?
-    - How should I travel with the fewest transfers from [Richmond](station_a) to [North Melbourne](station_b)?
+    - How can I find a route with transfer from [Richmond](station_a) to [North Melbourne](station_b)?
+    - What is the route containing transfer from [Syndal](station_a) to [Flinders Street](station_b)?
+    - How can I travel with the fewest transfers from [Richmond](station_a) to [North Melbourne](station_b)?
+    - Help me to find the fewest transfer route from [Sunshine](station_a) to [Kooyong](station_b)
 
 - intent: ask_least_stops_route
   examples: |
@@ -127,10 +129,10 @@ nlu:
     - Which route has the fewest stops between [Richmond](station_a) and [Flinders Street](station_b)?
     - Show me the route with the least stops from [Box Hill](station_a) to [Southern Cross](station_b).
 
-- intent: ask_quickest_route
-  examples: |
-    - Can you tell me the quickest way from [South Yarra](station_a) to [Hawthorn](station_b)?
-    - What's the fastest route from [Footscray](station_a) to [Melbourne Central](station_b)?
+# - intent: ask_quickest_route
+#   examples: |
+#     - Can you tell me the quickest way from [South Yarra](station_a) to [Hawthorn](station_b)?
+#     - What's the fastest route from [Footscray](station_a) to [Melbourne Central](station_b)?
 
 - intent: find_next_train
   examples: |

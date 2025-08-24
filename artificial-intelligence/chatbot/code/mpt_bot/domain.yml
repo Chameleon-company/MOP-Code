@@ -15,9 +15,9 @@ intents:
   - find_best_route
   - ask_direct_route
   - ask_transfers
-  - ask_best_route
+  - ask_best_route_with_transfer
   - ask_least_stops_route
-  - ask_quickest_route
+  # - ask_quickest_route
   - request_train_map
   - request_tram_map
   - request_bus_map
