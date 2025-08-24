@@ -1,5 +1,6 @@
 import spacy
 import folium
+import webbrowser
 from folium.plugins import MarkerCluster
 import os
 from io import BytesIO
@@ -26,6 +27,7 @@ import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
+from pathlib import Path
 from rasa_sdk.events import SlotSet, EventType, AllSlotsReset
 # This is to skip the favicon
 app = Sanic("custom_action_server")
@@ -517,43 +519,50 @@ class ActionGenerateTrainMap(Action):
     def name(self) -> Text:
         return "action_generate_train_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
 
         try:
-            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+            # Build the train stops map
+            stops_map_df = stops_df[["stop_id", "stop_name", "stop_lat", "stop_lon"]]
             melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
 
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
+                    tooltip=row["stop_name"],
                 ).add_to(melbourne_map)
 
-            # Save the map to an HTML file
-            map_filename = 'melbourne_train_stations_map.html'
+            # Save the map
+            map_filename = "melbourne_train_stations_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
-            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
+            os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Get the base URL from the environment variable
-            server_base_url = os.getenv('SERVER_BASE_URL')
-
-            # Fallback if the environment variable is not set
-            if server_base_url is None:
-                server_base_url = 'http://localhost:8080'  # Default value or fallback
-
-            # Create and return the hyperlink using the base URL
+            # Build an HTTP link (served by: python -m http.server 8000)
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne train stations</a>"
 
-            # Send the message to the user with the hyperlink
+            # Single message with one link only
             dispatcher.utter_message(
-                text=f"The map of Melbourne train stations has been generated. {hyperlink}")
+                text=f"The map of Melbourne train stations has been generated. "
+                     f"<a href='{public_url}' target='_blank'>Click here to view the map</a>"
+            )
+
+            # Auto-open in browser (local only, optional)
+            try:
+                webbrowser.open(public_url, new=2)
+            except Exception as e:
+                logger.warning(f"Could not auto-open browser: {e}")
+
+            return []
 
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
@@ -569,46 +578,61 @@ class ActionGenerateTramMap(Action):
     def name(self) -> Text:
         return "action_generate_tram_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
         try:
-            # Remove duplicates
-            stops_map_df = tram_stops.drop_duplicates(subset=['stop_lat', 'stop_lon'])
+            # De-duplicate tram stops
+            stops_map_df = tram_stops.drop_duplicates(subset=["stop_lat", "stop_lon"])
 
-            # Initialize map
+            # Build map
             melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
-
-            # Use MarkerCluster for better performance
             marker_cluster = MarkerCluster().add_to(melbourne_map)
 
-            # Add markers with simplified popups
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"{row['stop_name']}",
-                    tooltip=f"{row['stop_name']}"
+                    tooltip=f"{row['stop_name']}",
                 ).add_to(marker_cluster)
 
-            # Save map to HTML
-            map_filename = 'melbourne_tram_stops_map.html'
+            # Save map
+            map_filename = "melbourne_tram_stops_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
             os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Send map link to user
-            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            # HTTP link served by: python -m http.server 8000
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne tram stops</a>"
-            dispatcher.utter_message(text=f"The map of Melbourne tram stops has been generated. {hyperlink}")
+
+            # Single combined message with one link
+            dispatcher.utter_message(
+                text=(
+                    "The map of Melbourne tram stops has been generated. "
+                    f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne tram stops</a>"
+                )
+            )
+
+            # (Optional) auto-open in browser for local testing
+            try:
+                webbrowser.open(public_url, new=2)
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Could not auto-open browser: {e}")
+
+            return []
 
         except Exception as e:
-            logging.error(f"Error generating tram map: {e}")
+            logging.getLogger(__name__).exception("Failed to generate tram map")
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
-        return []
-
+            return []
+        
 class ActionGenerateBusMap(Action):
     ''' -------------------------------------------------------------------------------------------------------
         ID: BUS_01
@@ -619,40 +643,52 @@ class ActionGenerateBusMap(Action):
     def name(self) -> Text:
         return "action_generate_bus_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
         try:
             # Ensure bus_stops has the required columns
-            stops_map_df = bus_stops[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
-            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+            stops_map_df = bus_stops[["stop_id", "stop_name", "stop_lat", "stop_lon"]]
 
-            # Add markers for bus stops
+            # Build map
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
+                    tooltip=row["stop_name"],
                 ).add_to(melbourne_map)
 
-            # Save the map to an HTML file
-            map_filename = 'melbourne_bus_stops_map.html'
+            # Save map
+            map_filename = "melbourne_bus_stops_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
             os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Generate public URL for the map
-            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            # HTTP link served by: python -m http.server 8000
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne bus stops</a>"
 
-            dispatcher.utter_message(text=f"The map of Melbourne bus stops has been generated. {hyperlink}")
+            # Single combined message with one link
+            dispatcher.utter_message(
+                text=(
+                    "The map of Melbourne bus stops has been generated. "
+                    f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne bus stops</a>"
+                )
+            )
+
+            return []
+
         except Exception as e:
-            logging.error(f"Error generating bus map: {e}")
+            logging.getLogger(__name__).exception("Failed to generate bus map")
             dispatcher.utter_message(text="An error occurred while generating the bus map.")
-        return []
+            return []
 
 class ActionFindNextTrain(Action):
     ''' -------------------------------------------------------------------------------------------------------
