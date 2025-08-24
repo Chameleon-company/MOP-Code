@@ -192,6 +192,10 @@ forms:
 
 responses:
     # Alex Start responses -----------------------------------------------------------
+  utter_ack:
+    - text: "Okay."
+    - text: "Got it."
+    - text: "Noted."
   utter_ask_origin:
     - text: "Where are you starting your journey?"
   utter_ask_destination:

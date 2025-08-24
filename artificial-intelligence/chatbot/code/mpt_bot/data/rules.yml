@@ -210,3 +210,8 @@ rules:
     - intent: ask_traffic
     - action: action_fetch_traffic  
 #Awanish  rule----end
+  - rule: Acknowledge affirmative
+    steps:
+    - intent: affirm
+    - action: utter_ack
+

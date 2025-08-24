@@ -29,20 +29,33 @@ nlu:
     - hi there
 - intent: goodbye
   examples: |
-    - bye
-    - goodbye
-    - see you
-    - bye bye
-    - talk to you later
+    - see you later
+    - cya
+    - catch you later
+    - see ya
+    - talk later
+    - take care
 
 - intent: affirm
   examples: |
     - yes
     - y
-    - indeed
-    - of course
-    - that sounds good
+    - yeah
+    - yup
+    - yep
+    - absolutely
+    - exactly
     - correct
+    - right
+    - sure
+    - sure thing
+    - sounds good
+    - definitely
+    - of course
+    - alright
+    - okay
+    - ok
+    - k
 - intent: deny
   examples: |
     - no
