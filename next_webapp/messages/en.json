@@ -162,5 +162,12 @@
     "Click on logo to upload files": "Click on logo to upload files",
     "Upload File": "Upload File",
     "Clear": "Clear"
+  },
+  "hero": {
+    "hero-top": "Transforming Ideas Into Digital Excellence",
+    "hero-sub": "Discover how our innovative solutions drive success for businesses worldwide through cutting-edge technology and strategic thinking",
+    "place_holder": "Search case studies...",
+    "exploreCaseStudies": "Explore Case Studies",
+    "watchVideo": "Watch Video"
   }
 }
