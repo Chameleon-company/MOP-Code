@@ -57,7 +57,7 @@ stories:
 
   - story: Ask for best train route with transfers
     steps:
-      - intent: ask_best_route
+      - intent: ask_best_route_with_transfer
         entities:
           - station_a
           - station_b
@@ -66,7 +66,7 @@ stories:
 
   - story: User asks for best train route, then asks for transfers
     steps:
-      - intent: ask_best_route
+      - intent: ask_best_route_with_transfer
         entities:
           - station_a
           - station_b

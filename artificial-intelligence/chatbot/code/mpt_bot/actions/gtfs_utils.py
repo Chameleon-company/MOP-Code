@@ -15,6 +15,7 @@
 		- get_stop_id: (Author: AlexT)
 		- extract_stations_from_query: (Author: AlexT, Modified by Andre Nguyen)
 		- check_direct_route: (Author: AlexT)
+        - check_direct_route_by_id: (Author: AlexT)
 		- calculate_route_travel_time: (Author: AlexT)
 		- calculate_transfers: (Author: AlexT)
 		- find_best_route_with_transfers: (Author: AlexT)
@@ -39,9 +40,6 @@ import zipfile
 import requests
 import pandas as pd
 import logging
-import webbrowser
-from pathlib import Path
-from typing import Optional, List
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
 from datetime import datetime, timedelta
@@ -60,7 +58,6 @@ from tabulate import tabulate
 from transformers import pipeline
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
-
 
 # User ID and API Key
 user_id = "3003120"
@@ -212,25 +209,20 @@ class GTFSUtils:
         return None
 
     @staticmethod
-    def load_combined_data(
-        train_path: str, tram_path: str, bus_path: str
-    ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def load_combined_data( self, train_path: str, tram_path: str, bus_path: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
         Author: AlexT
         Load and combine GTFS data for train, tram, and bus.
         """
-        train_data = GTFSUtils.load_mode_data(train_path, "train")
-        tram_data  = GTFSUtils.load_mode_data(tram_path, "tram")
-        bus_data   = GTFSUtils.load_mode_data(bus_path, "bus")
+        train_data = load_mode_data(train_path, "train")
+        tram_data = load_mode_data(tram_path, "tram")
+        bus_data = load_mode_data(bus_path, "bus")
 
-        if not train_data or not tram_data or not bus_data:
-            raise RuntimeError("Failed to load one or more GTFS datasets.")
-
-        stops     = pd.concat([train_data[0],  tram_data[0],  bus_data[0]],  ignore_index=True)
-        stop_times= pd.concat([train_data[1],  tram_data[1],  bus_data[1]],  ignore_index=True)
-        routes    = pd.concat([train_data[2],  tram_data[2],  bus_data[2]],  ignore_index=True)
-        trips     = pd.concat([train_data[3],  tram_data[3],  bus_data[3]],  ignore_index=True)
-        calendar  = pd.concat([train_data[4],  tram_data[4],  bus_data[4]],  ignore_index=True)
+        stops = pd.concat([train_data[0], tram_data[0], bus_data[0]], ignore_index=True)
+        stop_times = pd.concat([train_data[1], tram_data[1], bus_data[1]], ignore_index=True)
+        routes = pd.concat([train_data[2], tram_data[2], bus_data[2]], ignore_index=True)
+        trips = pd.concat([train_data[3], tram_data[3], bus_data[3]], ignore_index=True)
+        calendar = pd.concat([train_data[4], tram_data[4], bus_data[4]], ignore_index=True)
 
         return stops, stop_times, routes, trips, calendar
 
@@ -263,9 +255,10 @@ class GTFSUtils:
             Find all child stations and return list of their id
         """
         child_station_id_list = []
+        stops_df = stops_df.astype(str)
         stop_times_data = stop_times_df.reset_index()
         for index, stop in stops_df.iterrows():
-            if stop['parent_station'] == parent_station_id:
+            if stop['parent_station'] == parent_station_id and stop['stop_id'].isdigit():
                 if not stop_times_data.loc[stop_times_data['stop_id'] == stop['stop_id']].empty:
                     child_station_id_list.append(stop['stop_id'])
         return child_station_id_list
@@ -487,6 +480,25 @@ class GTFSUtils:
         if not valid_trips.empty:
             return True, valid_trips['trip_id'].unique()
         return False, []
+    
+    @staticmethod
+    def check_direct_route_by_id(stop_a_id: str, stop_b_id: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> (bool, List[str]):
+        """
+            Author: AlexT
+            Check if there is a direct train between two stations by id.
+        """
+        try:
+            stop_a_times = stop_times_df.xs(stop_a_id, level='stop_id')
+            stop_b_times = stop_times_df.xs(stop_b_id, level='stop_id')
+        except KeyError:
+            return False, []
+
+        merged = pd.merge(stop_a_times.reset_index(), stop_b_times.reset_index(), on='trip_id', suffixes=('_a', '_b'))
+        valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']]
+
+        if not valid_trips.empty:
+            return True, valid_trips['trip_id'].unique()
+        return False, []
 
     # def check_direct_route_real_time(station_a: str, station_b: str):
 
@@ -676,7 +688,7 @@ class GTFSUtils:
 
     @staticmethod
     def get_trip_id_for_best_route(best_route: List[str], stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> \
-        Optional[str]:
+    Optional[str]:
         """
             Author: AlexT
             Given a list of stops representing the best route, find the trip ID that matches this route.
@@ -725,117 +737,190 @@ class GTFSUtils:
         return all(item in iter_seq for item in subsequence)
 
     @staticmethod
-    def generate_route_map(
-        trip_id: str,
-        station_a: str,
-        station_b: str,
-        stops_df: pd.DataFrame,
-        stop_times_df: pd.DataFrame,
-        dataset_path: str,
-        transfers_df: Optional[pd.DataFrame] = None,
-    ) -> Optional[str]:
+    def generate_route_map(trip_id: str, station_a: str, station_b: str, stops_df: pd.DataFrame,
+                           stop_times_df: pd.DataFrame, dataset_path: str,
+                           transfers_df: Optional[pd.DataFrame] = None) -> Optional[str]:
         """
-        Minimal stable version for drawing a route map between station_a and station_b for a given trip_id.
+            Author: AlexT
+            Generate a route map for a given trip ID, save it as an HTML file, and return a hyperlink to the map.
+            Optionally highlights transfer stations on the route if transfers_df is provided.
+            :param trip_id: The trip ID for which to generate the route map.
+            :param station_a: The starting station name.
+            :param station_b: The ending station name.
+            :param stops_df: DataFrame containing stop information.
+            :param stop_times_df: DataFrame containing stop times.
+            :param dataset_path: Path to the dataset directory where the map will be saved.
+            :param transfers_df: Optional DataFrame containing transfer information.
+            :return: Hyperlink to the saved map file, or None if the map could not be generated.
         """
         try:
-            # Ensure MultiIndex ['stop_id','trip_id']
-            if not isinstance(stop_times_df.index, pd.MultiIndex) or \
-               stop_times_df.index.names != ['stop_id', 'trip_id']:
-                # Try to reset/rebuild safely
-                st = stop_times_df.reset_index(drop=False)
-                if not {'stop_id', 'trip_id'}.issubset(set(st.columns)):
-                    raise ValueError("stop_times_df must contain 'stop_id' and 'trip_id'.")
-                stop_times_df = st.set_index(['stop_id', 'trip_id']).sort_index()
+            # Ensure the stop_times_df is correctly indexed (it should already be normalized)
+            if not isinstance(stop_times_df.index, pd.MultiIndex):
+                raise ValueError("The stop_times_df DataFrame must be indexed by ['stop_id', 'trip_id'].")
 
-            # Normalise station names like elsewhere in code
-            norm_a = station_a.strip().lower()
-            norm_b = station_b.strip().lower()
-            if 'normalized_stop_name' not in stops_df.columns:
-                stops_df = stops_df.copy()
-                stops_df['normalized_stop_name'] = (
-                    stops_df['stop_name'].astype(str).str.lower()
-                    .str.replace("station", "", regex=False)
-                    .str.replace("railway", "", regex=False)
-                    .str.replace("(", "", regex=False)
-                    .str.replace(")", "", regex=False)
-                    .str.strip()
-                )
+            # Normalize the input station names to match the normalized stop names in stops_df
+            normalized_station_a = station_a.strip().lower()
+            normalized_station_b = station_b.strip().lower()
 
-            stop_a_series = stops_df.loc[stops_df["normalized_stop_name"] == norm_a, "stop_id"]
-            stop_b_series = stops_df.loc[stops_df["normalized_stop_name"] == norm_b, "stop_id"]
-            if stop_a_series.empty or stop_b_series.empty:
-                raise ValueError("Start or end station not found in stops_df.")
-            stop_a_id = stop_a_series.iloc[0]
-            stop_b_id = stop_b_series.iloc[0]
+            # Get stop IDs for station_a and station_b using the normalized names
+            stop_a_id = stops_df.loc[stops_df['normalized_stop_name'] == normalized_station_a, 'stop_id'].values[0]
+            stop_b_id = stops_df.loc[stops_df['normalized_stop_name'] == normalized_station_b, 'stop_id'].values[0]
 
-            # All stops for this trip
-            trip_stops = stop_times_df.xs(trip_id, level="trip_id").reset_index()
+            # Filter the stop_times_df by the specified trip_id
+            trip_stops = stop_times_df.xs(trip_id, level='trip_id').reset_index()
+
             if trip_stops.empty:
                 raise ValueError(f"No stops found for trip ID {trip_id}.")
 
-            # Find sequences for A and B
-            a_seq = trip_stops.loc[trip_stops["stop_id"] == stop_a_id, "stop_sequence"].tolist()
-            b_seq = trip_stops.loc[trip_stops["stop_id"] == stop_b_id, "stop_sequence"].tolist()
-            if not a_seq or not b_seq:
-                raise ValueError("Start or end station not present in this trip.")
-            a_seq, b_seq = min(a_seq), max(b_seq)
-            if a_seq > b_seq:
-                a_seq, b_seq = b_seq, a_seq
+            # Find the sequences for station_a and station_b
+            stop_a_sequence = trip_stops[trip_stops['stop_id'] == stop_a_id]['stop_sequence'].values[0]
+            stop_b_sequence = trip_stops[trip_stops['stop_id'] == stop_b_id]['stop_sequence'].values[0]
 
-            # Keep only between A and B
-            trip_stops = trip_stops[(trip_stops["stop_sequence"] >= a_seq) & (trip_stops["stop_sequence"] <= b_seq)]
+            # Filter the trip stops to only include those between stop_a_sequence and stop_b_sequence
+            trip_stops = trip_stops[
+                (trip_stops['stop_sequence'] >= stop_a_sequence) & (trip_stops['stop_sequence'] <= stop_b_sequence)]
 
-            # Join names/coords
-            trip_stops = trip_stops.merge(
-                stops_df[["stop_id", "stop_name", "stop_lat", "stop_lon"]],
-                on="stop_id",
-                how="left",
-            )
-            if trip_stops[["stop_lat", "stop_lon"]].isnull().any().any():
-                raise ValueError("Missing lat/lon for some stops.")
+            # Merge with stops_df to get stop names and locations
+            trip_stops = trip_stops.merge(stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']], on='stop_id',
+                                          how='left')
 
-            # Build map
-            start_location = [float(trip_stops.iloc[0]["stop_lat"]), float(trip_stops.iloc[0]["stop_lon"])]
+            if trip_stops[['stop_lat', 'stop_lon']].isnull().any().any():
+                raise ValueError(f"Missing stop latitude/longitude information for trip ID {trip_id}.")
+
+            # Create the map centered around the first stop
+            start_location = trip_stops[['stop_lat', 'stop_lon']].iloc[0].values
             trip_map = folium.Map(location=start_location, zoom_start=13)
 
-            # Optional: highlight transfer points
-            transfer_ids = []
-            if transfers_df is not None and "from_stop_id" in transfers_df.columns:
-                transfer_ids = list(set(transfers_df["from_stop_id"].astype(str).tolist()))
+            # Highlight transfer stations if transfers_df is provided
+            if transfers_df is not None:
+                transfer_stop_ids = transfers_df['from_stop_id'].unique()
+            else:
+                transfer_stop_ids = []
 
-            for _, row in trip_stops.iterrows():
-                color = "red" if str(row["stop_id"]) in transfer_ids else "blue"
+            # Plot each stop on the map, highlighting transfer stations in red
+            for _, stop in trip_stops.iterrows():
+                color = 'red' if stop['stop_id'] in transfer_stop_ids else 'blue'
                 folium.Marker(
-                    location=[row["stop_lat"], row["stop_lon"]],
-                    popup=f"Stop: {row['stop_name']} (ID: {row['stop_id']})",
-                    tooltip=row["stop_name"],
-                    icon=folium.Icon(color=color),
+                    location=[stop['stop_lat'], stop['stop_lon']],
+                    popup=f"Stop: {stop['stop_name']}<br>Stop ID: {stop['stop_id']}",
+                    tooltip=stop['stop_name'],
+                    icon=folium.Icon(color=color)
                 ).add_to(trip_map)
 
+            # Draw lines between consecutive stops to represent the route
             folium.PolyLine(
-                locations=trip_stops[["stop_lat", "stop_lon"]].values.tolist(),
-                color="blue",
+                locations=trip_stops[['stop_lat', 'stop_lon']].values.tolist(),
+                color='blue',
                 weight=5,
-                opacity=0.7,
+                opacity=0.7
             ).add_to(trip_map)
 
-            # Save & open
-            maps_dir = os.path.join(os.getcwd(), "maps")
-            os.makedirs(maps_dir, exist_ok=True)
-            map_path = os.path.join(maps_dir, f"route_map_{trip_id}.html")
+            # Save the map to an HTML file
+            map_filename = f"route_map_{trip_id}.html"
+            current_directory = os.getcwd()
+            map_folder = os.path.join(current_directory, "maps")
+            os.makedirs(map_folder, exist_ok=True) # create maps folder if doesn't exist
+            map_path = os.path.join(map_folder, map_filename)
             trip_map.save(map_path)
 
-            file_uri = Path(map_path).resolve().as_uri()
-            try:
-                webbrowser.open(file_uri, new=2)
-            except Exception as e:
-                logging.warning(f"Could not auto-open browser: {e}")
+            # Create and return the hyperlink
+            # hyperlink = f"<a href='{map_path}' target='_blank'>Click here to view the route map</a>"
+            # return hyperlink
 
-            return f"Map saved at: {map_path}\nOpen in browser: {file_uri}"
+            # Get the base URL from the environment variable
+            server_base_url = os.getenv('SERVER_BASE_URL')
+
+            # Fallback if the environment variable is not set
+            if server_base_url is None:
+                server_base_url = 'http://localhost:8080'  # Default value or fallback
+
+            # Create and return the hyperlink using the base URL
+            public_url = f"{server_base_url}/maps/{map_filename}"
+            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the route map</a>"
+            return hyperlink
+
 
         except Exception as e:
-            logging.exception(f"generate_route_map failed: {e}")
+            logger.error(f"Failed to generate route map for trip ID {trip_id}: {str(e)}")
             return None
+
+    def generate_map(stops_df: pd.DataFrame, map_title: str, dataset_path: str) -> str:
+        """
+        Author: AlexT
+        Generates a map for a given mode of transport and saves it as an HTML file.
+        Args:
+            stops_df (pd.DataFrame): DataFrame containing stop information (stop_id, stop_name, stop_lat, stop_lon).
+            map_title (str): Title for the map (e.g., "Train Stations", "Tram Stops").
+            dataset_path (str): Path where the generated map will be saved.
+        Returns:
+            str: File path to the generated map HTML.
+        """
+        try:
+            # Extract necessary columns
+            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+
+            # Initialize the map centered at Melbourne
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+
+            # Add markers for each stop
+            for _, row in stops_map_df.iterrows():
+                folium.Marker(
+                    location=[row['stop_lat'], row['stop_lon']],
+                    popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
+                    tooltip=row['stop_name']
+                ).add_to(melbourne_map)
+
+            # Save the map to an HTML file
+            map_filename = f"{map_title.replace(' ', '_').lower()}_map.html"
+            map_folder = os.path.join(dataset_path, "maps")
+            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
+            map_path = os.path.join(map_folder, map_filename)
+            melbourne_map.save(map_path)
+
+            return map_path
+
+        except Exception as e:
+            logging.error(f"Error generating {map_title} map: {e}")
+            return None
+
+    @staticmethod
+    def generate_signature(base_url, user_id, api_key, route_id):
+        """
+        Author: AlexT
+        Generate API signature.
+        """
+        url_path = f"/v3/disruptions/route/{route_id}"
+        query_string = f"devid={user_id}"
+        full_url = f"{base_url}{url_path}?{query_string}"
+
+        parsed_url = urllib.parse.urlparse(full_url)
+        url_to_sign = parsed_url.path + "?" + parsed_url.query
+        signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
+
+        return f"{full_url}&signature={signature}"
+    @staticmethod
+    def generate_signature(request: str, params={}):
+        """
+        Author: Andre Nguyen
+        Generate API signature by request.
+        The return url should look like this:
+        https://timetableapi.ptv.vic.gov.au/{request}?{devid=...}&{signature=....}
+        """
+        url_path = request
+        query_string = f"devid={user_id}"
+        if params:
+            string_to_concat = ""
+            for param, value in params.items():
+                string_to_concat = str(param) + "=" + str(value).lower() + "&"
+            query_string = string_to_concat + query_string
+        full_url = f"{base_url}{url_path}?{query_string}"
+
+        parsed_url = urllib.parse.urlparse(full_url)
+        url_to_sign = parsed_url.path + "?" + parsed_url.query
+        signature = hmac.new(api_key.encode(), url_to_sign.encode(), hashlib.sha1).hexdigest()
+
+        result = f"{full_url}&signature={signature.upper()}"
+        return result
 
     # @staticmethod
     # def fetch_disruptions(signed_url):
@@ -1538,3 +1623,95 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
 
         return False, []
+    
+    def find_next_public_transport_trip(station_a: str, station_b: str, mode: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> str:
+        """
+            Author: AlexT
+            Modified by: Andre Nguyen
+            Return the time of next train/tram/bus from stop A to stop B (based on current time)
+            
+        """
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
+
+        stops_df['platform_code'] = stops_df['platform_code'].astype(str)
+
+        list_of_child_station_a = []
+        list_of_child_station_b = []
+        if mode == "train":
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
+        else:
+            list_of_child_station_a = [stop_a_id]
+            list_of_child_station_b = [stop_b_id]
+
+        current_time = datetime.now().strftime('%H:%M:%S')
+
+        if not isinstance(stop_times_df.index, pd.MultiIndex):
+            stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+
+        if not station_b:
+            # Logic for one station
+            response = f"Upcoming train schedules from {station_a}:\n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station = stop_times_df.loc[stop_a]
+                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
+                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
+                    subset=['departure_time']
+                )
+
+                if not trips_from_station.empty:
+                    next_trips = trips_from_station[['departure_time']].head(5)
+                    stop_a_platform = stops_df[stops_df["stop_id"] == stop_a].head(1)["platform_code"]
+                    for idx, row in next_trips.iterrows():
+                        departure_time = GTFSUtils.parse_time(row['departure_time'])
+                        upcoming = f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')} at platform {stop_a_info['platform_code']}\n"
+                        list_of_upcoming_trip.append(upcoming)
+            if len(list_of_upcoming_trip) == 0:
+                response = f"No upcoming trains found from {station_a}."
+            else:
+                for upcoming in list_of_upcoming_trip:
+                    response += upcoming
+        else:
+            # Logic for two stations
+            response = f"Upcoming train schedules from {station_a} to {station_b} \n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
+                
+                for stop_b in list_of_child_station_b:
+                    trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
+                    
+                    future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
+                    future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
+                    valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
+
+                    if not valid_trips.empty:
+                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                        stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
+                        for index, next_trip in valid_trips.iterrows():
+                            next_trip_time = next_trip['departure_time']
+                            next_trip_time = GTFSUtils.parse_time(next_trip_time)
+                            # if isinstance(next_trip_time, timedelta):
+                            #     next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
+                            upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {next_trip_time}\n"
+                            next_trip_dict = {'time' : next_trip_time, 'message': upcoming}
+                            flag = 0
+                            for trip in list_of_upcoming_trip:
+                                if trip['time'] == next_trip_time:
+                                    flag = 1
+                            if flag == 0:
+                                list_of_upcoming_trip.append(next_trip_dict)
+            if len(list_of_upcoming_trip) > 0:
+                list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
+                count = 0
+                for upcoming in list_of_upcoming_trip:
+                    if (count == 5):
+                        break
+                    response += upcoming['message']
+                    count += 1
+            else:
+                response = f"No upcoming trains found from {station_a} to {station_b}."
+        return response

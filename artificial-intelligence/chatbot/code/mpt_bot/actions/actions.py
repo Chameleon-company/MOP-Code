@@ -726,54 +726,7 @@ class ActionFindNextTrain(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
-
-            # Andre Nguyen's code
-            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df)
-            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df)
-
-            current_time = datetime.now().strftime('%H:%M:%S')
-
-            if not isinstance(stop_times_df.index, pd.MultiIndex):
-                stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-            if not station_b:
-                # Logic for one station
-                trips_from_station = stop_times_df.loc[stop_a_id]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time']
-                )
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    response = f"Upcoming train schedules from {station_a}:\n"
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        response += f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')}\n"
-                else:
-                    response = f"No upcoming trains found from {station_a}."
-            else:
-                # Logic for two stations
-                trips_from_station_a = stop_times_df.loc[stop_a_id].reset_index()
-                trips_to_station_b = stop_times_df.loc[stop_b_id].reset_index()
-
-                future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time][
-                    'trip_id'].unique()
-                valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                if not valid_trips.empty:
-                    next_trip = valid_trips.iloc[0]
-                    next_trip_time = trips_from_station_a[
-                        (trips_from_station_a['trip_id'] == next_trip['trip_id'])
-                    ]['departure_time'].values[0]
-                    next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                    if isinstance(next_trip_time, timedelta):
-                        next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                    response = f"The next train from {station_a} to {station_b} leaves at {next_trip_time}."
-                else:
-                    response = f"No upcoming trains found from {station_a} to {station_b}."
+            response = GTFSUtils.find_next_public_transport_trip(station_a, station_b, "train", stops_df, stop_times_df)
 
             dispatcher.utter_message(text=response)
         except Exception as e:
@@ -1090,6 +1043,8 @@ class ActionFindBestRouteWithTransfers(Action):
                 return []
 
             station_a, station_b = extracted_stations[0], extracted_stations[1]
+            station_a = station_a.replace("Railway", "").replace("Station", "").strip()
+            station_b = station_b.replace("Railway", "").replace("Station", "").strip()
 
             # Use the generic method from GTFSUtils to find the best route with transfers
             best_route = GTFSUtils.find_best_route_with_transfers(station_a, station_b, stops_df, stop_times_df)
