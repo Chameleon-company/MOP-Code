@@ -5,11 +5,13 @@ import { Link } from "@/i18n-navigation";
 import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const t = useTranslations("common");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -59,15 +61,23 @@ const Header = () => {
                 isMenuOpen ? "block" : "hidden"
               } lg:block`}
             >
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.link}
-                  className="text-black-600 hover:text-green-900 dark:text-gray-200 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {t(item.name)}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = pathname === `/en${item.link === "/" ? "" : item.link}`;
+
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.link}
+                    className={`px-3 py-2 rounded-md text-sm font-medium
+                      ${isActive
+                        ? 'text-blue-600 font-bold'
+                        : 'text-black hover:text-green-900 dark:text-gray-200 dark:hover:text-green-300 hover:underline'
+                      }`}
+                  >
+                    {t(item.name)}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
           <div className="flex items-center">
