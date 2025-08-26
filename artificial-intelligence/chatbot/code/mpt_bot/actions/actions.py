@@ -22,6 +22,7 @@ from sanic.response import text
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from rasa_sdk.types import DomainDict
+from difflib import get_close_matches
 #from actions.traffic_route 
 import hashlib
 import hmac
@@ -85,6 +86,15 @@ else:
 CSV_DATASET_PATH = "./mnt/metro_train_accessibility_cleaned.csv"
 station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
+station_data['norm_name'] = (
+    station_data['Station Name']
+      .str.replace(' railway station', '', regex=False)
+      .str.replace(' station', '', regex=False)
+      .str.replace(' railway', '', regex=False)
+      .str.replace('[()/_-]', ' ', regex=True)
+      .str.replace(r'\s+', ' ', regex=True)
+      .str.strip()
+)
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -1293,6 +1303,7 @@ class ActionRunDirectionScriptOriginal(Action):
 ''' 
 -------------------------------------------------------------------------------------------------------
 Author: hariprasad
+Modified: Juveria Nishath
 -------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1300,68 +1311,146 @@ Class: ActionCheckFeature
 Purpose: This class handles the intent where a user asks whether a specific feature is available at a particular station.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 '''
-
 class ActionCheckFeature(Action):
-
     def name(self) -> Text:
         return "action_check_feature"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        station_name = tracker.get_slot("station_name")
-        feature = tracker.get_slot("feature")
-        
-        if not station_name or not feature:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # Local imports only (no changes to your global imports)
+        import re
+        from difflib import get_close_matches
+        from rasa_sdk.events import SlotSet
+
+        # ---------- 1) Get raw text + slots ----------
+        user_text   = (tracker.latest_message.get("text") or "").strip()
+        raw_station = (tracker.get_slot("station_name") or "").strip()
+        raw_feature = (tracker.get_slot("feature") or "").strip()
+
+        # If feature slot is empty, try to read it from this message’s entities
+        if not raw_feature:
+            for ent in (tracker.latest_message.get("entities") or []):
+                if (ent.get("entity") or "") == "feature":
+                    val = ent.get("value")
+                    if val:
+                        raw_feature = str(val).strip()
+                        break
+
+        # ---------- 2) Normaliser used for BOTH CSV + user text ----------
+        def _norm(s: str) -> str:
+            s = (s or "").lower().strip()
+            s = re.sub(r'\brailway\s+station\b', '', s)
+            s = re.sub(r'\bstation\b', '', s)
+            s = re.sub(r'\brailway\b', '', s)
+            s = re.sub(r'[()/_-]', ' ', s)
+            s = re.sub(r'\s+', ' ', s)
+            return s.strip()
+
+        # Prepare candidate list from CSV (uses prebuilt norm_name if present; else compute)
+        if "norm_name" in station_data.columns:
+            candidates_series = station_data["norm_name"].astype(str).map(_norm)
+        else:
+            candidates_series = station_data["Station Name"].astype(str).map(_norm)
+        candidates = candidates_series.tolist()
+
+        # ---------- 3) Get station from user text first; then fall back ----------
+        if not raw_station:
+            # Try GTFS extractor (if available)
+            try:
+                from .gtfs_utils import GTFSUtils, stops_df
+                extracted = GTFSUtils.extract_stations_from_query(user_text, stops_df) or []
+                if extracted:
+                    raw_station = extracted[0]
+            except Exception:
+                pass
+
+            # Simple fallback: look for any known station name inside the user text
+            if not raw_station and candidates:
+                text_norm = _norm(user_text)
+                hits = [c for c in candidates if c and c in text_norm]
+                if hits:
+                    raw_station = hits[0]
+
+        # ---------- 4) Validate missing pieces ----------
+        if not raw_station and not raw_feature:
             dispatcher.utter_message(text="Please specify both the station name and the feature you are asking about.")
             return []
-
-        station_name = station_name.strip().lower()
-        feature = feature.strip().lower()
-
-        station_names = station_data['Station Name'].tolist()
-        if station_name not in station_names:
-            dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name.capitalize()} station.")
+        if not raw_station:
+            dispatcher.utter_message(text="Please tell me the station name.")
+            return []
+        if not raw_feature:
+            dispatcher.utter_message(text=f"What feature do you want to check at {raw_station}? (e.g., lifts, restroom)")
             return []
 
+        station_key = _norm(raw_station)
+        feature_key = (raw_feature or "").lower().strip()
+
+        if not candidates:
+            dispatcher.utter_message(text="Station list is unavailable right now. Please try again later.")
+            return []
+
+        # ---------- 5) Exact or fuzzy match the station (typo tolerant) ----------
+        if station_key not in candidates:
+            best = get_close_matches(station_key, candidates, n=1, cutoff=0.80)
+            if best:
+                station_key = best[0]
+            else:
+                dispatcher.utter_message(
+                    text=f"Sorry, I couldn’t find “{raw_station}”. Please check the spelling or try another station."
+                )
+                return []
+
+        idxs = candidates_series[candidates_series == station_key].index
+        if len(idxs) == 0:
+            dispatcher.utter_message(text=f"Sorry, I couldn’t find “{raw_station}”.")
+            return []
+
+        row = station_data.loc[idxs[0]]
+        display_name = str(row["Station Name"]).title()
+
+        # ---------- 6) Feature → CSV column mapping (includes washrooms) ----------
         feature_mapping = {
-            "escalators": "Escalators",
-            "escalator": "Escalators",
-            "lifts": "Lift",
-            "elevator": "Lift",
-            "elevators": "Lift",  
-            "ramps": "Station access",
-            "access": "Station access",
-            "parking": "Parking",
-            "restroom": "Toilet",
-            "toilets": "Toilet",
-            "toilet": "Toilet",
-            "tactile edges": "Tactile edges",
-            "hearing loops": "Hearing Loop",
-            "info screens": "Info screens",
-            "shelter": "Shelter",
-            "low platform": "Low platform",
+            "escalators": "Escalators", "escalator": "Escalators",
+            "lift": "Lift", "lifts": "Lift", "elevator": "Lift", "elevators": "Lift",
+            "ramps": "Station access", "ramp": "Station access", "access": "Station access",
+            "parking": "Parking", "car park": "Parking",
+            "restroom": "Toilet", "restrooms": "Toilet",
+            "toilet": "Toilet", "toilets": "Toilet",
+            "bathroom": "Toilet", "bathrooms": "Toilet",
+            "washroom": "Toilet", "washrooms": "Toilet",
+            "tactile edges": "Tactile edges", "tactile": "Tactile edges",
+            "hearing loop": "Hearing Loop", "hearing loops": "Hearing Loop",
+            "info screens": "Info screens", "information screens": "Info screens",
+            "shelter": "Shelter", "low platform": "Low platform",
             "path widths": "Path Widths",
-            "pick up / drop off": "Pick up / Drop off"
+            "pick up / drop off": "Pick up / Drop off", "pick-up/drop-off": "Pick up / Drop off",
         }
 
-        standardized_feature = feature_mapping.get(feature)
-
-        if not standardized_feature:
-            dispatcher.utter_message(text=f"Sorry, I don't have information about {feature}.")
+        column_name = feature_mapping.get(feature_key)
+        if not column_name:
+            supported = ", ".join(sorted(set(feature_mapping.keys())))
+            dispatcher.utter_message(
+                text=f"Sorry, I don't have information about '{raw_feature}'. Try one of: {supported}."
+            )
+            return []
+        if column_name not in station_data.columns:
+            dispatcher.utter_message(text=f"Sorry, I don't track '{raw_feature}' for stations yet.")
             return []
 
-        station_info = station_data[station_data['Station Name'] == station_name]
-        
-        feature_value = station_info[standardized_feature].values[0]
-        if pd.isna(feature_value) or feature_value.lower() == 'no':
-            dispatcher.utter_message(text=f"No, {station_name.capitalize()} station does not have {feature}.")
-        else:
-            dispatcher.utter_message(text=f"Yes, {station_name.capitalize()} station has {feature}.")
-        
-        return []
+        # ---------- 7) Answer ----------
+        val = str(row[column_name]).strip().lower()
+        has_it = not (val in ("", "nan", "no", "false", "0"))
+        dispatcher.utter_message(
+            text=f"{'Yes' if has_it else 'No'}, {display_name} {'has' if has_it else 'does not have'} {raw_feature}."
+        )
 
+        # Clear slots for next turn
+        return [SlotSet("station_name", None), SlotSet("feature", None)]
 '''
 -------------------------------------------------------------------------------------------------------
 Class: ActionCheckStation
