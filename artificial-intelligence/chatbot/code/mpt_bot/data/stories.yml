@@ -318,19 +318,18 @@ stories:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
 #Awanish stories (end)----------------------
-- story: interactive_story_1
-  steps:
-  - intent: ask_about_feature
-    entities:
-    - feature: lifts
-    - feature: lifts
-  - slot_was_set:
-    - feature: lifts
-  - action: action_check_feature
-  - intent: ask_about_feature
-    entities:
-    - feature: lifts
-    - feature: lifts
-  - slot_was_set:
-    - feature: lifts
-  - action: action_check_feature
+  - story: interactive_story_1
+    steps:
+      - intent: ask_about_feature
+        entities:
+          - feature: lifts
+      - slot_was_set:
+          - feature: lifts
+      - action: action_check_feature
+      - intent: ask_about_feature
+        entities:
+          - feature: lifts
+      - slot_was_set:
+          - feature: lifts
+      - action: action_check_feature
+
