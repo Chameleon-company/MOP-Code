@@ -15,7 +15,7 @@ stories:
   - story: User affirms
     steps:
     - intent: affirm
-    - action: utter_ack
+    - action: utter_happy
 
   - story: User denies
     steps:
@@ -57,7 +57,7 @@ stories:
 
   - story: Ask for best train route with transfers
     steps:
-      - intent: ask_best_route_with_transfer
+      - intent: ask_best_route
         entities:
           - station_a
           - station_b
@@ -66,7 +66,7 @@ stories:
 
   - story: User asks for best train route, then asks for transfers
     steps:
-      - intent: ask_best_route_with_transfer
+      - intent: ask_best_route
         entities:
           - station_a
           - station_b
@@ -318,19 +318,3 @@ stories:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
 #Awanish stories (end)----------------------
-- story: interactive_story_1
-  steps:
-  - intent: ask_about_feature
-    entities:
-    - feature: lifts
-    - feature: lifts
-  - slot_was_set:
-    - feature: lifts
-  - action: action_check_feature
-  - intent: ask_about_feature
-    entities:
-    - feature: lifts
-    - feature: lifts
-  - slot_was_set:
-    - feature: lifts
-  - action: action_check_feature
