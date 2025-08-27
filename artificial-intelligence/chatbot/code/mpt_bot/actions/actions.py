@@ -748,6 +748,7 @@ class ActionFindNextTrain(Action):
     	ID: REQ_01 implementation
     	Name: Basic Route Planning
     	Author: AlexT
+        Modified: Juveria Nishath
     	-------------------------------------------------------------------------------------------------------
     	"What is the best route from [Station A] to [Station B]?"
         "How do I get from [Station A] to [Station B]?"
@@ -757,22 +758,41 @@ class ActionFindNextTrain(Action):
 class ActionFindBestRoute(Action):
     def name(self) -> Text:
         return "action_find_best_route"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+    self,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: Dict[Text, Any],
+) -> List[Dict[Text, Any]]:
 
         try:
-            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            # Extract user input and slots
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
-            transport_mode = "train"
+            transport_mode = "train"  # default for logging
             logger.info(
-                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}"
+            )
 
-            query = tracker.latest_message.get('text')
-            extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+            query = tracker.latest_message.get('text') or ""
 
+            # ---- decide transport mode and pick the correct GTFS frames ----
+            tm_slot = (tracker.get_slot("transport_mode") or "").strip().lower()
+            ql = query.lower()
+            if " bus" in ql or "by bus" in ql or tm_slot == "bus":
+                mode = "bus"
+                m_stops, m_stop_times, m_routes, m_trips = bus_stops, bus_stop_times, bus_routes, bus_trips
+            elif " tram" in ql or "by tram" in ql or tm_slot == "tram":
+                mode = "tram"
+                m_stops, m_stop_times, m_routes, m_trips = tram_stops, tram_stop_times, tram_routes, tram_trips
+            else:
+                mode = "train"
+                m_stops, m_stop_times, m_routes, m_trips = stops_df, stop_times_df, routes_df, trips_df
+
+            logger.info(f"[BestRoute] Mode selected: {mode}")
+            # ----------------------------------------------------------------
+
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, m_stops)
             if len(extracted_stations) == 0:
                 dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
                 return []
@@ -784,34 +804,58 @@ class ActionFindBestRoute(Action):
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
+            # helper: for bus/tram, collect multiple candidate stop_ids whose names include the station tokens
+            def _candidate_stop_ids(name: str, max_n: int = 12) -> List[str]:
+                base = (name or "").lower()
+                base = base.replace("station", "").replace("railway", "").strip()
+                # try both raw stop_name and normalized_stop_name
+                mask = (
+                    m_stops["stop_name"].astype(str).str.lower().str.contains(base, na=False)
+                    | m_stops.get("normalized_stop_name", m_stops["stop_name"].astype(str).str.lower()).astype(str).str.contains(base, na=False)
+                )
+                ids = m_stops.loc[mask, "stop_id"].astype(str).unique().tolist()
+                # if nothing, fall back to single fuzzy id
+                if not ids:
+                    sid = GTFSUtils.get_stop_id(name, m_stops)
+                    if sid:
+                        ids = [str(sid)]
+                # keep it small so the merge stays fast
+                return ids[:max_n]
 
-            # stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
-            # stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+            # -------------------- Child-station resolution --------------------
+            if mode == "train":
+                # Using Andre platform/child logic for trains
+                stop_a_id = GTFSUtils.get_stop_id(station_a, m_stops)
+                stop_b_id = GTFSUtils.get_stop_id(station_b, m_stops)
+                list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, m_stops, m_stop_times)
+                list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, m_stops, m_stop_times)
+            else:
+                # Tram/bus: collect several likely stop_ids near each station name
+                list_of_child_station_a = _candidate_stop_ids(station_a)
+                list_of_child_station_b = _candidate_stop_ids(station_b)
+            # ------------------------------------------------------------------
 
-            # merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
+            if not list_of_child_station_a or not list_of_child_station_b:
+                dispatcher.utter_message(text="I couldn't match one of those stops in the GTFS data. Please check the names.")
+                return []
 
-            # valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
-
-            # if valid_trips.empty:
-            #     dispatcher.utter_message(text="No direct route found between the two stations.")
-            #     return []
-
-            # Andre Nguyen's code
-            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
-            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
             valid_trips_list = []
             for stop_a_id in list_of_child_station_a:
-                stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+                try:
+                    stop_a_times = m_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+                except KeyError:
+                    continue
                 # re-create the stop_id column of stop_a
-                list_stop_a_id = [stop_a_id] * len(stop_a_times['stop_sequence'])
-                stop_a_times['stop_id'] = list_stop_a_id
+                stop_a_times['stop_id'] = [stop_a_id] * len(stop_a_times['stop_sequence'])
+
                 for stop_b_id in list_of_child_station_b:
-                    stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+                    try:
+                        stop_b_times = m_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
+                    except KeyError:
+                        continue
                     # re-create the stop_id column of stop_b
-                    list_stop_b_id = [stop_b_id] * len(stop_b_times['stop_sequence'])
-                    stop_b_times['stop_id'] = list_stop_b_id
+                    stop_b_times['stop_id'] = [stop_b_id] * len(stop_b_times['stop_sequence'])
+
                     merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
                     valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
                     if len(valid_trips) > 0:
@@ -820,31 +864,56 @@ class ActionFindBestRoute(Action):
             if len(valid_trips_list) == 0:
                 dispatcher.utter_message(text="No direct route found between the two stations.")
                 return []
-            
-            valid_trips = valid_trips_list[0]
-            # End of Andre N's code
+
+            valid_trips = pd.concat(valid_trips_list, ignore_index=True)
+
+            # Compute travel time and pick the best trip
             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
-            valid_trips['travel_time'] = (valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
+            valid_trips['travel_time'] = (
+                valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']
+            ).dt.total_seconds()
             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
 
-            stop_a_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_a'], 'stop_name'].values[0]
-            stop_b_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_b'], 'stop_name'].values[0]
-            route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
-            route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
-            destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
+            # --- names & route info (mode-specific frames) ---
+            stop_a_name = m_stops.loc[m_stops['stop_id'] == best_trip['stop_id_a'], 'stop_name'].values[0]
+            stop_b_name = m_stops.loc[m_stops['stop_id'] == best_trip['stop_id_b'], 'stop_name'].values[0]
+            route_id    = m_trips.loc[m_trips['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
 
-            response = f"The best route from {stop_a_name} to {stop_b_name} is on the {route_name} towards {destination}.\n"
-            response += f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
+            # pull both short (bus/tram number) and long name safely
+            route_row  = m_routes.loc[m_routes['route_id'] == route_id].head(1)
+            route_long = (str(route_row['route_long_name'].values[0])
+                        if 'route_long_name' in route_row and len(route_row['route_long_name'].values) > 0 else '')
+            route_short = (str(route_row['route_short_name'].values[0]).strip()
+                        if 'route_short_name' in route_row and len(route_row['route_short_name'].values) > 0 else '')
 
-            # Create the route map given the trip id, including the transfers_df to highlight transfer stations
+            headsign = m_trips.loc[m_trips['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
+
+            # label for the line (adds Bus/Tram number when available)
+            if mode == 'bus' and route_short:
+                line_label = f"Bus {route_short}"
+            elif mode == 'tram' and route_short:
+                line_label = f"Tram {route_short}"
+            else:
+                line_label = route_long or "the service"
+
+            minutes = best_trip['travel_time'] / 60.0
+            response = (
+                f"The best {mode} route from {stop_a_name} to {stop_b_name} is {line_label} towards {headsign}.\n"
+                f"The trip takes approximately {minutes:.2f} minutes."
+            )
+
+
+            # Create the route map given the trip id (mode-specific frames)
             hyperlink = GTFSUtils.generate_route_map(
-                best_trip['trip_id'], stop_a_name, stop_b_name, stops_df, stop_times_df, dataset_path
+                best_trip['trip_id'], stop_a_name, stop_b_name, m_stops, m_stop_times, dataset_path
             )
             if hyperlink:
                 response += f"\n{hyperlink}"
 
             dispatcher.utter_message(text=response)
+            return []
+
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise

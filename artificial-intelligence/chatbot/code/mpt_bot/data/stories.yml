@@ -15,7 +15,7 @@ stories:
   - story: User affirms
     steps:
     - intent: affirm
-    - action: utter_happy
+    - action: utter_ack
 
   - story: User denies
     steps:
