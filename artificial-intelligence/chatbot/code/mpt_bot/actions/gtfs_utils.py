@@ -232,21 +232,33 @@ class GTFSUtils:
             Author: Andre Nguyen
             Find the parent station from list of station name
         """
-        parent_stations = []
-        for station_name in station_name_list:
-            for index, stop in stops_df.iterrows():
-                # If it's not parent station
-                if stop['stop_name'] == station_name and stop['parent_station'] != 'nan':
-                    parent_station_id = stop['parent_station']
-                    parent_station_df = stops_df[stops_df['stop_id'] == parent_station_id]
-                    if len(parent_station_df) > 0:
-                        parent_stations.append(parent_station_df.iloc[0]['stop_name'])
-                        break
-                # If it's parent station
-                if stop['stop_name'] == station_name and stop['parent_station'] == 'nan':
-                    parent_stations.append(station_name)
-                    break
-        return parent_stations
+        try:
+            if not station_name_list or stops_df.empty:
+                return station_name_list
+                
+            parent_stations = []
+            for station_name in station_name_list:
+                try:
+                    for index, stop in stops_df.iterrows():
+                        # If it's not parent station
+                        if stop['stop_name'] == station_name and stop['parent_station'] != 'nan':
+                            parent_station_id = stop['parent_station']
+                            parent_station_df = stops_df[stops_df['stop_id'] == parent_station_id]
+                            if len(parent_station_df) > 0:
+                                parent_stations.append(parent_station_df.iloc[0]['stop_name'])
+                                break
+                        # If it's parent station
+                        if stop['stop_name'] == station_name and stop['parent_station'] == 'nan':
+                            parent_stations.append(station_name)
+                            break
+                except Exception as e:
+                    logger.error(f"Error processing station {station_name}: {e}")
+                    parent_stations.append(station_name)  # Keep original station name as fallback
+                    continue
+            return parent_stations
+        except Exception as e:
+            logger.error(f"Error in find_parent_station: {e}")
+            return station_name_list
     
     @staticmethod
     def find_child_station(parent_station_id: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
@@ -254,14 +266,29 @@ class GTFSUtils:
             Author: Andre Nguyen
             Find all child stations and return list of their id
         """
-        child_station_id_list = []
-        stops_df = stops_df.astype(str)
-        stop_times_data = stop_times_df.reset_index()
-        for index, stop in stops_df.iterrows():
-            if stop['parent_station'] == parent_station_id and stop['stop_id'].isdigit():
-                if not stop_times_data.loc[stop_times_data['stop_id'] == stop['stop_id']].empty:
-                    child_station_id_list.append(stop['stop_id'])
-        return child_station_id_list
+        try:
+            if not parent_station_id:
+                return []
+                
+            child_station_id_list = []
+            stops_df = stops_df.astype(str)
+            stop_times_data = stop_times_df.reset_index()
+            
+            for index, stop in stops_df.iterrows():
+                try:
+                    if stop['parent_station'] == parent_station_id and stop['stop_id'].isdigit():
+                        # Check if this child station has any trips
+                        child_stop_times = stop_times_data.loc[stop_times_data['stop_id'] == stop['stop_id']]
+                        if not child_stop_times.empty:
+                            child_station_id_list.append(stop['stop_id'])
+                except Exception as e:
+                    logger.error(f"Error processing stop {stop.get('stop_id', 'unknown')}: {e}")
+                    continue
+                    
+            return child_station_id_list
+        except Exception as e:
+            logger.error(f"Error in find_child_station: {e}")
+            return []
     
     @staticmethod
     def keep_staion_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
@@ -269,35 +296,52 @@ class GTFSUtils:
             Author:  Andre Nguyen
             Keep stations in mentioned order in the query (from - to order) as in user query
         """
-        normalised_user_input_split = normalised_user_input.split(" ")
-        from_index = 0
-        to_index = 0
-        for i in range(len(normalised_user_input_split)):
-            if normalised_user_input_split[i] == "from":
-                from_index = i
-            elif normalised_user_input_split[i] == "to":
-                to_index = i
-        station_dict = dict({})
-        ordered_station_list = []
-        for station_name in station_name_list:
-            highest_score = 0
-            station_index = 0
-            # update index until found the index of word that has highest score of matching
+        try:
+            if not station_name_list or not normalised_user_input:
+                return station_name_list
+                
+            normalised_user_input_split = normalised_user_input.split(" ")
+            from_index = 0
+            to_index = 0
+            
             for i in range(len(normalised_user_input_split)):
-                score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("station", ""))
-                if score >= highest_score:
-                    highest_score = score
-                    station_index = i
-            station_dict.update({station_name: station_index}) # Found the index of the station
+                if normalised_user_input_split[i] == "from":
+                    from_index = i
+                elif normalised_user_input_split[i] == "to":
+                    to_index = i
+                    
+            station_dict = dict({})
+            ordered_station_list = []
+            
+            for station_name in station_name_list:
+                try:
+                    highest_score = 0
+                    station_index = 0
+                    # update index until found the index of word that has highest score of matching
+                    for i in range(len(normalised_user_input_split)):
+                        score = fuzz.partial_ratio(normalised_user_input_split[i], station_name.lower().replace("station", ""))
+                        if score >= highest_score:
+                            highest_score = score
+                            station_index = i
+                    station_dict.update({station_name: station_index})  # Found the index of the station
+                except Exception as e:
+                    logger.error(f"Error processing station {station_name}: {e}")
+                    continue
 
-        # Sort station name by index in ascending order if "from" occur before "to" or "station_a - station_b", otherwise, in descending order
-        if from_index < to_index or (from_index == 0 and to_index == 0):
-            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
-        elif from_index > to_index:
-            sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1], reverse=True)
-        for station in sorted_by_index_station_dict:
-            ordered_station_list.append(station[0])
-        return ordered_station_list
+            # Sort station name by index in ascending order if "from" occur before "to" or "station_a - station_b", otherwise, in descending order
+            if from_index < to_index or (from_index == 0 and to_index == 0):
+                sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
+            elif from_index > to_index:
+                sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1], reverse=True)
+            else:
+                sorted_by_index_station_dict = sorted(station_dict.items(), key=lambda item: item[1])
+                
+            for station in sorted_by_index_station_dict:
+                ordered_station_list.append(station[0])
+            return ordered_station_list
+        except Exception as e:
+            logger.error(f"Error in keep_staion_in_order: {e}")
+            return station_name_list
 
     @staticmethod
     def find_station_name_by_fuzzy(normalised_user_input: str, stops_df: pd.DataFrame) -> List[str]:
@@ -305,31 +349,55 @@ class GTFSUtils:
             Author:  Andre Nguyen
             Find the best matching station name from the stops DataFrame by fuzzywuzzy.
         """
-        potential_station_list = []
-        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
-        # Using FuzzyWuzzy to find station name in user query
-        best_match, score, _  = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
-        shorten_user_input = normalised_user_input
-        while score >= 50 : # match at most two stations in the query
-            if len(potential_station_list) == 2:
-                break
-            for index, stop in stops_df.iterrows():
-                if stop['normalized_stop_name'] == best_match:
-                    # find the word with highest matching score to remove in the query
-                    # so next matching will not have duplicate result
-                    highest_score = 0
-                    word_to_remove = ""
-                    for word in shorten_user_input.split(" "):
-                        current_score = fuzz.ratio(best_match, word)
-                        if current_score > highest_score:
-                            word_to_remove = word
-                            highest_score = current_score
-                    shorten_user_input = shorten_user_input.replace(word_to_remove, "")
-                    if stop["stop_name"] not in potential_station_list:
-                        potential_station_list.append(stop["stop_name"])
+        try:
+            if not normalised_user_input or stops_df.empty:
+                return []
+                
+            potential_station_list = []
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            
+            # Using FuzzyWuzzy to find station name in user query
+            try:
+                best_match, score, _ = process.extractOne(normalised_user_input, stops_df['normalized_stop_name'])
+            except Exception as e:
+                logger.error(f"Error in fuzzy matching: {e}")
+                return []
+                
+            shorten_user_input = normalised_user_input
+            while score >= 50:  # match at most two stations in the query
+                if len(potential_station_list) == 2:
                     break
-            best_match, score, _  = process.extractOne(shorten_user_input, stops_df['normalized_stop_name'])
-        return potential_station_list # list of normalized stop name
+                    
+                for index, stop in stops_df.iterrows():
+                    try:
+                        if stop['normalized_stop_name'] == best_match:
+                            # find the word with highest matching score to remove in the query
+                            # so next matching will not have duplicate result
+                            highest_score = 0
+                            word_to_remove = ""
+                            for word in shorten_user_input.split(" "):
+                                current_score = fuzz.ratio(best_match, word)
+                                if current_score > highest_score:
+                                    word_to_remove = word
+                                    highest_score = current_score
+                            shorten_user_input = shorten_user_input.replace(word_to_remove, "")
+                            if stop["stop_name"] not in potential_station_list:
+                                potential_station_list.append(stop["stop_name"])
+                            break
+                    except Exception as e:
+                        logger.error(f"Error processing stop in fuzzy matching: {e}")
+                        continue
+                        
+                try:
+                    best_match, score, _ = process.extractOne(shorten_user_input, stops_df['normalized_stop_name'])
+                except Exception as e:
+                    logger.error(f"Error in second fuzzy matching: {e}")
+                    break
+                    
+            return potential_station_list  # list of normalized stop name
+        except Exception as e:
+            logger.error(f"Error in find_station_name_by_fuzzy: {e}")
+            return []
 
     @staticmethod
     def find_station_name_from_query(user_input: str, stops_df: pd.DataFrame) -> List[str]:
@@ -338,43 +406,53 @@ class GTFSUtils:
             Modifier: Andre Nguyen
             Find the best matching station name from the stops DataFrame.
         """
-        stops_df = stops_df.astype(str)
-        user_input = user_input.lower().strip()
-        stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
-        stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
-        # exact_match = stops_df[stops_df['normalized_stop_name'] == user_input]
-        potential_station_list = []
-        remove_list = {
-            "station": "",
-            "railway": "",
-            "(": "",
-            ")": ""
-        }
-        normalised_user_input = user_input
-        for old, new in remove_list.items():
-            normalised_user_input = normalised_user_input.replace(old, new)
-        user_input_split = normalised_user_input.split(" ")
-        for index, stop in stops_df.iterrows():
-            stop_name_list = stop['normalized_stop_name'].split(" ")
-            flag = 1
-            for word in stop_name_list:
-                if word not in user_input_split:
-                    flag = 0
-            if flag == 1 and stop["parent_station"] == "nan":
-                potential_station_list.append(stop["stop_name"])
-       
+        try:
+            if not user_input or stops_df.empty:
+                return []
+                
+            stops_df = stops_df.astype(str)
+            user_input = user_input.lower().strip()
+            stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            
+            potential_station_list = []
+            remove_list = {
+                "station": "",
+                "railway": "",
+                "(": "",
+                ")": ""
+            }
+            normalised_user_input = user_input
+            for old, new in remove_list.items():
+                normalised_user_input = normalised_user_input.replace(old, new)
+            user_input_split = normalised_user_input.split(" ")
+            
+            for index, stop in stops_df.iterrows():
+                try:
+                    stop_name_list = stop['normalized_stop_name'].split(" ")
+                    flag = 1
+                    for word in stop_name_list:
+                        if word not in user_input_split:
+                            flag = 0
+                    if flag == 1 and stop["parent_station"] == "nan":
+                        potential_station_list.append(stop["stop_name"])
+                except Exception as e:
+                    logger.error(f"Error processing stop {stop.get('stop_id', 'unknown')}: {e}")
+                    continue
 
-        if len(potential_station_list) >= 2:
-            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+            if len(potential_station_list) >= 2:
+                potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+                return potential_station_list
+            else:
+                potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
+                potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+            
+            potential_station_list = GTFSUtils.find_parent_station(potential_station_list, stops_df)
+            
             return potential_station_list
-        else:
-            potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
-            potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
-        
-        
-        potential_station_list = GTFSUtils.find_parent_station(potential_station_list, stops_df)
-        
-        return potential_station_list
+        except Exception as e:
+            logger.error(f"Error in find_station_name_from_query: {e}")
+            return []
 
     @staticmethod
     def find_station_name(user_input: str, stops_df: pd.DataFrame) -> Optional[str]:
@@ -411,20 +489,26 @@ class GTFSUtils:
             Modifier: Andre Nguyen
             Extract potential station names from a query using NLP and fuzzy matching.
         """
-        doc = nlp(query)
-        potential_stations = GTFSUtils.find_station_name_from_query(query, stops_df)
-        if not potential_stations:
-            potential_stations = [ent.text for ent in doc.ents]
-            print(f"Potential Stations (SpaCy): {potential_stations}")
+        try:
+            if not query:
+                return []
+                
+            potential_stations = GTFSUtils.find_station_name_from_query(query, stops_df)
+            
+            if not potential_stations:
+                try:
+                    doc = nlp(query)
+                    potential_stations = [ent.text for ent in doc.ents]
+                    logger.info(f"Potential Stations (SpaCy): {potential_stations}")
+                except Exception as e:
+                    logger.error(f"Error using SpaCy for station extraction: {e}")
+                    potential_stations = []
 
-        # extracted_stations = []
-        # for station in potential_stations:
-        #     matched_station = GTFSUtils.find_station_name(station, stops_df)
-        #     if matched_station:
-        #         extracted_stations.append(matched_station)
-
-        print(f"Extracted stations: {potential_stations}")
-        return potential_stations
+            logger.info(f"Extracted stations: {potential_stations}")
+            return potential_stations
+        except Exception as e:
+            logger.error(f"Error in extract_stations_from_query: {e}")
+            return []
 
     @staticmethod
     def get_stop_id(stop_name: str, stops_df: pd.DataFrame) -> Optional[str]:
@@ -432,13 +516,20 @@ class GTFSUtils:
             Author: AlexT
             Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
         """
-        matched_station_name = GTFSUtils.find_station_name(stop_name, stops_df)
-        if matched_station_name:
-            station_row = stops_df.loc[stops_df['stop_name'] == matched_station_name]
-            if not station_row.empty:
-                return station_row['stop_id'].values[0]
-        logger.error(f"Station name {stop_name} not found in stops_df.")
-        return None
+        try:
+            if not stop_name:
+                return None
+                
+            matched_station_name = GTFSUtils.find_station_name(stop_name, stops_df)
+            if matched_station_name:
+                station_row = stops_df.loc[stops_df['stop_name'] == matched_station_name]
+                if not station_row.empty:
+                    return station_row['stop_id'].values[0]
+            logger.error(f"Station name '{stop_name}' not found in stops_df.")
+            return None
+        except Exception as e:
+            logger.error(f"Error in get_stop_id for station '{stop_name}': {e}")
+            return None
 
     @staticmethod
     def find_common_routes(self, stop_a_id: str, stop_b_id: str) -> List[str]:
@@ -1631,87 +1722,177 @@ class GTFSUtils:
             Return the time of next train/tram/bus from stop A to stop B (based on current time)
             
         """
-        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
+        try:
+            # Validate input parameters
+            if not station_a:
+                return "Please provide a starting station."
+            
+            # Get stop IDs
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            if not stop_a_id:
+                return f"Station '{station_a}' not found. Please check the station name."
+            
+            stop_b_id = None
+            if station_b:
+                stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
+                if not stop_b_id:
+                    return f"Station '{station_b}' not found. Please check the station name."
 
-        stops_df['platform_code'] = stops_df['platform_code'].astype(str)
+            # Ensure platform_code is string type
+            stops_df['platform_code'] = stops_df['platform_code'].astype(str)
 
-        list_of_child_station_a = []
-        list_of_child_station_b = []
-        if mode == "train":
-            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
-            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
-        else:
-            list_of_child_station_a = [stop_a_id]
-            list_of_child_station_b = [stop_b_id]
-
-        current_time = datetime.now().strftime('%H:%M:%S')
-
-        if not isinstance(stop_times_df.index, pd.MultiIndex):
-            stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-        if not station_b:
-            # Logic for one station
-            response = f"Upcoming train schedules from {station_a}:\n"
-            list_of_upcoming_trip = []
-            for stop_a in list_of_child_station_a:
-                trips_from_station = stop_times_df.loc[stop_a]
-                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time']
-                )
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    stop_a_platform = stops_df[stops_df["stop_id"] == stop_a].head(1)["platform_code"]
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        upcoming = f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')} at platform {stop_a_info['platform_code']}\n"
-                        list_of_upcoming_trip.append(upcoming)
-            if len(list_of_upcoming_trip) == 0:
-                response = f"No upcoming trains found from {station_a}."
-            else:
-                for upcoming in list_of_upcoming_trip:
-                    response += upcoming
-        else:
-            # Logic for two stations
-            response = f"Upcoming train schedules from {station_a} to {station_b} \n"
-            list_of_upcoming_trip = []
-            for stop_a in list_of_child_station_a:
-                trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
+            # Get child stations
+            list_of_child_station_a = []
+            list_of_child_station_b = []
+            if mode == "train":
+                list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+                if not list_of_child_station_a:
+                    list_of_child_station_a = [stop_a_id]  # Fallback to parent station
                 
-                for stop_b in list_of_child_station_b:
-                    trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
-                    
-                    future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
-                    future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
-                    valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                    if not valid_trips.empty:
-                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
-                        stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
-                        for index, next_trip in valid_trips.iterrows():
-                            next_trip_time = next_trip['departure_time']
-                            next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                            # if isinstance(next_trip_time, timedelta):
-                            #     next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                            upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {next_trip_time}\n"
-                            next_trip_dict = {'time' : next_trip_time, 'message': upcoming}
-                            flag = 0
-                            for trip in list_of_upcoming_trip:
-                                if trip['time'] == next_trip_time:
-                                    flag = 1
-                            if flag == 0:
-                                list_of_upcoming_trip.append(next_trip_dict)
-            if len(list_of_upcoming_trip) > 0:
-                list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
-                count = 0
-                for upcoming in list_of_upcoming_trip:
-                    if (count == 5):
-                        break
-                    response += upcoming['message']
-                    count += 1
+                if station_b:
+                    list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
+                    if not list_of_child_station_b:
+                        list_of_child_station_b = [stop_b_id]  # Fallback to parent station
             else:
-                response = f"No upcoming trains found from {station_a} to {station_b}."
-        return response
+                list_of_child_station_a = [stop_a_id]
+                list_of_child_station_b = [stop_b_id] if station_b else []
+
+            current_time = datetime.now().strftime('%H:%M:%S')
+
+            # Ensure proper indexing
+            if not isinstance(stop_times_df.index, pd.MultiIndex):
+                try:
+                    stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+                except KeyError:
+                    # If the columns don't exist, try to reset and set again
+                    stop_times_df = stop_times_df.reset_index()
+                    stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+
+            if not station_b:
+                # Logic for one station
+                response = f"Upcoming train schedules from {station_a}:\n"
+                list_of_upcoming_trip = []
+                
+                for stop_a in list_of_child_station_a:
+                    try:
+                        trips_from_station = stop_times_df.loc[stop_a]
+                        if trips_from_station.empty:
+                            continue
+                            
+                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a]
+                        if stop_a_info.empty:
+                            continue
+                        stop_a_info = stop_a_info.iloc[0]
+                        
+                        # Filter future trips
+                        trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
+                        trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
+                            subset=['departure_time']
+                        )
+
+                        if not trips_from_station.empty:
+                            next_trips = trips_from_station[['departure_time']].head(5)
+                            for idx, row in next_trips.iterrows():
+                                try:
+                                    departure_time = GTFSUtils.parse_time(row['departure_time'])
+                                    if isinstance(departure_time, timedelta):
+                                        time_str = (datetime.min + departure_time).strftime('%I:%M %p')
+                                    else:
+                                        time_str = departure_time.strftime('%I:%M %p')
+                                    upcoming = f"- Train at {time_str} at platform {stop_a_info['platform_code']}\n"
+                                    list_of_upcoming_trip.append(upcoming)
+                                except Exception as e:
+                                    logger.error(f"Error parsing departure time: {e}")
+                                    continue
+                    except KeyError:
+                        # Station not found in stop_times_df
+                        continue
+                    except Exception as e:
+                        logger.error(f"Error processing station {stop_a}: {e}")
+                        continue
+                        
+                if len(list_of_upcoming_trip) == 0:
+                    response = f"No upcoming trains found from {station_a}."
+                else:
+                    for upcoming in list_of_upcoming_trip:
+                        response += upcoming
+            else:
+                # Logic for two stations
+                response = f"Upcoming train schedules from {station_a} to {station_b}:\n"
+                list_of_upcoming_trip = []
+                
+                for stop_a in list_of_child_station_a:
+                    try:
+                        trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
+                        if trips_from_station_a.empty:
+                            continue
+                    except KeyError:
+                        continue
+                    
+                    for stop_b in list_of_child_station_b:
+                        try:
+                            trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
+                            if trips_to_station_b.empty:
+                                continue
+                        except KeyError:
+                            continue
+                        
+                        # Find common trips
+                        future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
+                        if future_trips.empty:
+                            continue
+                            
+                        future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
+                        valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
+
+                        if not valid_trips.empty:
+                            try:
+                                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                                stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
+                                
+                                for index, next_trip in valid_trips.iterrows():
+                                    try:
+                                        next_trip_time = next_trip['departure_time']
+                                        parsed_time = GTFSUtils.parse_time(next_trip_time)
+                                        
+                                        if isinstance(parsed_time, timedelta):
+                                            time_str = (datetime.min + parsed_time).strftime('%I:%M %p')
+                                        else:
+                                            time_str = parsed_time.strftime('%I:%M %p')
+                                            
+                                        upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {time_str}\n"
+                                        next_trip_dict = {'time': parsed_time, 'message': upcoming}
+                                        
+                                        # Check for duplicates
+                                        flag = 0
+                                        for trip in list_of_upcoming_trip:
+                                            if trip['time'] == parsed_time:
+                                                flag = 1
+                                                break
+                                        if flag == 0:
+                                            list_of_upcoming_trip.append(next_trip_dict)
+                                    except Exception as e:
+                                        logger.error(f"Error processing trip: {e}")
+                                        continue
+                            except IndexError:
+                                continue
+                            except Exception as e:
+                                logger.error(f"Error getting station info: {e}")
+                                continue
+                                
+                if len(list_of_upcoming_trip) > 0:
+                    list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
+                    count = 0
+                    for upcoming in list_of_upcoming_trip:
+                        if count >= 5:
+                            break
+                        response += upcoming['message']
+                        count += 1
+                else:
+                    response = f"No upcoming trains found from {station_a} to {station_b}."
+                    
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error in find_next_public_transport_trip: {e}")
+            return f"Sorry, I encountered an error while finding the next train. Please try again."

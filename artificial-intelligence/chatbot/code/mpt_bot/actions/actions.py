@@ -716,32 +716,47 @@ class ActionFindNextTrain(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
-            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            # Extract user input and slots
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
             transport_mode = "train"
             logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
 
             query = tracker.latest_message.get('text')
+            logger.info(f"User query: {query}")
+            
+            # Extract stations from query
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+            logger.info(f"Extracted stations: {extracted_stations}")
 
             if len(extracted_stations) == 0:
-                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
+                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again with valid station names.")
                 return []
 
             station_a = extracted_stations[0]
             station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
 
-            if not station_a or (not station_b and "to" in query.lower()):
+            # Validate stations
+            if not station_a:
+                dispatcher.utter_message(text="Please specify a starting station.")
+                return []
+
+            if not station_b and "to" in query.lower():
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
+            # Get response from GTFS utils
             response = GTFSUtils.find_next_public_transport_trip(station_a, station_b, "train", stops_df, stop_times_df)
+            logger.info(f"Generated response: {response}")
 
             dispatcher.utter_message(text=response)
+            
         except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to find the next train", e)
-            raise
+            logger.error(f"Error in ActionFindNextTrain: {e}")
+            import traceback
+            traceback.print_exc()
+            dispatcher.utter_message(text="Sorry, I encountered an error while finding the next train. Please try again with different station names.")
+            return []
 
 ''' -------------------------------------------------------------------------------------------------------
     	ID: REQ_01 implementation
