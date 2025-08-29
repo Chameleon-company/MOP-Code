@@ -143,10 +143,23 @@ nlu:
     - show tram routes
     - tramp map
     - show me a tramp map
-- intent: request_bus_map
+
+  #Modified by Chaitanya  
+- intent: request_bus_map 
   examples: |
-    - Show me the map of bus stops
-    - Generate a bus stop map
+    - bus map
+    - show me a bus map
+    - display the bus map
+    - open the bus network map
+    - can I see the bus map?
+    - please show the bus map
+    - map of buses
+    - show bus routes map
+    - show me a bus stops map
+    - generate a bus stop map
+    - show the map of bus stops
+    
+
 - intent: check_disruptions
   examples: |
     - Are there any [train](transport_mode) disruptions on route [Frankston](route_name)?

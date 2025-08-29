@@ -1,5 +1,6 @@
 import spacy
 import folium
+import webbrowser
 from folium.plugins import MarkerCluster
 import os
 from io import BytesIO
@@ -21,11 +22,13 @@ from sanic.response import text
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from rasa_sdk.types import DomainDict
+from difflib import get_close_matches
 #from actions.traffic_route 
 import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
+from pathlib import Path
 from rasa_sdk.events import SlotSet, EventType, AllSlotsReset
 # This is to skip the favicon
 app = Sanic("custom_action_server")
@@ -83,6 +86,15 @@ else:
 CSV_DATASET_PATH = "./mnt/metro_train_accessibility_cleaned.csv"
 station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
+station_data['norm_name'] = (
+    station_data['Station Name']
+      .str.replace(' railway station', '', regex=False)
+      .str.replace(' station', '', regex=False)
+      .str.replace(' railway', '', regex=False)
+      .str.replace('[()/_-]', ' ', regex=True)
+      .str.replace(r'\s+', ' ', regex=True)
+      .str.strip()
+)
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -517,43 +529,50 @@ class ActionGenerateTrainMap(Action):
     def name(self) -> Text:
         return "action_generate_train_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
 
         try:
-            stops_map_df = stops_df[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
+            # Build the train stops map
+            stops_map_df = stops_df[["stop_id", "stop_name", "stop_lat", "stop_lon"]]
             melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
 
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
+                    tooltip=row["stop_name"],
                 ).add_to(melbourne_map)
 
-            # Save the map to an HTML file
-            map_filename = 'melbourne_train_stations_map.html'
+            # Save the map
+            map_filename = "melbourne_train_stations_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
-            os.makedirs(map_folder, exist_ok=True)  # Create the maps folder if it doesn't exist
+            os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Get the base URL from the environment variable
-            server_base_url = os.getenv('SERVER_BASE_URL')
-
-            # Fallback if the environment variable is not set
-            if server_base_url is None:
-                server_base_url = 'http://localhost:8080'  # Default value or fallback
-
-            # Create and return the hyperlink using the base URL
+            # Build an HTTP link (served by: python -m http.server 8000)
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne train stations</a>"
 
-            # Send the message to the user with the hyperlink
+            # Single message with one link only
             dispatcher.utter_message(
-                text=f"The map of Melbourne train stations has been generated. {hyperlink}")
+                text=f"The map of Melbourne train stations has been generated. "
+                     f"<a href='{public_url}' target='_blank'>Click here to view the map</a>"
+            )
+
+            # Auto-open in browser (local only, optional)
+            try:
+                webbrowser.open(public_url, new=2)
+            except Exception as e:
+                logger.warning(f"Could not auto-open browser: {e}")
+
+            return []
 
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to generate map", e)
@@ -569,46 +588,61 @@ class ActionGenerateTramMap(Action):
     def name(self) -> Text:
         return "action_generate_tram_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
         try:
-            # Remove duplicates
-            stops_map_df = tram_stops.drop_duplicates(subset=['stop_lat', 'stop_lon'])
+            # De-duplicate tram stops
+            stops_map_df = tram_stops.drop_duplicates(subset=["stop_lat", "stop_lon"])
 
-            # Initialize map
+            # Build map
             melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
-
-            # Use MarkerCluster for better performance
             marker_cluster = MarkerCluster().add_to(melbourne_map)
 
-            # Add markers with simplified popups
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"{row['stop_name']}",
-                    tooltip=f"{row['stop_name']}"
+                    tooltip=f"{row['stop_name']}",
                 ).add_to(marker_cluster)
 
-            # Save map to HTML
-            map_filename = 'melbourne_tram_stops_map.html'
+            # Save map
+            map_filename = "melbourne_tram_stops_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
             os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Send map link to user
-            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            # HTTP link served by: python -m http.server 8000
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne tram stops</a>"
-            dispatcher.utter_message(text=f"The map of Melbourne tram stops has been generated. {hyperlink}")
+
+            # Single combined message with one link
+            dispatcher.utter_message(
+                text=(
+                    "The map of Melbourne tram stops has been generated. "
+                    f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne tram stops</a>"
+                )
+            )
+
+            # (Optional) auto-open in browser for local testing
+            try:
+                webbrowser.open(public_url, new=2)
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"Could not auto-open browser: {e}")
+
+            return []
 
         except Exception as e:
-            logging.error(f"Error generating tram map: {e}")
+            logging.getLogger(__name__).exception("Failed to generate tram map")
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
-        return []
-
+            return []
+        
 class ActionGenerateBusMap(Action):
     ''' -------------------------------------------------------------------------------------------------------
         ID: BUS_01
@@ -619,40 +653,52 @@ class ActionGenerateBusMap(Action):
     def name(self) -> Text:
         return "action_generate_bus_map"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
         try:
             # Ensure bus_stops has the required columns
-            stops_map_df = bus_stops[['stop_id', 'stop_name', 'stop_lat', 'stop_lon']]
-            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
+            stops_map_df = bus_stops[["stop_id", "stop_name", "stop_lat", "stop_lon"]]
 
-            # Add markers for bus stops
+            # Build map
+            melbourne_map = folium.Map(location=[-37.8136, 144.9631], zoom_start=12)
             for _, row in stops_map_df.iterrows():
                 folium.Marker(
-                    location=[row['stop_lat'], row['stop_lon']],
+                    location=[row["stop_lat"], row["stop_lon"]],
                     popup=f"Stop ID: {row['stop_id']}<br>Stop Name: {row['stop_name']}",
-                    tooltip=row['stop_name']
+                    tooltip=row["stop_name"],
                 ).add_to(melbourne_map)
 
-            # Save the map to an HTML file
-            map_filename = 'melbourne_bus_stops_map.html'
+            # Save map
+            map_filename = "melbourne_bus_stops_map.html"
             current_directory = os.getcwd()
             map_folder = os.path.join(current_directory, "maps")
             os.makedirs(map_folder, exist_ok=True)
             map_path = os.path.join(map_folder, map_filename)
             melbourne_map.save(map_path)
 
-            # Generate public URL for the map
-            server_base_url = os.getenv('SERVER_BASE_URL', 'http://localhost:8080')
+            # HTTP link served by: python -m http.server 8000
+            server_base_url = os.getenv("MAP_SERVER_BASE_URL", "http://localhost:8000")
             public_url = f"{server_base_url}/maps/{map_filename}"
-            hyperlink = f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne bus stops</a>"
 
-            dispatcher.utter_message(text=f"The map of Melbourne bus stops has been generated. {hyperlink}")
+            # Single combined message with one link
+            dispatcher.utter_message(
+                text=(
+                    "The map of Melbourne bus stops has been generated. "
+                    f"<a href='{public_url}' target='_blank'>Click here to view the map of Melbourne bus stops</a>"
+                )
+            )
+
+            return []
+
         except Exception as e:
-            logging.error(f"Error generating bus map: {e}")
+            logging.getLogger(__name__).exception("Failed to generate bus map")
             dispatcher.utter_message(text="An error occurred while generating the bus map.")
-        return []
+            return []
 
 class ActionFindNextTrain(Action):
     ''' -------------------------------------------------------------------------------------------------------
@@ -670,11 +716,73 @@ class ActionFindNextTrain(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         try:
-            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            # Extract user input and slots
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
             transport_mode = "train"
             logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
+
+            query = tracker.latest_message.get('text')
+            logger.info(f"User query: {query}")
+            
+            # Extract stations from query
+            extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
+            logger.info(f"Extracted stations: {extracted_stations}")
+
+            if len(extracted_stations) == 0:
+                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again with valid station names.")
+                return []
+
+            station_a = extracted_stations[0]
+            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
+
+            # Validate stations
+            if not station_a:
+                dispatcher.utter_message(text="Please specify a starting station.")
+                return []
+
+            if not station_b and "to" in query.lower():
+                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
+                return []
+
+            # Get response from GTFS utils
+            response = GTFSUtils.find_next_public_transport_trip(station_a, station_b, "train", stops_df, stop_times_df)
+            logger.info(f"Generated response: {response}")
+
+            dispatcher.utter_message(text=response)
+            
+        except Exception as e:
+            logger.error(f"Error in ActionFindNextTrain: {e}")
+            import traceback
+            traceback.print_exc()
+            dispatcher.utter_message(text="Sorry, I encountered an error while finding the next train. Please try again with different station names.")
+            return []
+
+''' -------------------------------------------------------------------------------------------------------
+    	ID: REQ_01 implementation
+    	Name: Basic Route Planning
+    	Author: AlexT
+    	-------------------------------------------------------------------------------------------------------
+    	"What is the best route from [Station A] to [Station B]?"
+        "How do I get from [Station A] to [Station B]?"
+        "Show me the fastest route from [Station A] to [Station B]."
+        Generate the route map
+'''
+class ActionFindBestRoute(Action):
+    def name(self) -> Text:
+        return "action_find_best_route"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        try:
+            # Extract transport mode (default to train if not provided) # Extract user input and slots
+            station_a = tracker.get_slot("station_a")
+            station_b = tracker.get_slot("station_b")
+            transport_mode = "train"
+            logger.info(
+                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
 
             query = tracker.latest_message.get('text')
             extracted_stations = GTFSUtils.extract_stations_from_query(query, stops_df)
@@ -686,176 +794,38 @@ class ActionFindNextTrain(Action):
             station_a = extracted_stations[0]
             station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
 
-            if not station_a or (not station_b and "to" in query.lower()):
-                dispatcher.utter_message(text="Please specify both the starting and destination stations.")
-                return []
-
-            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
-
-            # Andre Nguyen's code
-            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df)
-            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df)
-
-            current_time = datetime.now().strftime('%H:%M:%S')
-
-            if not isinstance(stop_times_df.index, pd.MultiIndex):
-                stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-            if not station_b:
-                # Logic for one station
-                trips_from_station = stop_times_df.loc[stop_a_id]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time']
-                )
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    response = f"Upcoming train schedules from {station_a}:\n"
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        response += f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')}\n"
-                else:
-                    response = f"No upcoming trains found from {station_a}."
-            else:
-                # Logic for two stations
-                trips_from_station_a = stop_times_df.loc[stop_a_id].reset_index()
-                trips_to_station_b = stop_times_df.loc[stop_b_id].reset_index()
-
-                future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time][
-                    'trip_id'].unique()
-                valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                if not valid_trips.empty:
-                    next_trip = valid_trips.iloc[0]
-                    next_trip_time = trips_from_station_a[
-                        (trips_from_station_a['trip_id'] == next_trip['trip_id'])
-                    ]['departure_time'].values[0]
-                    next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                    if isinstance(next_trip_time, timedelta):
-                        next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                    response = f"The next train from {station_a} to {station_b} leaves at {next_trip_time}."
-                else:
-                    response = f"No upcoming trains found from {station_a} to {station_b}."
-
-            dispatcher.utter_message(text=response)
-        except Exception as e:
-            GTFSUtils.handle_error(dispatcher, logger, "Failed to find the next train", e)
-            raise
-
-''' -------------------------------------------------------------------------------------------------------
-    	ID: REQ_01 implementation
-    	Name: Basic Route Planning
-    	Author: AlexT
-        Modified: Juveria Nishath
-    	-------------------------------------------------------------------------------------------------------
-    	"What is the best route from [Station A] to [Station B]?"
-        "How do I get from [Station A] to [Station B]?"
-        "Show me the fastest route from [Station A] to [Station B]."
-        Generate the route map
-'''
-class ActionFindBestRoute(Action):
-    def name(self) -> Text:
-        return "action_find_best_route"
-    def run(
-    self,
-    dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any],
-) -> List[Dict[Text, Any]]:
-
-        try:
-            # Extract user input and slots
-            station_a = tracker.get_slot("station_a")
-            station_b = tracker.get_slot("station_b")
-            transport_mode = "train"  # default for logging
-            logger.info(
-                f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}"
-            )
-
-            query = tracker.latest_message.get('text') or ""
-
-            # ---- decide transport mode and pick the correct GTFS frames ----
-            tm_slot = (tracker.get_slot("transport_mode") or "").strip().lower()
-            ql = query.lower()
-            if " bus" in ql or "by bus" in ql or tm_slot == "bus":
-                mode = "bus"
-                m_stops, m_stop_times, m_routes, m_trips = bus_stops, bus_stop_times, bus_routes, bus_trips
-            elif " tram" in ql or "by tram" in ql or tm_slot == "tram":
-                mode = "tram"
-                m_stops, m_stop_times, m_routes, m_trips = tram_stops, tram_stop_times, tram_routes, tram_trips
-            else:
-                mode = "train"
-                m_stops, m_stop_times, m_routes, m_trips = stops_df, stop_times_df, routes_df, trips_df
-
-            logger.info(f"[BestRoute] Mode selected: {mode}")
-            # ----------------------------------------------------------------
-
-            extracted_stations = GTFSUtils.extract_stations_from_query(query, m_stops)
-            if len(extracted_stations) == 0:
-                dispatcher.utter_message(text="Sorry, I couldn't find any stations in your query. Please try again.")
-                return []
-
-            station_a = extracted_stations[0]
-            station_b = extracted_stations[1] if len(extracted_stations) > 1 else None
-
             if not station_a or not station_b:
                 dispatcher.utter_message(text="Please specify both the starting and destination stations.")
                 return []
 
-            # helper: for bus/tram, collect multiple candidate stop_ids whose names include the station tokens
-            def _candidate_stop_ids(name: str, max_n: int = 12) -> List[str]:
-                base = (name or "").lower()
-                base = base.replace("station", "").replace("railway", "").strip()
-                # try both raw stop_name and normalized_stop_name
-                mask = (
-                    m_stops["stop_name"].astype(str).str.lower().str.contains(base, na=False)
-                    | m_stops.get("normalized_stop_name", m_stops["stop_name"].astype(str).str.lower()).astype(str).str.contains(base, na=False)
-                )
-                ids = m_stops.loc[mask, "stop_id"].astype(str).unique().tolist()
-                # if nothing, fall back to single fuzzy id
-                if not ids:
-                    sid = GTFSUtils.get_stop_id(name, m_stops)
-                    if sid:
-                        ids = [str(sid)]
-                # keep it small so the merge stays fast
-                return ids[:max_n]
+            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+            stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
 
-            # -------------------- Child-station resolution --------------------
-            if mode == "train":
-                # Using Andre platform/child logic for trains
-                stop_a_id = GTFSUtils.get_stop_id(station_a, m_stops)
-                stop_b_id = GTFSUtils.get_stop_id(station_b, m_stops)
-                list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, m_stops, m_stop_times)
-                list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, m_stops, m_stop_times)
-            else:
-                # Tram/bus: collect several likely stop_ids near each station name
-                list_of_child_station_a = _candidate_stop_ids(station_a)
-                list_of_child_station_b = _candidate_stop_ids(station_b)
-            # ------------------------------------------------------------------
+            # stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
+            # stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
 
-            if not list_of_child_station_a or not list_of_child_station_b:
-                dispatcher.utter_message(text="I couldn't match one of those stops in the GTFS data. Please check the names.")
-                return []
+            # merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
 
+            # valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
+
+            # if valid_trips.empty:
+            #     dispatcher.utter_message(text="No direct route found between the two stations.")
+            #     return []
+
+            # Andre Nguyen's code
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
             valid_trips_list = []
             for stop_a_id in list_of_child_station_a:
-                try:
-                    stop_a_times = m_stop_times.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
-                except KeyError:
-                    continue
+                stop_a_times = stop_times_df.loc[stop_a_id][['stop_sequence', 'arrival_time']].reset_index()
                 # re-create the stop_id column of stop_a
-                stop_a_times['stop_id'] = [stop_a_id] * len(stop_a_times['stop_sequence'])
-
+                list_stop_a_id = [stop_a_id] * len(stop_a_times['stop_sequence'])
+                stop_a_times['stop_id'] = list_stop_a_id
                 for stop_b_id in list_of_child_station_b:
-                    try:
-                        stop_b_times = m_stop_times.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
-                    except KeyError:
-                        continue
+                    stop_b_times = stop_times_df.loc[stop_b_id][['stop_sequence', 'arrival_time']].reset_index()
                     # re-create the stop_id column of stop_b
-                    stop_b_times['stop_id'] = [stop_b_id] * len(stop_b_times['stop_sequence'])
-
+                    list_stop_b_id = [stop_b_id] * len(stop_b_times['stop_sequence'])
+                    stop_b_times['stop_id'] = list_stop_b_id
                     merged = pd.merge(stop_a_times, stop_b_times, on='trip_id', suffixes=('_a', '_b'))
                     valid_trips = merged[merged['stop_sequence_a'] < merged['stop_sequence_b']].copy()
                     if len(valid_trips) > 0:
@@ -864,56 +834,31 @@ class ActionFindBestRoute(Action):
             if len(valid_trips_list) == 0:
                 dispatcher.utter_message(text="No direct route found between the two stations.")
                 return []
-
-            valid_trips = pd.concat(valid_trips_list, ignore_index=True)
-
-            # Compute travel time and pick the best trip
+            
+            valid_trips = valid_trips_list[0]
+            # End of Andre N's code
             valid_trips['arrival_time_a'] = valid_trips['arrival_time_a'].apply(GTFSUtils.parse_time)
             valid_trips['arrival_time_b'] = valid_trips['arrival_time_b'].apply(GTFSUtils.parse_time)
-            valid_trips['travel_time'] = (
-                valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']
-            ).dt.total_seconds()
+            valid_trips['travel_time'] = (valid_trips['arrival_time_b'] - valid_trips['arrival_time_a']).dt.total_seconds()
             best_trip = valid_trips.loc[valid_trips['travel_time'].idxmin()]
 
-            # --- names & route info (mode-specific frames) ---
-            stop_a_name = m_stops.loc[m_stops['stop_id'] == best_trip['stop_id_a'], 'stop_name'].values[0]
-            stop_b_name = m_stops.loc[m_stops['stop_id'] == best_trip['stop_id_b'], 'stop_name'].values[0]
-            route_id    = m_trips.loc[m_trips['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
+            stop_a_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_a'], 'stop_name'].values[0]
+            stop_b_name = stops_df.loc[stops_df['stop_id'] == best_trip['stop_id_b'], 'stop_name'].values[0]
+            route_id = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'route_id'].values[0]
+            route_name = routes_df.loc[routes_df['route_id'] == route_id, 'route_long_name'].values[0]
+            destination = trips_df.loc[trips_df['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
 
-            # pull both short (bus/tram number) and long name safely
-            route_row  = m_routes.loc[m_routes['route_id'] == route_id].head(1)
-            route_long = (str(route_row['route_long_name'].values[0])
-                        if 'route_long_name' in route_row and len(route_row['route_long_name'].values) > 0 else '')
-            route_short = (str(route_row['route_short_name'].values[0]).strip()
-                        if 'route_short_name' in route_row and len(route_row['route_short_name'].values) > 0 else '')
+            response = f"The best route from {stop_a_name} to {stop_b_name} is on the {route_name} towards {destination}.\n"
+            response += f"The trip takes approximately {best_trip['travel_time'] / 60:.2f} minutes."
 
-            headsign = m_trips.loc[m_trips['trip_id'] == best_trip['trip_id'], 'trip_headsign'].values[0]
-
-            # label for the line (adds Bus/Tram number when available)
-            if mode == 'bus' and route_short:
-                line_label = f"Bus {route_short}"
-            elif mode == 'tram' and route_short:
-                line_label = f"Tram {route_short}"
-            else:
-                line_label = route_long or "the service"
-
-            minutes = best_trip['travel_time'] / 60.0
-            response = (
-                f"The best {mode} route from {stop_a_name} to {stop_b_name} is {line_label} towards {headsign}.\n"
-                f"The trip takes approximately {minutes:.2f} minutes."
-            )
-
-
-            # Create the route map given the trip id (mode-specific frames)
+            # Create the route map given the trip id, including the transfers_df to highlight transfer stations
             hyperlink = GTFSUtils.generate_route_map(
-                best_trip['trip_id'], stop_a_name, stop_b_name, m_stops, m_stop_times, dataset_path
+                best_trip['trip_id'], stop_a_name, stop_b_name, stops_df, stop_times_df, dataset_path
             )
             if hyperlink:
                 response += f"\n{hyperlink}"
 
             dispatcher.utter_message(text=response)
-            return []
-
         except Exception as e:
             GTFSUtils.handle_error(dispatcher, logger, "Failed to find the best route", e)
             raise
@@ -1123,6 +1068,8 @@ class ActionFindBestRouteWithTransfers(Action):
                 return []
 
             station_a, station_b = extracted_stations[0], extracted_stations[1]
+            station_a = station_a.replace("Railway", "").replace("Station", "").strip()
+            station_b = station_b.replace("Railway", "").replace("Station", "").strip()
 
             # Use the generic method from GTFSUtils to find the best route with transfers
             best_route = GTFSUtils.find_best_route_with_transfers(station_a, station_b, stops_df, stop_times_df)
@@ -1371,6 +1318,7 @@ class ActionRunDirectionScriptOriginal(Action):
 ''' 
 -------------------------------------------------------------------------------------------------------
 Author: hariprasad
+Modified: Juveria Nishath
 -------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1378,68 +1326,146 @@ Class: ActionCheckFeature
 Purpose: This class handles the intent where a user asks whether a specific feature is available at a particular station.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 '''
-
 class ActionCheckFeature(Action):
-
     def name(self) -> Text:
         return "action_check_feature"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        station_name = tracker.get_slot("station_name")
-        feature = tracker.get_slot("feature")
-        
-        if not station_name or not feature:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # Local imports only (no changes to your global imports)
+        import re
+        from difflib import get_close_matches
+        from rasa_sdk.events import SlotSet
+
+        # ---------- 1) Get raw text + slots ----------
+        user_text   = (tracker.latest_message.get("text") or "").strip()
+        raw_station = (tracker.get_slot("station_name") or "").strip()
+        raw_feature = (tracker.get_slot("feature") or "").strip()
+
+        # If feature slot is empty, try to read it from this message’s entities
+        if not raw_feature:
+            for ent in (tracker.latest_message.get("entities") or []):
+                if (ent.get("entity") or "") == "feature":
+                    val = ent.get("value")
+                    if val:
+                        raw_feature = str(val).strip()
+                        break
+
+        # ---------- 2) Normaliser used for BOTH CSV + user text ----------
+        def _norm(s: str) -> str:
+            s = (s or "").lower().strip()
+            s = re.sub(r'\brailway\s+station\b', '', s)
+            s = re.sub(r'\bstation\b', '', s)
+            s = re.sub(r'\brailway\b', '', s)
+            s = re.sub(r'[()/_-]', ' ', s)
+            s = re.sub(r'\s+', ' ', s)
+            return s.strip()
+
+        # Prepare candidate list from CSV (uses prebuilt norm_name if present; else compute)
+        if "norm_name" in station_data.columns:
+            candidates_series = station_data["norm_name"].astype(str).map(_norm)
+        else:
+            candidates_series = station_data["Station Name"].astype(str).map(_norm)
+        candidates = candidates_series.tolist()
+
+        # ---------- 3) Get station from user text first; then fall back ----------
+        if not raw_station:
+            # Try GTFS extractor (if available)
+            try:
+                from .gtfs_utils import GTFSUtils, stops_df
+                extracted = GTFSUtils.extract_stations_from_query(user_text, stops_df) or []
+                if extracted:
+                    raw_station = extracted[0]
+            except Exception:
+                pass
+
+            # Simple fallback: look for any known station name inside the user text
+            if not raw_station and candidates:
+                text_norm = _norm(user_text)
+                hits = [c for c in candidates if c and c in text_norm]
+                if hits:
+                    raw_station = hits[0]
+
+        # ---------- 4) Validate missing pieces ----------
+        if not raw_station and not raw_feature:
             dispatcher.utter_message(text="Please specify both the station name and the feature you are asking about.")
             return []
-
-        station_name = station_name.strip().lower()
-        feature = feature.strip().lower()
-
-        station_names = station_data['Station Name'].tolist()
-        if station_name not in station_names:
-            dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name.capitalize()} station.")
+        if not raw_station:
+            dispatcher.utter_message(text="Please tell me the station name.")
+            return []
+        if not raw_feature:
+            dispatcher.utter_message(text=f"What feature do you want to check at {raw_station}? (e.g., lifts, restroom)")
             return []
 
+        station_key = _norm(raw_station)
+        feature_key = (raw_feature or "").lower().strip()
+
+        if not candidates:
+            dispatcher.utter_message(text="Station list is unavailable right now. Please try again later.")
+            return []
+
+        # ---------- 5) Exact or fuzzy match the station (typo tolerant) ----------
+        if station_key not in candidates:
+            best = get_close_matches(station_key, candidates, n=1, cutoff=0.80)
+            if best:
+                station_key = best[0]
+            else:
+                dispatcher.utter_message(
+                    text=f"Sorry, I couldn’t find “{raw_station}”. Please check the spelling or try another station."
+                )
+                return []
+
+        idxs = candidates_series[candidates_series == station_key].index
+        if len(idxs) == 0:
+            dispatcher.utter_message(text=f"Sorry, I couldn’t find “{raw_station}”.")
+            return []
+
+        row = station_data.loc[idxs[0]]
+        display_name = str(row["Station Name"]).title()
+
+        # ---------- 6) Feature → CSV column mapping (includes washrooms) ----------
         feature_mapping = {
-            "escalators": "Escalators",
-            "escalator": "Escalators",
-            "lifts": "Lift",
-            "elevator": "Lift",
-            "elevators": "Lift",  
-            "ramps": "Station access",
-            "access": "Station access",
-            "parking": "Parking",
-            "restroom": "Toilet",
-            "toilets": "Toilet",
-            "toilet": "Toilet",
-            "tactile edges": "Tactile edges",
-            "hearing loops": "Hearing Loop",
-            "info screens": "Info screens",
-            "shelter": "Shelter",
-            "low platform": "Low platform",
+            "escalators": "Escalators", "escalator": "Escalators",
+            "lift": "Lift", "lifts": "Lift", "elevator": "Lift", "elevators": "Lift",
+            "ramps": "Station access", "ramp": "Station access", "access": "Station access",
+            "parking": "Parking", "car park": "Parking",
+            "restroom": "Toilet", "restrooms": "Toilet",
+            "toilet": "Toilet", "toilets": "Toilet",
+            "bathroom": "Toilet", "bathrooms": "Toilet",
+            "washroom": "Toilet", "washrooms": "Toilet",
+            "tactile edges": "Tactile edges", "tactile": "Tactile edges",
+            "hearing loop": "Hearing Loop", "hearing loops": "Hearing Loop",
+            "info screens": "Info screens", "information screens": "Info screens",
+            "shelter": "Shelter", "low platform": "Low platform",
             "path widths": "Path Widths",
-            "pick up / drop off": "Pick up / Drop off"
+            "pick up / drop off": "Pick up / Drop off", "pick-up/drop-off": "Pick up / Drop off",
         }
 
-        standardized_feature = feature_mapping.get(feature)
-
-        if not standardized_feature:
-            dispatcher.utter_message(text=f"Sorry, I don't have information about {feature}.")
+        column_name = feature_mapping.get(feature_key)
+        if not column_name:
+            supported = ", ".join(sorted(set(feature_mapping.keys())))
+            dispatcher.utter_message(
+                text=f"Sorry, I don't have information about '{raw_feature}'. Try one of: {supported}."
+            )
+            return []
+        if column_name not in station_data.columns:
+            dispatcher.utter_message(text=f"Sorry, I don't track '{raw_feature}' for stations yet.")
             return []
 
-        station_info = station_data[station_data['Station Name'] == station_name]
-        
-        feature_value = station_info[standardized_feature].values[0]
-        if pd.isna(feature_value) or feature_value.lower() == 'no':
-            dispatcher.utter_message(text=f"No, {station_name.capitalize()} station does not have {feature}.")
-        else:
-            dispatcher.utter_message(text=f"Yes, {station_name.capitalize()} station has {feature}.")
-        
-        return []
+        # ---------- 7) Answer ----------
+        val = str(row[column_name]).strip().lower()
+        has_it = not (val in ("", "nan", "no", "false", "0"))
+        dispatcher.utter_message(
+            text=f"{'Yes' if has_it else 'No'}, {display_name} {'has' if has_it else 'does not have'} {raw_feature}."
+        )
 
+        # Clear slots for next turn
+        return [SlotSet("station_name", None), SlotSet("feature", None)]
 '''
 -------------------------------------------------------------------------------------------------------
 Class: ActionCheckStation
