@@ -104,6 +104,7 @@ class ActionFindNextTram(Action):
     ID: TRAM_02
     Name: Schedule Information for Trams
     Author: AlexT
+    Modified: Juveria Nishath, +multi-platform fix
     -------------------------------------------------------------------------------------------------------
     """
 
@@ -111,76 +112,154 @@ class ActionFindNextTram(Action):
         return "action_find_next_tram"
 
     def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         try:
-            # Extract user input and slots
+            # Treat this action as 'tram' regardless of transport_mode
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
-            transport_mode = tracker.get_slot("transport_mode")
+            user_text = (tracker.latest_message or {}).get("text", "") or ""
 
-            logger.info(f"Extracted slots -> station_a: {station_a}, station_b: {station_b}, transport_mode: {transport_mode}")
-
-            # Ensure the transport mode is 'tram'
-            if not transport_mode or "tram" not in transport_mode.lower():
-                dispatcher.utter_message(response="utter_invalid_mode")
-                return []
-
-            # Validate station names
+            # Fallback: extract from user text when slots are empty
             if not station_a or not station_b:
-                dispatcher.utter_message(text="Please specify both the starting and destination stations for the tram.")
+                extracted = GTFSUtils.extract_stations_from_query(user_text, tram_stops)
+                if extracted:
+                    station_a = station_a or extracted.get("station_a")
+                    station_b = station_b or extracted.get("station_b")
+
+            if not station_a or not station_b:
+                dispatcher.utter_message(
+                    "Please tell me both tram stops, e.g. “next tram from A to B”.")
                 return []
 
-            # Use preloaded tram_stops to find stop IDs
+            # Resolve a primary id (sanity/logs only)
             stop_a_id = GTFSUtils.get_stop_id(station_a, tram_stops)
             stop_b_id = GTFSUtils.get_stop_id(station_b, tram_stops)
-
             if not stop_a_id or not stop_b_id:
                 dispatcher.utter_message(
-                    text=f"Sorry, I couldn't find one or both of the stations: {station_a}, {station_b}."
+                    "Sorry, I couldn't match those stops. Try the exact stop name shown on the green sign (e.g. “La Trobe St/Swanston St #5”)."
                 )
                 return []
 
-            # Get the current time for filtering
-            current_time = datetime.now().strftime('%H:%M:%S')
+            # Ensure index shape (define st FIRST!)
+            st = tram_stop_times
+            if not isinstance(st.index, pd.MultiIndex):
+                st = st.set_index(["stop_id", "trip_id"], drop=False)
 
-            # Find the next tram trip using preloaded tram_stop_times
-            if not isinstance(tram_stop_times.index, pd.MultiIndex):
-                tram_stop_times.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+            # Build candidate stop_id sets for both stops (handles multiple platforms/directions)
+            a_ids = GTFSUtils.collect_platform_ids(station_a, tram_stops, st)
+            b_ids = GTFSUtils.collect_platform_ids(station_b, tram_stops, st)
 
-            trips_from_station_a = tram_stop_times.loc[stop_a_id].reset_index()
-            trips_to_station_b = tram_stop_times.loc[stop_b_id].reset_index()
+            logger.info(f"[TRAM] A='{station_a}' candidates={a_ids}")
+            logger.info(f"[TRAM] B='{station_b}' candidates={b_ids}")
 
-            # Filter for future trips and match them
-            future_trips = trips_from_station_a[
-                trips_from_station_a['departure_time'] >= current_time
-            ]['trip_id'].unique()
-            valid_trips = trips_to_station_b[
-                trips_to_station_b['trip_id'].isin(future_trips)
-            ]
+            if not a_ids or not b_ids:
+                dispatcher.utter_message("I can't find one of those stops in the tram GTFS.")
+                return []
 
-            # Generate the response
-            if not valid_trips.empty:
-                next_trip = valid_trips.iloc[0]
-                departure_time = GTFSUtils.parse_time(next_trip['departure_time'])
+            now_str = datetime.now().strftime("%H:%M:%S")
 
-                # Convert parsed time to a user-friendly format
-                if isinstance(departure_time, timedelta):
-                    departure_time = (datetime.min + departure_time).strftime('%I:%M %p')
+            def earliest_candidate(a_list, b_list):
+                best = None
+                best_pair = None
+                idx0 = st.index.get_level_values(0)
 
-                response = f"The next tram from {station_a} to {station_b} departs at {departure_time}."
+                for a_id in a_list:
+                    if a_id not in idx0:
+                        continue
+                    a_times = st.loc[a_id].reset_index()
+                    if isinstance(a_times, pd.Series):
+                        a_times = a_times.to_frame().T
+                    a_times = a_times[a_times["departure_time"] >= now_str]
+                    if a_times.empty:
+                        continue
+
+                    for b_id in b_list:
+                        if b_id not in idx0:
+                            continue
+                        b_times = st.loc[b_id].reset_index()
+                        if isinstance(b_times, pd.Series):
+                            b_times = b_times.to_frame().T
+
+                        merged = a_times.merge(b_times, on="trip_id", suffixes=("_a", "_b"))
+                        merged = merged[merged["stop_sequence_a"] < merged["stop_sequence_b"]]
+                        if merged.empty:
+                            continue
+
+                        cand = merged.sort_values("departure_time_a").iloc[0]
+                        if best is None or cand["departure_time_a"] < best["departure_time_a"]:
+                            best = cand
+                            best_pair = (a_id, b_id)
+                return best, best_pair
+
+            # Try normal direction
+            best, pair = earliest_candidate(a_ids, b_ids)
+
+            # If none, try auto-swap once (user may have reversed stops)
+            swapped_used = False
+            if best is None:
+                best, pair = earliest_candidate(b_ids, a_ids)
+                swapped_used = best is not None
+
+            if best is None:
+                dispatcher.utter_message(
+                    "No upcoming direct trams found between those stops. They may be on different lines or direction. "
+                    "Try reversing the stops or ask for a transfer route."
+                )
+                return []
+
+        # Times
+            depart_dt = GTFSUtils.parse_time(best["departure_time_a"])
+            arrive_dt = GTFSUtils.parse_time(best["arrival_time_b"])
+            depart = (datetime.min + depart_dt).strftime("%I:%M %p")
+            arrive = (datetime.min + arrive_dt).strftime("%I:%M %p")
+
+            # --- Route number + headsign lookup ---
+            route_no = route_name = headsign = None
+            try:
+                trip_id = best["trip_id"]
+                trip_row = tram_trips.loc[tram_trips["trip_id"] == trip_id]
+                route_id = trip_row["route_id"].iloc[0] if not trip_row.empty else None
+                headsign = trip_row["trip_headsign"].iloc[0] if not trip_row.empty else None
+
+                if route_id is not None:
+                    route_row = tram_routes.loc[tram_routes["route_id"] == route_id]
+                    if not route_row.empty:
+                        route_no = route_row["route_short_name"].iloc[0]
+                        route_name = route_row["route_long_name"].iloc[0]
+            except Exception:
+                pass
+
+            suffix = ""
+            if route_no or headsign:
+                parts = []
+                if route_no:
+                    parts.append(f"Route {route_no}")
+                if headsign:
+                    parts.append(f"to {headsign}")
+                suffix = " (" + " ".join(parts) + ")"
+
+            # Message
+            if swapped_used:
+                dispatcher.utter_message(
+                    f"It looks like you meant the opposite direction.\n"
+                    f"The next tram from {station_b} to {station_a} leaves at {depart} and arrives around {arrive}{suffix}."
+                )
             else:
-                response = f"Sorry, no upcoming trams were found from {station_a} to {station_b}."
+                dispatcher.utter_message(
+                    f"The next tram from {station_a} to {station_b} leaves at {depart} and arrives around {arrive}{suffix}."
+                )
 
-            # Send the response
-            dispatcher.utter_message(text=response)
+            logger.info(
+                f"[TRAM] Chosen stop_ids pair={pair}, trip_id={best['trip_id']}, "
+                f"depart={best['departure_time_a']}, arrive={best['arrival_time_b']}, route_no={route_no}, headsign={headsign}"
+            )
+            return []
 
         except Exception as e:
-            # Handle exceptions and log the error
-            logger.error(f"Failed to process 'action_find_next_tram': {str(e)}")
-            dispatcher.utter_message(text="An unexpected error occurred while fetching the tram schedule. Please try again.")
-
-        return []
+            logger.exception("Error in ActionFindNextTram", exc_info=True)
+            dispatcher.utter_message("Sorry — something went wrong while fetching tram times.")
+            return []
 
 # class ActionCheckDisruptionsTrain(Action):
 #     ''' -------------------------------------------------------------------------------------------------------

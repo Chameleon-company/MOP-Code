@@ -70,8 +70,6 @@ rules:
   - rule: Find next tram timing
     steps:
       - intent: find_next_tram
-      - slot_was_set:
-          - transport_mode: tram
       - action: action_find_next_tram
 
   - rule: Find next bus timing

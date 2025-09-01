@@ -1714,6 +1714,51 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
 
         return False, []
+    import re
+    # from typing import List
+    @staticmethod
+    def collect_platform_ids(display_name: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
+        # 1) get the best-matched canonical stop_name (your existing helper)
+        matched_name = GTFSUtils.find_station_name(display_name, stops_df) or display_name
+
+        # 2) find the row(s) for that name
+        rows = stops_df[stops_df['stop_name'] == matched_name].astype(str)
+        ids: List[str] = []
+
+        if not rows.empty:
+            # Take the first as reference
+            ref = rows.iloc[0]
+            ref_id = str(ref['stop_id'])
+            parent = str(ref.get('parent_station', 'nan'))
+
+            # Identify if this is a parent or a child
+            is_parent = (parent == 'nan')  # convention in your utils/data
+            if is_parent:
+                # Add all children that actually appear in stop_times
+                children = stops_df[stops_df['parent_station'].astype(str) == ref_id]['stop_id'].astype(str).tolist()
+                ids.extend(children)
+            else:
+                # Add this child + all siblings with same parent
+                siblings = stops_df[stops_df['parent_station'].astype(str) == parent]['stop_id'].astype(str).tolist()
+                ids.extend(siblings)
+
+            # Always include the reference id if it has timings
+            ids.append(ref_id)
+
+        # 3) name-prefix expansion: include any rows whose stop_name starts with base name (before “#”)
+        base = re.sub(r'\s*#\d+.*$', '', matched_name).strip()
+        by_prefix = stops_df[stops_df['stop_name'].str.startswith(base, na=False)]['stop_id'].astype(str).tolist()
+        ids.extend(by_prefix)
+
+        # 4) keep only those with actual timings in stop_times (avoid dead ids)
+        if isinstance(stop_times_df.index, pd.MultiIndex):
+            avail = set(stop_times_df.index.get_level_values(0).astype(str))
+        else:
+            avail = set(stop_times_df['stop_id'].astype(str))
+        ids = sorted({i for i in ids if i in avail})
+
+        return ids
+
     
     def find_next_public_transport_trip(station_a: str, station_b: str, mode: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> str:
         """
@@ -1896,3 +1941,5 @@ class GTFSUtils:
         except Exception as e:
             logger.error(f"Error in find_next_public_transport_trip: {e}")
             return f"Sorry, I encountered an error while finding the next train. Please try again."
+        
+        
