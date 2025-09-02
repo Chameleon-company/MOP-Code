@@ -93,8 +93,12 @@ nlu:
     - What’s the best way to go from [Box Hill](station_a) to [Glenferrie](station_b) by [bus](transport_mode)?
 - intent: ask_direct_route
   examples: |
-    - Is there a direct train from [Dandenong](station_a) to [Parliament](station_b)?
-    - Do I need to change trains to get from [Melbourne Central](station_a) to [Flinders Street](station_b)?
+    - Is there a direct train from [Flinders Street](station_a) to [Southern Cross](station_b)?
+    - Is there a direct train from [Laverton](station_a) to [Williams Landing](station_b)?
+    - Do I need to change trains between [Laverton](station_a) and [Williams Landing](station_b)?
+    - Is there a service without transfers from [Yarraville](station_a) to [Seddon](station_b)?
+    - Any direct rail from [Caulfield](station_a) to [South Yarra](station_b)?
+
 - intent: ask_transfers
   examples: |
     - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
@@ -223,8 +227,6 @@ nlu:
     - From [Carlton](location_from) to [MCG](location_to)
     - [Footscray](location_from) to [Richmond](location_to)
     - Navigate [Essendon](location_from) to [Prahran](location_to)
-    - Direct me from [Collingwood](location_from) to [Federation Square](location_to)
-    - Take me from [St Kilda](location_from) to [Brunswick](location_to)
     - I need to get from [Footscray](location_from) to [Richmond](location_to)
     - Planning to go from [Prahran](location_from) to [Docklands](location_to)
     - Looking for route from [Carlton](location_from) to [MCG](location_to)

@@ -134,11 +134,15 @@ rules:
   - rule: Respond to asking about a specific feature
     steps:
     - intent: ask_about_feature
+    - slot_was_set:
+        - feature
     - action: action_check_feature
 
   - rule: Respond to asking about all features of a station
     steps:
     - intent: ask_about_station
+    - slot_was_set:
+        - station_name
     - action: action_check_station
 
   - rule: Respond to listing all stations
