@@ -239,3 +239,4 @@ actions:
 - action_find_tram_route_with_transfers
 - action_fetch_traffic
 - action_fetch_traffic_location
+- action_driving_time_by_car

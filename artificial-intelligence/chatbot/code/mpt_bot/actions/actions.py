@@ -3,6 +3,7 @@ import folium
 import webbrowser
 from folium.plugins import MarkerCluster
 import os
+import re
 from io import BytesIO
 import zipfile
 import requests
@@ -30,6 +31,8 @@ import urllib.parse
 from tabulate import tabulate
 from pathlib import Path
 from rasa_sdk.events import SlotSet, EventType, AllSlotsReset
+from .tomtom_utils import tt_geocode, tt_route, fmt_time, fmt_km
+
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -2365,3 +2368,139 @@ class ActionMapTransportInArea(Action):
         return []
 
 # Ross Finish Actions
+# Juveria Nishath Actions start
+class ActionDrivingTimeByCar(Action):
+    ''' -------------------------------------------------------------------------------------------------------
+        Name: Driving time by car (TomTom)
+        Author: Juveria Nishath
+        -------------------------------------------------------------------------------------------------------
+        What it does:
+            • Parses origin/destination from slots or “from … to …” text
+            • Geocodes both ends via TomTom Search
+            • Calls TomTom Routing (fastest, traffic on) to get ETA + distance
+
+    ------------------------------------------------------------------------------------------------------- '''
+
+    def name(self) -> Text:
+        return "action_driving_time_by_car"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        try:
+            # (1) Grab the raw user message text (handles full addresses, commas, line breaks)
+            user_text = (tracker.latest_message or {}).get("text", "") or ""
+
+            # (2) Extract origin/destination with strict preference: regex > entities > old slots
+            # (2a) Regex: capture "from ... to ..." even across newlines
+            origin_rgx = dest_rgx = None
+            m = re.search(r"\bfrom\s+(.+?)\s+to\s+(.+)", user_text, flags=re.I | re.S)
+            if m:
+                origin_rgx = m.group(1).strip()
+                dest_rgx   = m.group(2).strip()
+
+            # (2b) Latest entities (if your NLU tagged them)
+            ents = (tracker.latest_message or {}).get("entities", []) or []
+            origin_ent = next(
+                (e.get("value") for e in ents if e.get("entity") in ("source", "location_from", "station_a")),
+                None
+            )
+            dest_ent = next(
+                (e.get("value") for e in ents if e.get("entity") in ("destination", "location_to", "station_b")),
+                None
+            )
+
+            # (2c) Build final origin/dest, preferring regex > entities > prior slots
+            origin = (origin_rgx or origin_ent
+                      or tracker.get_slot("source")
+                      or tracker.get_slot("location_from")
+                      or tracker.get_slot("station_a") or "").strip()
+
+            dest = (dest_rgx or dest_ent
+                    or tracker.get_slot("destination")
+                    or tracker.get_slot("location_to")
+                    or tracker.get_slot("station_b") or "").strip()
+
+            # (3) If still missing any side, ask cleanly and stop (no exceptions)
+            if not origin or not dest:
+                dispatcher.utter_message(
+                    text='Please provide both the starting point and destination, e.g., '
+                         '"by car from 4 Anderson St Yarraville to 1016 Morris Rd Truganina".'
+                )
+                return []
+
+            # (4) Pull TomTom key from environment; fail fast if not set (no 503 crashes)
+            api_key = os.getenv("TOMTOM_API_KEY")
+            if not api_key:
+                dispatcher.utter_message(text="TomTom API key is not configured on the server.")
+                return []
+
+            # (5) Geocode BOTH ends with Melbourne bias + VIC preference (to avoid NSW/QLD/TAS)
+            MEL_CBD_LAT, MEL_CBD_LON = -37.8136, 144.9631   # Melbourne CBD
+            MEL_RADIUS_KM = 150
+
+            # First attempt with CBD bias (keeps ambiguous names in metro VIC)
+            o = tt_geocode(origin, api_key,
+                           country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+            d = tt_geocode(dest,   api_key,
+                           country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+
+            # (5b) If either side failed, retry with explicit ", VIC" suffix (no extra kwargs)
+            if not o:
+                o = tt_geocode(f"{origin}, VIC", api_key,
+                               country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+            if not d:
+                d = tt_geocode(f"{dest}, VIC", api_key,
+                               country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+
+            # (5c) Still missing? Tell the user which side failed
+            if not o or not d:
+                which = "origin" if not o else "destination"
+                dispatcher.utter_message(text=f"Sorry, I couldn't locate the {which} on the map.")
+                return []
+
+            o_lat, o_lon, o_label = o
+            d_lat, d_lon, d_label = d
+
+            # (6) Request the fastest *car* route with traffic ON (current conditions)
+            summary = tt_route(o_lat, o_lon, d_lat, d_lon, api_key)
+            if not summary:
+                dispatcher.utter_message(text="I couldn't fetch the driving time right now.")
+                return []
+
+            # (7) Format a friendly message (ETA with/without traffic + distance)
+            travel = summary.get("travelTimeInSeconds")                  # with live traffic
+            free   = summary.get("noTrafficTravelTimeInSeconds")         # free-flow (no traffic)
+            delay  = summary.get("trafficDelayInSeconds")                # pure delay component
+            hist   = summary.get("historicTrafficTravelTimeInSeconds")   # typical traffic (optional)
+            live   = summary.get("liveTrafficIncidentsTravelTimeInSeconds")  # incidents component (optional)
+            dist_m = summary.get("lengthInMeters")
+            arrive = summary.get("arrivalTime")  # ISO 8601 string; optional
+
+            parts = [f"Driving time from {o_label} to {d_label} (now): {fmt_time(travel)}"]
+
+            if free is not None:
+                parts.append(f"free-flow: {fmt_time(free)}")
+            if delay is not None:
+                parts.append(f"traffic delay: {fmt_time(delay)}")
+            if hist is not None:
+                parts.append(f"typical traffic: {fmt_time(hist)}")
+            if live is not None:
+                parts.append(f"incidents time: {fmt_time(live)}")
+            if dist_m is not None:
+                parts.append(f"distance: {fmt_km(dist_m)}")
+            if arrive:
+                parts.append(f"ETA arrival: {arrive}")
+
+            msg = "; ".join(parts) + "."
+            dispatcher.utter_message(text=msg)
+            return []
+
+        except Exception as e:
+            logger.exception("TomTom driving-time action failed: %s", e)
+            dispatcher.utter_message(text="Sorry, I couldn't compute the driving time due to an error.")
+            return []

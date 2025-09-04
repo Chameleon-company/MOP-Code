@@ -382,7 +382,21 @@ nlu:
     - what is traffic in [Albert Park](station_a)?
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+- intent: ask_driving_time
+  examples: |
+    - how long to drive from [Southbank, VIC](source) to [St Kilda, VIC](destination)
+    - driving time from [Tarneit](source) to [Deakin University Burwood](destination)
+    - by car from [4 Anderson St, Yarraville VIC 3013](source) to [1016 Morris Rd, Truganina VIC 3029](destination)
+    - drive time from [Melbourne Airport](source) to [80 Collins St, Melbourne VIC](destination)
+    - ETA by car from [Williams Landing](source) to [Box Hill, VIC](destination)
+    - how long does it take to drive from [Carlton VIC](source) to [Prahran VIC](destination)
+
+# Helps the classifier latch onto the “drive…from…to…” pattern
+- regex: drive_from_to
+  examples: |
+    - (?i)\b(drive|driving|by car|driving time|drive time|how long to drive)\b.*\bfrom\b.+\bto\b.+
 - regex: station_name
   examples: |
     - [Central Station](station_name)
     - [North Station](station_name)
+

@@ -332,4 +332,9 @@ stories:
       - slot_was_set:
           - feature: lifts
       - action: action_check_feature
+# Juveria Nishath (start)---------------------
+  - story: Answer driving time by car
+    steps:
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
 

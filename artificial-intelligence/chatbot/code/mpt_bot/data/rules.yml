@@ -221,4 +221,9 @@ rules:
     steps:
     - intent: affirm
     - action: utter_ack
+# Juveria Nishath ---start
+  - rule: Answer driving time by car
+    steps:
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
 
