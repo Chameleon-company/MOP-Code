@@ -1,0 +1,13 @@
+﻿# UC5 DAWN – YOLO data config
+# >>> Update these three paths to your local image folders <<<
+train: C:/Users/ramad/Downloads/dawn_yolo/images/train
+val:   C:/Users/ramad/Downloads/dawn_yolo/images/val
+test:  C:/Users/ramad/Downloads/dawn_yolo/images/val
+
+# Class names used during training (edit if you trained with different labels)
+names:
+  0: car
+  1: bus
+  2: truck
+  3: motorcycle
+  4: bicycle
