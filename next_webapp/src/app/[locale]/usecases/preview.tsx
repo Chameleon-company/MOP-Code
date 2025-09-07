@@ -20,8 +20,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ study, onClick }) => (
   <div
     onClick={onClick}
-    className={`${CARD_W} ${CARD_H} overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-gray-600 shadow hover:shadow-lg transition-shadow flex flex-col justify-between p-4 cursor-pointer`}
-  >
+    className={`w-full sm:w-[260px] h-[220px] bg-white dark:bg-dark border border-gray-300 dark:border-gray-600 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-in-out flex flex-col justify-between p-4 rounded-xl cursor-pointer`}
+    >
     {/* Icon */}
     <div className="flex justify-center mb-2">
       <FileText size={48} className="text-primary" />
@@ -43,11 +43,12 @@ const Card: React.FC<CardProps> = ({ study, onClick }) => (
     <div className="flex flex-wrap justify-center gap-1 mt-1">
       {study.tags.slice(0, 3).map((t) => (
         <span
-          key={t}
-          className="text-[10px] px-2 py-[1px] bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white"
-        >
-          {t}
-        </span>
+        key={t}
+        className="text-[10px] px-2 py-[2px] rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white"
+      >
+        {t}
+      </span>
+      
       ))}
     </div>
   </div>
@@ -141,7 +142,7 @@ const PreviewComponent: React.FC<Props> = ({
 
         {/* Main grid */}
         <div className="flex-1 bg-gray-200 dark:bg-gray-700 p-6">
-          <div className="grid gap-y-6 gap-x-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 auto-rows-[180px] justify-items-center">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {visible.map((s) => (
               <Card key={s.id} study={s} onClick={() => onSelectCaseStudy(s)} />
             ))}
