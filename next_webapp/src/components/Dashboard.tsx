@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, FileText } from "lucide-react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import CityMap from "./CityMap";
 
 const style = `
 .main-container {
@@ -149,8 +150,12 @@ const responsive = {
 
 const Dashboard = () => {
   const t = useTranslations("common");
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | undefined>(undefined);
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
+    []
+  );
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<
+    CaseStudy | undefined
+  >(undefined);
 
   useEffect(() => {
     handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
@@ -170,7 +175,11 @@ const Dashboard = () => {
     return await response.json();
   };
 
-  const handleSearch = async (searchTerm: string, searchMode: SEARCH_MODE, category: CATEGORY) => {
+  const handleSearch = async (
+    searchTerm: string,
+    searchMode: SEARCH_MODE,
+    category: CATEGORY
+  ) => {
     const res = await searchUseCases({ searchTerm, searchMode, category });
     setFilteredCaseStudies(res?.filteredStudies);
   };
@@ -194,7 +203,9 @@ const Dashboard = () => {
           Back
         </button>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md flex-grow overflow-hidden flex flex-col">
-          <h1 className="text-3xl font-bold mb-4 px-6 pt-6">{selectedCaseStudy.name}</h1>
+          <h1 className="text-3xl font-bold mb-4 px-6 pt-6">
+            {selectedCaseStudy.name}
+          </h1>
           <iframe
             src={`/api?filename=${selectedCaseStudy.filename}`}
             title={selectedCaseStudy.name}
@@ -224,6 +235,93 @@ const Dashboard = () => {
             </div>
           </section>
 
+          {/* Smart City Planning Section */}
+          <section className="smart-city-section my-12">
+            {/* Banner */}
+            <div className="bg-green-500 rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
+              <div className="w-full md:w-1/2">
+                <Image
+                  src="/img/smart-city.jpg"
+                  alt="Smart City Planning"
+                  width={400}
+                  height={100}
+                  className="rounded-xl w-full object-cover"
+                />
+              </div>
+              <div className="w-full md:w-1/2 text-white flex flex-col justify-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                  Smart City Planning
+                </h2>
+                <p className="mb-4">
+                  Discover how Melbourne is shaping a smarter, safer, and more
+                  sustainable future using data-driven planning and innovation.
+                </p>
+                <div className="flex gap-3">
+                  <button className="bg-white text-green-600 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-100">
+                    View Strategic Plan
+                  </button>
+                  <button className="bg-white text-green-600 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-100">
+                    Explore Urban Vision 2030
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Categories */}
+            <div className="mt-12">
+              <h3 className="text-xl md:text-2xl font-bold mb-6 text-center">
+                Explore By Category
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {[
+                  { title: "Parking", img: "/img/parking.jpg" },
+                  { title: "Environment", img: "/img/environment.jpg" },
+                  { title: "EV Infrastructure", img: "/img/ev.jpg" },
+                  {
+                    title: "Community Facilities",
+                    img: "/img/community.jpg",
+                  },
+                  { title: "Safety", img: "/img/safety.jpg" },
+                  {
+                    title: "Accessibility and Inclusion",
+                    img: "/img/accessibility.jpg",
+                  },
+                ].map((cat) => (
+                  <div
+                    key={cat.title}
+                    className="bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1 p-4 flex flex-col items-center"
+                  >
+                    <img
+                      src={cat.img}
+                      alt={cat.title}
+                      className="rounded-lg h-32 w-full object-cover mb-4"
+                    />
+                    <h4 className="text-lg font-medium">{cat.title}</h4>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="mt-12">
+              <div className="rounded-xl shadow-lg overflow-hidden">
+              <div className="mt-12">
+  <h3 className="text-xl md:text-2xl font-bold mb-6 text-center">
+    Explore on City Map
+  </h3>
+  <CityMap />   {/* real interactive map */}
+  <div className="flex justify-center gap-6 mt-4 text-sm">
+    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-blue-500"></span> Parking</span>
+    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500"></span> Safety</span>
+    <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-500"></span> EV</span>
+  </div>
+</div>
+
+              </div>
+            
+            </div>
+          </section>
+
           <section className="case-studies-wrapper">
             <section className="recent-case-studies">
               <h2>{t("Recent Case Studies")}</h2>
@@ -241,16 +339,26 @@ const Dashboard = () => {
                     <div className="flex items-center justify-center mb-4">
                       <FileText size={48} className="text-green-500" />
                       <FileText size={48} className="text-teal-400 -ml-6" />
-                      <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
+                      <FileText
+                        size={48}
+                        className="text-green-700 -ml-6 rotate-6"
+                      />
                     </div>
-                    <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
+                    <h3 className="font-bold text-lg text-center mb-2">
+                      {study.name}
+                    </h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm text-center mb-2">
                       {study.description.split(" ").length > 50
-                        ? `${study.description.split(" ").slice(0, 50).join(" ")}...`
+                        ? `${study.description
+                            .split(" ")
+                            .slice(0, 50)
+                            .join(" ")}...`
                         : study.description}
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Tags:</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Tags:
+                      </p>
                       {study.tags.map((tag, index) => (
                         <span
                           key={index}
