@@ -1733,7 +1733,9 @@ class GTFSUtils:
         """
         # API endpoint and headers
         url = "https://routes.googleapis.com/directions/v2:computeRoutes"
-        my_google_api_key = os.getenv("API_KEY")
+
+        # export the google api key before run the code
+        my_google_api_key = os.getenv("GOOGLE_API_KEY")
         headers = {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": my_google_api_key,
