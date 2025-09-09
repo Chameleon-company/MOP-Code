@@ -1225,7 +1225,7 @@ class ActionRunDirectionScriptOriginal(Action):
             dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
         
-        if google_api_key is not "your-google-api-key":
+        if google_api_key is not "your-google-api-key" and google_api_key:
             best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
             if 'route_description' in best_trip:
                 dispatcher.utter_message(text=best_trip['route_description'])
@@ -1684,7 +1684,7 @@ class ActionRunDirectionScript(Action):
             dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
             return []
         
-        if google_api_key is not "your-google-api-key":
+        if google_api_key is not "your-google-api-key" and google_api_key:
             # Include nation in the location name
             location_from += ", Australia"
             location_to += ", Australia"
