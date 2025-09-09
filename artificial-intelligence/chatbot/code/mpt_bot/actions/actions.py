@@ -1218,8 +1218,18 @@ class ActionRunDirectionScriptOriginal(Action):
         location_to = tracker.get_slot('location_to')
         current_addr = tracker.get_slot('address')
 
-        if current_addr and not location_from:
-            location_from = current_addr
+        if not location_from:
+            current_addr = tracker.get_slot('address')
+            station_a = tracker.get_slot('station_a')
+            if current_addr:
+                location_from = current_addr
+            elif station_a:
+                location_from = station_a
+        
+        if not location_to:
+            station_b = tracker.get_slot('station_b')
+            if station_b:
+                location_to = station_b
         
         if not location_from or not location_to:
             dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
@@ -1674,6 +1684,20 @@ class ActionRunDirectionScript(Action):
         slots_start = time.time()
         location_from = tracker.get_slot('location_from')
         location_to = tracker.get_slot('location_to')
+        
+        if not location_from:
+            current_addr = tracker.get_slot('address')
+            station_a = tracker.get_slot('station_a')
+            if current_addr:
+                location_from = current_addr
+            elif station_a:
+                location_from = station_a
+        
+        if not location_to:
+            station_b = tracker.get_slot('station_b')
+            if station_b:
+                location_to = station_b
+
         logger.info(f"Final location_from: {location_from}")
         logger.info(f"Final location_to: {location_to}")
         logger.info(f"Slot extraction took {time.time() - slots_start:.2f} seconds")
