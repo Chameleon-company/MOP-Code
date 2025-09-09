@@ -1717,7 +1717,7 @@ class GTFSUtils:
         return response
     
 
-    def find_pt_route_between_two_address(start_addr: str, end_addr: str, mode_exclusions: List[str] = None) -> Dict:
+    def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None) -> Dict:
         """
         Compute the fastest transit route (bus, tram, train) from start to end coordinates using Google Maps Routes API.
 
@@ -1735,75 +1735,77 @@ class GTFSUtils:
         url = "https://routes.googleapis.com/directions/v2:computeRoutes"
 
         # export the google api key before run the code
-        my_google_api_key = os.getenv("GOOGLE_API_KEY")
-        headers = {
-            "Content-Type": "application/json",
-            "X-Goog-Api-Key": my_google_api_key,
-            "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.legs.stepsOverview.multiModalSegments"
-        }
-
-        # Prepare request body for TRANSIT mode
-        request_body = {
-            "origin": {"address" : start_addr},
-            "destination": {"address" : end_addr},
-            "travelMode": "TRANSIT",
-            "departureTime": datetime.now(timezone.utc).isoformat(),  # Current UTC time
-            "transitPreferences": {
-                "routingPreference": "LESS_WALKING"
-            },
-            "languageCode": "en-AU"
-        }
-
-        # Apply mode exclusions (approximate by filtering response, as API doesn't support direct exclusion)
-        if mode_exclusions:
-            # Note: Google API doesn't allow fine-grained transit mode exclusion in request; filter post-response
-            pass  # Exclusion logic will be applied after receiving response
-
-        try:
-            # Make API request
-            response = requests.post(url, json=request_body, headers=headers, timeout=10)
-            if response.status_code != 200:
-                logger.error(f"Google Maps API error: HTTP {response.status_code}, {response.text}")
-                return {"error": f"API error: {response.status_code}"}
-
-            data = response.json()
-            if not data.get("routes"):
-                logger.warning("No transit routes found for the given parameters.")
-                return {"error": "No transit routes available"}
-
-            # Process the fastest route (only one route since computeAlternativeRoutes is false)
-            route = data["routes"][0]
-            total_time_seconds = int(route["duration"].replace("s", ""))  # Extract seconds from "2946s"
-            total_time_minutes = total_time_seconds / 60
-
-            # Build route description from multiModalSegments
-            route_description = []
-            legs = route.get("legs", [{}])[0]
-            for segment in legs.get("stepsOverview", {}).get("multiModalSegments", []):
-                if "navigationInstruction" in segment:
-                    instruction = segment["navigationInstruction"]["instructions"]
-                    route_description.append(f"{instruction}")
-                else:
-                    route_description.append(f"Walk to {end_addr}")
-                    
-
-            # Filter out segments with excluded modes (post-response approximation)
-            if mode_exclusions:
-                route_description = [desc for desc in route_description if not any(exclude in desc.lower() 
-                                                                            for exclude in mode_exclusions)]
-
-            return {
-                "travel_mode": "transit",
-                "total_time": round(total_time_minutes, 2),
-                "route_description": "; ".join(route_description) if route_description else "Direct transit",
-                "distance_meters": route.get("distanceMeters", 0)
+        if my_google_api_key:
+            headers = {
+                "Content-Type": "application/json",
+                "X-Goog-Api-Key": my_google_api_key,
+                "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.legs.stepsOverview.multiModalSegments"
             }
 
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Request failed: {str(e)}")
-            return {"error": "Network or API request failed"}
-        except Exception as e:
-            logger.error(f"Unexpected error: {str(e)}")
-            return {"error": "Unexpected error processing route"}
+            # Prepare request body for TRANSIT mode
+            request_body = {
+                "origin": {"address" : start_addr},
+                "destination": {"address" : end_addr},
+                "travelMode": "TRANSIT",
+                "departureTime": datetime.now(timezone.utc).isoformat(),  # Current UTC time
+                "transitPreferences": {
+                    "routingPreference": "LESS_WALKING"
+                },
+                "languageCode": "en-AU"
+            }
+
+            # Apply mode exclusions (approximate by filtering response, as API doesn't support direct exclusion)
+            if mode_exclusions:
+                # Note: Google API doesn't allow fine-grained transit mode exclusion in request; filter post-response
+                pass  # Exclusion logic will be applied after receiving response
+
+            try:
+                # Make API request
+                response = requests.post(url, json=request_body, headers=headers, timeout=10)
+                if response.status_code != 200:
+                    logger.error(f"Google Maps API error: HTTP {response.status_code}, {response.text}")
+                    return {"error": f"API error: {response.status_code}"}
+
+                data = response.json()
+                if not data.get("routes"):
+                    logger.warning("No transit routes found for the given parameters.")
+                    return {"error": "No transit routes available"}
+
+                # Process the fastest route (only one route since computeAlternativeRoutes is false)
+                route = data["routes"][0]
+                total_time_seconds = int(route["duration"].replace("s", ""))  # Extract seconds from "2946s"
+                total_time_minutes = total_time_seconds / 60
+
+                # Build route description from multiModalSegments
+                route_description = []
+                legs = route.get("legs", [{}])[0]
+                for segment in legs.get("stepsOverview", {}).get("multiModalSegments", []):
+                    if "navigationInstruction" in segment:
+                        instruction = segment["navigationInstruction"]["instructions"]
+                        route_description.append(f"{instruction}")
+                    else:
+                        route_description.append(f"Walk to {end_addr}")
+                        
+
+                # Filter out segments with excluded modes (post-response approximation)
+                if mode_exclusions:
+                    route_description = [desc for desc in route_description if not any(exclude in desc.lower() 
+                                                                                for exclude in mode_exclusions)]
+
+                return {
+                    "travel_mode": "transit",
+                    "total_time": round(total_time_minutes, 2),
+                    "route_description": "; ".join(route_description) if route_description else "Direct transit",
+                    "distance_meters": route.get("distanceMeters", 0)
+                }
+
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Request failed: {str(e)}")
+                return {"error": "Network or API request failed"}
+            except Exception as e:
+                logger.error(f"Unexpected error: {str(e)}")
+                return {"error": "Unexpected error processing route"}
+        else:
+            return {}
                 
     
