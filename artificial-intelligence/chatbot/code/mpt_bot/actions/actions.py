@@ -21,6 +21,7 @@ from sanic.response import text
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from rasa_sdk.types import DomainDict
+from dotenv import load_dotenv
 #from actions.traffic_route 
 import hashlib
 import hmac
@@ -36,6 +37,7 @@ async def favicon(request):
 # import warnings
 # warnings.filterwarnings("ignore", category=UserWarning, module='rasa.shared.utils.io')
 
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -85,6 +87,11 @@ station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
 # Hari - End Global Variables --------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------
+
+load_dotenv(dotenv_path="./key.env")
+google_api_key = os.getenv("GOOGLE_API_KEY")
+if not google_api_key:
+    logger.warning(msg="Your google api key is not set, please set it inside key.env file")
 
 class ActionFindNextTram(Action):
     """
@@ -1206,52 +1213,65 @@ class ActionRunDirectionScriptOriginal(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            
+        
         location_from = tracker.get_slot('location_from')
         location_to = tracker.get_slot('location_to')
+        current_addr = tracker.get_slot('address')
+
+        if current_addr and not location_from:
+            location_from = current_addr
         
         if not location_from or not location_to:
             dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
-
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
         
-        try:
-            result = subprocess.run([sys.executable, script_path, location_from, location_to], 
-                                  capture_output=True, 
-                                  text=True, 
-                                  check=True)
-            
-            output = result.stdout.strip()
-            
-            if output:
-                output_parts = output.split("|||")
-                
-                if len(output_parts) >= 2:
-                    description = output_parts[0].strip()
-                    map_file_path = output_parts[1].strip()
-
-                    dispatcher.utter_message(text=description)
-
-                    relative_path = os.path.relpath(map_file_path, current_dir)
-                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
-
-                    map_link = f"<a href='{map_url}' target='_blank'>Click here to view the route map</a>"
-                    dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
-                else:
-                    dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
+        if google_api_key:
+            best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+            if 'route_description' in best_trip:
+                dispatcher.utter_message(text=best_trip['route_description'])
+                dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
+                dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']}")
             else:
-                dispatcher.utter_message(text="The direction script executed successfully, but no output was produced.")
+                dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
+        else:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
+            
+            try:
+                result = subprocess.run([sys.executable, script_path, location_from, location_to], 
+                                      capture_output=True, 
+                                      text=True, 
+                                      check=True)
+                
+                output = result.stdout.strip()
+                
+                if output:
+                    output_parts = output.split("|||")
+                    
+                    if len(output_parts) >= 2:
+                        description = output_parts[0].strip()
+                        map_file_path = output_parts[1].strip()
 
-        except subprocess.CalledProcessError as e:
-            error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
-            dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
-            logger.error(f"Script execution failed: {error_message}")
-        except Exception as e:
-            dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
-            logger.error(f"Exception occurred: {str(e)}")
+                        dispatcher.utter_message(text=description)
 
+                        relative_path = os.path.relpath(map_file_path, current_dir)
+                        map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+
+                        map_link = f"<a href='{map_url}' target='_blank'>Click here to view the route map</a>"
+                        dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
+                    else:
+                        dispatcher.utter_message(text="The script returned incomplete output. Please try again.")
+                else:
+                    dispatcher.utter_message(text="The direction script executed successfully, but no output was produced.")
+
+            except subprocess.CalledProcessError as e:
+                error_message = e.stderr.strip() if e.stderr else "Unknown error occurred during script execution."
+                dispatcher.utter_message(text=f"An error occurred while running the script: {error_message}")
+                logger.error(f"Script execution failed: {error_message}")
+            except Exception as e:
+                dispatcher.utter_message(text=f"An unexpected error occurred: {str(e)}")
+                logger.error(f"Exception occurred: {str(e)}")
+            
         return []
 
 ''' 
@@ -1663,38 +1683,51 @@ class ActionRunDirectionScript(Action):
             logger.error(f"Validation failed: {error_msg}")
             dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
             return []
-
-        try:
-            self._initialize_router()
-            
-            # Get route
-            route_start = time.time()
-            directions, map_file = self.router.find_route(location_from, location_to)
-            logger.info(f"Route finding took {time.time() - route_start:.2f} seconds")
-            
-            # Send response
-            response_start = time.time()
-            if isinstance(directions, str):
-                # Send all directions in a single message
-                dispatcher.utter_message(text=directions)
-                
-                # Handle map file if it exists
-                if map_file and os.path.exists(map_file):
-                    relative_path = os.path.relpath(map_file, current_dir)
-                    map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
-                    link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
-                    dispatcher.utter_message(text=link_message, parse_mode="html")
+        
+        if google_api_key:
+            # Include nation in the location name
+            location_from += ", Australia"
+            location_to += ", Australia"
+            best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+            if 'route_description' in best_trip:
+                dispatcher.utter_message(text=best_trip['route_description'])
+                dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
+                dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']} min")
             else:
-                dispatcher.utter_message(text=directions)  # Error message
+                dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
+        else:
+            try:
+                self._initialize_router()
                 
-            logger.info(f"Response handling took {time.time() - response_start:.2f} seconds")
+                # Get route
+                route_start = time.time()
+                directions, map_file = self.router.find_route(location_from, location_to)
+                logger.info(f"Route finding took {time.time() - route_start:.2f} seconds")
                 
-        except Exception as e:
-            error_msg = f"An error occurred while finding the route: {str(e)}"
-            logger.error(error_msg, exc_info=True)
-            dispatcher.utter_message(text=error_msg)
+                # Send response
+                response_start = time.time()
+                if isinstance(directions, str):
+                    # Send all directions in a single message
+                    dispatcher.utter_message(text=directions)
+                    
+                    # Handle map file if it exists
+                    if map_file and os.path.exists(map_file):
+                        relative_path = os.path.relpath(map_file, current_dir)
+                        map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+                        link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                        dispatcher.utter_message(text=link_message, parse_mode="html")
+                else:
+                    dispatcher.utter_message(text=directions)  # Error message
+                    
+                logger.info(f"Response handling took {time.time() - response_start:.2f} seconds")
+                    
+            except Exception as e:
+                error_msg = f"An error occurred while finding the route: {str(e)}"
+                logger.error(error_msg, exc_info=True)
+                dispatcher.utter_message(text=error_msg)
 
-        logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
+            logger.info(f"Total action execution took {time.time() - run_start:.2f} seconds")
+        
         return []
 
 
