@@ -29,6 +29,8 @@
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
+        - find_pt_route_between_two_address: Find route between two address: (Author: Andre Nguyen)
+        - create_polyline_map: Create map from encoded polyline code (Author: Andre Nguyen)
 	-------------------------------------------------------------------------------------------------------
 '''
 import spacy
@@ -58,6 +60,7 @@ from tabulate import tabulate
 from transformers import pipeline
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+import polyline
 
 # User ID and API Key
 user_id = "3003120"
@@ -1719,6 +1722,7 @@ class GTFSUtils:
 
     def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None) -> Dict:
         """
+        Author: Andre Nguyen
         Compute the fastest transit route (bus, tram, train) from start to end coordinates using Google Maps Routes API.
 
         Args:
@@ -1739,7 +1743,7 @@ class GTFSUtils:
             headers = {
                 "Content-Type": "application/json",
                 "X-Goog-Api-Key": my_google_api_key,
-                "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.legs.stepsOverview.multiModalSegments"
+                "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.legs.stepsOverview.multiModalSegments,routes.polyline.encodedPolyline"
             }
 
             # Prepare request body for TRANSIT mode
@@ -1779,6 +1783,7 @@ class GTFSUtils:
                 # Build route description from multiModalSegments
                 route_description = []
                 legs = route.get("legs", [{}])[0]
+                polyline = route.get("polyline", {})
                 for segment in legs.get("stepsOverview", {}).get("multiModalSegments", []):
                     if "navigationInstruction" in segment:
                         instruction = segment["navigationInstruction"]["instructions"]
@@ -1796,7 +1801,8 @@ class GTFSUtils:
                     "travel_mode": "transit",
                     "total_time": round(total_time_minutes, 2),
                     "route_description": "; ".join(route_description) if route_description else "Direct transit",
-                    "distance_meters": route.get("distanceMeters", 0)
+                    "distance_meters": route.get("distanceMeters", 0),
+                    "encoded_polyline": polyline.get("encodedPolyline", "")
                 }
 
             except requests.exceptions.RequestException as e:
@@ -1807,5 +1813,60 @@ class GTFSUtils:
                 return {"error": "Unexpected error processing route"}
         else:
             return {}
-                
     
+    def create_polyline_map(encoded_polyline, output_file="route_map.html", zoom_start=12, line_color="blue", line_weight=5, line_opacity=0.7):
+        """
+        Author: Andre Nguyen
+        Decode an encoded polyline and generate an interactive map with Folium.
+        Parameters:
+        - encoded_polyline (str): The encoded polyline string to decode.
+        - output_file (str): Name of the output HTML file (default: 'map.html').
+        - zoom_start (int): Initial zoom level of the map (default: 12).
+        - line_color (str): Color of the polyline (default: 'blue').
+        - line_weight (int): Thickness of the polyline (default: 5).
+        - line_opacity (float): Opacity of the polyline (default: 0.7).
+        
+        Returns:
+        - None: Saves the map to an HTML file.
+        """
+        try:
+            # Decode the polyline
+            decoded_coords = polyline.decode(encoded_polyline)
+            
+            if not decoded_coords:
+                raise ValueError("Decoded polyline is empty. Check the input polyline.")
+            
+            # Create a Folium map centered on the first coordinate
+            map_center = decoded_coords[0]
+            mymap = folium.Map(location=map_center, zoom_start=zoom_start)
+            
+            # Add the polyline to the map
+            folium.PolyLine(
+                locations=decoded_coords,
+                color=line_color,
+                weight=line_weight,
+                opacity=line_opacity
+            ).add_to(mymap)
+            
+            # Add markers for start and end points
+            folium.Marker(
+                location=decoded_coords[0],
+                popup="Start",
+                icon=folium.Icon(color="green")
+            ).add_to(mymap)
+            folium.Marker(
+                location=decoded_coords[-1],
+                popup="End",
+                icon=folium.Icon(color="red")
+            ).add_to(mymap)
+            
+            # Save the map to an HTML file
+            path_to_save = "./maps/" + output_file
+            mymap.save(path_to_save)
+            return path_to_save
+            
+        except Exception as e:
+            print(f"Error creating map: {str(e)}")
+            return None
+                    
+        
