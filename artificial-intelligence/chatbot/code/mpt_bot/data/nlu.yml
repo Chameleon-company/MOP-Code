@@ -290,26 +290,26 @@ nlu:
 #Logan new
 - intent: get_directions
   examples: |
-    - How to get from [Essendon](location_from) to [Prahran](location_to)
-    - Navigate from [Essendon](location_from) to [Prahran](location_to)
+    - How to get from [Essendon](location_from) to [Footscray](location_to)
+    - Navigate from [279 Blackburn Rd Mount Waverley](location_from) to [Glen Waverley Station](location_to)
     - I want to go from [Southbank](location_from) to [St Kilda](location_to)
-    - Get me from [Collingwood](location_from) to [Federation Square](location_to)
+    - Get me from [116/118 Thames St Box Hill North](location_from) to [Federation Square](location_to)
     - Show me how to get from [Melbourne Airport](location_from) to [CBD](location_to)
-    - How do I get from [Collingwood](location_from) to [Federation Square](location_to)?
-    - What's the way from [Footscray](location_from) to [Richmond](location_to)?
-    - How can I get from [Carlton](location_from) to [MCG](location_to)?
-    - Find route from [Melbourne Airport](location_from) to [CBD](location_to)
-    - Show directions from [Prahran](location_from) to [Docklands](location_to)
-    - Get me directions from [Carlton](location_from) to [MCG](location_to)
-    - [Southbank](location_from) to [St Kilda](location_to)
-    - From [Carlton](location_from) to [MCG](location_to)
-    - [Footscray](location_from) to [Richmond](location_to)
-    - Navigate [Essendon](location_from) to [Prahran](location_to)
-    - Direct me from [Collingwood](location_from) to [Federation Square](location_to)
+    - How do I get from [262 Mountain Hwy Wantirna](location_from) to [Level 16/330 Collins St](location_to)?
+    - What's the way from [Footscray](location_from) to [Flagstaff Station](location_to)?
+    - How can I get from [50 Albert Rd South Melbourne](location_from) to [161 Keilor Rd Essendon](location_to)?
+    - Find route from [Mount Waverley](location_from) to [CBD](location_to)
+    - Show directions from [Syndal Station](location_from) to [Glenferrie Station](location_to)
+    - Get me directions from [Carlton](location_from) to [250 Blackburn Rd Mount Waverley](location_to)
+    - [Glen Waverley](location_from) to [St Kilda](location_to)
+    - From [1 Diosma Ave Sunshine West](location_from) to [Footscray](location_to)
+    - [Footscray Station](location_from) to [Richmond](location_to)
+    - Navigate [20 Collins St](location_from) to [1 Diosma Ave Sunshine West](location_to)
+    - Direct me from [1 A'Beckett Street Melboune](location_from) to [Federation Square](location_to)
     - Take me from [St Kilda](location_from) to [Brunswick](location_to)
-    - I need to get from [Footscray](location_from) to [Richmond](location_to)
-    - Planning to go from [Prahran](location_from) to [Docklands](location_to)
-    - Looking for route from [Carlton](location_from) to [MCG](location_to)
+    - I need to get from [Flinders Street Station](location_from) to [Richmond](location_to)
+    - Planning to go from [11/31 Queen St Melboune](location_from) to [30 A'Beckett Street Melbourne](location_to)
+    - Looking for route from [Carlton](location_from) to [47 Market St](location_to)
 
 - intent: ask_about_feature
   examples: |
