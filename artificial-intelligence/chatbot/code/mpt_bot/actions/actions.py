@@ -1234,13 +1234,20 @@ class ActionRunDirectionScriptOriginal(Action):
         if not location_from or not location_to:
             dispatcher.utter_message(text="Please provide both starting location and destination in the format: 'How do I get from [location] to [destination]'")
             return []
-        
-        if google_api_key is not "your-google-api-key" and google_api_key:
-            best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+        best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+        if "error" not in best_trip:
             if 'route_description' in best_trip:
                 dispatcher.utter_message(text=best_trip['route_description'])
                 dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
                 dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']}")
+                if 'encoded_polyline' in best_trip:
+                    if best_trip['encoded_polyline'] != "":
+                        map_file = GTFSUtils.create_polyline_map(best_trip['encoded_polyline'])
+                        if os.path.exists(map_file):
+                            relative_path = os.path.relpath(map_file, current_dir)
+                            map_url = f"http://localhost:8080/{relative_path.replace(os.sep, '/')}"
+                            link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                            dispatcher.utter_message(text=link_message, parse_mode="html")
             else:
                 dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
         else:
@@ -1265,7 +1272,7 @@ class ActionRunDirectionScriptOriginal(Action):
                         dispatcher.utter_message(text=description)
 
                         relative_path = os.path.relpath(map_file_path, current_dir)
-                        map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+                        map_url = f"http://localhost:8080/{relative_path.replace(os.sep, '/')}"
 
                         map_link = f"<a href='{map_url}' target='_blank'>Click here to view the route map</a>"
                         dispatcher.utter_message(text=f"I've generated a route map for you: {map_link}")
@@ -1708,15 +1715,25 @@ class ActionRunDirectionScript(Action):
             dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
             return []
         
-        if google_api_key is not "your-google-api-key" and google_api_key:
+        # provide region
+        location_from += ", Australia"
+        location_to += ", Australia"
+        best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+        if "error" not in best_trip:
             # Include nation in the location name
-            location_from += ", Australia"
-            location_to += ", Australia"
-            best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
             if 'route_description' in best_trip:
                 dispatcher.utter_message(text=best_trip['route_description'])
                 dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
                 dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']} min")
+                if 'encoded_polyline' in best_trip:
+                    if best_trip['encoded_polyline'] != "":
+                        map_file = GTFSUtils.create_polyline_map(best_trip['encoded_polyline'])
+                        if os.path.exists(map_file):
+                            relative_path = os.path.relpath(map_file, current_dir)
+                            map_url = f"http://localhost:8080/{relative_path.replace(os.sep, '/')}"
+                            link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                            dispatcher.utter_message(text=link_message, parse_mode="html")
+
             else:
                 dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
         else:
@@ -1737,7 +1754,7 @@ class ActionRunDirectionScript(Action):
                     # Handle map file if it exists
                     if map_file and os.path.exists(map_file):
                         relative_path = os.path.relpath(map_file, current_dir)
-                        map_url = f"http://localhost:8000/{relative_path.replace(os.sep, '/')}"
+                        map_url = f"http://localhost:8080/{relative_path.replace(os.sep, '/')}"
                         link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
                         dispatcher.utter_message(text=link_message, parse_mode="html")
                 else:
