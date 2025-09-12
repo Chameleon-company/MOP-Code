@@ -1,0 +1,60 @@
+{
+  "title": "UC00199_Kindergarten_Capacity_Forecasting_for_Preschool-Aged_Children",
+  "name": "Forecasting Childcare Demand in Melbourne Suburbs",
+  "description": "Analysis of 0–4 year-old population forecasts and childcare centre supply across Melbourne suburbs to identify areas of future capacity pressure.",
+  "tags": [
+    "Childcare Centres",
+    "Population Forecast",
+    "Urban Planning",
+    "Education",
+    "Capacity Pressure",
+    "Resource Allocation"
+  ],
+  "difficulty": "Intermediate",
+  "technology": [
+    {
+      "name": "pandas",
+      "alias": "pd",
+      "code": "python"
+    },
+    {
+      "name": "numpy",
+      "alias": "np",
+      "code": "python"
+    },
+    {
+      "name": "matplotlib",
+      "alias": "plt",
+      "code": "python"
+    },
+    {
+      "name": "folium",
+      "code": "python"
+    },
+    {
+      "name": "requests",
+      "code": "python"
+    },
+    {
+      "name": "os",
+      "code": "python"
+    },
+    {
+      "name": "csv",
+      "code": "python"
+    },
+    {
+      "name": "io",
+      "code": "python"
+    },
+    {
+      "name": "warnings",
+      "code": "python"
+    }
+  ],
+  "datasets": [
+    "City of Melbourne Population Forecasts by Small Area 2020–2040 (City of Melbourne Open Data)",
+    "Childcare Centre Locations (Victorian Govt)"
+  ],
+  "expected_output": "Visualizations include bar charts comparing 2023 vs 2040 populations of children aged 0–4; a ranking of suburbs by children per centre (2040) with annotated counts; and an interactive geospatial heatmap visualising the distribution of childcare centres across Melbourne."
+}
