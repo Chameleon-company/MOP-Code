@@ -1720,7 +1720,7 @@ class GTFSUtils:
         return response
     
 
-    def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None) -> Dict:
+    def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None, mode: str = "TRANSIT") -> Dict:
         """
         Author: Andre Nguyen
         Compute the fastest transit route (bus, tram, train) from start to end coordinates using Google Maps Routes API.
@@ -1743,9 +1743,8 @@ class GTFSUtils:
             headers = {
                 "Content-Type": "application/json",
                 "X-Goog-Api-Key": my_google_api_key,
-                "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.legs.stepsOverview.multiModalSegments,routes.polyline.encodedPolyline"
+                "X-Goog-FieldMask": "*"
             }
-
             # Prepare request body for TRANSIT mode
             request_body = {
                 "origin": {"address" : start_addr},
@@ -1757,6 +1756,30 @@ class GTFSUtils:
                 },
                 "languageCode": "en-AU"
             }
+            if mode == "DRIVE":
+                # Get the current datetime
+                current_datetime = datetime.now(timezone.utc)
+
+                # Add 5 minutes to the current datetime
+                future_datetime = current_datetime + timedelta(minutes=5)
+
+                # Convert the future datetime to ISO 8601 format
+                iso_formatted_datetime = future_datetime.isoformat()
+                request_body = {
+                    "origin": {"address" : start_addr},
+                    "destination": {"address" : end_addr},
+                    "departureTime": iso_formatted_datetime,  # Current UTC time
+                    "travelMode": "DRIVE",
+                    "routingPreference": "TRAFFIC_AWARE",
+                    "computeAlternativeRoutes": False,
+                    "routeModifiers": {
+                        "avoidTolls": False,
+                        "avoidHighways": False,
+                        "avoidFerries": False
+                    },
+                    "languageCode": "en-AU"
+                }
+
 
             # Apply mode exclusions (approximate by filtering response, as API doesn't support direct exclusion)
             if mode_exclusions:
@@ -1790,15 +1813,9 @@ class GTFSUtils:
                         route_description.append(f"{instruction}")
                     else:
                         route_description.append(f"Walk to {end_addr}")
-                        
-
-                # Filter out segments with excluded modes (post-response approximation)
-                if mode_exclusions:
-                    route_description = [desc for desc in route_description if not any(exclude in desc.lower() 
-                                                                                for exclude in mode_exclusions)]
 
                 return {
-                    "travel_mode": "transit",
+                    "travel_mode": mode,
                     "total_time": round(total_time_minutes, 2),
                     "route_description": "; ".join(route_description) if route_description else "Direct transit",
                     "distance_meters": route.get("distanceMeters", 0),
@@ -1812,7 +1829,7 @@ class GTFSUtils:
                 logger.error(f"Unexpected error: {str(e)}")
                 return {"error": "Unexpected error processing route"}
         else:
-            return {}
+            return {"error": "Empty google map api key, please provide valid api key!"}
     
     def create_polyline_map(encoded_polyline, output_file="route_map.html", zoom_start=12, line_color="blue", line_weight=5, line_opacity=0.7):
         """
