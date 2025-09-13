@@ -1237,9 +1237,16 @@ class ActionRunDirectionScriptOriginal(Action):
         best_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
         if "error" not in best_trip:
             if 'route_description' in best_trip:
+                departure_datetime = datetime.now()
+                minutes_delta = timedelta(minutes=best_trip['total_time'])
+                arrival_datetime = departure_datetime + minutes_delta
+
+                # Format the new datetime to "DD-MM-YY HH-MM-SS"
+                formatted_datetime = arrival_datetime.strftime('%d-%m-%y %H:%M:%S')
                 dispatcher.utter_message(text=best_trip['route_description'])
-                dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
-                dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']}")
+                dispatcher.utter_message(text=f"Distance: {round(best_trip['distance_meters'] / 1000, 1)} kilometers")
+                dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']} min")
+                dispatcher.utter_message(text=f"Arrival Time: {formatted_datetime}")
                 if 'encoded_polyline' in best_trip:
                     if best_trip['encoded_polyline'] != "":
                         map_file = GTFSUtils.create_polyline_map(best_trip['encoded_polyline'])
@@ -1722,9 +1729,16 @@ class ActionRunDirectionScript(Action):
         if "error" not in best_trip:
             # Include nation in the location name
             if 'route_description' in best_trip:
+                departure_datetime = datetime.now()
+                minutes_delta = timedelta(minutes=best_trip['total_time'])
+                arrival_datetime = departure_datetime + minutes_delta
+
+                # Format the new datetime to "DD-MM-YY HH-MM-SS"
+                formatted_datetime = arrival_datetime.strftime('%d-%m-%y %H:%M:%S')
                 dispatcher.utter_message(text=best_trip['route_description'])
-                dispatcher.utter_message(text=f"Distance: {best_trip['distance_meters'] / 1000} kilometers")
+                dispatcher.utter_message(text=f"Distance: {round(best_trip['distance_meters'] / 1000, 1)} kilometers")
                 dispatcher.utter_message(text=f"Your total travel time: {best_trip['total_time']} min")
+                dispatcher.utter_message(text=f"Arrival Time: {formatted_datetime}")
                 if 'encoded_polyline' in best_trip:
                     if best_trip['encoded_polyline'] != "":
                         map_file = GTFSUtils.create_polyline_map(best_trip['encoded_polyline'])
