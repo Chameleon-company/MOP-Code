@@ -22,6 +22,7 @@ const Header = () => {
     { name: "Use Cases", link: "/usecases" },
     { name: "Statistics", link: "/statistics" },
     { name: "Upload", link: "/upload" },
+    { name: "Blogs", link: "/blog" },
   ];
 
   return (
