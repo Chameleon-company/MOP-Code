@@ -140,6 +140,21 @@ const style = `
 }
 `;
 
+const categories = [
+  { icon: "🏢", label: "EV Infrastructure" },
+  { icon: "🅿️", label: "Parking" },
+  { icon: "🚨", label: "Safety" },
+   { icon: "♿", label: "Accessibility" },
+];
+
+const openPage = (label: string) => {
+  if (label === "EV Infrastructure") {
+    window.location.href = "/en/ev-infrastructure";
+  } else if (label === "Accessibility") {
+    window.location.href = "/en/accessibility";
+  }
+};
+
 const responsive = {
   superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
