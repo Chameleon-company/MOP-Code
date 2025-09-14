@@ -1,0 +1,32 @@
+{
+  "title": "UC00184_Analysing_microclimate_and_soil_interactions_for_urban_sustainability",
+  "name": "UC00184_Analysing_microclimate_and_soil_interactions_for_urban_sustainability",
+  "description": "Analyses Melbourne microclimate and soil-sensor data to understand how temperature, humidity, wind speed, and vapour-pressure deficit influence soil-moisture trends, supporting sustainable irrigation and urban green-space management.",
+  "tags": [
+    "microclimate sensor data",
+    "soil moisture",
+    "data cleaning",
+    "data visualization",
+    "machine learning",
+    "random forest",
+    "clustering",
+    "urban sustainability"
+  ],
+  "difficulty": "Intermediate",
+  "technology": [
+    { "name": "requests", "code": "python" },
+    { "name": "numpy", "alias": "np", "code": "python" },
+    { "name": "pandas", "alias": "pd", "code": "python" },
+    { "name": "matplotlib", "code": "python" },
+    { "name": "seaborn", "alias": "sns", "code": "python" },
+    { "name": "StringIO", "code": "python" },
+    { "name": "scikit-learn", "code": "python" },
+    { "name": "StandardScaler", "code": "python" },
+    { "name": "KMeans", "code": "python" },
+    { "name": "RandomForestRegressor", "code": "python" }
+  ],
+  "datasets": [
+    "City of Melbourne Microclimate Sensor Data",
+    "City of Melbourne Soil Sensor Data"
+  ]
+}
