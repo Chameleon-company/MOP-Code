@@ -606,6 +606,7 @@ class ActionGenerateTrainMap(Action):
     	ID: REQ_13
     	Name: Generate Map of Train Stations
     	Author: AlexT
+        Modifier: Juveria Nishath
     	-------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
@@ -665,6 +666,7 @@ class ActionGenerateTramMap(Action):
         ID: TRAM_01
         Name: Tram Stations Map
         Author: AlexT
+        Modifier: Juveria Nishath
         -------------------------------------------------------------------------------------------------------
    '''
     def name(self) -> Text:
@@ -730,6 +732,7 @@ class ActionGenerateBusMap(Action):
         ID: BUS_01
         Name: Bus Stations Map
         Author: AlexT
+        Modifier: Juveria Nishath
         -------------------------------------------------------------------------------------------------------
    '''
     def name(self) -> Text:
@@ -1400,7 +1403,7 @@ class ActionRunDirectionScriptOriginal(Action):
 ''' 
 -------------------------------------------------------------------------------------------------------
 Author: hariprasad
-Modified: Juveria Nishath
+Modifier: Juveria Nishath
 -------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
