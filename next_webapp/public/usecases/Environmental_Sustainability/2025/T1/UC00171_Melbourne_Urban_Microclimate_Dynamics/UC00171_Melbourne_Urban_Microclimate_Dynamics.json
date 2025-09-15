@@ -1,0 +1,65 @@
+{
+  "title": "Urban_Microclimate_and_Urban_Activity_Analysis",
+  "name": "Melbourne Urban Microclimate Dynamics",
+  "description": "Analyzing the interaction between urban microclimate conditions and human activity in the Melbourne CBD. This project integrates environmental sensor data, pedestrian counts, and spatial features to support sustainable urban planning using machine learning and geospatial analysis.",
+  "tags": [
+    "urban microclimate",
+    "spatial analysis",
+    "pedestrian dynamics",
+    "machine learning",
+    "environmental data",
+    "urban planning"
+  ],
+  "difficulty": "Intermediate to Advanced",
+  "technology": [
+    {
+      "name": "pandas",
+      "alias": "pd",
+      "code": "python"
+    },
+    {
+      "name": "numpy",
+      "alias": "np",
+      "code": "python"
+    },
+    {
+      "name": "matplotlib",
+      "code": "python"
+    },
+    {
+      "name": "seaborn",
+      "alias": "sns",
+      "code": "python"
+    },
+    {
+      "name": "geopandas",
+      "code": "python"
+    },
+    {
+      "name": "folium",
+      "code": "python"
+    },
+    {
+      "name": "scikit-learn",
+      "code": "python"
+    },
+    {
+      "name": "xgboost",
+      "code": "python"
+    },
+    {
+      "name": "shap",
+      "code": "python"
+    },
+    {
+      "name": "StandardScaler",
+      "code": "python"
+    }
+  ],
+  "datasets": [
+    "City of Melbourne Microclimate Sensor Data",
+    "Pedestrian Counting System Data",
+    "Urban Tree Canopy Coverage"
+    
+  ]
+}

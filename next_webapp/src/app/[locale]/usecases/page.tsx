@@ -1,34 +1,57 @@
 "use client";
 
+import usecases from "../../utils/usecases.json";
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import SearchBar from "./searchbar";
-import PreviewComponent from "./preview";
-import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
-import { useTranslations } from "next-intl";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useLocale } from "next-intl";
 
-async function searchUseCases(params: SearchParams) {
-  const res = await fetch("/api/search-use-cases", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  });
-  if (!res.ok) throw new Error(`Error ${res.status}`);
-  return res.json();
+// Types
+interface UseCase {
+  name: string;
+  address: string;
+}
+interface Category {
+  category: string;
+  usecases: UseCase[];
 }
 
-const UseCases: React.FC = () => {
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
-  const [darkMode, setDarkMode] = useState(false);
+// Category card component
+const CategoryCard: React.FC<{ category: Category }> = ({ category }) => {
+  const locale = useLocale();
+  const slug = category.category.toLowerCase().replace(/\s+/g, "-");
 
+  return (
+    <Link href={`/${locale}/usecases/${slug}`} className="h-full">
+      <div className="flex flex-col h-full max-h-80 bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-lg transition cursor-pointer overflow-hidden">
+        
+        {/* Image placeholder (2/3 height) */}
+        <div className="flex-grow basis-2/3 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+          <span className="text-gray-500 text-sm">Image</span>
+        </div>
+
+        {/* Text content (1/3 height) */}
+        <div className="flex-grow basis-1/3 p-4 flex flex-col items-center justify-center">
+          <h2 className="text-lg text-green-600 font-semibold text-center mb-1">
+            {category.category}
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
+            {category.usecases.length} use cases
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const UseCases: React.FC = () => {
+  const [darkMode, setDarkMode] = useState(false);
   const t = useTranslations("usecases");
 
   useEffect(() => {
-    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
-
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
       setDarkMode(true);
@@ -49,40 +72,19 @@ const UseCases: React.FC = () => {
     localStorage.setItem("theme", value ? "dark" : "light");
   };
 
-  const handleSearch = async (
-    term: string,
-    mode: SEARCH_MODE,
-    cat: CATEGORY
-  ) => {
-    try {
-      const res = await searchUseCases({
-        searchTerm: term,
-        searchMode: mode,
-        category: cat,
-      });
-      setFilteredCaseStudies(res.filteredStudies || []);
-    } catch (err) {
-      console.error("Search error:", err);
-      setFilteredCaseStudies([]);
-    }
-  };
-
   return (
     <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800 text-black dark:text-white transition-all duration-300">
       <Header />
       <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 lg:px-10">
-          <section className="py-5">
-            <h1 className="text-4xl font-bold mb-6">{t("User Cases")}</h1>
-            {!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
-            <PreviewComponent
-              caseStudies={filteredCaseStudies}
-              trendingCaseStudies={filteredCaseStudies}
-              selectedCaseStudy={selectedCaseStudy}
-              onSelectCaseStudy={setSelectedCaseStudy}
-              onBack={() => setSelectedCaseStudy(null)}
-            />
-          </section>
+        <div className="max-w-7xl mx-auto px-6 py-10 h-full">
+          <h1 className="text-4xl font-bold mb-8">{t("User Cases")}</h1>
+
+          {/* Category Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-[calc(100vh-16rem)]">
+            {usecases.slice(0, 9).map((cat) => (
+              <CategoryCard key={cat.category} category={cat} />
+            ))}
+          </div>
         </div>
       </main>
 
@@ -95,5 +97,6 @@ const UseCases: React.FC = () => {
     </div>
   );
 };
+
 
 export default UseCases;
