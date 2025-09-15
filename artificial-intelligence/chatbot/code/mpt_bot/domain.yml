@@ -44,7 +44,8 @@ intents:
   - ask_traffic_location
   - get_directions
   - find_parking_near_station
-
+  - ask_direct_tram_route
+  - ask_user_about_location_for_traffic
 entities:
   - station_a
   - station_b
@@ -226,7 +227,6 @@ responses:
 
 
 actions:
- # Alex Start Actions  -----------------------------------------------------------
   - action_generate_train_map
   - action_generate_tram_map
   - action_generate_bus_map
@@ -244,28 +244,23 @@ actions:
   - action_check_disruptions_bus
   - action_check_disruptions_train
   - validate_transport_mode
-  # Alex Finish Actions  -----------------------------------------------------------
-  # Ross Start actions
   - action_find_user_address
   - action_find_nearest_station
   - action_find_nearest_tram_stop
   - action_find_nearest_bus_stop
   - action_map_transport_in_area
-  # Ross finish Actions
   - action_run_direction_script
   - action_check_feature
   - action_check_station
   - action_list_all_stations
   - action_list_stations_with_feature
-  #Jubal actions (start) -------------------------------------------
-  - action_check_direct_tram_route
+#  - action_check_direct_tram_route
   - action_find_tram_route_with_transfers
-  #Jubal actions (end) -------------------------------------------
-  #Awanish actions (Start) -------------------------------------------
   - action_fetch_traffic
   - action_fetch_traffic_location
  #rathanak action--------
   - action_find_parking_near_station
+  - action_check_direct_tram
 
 
 

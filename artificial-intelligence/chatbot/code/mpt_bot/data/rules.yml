@@ -143,10 +143,10 @@ rules:
     - intent: ask_tram_route_with_transfers
     - action: action_find_tram_route_with_transfers
 
-  - rule: Find direct tram route
-    steps:
-    - intent: ask_direct_tram_route
-    - action: action_check_direct_tram_route
+  # - rule: Find direct tram route
+  #   steps:
+  #   - intent: ask_direct_tram_route
+  #   - action: action_check_direct_tram_route
   #Jubal rules (end) ----------------------------------------------------------
 
 #Awanish rule---start
@@ -166,3 +166,8 @@ rules:
     steps:
     - intent: find_parking_near_station
     - action: action_find_parking_near_station
+
+  - rule: answer direct tram
+    steps:
+    - intent: ask_direct_tram_route
+    - action: action_check_direct_tram

@@ -11,6 +11,17 @@ nlu:
     - North Station
     - South Station
     - East Station
+
+- lookup: station_name
+  examples: |
+    - Prahran Station/High St #30
+    - Armadale Station/High St #40
+    - Glenferrie Rd/Wattletree Rd #45
+    - Duncraig Ave/Wattletree Rd #44
+
+
+
+
 - intent: greet
   examples: |
     - hey
@@ -96,7 +107,6 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-# Alex Start - Transport Intents --------------------------------------------------------------------------------
 - intent: find_best_route
   examples: |
     - What is the best route from [Southern Cross](station_a) to [Richmond](station_b)?
@@ -225,31 +235,31 @@ nlu:
 
 #Logan: Temporary location solution, working on better method
 
-# - intent: provide_location
-#   examples: |
-#     - [Southbank](location)
-#     - [St Kilda](location)
-#     - [Collingwood](location)
-#     - [Footscray](location)
-#     - [Melbourne Central](location)
-#     - [Prahran](location)
-#     - [Federation Square](location)
-#     - [Melbourne Airport](location)
-#     - [Essendon](location)
+- intent: provide_location
+  examples: |
+    - [Southbank](location)
+    - [St Kilda](location)
+    - [Collingwood](location)
+    - [Footscray](location)
+    - [Melbourne Central](location)
+    - [Prahran](location)
+    - [Federation Square](location)
+    - [Melbourne Airport](location)
+    - [Essendon](location)
 
 
-# - intent: provide_destination
-#   examples: |
-#     - [Melbourne CBD](location)
-#     - [Richmond](location)
-#     - [South Melbourne](location)
-#     - [Brunswick](location)
-#     - [Docklands](location)
-#     - [Fitzroy](location)
-#     - [North Melbourne](location)
-#     - [South Yarra](location)
-#     - [Carlton](location)
-#     - [MCG](location)    
+- intent: provide_destination
+  examples: |
+    - [Melbourne CBD](location)
+    - [Richmond](location)
+    - [South Melbourne](location)
+    - [Brunswick](location)
+    - [Docklands](location)
+    - [Fitzroy](location)
+    - [North Melbourne](location)
+    - [South Yarra](location)
+    - [Carlton](location)
+    - [MCG](location)    
 
 - intent: get_directions
   examples: |
