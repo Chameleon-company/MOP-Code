@@ -1626,6 +1626,98 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
 
         return False, []
+                  
+    def find_next_public_transport_trip(station_a: str, station_b: str, mode: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> str:
+        """
+            Author: AlexT
+            Modified by: Andre Nguyen
+            Return the time of next train/tram/bus from stop A to stop B (based on current time)
+            
+        """
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
+
+        stops_df['platform_code'] = stops_df['platform_code'].astype(str)
+
+        list_of_child_station_a = []
+        list_of_child_station_b = []
+        if mode == "train":
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
+        else:
+            list_of_child_station_a = [stop_a_id]
+            list_of_child_station_b = [stop_b_id]
+
+        current_time = datetime.now().strftime('%H:%M:%S')
+
+        if not isinstance(stop_times_df.index, pd.MultiIndex):
+            stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+
+        if not station_b:
+            # Logic for one station
+            response = f"Upcoming train schedules from {station_a}:\n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station = stop_times_df.loc[stop_a]
+                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
+                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
+                    subset=['departure_time']
+                )
+
+                if not trips_from_station.empty:
+                    next_trips = trips_from_station[['departure_time']].head(5)
+                    stop_a_platform = stops_df[stops_df["stop_id"] == stop_a].head(1)["platform_code"]
+                    for idx, row in next_trips.iterrows():
+                        departure_time = GTFSUtils.parse_time(row['departure_time'])
+                        upcoming = f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')} at platform {stop_a_info['platform_code']}\n"
+                        list_of_upcoming_trip.append(upcoming)
+            if len(list_of_upcoming_trip) == 0:
+                response = f"No upcoming trains found from {station_a}."
+            else:
+                for upcoming in list_of_upcoming_trip:
+                    response += upcoming
+        else:
+            # Logic for two stations
+            response = f"Upcoming train schedules from {station_a} to {station_b} \n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
+                
+                for stop_b in list_of_child_station_b:
+                    trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
+                    
+                    future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
+                    future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
+                    valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
+
+                    if not valid_trips.empty:
+                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                        stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
+                        for index, next_trip in valid_trips.iterrows():
+                            next_trip_time = next_trip['departure_time']
+                            next_trip_time = GTFSUtils.parse_time(next_trip_time)
+                            # if isinstance(next_trip_time, timedelta):
+                            #     next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
+                            upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {next_trip_time}\n"
+                            next_trip_dict = {'time' : next_trip_time, 'message': upcoming}
+                            flag = 0
+                            for trip in list_of_upcoming_trip:
+                                if trip['time'] == next_trip_time:
+                                    flag = 1
+                            if flag == 0:
+                                list_of_upcoming_trip.append(next_trip_dict)
+            if len(list_of_upcoming_trip) > 0:
+                list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
+                count = 0
+                for upcoming in list_of_upcoming_trip:
+                    if (count == 5):
+                        break
+                    response += upcoming['message']
+                    count += 1
+            else:
+                response = f"No upcoming trains found from {station_a} to {station_b}."
+        return response
     
     def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None, mode: str = "TRANSIT") -> Dict:
         """
@@ -1792,99 +1884,7 @@ class GTFSUtils:
         except Exception as e:
             print(f"Error creating map: {str(e)}")
             return None
-                    
-    def find_next_public_transport_trip(station_a: str, station_b: str, mode: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> str:
-        """
-            Author: AlexT
-            Modified by: Andre Nguyen
-            Return the time of next train/tram/bus from stop A to stop B (based on current time)
-            
-        """
-        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
-
-        stops_df['platform_code'] = stops_df['platform_code'].astype(str)
-
-        list_of_child_station_a = []
-        list_of_child_station_b = []
-        if mode == "train":
-            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
-            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
-        else:
-            list_of_child_station_a = [stop_a_id]
-            list_of_child_station_b = [stop_b_id]
-
-        current_time = datetime.now().strftime('%H:%M:%S')
-
-        if not isinstance(stop_times_df.index, pd.MultiIndex):
-            stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-        if not station_b:
-            # Logic for one station
-            response = f"Upcoming train schedules from {station_a}:\n"
-            list_of_upcoming_trip = []
-            for stop_a in list_of_child_station_a:
-                trips_from_station = stop_times_df.loc[stop_a]
-                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
-                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                    subset=['departure_time']
-                )
-
-                if not trips_from_station.empty:
-                    next_trips = trips_from_station[['departure_time']].head(5)
-                    stop_a_platform = stops_df[stops_df["stop_id"] == stop_a].head(1)["platform_code"]
-                    for idx, row in next_trips.iterrows():
-                        departure_time = GTFSUtils.parse_time(row['departure_time'])
-                        upcoming = f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')} at platform {stop_a_info['platform_code']}\n"
-                        list_of_upcoming_trip.append(upcoming)
-            if len(list_of_upcoming_trip) == 0:
-                response = f"No upcoming trains found from {station_a}."
-            else:
-                for upcoming in list_of_upcoming_trip:
-                    response += upcoming
-        else:
-            # Logic for two stations
-            response = f"Upcoming train schedules from {station_a} to {station_b} \n"
-            list_of_upcoming_trip = []
-            for stop_a in list_of_child_station_a:
-                trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
-                
-                for stop_b in list_of_child_station_b:
-                    trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
-                    
-                    future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
-                    future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
-                    valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                    if not valid_trips.empty:
-                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
-                        stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
-                        for index, next_trip in valid_trips.iterrows():
-                            next_trip_time = next_trip['departure_time']
-                            next_trip_time = GTFSUtils.parse_time(next_trip_time)
-                            # if isinstance(next_trip_time, timedelta):
-                            #     next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
-                            upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {next_trip_time}\n"
-                            next_trip_dict = {'time' : next_trip_time, 'message': upcoming}
-                            flag = 0
-                            for trip in list_of_upcoming_trip:
-                                if trip['time'] == next_trip_time:
-                                    flag = 1
-                            if flag == 0:
-                                list_of_upcoming_trip.append(next_trip_dict)
-            if len(list_of_upcoming_trip) > 0:
-                list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
-                count = 0
-                for upcoming in list_of_upcoming_trip:
-                    if (count == 5):
-                        break
-                    response += upcoming['message']
-                    count += 1
-            else:
-                response = f"No upcoming trains found from {station_a} to {station_b}."
-        return response
-    
+      
 
 
         
