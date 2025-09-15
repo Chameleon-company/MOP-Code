@@ -283,4 +283,3 @@ dependencies:
       - xyzservices==2024.6.0
       - yarl==1.9.6
       - zipp==3.20.1
-      - polyline==2.0.3
