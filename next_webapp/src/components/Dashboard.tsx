@@ -1,7 +1,7 @@
 "use client";
 import { Link } from "@/i18n-navigation";
 import Image from "next/image";
-import mainimage from "../../public/img/mainImage.png";
+import mainimage from "../../public/img/mainimage.png";
 import secondimage from "../../public/img/second_image.png";
 import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
