@@ -1,6 +1,5 @@
 export const useCases = [
   {
-
     id: "business-and-economy",
     title: "Business and Economy",
     description:
@@ -9,9 +8,25 @@ export const useCases = [
     subUseCases: [
       {
         heading: "Coworking spaces",
-        description:
-          "Leverage AI to analyze market trends and predict customer behavior.",
-
+        description: "Leverage AI to analyze market trends and predict customer behavior.",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
+      },
+      {
+        heading: "Business energy consumption",
+        description: "Identify potential risks and develop strategies to mitigate financial losses.",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
+      },
+      {
+        heading: "Job forecasting",
+        description: "Identify potential risks and develop strategies to mitigate financial losses.",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
+      },
+    ],
+  },
+  {
     id: "safety-and-security",
     title: "Safety and Security",
     description:
@@ -20,63 +35,25 @@ export const useCases = [
     subUseCases: [
       {
         heading: "Night time safety Index",
-        description:
-          "AI-powered cameras and monitoring systems for public safety.",
-
+        description: "AI-powered cameras and monitoring systems for public safety.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
       {
-
-        heading: "Enhancing job accessibility and opportunities in melbourne ",
-        description:
-          "Use predictive analytics to forecast revenues and optimize investments.",
-
         heading: "Populations and Accidents",
-        description:
-          "Intelligent systems that detect anomalies and prevent security breaches.",
-
+        description: "Intelligent systems that detect anomalies and prevent security breaches.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
       {
-
-        heading: "Bussiness energy consumption",
-        description:
-          "Identify potential risks and develop strategies to mitigate financial losses.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Job forecasting",
-        description:
-          "Identify potential risks and develop strategies to mitigate financial losses.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Top hotspots for business and its activities",
-        description:
-          "Identify potential risks and develop strategies to mitigate financial losses.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Buisiness Activity Cafes Restraunts",
-        description:
-          "Identify potential risks and develop strategies to mitigate financial losses.",
-
         heading: "Pedestrian Accidents and Bus stops",
-        description:
-          "Optimized emergency response using predictive analytics and real-time alerts.",
-
+        description: "Optimized emergency response using predictive analytics and real-time alerts.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
     ],
   },
   {
-
     id: "community-and-social-impact",
     title: "Community and Social Impact",
     description:
@@ -84,61 +61,26 @@ export const useCases = [
     image: "/img/insights/community.webp",
     subUseCases: [
       {
-        heading: "Accesibility ",
-        description:
-          "Organize and track volunteer initiatives using smart management tools.",
+        heading: "Accessibility",
+        description: "Organize and track volunteer initiatives using smart management tools.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "Melbourne Social Trend",
-        description:
-          "Launch projects that directly improve local communities’ wellbeing.",
+        description: "Launch projects that directly improve local communities’ wellbeing.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "Community Wellbeing",
-        description:
-          "Use data to evaluate the impact of social and charity initiatives.",
-
-    id: "tourism-and-hospitality",
-    title: "Tourism and Hospitality",
-    description:
-      "Enhance travel experiences with personalized recommendations, smart bookings, and efficient service management.",
-    image: "/img/insights/tours.jpeg",
-    subUseCases: [
-      {
-        heading: "Optimizing event locations and urban management in Melbourne",
-        description:
-          "AI-driven booking systems for hotels, flights, and experiences.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Cultural tourism route optimisation",
-        description:
-          "Tailored travel suggestions based on preferences and history.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Social indicator changes",
-        description:
-          "Use data to evaluate the impact of social and charity initiatives.",
-
-        heading:
-          "Optimising tourist accommodation through landmark and parking",
-        description:
-          "Enhance hospitality services using real-time analytics and feedback.",
-
+        description: "Use data to evaluate the impact of social and charity initiatives.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
     ],
   },
   {
-
     id: "education-and-teaching",
     title: "Education and Teaching",
     description:
@@ -147,15 +89,13 @@ export const useCases = [
     subUseCases: [
       {
         heading: "Childcare Facility",
-        description:
-          "AI adapts lessons to individual student needs for better outcomes.",
+        description: "AI adapts lessons to individual student needs for better outcomes.",
         image: "/img/insights/ChldC.jpeg",
         link: "/dummypages/UC00009_Childcare_Facilities_Analysis.html",
       },
       {
         heading: "Optimizing school infrastructure planning",
-        description:
-          "Interactive online teaching platforms with real-time collaboration tools.",
+        description: "Interactive online teaching platforms with real-time collaboration tools.",
         image: "/img/insights/OSI.png",
         link: "/dummypages/UC00145_Optimising_School_Infrastructure_Planning.html",
       },
@@ -170,240 +110,15 @@ export const useCases = [
     subUseCases: [
       {
         heading: "Enhancing Urban Tree Planting through air quality analysis",
-        description:
-          "Use AI to optimize energy consumption in industries and cities.",
-
-    id: "transport-and-mobility",
-    title: "Transport and Mobility",
-    description:
-      "Improve urban mobility and transportation systems through AI-driven traffic management and smart solutions.",
-    image: "/img/insights/transport.jpeg",
-    subUseCases: [
-      {
-        heading:
-          "Optimising parking accessibility near healthcare and education",
-        description:
-          "AI optimizes traffic flow and reduces congestion in real-time.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-      },
-      {
-        heading: "Smart Urban mobility",
-        description:
-          "Integrate AI for safer and more efficient self-driving solutions.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Waste Efficiency Argyle Square case study",
-        description:
-          "Intelligent systems to manage recycling and reduce environmental impact.",
-
-        heading: "Parking availability Melbourne",
-        description:
-          "Enhance city transit systems using passenger and route data.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading:
-          "Evaluating the impact of urban Heat Islands on Community Wellbeing",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Bike usage",
-        description:
-          "Enhance city transit systems using passenger and route data.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Biodiversity corridors creation Melbourne",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Traffic congestion and parking zone impact",
-        description:
-          "Enhance city transit systems using passenger and route data.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Sustainable mobility and Emission Reduction in Melbourne",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Parking slot occupany",
-        description:
-          "Enhance city transit systems using passenger and route data.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "AI Driven Wildfire Risk Assesment and Hotspot Prediction",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Public Transport Demand",
-        description:
-          "Enhance city transit systems using passenger and route data.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Heat Vulnerability Mapping",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Melbourne Urban Microclimate Dynamics",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Bike route optimization",
-        description:
-          "Enhance city transit systems using passenger and route data.",
+        description: "Use AI to optimize energy consumption in industries and cities.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
     ],
   },
-  {
-    id: "urban-planing-and-development",
-    title: "Urban Planning and Development",
-    description:
-      "Design smarter cities by integrating AI, IoT, and sustainable planning to optimize infrastructure and resources.",
-    image: "/img/insights/plan.webp",
-    subUseCases: [
-      {
-        heading: "Real Estate",
-        description:
-          "Use AI and IoT to manage utilities, roads, and buildings efficiently.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Tracking unique inspect species in Melbourne",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-
-        heading: "Population growth & Active Transportation ",
-        description:
-          "Integrate eco-friendly designs and green spaces in urban projects.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Climate change Impact Simulation",
-        description:
-          "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-    ],
-  },
-  {
-    id: "helth-and-wellbeign",
-    title: "Health and Wellbeing",
-    description:
-      "Utilize predictive analytics and AI to enhance healthcare outcomes and promote overall wellbeing.",
-    image: "/img/insights/health.jpg",
-    subUseCases: [
-      {
-        heading: "Mental Wellbeing",
-        description:
-          "AI predicts patient risks and recommends proactive care measures.",
-
-        heading: "Urban Development analysis",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-        heading: "Bin fill levels",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Enhancing community wellbeing through public transport",
-        description:
-          "Remote consultation platforms with intelligent diagnostic support.",
-
-        heading: "City Living comfort",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Food Services and its impact on wellbeing indicators",
-        description:
-          "Monitor lifestyle and health metrics to improve daily wellbeing.",
-
-        heading: "Capacity forecasting and strategic insights",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Impact of Coworking spaces on social wellbeing indicators",
-        description: "Monitor lifestyle and health metrics to improve dail.",
-
-        heading: "Route planner",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-      {
-
-        heading: "Optimization of outdoor fitness activities(2025)",
-        description: "Monitor lifestyle and health metrics to improve dail.",
-
-        heading: "Optimising public amenities in melbourne",
-        description:
-          "Analyze city data to optimize energy, water, and transportation usage.",
-
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
-      },
-    ],
-  },
-
-  
-
 ];
 
 export const blogs = [
-  
   {
     id: "ai-trends-2025",
     title: "Top AI Trends to Watch in 2025",
