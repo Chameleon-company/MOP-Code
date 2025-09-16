@@ -4,7 +4,6 @@
 # Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
 
-
 # Specific ignored files from master
 Playground/Vamshi/.ipynb_checkpoints/UC00149_Enhancing_Urban_Tree_Planting_through_Air_Quality_Analysis-checkpoint.ipynb
 Playground/.DS_Store
@@ -22,4 +21,3 @@ Playground/.DS_Store
 .DS_Store
 
 .DS_Store
-

@@ -83,8 +83,8 @@ export const useCases = [
         heading: "Social indicator changes",
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
-        image: "/img/social_indicator.jpg",
-        link: "/dummypages/UC00077_Social_Indicator_Changes.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
     ],
   },
@@ -123,14 +123,14 @@ export const useCases = [
         heading: "Enhancing Urban Tree Planting through air quality analysis",
         description:
           "Use AI to optimize energy consumption in industries and cities.",
-        image: "/img/tree_planting.jpeg",
-        link: "/dummypages/UC00149_Enhancing_Urban_Tree_Planting_through_Air_Quality_Analysis.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "Waste Efficiency Argyle Square case study",
         description:
           "Intelligent systems to manage recycling and reduce environmental impact.",
-        image: "/img/waste_efficiency.jpg",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "/dummypages/UC00150_Waste_Efficiency_Argyle_Square_case_study.html",
       },
       {
@@ -138,57 +138,57 @@ export const useCases = [
           "Evaluating the impact of urban Heat Islands on Community Wellbeing",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/heat_island.png",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "/dummypages/UC00152_Evaluating_the_Impact_of_Urban_Heat_Islands_on_Community_Wellbeing.html",
       },
       {
         heading: "Biodiversity corridors creation Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/bio_corridor.jpg",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
       {
         heading: "Sustainable mobility and Emission Reduction in Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/sustainable_mobility.jpg",
-        link: "/dummypages/UC00158_Sustainable_Mobility_and_Emission_Reduction_in_Melbourne.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "AI Driven Wildfire Risk Assessment and Hotspot Prediction",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/AI_fire.jpg",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
       {
         heading: "Heat Vulnerability Mapping",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/heat_map.png",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
         link: "",
       },
       {
         heading: "Melbourne Urban Microclimate Dynamics",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/urban_climate.jpg",
-        link: "/dummypages/UC00171_Melbourne_Urban_Microclimate_Dynamics.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "Climate change Impact Simulation",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/climate_change.jpg",
-        link: "/dummypages/UC00167_Climate_Change_Impact_Simulation.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
       {
         heading: "Tracking unique insect species in Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/unique_insects.jpg",
-        link: "/dummypages/UC00042_Tracking_Unique_Insect_Species_in_City_of_Melbourne.html",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "",
       },
     ],
   },
@@ -395,14 +395,14 @@ export const useCases = [
         description:
           "AI predicts patient risks and recommends proactive care measures.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "/dummypages/UC00058_Mental_Wellbeing.html",
+        link: "",
       },
       {
         heading: "Enhancing community wellbeing through public transport",
         description:
           "Remote consultation platforms with intelligent diagnostic support.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "/dummypages/UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport.html",
+        link: "",
       },
       {
         heading: "Food Services and its impact on wellbeing indicators",
@@ -416,7 +416,7 @@ export const useCases = [
         description:
           "Monitor lifestyle and health metrics to improve daily wellbeing.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "/dummypages/UC00096_Impact_of_Coworking_Spaces_on_Social_Wellbeing_Indicators.html",
+        link: "",
       },
       {
         heading: "Optimization of outdoor fitness activities (2025)",
