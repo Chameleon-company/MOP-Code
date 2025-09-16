@@ -291,7 +291,7 @@ class GTFSUtils:
             return []
     
     @staticmethod
-    def keep_staion_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
+    def keep_station_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
         """
             Author:  Andre Nguyen
             Keep stations in mentioned order in the query (from - to order) as in user query
@@ -340,7 +340,7 @@ class GTFSUtils:
                 ordered_station_list.append(station[0])
             return ordered_station_list
         except Exception as e:
-            logger.error(f"Error in keep_staion_in_order: {e}")
+            logger.error(f"Error in keep_station_in_order: {e}")
             return station_name_list
 
     @staticmethod
@@ -441,11 +441,11 @@ class GTFSUtils:
                     continue
 
             if len(potential_station_list) >= 2:
-                potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+                potential_station_list = GTFSUtils.keep_station_in_order(potential_station_list, normalised_user_input)
                 return potential_station_list
             else:
                 potential_station_list = GTFSUtils.find_station_name_by_fuzzy(normalised_user_input, stops_df)
-                potential_station_list = GTFSUtils.keep_staion_in_order(potential_station_list, normalised_user_input)
+                potential_station_list = GTFSUtils.keep_station_in_order(potential_station_list, normalised_user_input)
             
             potential_station_list = GTFSUtils.find_parent_station(potential_station_list, stops_df)
             
