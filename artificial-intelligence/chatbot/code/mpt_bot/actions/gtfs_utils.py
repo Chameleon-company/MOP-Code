@@ -58,6 +58,7 @@ from tabulate import tabulate
 from transformers import pipeline
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+import polyline
 
 # User ID and API Key
 user_id = "3003120"
@@ -1714,7 +1715,7 @@ class GTFSUtils:
             return True, valid_trips['trip_id'].unique()
 
         return False, []
-     
+                  
     def find_next_public_transport_trip(station_a: str, station_b: str, mode: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> str:
         """
             Author: AlexT
@@ -1722,183 +1723,257 @@ class GTFSUtils:
             Return the time of next train/tram/bus from stop A to stop B (based on current time)
             
         """
+        stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
+        stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df) if station_b else None
+
+        stops_df['platform_code'] = stops_df['platform_code'].astype(str)
+
+        list_of_child_station_a = []
+        list_of_child_station_b = []
+        if mode == "train":
+            list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
+            list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
+        else:
+            list_of_child_station_a = [stop_a_id]
+            list_of_child_station_b = [stop_b_id]
+
+        current_time = datetime.now().strftime('%H:%M:%S')
+
+        if not isinstance(stop_times_df.index, pd.MultiIndex):
+            stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
+
+        if not station_b:
+            # Logic for one station
+            response = f"Upcoming train schedules from {station_a}:\n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station = stop_times_df.loc[stop_a]
+                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
+                trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
+                    subset=['departure_time']
+                )
+
+                if not trips_from_station.empty:
+                    next_trips = trips_from_station[['departure_time']].head(5)
+                    stop_a_platform = stops_df[stops_df["stop_id"] == stop_a].head(1)["platform_code"]
+                    for idx, row in next_trips.iterrows():
+                        departure_time = GTFSUtils.parse_time(row['departure_time'])
+                        upcoming = f"- Train at {(datetime.min + departure_time).strftime('%I:%M %p')} at platform {stop_a_info['platform_code']}\n"
+                        list_of_upcoming_trip.append(upcoming)
+            if len(list_of_upcoming_trip) == 0:
+                response = f"No upcoming trains found from {station_a}."
+            else:
+                for upcoming in list_of_upcoming_trip:
+                    response += upcoming
+        else:
+            # Logic for two stations
+            response = f"Upcoming train schedules from {station_a} to {station_b} \n"
+            list_of_upcoming_trip = []
+            for stop_a in list_of_child_station_a:
+                trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
+                
+                for stop_b in list_of_child_station_b:
+                    trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
+                    
+                    future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
+                    future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
+                    valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
+
+                    if not valid_trips.empty:
+                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
+                        stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
+                        for index, next_trip in valid_trips.iterrows():
+                            next_trip_time = next_trip['departure_time']
+                            next_trip_time = GTFSUtils.parse_time(next_trip_time)
+                            # if isinstance(next_trip_time, timedelta):
+                            #     next_trip_time = (datetime.min + next_trip_time).strftime('%I:%M %p')
+                            upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {next_trip_time}\n"
+                            next_trip_dict = {'time' : next_trip_time, 'message': upcoming}
+                            flag = 0
+                            for trip in list_of_upcoming_trip:
+                                if trip['time'] == next_trip_time:
+                                    flag = 1
+                            if flag == 0:
+                                list_of_upcoming_trip.append(next_trip_dict)
+            if len(list_of_upcoming_trip) > 0:
+                list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
+                count = 0
+                for upcoming in list_of_upcoming_trip:
+                    if (count == 5):
+                        break
+                    response += upcoming['message']
+                    count += 1
+            else:
+                response = f"No upcoming trains found from {station_a} to {station_b}."
+        return response
+    
+    def find_pt_route_between_two_address(start_addr: str, end_addr: str, my_google_api_key: str = "", mode_exclusions: List[str] = None, mode: str = "TRANSIT") -> Dict:
+        """
+        Author: Andre Nguyen
+        Compute the fastest transit route (bus, tram, train) from start to end coordinates using Google Maps Routes API.
+
+        Args:
+            start_addr (str): address of origin.
+            end_addr (str): address of destination.
+            mode_exclusions (List[str], optional): Transit modes to exclude (e.g., ['bus', 'tram']).
+                Defaults to None (all transit modes allowed).
+
+        Returns:
+            Dict: Route details including total_time (minutes), route_description, and travel_mode.
+                Returns {'error': 'message'} on failure.
+        """
+        # API endpoint and headers
+        url = "https://routes.googleapis.com/directions/v2:computeRoutes"
+
+        # export the google api key before run the code
+        if my_google_api_key:
+            headers = {
+                "Content-Type": "application/json",
+                "X-Goog-Api-Key": my_google_api_key,
+                "X-Goog-FieldMask": "*"
+            }
+            # Prepare request body for TRANSIT mode
+            request_body = {
+                "origin": {"address" : start_addr},
+                "destination": {"address" : end_addr},
+                "travelMode": "TRANSIT",
+                "departureTime": datetime.now(timezone.utc).isoformat(),  # Current UTC time
+                "transitPreferences": {
+                    "routingPreference": "LESS_WALKING"
+                },
+                "languageCode": "en-AU"
+            }
+            if mode == "DRIVE":
+                # Get the current datetime
+                current_datetime = datetime.now(timezone.utc)
+
+                # Add 5 minutes to the current datetime
+                future_datetime = current_datetime + timedelta(minutes=5)
+
+                # Convert the future datetime to ISO 8601 format
+                iso_formatted_datetime = future_datetime.isoformat()
+                request_body = {
+                    "origin": {"address" : start_addr},
+                    "destination": {"address" : end_addr},
+                    "departureTime": iso_formatted_datetime,  # Current UTC time
+                    "travelMode": "DRIVE",
+                    "routingPreference": "TRAFFIC_AWARE",
+                    "computeAlternativeRoutes": False,
+                    "routeModifiers": {
+                        "avoidTolls": False,
+                        "avoidHighways": False,
+                        "avoidFerries": False
+                    },
+                    "languageCode": "en-AU"
+                }
+
+
+            # Apply mode exclusions (approximate by filtering response, as API doesn't support direct exclusion)
+            if mode_exclusions:
+                # Note: Google API doesn't allow fine-grained transit mode exclusion in request; filter post-response
+                pass  # Exclusion logic will be applied after receiving response
+
+            try:
+                # Make API request
+                response = requests.post(url, json=request_body, headers=headers, timeout=10)
+                if response.status_code != 200:
+                    logger.error(f"Google Maps API error: HTTP {response.status_code}, {response.text}")
+                    return {"error": f"API error: {response.status_code}"}
+
+                data = response.json()
+                if not data.get("routes"):
+                    logger.warning("No transit routes found for the given parameters.")
+                    return {"error": "No transit routes available"}
+
+                # Process the fastest route (only one route since computeAlternativeRoutes is false)
+                route = data["routes"][0]
+                total_time_seconds = int(route["duration"].replace("s", ""))  # Extract seconds from "2946s"
+                total_time_minutes = total_time_seconds / 60
+
+                # Build route description from multiModalSegments
+                route_description = []
+                legs = route.get("legs", [{}])[0]
+                polyline = route.get("polyline", {})
+                for segment in legs.get("stepsOverview", {}).get("multiModalSegments", []):
+                    if "navigationInstruction" in segment:
+                        instruction = segment["navigationInstruction"]["instructions"]
+                        route_description.append(f"{instruction}")
+                    else:
+                        route_description.append(f"Walk to {end_addr}")
+
+                return {
+                    "travel_mode": mode,
+                    "total_time": round(total_time_minutes, 2),
+                    "route_description": "; ".join(route_description) if route_description else "Direct transit",
+                    "distance_meters": route.get("distanceMeters", 0),
+                    "encoded_polyline": polyline.get("encodedPolyline", "")
+                }
+
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Request failed: {str(e)}")
+                return {"error": "Network or API request failed"}
+            except Exception as e:
+                logger.error(f"Unexpected error: {str(e)}")
+                return {"error": "Unexpected error processing route"}
+        else:
+            return {"error": "Empty google map api key, please provide valid api key!"}
+    
+    def create_polyline_map(encoded_polyline, output_file="route_map.html", zoom_start=12, line_color="blue", line_weight=5, line_opacity=0.7):
+        """
+        Author: Andre Nguyen
+        Decode an encoded polyline and generate an interactive map with Folium.
+        Parameters:
+        - encoded_polyline (str): The encoded polyline string to decode.
+        - output_file (str): Name of the output HTML file (default: 'map.html').
+        - zoom_start (int): Initial zoom level of the map (default: 12).
+        - line_color (str): Color of the polyline (default: 'blue').
+        - line_weight (int): Thickness of the polyline (default: 5).
+        - line_opacity (float): Opacity of the polyline (default: 0.7).
+        
+        Returns:
+        - None: Saves the map to an HTML file.
+        """
         try:
-            # Validate input parameters
-            if not station_a:
-                return "Please provide a starting station."
+            # Decode the polyline
+            decoded_coords = polyline.decode(encoded_polyline)
             
-            # Get stop IDs
-            stop_a_id = GTFSUtils.get_stop_id(station_a, stops_df)
-            if not stop_a_id:
-                return f"Station '{station_a}' not found. Please check the station name."
+            if not decoded_coords:
+                raise ValueError("Decoded polyline is empty. Check the input polyline.")
             
-            stop_b_id = None
-            if station_b:
-                stop_b_id = GTFSUtils.get_stop_id(station_b, stops_df)
-                if not stop_b_id:
-                    return f"Station '{station_b}' not found. Please check the station name."
-
-            # Ensure platform_code is string type
-            stops_df['platform_code'] = stops_df['platform_code'].astype(str)
-
-            # Get child stations
-            list_of_child_station_a = []
-            list_of_child_station_b = []
-            if mode == "train":
-                list_of_child_station_a = GTFSUtils.find_child_station(stop_a_id, stops_df, stop_times_df)
-                if not list_of_child_station_a:
-                    list_of_child_station_a = [stop_a_id]  # Fallback to parent station
-                
-                if station_b:
-                    list_of_child_station_b = GTFSUtils.find_child_station(stop_b_id, stops_df, stop_times_df)
-                    if not list_of_child_station_b:
-                        list_of_child_station_b = [stop_b_id]  # Fallback to parent station
-            else:
-                list_of_child_station_a = [stop_a_id]
-                list_of_child_station_b = [stop_b_id] if station_b else []
-
-            current_time = datetime.now().strftime('%H:%M:%S')
-
-            # Ensure proper indexing
-            if not isinstance(stop_times_df.index, pd.MultiIndex):
-                try:
-                    stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-                except KeyError:
-                    # If the columns don't exist, try to reset and set again
-                    stop_times_df = stop_times_df.reset_index()
-                    stop_times_df.set_index(['stop_id', 'trip_id'], inplace=True, drop=False)
-
-            if not station_b:
-                # Logic for one station
-                response = f"Upcoming train schedules from {station_a}:\n"
-                list_of_upcoming_trip = []
-                
-                for stop_a in list_of_child_station_a:
-                    try:
-                        trips_from_station = stop_times_df.loc[stop_a]
-                        if trips_from_station.empty:
-                            continue
-                            
-                        stop_a_info = stops_df[stops_df["stop_id"] == stop_a]
-                        if stop_a_info.empty:
-                            continue
-                        stop_a_info = stop_a_info.iloc[0]
-                        
-                        # Filter future trips
-                        trips_from_station = trips_from_station[trips_from_station['departure_time'] >= current_time]
-                        trips_from_station = trips_from_station.sort_values('departure_time').drop_duplicates(
-                            subset=['departure_time']
-                        )
-
-                        if not trips_from_station.empty:
-                            next_trips = trips_from_station[['departure_time']].head(5)
-                            for idx, row in next_trips.iterrows():
-                                try:
-                                    departure_time = GTFSUtils.parse_time(row['departure_time'])
-                                    if isinstance(departure_time, timedelta):
-                                        time_str = (datetime.min + departure_time).strftime('%I:%M %p')
-                                    else:
-                                        time_str = departure_time.strftime('%I:%M %p')
-                                    upcoming = f"- Train at {time_str} at platform {stop_a_info['platform_code']}\n"
-                                    list_of_upcoming_trip.append(upcoming)
-                                except Exception as e:
-                                    logger.error(f"Error parsing departure time: {e}")
-                                    continue
-                    except KeyError:
-                        # Station not found in stop_times_df
-                        continue
-                    except Exception as e:
-                        logger.error(f"Error processing station {stop_a}: {e}")
-                        continue
-                        
-                if len(list_of_upcoming_trip) == 0:
-                    response = f"No upcoming trains found from {station_a}."
-                else:
-                    for upcoming in list_of_upcoming_trip:
-                        response += upcoming
-            else:
-                # Logic for two stations
-                response = f"Upcoming train schedules from {station_a} to {station_b}:\n"
-                list_of_upcoming_trip = []
-                
-                for stop_a in list_of_child_station_a:
-                    try:
-                        trips_from_station_a = stop_times_df.loc[stop_a].reset_index()
-                        if trips_from_station_a.empty:
-                            continue
-                    except KeyError:
-                        continue
-                    
-                    for stop_b in list_of_child_station_b:
-                        try:
-                            trips_to_station_b = stop_times_df.loc[stop_b].reset_index()
-                            if trips_to_station_b.empty:
-                                continue
-                        except KeyError:
-                            continue
-                        
-                        # Find common trips
-                        future_trips = trips_from_station_a[trips_from_station_a['departure_time'] >= current_time]
-                        if future_trips.empty:
-                            continue
-                            
-                        future_trips = future_trips.drop_duplicates(subset=['departure_time'])['trip_id'].unique()
-                        valid_trips = trips_to_station_b[trips_to_station_b['trip_id'].isin(future_trips)]
-
-                        if not valid_trips.empty:
-                            try:
-                                stop_a_info = stops_df[stops_df["stop_id"] == stop_a].iloc[0]
-                                stop_b_info = stops_df[stops_df["stop_id"] == stop_b].iloc[0]
-                                
-                                for index, next_trip in valid_trips.iterrows():
-                                    try:
-                                        next_trip_time = next_trip['departure_time']
-                                        parsed_time = GTFSUtils.parse_time(next_trip_time)
-                                        
-                                        if isinstance(parsed_time, timedelta):
-                                            time_str = (datetime.min + parsed_time).strftime('%I:%M %p')
-                                        else:
-                                            time_str = parsed_time.strftime('%I:%M %p')
-                                            
-                                        upcoming = f"The next train from {station_a} (platform {stop_a_info['platform_code']}) to {station_b} (platform {stop_b_info['platform_code']}) leaves at {time_str}\n"
-                                        next_trip_dict = {'time': parsed_time, 'message': upcoming}
-                                        
-                                        # Check for duplicates
-                                        flag = 0
-                                        for trip in list_of_upcoming_trip:
-                                            if trip['time'] == parsed_time:
-                                                flag = 1
-                                                break
-                                        if flag == 0:
-                                            list_of_upcoming_trip.append(next_trip_dict)
-                                    except Exception as e:
-                                        logger.error(f"Error processing trip: {e}")
-                                        continue
-                            except IndexError:
-                                continue
-                            except Exception as e:
-                                logger.error(f"Error getting station info: {e}")
-                                continue
-                                
-                if len(list_of_upcoming_trip) > 0:
-                    list_of_upcoming_trip = sorted(list_of_upcoming_trip, key=lambda trip: trip['time'])
-                    count = 0
-                    for upcoming in list_of_upcoming_trip:
-                        if count >= 5:
-                            break
-                        response += upcoming['message']
-                        count += 1
-                else:
-                    response = f"No upcoming trains found from {station_a} to {station_b}."
-                    
-            return response
+            # Create a Folium map centered on the first coordinate
+            map_center = decoded_coords[0]
+            mymap = folium.Map(location=map_center, zoom_start=zoom_start)
+            
+            # Add the polyline to the map
+            folium.PolyLine(
+                locations=decoded_coords,
+                color=line_color,
+                weight=line_weight,
+                opacity=line_opacity
+            ).add_to(mymap)
+            
+            # Add markers for start and end points
+            folium.Marker(
+                location=decoded_coords[0],
+                popup="Start",
+                icon=folium.Icon(color="green")
+            ).add_to(mymap)
+            folium.Marker(
+                location=decoded_coords[-1],
+                popup="End",
+                icon=folium.Icon(color="red")
+            ).add_to(mymap)
+            
+            # Save the map to an HTML file
+            path_to_save = "./maps/" + output_file
+            mymap.save(path_to_save)
+            return path_to_save
             
         except Exception as e:
-            logger.error(f"Error in find_next_public_transport_trip: {e}")
-            return f"Sorry, I encountered an error while finding the next train. Please try again."
+            print(f"Error creating map: {str(e)}")
+            return None
         
-    # from typing import List
-
     ####author Juveria
     @staticmethod
     def collect_platform_ids(display_name: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
@@ -1941,5 +2016,7 @@ class GTFSUtils:
             avail = set(stop_times_df['stop_id'].astype(str))
         ids = sorted({i for i in ids if i in avail})
 
-        return ids
+        
+
+
         
