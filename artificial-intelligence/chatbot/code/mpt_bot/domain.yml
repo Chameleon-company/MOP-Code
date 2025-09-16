@@ -50,7 +50,13 @@ intents:
   - ask_traffic
   - ask_traffic_location
   #Awanish intents (End) -------------------------------------------
-
+  - suggest_park_and_ride
+  - find_accessible_route
+  - live_departures
+  - get_directions
+  - ask_direct_tram_route
+  - ask_user_about_location_for_traffic
+  - ask_accessible_route
 entities:
     # Alex Start entities  -----------------------------------------------------------
   - station_a
@@ -238,6 +244,8 @@ responses:
   utter_traffic_details:
     - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
  #Awanish responses (end) -------------------------------------------
+  utter_no_accessible_route:
+    - text: "Sorry, I couldn’t find an accessible route with lifts for that journey."
 
 actions:
  # Alex Start Actions  -----------------------------------------------------------
@@ -279,3 +287,7 @@ actions:
   - action_fetch_traffic
   - action_fetch_traffic_location
   #Awanish actions (end) -------------------------------------------
+  - action_suggest_park_and_ride
+  - action_find_accessible_route
+  - action_live_departures
+  - action_suggest_park_and_ride_enhanced

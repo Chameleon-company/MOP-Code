@@ -160,3 +160,23 @@ rules:
     - intent: ask_traffic
     - action: action_fetch_traffic  
 #Awanish  rule----end
+
+#  - rule: Suggest park and ride plan
+#    steps:
+#    - intent: suggest_park_and_ride
+#    - action: action_suggest_park_and_ride
+
+  - rule: Find an accessible route
+    steps:
+    - intent: find_accessible_route
+    - action: action_find_accessible_route
+
+  - rule: Live departures (always)
+    steps:
+    - intent: live_departures
+    - action: action_live_departures
+
+  - rule: Park and ride (enhanced)
+    steps:
+    - intent: suggest_park_and_ride
+    - action: action_suggest_park_and_ride_enhanced

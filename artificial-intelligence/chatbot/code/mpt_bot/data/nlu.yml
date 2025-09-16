@@ -279,6 +279,8 @@ nlu:
     - Planning to go from [Prahran](location_from) to [Docklands](location_to)
     - Looking for route from [Carlton](location_from) to [MCG](location_to)
 
+
+
 - intent: ask_about_feature
   examples: |
     - Does [Richmond Station](station_name) have [lifts](feature)?
@@ -420,8 +422,6 @@ nlu:
 # Jubal NLU (end)-------------------------------------------------------------------------------
 
 
-
-
 #awanish NLU Start --------------------------------------
 - intent: ask_traffic_location
   examples: |
@@ -444,6 +444,46 @@ nlu:
     - what is traffic in [Albert Park](station_a)?
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+
+- regex: park_ride_kw
+  examples: |
+    - (?i)\bpark(?:\s*&\s*|\s+and\s+)ride\b
+    - (?i)\bP&R\b
+
+- intent: suggest_park_and_ride
+  examples: |
+    - suggest a park and ride from [St Kilda](location_from) to [Melbourne Central](location_to)
+    - find a park & ride near [Brighton](location_from) to get to [Parliament](location_to)
+    - P&R option from [Hawthorn](location_from) to [Flinders Street](location_to)
+    - where should I park then take a train to [Melbourne Central](location_to) from [Carnegie](location_from)?
+    - recommend a park-and-ride for [Brunswick](location_from) to [CBD](location_to)
+    - I want to park and ride to [Flagstaff](location_to) from [Elsternwick](location_from)
+    - best park and ride from [Camberwell](location_from) to [Southern Cross](location_to)
+    - show a park-and-ride from [South Yarra](location_from) to [Melbourne Central](location_to)
+
+- intent: find_accessible_route
+  examples: |
+    - Find me a route from [Box Hill](station_a) to [Flinders Street](station_b) with [lifts](feature)
+    - Accessible route from [Richmond](station_a) to [Parliament](station_b) with [info screens](feature)
+    - Show a route from [Glenferrie](station_a) to [Southern Cross](station_b) that has [hearing loops](feature)
+    - Route from [Hawthorn](station_a) to [Melbourne Central](station_b) with [lifts](feature) at transfers
+
+- intent: live_departures
+  examples: |
+    - next 3 trains from [Melbourne Central](station_a)
+    - next three trains from [Melbourne Central Station](station_a)
+    - what's the next train from [Richmond](station_a) to [Flinders Street](station_b)?
+    - show next trains from [Clayton](station_a)
+    - next departures from [Parliament](station_a)
+
+
+- intent: suggest_park_and_ride
+  examples: |
+    - park and ride from [Southbank](location_from) to [Melbourne Central](location_to) at 9am
+    - find parking near [Docklands](location_from) to [Parliament](location_to) at 17:45
+    - from [Box Hill](location_from) to [Flinders Street](location_to) tomorrow evening
+
+
 
 #Awanish NLU ends ---------------------
 

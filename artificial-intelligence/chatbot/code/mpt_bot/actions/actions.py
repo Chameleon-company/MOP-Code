@@ -1,4 +1,7 @@
 import spacy
+import math, re
+import csv
+import re
 import folium
 from folium.plugins import MarkerCluster
 import os
@@ -6,6 +9,7 @@ from io import BytesIO
 import zipfile
 import requests
 import pandas as pd
+import json
 import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
@@ -13,19 +17,24 @@ from datetime import datetime, timedelta
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
+from typing import Any, Text, Dict, List
 from collections import deque
+from .actions import *
 import certifi
 from actions.gtfs_utils import GTFSUtils
+from rasa_sdk.types import DomainDict
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+from typing import Optional, Tuple, List
 #from actions.traffic_route 
 import hashlib
 import hmac
 import urllib.parse
 from tabulate import tabulate
 from rasa_sdk.events import SlotSet
+logger = logging.getLogger(__name__)
 # This is to skip the favicon
 app = Sanic("custom_action_server")
 @app.route("/favicon.ico")
@@ -1399,6 +1408,80 @@ def geocode_address(address):
         print("Address not found within Melbourne.")
         return None
 
+def haversine_km(lat1, lon1, lat2, lon2):
+    """Fast distance in km; no external services."""
+    R = 6371.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    a = math.sin(dphi/2)**2 + math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2
+    return 2 * R * math.asin(math.sqrt(a))
+
+def _norm_place(name: str) -> str:
+    """Normalize place names so 'Southern Cross Station' ≈ 'Southern Cross'."""
+    if not name:
+        return ""
+    n = name.lower()
+    n = re.sub(r'\b(rail(way)?|station|stop|tram|train|bus|ptv)\b', '', n)
+    n = re.sub(r'[^a-z0-9]+', '', n)
+    return n
+
+
+# ---- City of Melbourne (OpenDataSoft) Parking API helpers --------------------
+OD_URL = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/on-street-parking-bays/records"
+
+def fetch_parking_bays_near(lat: float, lon: float, radius_m: int = 3000, limit: int = 80):
+    """
+    Return bays within radius of (lat, lon) from City of Melbourne dataset.
+    We build the query string manually because some gateways are picky with commas.
+    """
+    try:
+        url = f"{OD_URL}?limit={limit}&geofilter.distance={lat},{lon},{radius_m}"
+        r = requests.get(url, timeout=10, headers={"Accept": "application/json"})
+        logging.info(f"[PARK&RIDE] GET {r.url} -> {r.status_code}")
+        if r.status_code >= 400:
+            logging.error(f"[PARK&RIDE] Body: {r.text[:1000]}")
+        r.raise_for_status()
+        data = r.json().get("results", [])
+        logging.info(f"[PARK&RIDE] results={len(data)}; keys={list(data[0].keys()) if data else '—'}")
+        return data
+    except Exception as e:
+        logging.error(f"[PARK&RIDE] fetch error: {e}")
+        return []
+
+def nearest_station_info(lat: float, lon: float) -> Optional[Tuple[str, float, float]]:
+    """
+    Return (station_name, s_lat, s_lon) for the closest GTFS stop to (lat, lon).
+    Always computes a nearest row; returns None only if stops_df is empty/broken.
+    """
+    try:
+        s = stops_df[['stop_name', 'stop_lat', 'stop_lon']].copy()
+        s['stop_lat'] = s['stop_lat'].astype(float)
+        s['stop_lon'] = s['stop_lon'].astype(float)
+
+        # Fast squared-distance (good enough for nearest)
+        d2 = (s['stop_lat'] - float(lat))**2 + (s['stop_lon'] - float(lon))**2
+        idx = d2.idxmin()
+        row = s.loc[idx]
+        return str(row['stop_name']), float(row['stop_lat']), float(row['stop_lon'])
+    except Exception as e:
+        logging.error(f"nearest_station_info failed: {e}")
+        return None
+
+def nearest_station_name(lat: float, lon: float) -> Optional[str]:
+    try:
+        s = stops_df[['stop_name', 'stop_lat', 'stop_lon']].copy()
+        s['stop_lat'] = s['stop_lat'].astype(float)
+        s['stop_lon'] = s['stop_lon'].astype(float)
+        d2 = (s['stop_lat'] - float(lat))**2 + (s['stop_lon'] - float(lon))**2
+        idx = d2.idxmin()
+        return str(s.loc[idx, 'stop_name'])
+    except Exception as e:
+        logger.error(f"nearest_station_name failed: {e}")
+        return None
+
+
+
 '''
 -------------------------------------------------------------------------------------------------------
 	Name: Bus and Trains
@@ -1963,4 +2046,565 @@ class ActionMapTransportInArea(Action):
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
         return []
 
-# Ross Finish Actions
+
+import re
+from datetime import datetime, timedelta
+
+# very small, no-dependency parser for common phrases
+_TIME_PATTERNS = [
+    r"\b(?:[01]?\d|2[0-3]):[0-5]\d(?:\s?(?:am|pm))?\b",  # 5:30, 17:45, 5:30 pm
+    r"\b(?:1[0-2]|0?[1-9])\s?(?:am|pm)\b",               # 9am, 12 pm
+    r"\b(?:today|tomorrow|tonight|morning|afternoon|evening)\b",
+    r"\b\d{4}-\d{2}-\d{2}\b",                            # 2025-09-10
+]
+
+def _extract_time_phrase(text: str) -> str:
+    t = (text or "").lower()
+    for pat in _TIME_PATTERNS:
+        m = re.search(pat, t)
+        if m:
+            return m.group(0)
+    return ""
+
+def _normalize_to_local_dt(phrase: str) -> datetime:
+    """
+    Very simple normalizer:
+    - "9am", "5:30 pm", "17:45"
+    - "today", "tomorrow", "tonight", "morning", "afternoon", "evening"
+    - "YYYY-MM-DD" (date only -> 09:00)
+    """
+    now = datetime.now().astimezone()
+    p = (phrase or "").strip().lower()
+
+    if not p:
+        return None
+
+    # date-only ISO -> 09:00 that day
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", p):
+        y, m, d = [int(x) for x in p.split("-")]
+        return now.replace(year=y, month=m, day=d, hour=9, minute=0, second=0, microsecond=0)
+
+    # keywords
+    base = now
+    if "tomorrow" in p:
+        base = now + timedelta(days=1)
+    if p in {"today"}:
+        base = now
+
+    if "morning" in p:
+        return base.replace(hour=9, minute=0, second=0, microsecond=0)
+    if "afternoon" in p:
+        return base.replace(hour=15, minute=0, second=0, microsecond=0)
+    if "evening" in p or "tonight" in p:
+        return base.replace(hour=19, minute=0, second=0, microsecond=0)
+
+    # clock formats
+    try:
+        q = p.replace(" ", "")
+        if ":" in q and ("am" in q or "pm" in q):
+            dt = datetime.strptime(q, "%I:%M%p")
+        elif "am" in q or "pm" in q:
+            dt = datetime.strptime(q, "%I%p")
+        elif ":" in q:
+            dt = datetime.strptime(q, "%H:%M")
+        else:
+            return None
+        return base.replace(hour=dt.hour, minute=dt.minute, second=0, microsecond=0)
+    except Exception:
+        return None
+
+# ---- Real-time City of Melbourne parking client (Socrata) ------------------
+import os, math, requests
+from typing import Any, Dict, List, Optional
+
+class CityOfMelbParkingClient:
+    """
+    Minimal Socrata client for off-street parking live availability near a point.
+    Configure dataset via MELB_OFFSTREET_DATASET (Socrata resource id).
+    Optionally set MELB_SOCRATA_APP_TOKEN for higher rate limits.
+    """
+    def __init__(self,
+                 base: str = "https://data.melbourne.vic.gov.au/resource",
+                 dataset_id: Optional[str] = None,
+                 app_token: Optional[str] = None):
+        self.base = base.rstrip("/")
+        self.dataset_id = dataset_id or os.getenv("MELB_OFFSTREET_DATASET", "d6mv-s43h")  # <-- set real id if different
+        self.app_token = app_token or os.getenv("MELB_SOCRATA_APP_TOKEN", "").strip()
+
+    def _headers(self) -> Dict[str, str]:
+        h = {"Accept": "application/json"}
+        if self.app_token:
+            h["X-App-Token"] = self.app_token
+        return h
+
+    @staticmethod
+    def _haversine_km(lat1, lon1, lat2, lon2) -> float:
+        R = 6371.0
+        dlat = math.radians(lat2 - lat1)
+        dlon = math.radians(lon2 - lon1)
+        a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1))*math.cos(math.radians(lat2))*math.sin(dlon/2)**2
+        return 2 * R * math.asin(math.sqrt(a))
+
+    def nearby_offstreet(self, lat: float, lon: float, limit: int = 6, radius_m: int = 2500) -> List[Dict[str, Any]]:
+        """
+        Returns list of car parks within radius, sorted by distance.
+        Expected fields (robust parsing): name, spaces_available, total_spaces, location (lat/lon).
+        """
+        url = f"{self.base}/{self.dataset_id}.json"
+        # Socrata supports $where with within_circle on a point column (often 'location' or 'the_geom').
+        # We try 'location' first; if dataset differs, adjust MELB_OFFSTREET_DATASET or add a param.
+        where = f"within_circle(location,{lat},{lon},{radius_m})"
+        # Keep select minimal; Socrata may ignore unknown fields, we handle missing keys in code.
+        params = {
+            "$where": where,
+            "$limit": limit * 3,   # fetch more; we'll sort client-side
+        }
+        try:
+            resp = requests.get(url, params=params, headers=self._headers(), timeout=8)
+            resp.raise_for_status()
+            items = resp.json() or []
+        except Exception:
+            return []
+
+        parsed: List[Dict[str, Any]] = []
+        for it in items:
+            # Try to extract coords
+            lat2 = lon2 = None
+            loc = it.get("location") or it.get("the_geom") or {}
+            if isinstance(loc, dict) and "coordinates" in loc:
+                coords = loc["coordinates"]
+                if isinstance(coords, (list, tuple)) and len(coords) >= 2:
+                    lon2, lat2 = float(coords[0]), float(coords[1])
+            # alt fields some datasets use
+            if lat2 is None and "latitude" in it and "longitude" in it:
+                lat2 = float(it["latitude"]); lon2 = float(it["longitude"])
+            if lat2 is None or lon2 is None:
+                continue
+
+            # distances -> minutes (rough): car ~30km/h, walk ~1.3m/s
+            dist_km = self._haversine_km(lat, lon, lat2, lon2)
+            drive_mins = max(2, int(round((dist_km / 30.0) * 60)))   # coarse, no traffic
+            walk_mins  = max(3, int(round((dist_km * 1000) / 1.3 / 60)))
+
+            name = it.get("name") or it.get("carpark_name") or it.get("site_name") or "Car Park"
+            avail = it.get("spaces_available") or it.get("bays_available") or it.get("available") or None
+            total = it.get("total_spaces") or it.get("capacity") or None
+
+            parsed.append({
+                "carpark_name": name,
+                "drive_mins": drive_mins,
+                "walk_mins": walk_mins,
+                "available": int(avail) if str(avail).isdigit() else avail,
+                "total": int(total) if str(total).isdigit() else total,
+            })
+
+        # sort by walk time first (nicer for Park&Ride), then drive time
+        parsed.sort(key=lambda x: (x["walk_mins"], x["drive_mins"]))
+        return parsed[:limit]
+
+
+
+# ── Action: Park & Ride ────────────────────────────────────────────────────────
+from typing import Any, Dict, List, Text, Optional
+from datetime import datetime
+import os
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+
+# assumes you already have: PTVClient, _extract_time_phrase, _normalize_to_local_dt
+# (from our previous steps)
+
+class ActionSuggestParkAndRideEnhanced(Action):
+    def name(self) -> Text:
+        return "action_suggest_park_and_ride_enhanced"
+
+    def _utc_to_local_str(self, utc_str: Optional[str]) -> str:
+        if not utc_str:
+            return "—"
+        try:
+            dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00")).astimezone()
+            try:
+                return dt.strftime("%-I:%M %p").lower()
+            except Exception:
+                return dt.strftime("%I:%M %p").lstrip("0").lower()
+        except Exception:
+            return utc_str
+
+    def _filter_departures_around(self, deps: List[Dict[str, Any]], target_dt: datetime, window_min: int = 45) -> List[Dict[str, Any]]:
+        if not deps or not target_dt:
+            return deps
+        out = []
+        for d in deps:
+            when_utc = d.get("estimated") or d.get("scheduled") or d.get("when")
+            if not when_utc:
+                continue
+            try:
+                dt_local = datetime.fromisoformat(when_utc.replace("Z", "+00:00")).astimezone()
+            except Exception:
+                try:
+                    dt_local = datetime.fromisoformat(when_utc).astimezone()
+                except Exception:
+                    continue
+            delta_min = abs((dt_local - target_dt).total_seconds()) / 60.0
+            if delta_min <= window_min:
+                out.append(d)
+        return out or deps
+
+    def _format_plan(
+        self,
+        origin_name: str,
+        origin_station: str,
+        dest_station: str,
+        carparks: List[Dict[str, Any]],
+        pt_summaries: Optional[List[str]],
+        time_phrase: Optional[str],
+    ) -> str:
+        header = f"Park & Ride plan: {origin_name} → {dest_station}"
+        if time_phrase:
+            header += f" (aiming around {time_phrase})"
+
+        blocks = []
+        for i, o in enumerate(carparks[:3], start=1):
+            drive = f"{o.get('drive_mins', '—')} mins"
+            walk  = f"{o.get('walk_mins',  '—')} mins"
+            carpk = o.get("carpark_name", "Car Park")
+
+            extra = ""
+            if o.get("available") is not None and o.get("total"):
+                extra = f" — {o['available']}/{o['total']} bays free"
+
+            block = [
+                f"Option {i}",
+                f"🚗 Drive from {origin_name} to: {carpk} ({drive}){extra}",
+                f"🚶 Walk to: {origin_station} ({walk})",
+            ]
+
+            if pt_summaries:
+                block.append("🚆 Board: " + "; ".join(pt_summaries[:3]) + f" → {dest_station}")
+            else:
+                block.append(f"🚆 Train to: {dest_station}")
+
+            blocks.append("\n".join(block))
+
+        return header + "\n\n" + "\n\n".join(blocks)
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[Dict]:
+        user_text = tracker.latest_message.get("text") or ""
+        origin_txt = tracker.get_slot("location_from") or tracker.get_slot("station_a") or "your location"
+        dest_txt   = tracker.get_slot("location_to")   or tracker.get_slot("station_b") or "Melbourne Central"
+
+        # parse optional time from raw text (no Duckling needed)
+        time_phrase = _extract_time_phrase(user_text)
+        target_dt   = _normalize_to_local_dt(time_phrase) if time_phrase else None
+
+        # --- 1) Find an ORIGIN-SIDE rail hub via PTV (prefer train)
+        origin_station_name = origin_txt  # fallback
+        origin_lat = origin_lon = None
+        pt_summaries = None
+
+        devid = os.getenv("PTV_DEVID", "").strip()
+        apikey = os.getenv("PTV_APIKEY", "").strip()
+        if devid and apikey:
+            try:
+                client = PTVClient(devid, apikey)
+                # extend PTVClient.search_stop to include stop_lat/stop_long if available
+                origin_stop = client.search_stop(origin_txt, route_types=[0]) or client.search_stop(origin_txt, route_types=[1])
+                if origin_stop:
+                    origin_station_name = origin_stop.get("stop_name") or origin_station_name
+                    origin_lat = origin_stop.get("stop_lat")
+                    origin_lon = origin_stop.get("stop_long")
+
+                    deps = client.next_departures(origin_stop["stop_id"], origin_stop["route_type"], max_results=10)
+                    # prefer departures heading towards destination text if direction matches
+                    def _dir_matches(direction_name: Optional[str], wanted: Optional[str]) -> bool:
+                        if not wanted: return True
+                        if not direction_name: return False
+                        return wanted.lower() in direction_name.lower()
+
+                    deps = [d for d in deps if _dir_matches(d.get("direction_name"), dest_txt)] or deps
+                    if target_dt:
+                        deps = self._filter_departures_around(deps, target_dt)
+
+                    pt_summaries = [f"{self._utc_to_local_str(d.get('when'))} to {d.get('direction_name') or '—'}" for d in deps[:3]]
+            except Exception:
+                pass
+
+        # --- 2) Real-time parking near the ORIGIN (City of Melbourne Socrata)
+        carparks: List[Dict[str, Any]] = []
+        try:
+            if origin_lat is None or origin_lon is None:
+                # If PTV didn't give coords, we still try text-search based radius (less accurate):
+                # You can plug a geocoder later; for now we skip radius filter and return top parks.
+                origin_lat, origin_lon = -37.820, 144.965  # rough Southbank CBD fallback
+            parking = CityOfMelbParkingClient()
+            carparks = parking.nearby_offstreet(origin_lat, origin_lon, limit=6, radius_m=2500)
+        except Exception:
+            carparks = []
+
+        # Fallback if API returns nothing (keeps your UX alive)
+        if not carparks:
+            carparks = [
+                {"carpark_name": "Southbank Boulevard Parking", "drive_mins": 4, "walk_mins": 7},
+                {"carpark_name": "Eureka Car Park",              "drive_mins": 5, "walk_mins": 9},
+                {"carpark_name": "Freshwater Place Parking",     "drive_mins": 6, "walk_mins": 11},
+            ]
+
+        # --- 3) Reply
+        message = self._format_plan(
+            origin_name=origin_txt,
+            origin_station=origin_station_name,
+            dest_station=dest_txt,
+            carparks=carparks,
+            pt_summaries=pt_summaries,
+            time_phrase=time_phrase,
+        )
+        dispatcher.utter_message(text=message)
+        return []
+
+
+
+
+class ActionLiveDepartures(Action):
+    def name(self) -> Text:
+        return "action_live_departures"
+
+    # ---- small helpers (kept self-contained) ----
+    @staticmethod
+    def _fmt_utc_local(utc_str: Optional[str]) -> str:
+        if not utc_str:
+            return "—"
+        try:
+            dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00")).astimezone()
+            try:
+                return dt.strftime("%-I:%M %p").lower()
+            except Exception:
+                return dt.strftime("%I:%M %p").lstrip("0").lower()
+        except Exception:
+            return utc_str
+
+    @staticmethod
+    def _guess_route_type_from_text(text: str) -> Optional[int]:
+        t = (text or "").lower()
+        if "tram" in t:
+            return 1
+        if "bus" in t:
+            return 2
+        if "train" in t or "metro" in t:
+            return 0
+        return None
+
+    @staticmethod
+    def _direction_matches(direction_name: Optional[str], wanted: Optional[str]) -> bool:
+        if not wanted:
+            return True
+        if not direction_name:
+            return False
+        return wanted.lower() in direction_name.lower()
+
+    # ---- GTFS fallback (no PTV keys needed) ----
+    def _gtfs_next_departures(self, origin_text: str, dest_text: Optional[str]) -> List[Dict[str, Any]]:
+        """
+        Returns up to 3 upcoming (or next-day) departures using local GTFS dataframes.
+        Expects these globals to be loaded by actions.gtfs_utils at import time:
+          stops_df, stop_times_df, trips_df, routes_df, GTFSUtils
+        """
+        try:
+            global stops_df, stop_times_df, trips_df, routes_df, GTFSUtils
+            assert stops_df is not None and stop_times_df is not None
+        except Exception as e:
+            logger.warning(f"GTFS fallback unavailable: {e}")
+            return []
+
+        # 1) Find stop by name (normalize & robust match)
+        origin_norm = re.sub(r"\bstation\b", "", (origin_text or ""), flags=re.IGNORECASE).strip()
+        origin_norm_l = origin_norm.lower()
+
+        st_row = stops_df[stops_df["stop_name"].str.lower() == origin_norm_l]
+        if st_row.empty:
+            st_row = stops_df[stops_df["stop_name"].str.lower().str.contains(origin_norm_l, na=False)]
+
+        if st_row.empty and "stop_desc" in stops_df.columns:
+            st_row = stops_df[stops_df["stop_desc"].str.lower().str.contains(origin_norm_l, na=False)]
+
+        if st_row.empty and 'GTFSUtils' in globals() and GTFSUtils and hasattr(GTFSUtils, "best_station_match"):
+            try:
+                best = GTFSUtils.best_station_match(origin_text, stops_df)
+                if best:
+                    st_row = stops_df[stops_df["stop_name"].str.lower() == best.lower()]
+            except Exception:
+                pass
+
+        if st_row.empty:
+            # --- NEW: log top-5 candidate stop names to help align with your feed
+            try:
+                cand = stops_df[stops_df["stop_name"].str.contains(origin_norm, case=False, na=False)]
+                logger.warning(f"GTFS: candidates for '{origin_text}': {cand['stop_name'].head(5).tolist()}")
+            except Exception:
+                pass
+            logger.warning(f"GTFS: no stop found for '{origin_text}' after normalization -> '{origin_norm}'")
+            return []
+
+        # 2) Auto-detect shared stop id column between stops and stop_times
+        candidates = ["stop_id", "stop_code", "stopid", "stop_ref"]
+        stop_col  = next((c for c in candidates if c in stops_df.columns), None)
+        times_col = next((c for c in candidates if c in stop_times_df.columns), None)
+        common_col = stop_col if (stop_col and stop_col == times_col) else None
+        if not common_col:
+            for c in candidates:
+                if c in stops_df.columns and c in stop_times_df.columns:
+                    common_col = c
+                    break
+        if not common_col:
+            logger.warning("GTFS: no shared stop id column between stops_df/stop_times_df")
+            return []
+
+        stop_id_val = st_row.iloc[0][common_col]
+
+        # 3) departure parser (supports >24h times like 25:10:00)
+        def hhmmss_to_abs_seconds(s) -> int:
+            try:
+                h, m, x = str(s).split(":")
+                return int(h) * 3600 + int(m) * 60 + int(float(x))
+            except Exception:
+                return 10**9  # push bad rows to the end
+
+        dep_col = "departure_time" if "departure_time" in stop_times_df.columns else (
+            "dep_time" if "dep_time" in stop_times_df.columns else None
+        )
+        if dep_col is None:
+            logger.warning("GTFS: no departure_time column in stop_times_df")
+            return []
+
+        st_times = stop_times_df[stop_times_df[common_col] == stop_id_val].copy()
+
+        # --- NEW: if no rows for parent stop, try child/sibling stops via parent_station
+        if st_times.empty and "parent_station" in stops_df.columns:
+            parent_val = st_row.iloc[0].get("parent_station")
+            if parent_val and parent_val == parent_val:  # not NaN
+                siblings = stops_df[stops_df["parent_station"] == parent_val]
+                sib_ids = siblings[common_col].unique().tolist()
+                if sib_ids:
+                    st_times = stop_times_df[stop_times_df[common_col].isin(sib_ids)].copy()
+                    logger.info(f"GTFS: used {len(sib_ids)} child/sibling stops under parent_station={parent_val}")
+
+        if st_times.empty:
+            logger.warning(f"GTFS: no stop_times for {common_col}={stop_id_val}")
+            return []
+
+        st_times["dep_abs"] = st_times[dep_col].map(hhmmss_to_abs_seconds)
+        st_times = st_times[st_times["dep_abs"] < 48 * 3600]  # guard against garbage
+        if st_times.empty:
+            return []
+
+        # 4) choose next 3 relative to now, wrap to next day if needed
+        now_local = datetime.now().astimezone()
+        sec_now   = now_local.hour*3600 + now_local.minute*60 + now_local.second
+        st_times["dep_mod"] = st_times["dep_abs"] % 86400
+
+        sort_cols = ["dep_abs"]
+        if "trip_id" in st_times.columns:
+            sort_cols.append("trip_id")
+
+        today_upcoming = st_times[st_times["dep_mod"] >= sec_now].sort_values(sort_cols)
+        if today_upcoming.empty:
+            next3 = st_times.sort_values(sort_cols).head(3)
+            wrap = True
+        else:
+            next3 = today_upcoming.head(3)
+            wrap = False
+
+        # 5) enrich with trips/routes if present
+        merged = next3
+        if "trip_id" in next3.columns and trips_df is not None and "trip_id" in trips_df.columns:
+            merged = next3.merge(trips_df, on="trip_id", how="left")
+
+        route_name_map = {}
+        if routes_df is not None and "route_id" in getattr(routes_df, "columns", []):
+            name_col = "route_short_name" if "route_short_name" in routes_df.columns else (
+                "route_long_name" if "route_long_name" in routes_df.columns else None
+            )
+            if name_col:
+                route_name_map = dict(zip(routes_df["route_id"], routes_df[name_col]))
+
+        out: List[Dict[str, Any]] = []
+        for _, row in merged.iterrows():
+            dep_mod = int(row["dep_mod"])
+            when_dt = now_local.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(seconds=dep_mod)
+            when_str = when_dt.strftime("%I:%M %p").lstrip("0").lower()
+            if wrap and row["dep_abs"] >= 86400:
+                when_str += " (tomorrow)"
+
+            route_id = row.get("route_id")
+            route_name = route_name_map.get(route_id) if route_id in route_name_map else (row.get("route_short_name") or route_id or "")
+            dir_name = row.get("trip_headsign") or row.get("direction_id") or ""
+            platform = row.get("platform_code") or row.get("stop_platform") or None
+            out.append({"when": when_str, "route_name": route_name, "direction_name": dir_name, "platform_number": platform})
+
+        return out
+
+    # ---- main ----
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[Dict]:
+        user_text = tracker.latest_message.get("text") or ""
+        origin_txt = tracker.get_slot("station_a") or tracker.get_slot("location_from")
+        dest_txt   = tracker.get_slot("station_b") or tracker.get_slot("location_to")
+
+        if not origin_txt:
+            lowered = user_text.lower()
+            if " from " in lowered:
+                origin_txt = user_text.split(" from ", 1)[1].split(" to ")[0]
+        if not origin_txt:
+            dispatcher.utter_message(text="Which stop should I check? (e.g., “Richmond”, “Melbourne Central”)")
+            return []
+
+        # Try PTV live if keys exist; else use GTFS
+        devid = os.getenv("PTV_DEVID", "").strip()
+        apikey = os.getenv("PTV_APIKEY", "").strip()
+
+        if devid and apikey:
+            try:
+                # Import only if needed; if PTVClient is in same file, just reference it directly.
+                try:
+                    from actions.actions import PTVClient  # adjust if your client is elsewhere
+                except Exception:
+                    PTVClient  # noqa: make linter happy if defined in same module
+
+                client = PTVClient(devid=devid, apikey=apikey)
+                rt = self._guess_route_type_from_text(tracker.get_slot("transport_mode") or user_text) or 0
+                origin = client.search_stop(origin_txt, route_types=[rt])
+                if origin:
+                    deps = client.next_departures(origin["stop_id"], origin["route_type"], max_results=3)
+                    filtered = [d for d in deps if self._direction_matches(d.get("direction_name"), dest_txt)] or deps
+
+                    lines = []
+                    for d in filtered[:3]:
+                        tstr = self._fmt_utc_local(d.get("when"))
+                        dirn = d.get("direction_name") or ""
+                        rname = d.get("route_name") or ""
+                        plat = f" (platform {d['platform_number']})" if d.get("platform_number") else ""
+                        lines.append(f"• {tstr} — {rname} towards {dirn}{plat}")
+
+                    header_mode = "train" if origin["route_type"] == 0 else ("tram" if origin["route_type"] == 1 else "service")
+                    header = f"Next {len(lines)} {header_mode}(s) from {origin.get('stop_name')}:"
+                    dispatcher.utter_message(text="\n".join([header] + lines))
+                    return []
+            except Exception as e:
+                logger.warning(f"PTV call failed; falling back to GTFS: {e}")
+
+        # GTFS fallback
+        departures = self._gtfs_next_departures(origin_txt, dest_txt)
+        if not departures:
+            dispatcher.utter_message(text=f"Couldn’t find upcoming services for “{origin_txt}”.")
+            return []
+
+        lines = []
+        for d in departures:
+            tstr = d.get("when", "—")
+            dirn = d.get("direction_name") or ""
+            rname = d.get("route_name") or ""
+            plat = f" (platform {d['platform_number']})" if d.get("platform_number") else ""
+            lines.append(f"• {tstr} — {rname} towards {dirn}{plat}")
+
+        header = f"Next {len(lines)} departures from {origin_txt} (static timetable):"
+        lines.append("\n(Showing scheduled times; real-time requires PTV keys.)")
+        dispatcher.utter_message(text="\n".join([header] + lines))
+        return []
