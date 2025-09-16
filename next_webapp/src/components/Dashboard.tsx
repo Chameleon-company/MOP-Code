@@ -17,7 +17,12 @@ import {
 } from "lucide-react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
 import { Users, Car, Trees, Home, DollarSign, Heart } from "lucide-react";
+
+import HeroCarousel from "./HeroCarousel";
+
+
 
 const style = `
 .main-container {
@@ -466,6 +471,18 @@ const style = `
 }
 `;
 
+const categories = [
+  { icon: "🏢", label: "EV Infrastructure" },
+  { icon: "🅿️", label: "Parking" },
+  { icon: "🚨", label: "Safety" },
+];
+
+const openPage = (label: string) => {
+  if (label === "EV Infrastructure") {
+    window.location.href = "/en/ev-infrastructure";
+  }
+};
+
 const responsive = {
 	superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
 	desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
@@ -749,6 +766,7 @@ const Dashboard = () => {
 							<p>{t("p2")}</p>
 						</section>
 
+
 						<section className="case-studies">
 							<Carousel responsive={responsive}>
 								{filteredCaseStudies.slice(0, 6).map((study) => (
@@ -799,6 +817,89 @@ const Dashboard = () => {
 			</div>
 		</>
 	);
+
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: style }} />
+      <div className="main-wrapper bg-white dark:bg-[#263238] text-black dark:text-white min-h-screen">
+        <div className="main-container">
+          <section className="hero-section">
+             {/*<Image src={mainimage} alt="main image1" />*/}
+            <HeroCarousel />
+          </section>
+
+          <section className="our-vision-section">
+            <div className="img-div">
+              <Image src={secondimage} alt="Second Image" />
+            </div>
+            <div className="text-container">
+              <h2 className="our-vision">{t("Our Vision")}</h2>
+              <p>{t("intro")}</p>
+            </div>
+          </section>
+
+          <section className="w-full max-w-6xl mx-auto mt-10 px-2 md:px-0">
+            <h3 className="text-xl font-semibold mb-3">Explore by category</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mb-2">
+                  {categories.map((cat, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => openPage(cat.label)}
+                  className="rounded-2xl border shadow-sm py-6 flex flex-col items-center bg-white dark:bg-gray-800 hover:shadow-md transition cursor-pointer"
+                >
+                  <span className="text-3xl mb-2">{cat.icon}</span>
+                  <span className="text-sm font-medium text-center">{cat.label}</span>
+                </div>
+                ))}
+              </div>
+          </section>
+
+          <section className="case-studies-wrapper">
+            <section className="recent-case-studies">
+              <h2>{t("Recent Case Studies")}</h2>
+              <p>{t("p2")}</p>
+            </section>
+
+            <section className="case-studies">
+              <Carousel responsive={responsive}>
+                {filteredCaseStudies.slice(0, 6).map((study) => (
+                  <div
+                    key={study.id}
+                    className="case-study p-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+                    onClick={() => handleCaseStudyClick(study)}
+                  >
+                    <div className="flex items-center justify-center mb-4">
+                      <FileText size={48} className="text-green-500" />
+                      <FileText size={48} className="text-teal-400 -ml-6" />
+                      <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
+                    </div>
+                    <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm text-center mb-2">
+                      {study.description.split(" ").length > 50
+                        ? `${study.description.split(" ").slice(0, 50).join(" ")}...`
+                        : study.description}
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Tags:</p>
+                      {study.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs px-2 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </Carousel>
+            </section>
+          </section>
+        </div>
+      </div>
+    </>
+  );
+
 };
 
 export default Dashboard;
