@@ -154,6 +154,12 @@
     "Click on logo to upload files": "Nhấp vào biểu tượng để tải lên tệp",
     "Upload File": "Tải lên Tệp",
     "Clear": "Xóa"
+  },
+  "hero": {
+    "hero-top": "Biến Ý Tưởng Thành Xuất Sắc Kỹ Thuật Số",
+    "hero-sub": "Khám phá cách các giải pháp sáng tạo của chúng tôi thúc đẩy thành công cho các doanh nghiệp trên toàn thế giới thông qua công nghệ tiên tiến và tư duy chiến lược",
+    "place_holder": "Tìm kiếm các nghiên cứu điển hình...",
+    "exploreCaseStudies": "Khám Phá Nghiên Cứu Điển Hình",
+    "watchVideo": "Xem Video"
   }
-
 }
