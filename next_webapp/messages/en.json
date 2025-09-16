@@ -161,6 +161,8 @@
     "Trimester 3": "Trimester 3",
     "Click on logo to upload files": "Click on logo to upload files",
     "Upload File": "Upload File",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "ClickOrDrag": "Click or drag file to upload",
+    "SupportedTypes": "Supported: PDF, DOCX, PNG…"
   }
 }
