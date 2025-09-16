@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, FileText } from "lucide-react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import HeroCarousel from "./HeroCarousel";
+
 
 const style = `
 .main-container {
@@ -140,6 +142,18 @@ const style = `
 }
 `;
 
+const categories = [
+  { icon: "🏢", label: "EV Infrastructure" },
+  { icon: "🅿️", label: "Parking" },
+  { icon: "🚨", label: "Safety" },
+];
+
+const openPage = (label: string) => {
+  if (label === "EV Infrastructure") {
+    window.location.href = "/en/ev-infrastructure";
+  }
+};
+
 const responsive = {
   superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
@@ -211,7 +225,8 @@ const Dashboard = () => {
       <div className="main-wrapper bg-white dark:bg-[#263238] text-black dark:text-white min-h-screen">
         <div className="main-container">
           <section className="hero-section">
-            <Image src={mainimage} alt="main image1" />
+             {/*<Image src={mainimage} alt="main image1" />*/}
+            <HeroCarousel />
           </section>
 
           <section className="our-vision-section">
@@ -222,6 +237,22 @@ const Dashboard = () => {
               <h2 className="our-vision">{t("Our Vision")}</h2>
               <p>{t("intro")}</p>
             </div>
+          </section>
+
+          <section className="w-full max-w-6xl mx-auto mt-10 px-2 md:px-0">
+            <h3 className="text-xl font-semibold mb-3">Explore by category</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mb-2">
+                  {categories.map((cat, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => openPage(cat.label)}
+                  className="rounded-2xl border shadow-sm py-6 flex flex-col items-center bg-white dark:bg-gray-800 hover:shadow-md transition cursor-pointer"
+                >
+                  <span className="text-3xl mb-2">{cat.icon}</span>
+                  <span className="text-sm font-medium text-center">{cat.label}</span>
+                </div>
+                ))}
+              </div>
           </section>
 
           <section className="case-studies-wrapper">
