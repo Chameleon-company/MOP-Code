@@ -131,7 +131,7 @@ export const useCases = [
         description:
           "Intelligent systems to manage recycling and reduce environmental impact.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00150_Waste_Efficiency_Argyle_Square_case_study.html",
       },
       {
         heading:
@@ -139,7 +139,7 @@ export const useCases = [
         description:
           "Analyze climate data to predict trends and take preventive measures.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00152_Evaluating_the_Impact_of_Urban_Heat_Islands_on_Community_Wellbeing.html",
       },
       {
         heading: "Biodiversity corridors creation Melbourne",
