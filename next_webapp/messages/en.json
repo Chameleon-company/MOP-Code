@@ -21,6 +21,7 @@
     "Statistics": "Statistics",
     "Upload": "Upload",
     "Log In": "Log In",
+    "Blogs": "Blogs",
     "Language": "Language",
     "English": "English",
     "Chinese": "Chinese",
@@ -162,14 +163,17 @@
     "Trimester 3": "Trimester 3",
     "Click on logo to upload files": "Click on logo to upload files",
     "Upload File": "Upload File",
+
     "Clear": "Clear"
   },
-  "hero": {
-    "hero-top": "Transforming Ideas Into Digital Excellence",
-    "hero-sub": "Discover how our innovative solutions drive success for businesses worldwide through cutting-edge technology and strategic thinking",
-    "place_holder": "Search case studies...",
-    "exploreCaseStudies": "Explore Case Studies",
-    "watchVideo": "Watch Video"
-  
-  }
+"hero": {
+  "hero-top": "Transforming Ideas Into Digital Excellence",
+  "hero-sub": "Discover how our innovative solutions drive success for businesses worldwide through cutting-edge technology and strategic thinking",
+  "place_holder": "Search case studies...",
+  "exploreCaseStudies": "Explore Case Studies",
+  "watchVideo": "Watch Video",
+  "Clear": "Clear",
+  "ClickOrDrag": "Click or drag file to upload",
+  "SupportedTypes": "Supported: PDF, DOCX, PNG…"
+}
 }
