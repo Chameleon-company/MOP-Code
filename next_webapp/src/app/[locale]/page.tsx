@@ -12,9 +12,7 @@ const Home = () => {
       <Header />
       <Dashboard />
       <Insights />
-
       <SocialMediaFeed />
-
       <Chatbot />
       <Footer />
     </div>
