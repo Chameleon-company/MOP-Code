@@ -155,6 +155,12 @@
     "Click on logo to upload files": "Clicca sul logo per caricare i file",
     "Upload File": "Carica file",
     "Clear": "Cancella"
+  },
+  "hero": {
+    "hero-top": "Trasformare le Idee in Eccellenza Digitale",
+    "hero-sub": "Scopri come le nostre soluzioni innovative guidano il successo delle imprese in tutto il mondo grazie alla tecnologia all'avanguardia e al pensiero strategico",
+    "place_holder": "Cerca casi di studio...",
+    "exploreCaseStudies": "Esplora Casi di Studio",
+    "watchVideo": "Guarda il Video"
   }
-
 }
