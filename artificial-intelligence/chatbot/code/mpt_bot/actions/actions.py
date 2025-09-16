@@ -42,7 +42,7 @@ async def favicon(request):
 # import warnings
 # warnings.filterwarnings("ignore", category=UserWarning, module='rasa.shared.utils.io')
 
-
+load_dotenv()
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -89,6 +89,9 @@ else:
 CSV_DATASET_PATH = "./mnt/metro_train_accessibility_cleaned.csv"
 station_data = pd.read_csv(CSV_DATASET_PATH)
 station_data['Station Name'] = station_data['Station Name'].str.strip().str.lower()
+# Hari - End Global Variables --------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
+# Juveria- start global variable-------------------------
 station_data['norm_name'] = (
     station_data['Station Name']
       .str.replace(' railway station', '', regex=False)
@@ -98,9 +101,7 @@ station_data['norm_name'] = (
       .str.replace(r'\s+', ' ', regex=True)
       .str.strip()
 )
-# Hari - End Global Variables --------------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------------------------------------------
-
+# Juveria-End GLobal variable-------------------
 class ActionFindNextTram(Action):
     """
     -------------------------------------------------------------------------------------------------------
