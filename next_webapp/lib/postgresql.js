@@ -10,16 +10,16 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 module.exports = supabase;
 
-// async function testConnection() {
-//   const { data, error } = await supabase.from('users').select('*').limit(1);
-//   if (error) {
-//     console.error('Error connecting to Supabase:', error);
-//     process.exit(1);
-//   }
-//   console.log('Supabase connection successful. Sample data:', data);
-// }
+async function testConnection() {
+  const { data, error } = await supabase.from('users').select('*').limit(1);
+  if (error) {
+    console.error('Error connecting to Supabase:', error);
+    process.exit(1);
+  }
+  console.log('Supabase connection successful. Sample data:', data);
+}
 
-// testConnection();
+testConnection();
 
 // // lib/mongodb.js
 // const mongoose = require('mongoose');
