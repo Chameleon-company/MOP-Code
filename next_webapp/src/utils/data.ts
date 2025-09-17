@@ -77,7 +77,7 @@ export const useCases = [
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/CommunityWellbeing.html",
       },
       {
         heading: "Social indicator changes",
