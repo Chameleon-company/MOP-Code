@@ -101,7 +101,7 @@ export const useCases = [
         description:
           "AI adapts lessons to individual student needs for better outcomes.",
         image: "/img/insights/ChldC.jpeg",
-        link: "/dummypages/UC00009_Childcare_Facilities_Analysis.html",
+        link: "/dummypages/Childcare_Facilities.html",
       },
       {
         heading: "Optimizing school infrastructure planning",
