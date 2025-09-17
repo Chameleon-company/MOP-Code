@@ -11,7 +11,7 @@ export const useCases = [
         description:
           "Leverage AI to analyze market trends and predict customer behavior.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Coworking_spaces.html",
       },
       {
         heading: "Enhancing job accessibility and opportunities in Melbourne",
