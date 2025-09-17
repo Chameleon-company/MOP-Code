@@ -1,0 +1,843 @@
+ServiceName,ServiceType,Address,Suburb,State,Postcode,Phone,full_address,Latitude,Longitude
+Where We Grow ELC Narre Warren,Centre-Based Care,36 Tinks Rd,NARRE WARREN,VIC,3805,387259959,"36 Tinks Rd, NARRE WARREN, VIC, 3805, Australia",-38.0090214,145.2919016
+Nido Early School Melbourne Square,Centre-Based Care,97-101 Kavanagh Street,SOUTHBANK,VIC,3006,385667259,"97-101 Kavanagh Street, SOUTHBANK, VIC, 3006, Australia",-37.8229386,144.9663883
+Kids Academy Bulleen,Centre-Based Care,54-58 Thompsons Road,BULLEEN,VIC,3105,370205356,"54-58 Thompsons Road, BULLEEN, VIC, 3105, Australia",-37.7735117,145.0952715
+Blairholme Early Learning Centre,Centre-Based Care,1034-1040 Malvern Rd,ARMADALE,VIC,3143,398647555,"1034-1040 Malvern Rd, ARMADALE, VIC, 3143, Australia",-37.850986,145.0240485
+Bright Beginnings Learning Centre Tarneit Pty Ltd,Centre-Based Care,1071 Leakes Rd,TARNEIT,VIC,3029,,"1071 Leakes Rd, TARNEIT, VIC, 3029, Australia",-37.8302642,144.6547753
+Explorers Early Learning - Essendon,Centre-Based Care,30-32 Lincoln Rd,ESSENDON,VIC,3040,392679060,"30-32 Lincoln Rd, ESSENDON, VIC, 3040, Australia",-37.7528123,144.9088365
+Journey Early Learning Centre Knoxfield,Centre-Based Care,52 Kathryn Road,KNOXFIELD,VIC,3180,387466987,"52 Kathryn Road, KNOXFIELD, VIC, 3180, Australia",-37.8896426,145.2492831
+Toot Toot Werribee,Centre-Based Care,19 Werribee St S,WERRIBEE,VIC,3030,391400990,"19 Werribee St S, WERRIBEE, VIC, 3030, Australia",-37.9070559,144.6574604
+Cranbourne Park PS TheirCare,Centre-Based Care,"Cranbourne Park Primary School, 1 Tucker St",CRANBOURNE,VIC,3977,1300072410,"Cranbourne Park Primary School, 1 Tucker St, CRANBOURNE, VIC, 3977, Australia",-38.1036924,145.2772415
+Ilim Learning Sanctuary - Glenroy,Centre-Based Care,48-50 Box Forest Rd,GLENROY,VIC,3046,393594444,"48-50 Box Forest Rd, GLENROY, VIC, 3046, Australia",-37.7023494,144.9558524
+MAYFIELD EARLY EDUCATION LYREBIRD DRIVE,Centre-Based Care,32 Partridge Cres,CARRUM DOWNS,VIC,3201,397828818,"32 Partridge Cres, CARRUM DOWNS, VIC, 3201, Australia",-38.1035139,145.1864314
+Woodlands St Kilda Road,Centre-Based Care,580 St Kilda Rd,MELBOURNE,VIC,3004,370316818,"580 St Kilda Rd, MELBOURNE, VIC, 3004, Australia",-37.8489056,144.9793697
+Team Holiday - Oakleigh,Centre-Based Care,"Oakleigh Primary School, 20 Warrigal Rd",OAKLEIGH,VIC,3166,1300035000,"Oakleigh Primary School, 20 Warrigal Rd, OAKLEIGH, VIC, 3166, Australia",-37.8947809,145.0887812
+Child's Play Tarneit,Centre-Based Care,642 Tarneit Rd,TARNEIT,VIC,3029,397482004,"642 Tarneit Rd, TARNEIT, VIC, 3029, Australia",-37.8516295,144.6681112
+TeamKids - Port Melbourne Primary,Centre-Based Care,415 Graham Street,PORT MELBOURNE,VIC,3207,1300035000,"415 Graham Street, PORT MELBOURNE, VIC, 3207, Australia",-37.8355583,144.9329632
+TeamKids - Lloyd Street Primary,Centre-Based Care,Lloyd Street,MALVERN EAST,VIC,3145,1300035000,"Lloyd Street, MALVERN EAST, VIC, 3145, Australia",-37.8728466,145.0558766
+Camp Australia - St Kevin's Hampton Park OSHC,Centre-Based Care,120 Hallam Road,HAMPTON PARK,VIC,3976,429137414,"120 Hallam Road, HAMPTON PARK, VIC, 3976, Australia",-38.0394549,145.2677696
+Maramba PS TheirCare,Centre-Based Care,Maramba Dr,NARRE WARREN,VIC,3805,1300072410,"Maramba Dr, NARRE WARREN, VIC, 3805, Australia",-38.0042881,145.304142
+Greater Dandenong Family Day Care Scheme,Family Day Care,39 Clow Street,DANDENONG,VIC,3175,385711805,"39 Clow Street, DANDENONG, VIC, 3175, Australia",-37.9846905,145.2167528
+TeamKids - Reservoir Views Primary,Centre-Based Care,110 St Vigeons Road,RESERVOIR,VIC,3073,1300035000,"110 St Vigeons Road, RESERVOIR, VIC, 3073, Australia",-37.7056221,145.0216783
+TeamKids - Cheltenham East Primary,Centre-Based Care,Silver Street,CHELTENHAM,VIC,3192,1300035000,"Silver Street, CHELTENHAM, VIC, 3192, Australia",-37.9645219,145.065362
+Greensborough OSHClub,Centre-Based Care,130 Grimshaw Street,GREENSBOROUGH,VIC,3088,447868204,"130 Grimshaw Street, GREENSBOROUGH, VIC, 3088, Australia",-37.7032341,145.0999797
+Kelly Club OSHC St Joseph's School,Centre-Based Care,571 Glenferrie Road,HAWTHORN,VIC,3122,409192923,"571 Glenferrie Road, HAWTHORN, VIC, 3122, Australia",-37.8260347,145.0334642
+"St Thomas Apostle OSHC, Greensborough",Centre-Based Care,251 Diamond Creek Road,GREENSBOROUGH,VIC,3088,493214132,"251 Diamond Creek Road, GREENSBOROUGH, VIC, 3088, Australia",-37.6820187,145.1186254
+Southmoor Primary School OSHC,Centre-Based Care,2 Rica Street,MOORABBIN,VIC,3189,395814847,"2 Rica Street, MOORABBIN, VIC, 3189, Australia",-37.9416008,145.056684
+Richmond CommunityOSH,Centre-Based Care,Brighton Street,RICHMOND,VIC,3121,477882819,"Brighton Street, RICHMOND, VIC, 3121, Australia",-37.8286917,144.9990024
+Glenroy West Primary School- VillageOSHC,Centre-Based Care,York Street,GLENROY,VIC,3046,405275674,"York Street, GLENROY, VIC, 3046, Australia",-37.7049908,144.9098374
+TeamKids - Bell Primary,Centre-Based Care,Oakover Road,PRESTON,VIC,3072,1300035000,"Oakover Road, PRESTON, VIC, 3072, Australia",-37.7486989,144.9890204
+Camp Australia - Craigieburn South Primary OSHC,Centre-Based Care,102 Hothlyn Drive,CRAIGIEBURN,VIC,3064,452247774,"102 Hothlyn Drive, CRAIGIEBURN, VIC, 3064, Australia",-37.6088371,144.9357824
+Child's Play Tarneit West,Centre-Based Care,4 Hermosa Dr,TARNEIT,VIC,3029,392420145,"4 Hermosa Dr, TARNEIT, VIC, 3029, Australia",-37.8437895,144.6395492
+Children's Corner Learning Center,Centre-Based Care,64 Wonga Rd,RINGWOOD,VIC,3134,370379999,"64 Wonga Rd, RINGWOOD, VIC, 3134, Australia",-37.7936803,145.2433477
+Aspire Early Education & Kindergarten Werribee,Centre-Based Care,1 Exploration Avenue,WERRIBEE,VIC,3030,1800978429,"1 Exploration Avenue, WERRIBEE, VIC, 3030, Australia",-37.9178148,144.6394289
+Fifth Avenue Day Care Centre,Centre-Based Care,5 Fifth Avenue,DANDENONG,VIC,3175,397923073,"5 Fifth Avenue, DANDENONG, VIC, 3175, Australia",-37.9821939,145.2050593
+Apollo Parkways Preschool,Centre-Based Care,31 Plenty River Drive,GREENSBOROUGH,VIC,3088,394358752,"31 Plenty River Drive, GREENSBOROUGH, VIC, 3088, Australia",-37.695424,145.1050906
+Grace Park Preschool,Centre-Based Care,179 Nepean Street,GREENSBOROUGH,VIC,3088,394356179,"179 Nepean Street, GREENSBOROUGH, VIC, 3088, Australia",-37.7131638,145.102972
+Greenhills Preschool,Centre-Based Care,37 St Helena Road,GREENSBOROUGH,VIC,3088,394343379,"37 St Helena Road, GREENSBOROUGH, VIC, 3088, Australia",-37.6995262,145.1128348
+Wahroonga Preschool,Centre-Based Care,66 Wahroonga Crescent,GREENSBOROUGH,VIC,3088,394346089,"66 Wahroonga Crescent, GREENSBOROUGH, VIC, 3088, Australia",-37.6920349,145.1293145
+Diamond Hills Preschool,Centre-Based Care,Diamond Hills Drive,GREENSBOROUGH,VIC,3088,394358694,"Diamond Hills Drive, GREENSBOROUGH, VIC, 3088, Australia",-37.6873491,145.1140384
+Joyce Avenue Children's Centre,Centre-Based Care,1 Joyce Avenue,GREENSBOROUGH,VIC,3088,394346098,"1 Joyce Avenue, GREENSBOROUGH, VIC, 3088, Australia",-37.70151,145.1075262
+Bulleen Preschool,Centre-Based Care,5 Derreck Avenue,BULLEEN,VIC,3105,343290426,"5 Derreck Avenue, BULLEEN, VIC, 3105, Australia",-37.7652813,145.090618
+Vista Valley Kindergarten,Centre-Based Care,3 Vista Street,BULLEEN,VIC,3105,398504043,"3 Vista Street, BULLEEN, VIC, 3105, Australia",-37.77781,145.1030984
+Doncaster Park Kindergarten,Centre-Based Care,18 Studley Street,DONCASTER,VIC,3108,398576774,"18 Studley Street, DONCASTER, VIC, 3108, Australia",-37.7823188,145.1134799
+Donvale Preschool,Centre-Based Care,7 Florence Avenue,DONVALE,VIC,3111,398746848,"7 Florence Avenue, DONVALE, VIC, 3111, Australia",-37.8001957,145.1811566
+Templestowe Preschool,Centre-Based Care,3 Swilk Street,TEMPLESTOWE,VIC,3106,343290451,"3 Swilk Street, TEMPLESTOWE, VIC, 3106, Australia",-37.7565276,145.1241041
+Yarra Valley Preschool,Centre-Based Care,34 Hakea Street,TEMPLESTOWE,VIC,3106,398461836,"34 Hakea Street, TEMPLESTOWE, VIC, 3106, Australia",-37.7559722,145.1325057
+Alpha Omega Early Education,Centre-Based Care,1 Hillcroft Drive,TEMPLESTOWE,VIC,3106,398463592,"1 Hillcroft Drive, TEMPLESTOWE, VIC, 3106, Australia",-37.7705103,145.1406251
+Yarraleen Preschool,Centre-Based Care,92 Rocklea Road,BULLEEN,VIC,3105,398508486,"92 Rocklea Road, BULLEEN, VIC, 3105, Australia",-37.7707698,145.0882651
+Doncaster Early Learning Child Care,Centre-Based Care,20 Turana Street,DONCASTER,VIC,3108,398402857,"20 Turana Street, DONCASTER, VIC, 3108, Australia",-37.7818385,145.1322446
+Moresby Avenue Child Care Centre,Centre-Based Care,6 Moresby Avenue,BULLEEN,VIC,3105,398507755,"6 Moresby Avenue, BULLEEN, VIC, 3105, Australia",-37.7754382,145.0939087
+Carey Early Learning Centre Donvale,Centre-Based Care,9 Era Court,DONVALE,VIC,3111,388778550,"9 Era Court, DONVALE, VIC, 3111, Australia",-37.772439,145.1856673
+Montessori Early Education Centre,Centre-Based Care,36A Mitcham Road,DONVALE,VIC,3111,398410800,"36A Mitcham Road, DONVALE, VIC, 3111, Australia",-37.7956917,145.1777633
+Wonderworld Childcare & Kinder,Centre-Based Care,104-106 Templestowe Rd,BULLEEN,VIC,3105,398501777,"104-106 Templestowe Rd, BULLEEN, VIC, 3105, Australia",-37.7559813,145.092562
+Beaver Street Kindergarten,Centre-Based Care,13 Beaver Street,ESSENDON,VIC,3040,392431565,"13 Beaver Street, ESSENDON, VIC, 3040, Australia",-37.7570518,144.9019911
+Penleigh & Essendon Grammar School - Raleigh St Kindergarten,Centre-Based Care,49-53 Raleigh St,ESSENDON,VIC,3040,390162000,"49-53 Raleigh St, ESSENDON, VIC, 3040, Australia",-37.7537732,144.9251
+Montgomery Park Kindergarten,Centre-Based Care,Hilda Street,ESSENDON,VIC,3040,392431580,"Hilda Street, ESSENDON, VIC, 3040, Australia",-37.7550009,144.9318814
+Montgomery Park Children's Centre,Centre-Based Care,47 Lawson Street,ESSENDON,VIC,3040,392431541,"47 Lawson Street, ESSENDON, VIC, 3040, Australia",-37.75589,144.9324555
+Parkmore PS TheirCare,Centre-Based Care,"Parkmore Primary School, 38-54 Jolimont Rd",FOREST HILL,VIC,3131,1300072410,"Parkmore Primary School, 38-54 Jolimont Rd, FOREST HILL, VIC, 3131, Australia",-37.8441951,145.1764729
+INSPIRE EARLY LEARNING JOURNEY PRESTON,Centre-Based Care,237-239 Murray Rd,PRESTON,VIC,3072,394781231,"237-239 Murray Rd, PRESTON, VIC, 3072, Australia",-37.7378647,145.0029824
+Big Childcare - Tarneit Rise PS OSHC,Centre-Based Care,"Tarneit Rise Primary School, 51-71 Hummingbird Bvd",TARNEIT,VIC,3029,1300273162,"Tarneit Rise Primary School, 51-71 Hummingbird Bvd, TARNEIT, VIC, 3029, Australia",-37.8371258,144.6649374
+South Melbourne OSHClub,Centre-Based Care,129 Ferrars St,SOUTHBANK,VIC,3006,448125999,"129 Ferrars St, SOUTHBANK, VIC, 3006, Australia",-37.8294756,144.9538306
+Lilydale Lakeside Children's Centre,Centre-Based Care,40-50 Melba Ave,LILYDALE,VIC,3140,388922561,"40-50 Melba Ave, LILYDALE, VIC, 3140, Australia",-37.7612201,145.3445217
+TeamKids - Methodist Ladies College,Centre-Based Care,"Methodist Ladies College, 207 Barkers Rd",KEW,VIC,3101,1300035000,"Methodist Ladies College, 207 Barkers Rd, KEW, VIC, 3101, Australia",-37.8137174,145.038613
+Guardian Childcare & Education Richmond,Centre-Based Care,67-81 Hoddle St,RICHMOND,VIC,3121,386523270,"67-81 Hoddle St, RICHMOND, VIC, 3121, Australia",-37.8123102,144.9912718
+Little Assets Forest Hill Early Learning Centre,Centre-Based Care,347 Burwood Hwy,FOREST HILL,VIC,3131,386092340,"347 Burwood Hwy, FOREST HILL, VIC, 3131, Australia",-37.8535439,145.1664117
+Little Assets Kew Early Learning Centre,Centre-Based Care,81-89 Cotham Rd,KEW,VIC,3101,386092341,"81-89 Cotham Rd, KEW, VIC, 3101, Australia",-37.8075255,145.0379436
+Papilio Early Learning Point Cook,Centre-Based Care,60 Florey Ave,POINT COOK,VIC,3030,383481735,"60 Florey Ave, POINT COOK, VIC, 3030, Australia",-37.8961311,144.7204876
+Nino Early Learning Adventures - Preston,Centre-Based Care,365 Bell St,PRESTON,VIC,3072,03 8582 7000,"365 Bell St, PRESTON, VIC, 3072, Australia",-37.7449844,145.0000195
+Kent Park Uniting Outside School Hours Care,Centre-Based Care,"Kent Park Primary School, 17 Greenaway Dr",FERNTREE GULLY,VIC,3156,436675696,"Kent Park Primary School, 17 Greenaway Dr, FERNTREE GULLY, VIC, 3156, Australia",-37.8831814,145.2632898
+Tarneit YMCA Early Learning Centre,Centre-Based Care,53 Mulholland Dr,TARNEIT,VIC,3029,383202610,"53 Mulholland Dr, TARNEIT, VIC, 3029, Australia",-37.8335164,144.6503315
+VERMONT CHILDREN'S CENTRE,Centre-Based Care,21 Stevens Rd,VERMONT,VIC,3133,398789800,"21 Stevens Rd, VERMONT, VIC, 3133, Australia",-37.8362598,145.1851453
+Leapkids Fitzroy Primary,Centre-Based Care,"Fitzroy Primary School, 319 George St",FITZROY,VIC,3065,1300366235,"Fitzroy Primary School, 319 George St, FITZROY, VIC, 3065, Australia",-37.7994412,144.9811554
+Ivy Kids Early Learning,Centre-Based Care,438-440 Springvale Rd,GLEN WAVERLEY,VIC,3150,389054293,"438-440 Springvale Rd, GLEN WAVERLEY, VIC, 3150, Australia",-37.8937594,145.1636378
+KinderPlay Early Learning Centre,Centre-Based Care,303 Springvale Rd,FOREST HILL,VIC,3131,398940901,"303 Springvale Rd, FOREST HILL, VIC, 3131, Australia",-37.8313098,145.1737783
+Wallaby Childcare Sanctuary Lakes,Centre-Based Care,80 Sanctuary Lakes North Bvd,POINT COOK,VIC,3030,370366209,"80 Sanctuary Lakes North Bvd, POINT COOK, VIC, 3030, Australia",-37.890465,144.7629416
+Sparkways Early Learning Carrum Downs,Centre-Based Care,45 YAZAKI WAY,CARRUM DOWNS,VIC,3201,397828720,"45 YAZAKI WAY, CARRUM DOWNS, VIC, 3201, Australia",-38.0944837,145.1742011
+Little Charlie's Early Learning Centre,Centre-Based Care,21 Selman Ave,FERNTREE GULLY,VIC,3156,397523719,"21 Selman Ave, FERNTREE GULLY, VIC, 3156, Australia",-37.885641,145.2945984
+Xavier College - Burke Hall Early Years Centre,Centre-Based Care,2 Nolan Avenue,KEW,VIC,3101,398554188,"2 Nolan Avenue, KEW, VIC, 3101, Australia",-37.8058947,145.0134005
+Gold Street Children's Centre - Keele Street Campus,Centre-Based Care,177 Keele Street,COLLINGWOOD,VIC,3066,384150970,"177 Keele Street, COLLINGWOOD, VIC, 3066, Australia",-37.7978919,144.9928151
+Barbary Crescent Preschool,Centre-Based Care,Barbary Cres,TAYLORS LAKES,VIC,3038,394494355,"Barbary Cres, TAYLORS LAKES, VIC, 3038, Australia",-37.7101029,144.792124
+Community Kids Hampton Park Early Education Centre,Centre-Based Care,47-51 Branton Dr,HAMPTON PARK,VIC,3976,397980999,"47-51 Branton Dr, HAMPTON PARK, VIC, 3976, Australia",-38.0411157,145.2529658
+Caulfield Grammar Pre-Prep,Centre-Based Care,74-82 Jells Rd,WHEELERS HILL,VIC,3150,385625300,"74-82 Jells Rd, WHEELERS HILL, VIC, 3150, Australia",-37.9015507,145.1965543
+Malcolm Creek Preschool,Centre-Based Care,Grand Boulevard,CRAIGIEBURN,VIC,3064,393084843,"Grand Boulevard, CRAIGIEBURN, VIC, 3064, Australia",-37.5835928,144.9364842
+Laverton Community Children's Centre,Centre-Based Care,15 Crown Street,LAVERTON,VIC,3028,393600964,"15 Crown Street, LAVERTON, VIC, 3028, Australia",-37.8663309,144.7685904
+Grow Early Education Tarneit,Centre-Based Care,76-84 Baden Powell Dr,TARNEIT,VIC,3029,387422800,"76-84 Baden Powell Dr, TARNEIT, VIC, 3029, Australia",-37.8413663,144.6952738
+Jamieson Way Community Centre - Kindergarten,Centre-Based Care,59 Jamieson Way,POINT COOK,VIC,3030,393957922,"59 Jamieson Way, POINT COOK, VIC, 3030, Australia",-37.8958262,144.7474898
+Dream Big Early Learning Centre,Centre-Based Care,97 High Street,DONCASTER,VIC,3108,98578204,"97 High Street, DONCASTER, VIC, 3108, Australia",-37.781513,145.1106944
+Clever Kids Early Learning Centre,Centre-Based Care,29 McCormicks Road,CARRUM DOWNS,VIC,3201,397824450,"29 McCormicks Road, CARRUM DOWNS, VIC, 3201, Australia",-38.1143876,145.1943464
+Kelly Club OSHC Barayip Primary School,Centre-Based Care,290 HUMMINGBIRD BVD,TARNEIT,VIC,3029,393842204,"290 HUMMINGBIRD BVD, TARNEIT, VIC, 3029, Australia",-37.83429,144.6412434
+BILLY-BEET CREEKSIDE,Centre-Based Care,13 YUILLE ST,MELTON,VIC,3337,,"13 YUILLE ST, MELTON, VIC, 3337, Australia",-37.6792633,144.5912327
+Inspire Early Learning Journey Doncaster,Centre-Based Care,456 DONCASTER RD,DONCASTER,VIC,3108,398191999,"456 DONCASTER RD, DONCASTER, VIC, 3108, Australia",-37.7878123,145.1105119
+Launchpad Early Learning Centre Greensborough,Centre-Based Care,12-18 LORIMER ST,GREENSBOROUGH,VIC,3088,400916387,"12-18 LORIMER ST, GREENSBOROUGH, VIC, 3088, Australia",-37.7025881,145.0980926
+Little Haven,Family Day Care,103 HEMSLEY PROM,POINT COOK,VIC,3030,,"103 HEMSLEY PROM, POINT COOK, VIC, 3030, Australia",-37.8948961,144.7375554
+Wattle Hill Kindergarten,Centre-Based Care,"WATTLE PARK PRIMARY SCHOOL, 225 WARRIGAL RD",BURWOOD,VIC,3125,398088848,"WATTLE PARK PRIMARY SCHOOL, 225 WARRIGAL RD, BURWOOD, VIC, 3125, Australia",-37.8427187,145.0983432
+Fawkner Kindergarten,Centre-Based Care,5 Lee St,FAWKNER,VIC,3060,93592480,"5 Lee St, FAWKNER, VIC, 3060, Australia",-37.7161283,144.9645607
+First Grammar Epping,Centre-Based Care,30 Woodcutters Grove,EPPING,VIC,3076,03 8401 4723,"30 Woodcutters Grove, EPPING, VIC, 3076, Australia",-37.6291485,145.0274763
+HELPING HUGS FAMILY DAY CARE PTY. LTD.,Family Day Care,3/3 Synnot Street,WERRIBEE,VIC,3030,397418241,"3/3 Synnot Street, WERRIBEE, VIC, 3030, Australia",-37.9013469,144.6640838
+York Street Kindergarten at Glenroy West Primary School,Centre-Based Care,"Glenroy West Primary School, 60 William St",GLENROY,VIC,3046,393043308,"Glenroy West Primary School, 60 William St, GLENROY, VIC, 3046, Australia",-37.7059763,144.9086853
+Camp Australia - Flinders Christian College OSHC,Centre-Based Care,100a Ballarto Rd,CARRUM DOWNS,VIC,3201,404801367,"100a Ballarto Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.115678,145.1806027
+Alamanda Kindergarten,Centre-Based Care,21 Prudence Parade,POINT COOK,VIC,3030,383531722,"21 Prudence Parade, POINT COOK, VIC, 3030, Australia",-37.9084685,144.7404257
+Glen Education North Cheltenham Kindergarten,Centre-Based Care,71 Argus Street,Cheltenham,VIC,3192,417114660,"71 Argus Street, Cheltenham, VIC, 3192, Australia",-37.9591858,145.0673798
+St Mary's Children Centre Kensington,Centre-Based Care,5-11 EPSOM RD,KENSINGTON,VIC,3031,414251251,"5-11 EPSOM RD, KENSINGTON, VIC, 3031, Australia",-37.7918309,144.9255112
+Early Learning Victoria Muyan,Centre-Based Care,30 Leith Avenue,Sunshine,VIC,3020,370427400,"30 Leith Avenue, Sunshine, VIC, 3020, Australia",-37.7914188,144.8298665
+Early Learning Victoria Wimbi,Centre-Based Care,84 LOWSON ST,FAWKNER,VIC,3060,390574444,"84 LOWSON ST, FAWKNER, VIC, 3060, Australia",-37.6991862,144.9730077
+Learning Ladder ELC Narre Warren,Centre-Based Care,6-8 Meadow Walk,Narre Warren,VIC,3805,385272772,"6-8 Meadow Walk, Narre Warren, VIC, 3805, Australia",-38.0236428,145.3007947
+Choklits Child Care,Centre-Based Care,319 Canterbury Road,RINGWOOD,VIC,3134,03 9879 5888,"319 Canterbury Road, RINGWOOD, VIC, 3134, Australia",-37.8321221,145.223829
+Discovery Childcare and Education (Ringwood),Centre-Based Care,30 Bond Street,RINGWOOD,VIC,3134,398798055,"30 Bond Street, RINGWOOD, VIC, 3134, Australia",-37.8139732,145.2209737
+North St Kilda Children's Centre,Centre-Based Care,71 Argyle Street,ST KILDA,VIC,3182,392096402,"71 Argyle Street, ST KILDA, VIC, 3182, Australia",-37.8629182,144.9882231
+St Michael's Grammar School Early Learning Centre,Centre-Based Care,8-12 Marlton Crescent,ST KILDA,VIC,3182,385303268,"8-12 Marlton Crescent, ST KILDA, VIC, 3182, Australia",-37.8585239,144.9895342
+Wesley College Melbourne St Kilda Road Early Childhood Learning Centre,Centre-Based Care,625 St Kilda Road,ST KILDA,VIC,3182,381026416,"625 St Kilda Road, ST KILDA, VIC, 3182, Australia",-37.8625457,144.9848168
+Hampton Community Kindergarten,Centre-Based Care,1A Myrtle Road,HAMPTON,VIC,3188,395983145,"1A Myrtle Road, HAMPTON, VIC, 3188, Australia",-37.9410072,145.0117657
+Helen Paul Kindergarten,Centre-Based Care,33 Kingston Street,HAMPTON,VIC,3188,03 9598 6416,"33 Kingston Street, HAMPTON, VIC, 3188, Australia",-37.9330966,145.0130973
+Holy Trinity Anglican Kindergarten,Centre-Based Care,8 Thomas Street,HAMPTON,VIC,3188,395988836,"8 Thomas Street, HAMPTON, VIC, 3188, Australia",-37.9389101,145.0036825
+Olinda Avenue Kindergarten,Centre-Based Care,2A Olinda Avenue,SPRINGVALE,VIC,3171,395469837,"2A Olinda Avenue, SPRINGVALE, VIC, 3171, Australia",-37.9586547,145.1440991
+Springvale 2 World of Learning,Centre-Based Care,20 Clive Street,SPRINGVALE,VIC,3171,395472538,"20 Clive Street, SPRINGVALE, VIC, 3171, Australia",-37.9346127,145.1492182
+Craigieburn Leisure Centre Creche,Centre-Based Care,127 Craigieburn Rd,CRAIGIEBURN,VIC,3064,392052659,"127 Craigieburn Rd, CRAIGIEBURN, VIC, 3064, Australia",-37.5940595,144.9100381
+KU Dianella Kindergarten,Centre-Based Care,6 Congo Dr,TARNEIT,VIC,3029,370031700,"6 Congo Dr, TARNEIT, VIC, 3029, Australia",-37.8556745,144.6469789
+Explorers Early Learning - Ashwood,Centre-Based Care,205 High Street Road,ASHWOOD,VIC,3147,392483000,"205 High Street Road, ASHWOOD, VIC, 3147, Australia",-37.867194,145.1078165
+Mt Pleasant Kindergarten,Centre-Based Care,Mount Pleasant Road,NUNAWADING,VIC,3131,398781730,"Mount Pleasant Road, NUNAWADING, VIC, 3131, Australia",-37.8259496,145.1782632
+PRESHIL,Centre-Based Care,395 Barkers Road,KEW,VIC,3101,398176136,"395 Barkers Road, KEW, VIC, 3101, Australia",-37.8160383,145.0522949
+Craigieburn West YMCA Early Learning Centre,Centre-Based Care,265 Waterview Blvd,CRAIGIEBURN,VIC,3064,383383900,"265 Waterview Blvd, CRAIGIEBURN, VIC, 3064, Australia",-37.5850114,144.9065973
+Vermont Primary School Outside School Hours Child Care Service,Centre-Based Care,10 Nurlendi Road,VERMONT,VIC,3133,398742511,"10 Nurlendi Road, VERMONT, VIC, 3133, Australia",-37.842984,145.1921936
+Camp Australia - Cranbourne East Primary School OSHC,Centre-Based Care,2 Bowyer Avenue,CRANBOURNE,VIC,3977,413411834,"2 Bowyer Avenue, CRANBOURNE, VIC, 3977, Australia",-38.1057712,145.304683
+St Justin's OSHC Wheelers Hill,Centre-Based Care,42 Whalley Drive,WHEELERS HILL,VIC,3150,493949170,"42 Whalley Drive, WHEELERS HILL, VIC, 3150, Australia",-37.9175853,145.1913875
+Oakleigh Primary School and Kindergarten OSHC,Centre-Based Care,20 Warrigal Road,OAKLEIGH,VIC,3166,03 9568 6315,"20 Warrigal Road, OAKLEIGH, VIC, 3166, Australia",-37.8947809,145.0887812
+Our Lady of Perpetual Help OSHC - Extend,Centre-Based Care,2 Wilana St,RINGWOOD,VIC,3134,1300366437,"2 Wilana St, RINGWOOD, VIC, 3134, Australia",-37.8164748,145.2320161
+Camp Australia - Ringwood Heights Primary School OSHC,Centre-Based Care,Summit Crescent,RINGWOOD,VIC,3134,417768636,"Summit Crescent, RINGWOOD, VIC, 3134, Australia",-37.8022208,145.2198423
+TeamKids - Kew Primary,Centre-Based Care,Peel Street,KEW,VIC,3101,1300035000,"Peel Street, KEW, VIC, 3101, Australia",-37.8026331,145.0333886
+Guardian Childcare & Education Prahran,Centre-Based Care,349 High Street,PRAHRAN,VIC,3181,395100611,"349 High Street, PRAHRAN, VIC, 3181, Australia",-37.8524788,144.9996315
+Camp Australia - Holy Name Primary School OSHC,Centre-Based Care,2 Robb Street,RESERVOIR,VIC,3073,418576410,"2 Robb Street, RESERVOIR, VIC, 3073, Australia",-37.7300942,145.0180329
+Newlands Out of School Hours Program,Centre-Based Care,"Newlands Primary School, 2-26 Murphy St",PRESTON,VIC,3072,393542928,"Newlands Primary School, 2-26 Murphy St, PRESTON, VIC, 3072, Australia",-37.7298156,144.9854531
+Camp Australia - Yarra Valley Grammar School OSHC,Centre-Based Care,Kalinda Rd,RINGWOOD,VIC,3134,424597085,"Kalinda Rd, RINGWOOD, VIC, 3134, Australia",-37.7816494,145.2562046
+Mayfield Early Education Melton,Centre-Based Care,31-33 Unitt St,MELTON,VIC,3337,397467008,"31-33 Unitt St, MELTON, VIC, 3337, Australia",-37.6815991,144.5861589
+Maria Montessori Preschool,Centre-Based Care,751-755 Ferntree Gully Rd,WHEELERS HILL,VIC,3150,395450764,"751-755 Ferntree Gully Rd, WHEELERS HILL, VIC, 3150, Australia",-37.9049013,145.1764777
+TeamKids - Ivanhoe Girls Grammar,Centre-Based Care,123 Marshall Street,IVANHOE,VIC,3079,1300035000,"123 Marshall Street, IVANHOE, VIC, 3079, Australia",-37.7668505,145.0469317
+Reservoir Primary Combined Out of School Hours Care,Centre-Based Care,Duffy Street,RESERVOIR,VIC,3073,03 9460 5798,"Duffy Street, RESERVOIR, VIC, 3073, Australia",-37.7108742,145.0073086
+Camp Australia - Knox Park Primary School OSHC,Centre-Based Care,"Knox Park Primary School, 117 Kathryn Rd",KNOXFIELD,VIC,3180,404423640,"Knox Park Primary School, 117 Kathryn Rd, KNOXFIELD, VIC, 3180, Australia",-37.8830709,145.2517125
+Camp Australia - St Mary's School Greensborough OSHC,Centre-Based Care,210 Grimshaw Street,GREENSBOROUGH,VIC,3088,431630835,"210 Grimshaw Street, GREENSBOROUGH, VIC, 3088, Australia",-37.7025524,145.0930957
+NCCP - Early Learning Centre,Centre-Based Care,Laughlin Ave,NUNAWADING,VIC,3131,398773555,"Laughlin Ave, NUNAWADING, VIC, 3131, Australia",-37.821437,145.1727358
+Starfish Early Learning Centre (Springvale),Centre-Based Care,28 St Johns Avenue,SPRINGVALE,VIC,3171,395742888,"28 St Johns Avenue, SPRINGVALE, VIC, 3171, Australia",-37.9517502,145.1494606
+Windermere Reserve Kindergarten,Centre-Based Care,"Preschool, 278 Windermere Dr",FERNTREE GULLY,VIC,3156,397631995,"Preschool, 278 Windermere Dr, FERNTREE GULLY, VIC, 3156, Australia",-37.8951023,145.2638381
+Kinder at Flinders,Centre-Based Care,100a Ballarto Rd,CARRUM DOWNS,VIC,3201,397850000,"100a Ballarto Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.115678,145.1806027
+Only About Children Armadale,Centre-Based Care,30 Kooyong Road,ARMADALE,VIC,3143,385295054,"30 Kooyong Road, ARMADALE, VIC, 3143, Australia",-37.8602616,145.0205767
+Pelican Childcare Newbury Boulevard,Centre-Based Care,197-199 Newbury Bvd,CRAIGIEBURN,VIC,3064,383333111,"197-199 Newbury Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.5717692,144.9090235
+Tulip Street Private Kindergarten,Centre-Based Care,150 Tulip St,CHELTENHAM,VIC,3192,395835424,"150 Tulip St, CHELTENHAM, VIC, 3192, Australia",-37.9645452,145.0345543
+Minaret Early Learning Centre - Springvale,Centre-Based Care,71 Whitworth Ave,SPRINGVALE,VIC,3171,385498601,"71 Whitworth Ave, SPRINGVALE, VIC, 3171, Australia",-37.9405388,145.1519827
+East Preston Islamic College Early Learning Centre,Centre-Based Care,55-57 Tyler St,PRESTON,VIC,3072,394783323,"55-57 Tyler St, PRESTON, VIC, 3072, Australia",-37.7341849,145.0355843
+Papilio Early Learning Essendon,Centre-Based Care,333 Keilor Rd,ESSENDON,VIC,3040,393516817,"333 Keilor Rd, ESSENDON, VIC, 3040, Australia",-37.7384412,144.8947895
+Barrymore Early Learning,Centre-Based Care,11 Barrymore Rd,GREENVALE,VIC,3059,383133071,"11 Barrymore Rd, GREENVALE, VIC, 3059, Australia",-37.6522247,144.8880921
+Kids Academy Point Cook,Centre-Based Care,1 WINTERBERRY RD,POINT COOK,VIC,3030,373007105,"1 WINTERBERRY RD, POINT COOK, VIC, 3030, Australia",-37.9065727,144.719641
+Vermont Primary School Kindergarten,Centre-Based Care,10 Nurlendi Road,VERMONT,VIC,3133,398744962,"10 Nurlendi Road, VERMONT, VIC, 3133, Australia",-37.842984,145.1921936
+Little Raskals Kindergarten & Child Care Centre,Centre-Based Care,94 Springvale Road,NUNAWADING,VIC,3131,398746401,"94 Springvale Road, NUNAWADING, VIC, 3131, Australia",-37.8140269,145.1763771
+Hughesdale Kindergarten,Centre-Based Care,10 Freda Street,HUGHESDALE,VIC,3166,395695019,"10 Freda Street, HUGHESDALE, VIC, 3166, Australia",-37.8971678,145.0777404
+St Johns Preschool,Centre-Based Care,2 Carmichael Road,OAKLEIGH,VIC,3166,343290448,"2 Carmichael Road, OAKLEIGH, VIC, 3166, Australia",-37.8980994,145.1137553
+Kanooka Child Care Centre,Centre-Based Care,29-31 Kanooka Gr,CLAYTON,VIC,3168,03 9544 9010,"29-31 Kanooka Gr, CLAYTON, VIC, 3168, Australia",-37.9197255,145.1260232
+Brine Street Early Learning Centre,Centre-Based Care,33 Brine Street,HUGHESDALE,VIC,3166,395183940,"33 Brine Street, HUGHESDALE, VIC, 3166, Australia",-37.9073366,145.0768423
+Monash Vale Early Learning Centre,Centre-Based Care,1758 Dandenong Road,CLAYTON,VIC,3168,395435099,"1758 Dandenong Road, CLAYTON, VIC, 3168, Australia",-37.9149271,145.1268692
+Renown Kindergarten,Centre-Based Care,20 Cliff Street,SOUTH YARRA,VIC,3141,398274747,"20 Cliff Street, SOUTH YARRA, VIC, 3141, Australia",-37.8436767,144.9931352
+Armadale Early Learning Centre,Centre-Based Care,3 Fulton Street,ARMADALE,VIC,3143,395093187,"3 Fulton Street, ARMADALE, VIC, 3143, Australia",-37.8532354,145.0137481
+Headland Montessori Alma Road,Centre-Based Care,76 Alma Rd,ST KILDA,VIC,3182,380808041,"76 Alma Rd, ST KILDA, VIC, 3182, Australia",-37.8614553,144.9915987
+Princes Close Early Years' Service,Centre-Based Care,17 Princes Street,PRAHRAN,VIC,3181,382903247,"17 Princes Street, PRAHRAN, VIC, 3181, Australia",-37.8495729,144.9969772
+Blake Street Kindergarten,Centre-Based Care,109 Blake Street,RESERVOIR,VIC,3073,394788037,"109 Blake Street, RESERVOIR, VIC, 3073, Australia",-37.7315105,145.0313754
+Merrilands Uniting Early Learning,Centre-Based Care,23-25 Ryan St,RESERVOIR,VIC,3073,394604674,"23-25 Ryan St, RESERVOIR, VIC, 3073, Australia",-37.7004873,144.9980218
+Gellibrand Crescent Kindergarten,Centre-Based Care,26 Gellibrand Crescent,RESERVOIR,VIC,3073,394605862,"26 Gellibrand Crescent, RESERVOIR, VIC, 3073, Australia",-37.7040542,145.0064386
+Gower Street Kindergarten,Centre-Based Care,146 Gower Street,PRESTON,VIC,3072,394785374,"146 Gower Street, PRESTON, VIC, 3072, Australia",-37.741809,145.017576
+Dewdrops Early Learning,Centre-Based Care,89 Delaware Street,RESERVOIR,VIC,3073,394783615,"89 Delaware Street, RESERVOIR, VIC, 3073, Australia",-37.7200247,145.0082648
+Darebin Childcare and Kindergarten Inc - Reservoir,Centre-Based Care,6-8 Kenilworth St,RESERVOIR,VIC,3073,394692226,"6-8 Kenilworth St, RESERVOIR, VIC, 3073, Australia",-37.7138894,145.0042641
+Edwardes Street Child Minding,Centre-Based Care,41 Edwardes Street,RESERVOIR,VIC,3073,03 9469 4640,"41 Edwardes Street, RESERVOIR, VIC, 3073, Australia",-37.7164181,145.004549
+Darebin Childcare and Kindergarten Inc - Preston,Centre-Based Care,260 Gower Street,PRESTON,VIC,3072,394713780,"260 Gower Street, PRESTON, VIC, 3072, Australia",-37.7404995,145.0067699
+Nara Community Early Learning Centre,Centre-Based Care,77-91 St Georges Rd,PRESTON,VIC,3072,03 9471 9914,"77-91 St Georges Rd, PRESTON, VIC, 3072, Australia",-37.741509,144.9978584
+Wood Street Childcare Centre,Centre-Based Care,272-272A Wood Street,PRESTON,VIC,3072,394711755,"272-272A Wood Street, PRESTON, VIC, 3072, Australia",-37.7362777,145.0306044
+Richmond Kindergarten,Centre-Based Care,92-104 Lord Street,RICHMOND,VIC,3121,394285173,"92-104 Lord Street, RICHMOND, VIC, 3121, Australia",-37.8207571,145.0049412
+Dame Nellie Melba Kindergarten,Centre-Based Care,18 Goodwood Street,RICHMOND,VIC,3121,394282282,"18 Goodwood Street, RICHMOND, VIC, 3121, Australia",-37.8197345,144.9934603
+Yarraberg Child Care & Community Centre,Centre-Based Care,4 River Street,RICHMOND,VIC,3121,392742740,"4 River Street, RICHMOND, VIC, 3121, Australia",-37.8150246,145.0129196
+Alpha Early Learning Centre,Centre-Based Care,8 Corsair Street,RICHMOND,VIC,3121,03 9429 1488,"8 Corsair Street, RICHMOND, VIC, 3121, Australia",-37.822573,145.005633
+Acacia Children's Centre,Centre-Based Care,13 Belgium Avenue,RICHMOND,VIC,3121,394296150,"13 Belgium Avenue, RICHMOND, VIC, 3121, Australia",-37.8145889,144.9975078
+Richmond Creche and Kindergarten Inc,Centre-Based Care,14 Abinger Street,RICHMOND,VIC,3121,03 9428 2663,"14 Abinger Street, RICHMOND, VIC, 3121, Australia",-37.8203721,145.0019325
+Sparkways Richmond Multicultural Childrenâ€™s Centre,Centre-Based Care,16 Gleadell Street,RICHMOND,VIC,3121,394286537,"16 Gleadell Street, RICHMOND, VIC, 3121, Australia",-37.8173502,145.001475
+Pinemont Preschool,Centre-Based Care,29 Hygeia Parade,RINGWOOD,VIC,3134,398703582,"29 Hygeia Parade, RINGWOOD, VIC, 3134, Australia",-37.8065474,145.2177918
+Ringwood Uniting Kindergarten,Centre-Based Care,2 Greenwood Avenue,RINGWOOD,VIC,3134,398701707,"2 Greenwood Avenue, RINGWOOD, VIC, 3134, Australia",-37.8163053,145.2304849
+Camp Australia - St Clement of Rome Catholic Primary School OSHC,Centre-Based Care,9-21 Egan Dr,BULLEEN,VIC,3105,1300018310,"9-21 Egan Dr, BULLEEN, VIC, 3105, Australia",-37.7681121,145.0903356
+Guardian Childcare & Education Tarneit,Centre-Based Care,32 Origin Dr,TARNEIT,VIC,3029,03 8001 7460,"32 Origin Dr, TARNEIT, VIC, 3029, Australia",-37.8212355,144.6925902
+Noriter Bilingual Early Learning,Centre-Based Care,2 Young St,SPRINGVALE,VIC,3171,395403331,"2 Young St, SPRINGVALE, VIC, 3171, Australia",-37.9342252,145.1552672
+Birches Early Learning Centre Carrum Downs,Centre-Based Care,57 McCormicks Rd,CARRUM DOWNS,VIC,3201,370360518,"57 McCormicks Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.1116984,145.1948429
+Leading Leaps PTY LTD,Centre-Based Care,83 Wootten Road,TARNEIT,VIC,3029,423041857,"83 Wootten Road, TARNEIT, VIC, 3029, Australia",-37.8538626,144.6596459
+Story House Early Learning Forest Hill,Centre-Based Care,269-271 Canterbury Rd,FOREST HILL,VIC,3131,398940747,"269-271 Canterbury Rd, FOREST HILL, VIC, 3131, Australia",-37.8341811,145.1688518
+First Five Early Learning Reservoir,Centre-Based Care,117 Edwardes St,RESERVOIR,VIC,3073,390886216,"117 Edwardes St, RESERVOIR, VIC, 3073, Australia",-37.7161171,144.9996199
+Youth Leadership Victoria Southern Cross,Centre-Based Care,21 David Collins Dr,ENDEAVOUR HILLS,VIC,3802,387906511,"21 David Collins Dr, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9888012,145.2652052
+Wheelers Hill Child Care Centre,Centre-Based Care,303-307 Jells Rd,WHEELERS HILL,VIC,3150,395617789,"303-307 Jells Rd, WHEELERS HILL, VIC, 3150, Australia",-37.9182562,145.1867223
+Turningpoint Early Learning Centre,Centre-Based Care,1785 South Gippsland Hwy,CRANBOURNE,VIC,3977,359953054,"1785 South Gippsland Hwy, CRANBOURNE, VIC, 3977, Australia",-38.1382745,145.3073487
+Camp Australia - Erasmus School OSHC,Centre-Based Care,40 Lisson Gr,HAWTHORN,VIC,3122,450775946,"40 Lisson Gr, HAWTHORN, VIC, 3122, Australia",-37.8274514,145.0314228
+TeamKids - Tarneit P-9 College,Centre-Based Care,Brinbrook St,TARNEIT,VIC,3029,1300035000,"Brinbrook St, TARNEIT, VIC, 3029, Australia",-37.8396686,144.678009
+TeamKids - Reservoir East Primary,Centre-Based Care,58 Boldrewood Pde,RESERVOIR,VIC,3073,1300 035 000,"58 Boldrewood Pde, RESERVOIR, VIC, 3073, Australia",-37.7200983,145.0225143
+Westbreen PS TheirCare,Centre-Based Care,"Westbreen Primary School, 2-10 Pascoe St",PASCOE VALE,VIC,3044,499330787,"Westbreen Primary School, 2-10 Pascoe St, PASCOE VALE, VIC, 3044, Australia",-37.7155191,144.9358808
+Goodstart Early Learning Altona,Centre-Based Care,24 Upton Street,ALTONA,VIC,3018,03 9398 4634,"24 Upton Street, ALTONA, VIC, 3018, Australia",-37.8671943,144.8237716
+Goodstart Early Learning Richmond,Centre-Based Care,319 Church Street,RICHMOND,VIC,3121,739182014,"319 Church Street, RICHMOND, VIC, 3121, Australia",-37.821944,144.9989596
+Goodstart Early Learning Reservoir,Centre-Based Care,20-22 Gertz Ave,RESERVOIR,VIC,3073,03 9462 2722,"20-22 Gertz Ave, RESERVOIR, VIC, 3073, Australia",-37.6996586,145.0312894
+Goodstart Early Learning Point Cook - Shaftsbury Boulevard,Centre-Based Care,1-5 Shaftsbury Boulevard,POINT COOK,VIC,3030,03 9395 1166,"1-5 Shaftsbury Boulevard, POINT COOK, VIC, 3030, Australia",-37.8883652,144.7440917
+Goodstart Early Learning Point Cook - The Strand,Centre-Based Care,71 The Strand,POINT COOK,VIC,3030,03 9395 7477,"71 The Strand, POINT COOK, VIC, 3030, Australia",-37.8804832,144.7440159
+Goodstart Early Learning Pascoe Vale - Cumberland Road West,Centre-Based Care,105 Cumberland Road,PASCOE VALE,VIC,3044,03 9354 3887,"105 Cumberland Road, PASCOE VALE, VIC, 3044, Australia",-37.7296032,144.938653
+Goodstart Early Learning Pascoe Vale - Cumberland Road East,Centre-Based Care,134 Cumberland Road,PASCOE VALE,VIC,3044,03 9354 3555,"134 Cumberland Road, PASCOE VALE, VIC, 3044, Australia",-37.7291337,144.9389904
+Goodstart Early Learning Preston - Regent Street,Centre-Based Care,22A Regent Street,PRESTON,VIC,3072,03 9471 4688,"22A Regent Street, PRESTON, VIC, 3072, Australia",-37.7303091,145.0020784
+Goodstart Early Learning Point Cook - Lemongrass Circuit,Centre-Based Care,21 Lemongrass Circuit,POINT COOK,VIC,3030,03 9395 2533,"21 Lemongrass Circuit, POINT COOK, VIC, 3030, Australia",-37.8848605,144.7321688
+Oakleigh Early Learning Journey,Centre-Based Care,1655 Dandenong Road,OAKLEIGH,VIC,3166,395695403,"1655 Dandenong Road, OAKLEIGH, VIC, 3166, Australia",-37.8933072,145.0923302
+Goodstart Early Learning Box Hill - Canterbury Road,Centre-Based Care,974 Canterbury Road,BOX HILL,VIC,3128,03 9899 9522,"974 Canterbury Road, BOX HILL, VIC, 3128, Australia",-37.830283,145.1356129
+Goodstart Early Learning Carrum Downs - Frankston-Dandenong Road,Centre-Based Care,1141-1143 Frankston-Dandenong Rd,CARRUM DOWNS,VIC,3201,03 8787 7000,"1141-1143 Frankston-Dandenong Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.0915568,145.1795722
+Goodstart Early Learning Cheltenham,Centre-Based Care,2 Jellicoe Street,CHELTENHAM,VIC,3192,03 9584 0999,"2 Jellicoe Street, CHELTENHAM, VIC, 3192, Australia",-37.9616118,145.0574392
+Goodstart Early Learning Croydon,Centre-Based Care,418 Mt Dandenong Road,CROYDON,VIC,3136,03 9722 9388,"418 Mt Dandenong Road, CROYDON, VIC, 3136, Australia",-37.8013035,145.3022048
+Goodstart Early Learning Carrum Downs - Arcadia Street,Centre-Based Care,4-6 Arcadia St,CARRUM DOWNS,VIC,3201,03 9776 8556,"4-6 Arcadia St, CARRUM DOWNS, VIC, 3201, Australia",-38.1140825,145.1883071
+Goodstart Early Learning Carrum Downs - Hall Road,Centre-Based Care,169 Hall Road,CARRUM DOWNS,VIC,3201,03 9782 0900,"169 Hall Road, CARRUM DOWNS, VIC, 3201, Australia",-38.1015059,145.1921763
+Goodstart Early Learning Endeavour Hills - Hanna Drive,Centre-Based Care,1-3 Hanna Dr,ENDEAVOUR HILLS,VIC,3802,03 9708 0033,"1-3 Hanna Dr, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9760342,145.2704618
+Goodstart Early Learning Hampton Park - Somerville Road,Centre-Based Care,160 Somerville Road,HAMPTON PARK,VIC,3976,03 9799 1174,"160 Somerville Road, HAMPTON PARK, VIC, 3976, Australia",-38.0318783,145.2640032
+Goodstart Early Learning Dandenong - Heatherton Road,Centre-Based Care,1390-1392 Heatherton Rd,DANDENONG,VIC,3175,03 9701 3233,"1390-1392 Heatherton Rd, DANDENONG, VIC, 3175, Australia",-37.968659,145.2021085
+Donvale Early Learning Centre,Centre-Based Care,11 Mitcham Road,DONVALE,VIC,3111,398417066,"11 Mitcham Road, DONVALE, VIC, 3111, Australia",-37.7912403,145.1749999
+Goodstart Early Learning Forest Hill - Fraser Place,Centre-Based Care,2 Fraser Place,FOREST HILL,VIC,3131,03 9878 6544,"2 Fraser Place, FOREST HILL, VIC, 3131, Australia",-37.8381253,145.1749325
+Goodstart Early Learning Ferntree Gully,Centre-Based Care,724 Burwood Highway,FERNTREE GULLY,VIC,3156,03 9752 3699,"724 Burwood Highway, FERNTREE GULLY, VIC, 3156, Australia",-37.8794609,145.2657977
+Goodstart Early Learning Epping - High Street,Centre-Based Care,792-796 High St,EPPING,VIC,3076,03 9408 9989,"792-796 High St, EPPING, VIC, 3076, Australia",-37.6481706,145.026217
+Imagine Childcare and Kindergarten Werribee,Centre-Based Care,24 Azolla Ave,WERRIBEE,VIC,3030,397317035,"24 Azolla Ave, WERRIBEE, VIC, 3030, Australia",-37.9227904,144.6282954
+Amiga Montessori Wallace Ave,Centre-Based Care,18 Wallace Ave,POINT COOK,VIC,3030,380013087,"18 Wallace Ave, POINT COOK, VIC, 3030, Australia",-37.8723682,144.743131
+Billy-Beet,Centre-Based Care,882 Edgars Rd,EPPING,VIC,3076,394091259,"882 Edgars Rd, EPPING, VIC, 3076, Australia",-37.6223593,145.0055818
+Fawkner PS TheirCare,Centre-Based Care,"Fawkner Primary School, 40 Lorne St",FAWKNER,VIC,3060,418357578,"Fawkner Primary School, 40 Lorne St, FAWKNER, VIC, 3060, Australia",-37.7152026,144.9739608
+EARLY BEGINNERS CHILD CARE CENTRE - GREENVALE,Centre-Based Care,1 Greenvale Gardens Bvd,GREENVALE,VIC,3059,359350039,"1 Greenvale Gardens Bvd, GREENVALE, VIC, 3059, Australia",-37.6227271,144.8828847
+Willmott Park Uniting Kindergarten,Centre-Based Care,"Willmott Park Primary School, 54 Dorchester St",CRAIGIEBURN,VIC,3064,383240484,"Willmott Park Primary School, 54 Dorchester St, CRAIGIEBURN, VIC, 3064, Australia",-37.5909883,144.921979
+The Fern Cheltenham,Centre-Based Care,238 Centre Dandenong Rd,CHELTENHAM,VIC,3192,385186041,"238 Centre Dandenong Rd, CHELTENHAM, VIC, 3192, Australia",-37.9695496,145.0847814
+3C Kidz Care - Edinburgh College,Centre-Based Care,"Lilydale Adventist Academy, 33-61 Edinburgh Rd",LILYDALE,VIC,3140,387903921,"Lilydale Adventist Academy, 33-61 Edinburgh Rd, LILYDALE, VIC, 3140, Australia",-37.7838388,145.3525525
+Green Bird Family Day Care,Family Day Care,24 Pasadena Cct,POINT COOK,VIC,3030,420635841,"24 Pasadena Cct, POINT COOK, VIC, 3030, Australia",-37.8982268,144.7228283
+Starfish Early Learning Centre (Essendon),Centre-Based Care,1 Melfort Ave,ESSENDON,VIC,3040,392893700,"1 Melfort Ave, ESSENDON, VIC, 3040, Australia",-37.744385,144.9267082
+Monash SDS TheirCare,Centre-Based Care,15-25 Academy Ave,WHEELERS HILL,VIC,3150,1300072410,"15-25 Academy Ave, WHEELERS HILL, VIC, 3150, Australia",-37.9068015,145.165934
+Little World Academy,Centre-Based Care,142 Werribee St N,WERRIBEE,VIC,3030,,"142 Werribee St N, WERRIBEE, VIC, 3030, Australia",-37.8982317,144.6508042
+Leapkids Ivanhoe Primary,Centre-Based Care,"Ivanhoe Primary School, 124 Waterdale Rd",IVANHOE,VIC,3079,425769211,"Ivanhoe Primary School, 124 Waterdale Rd, IVANHOE, VIC, 3079, Australia",-37.766654,145.0410979
+Amaary Family Day Care,Family Day Care,21 Clarendon Ave,CRAIGIEBURN,VIC,3064,393083394,"21 Clarendon Ave, CRAIGIEBURN, VIC, 3064, Australia",-37.5888099,144.9177198
+Wallaby Childcare Epping,Centre-Based Care,2 Shimmer St,EPPING,VIC,3076,03 8457 9966,"2 Shimmer St, EPPING, VIC, 3076, Australia",-37.6268404,145.0110253
+325 Early Education Craigieburn,Centre-Based Care,16 Bridgewater Road,CRAIGIEBURN,VIC,3064,393338882,"16 Bridgewater Road, CRAIGIEBURN, VIC, 3064, Australia",-37.599861,144.9296054
+Journey Early Learning Centre - Burwood,Centre-Based Care,3-5 Starling St,BURWOOD,VIC,3125,387466922,"3-5 Starling St, BURWOOD, VIC, 3125, Australia",-37.8521953,145.1267136
+Busy Bees at Craigieburn,Centre-Based Care,40 Hothlyn Drive,CRAIGIEBURN,VIC,3064,390688173,"40 Hothlyn Drive, CRAIGIEBURN, VIC, 3064, Australia",-37.6013413,144.9427303
+Guardian Childcare & Education Point Cook East,Centre-Based Care,11 Bensonhurst Parade,POINT COOK,VIC,3030,390684966,"11 Bensonhurst Parade, POINT COOK, VIC, 3030, Australia",-37.8905174,144.7132831
+Keilor Park Preschool,Centre-Based Care,Thea Ct,KEILOR PARK,VIC,3042,393363758,"Thea Ct, KEILOR PARK, VIC, 3042, Australia",-37.7202858,144.8579458
+Remus Way Children's Centre,Centre-Based Care,4 Remus Way,TAYLORS LAKES,VIC,3038,393909561,"4 Remus Way, TAYLORS LAKES, VIC, 3038, Australia",-37.7059939,144.78572
+Davis Street Kindergarten,Centre-Based Care,40 Davis Street,KEW,VIC,3101,398171492,"40 Davis Street, KEW, VIC, 3101, Australia",-37.8106741,145.0466545
+J J Mcmahon Memorial Kindergarten,Centre-Based Care,16A Argyle Road,KEW,VIC,3101,398173624,"16A Argyle Road, KEW, VIC, 3101, Australia",-37.8035318,145.0514175
+Studley Park Kindergarten,Centre-Based Care,31 Stawell Street,KEW,VIC,3101,343290449,"31 Stawell Street, KEW, VIC, 3101, Australia",-37.8053809,145.0233845
+Ruyton Early Learning Kindergarten & Pre Prep,Centre-Based Care,12 Selbourne Road,KEW,VIC,3101,392909350,"12 Selbourne Road, KEW, VIC, 3101, Australia",-37.8114087,145.0393991
+Argyle Road Child Care Centre,Centre-Based Care,14 Argyle Road,KEW,VIC,3101,398173467,"14 Argyle Road, KEW, VIC, 3101, Australia",-37.8034682,145.0509569
+Belford Oaks Community Children's Centre,Centre-Based Care,3 Belford Road,KEW,VIC,3101,398597148,"3 Belford Road, KEW, VIC, 3101, Australia",-37.8009357,145.0464374
+Peppercorn Early Learning Centre,Centre-Based Care,102 Princess Street,KEW,VIC,3101,398535260,"102 Princess Street, KEW, VIC, 3101, Australia",-37.8006786,145.0303022
+Carey Early Learning Centre Kew,Centre-Based Care,24 Wrixon Street,KEW,VIC,3101,03 9816 1411,"24 Wrixon Street, KEW, VIC, 3101, Australia",-37.81467,145.0466799
+Wattleview Uniting Kindergarten,Centre-Based Care,17 Fuchsia Street,FERNTREE GULLY,VIC,3156,387995090,"17 Fuchsia Street, FERNTREE GULLY, VIC, 3156, Australia",-37.875187,145.276808
+KU FW Kerr Kindergarten,Centre-Based Care,15 Roberts Street,FERNTREE GULLY,VIC,3156,397582069,"15 Roberts Street, FERNTREE GULLY, VIC, 3156, Australia",-37.8952285,145.289039
+KU Knoxfield Kindergarten,Centre-Based Care,81 Anne Road,KNOXFIELD,VIC,3180,397637200,"81 Anne Road, KNOXFIELD, VIC, 3180, Australia",-37.8891057,145.2481166
+Amaroo Child Care Centre,Centre-Based Care,65 Dorset Road,FERNTREE GULLY,VIC,3156,03 9758 1171,"65 Dorset Road, FERNTREE GULLY, VIC, 3156, Australia",-37.8782114,145.2842658
+Magic Garden Child Care Centre,Centre-Based Care,1 Linda Crescent,FERNTREE GULLY,VIC,3156,397581832,"1 Linda Crescent, FERNTREE GULLY, VIC, 3156, Australia",-37.8699705,145.2628551
+Johnson and Friends Childcare & Kinder,Centre-Based Care,779 Burwood Highway,FERNTREE GULLY,VIC,3156,397581217,"779 Burwood Highway, FERNTREE GULLY, VIC, 3156, Australia",-37.8803469,145.2715931
+Lilydale North Preschool,Centre-Based Care,Erldunda Court,LILYDALE,VIC,3140,397350110,"Erldunda Court, LILYDALE, VIC, 3140, Australia",-37.7486022,145.3393638
+Lakeview Kindergarten & Childcare,Centre-Based Care,24 Lakeview Drive,LILYDALE,VIC,3140,397395678,"24 Lakeview Drive, LILYDALE, VIC, 3140, Australia",-37.7754522,145.3571381
+Como Park Child Care & Kindergarten,Centre-Based Care,162-164 Nelson Rd,LILYDALE,VIC,3140,397396766,"162-164 Nelson Rd, LILYDALE, VIC, 3140, Australia",-37.7511735,145.3656169
+Malvern Memorial Kindergarten,Centre-Based Care,15 Orchard Street,ARMADALE,VIC,3143,395091609,"15 Orchard Street, ARMADALE, VIC, 3143, Australia",-37.8572589,145.0233353
+Ewing Kindergarten,Centre-Based Care,32A Manning Road,MALVERN EAST,VIC,3145,395713955,"32A Manning Road, MALVERN EAST, VIC, 3145, Australia",-37.8732763,145.0489032
+Malvern Early Learning and Child Care Centre,Centre-Based Care,9 Llaneast Street,ARMADALE,VIC,3143,395090739,"9 Llaneast Street, ARMADALE, VIC, 3143, Australia",-37.8613896,145.0273045
+Little Paddington Child Care Centre and Kindergarten,Centre-Based Care,412 Waverley Road,MALVERN EAST,VIC,3145,395723838,"412 Waverley Road, MALVERN EAST, VIC, 3145, Australia",-37.8781826,145.0652046
+Matrix Early Learning Fawkner,Centre-Based Care,1218-1220 SYDNEY RD,FAWKNER,VIC,3060,393596167,"1218-1220 SYDNEY RD, FAWKNER, VIC, 3060, Australia",-37.7141221,144.962218
+Quantin Binnah - St John the Apostle PS,Centre-Based Care,54 Kingbird Ave,TARNEIT,VIC,3029,397425040,"54 Kingbird Ave, TARNEIT, VIC, 3029, Australia",-37.8327264,144.6649266
+Oakhill Family Centre,Centre-Based Care,91 North Rd,RESERVOIR,VIC,3073,394701914,"91 North Rd, RESERVOIR, VIC, 3073, Australia",-37.7232491,145.0171727
+Camp Australia - Mount Ridley College OSHC,Centre-Based Care,2-30 Hampton St,CRAIGIEBURN,VIC,3064,413979209,"2-30 Hampton St, CRAIGIEBURN, VIC, 3064, Australia",-37.5783686,144.9210979
+Ruskin Park PS TheirCare,Centre-Based Care,"Ruskin Park Primary School, 18-20 Ruskin Ave",CROYDON,VIC,3136,1300072410,"Ruskin Park Primary School, 18-20 Ruskin Ave, CROYDON, VIC, 3136, Australia",-37.7985509,145.2972128
+Camp Australia - Lumen Christi Catholic School OSHC,Centre-Based Care,260-278 Point Cook Rd,POINT COOK,VIC,3030,423476343,"260-278 Point Cook Rd, POINT COOK, VIC, 3030, Australia",-37.8925105,144.7532587
+Kilberry Valley PS TheirCare,Centre-Based Care,Kilberry Bvd,HAMPTON PARK,VIC,3976,1300072410,"Kilberry Bvd, HAMPTON PARK, VIC, 3976, Australia",-38.0371627,145.2802794
+Rowellyn Park Primary School OSHC,Centre-Based Care,15 Rowellyn Avenue,CARRUM DOWNS,VIC,3201,397820080,"15 Rowellyn Avenue, CARRUM DOWNS, VIC, 3201, Australia",-38.1043832,145.1915326
+Merri-bek Family Day Care,Family Day Care,90 Bell Street,COBURG,VIC,3058,392402300,"90 Bell Street, COBURG, VIC, 3058, Australia",-37.7410304,144.9695238
+Carlton Gardens OSHClub,Centre-Based Care,201-215 Rathdowne St,CARLTON,VIC,3053,431608071,"201-215 Rathdowne St, CARLTON, VIC, 3053, Australia",-37.8039577,144.9693087
+Camp Australia - Victoria Road Primary School OSHC,Centre-Based Care,Bowen Road,LILYDALE,VIC,3140,406931844,"Bowen Road, LILYDALE, VIC, 3140, Australia",-37.7563534,145.3373004
+St Carlo Borromeo OSHClub,Centre-Based Care,5-9 Drummond St,GREENVALE,VIC,3059,431339221,"5-9 Drummond St, GREENVALE, VIC, 3059, Australia",-37.6535046,144.8894846
+Glen Waverley South Primary School  OSHC Program,Centre-Based Care,Whites Lane,GLEN WAVERLEY,VIC,3150,395606371,"Whites Lane, GLEN WAVERLEY, VIC, 3150, Australia",-37.8971361,145.1714612
+Wheeler's Hill Primary School OSHC,Centre-Based Care,134-148 Whites Lane,WHEELERS HILL,VIC,3150,395613457,"134-148 Whites Lane, WHEELERS HILL, VIC, 3150, Australia",-37.9010346,145.1777309
+Greenvale PS TheirCare,Centre-Based Care,12-24 Bradford Avenue,GREENVALE,VIC,3059,438975813,"12-24 Bradford Avenue, GREENVALE, VIC, 3059, Australia",-37.6402096,144.8868424
+Pascoe Vale Primary School OSHC,Centre-Based Care,Gaffney Street,PASCOE VALE,VIC,3044,393541611,"Gaffney Street, PASCOE VALE, VIC, 3044, Australia",-37.7304094,144.9286915
+"Holy Rosary OSHC, Kensington",Centre-Based Care,37 Gower Street,KENSINGTON,VIC,3031,493214291,"37 Gower Street, KENSINGTON, VIC, 3031, Australia",-37.7955496,144.9290581
+Preston West Primary School BASCP,Centre-Based Care,383 Murray Rd,PRESTON,VIC,3072,0,"383 Murray Rd, PRESTON, VIC, 3072, Australia",-37.7378429,144.9956343
+BYK KIDS,Centre-Based Care,Manuka Dr,FERNTREE GULLY,VIC,3156,,"Manuka Dr, FERNTREE GULLY, VIC, 3156, Australia",-37.8689509,145.265637
+TeamKids - Sacred Heart Primary,Centre-Based Care,35 Wicklow Avenue,CROYDON,VIC,3136,1300035000,"35 Wicklow Avenue, CROYDON, VIC, 3136, Australia",-37.7979727,145.2756076
+The Grove Children's Centre,Centre-Based Care,38-40 The Grove,COBURG,VIC,3058,03 9386 3033,"38-40 The Grove, COBURG, VIC, 3058, Australia",-37.7520341,144.9701579
+Camp Australia - St Patrick's School Lilydale OSHC,Centre-Based Care,Jones Street,LILYDALE,VIC,3140,452213049,"Jones Street, LILYDALE, VIC, 3140, Australia",-37.7530057,145.3522097
+Camp Australia - Stella Maris Catholic Primary School OSHC,Centre-Based Care,54-70 Innisfail Dr,POINT COOK,VIC,3030,401571286,"54-70 Innisfail Dr, POINT COOK, VIC, 3030, Australia",-37.8906864,144.7276514
+Carrington Primary School OSHC,Centre-Based Care,Laura Road,KNOXFIELD,VIC,3180,03 9763 9600,"Laura Road, KNOXFIELD, VIC, 3180, Australia",-37.8940672,145.2398836
+TeamKids - Wyndham Park Primary,Centre-Based Care,77 Kookaburra Avenue,WERRIBEE,VIC,3030,1300035000,"77 Kookaburra Avenue, WERRIBEE, VIC, 3030, Australia",-37.8852633,144.6809395
+Little Oak Early Learning Centre,Centre-Based Care,53-55 Shaws Rd,WERRIBEE,VIC,3030,03 8731 1500,"53-55 Shaws Rd, WERRIBEE, VIC, 3030, Australia",-37.8882882,144.6485808
+ALPHA KIDZ FAMILY DAY CARE,Family Day Care,7 Zeta Crescent,POINT COOK,VIC,3030,451148713,"7 Zeta Crescent, POINT COOK, VIC, 3030, Australia",-37.8837581,144.7383816
+Kingston Heath PS TheirCare,Centre-Based Care,"Kingston Heath Primary School, 25 Farm Rd",CHELTENHAM,VIC,3192,,"Kingston Heath Primary School, 25 Farm Rd, CHELTENHAM, VIC, 3192, Australia",-37.9622203,145.0791608
+Aspire Early Education & Kindergarten Wollert,Centre-Based Care,335 Harvest Home Rd,EPPING,VIC,3076,1800978429,"335 Harvest Home Rd, EPPING, VIC, 3076, Australia",-37.6209948,145.0049177
+Inspire and play early learning centre,Centre-Based Care,28 Haverstock Hill Cl,ENDEAVOUR HILLS,VIC,3802,432356775,"28 Haverstock Hill Cl, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9704549,145.2491529
+Edu-Play Early Learning Centre,Centre-Based Care,47 Railway St N,ALTONA,VIC,3018,390008916,"47 Railway St N, ALTONA, VIC, 3018, Australia",-37.867263,144.833795
+Explorers Early Learning - Kooyong Road,Centre-Based Care,117 Kooyong Rd,ARMADALE,VIC,3143,392483030,"117 Kooyong Rd, ARMADALE, VIC, 3143, Australia",-37.8528618,145.0208771
+The Learning Space Coburg,Centre-Based Care,222a Bell St,COBURG,VIC,3058,393505000,"222a Bell St, COBURG, VIC, 3058, Australia",-37.7402624,144.9576677
+Brighton Street Early Learning,Centre-Based Care,68 Brighton St,RICHMOND,VIC,3121,384149988,"68 Brighton St, RICHMOND, VIC, 3121, Australia",-37.8288795,144.9987945
+Holy Trinity Early Learning Centre,Centre-Based Care,251 High St,KEW,VIC,3101,407563027,"251 High St, KEW, VIC, 3101, Australia",-37.8055307,145.0341344
+Newbury PS TheirCare,Centre-Based Care,"Newbury Primary School, 202-226 Newbury Bvd",CRAIGIEBURN,VIC,3064,1300072410,"Newbury Primary School, 202-226 Newbury Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.570759,144.9106206
+Kids Academy Kensington,Centre-Based Care,64 Stubbs St,KENSINGTON,VIC,3031,370205350,"64 Stubbs St, KENSINGTON, VIC, 3031, Australia",-37.7911909,144.9353268
+Explorers Early Learning - Tarneit,Centre-Based Care,80 Homebush Dr,TARNEIT,VIC,3029,03 7020 9066,"80 Homebush Dr, TARNEIT, VIC, 3029, Australia",-37.8406208,144.6422804
+Strong Drive Kindergarten,Centre-Based Care,101 Strong Drive,HAMPTON PARK,VIC,3976,03 9799 9095,"101 Strong Drive, HAMPTON PARK, VIC, 3976, Australia",-38.0334246,145.2772051
+Melbourne Juniors,Centre-Based Care,24 Sheila Street,PRESTON,VIC,3072,394702844,"24 Sheila Street, PRESTON, VIC, 3072, Australia",-37.7391285,145.0246446
+Tarneit Kindergarten,Centre-Based Care,150 Sunset Views Boulevard,TARNEIT,VIC,3029,397484399,"150 Sunset Views Boulevard, TARNEIT, VIC, 3029, Australia",-37.8354506,144.6960384
+Malin Friends Nursery and Kindergarten,Centre-Based Care,305 Barkers Road,KEW,VIC,3101,398177788,"305 Barkers Road, KEW, VIC, 3101, Australia",-37.815424,145.0446196
+Kids on Gallaghers Child Care Centre,Centre-Based Care,254 Gallaghers Road,GLEN WAVERLEY,VIC,3150,03 9590 0321,"254 Gallaghers Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8816745,145.1779932
+Little Sunshine Early Learning,Centre-Based Care,2 Hedge End Road,NUNAWADING,VIC,3131,398723799,"2 Hedge End Road, NUNAWADING, VIC, 3131, Australia",-37.8029191,145.1868512
+Bambou Early Learning Centre,Centre-Based Care,464- 468 Blackburn Road,GLEN WAVERLEY,VIC,3150,398866563,"464- 468 Blackburn Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8999545,145.1432469
+Point Cook Community Learning Centre Kindergarten,Centre-Based Care,1-21 Cheetham St,POINT COOK,VIC,3030,393958322,"1-21 Cheetham St, POINT COOK, VIC, 3030, Australia",-37.881953,144.7358235
+Casa Bambini Children's Centre - Essendon,Centre-Based Care,259-261 Buckley St,ESSENDON,VIC,3040,393373866,"259-261 Buckley St, ESSENDON, VIC, 3040, Australia",-37.7556792,144.903431
+Kids Own Early Childhood Learning Centre,Centre-Based Care,421-423 Dorset Rd,CROYDON,VIC,3136,397256799,"421-423 Dorset Rd, CROYDON, VIC, 3136, Australia",-37.7781926,145.294012
+Busy Bees at Glenroy,Centre-Based Care,51 Gladstone Parade,GLENROY,VIC,3046,393068418,"51 Gladstone Parade, GLENROY, VIC, 3046, Australia",-37.7090763,144.90926
+Yaringa Kindergarten and Early Learning Centre,Centre-Based Care,142-144 Camms Road,CRANBOURNE,VIC,3977,03 5995 4970,"142-144 Camms Road, CRANBOURNE, VIC, 3977, Australia",-38.0999873,145.2919436
+MAYFIELD EARLY EDUCATION LILYDALE,Centre-Based Care,35-37 Cave Hill Rd,LILYDALE,VIC,3140,397355366,"35-37 Cave Hill Rd, LILYDALE, VIC, 3140, Australia",-37.7569101,145.3426473
+Baby college Ashwood,Centre-Based Care,66-70 High Street Rd,ASHWOOD,VIC,3147,370479333,"66-70 High Street Rd, ASHWOOD, VIC, 3147, Australia",-37.866422,145.0970552
+Gowrie Victoria The Harbour,Centre-Based Care,1 Seafarer Lane,DOCKLANDS,VIC,3008,386241000,"1 Seafarer Lane, DOCKLANDS, VIC, 3008, Australia",-37.8206006,144.943009
+Great Beginnings Reservoir,Centre-Based Care,763 Gilbert Road,RESERVOIR,VIC,3073,394789222,"763 Gilbert Road, RESERVOIR, VIC, 3073, Australia",-37.719383,144.9929121
+Bridge Road Early Learning Centre,Centre-Based Care,624-628 Bridge Rd,RICHMOND,VIC,3121,394292944,"624-628 Bridge Rd, RICHMOND, VIC, 3121, Australia",-37.8200721,145.0118057
+Red Apple Early Learning Centre,Centre-Based Care,487-489 Canterbury Rd,VERMONT,VIC,3133,398737300,"487-489 Canterbury Rd, VERMONT, VIC, 3133, Australia",-37.8355758,145.1965068
+Community Children - Essendon,Centre-Based Care,50 Cooper Street,ESSENDON,VIC,3040,03 9337 6634,"50 Cooper Street, ESSENDON, VIC, 3040, Australia",-37.7500247,144.8976529
+Ferntree Gully Children's Centre,Centre-Based Care,897 Burwood Highway,FERNTREE GULLY,VIC,3156,03 9753 5755,"897 Burwood Highway, FERNTREE GULLY, VIC, 3156, Australia",-37.8835614,145.2820423
+Penguin Childcare Epping,Centre-Based Care,9 Church Street,EPPING,VIC,3076,384053266,"9 Church Street, EPPING, VIC, 3076, Australia",-37.6460973,145.0254691
+Maroondah Kids Early Learning Centre,Centre-Based Care,109 Alto Avenue,CROYDON,VIC,3136,397252225,"109 Alto Avenue, CROYDON, VIC, 3136, Australia",-37.7895611,145.2686099
+Discovery Childcare and Education,Centre-Based Care,50 Maroondah Hwy,CROYDON,VIC,3136,03 9722 8933,"50 Maroondah Hwy, CROYDON, VIC, 3136, Australia",-37.7911265,145.2645852
+Bloom Early Learning Malvern East,Centre-Based Care,1-3 Olive St,MALVERN EAST,VIC,3145,413608528,"1-3 Olive St, MALVERN EAST, VIC, 3145, Australia",-37.8754615,145.059969
+Epping North YMCA Early Learning Centre,Centre-Based Care,"Harvest Home Primary School, 365 Harvest Home Rd",EPPING,VIC,3076,383710520,"Harvest Home Primary School, 365 Harvest Home Rd, EPPING, VIC, 3076, Australia",-37.6228311,145.0025068
+Happy Hubbub,Centre-Based Care,239a Murray Rd,PRESTON,VIC,3072,1300482282,"239a Murray Rd, PRESTON, VIC, 3072, Australia",-37.7382317,145.0051973
+Future Kids Child Care-West Tarneit,Centre-Based Care,999 LEAKES ROAD,TARNEIT,VIC,3029,03 8578 0322,"999 LEAKES ROAD, TARNEIT, VIC, 3029, Australia",-37.8311551,144.6634072
+TeamKids - Nearnung Primary,Centre-Based Care,85 Polly Pde,TARNEIT,VIC,3029,1300035000,"85 Polly Pde, TARNEIT, VIC, 3029, Australia",-37.8248981,144.6849057
+Early Education and Care,Centre-Based Care,216 Craigieburn Rd,CRAIGIEBURN,VIC,3064,420733579,"216 Craigieburn Rd, CRAIGIEBURN, VIC, 3064, Australia",-37.5972115,144.9276629
+Inspire Early Learning Journey Reservoir,Centre-Based Care,823-825 Plenty Rd,RESERVOIR,VIC,3073,,"823-825 Plenty Rd, RESERVOIR, VIC, 3073, Australia",-37.7254868,145.0232252
+Precious Seeds Early Learning Centre Hallam,Centre-Based Care,99 Frawley Rd,HALLAM,VIC,3803,397023111,"99 Frawley Rd, HALLAM, VIC, 3803, Australia",-38.0013354,145.2746802
+Wayi School TheirCare,Centre-Based Care,1200 Aitken Bvd,CRAIGIEBURN,VIC,3064,1300072410,"1200 Aitken Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.5763372,144.9217911
+Meadowglen  Primary School Kindergarten,Centre-Based Care,3 Pommel Crescent,EPPING,VIC,3076,394744861,"3 Pommel Crescent, EPPING, VIC, 3076, Australia",-37.64246,145.0541312
+Reservoir East Primary School Kindergarten,Centre-Based Care,"Reservoir East Primary School, 58 Boldrewood Pde",RESERVOIR,VIC,3073,394744865,"Reservoir East Primary School, 58 Boldrewood Pde, RESERVOIR, VIC, 3073, Australia",-37.7200983,145.0225143
+Camp Australia - Mossgiel Park Primary School OSHC,Centre-Based Care,71 Scotsburn Way,ENDEAVOUR HILLS,VIC,3802,1300105343,"71 Scotsburn Way, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9682455,145.2666688
+YMCA - Moomba Park Primary School OSHC,Centre-Based Care,"Moomba Park Primary School, 111 Anderson Rd",FAWKNER,VIC,3060,499222547,"Moomba Park Primary School, 111 Anderson Rd, FAWKNER, VIC, 3060, Australia",-37.6969508,144.9664731
+Narre Warren Early Learning Centre,Centre-Based Care,102 Anaconda Road,NARRE WARREN,VIC,3805,397051311,"102 Anaconda Road, NARRE WARREN, VIC, 3805, Australia",-38.001616,145.3049318
+Guardian Childcare & Education Box Hill,Centre-Based Care,24 Sweetland Road,BOX HILL,VIC,3128,398904257,"24 Sweetland Road, BOX HILL, VIC, 3128, Australia",-37.8246298,145.1352021
+Moomba Park Kindergarten,Centre-Based Care,65 Alec Cres,FAWKNER,VIC,3060,393596204,"65 Alec Cres, FAWKNER, VIC, 3060, Australia",-37.6934896,144.969467
+Joybelle Child Care Centre,Centre-Based Care,1346 Sydney Road,FAWKNER,VIC,3060,393591504,"1346 Sydney Road, FAWKNER, VIC, 3060, Australia",-37.6951079,144.9595492
+Belle Vue Park Kindergarten,Centre-Based Care,"Belle Vue Park Primary School, Morell Street",GLENROY,VIC,3046,393064868,"Belle Vue Park Primary School, Morell Street, GLENROY, VIC, 3046, Australia",-37.7013419,144.9434581
+Small Friends Childcare & Education Pearl Street,Centre-Based Care,2 Pearl Street,GLENROY,VIC,3046,393068366,"2 Pearl Street, GLENROY, VIC, 3046, Australia",-37.709532,144.9271345
+East Brunswick Kindergarten,Centre-Based Care,2 Noel Street,EAST BRUNSWICK,VIC,3057,394893037,"2 Noel Street, EAST BRUNSWICK, VIC, 3057, Australia",-37.7727152,144.9804457
+Bank Street Preschool,Centre-Based Care,26 Bank Street,CRAIGIEBURN,VIC,3064,393081129,"26 Bank Street, CRAIGIEBURN, VIC, 3064, Australia",-37.5929362,144.9283465
+Mitford Crescent Preschool,Centre-Based Care,14 Mitford Crescent,CRAIGIEBURN,VIC,3064,393082299,"14 Mitford Crescent, CRAIGIEBURN, VIC, 3064, Australia",-37.6066213,144.9378633
+Pembroke Crescent Preschool Centre,Centre-Based Care,48 Pembroke Crescent,CRAIGIEBURN,VIC,3064,393083544,"48 Pembroke Crescent, CRAIGIEBURN, VIC, 3064, Australia",-37.6042462,144.9247592
+Barrymore Road Children's Centre,Centre-Based Care,27 Barrymore Road,GREENVALE,VIC,3059,436928811,"27 Barrymore Road, GREENVALE, VIC, 3059, Australia",-37.6508109,144.8934132
+Craigieburn Early Childhood Services Centre,Centre-Based Care,153 Craigieburn Road,CRAIGIEBURN,VIC,3064,393566150,"153 Craigieburn Road, CRAIGIEBURN, VIC, 3064, Australia",-37.5985163,144.9350616
+Milestones Early Learning Tarneit,Centre-Based Care,345 Hogans Rd,TARNEIT,VIC,3029,387548653,"345 Hogans Rd, TARNEIT, VIC, 3029, Australia",-37.860659,144.6629026
+Barring Djinang Kindergarten,Centre-Based Care,129 Ferrars St,SOUTHBANK,VIC,3006,392096840,"129 Ferrars St, SOUTHBANK, VIC, 3006, Australia",-37.8294756,144.9538306
+FIRST FIVE EARLY LEARNING CRANBOURNE,Centre-Based Care,2-8 Bendigo Ct,CRANBOURNE,VIC,3977,739020370,"2-8 Bendigo Ct, CRANBOURNE, VIC, 3977, Australia",-38.085165,145.2831303
+Only About Children Hawthorn,Centre-Based Care,140-142 Barkers Rd,HAWTHORN,VIC,3122,385295074,"140-142 Barkers Rd, HAWTHORN, VIC, 3122, Australia",-37.8140672,145.0301534
+Team Holiday - St Kilda Park,Centre-Based Care,68 Fitzroy Street,ST KILDA,VIC,3182,1300035000,"68 Fitzroy Street, ST KILDA, VIC, 3182, Australia",-37.8579557,144.977463
+Nido Early School Donvale,Centre-Based Care,318-320 Springvale Rd,DONVALE,VIC,3111,385939434,"318-320 Springvale Rd, DONVALE, VIC, 3111, Australia",-37.793955,145.1794728
+Camp Australia - Sunshine Primary School OSHC,Centre-Based Care,Hampshire Road,SUNSHINE,VIC,3020,423795361,"Hampshire Road, SUNSHINE, VIC, 3020, Australia",-37.7957072,144.8303404
+Quantin Binnah / St Martin de Porres,Centre-Based Care,13-25 Bellin Street,LAVERTON,VIC,3028,397425040,"13-25 Bellin Street, LAVERTON, VIC, 3028, Australia",-37.8539828,144.7772917
+Big Childcare - Taylors Lakes PS OSHC,Centre-Based Care,Chichester Drive,TAYLORS LAKES,VIC,3038,1300273162,"Chichester Drive, TAYLORS LAKES, VIC, 3038, Australia",-37.7116658,144.7933
+TeamKids - Penleigh and Essendon Grammar,Centre-Based Care,49-53 Raleigh St,ESSENDON,VIC,3040,1300035000,"49-53 Raleigh St, ESSENDON, VIC, 3040, Australia",-37.753414,144.9219564
+TeamKids - South Yarra Primary,Centre-Based Care,601 Punt Road,SOUTH YARRA,VIC,3141,1300035000,"601 Punt Road, SOUTH YARRA, VIC, 3141, Australia",-37.8410902,144.9853624
+TeamKids - St Michael's Grammar School,Centre-Based Care,25 Chapel Street,ST KILDA,VIC,3182,1300035000,"25 Chapel Street, ST KILDA, VIC, 3182, Australia",-37.8592112,144.9900067
+Camp Australia - Essendon Primary School OSHC,Centre-Based Care,Raleigh Street,ESSENDON,VIC,3040,405776257,"Raleigh Street, ESSENDON, VIC, 3040, Australia",-37.7537732,144.9251
+Preston North East PS TheirCare,Centre-Based Care,93 Tyler Street,PRESTON,VIC,3072,1300072410,"93 Tyler Street, PRESTON, VIC, 3072, Australia",-37.7333553,145.0295187
+Melton OSHClub,Centre-Based Care,Unitt St,MELTON,VIC,3337,432018557,"Unitt St, MELTON, VIC, 3337, Australia",-37.6815777,144.5870431
+Baden Powell P-9 College TheirCare- Tarneit Campus,Centre-Based Care,Baden Powell Drive,TARNEIT,VIC,3029,1300072410,"Baden Powell Drive, TARNEIT, VIC, 3029, Australia",-37.8413754,144.7032899
+Camp Australia - St Mary's Altona Primary School OSHC,Centre-Based Care,95A Railway Street,ALTONA,VIC,3018,438052938,"95A Railway Street, ALTONA, VIC, 3018, Australia",-37.8658208,144.8284869
+Doncaster Primary School-VillageOSHC,Centre-Based Care,"Doncaster Primary School, 2-12 Council St",DONCASTER,VIC,3108,1300366437,"Doncaster Primary School, 2-12 Council St, DONCASTER, VIC, 3108, Australia",-37.7861692,145.1302847
+Camp Australia - Serpell Primary School OSHC,Centre-Based Care,Tuckers Road,TEMPLESTOWE,VIC,3106,424454961,"Tuckers Road, TEMPLESTOWE, VIC, 3106, Australia",-37.770318,145.1556952
+Kelly Club OSHC Our Lady of the Pines Catholic Primary School,Centre-Based Care,77 Carbine Street,DONVALE,VIC,3111,401021581,"77 Carbine Street, DONVALE, VIC, 3111, Australia",-37.7745614,145.1781028
+Camp Australia - Wattleview Primary School OSHC,Centre-Based Care,Wattletree Road,FERNTREE GULLY,VIC,3156,452247685,"Wattletree Road, FERNTREE GULLY, VIC, 3156, Australia",-37.8770514,145.2781789
+Rangebank Primary School OSHC,Centre-Based Care,1 Lesdon Ave,CRANBOURNE,VIC,3977,423166628,"1 Lesdon Ave, CRANBOURNE, VIC, 3977, Australia",-38.0871278,145.2778759
+Dandenong South Primary Kindergarten,Centre-Based Care,"Dandenong South Primary School, 52 Kirkham Rd",DANDENONG,VIC,3175,397917725,"Dandenong South Primary School, 52 Kirkham Rd, DANDENONG, VIC, 3175, Australia",-37.9979699,145.2119444
+Goodstart Early Learning Melbourne - Flinders Street,Centre-Based Care,276 Flinders St,MELBOURNE,VIC,3000,03 9671 3539,"276 Flinders St, MELBOURNE, VIC, 3000, Australia",-37.8179913,144.9650732
+Hope Carrum Downs,Centre-Based Care,75 Cadles Rd,CARRUM DOWNS,VIC,3201,397830050,"75 Cadles Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.0950361,145.1879423
+Glenroy West Kindergarten,Centre-Based Care,701 Pascoe Vale Rd,GLENROY,VIC,3046,393069365,"701 Pascoe Vale Rd, GLENROY, VIC, 3046, Australia",-37.7101111,144.9166258
+Epping Views Kindergarten,Centre-Based Care,15 Lyndarum Dr,EPPING,VIC,3076,384053227,"15 Lyndarum Dr, EPPING, VIC, 3076, Australia",-37.6284217,145.0263526
+Play House Family Day Care,Family Day Care,658 Plenty Rd,PRESTON,VIC,3072,390426991,"658 Plenty Rd, PRESTON, VIC, 3072, Australia",-37.7316621,145.0146463
+Creative Garden Early Learning Point Cook,Centre-Based Care,25 Brookdale Rd,POINT COOK,VIC,3030,393954749,"25 Brookdale Rd, POINT COOK, VIC, 3030, Australia",-37.9110255,144.7646554
+Team Holiday - Burwood,Centre-Based Care,"Wattle Park Primary School, 225 Warrigal Rd",BURWOOD,VIC,3125,1300035000,"Wattle Park Primary School, 225 Warrigal Rd, BURWOOD, VIC, 3125, Australia",-37.8427187,145.0983432
+Creative Garden Early Learning Cheltenham,Centre-Based Care,266-268 Bay Rd,CHELTENHAM,VIC,3192,395980433,"266-268 Bay Rd, CHELTENHAM, VIC, 3192, Australia",-37.9568492,145.0470906
+Banyan Fields Child and Family Centre,Centre-Based Care,90 Cadles Rd,CARRUM DOWNS,VIC,3201,387518837,"90 Cadles Rd, CARRUM DOWNS, VIC, 3201, Australia",-38.0948822,145.1867312
+Ashwood Children's Centre,Centre-Based Care,4-8 Yooralla St,ASHWOOD,VIC,3147,398079417,"4-8 Yooralla St, ASHWOOD, VIC, 3147, Australia",-37.867841,145.1045612
+Brandon Park Children's Centre,Centre-Based Care,659 Ferntree Gully Road,GLEN WAVERLEY,VIC,3150,395617852,"659 Ferntree Gully Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.9037499,145.1653466
+Wesley College Melbourne Glen Waverley Early Childhood Learning Centre,Centre-Based Care,620 High Street Road,GLEN WAVERLEY,VIC,3150,381026570,"620 High Street Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8722149,145.1485507
+Kendall Glen Waverley Early Education Centre,Centre-Based Care,514 Highbury Road,GLEN WAVERLEY,VIC,3150,398027428,"514 Highbury Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8599974,145.1513744
+Cooraminta North Kindergarten,Centre-Based Care,25 Whittaker Avenue,LAVERTON,VIC,3028,393692815,"25 Whittaker Avenue, LAVERTON, VIC, 3028, Australia",-37.8510309,144.7733419
+Dr Charles Prouse Memorial Kindergarten,Centre-Based Care,5 Osterley Street,WERRIBEE,VIC,3030,387341300,"5 Osterley Street, WERRIBEE, VIC, 3030, Australia",-37.9101316,144.6589971
+The Manor Kindergarten,Centre-Based Care,186 Werribee Street North,WERRIBEE,VIC,3030,397414192,"186 Werribee Street North, WERRIBEE, VIC, 3030, Australia",-37.8949876,144.6473403
+Wyndham Park Kindergarten,Centre-Based Care,55 Kookaburra Avenue,WERRIBEE,VIC,3030,397416486,"55 Kookaburra Avenue, WERRIBEE, VIC, 3030, Australia",-37.8838113,144.6772863
+College Road Kindergarten,Centre-Based Care,34 College Road,WERRIBEE,VIC,3030,397412128,"34 College Road, WERRIBEE, VIC, 3030, Australia",-37.904034,144.6661667
+Victoria University Children's Centre - Werribee Campus,Centre-Based Care,Hoppers Lane,WERRIBEE,VIC,3030,03 9919 8098,"Hoppers Lane, WERRIBEE, VIC, 3030, Australia",-37.885996,144.7004463
+Milestones Early Learning Werribee,Centre-Based Care,81 Ballan Road,WERRIBEE,VIC,3030,397422888,"81 Ballan Road, WERRIBEE, VIC, 3030, Australia",-37.8948733,144.6341299
+Epping Preschool,Centre-Based Care,849 High Street,EPPING,VIC,3076,394011206,"849 High Street, EPPING, VIC, 3076, Australia",-37.6417778,145.0253344
+Greenbrook Kindergarten,Centre-Based Care,31 Lowalde Drive,EPPING,VIC,3076,394013083,"31 Lowalde Drive, EPPING, VIC, 3076, Australia",-37.6499372,145.0403809
+Derby Meadows Preschool Inc,Centre-Based Care,17 Winchester Avenue,EPPING,VIC,3076,394015426,"17 Winchester Avenue, EPPING, VIC, 3076, Australia",-37.6429918,145.0441672
+Future Super Stars ELC Epping,Centre-Based Care,411 Dalton Rd,EPPING,VIC,3076,394011730,"411 Dalton Rd, EPPING, VIC, 3076, Australia",-37.6542079,145.0312669
+Epping North Preschool,Centre-Based Care,378 Findon Road,EPPING,VIC,3076,394088000,"378 Findon Road, EPPING, VIC, 3076, Australia",-37.642988,145.0588569
+Busy Bees at Epping,Centre-Based Care,20 Kalman Road,EPPING,VIC,3076,394088484,"20 Kalman Road, EPPING, VIC, 3076, Australia",-37.6499995,145.0521114
+Alexandra Avenue Children's Centre,Centre-Based Care,31 Alexandra Avenue,SUNSHINE,VIC,3020,393102845,"31 Alexandra Avenue, SUNSHINE, VIC, 3020, Australia",-37.7829499,144.8382645
+Barayip Primary School Kindergarten,Centre-Based Care,1 CALADENIA AV,TARNEIT,VIC,3029,1300615191,"1 CALADENIA AV, TARNEIT, VIC, 3029, Australia",-37.8333595,144.6396881
+Greenvale Primary School Kindergarten,Centre-Based Care,24 BRADFORD AV,GREENVALE,VIC,3059,393061662,"24 BRADFORD AV, GREENVALE, VIC, 3059, Australia",-37.6402096,144.8868424
+Atherton Gardens Kindergarten,Centre-Based Care,125 NAPIER ST,FITZROY,VIC,3065,392055100,"125 NAPIER ST, FITZROY, VIC, 3065, Australia",-37.8027162,144.9796212
+Gumboots Early Learning Werribee,Centre-Based Care,93 PRINCES HWY,WERRIBEE,VIC,3030,439852749,"93 PRINCES HWY, WERRIBEE, VIC, 3030, Australia",-37.895411,144.6761997
+Ashburton Early Learning,Centre-Based Care,465-467 WARRIGAL RD,ASHWOOD,VIC,3147,,"465-467 WARRIGAL RD, ASHWOOD, VIC, 3147, Australia",-37.8624657,145.0936501
+Only About Children Cheltenham,Centre-Based Care,15 Herald St,CHELTENHAM,VIC,3192,385295064,"15 Herald St, CHELTENHAM, VIC, 3192, Australia",-37.9655169,145.0708762
+Dandenong West Primary Kindergarten,Centre-Based Care,32 Birdwood Avenue,DANDENONG,VIC,3175,397921944,"32 Birdwood Avenue, DANDENONG, VIC, 3175, Australia",-37.9815433,145.2003445
+Wallaby Childcare Harpley,Centre-Based Care,209 Black Forest Road,WERRIBEE,VIC,3030,397498687,"209 Black Forest Road, WERRIBEE, VIC, 3030, Australia",-37.9003613,144.6139339
+Saltwater Promenade Kindergarten,Centre-Based Care,153 Saltwater Prom,POINT COOK,VIC,3030,383765522,"153 Saltwater Prom, POINT COOK, VIC, 3030, Australia",-37.9113148,144.7704767
+Great Beginnings Epping,Centre-Based Care,6 Viewbank Ct,EPPING,VIC,3076,394014554,"6 Viewbank Ct, EPPING, VIC, 3076, Australia",-37.6481272,145.0079867
+Swan Early Learning,Centre-Based Care,87-89 Ringwood St,RINGWOOD,VIC,3134,398702064,"87-89 Ringwood St, RINGWOOD, VIC, 3134, Australia",-37.8069668,145.2270036
+Paisley Park Early Learning Centre Templestowe,Centre-Based Care,239 Foote St,TEMPLESTOWE,VIC,3106,1800724753,"239 Foote St, TEMPLESTOWE, VIC, 3106, Australia",-37.7599414,145.1383189
+Aitken Hill PS TheirCare,Centre-Based Care,"Aitken Hill Primary School, 2 Rhyolite Dr",CRAIGIEBURN,VIC,3064,447712447,"Aitken Hill Primary School, 2 Rhyolite Dr, CRAIGIEBURN, VIC, 3064, Australia",-37.6022059,144.9063338
+Elles Belles Early Learning,Centre-Based Care,1324-1328 Nepean Hwy,CHELTENHAM,VIC,3192,385210350,"1324-1328 Nepean Hwy, CHELTENHAM, VIC, 3192, Australia",-37.9680686,145.0595943
+Victory Christian College TheirCare,Centre-Based Care,6 Kairn Rd,KENNINGTON,VIC,3550,1300072410,"6 Kairn Rd, KENNINGTON, VIC, 3550, Australia",-36.7833898,144.3126242
+Spring Parks OSHClub - West Campus,Centre-Based Care,"west campus, 24 Erica St",SPRINGVALE,VIC,3171,455031649,"west campus, 24 Erica St, SPRINGVALE, VIC, 3171, Australia",-37.9591421,145.1402309
+Glenroy Memorial Kindergarten,Centre-Based Care,3/50 Wheatsheaf road,GLENROY,VIC,3046,393069767,"3/50 Wheatsheaf road, GLENROY, VIC, 3046, Australia",-37.7067467,144.9199717
+Explorers Early Learning - Croydon,Centre-Based Care,84-86 Hull Rd,CROYDON,VIC,3136,392483000,"84-86 Hull Rd, CROYDON, VIC, 3136, Australia",-37.796152,145.2934746
+Kids Academy Craigieburn,Centre-Based Care,162 Elevation Bvd,CRAIGIEBURN,VIC,3064,383629760,"162 Elevation Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.59839,144.8936065
+DANDELION CHILDCARE AND EARLY LEARNING CENTRE,Centre-Based Care,33 Manningham Rd,BULLEEN,VIC,3105,390857611,"33 Manningham Rd, BULLEEN, VIC, 3105, Australia",-37.7640911,145.0858493
+St Francis Xavier Box Hill OSHC - Extend,Centre-Based Care,1087 Whitehorse Road,BOX HILL,VIC,3128,1300366437,"1087 Whitehorse Road, BOX HILL, VIC, 3128, Australia",-37.8177184,145.1317145
+Glorykids Child Care Centre,Centre-Based Care,4 Rebound Court,NARRE WARREN,VIC,3805,03 8774 0605,"4 Rebound Court, NARRE WARREN, VIC, 3805, Australia",-38.0271974,145.3054008
+St Oliver Plunkett OSHC - Extend,Centre-Based Care,Landells Road,PASCOE VALE,VIC,3044,1300366437,"Landells Road, PASCOE VALE, VIC, 3044, Australia",-37.7246202,144.9433548
+Thomas Mitchell PS TheirCare,Centre-Based Care,67-77 Thomas Mitchell Dr,ENDEAVOUR HILLS,VIC,3802,1300072410,"67-77 Thomas Mitchell Dr, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9800096,145.273482
+Leading Leaps Early Learning,Centre-Based Care,"70, Wootten Road",TARNEIT,VIC,3029,423041857,"70, Wootten Road, TARNEIT, VIC, 3029, Australia",-37.8547888,144.6608243
+Maroondah Occasional Care,Centre-Based Care,7 Civic Square,CROYDON,VIC,3136,392984673,"7 Civic Square, CROYDON, VIC, 3136, Australia",-37.7998556,145.2806542
+My Cambridge Early Learning,Centre-Based Care,45 Bakewell St,CRANBOURNE,VIC,3977,370235623,"45 Bakewell St, CRANBOURNE, VIC, 3977, Australia",-38.1111915,145.2896215
+TeamKids - St Joseph's Primary - Werribee,Centre-Based Care,50 Treeve Pkwy,WERRIBEE,VIC,3030,1300035000,"50 Treeve Pkwy, WERRIBEE, VIC, 3030, Australia",-37.9030733,144.6095264
+Davis Creek Primary School Kindergarten,Centre-Based Care,65 Wootten Rd,TARNEIT,VIC,3029,409388757,"65 Wootten Rd, TARNEIT, VIC, 3029, Australia",-37.8556653,144.6590568
+Pascoe Vale Community Centre Kindergarten,Centre-Based Care,7 Prospect St,PASCOE VALE,VIC,3044,435312145,"7 Prospect St, PASCOE VALE, VIC, 3044, Australia",-37.7291659,144.936913
+Werribee Kids,Centre-Based Care,2 Russell St,WERRIBEE,VIC,3030,387375990,"2 Russell St, WERRIBEE, VIC, 3030, Australia",-37.9082988,144.665066
+St Gabriel's PS Reservoir TheirCare,Centre-Based Care,237 Spring St,RESERVOIR,VIC,3073,1300072410,"237 Spring St, RESERVOIR, VIC, 3073, Australia",-37.7187871,145.0050875
+Al Siraat College OSHC- Extend,Centre-Based Care,45 Harvest Home Rd,EPPING,VIC,3076,370682703,"45 Harvest Home Rd, EPPING, VIC, 3076, Australia",-37.6250091,145.0367192
+Dandenong North OSHClub,Centre-Based Care,"Dandenong North Primary School, 117-125 Cleeland St",DANDENONG,VIC,3175,439660575,"Dandenong North Primary School, 117-125 Cleeland St, DANDENONG, VIC, 3175, Australia",-37.9763327,145.2146349
+Bialik College OSHC- Extend,Centre-Based Care,429 Auburn road,HAWTHORN,VIC,3122,,"429 Auburn road, HAWTHORN, VIC, 3122, Australia",-37.8244842,145.0446667
+Inspira Kids Early Learning Centre Laverton,Centre-Based Care,1-19 Thomas St,LAVERTON,VIC,3028,383549211,"1-19 Thomas St, LAVERTON, VIC, 3028, Australia",-37.8598621,144.7719688
+Busy Bees at Williams Landing,Centre-Based Care,141-143 Sayers Rd,WILLIAMS LANDING,VIC,3027,393609978,"141-143 Sayers Rd, WILLIAMS LANDING, VIC, 3027, Australia",-37.8542846,144.7495622
+CHILDREN'S CORNER LEARNING CENTRE,Centre-Based Care,150 Mt Dandenong Rd,CROYDON,VIC,3136,382018217,"150 Mt Dandenong Rd, CROYDON, VIC, 3136, Australia",-37.8002784,145.2768651
+Glen Education Chelsea Kindergarten,Centre-Based Care,36 Glenola Road,CHELSEA,VIC,3196,397722788,"36 Glenola Road, CHELSEA, VIC, 3196, Australia",-38.0559505,145.122785
+Paisley Park Early Learning Centre Chadstone,Centre-Based Care,1350 Dandenong Rd,HUGHESDALE,VIC,3166,395631474,"1350 Dandenong Rd, HUGHESDALE, VIC, 3166, Australia",-37.8911316,145.0828801
+Little Lane Early Learning Centre - Hawthorn,Centre-Based Care,555 Glenferrie Rd,HAWTHORN,VIC,3122,398188410,"555 Glenferrie Rd, HAWTHORN, VIC, 3122, Australia",-37.8278902,145.0338987
+Kids on Mullum Child Care Centre,Centre-Based Care,13-15 Mullum Mullum Rd,RINGWOOD,VIC,3134,398707020,"13-15 Mullum Mullum Rd, RINGWOOD, VIC, 3134, Australia",-37.8058688,145.2320528
+Christ Church Grammar School â€“ Early Learning Centre,Centre-Based Care,621 Punt Rd,SOUTH YARRA,VIC,3141,,"621 Punt Rd, SOUTH YARRA, VIC, 3141, Australia",-37.8301861,144.9878262
+Almost French Early Learning,Centre-Based Care,20-26 Brighton St,RICHMOND,VIC,3121,391114949,"20-26 Brighton St, RICHMOND, VIC, 3121, Australia",-37.8274675,144.9990436
+Explorers Early Learning - Dandenong,Centre-Based Care,159 Princes Hwy,DANDENONG,VIC,3175,392483000,"159 Princes Hwy, DANDENONG, VIC, 3175, Australia",-37.9756202,145.2034358
+Nido Early School Essendon,Centre-Based Care,37 Raleigh St,ESSENDON,VIC,3040,390391913,"37 Raleigh St, ESSENDON, VIC, 3040, Australia",-37.7535538,144.9219022
+true maple bilingual early learning centre,Centre-Based Care,2 Grace St,SPRINGVALE,VIC,3171,375043524,"2 Grace St, SPRINGVALE, VIC, 3171, Australia",-37.939223,145.1646261
+Wimba Primary School Kindergarten,Centre-Based Care,11 Tuition Dr,TARNEIT,VIC,3029,399672664,"11 Tuition Dr, TARNEIT, VIC, 3029, Australia",-37.8233864,144.6692667
+MindChamps Early Learning Melton,Centre-Based Care,63-65 Barries Rd,MELTON,VIC,3337,399679560,"63-65 Barries Rd, MELTON, VIC, 3337, Australia",-37.6891801,144.5809949
+Kelly Club OSHC Wimba Primary School,Centre-Based Care,11 Tuition Drive,TARNEIT,VIC,3029,393842204,"11 Tuition Drive, TARNEIT, VIC, 3029, Australia",-37.8233864,144.6692667
+Minnows Cheltenham,Centre-Based Care,15-17 Centre Dandenong Rd,CHELTENHAM,VIC,3192,395851555,"15-17 Centre Dandenong Rd, CHELTENHAM, VIC, 3192, Australia",-37.965797,145.0605194
+Northland Kinder Haven,Centre-Based Care,59-65 Wood St,PRESTON,VIC,3072,394711511,"59-65 Wood St, PRESTON, VIC, 3072, Australia",-37.7356345,145.0245744
+Wonderland Childcare & Kinder,Centre-Based Care,6 High Street,DONCASTER,VIC,3108,398578123,"6 High Street, DONCASTER, VIC, 3108, Australia",-37.7873841,145.1052402
+Greenland Early Learning Centre,Centre-Based Care,75-77 Watsons Rd,GLEN WAVERLEY,VIC,3150,03 9561 0200,"75-77 Watsons Rd, GLEN WAVERLEY, VIC, 3150, Australia",-37.8983064,145.1684915
+Clayton Community Centre Kindergarten,Centre-Based Care,9-15 Cooke St,CLAYTON,VIC,3168,343290427,"9-15 Cooke St, CLAYTON, VIC, 3168, Australia",-37.9281786,145.1174018
+Glen Education Serrell St Kindergarten,Centre-Based Care,54 Serrell Street,MALVERN EAST,VIC,3145,370421199,"54 Serrell Street, MALVERN EAST, VIC, 3145, Australia",-37.8802466,145.0625653
+Carrum Downs Early Learning Centre,Centre-Based Care,59 Hall Road,CARRUM DOWNS,VIC,3201,397821500,"59 Hall Road, CARRUM DOWNS, VIC, 3201, Australia",-38.100511,145.1823435
+Milestones Early Learning Ringwood,Centre-Based Care,290-292 Maroondah Highway,RINGWOOD,VIC,3134,398700125,"290-292 Maroondah Highway, RINGWOOD, VIC, 3134, Australia",-37.8093229,145.240462
+Aussie Kindies Early Learning Cranbourne,Centre-Based Care,1-3 Ferndown Dr,CRANBOURNE,VIC,3977,359966255,"1-3 Ferndown Dr, CRANBOURNE, VIC, 3977, Australia",-38.1228483,145.25771
+Waverley Kidz Children's Centre,Centre-Based Care,604 Waverley Road,GLEN WAVERLEY,VIC,3150,398034813,"604 Waverley Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8876504,145.1515278
+APPLE BLOSSOMS EARLY LEARNING - NARRE WARREN,Centre-Based Care,10 Verdun Drive,NARRE WARREN,VIC,3805,387949244,"10 Verdun Drive, NARRE WARREN, VIC, 3805, Australia",-38.024579,145.3122975
+Tulip Street Early Learning Centre,Centre-Based Care,99A Tulip Street,CHELTENHAM,VIC,3192,395855311,"99A Tulip Street, CHELTENHAM, VIC, 3192, Australia",-37.9636561,145.0339993
+Early Beginners,Centre-Based Care,901-903 Heatherton Rd,SPRINGVALE,VIC,3171,395466440,"901-903 Heatherton Rd, SPRINGVALE, VIC, 3171, Australia",-37.9609022,145.1400505
+Pelican Childcare Craigieburn,Centre-Based Care,19-25 Princes Cct,CRAIGIEBURN,VIC,3064,03 9333 8472,"19-25 Princes Cct, CRAIGIEBURN, VIC, 3064, Australia",-37.5838606,144.9352894
+Boulevard Early Learning Centre,Centre-Based Care,3-5 The Boulevard,GLEN WAVERLEY,VIC,3150,03 9803 4361,"3-5 The Boulevard, GLEN WAVERLEY, VIC, 3150, Australia",-37.8685272,145.1656643
+Busy Bees at Carrum Downs,Centre-Based Care,50 Brunnings Road,CARRUM DOWNS,VIC,3201,397830812,"50 Brunnings Road, CARRUM DOWNS, VIC, 3201, Australia",-38.0952127,145.1937911
+123KIDS,Centre-Based Care,107-113 Hallam Rd,HAMPTON PARK,VIC,3976,03 9799 9799,"107-113 Hallam Rd, HAMPTON PARK, VIC, 3976, Australia",-38.0377803,145.2665396
+Creative Play Early Learning Centre,Centre-Based Care,1 Templestowe Road,BULLEEN,VIC,3105,398523277,"1 Templestowe Road, BULLEEN, VIC, 3105, Australia",-37.7601626,145.0837075
+BiraBira Early Learning Centre,Centre-Based Care,335 Warrigal Rd,CHELTENHAM,VIC,3192,370183774,"335 Warrigal Rd, CHELTENHAM, VIC, 3192, Australia",-37.9575872,145.0755767
+Aspire Early Education and Kindergarten Bendigo,Centre-Based Care,1a The Terrace,KENNINGTON,VIC,3550,1800978429,"1a The Terrace, KENNINGTON, VIC, 3550, Australia",-36.7771637,144.3036589
+Amiga Montessori Tarneit,Centre-Based Care,42 Caraleena Dr,TARNEIT,VIC,3029,380013084,"42 Caraleena Dr, TARNEIT, VIC, 3029, Australia",-37.8543823,144.6640403
+Nido Early School Werribee,Centre-Based Care,20 ROTH ST,WERRIBEE,VIC,3030,370199185,"20 ROTH ST, WERRIBEE, VIC, 3030, Australia",-37.8890319,144.7023956
+Eden Academy Werribee,Centre-Based Care,77A KOOKABURRA AV,WERRIBEE,VIC,3030,370461047,"77A KOOKABURRA AV, WERRIBEE, VIC, 3030, Australia",-37.8852633,144.6809395
+Inspire Early Learning Journey Forest hill,Centre-Based Care,351 SPRINGVALE RD,FOREST HILL,VIC,3131,398996999,"351 SPRINGVALE RD, FOREST HILL, VIC, 3131, Australia",-37.837095,145.1724542
+Whiz Kidz Early Learning Centre Dandenong,Centre-Based Care,1536-1538 HEATHERTON RD,DANDENONG,VIC,3175,,"1536-1538 HEATHERTON RD, DANDENONG, VIC, 3175, Australia",-37.9713381,145.2246673
+Genius Childcare - Reservoir,Centre-Based Care,192-194 Albert St,RESERVOIR,VIC,3073,,"192-194 Albert St, RESERVOIR, VIC, 3073, Australia",-37.7316001,145.0254605
+Story House Early Learning Melton,Centre-Based Care,23 - 25 O'Neills Road,MELTON,VIC,3337,370461090,"23 - 25 O'Neills Road, MELTON, VIC, 3337, Australia",-37.68065,144.5776019
+LEADING BEES MONTESSORI AND EARLY LEARNING,Centre-Based Care,"14, Aloha Gardens",TEMPLESTOWE,VIC,3106,450453457,"14, Aloha Gardens, TEMPLESTOWE, VIC, 3106, Australia",-37.7629179,145.1566122
+Inspire Early Learning Journey Werribee Campus,Centre-Based Care,28 Riverbend Crescent,WERRIBEE,VIC,3030,398535555,"28 Riverbend Crescent, WERRIBEE, VIC, 3030, Australia",-37.886661,144.6442199
+The Fern Hampton Park,Centre-Based Care,155 Hallam Rd,HAMPTON PARK,VIC,3976,370360555,"155 Hallam Rd, HAMPTON PARK, VIC, 3976, Australia",-38.04183,145.2657072
+New Horizon FDC Pty Ltd,Family Day Care,7 Magdala St,WERRIBEE,VIC,3030,401234425,"7 Magdala St, WERRIBEE, VIC, 3030, Australia",-37.9142014,144.6442266
+montessori early learning kids care pty ltd,Family Day Care,31 Crossway Ave,TARNEIT,VIC,3029,425909835,"31 Crossway Ave, TARNEIT, VIC, 3029, Australia",-37.8446291,144.6794046
+Big Childcare - Lollypop Creek Primary School,Centre-Based Care,114 Shipwright Pde,WERRIBEE,VIC,3030,1300273162,"114 Shipwright Pde, WERRIBEE, VIC, 3030, Australia",-37.9103513,144.6123784
+Big Childcare - Karwan PS OSHC,Centre-Based Care,455 Bethany Rd,TARNEIT,VIC,3029,1300273162,"455 Bethany Rd, TARNEIT, VIC, 3029, Australia",-37.8533077,144.6458653
+Big Childcare - Mary Queen of Heaven CPS OSHC,Centre-Based Care,75 French Rd,GREENVALE,VIC,3059,1300273162,"75 French Rd, GREENVALE, VIC, 3059, Australia",-37.6298889,144.8858986
+Nido Early School Glenroy,Centre-Based Care,4 Hartington St,GLENROY,VIC,3046,385928087,"4 Hartington St, GLENROY, VIC, 3046, Australia",-37.7037371,144.9177001
+Team Holiday - Hampton,Centre-Based Care,"Hampton Primary School, 528 Hampton St",HAMPTON,VIC,3188,1300035000,"Hampton Primary School, 528 Hampton St, HAMPTON, VIC, 3188, Australia",-37.9334885,145.0041868
+Villa Bambini,Centre-Based Care,16 Bulla Road,ESSENDON,VIC,3040,393744491,"16 Bulla Road, ESSENDON, VIC, 3040, Australia",-37.7417058,144.9089301
+St Therese's School OSHClub,Centre-Based Care,31 Edward St,ESSENDON,VIC,3040,437037417,"31 Edward St, ESSENDON, VIC, 3040, Australia",-37.7538932,144.9130417
+Nido Early School Prahran,Centre-Based Care,2 Donald St,PRAHRAN,VIC,3181,385928088,"2 Donald St, PRAHRAN, VIC, 3181, Australia",-37.8508043,144.9868145
+Kelly Club OSHC Northern School Autism,Centre-Based Care,16-18 Gertz Ave,RESERVOIR,VIC,3073,,"16-18 Gertz Ave, RESERVOIR, VIC, 3073, Australia",-37.6998719,145.0303245
+BLUEBELL EARLY LEARNING & KINDERGARTEN NARRE WARREN,Centre-Based Care,559-561 Princes Hwy,NARRE WARREN,VIC,3805,387250899,"559-561 Princes Hwy, NARRE WARREN, VIC, 3805, Australia",-38.0281125,145.3173711
+Aspire Early Education and Kindergarten Tarneit North,Centre-Based Care,1 Madden Bvd,TARNEIT,VIC,3030,1800978429,"1 Madden Bvd, TARNEIT, VIC, 3030, Australia",-37.8234983,144.6793065
+TeamKids - Mont Albert Primary,Centre-Based Care,Barloa Road,MONT ALBERT,VIC,3127,1300035000,"Barloa Road, MONT ALBERT, VIC, 3127, Australia",-37.8137178,145.102389
+Altona PS TheirCare,Centre-Based Care,109 Blyth Street,ALTONA,VIC,3018,1300072410,"109 Blyth Street, ALTONA, VIC, 3018, Australia",-37.8673701,144.8224482
+Coburg North PS TheirCare,Centre-Based Care,180 O'Hea Street,COBURG,VIC,3058,1300072410,"180 O'Hea Street, COBURG, VIC, 3058, Australia",-37.7356963,144.9519211
+Thomas Chirnside Primary School Outside School Hours Care,Centre-Based Care,85 Walls Road,WERRIBEE,VIC,3030,397410200,"85 Walls Road, WERRIBEE, VIC, 3030, Australia",-37.9035338,144.6385481
+Collingwood College TheirCare,Centre-Based Care,Islington St,COLLINGWOOD,VIC,3066,1300072410,"Islington St, COLLINGWOOD, VIC, 3066, Australia",-37.8082861,144.9906675
+TeamKids - Richmond West Primary,Centre-Based Care,Lennox Street,RICHMOND,VIC,3121,1300035000,"Lennox Street, RICHMOND, VIC, 3121, Australia",-37.8166511,144.9948851
+TeamKids - Preston South Primary,Centre-Based Care,56B Hotham Street,PRESTON,VIC,3072,1300035000,"56B Hotham Street, PRESTON, VIC, 3072, Australia",-37.7479265,145.0079724
+Preston Primary School OSHC,Centre-Based Care,240 Tyler Street,PRESTON,VIC,3072,,"240 Tyler Street, PRESTON, VIC, 3072, Australia",-37.7299201,145.0108687
+Epping Primary School-VillageOSHC,Centre-Based Care,805 High Street,EPPING,VIC,3076,401051248,"805 High Street, EPPING, VIC, 3076, Australia",-37.645193,145.0251322
+Corpus Christi School OSHC Glenroy,Centre-Based Care,13-21 Widford St,GLENROY,VIC,3046,493947309,"13-21 Widford St, GLENROY, VIC, 3046, Australia",-37.7038277,144.922772
+St Fidelis PS TheirCare,Centre-Based Care,52 Saunders Street,COBURG,VIC,3058,438978132,"52 Saunders Street, COBURG, VIC, 3058, Australia",-37.749954,144.9515224
+Globe Talent Family Day Care Pty Ltd,Family Day Care,19 Catania Ave,POINT COOK,VIC,3030,393881386,"19 Catania Ave, POINT COOK, VIC, 3030, Australia",-37.8902201,144.7384257
+Story House Early Learning Point Cook,Centre-Based Care,8 Parliament St,POINT COOK,VIC,3030,390980438,"8 Parliament St, POINT COOK, VIC, 3030, Australia",-37.9111758,144.758415
+Wyndham Early Learning Family Day Care,Family Day Care,26 SALINGA DR,WERRIBEE,VIC,3030,421209290,"26 SALINGA DR, WERRIBEE, VIC, 3030, Australia",-37.9171225,144.6370971
+iCare Family Day Care Pty Ltd,Family Day Care,8/96 Garden Road,CLAYTON,VIC,3168,417272757,"8/96 Garden Road, CLAYTON, VIC, 3168, Australia",-37.9252542,145.1455542
+John Street Community Early Childhood Co-operative,Centre-Based Care,23 John Street,FITZROY,VIC,3065,03 9419 6659,"23 John Street, FITZROY, VIC, 3065, Australia",-37.8006029,144.9761007
+East West Childcare,Centre-Based Care,138 George Street,FITZROY,VIC,3065,394191673,"138 George Street, FITZROY, VIC, 3065, Australia",-37.8046457,144.9810428
+Acacia Fitzroy Creche,Centre-Based Care,187 Napier Street,FITZROY,VIC,3065,394191142,"187 Napier Street, FITZROY, VIC, 3065, Australia",-37.799078,144.9806538
+Flinders Preschool,Centre-Based Care,62 Bass Street,FLINDERS,VIC,3929,359890622,"62 Bass Street, FLINDERS, VIC, 3929, Australia",-38.4746229,145.0146548
+Robert Cochrane Kindergarten,Centre-Based Care,Minona Street,HAWTHORN,VIC,3122,398181063,"Minona Street, HAWTHORN, VIC, 3122, Australia",-37.8241187,145.042189
+West Hawthorn Preschool,Centre-Based Care,39 Brook Street,HAWTHORN,VIC,3122,398185153,"39 Brook Street, HAWTHORN, VIC, 3122, Australia",-37.8160775,145.0219655
+Camberwell Baptist Church Kindergarten,Centre-Based Care,1A Wills Street,HAWTHORN,VIC,3122,398826880,"1A Wills Street, HAWTHORN, VIC, 3122, Australia",-37.8317884,145.0550369
+Hawthorn Early Years,Centre-Based Care,586 Glenferrie Road,HAWTHORN,VIC,3122,Oh yep when,"586 Glenferrie Road, HAWTHORN, VIC, 3122, Australia",-37.8238464,145.0444813
+Ivanhoe Children's Community Co-op,Centre-Based Care,58 Livingstone Street,IVANHOE,VIC,3079,432167755,"58 Livingstone Street, IVANHOE, VIC, 3079, Australia",-37.7673805,145.0368647
+Austin Child Care Centre,Centre-Based Care,Studley Road,HEIDELBERG,VIC,3084,394965552,"Studley Road, HEIDELBERG, VIC, 3084, Australia",-37.7559948,145.0618806
+Story House Early Learning Epping,Centre-Based Care,329a Harvest Home Road,EPPING,VIC,3076,03 9409 1563,"329a Harvest Home Road, EPPING, VIC, 3076, Australia",-37.6208964,145.0057244
+Guardian Childcare & Education Preston West,Centre-Based Care,391 Murray Road,PRESTON,VIC,3072,390690545,"391 Murray Road, PRESTON, VIC, 3072, Australia",-37.7371992,144.9941375
+Lil' Angels Early Learning Centre,Centre-Based Care,13 NAVIGATION DR,MELTON,VIC,3337,388041393,"13 NAVIGATION DR, MELTON, VIC, 3337, Australia",-37.6903827,144.6104209
+KingKids Early Learning Centre and Kindergarten Dandenong,Centre-Based Care,22-26 Hopkins Street,Dandenong,VIC,3175,,"22-26 Hopkins Street, Dandenong, VIC, 3175, Australia",-37.9748225,145.2134942
+Wallaby Childcare Lollypop Creek,Centre-Based Care,91 CHARLWOOD PROM,WERRIBEE,VIC,3030,03 9969 2979,"91 CHARLWOOD PROM, WERRIBEE, VIC, 3030, Australia",-37.909409,144.6147752
+TeamKids - Altona College,Centre-Based Care,103A GRIEVE PDE,ALTONA,VIC,3018,1300035000,"103A GRIEVE PDE, ALTONA, VIC, 3018, Australia",-37.861721,144.8172341
+East Sunshine Kindergarten,Centre-Based Care,Lowe Crescent,SUNSHINE,VIC,3020,393114712,"Lowe Crescent, SUNSHINE, VIC, 3020, Australia",-37.787054,144.8445453
+Sunshine Heights Kindergarten,Centre-Based Care,Glengala Road,SUNSHINE,VIC,3020,393114966,"Glengala Road, SUNSHINE, VIC, 3020, Australia",-37.7879173,144.8263655
+South Sunshine Kindergarten,Centre-Based Care,31 Ardoyne Street,SUNSHINE,VIC,3020,393114348,"31 Ardoyne Street, SUNSHINE, VIC, 3020, Australia",-37.7987225,144.8250124
+Killeen Street Child Care Centre,Centre-Based Care,23 Killeen Street,SUNSHINE,VIC,3020,03 9364 8541,"23 Killeen Street, SUNSHINE, VIC, 3020, Australia",-37.7972716,144.8192526
+Ashwood Memorial Kindergarten,Centre-Based Care,17A Arthur Street,ASHWOOD,VIC,3147,343290422,"17A Arthur Street, ASHWOOD, VIC, 3147, Australia",-37.8600555,145.1071368
+Appletree Hill Kindergarten,Centre-Based Care,37 Shepherd Road,GLEN WAVERLEY,VIC,3150,03 9560 2940,"37 Shepherd Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8836855,145.1828998
+Brentwood Kindergarten,Centre-Based Care,60 View Mount Road,GLEN WAVERLEY,VIC,3150,395602735,"60 View Mount Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8974341,145.1751742
+Highvale Kindergarten,Centre-Based Care,56 Campbell Street,GLEN WAVERLEY,VIC,3150,398031652,"56 Campbell Street, GLEN WAVERLEY, VIC, 3150, Australia",-37.8699256,145.1758307
+Wayburne Kindergarten,Centre-Based Care,579 Waverley Road,GLEN WAVERLEY,VIC,3150,343290455,"579 Waverley Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8873326,145.1522841
+Syndal Kindergarten,Centre-Based Care,2 Matthew Street,GLEN WAVERLEY,VIC,3150,398028035,"2 Matthew Street, GLEN WAVERLEY, VIC, 3150, Australia",-37.874126,145.1488469
+Brandon Park Kindergarten,Centre-Based Care,7 Collegium Avenue,WHEELERS HILL,VIC,3150,343290425,"7 Collegium Avenue, WHEELERS HILL, VIC, 3150, Australia",-37.9047951,145.1647512
+Waverley Meadows Preschool,Centre-Based Care,6 Farnham Avenue,WHEELERS HILL,VIC,3150,395602791,"6 Farnham Avenue, WHEELERS HILL, VIC, 3150, Australia",-37.9124051,145.174496
+Legend Park Kindergarten,Centre-Based Care,56 King Arthur Drive,GLEN WAVERLEY,VIC,3150,343290440,"56 King Arthur Drive, GLEN WAVERLEY, VIC, 3150, Australia",-37.8684627,145.1879698
+Columbia Park Pre-school,Centre-Based Care,26-28 Columbia Dr,WHEELERS HILL,VIC,3150,343290428,"26-28 Columbia Dr, WHEELERS HILL, VIC, 3150, Australia",-37.9153964,145.1845928
+Jells Park Kindergarten Association Incorporated,Centre-Based Care,37 Petronella Avenue,WHEELERS HILL,VIC,3150,395608035,"37 Petronella Avenue, WHEELERS HILL, VIC, 3150, Australia",-37.903358,145.1939088
+Columbia Park Early Learning Centre Inc,Centre-Based Care,28A Columbia Drive,WHEELERS HILL,VIC,3150,395608636,"28A Columbia Drive, WHEELERS HILL, VIC, 3150, Australia",-37.9172848,145.1841445
+KindyTown Endeavour Hills Early Learning Centre,Centre-Based Care,136-138 Gleneagles Dr,ENDEAVOUR HILLS,VIC,3802,397000410,"136-138 Gleneagles Dr, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9694217,145.2796471
+Lorne Street Kindergarten at Fawkner Primary School,Centre-Based Care,"Fawkner Primary School, 40 Lorne St",FAWKNER,VIC,3060,393595635,"Fawkner Primary School, 40 Lorne St, FAWKNER, VIC, 3060, Australia",-37.7152026,144.9739608
+Mother Teresa Catholic Primary School OSHC - Extend,Centre-Based Care,5-15 Windrock Ave,CRAIGIEBURN,VIC,3064,1300366437,"5-15 Windrock Ave, CRAIGIEBURN, VIC, 3064, Australia",-37.5758407,144.9333206
+Community Kids Haven Knoxfield Early Learning & Kinder,Centre-Based Care,1563 Ferntree Gully Rd,KNOXFIELD,VIC,3180,397532666,"1563 Ferntree Gully Rd, KNOXFIELD, VIC, 3180, Australia",-37.8951383,145.2487758
+Wesley College (Glen Waverley) OSHC - Extend,Centre-Based Care,620 High Street Road,GLEN WAVERLEY,VIC,3150,1300366437,"620 High Street Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8722149,145.1485507
+Murray Street Early Learning Centre,Centre-Based Care,1 Murray St,CLAYTON,VIC,3168,395626748,"1 Murray St, CLAYTON, VIC, 3168, Australia",-37.9180909,145.1218237
+Greenvue Kindergarten,Centre-Based Care,6 Wootten Rd,TARNEIT,VIC,3029,03 9749 6262,"6 Wootten Rd, TARNEIT, VIC, 3029, Australia",-37.8598054,144.6599681
+Happy Campers Family Day Care,Family Day Care,19 Palpera Tce,GREENSBOROUGH,VIC,3088,448904911,"19 Palpera Tce, GREENSBOROUGH, VIC, 3088, Australia",-37.68272,145.1052446
+Bubup Womindjeka Family and Children's Centre,Centre-Based Care,85 Liardet St,PORT MELBOURNE,VIC,3207,396768400,"85 Liardet St, PORT MELBOURNE, VIC, 3207, Australia",-37.8401244,144.944257
+Connie Benn Early Learning Centre,Centre-Based Care,160 Brunswick St,FITZROY,VIC,3065,394261515,"160 Brunswick St, FITZROY, VIC, 3065, Australia",-37.8026788,144.9780369
+Only About Children Tarneit,Centre-Based Care,19-25 Turva Ave,TARNEIT,VIC,3029,387427400,"19-25 Turva Ave, TARNEIT, VIC, 3029, Australia",-37.8381009,144.6745116
+PlayHouse Family Daycare,Family Day Care,34 London Cres,NARRE WARREN,VIC,3805,387949890,"34 London Cres, NARRE WARREN, VIC, 3805, Australia",-37.9967914,145.3100214
+Youth Leadership Victoria- St. Mark's OSHC,Centre-Based Care,Argyle Street,FAWKNER,VIC,3060,387906511,"Argyle Street, FAWKNER, VIC, 3060, Australia",-37.7176407,144.9703477
+KW 5 Star Kids Services,Family Day Care,4 Shine Walk,EPPING,VIC,3076,412838006,"4 Shine Walk, EPPING, VIC, 3076, Australia",-37.6240205,145.0125835
+First Five Early Learning Tarneit,Centre-Based Care,466-468 Sayers Road,TARNEIT,VIC,3029,387375889,"466-468 Sayers Road, TARNEIT, VIC, 3029, Australia",-37.8492544,144.6980477
+Melton Early Learning Centre,Centre-Based Care,2 Roslyn Park Drive,MELTON,VIC,3337,387462544,"2 Roslyn Park Drive, MELTON, VIC, 3337, Australia",-37.6643901,144.5716003
+Little Stars Childcare & Kindergarten Cranbourne,Centre-Based Care,24-26 Walter St,CRANBOURNE,VIC,3977,96265424,"24-26 Walter St, CRANBOURNE, VIC, 3977, Australia",-38.10267,145.2811884
+Little Assets - Melbourne City Early Learning Centre,Centre-Based Care,18/38 Siddeley Street,DOCKLANDS,VIC,3008,03 9620 2887,"18/38 Siddeley Street, DOCKLANDS, VIC, 3008, Australia",-37.8224863,144.9531011
+Little Stars Childcare & Kindergarten Melton,Centre-Based Care,8-10 Sherwin Court,MELTON,VIC,3337,1300316316,"8-10 Sherwin Court, MELTON, VIC, 3337, Australia",-37.6824539,144.6063122
+Melton City Council Family Day Care,Family Day Care,232 High Street,MELTON,VIC,3337,397477200,"232 High Street, MELTON, VIC, 3337, Australia",-37.6821445,144.5871004
+Team Holiday - Moorabbin Primary,Centre-Based Care,Worthing Road,MOORABBIN,VIC,3189,1300035000,"Worthing Road, MOORABBIN, VIC, 3189, Australia",-37.9445629,145.0393187
+Chelsea Primary School Outside School Hours Care,Centre-Based Care,Argyle Avenue,CHELSEA,VIC,3196,395814847,"Argyle Avenue, CHELSEA, VIC, 3196, Australia",-38.0552943,145.120526
+Penleigh & Essendon Grammar School,Centre-Based Care,59 Raleigh Street,ESSENDON,VIC,3040,390162100,"59 Raleigh Street, ESSENDON, VIC, 3040, Australia",-37.7539905,144.9195165
+Altona Kindergarten,Centre-Based Care,89 Blyth Street,ALTONA,VIC,3018,393982839,"89 Blyth Street, ALTONA, VIC, 3018, Australia",-37.8677089,144.8257831
+Somers Parade Kindergarten,Centre-Based Care,4 Somers Parade,ALTONA,VIC,3018,393981526,"4 Somers Parade, ALTONA, VIC, 3018, Australia",-37.8714742,144.8087704
+Narre Warren North Kindergarten,Centre-Based Care,8 Winters Lane,NARRE WARREN,VIC,3805,397968259,"8 Winters Lane, NARRE WARREN, VIC, 3805, Australia",-37.9795486,145.3162315
+Fountain Gate Kindergarten,Centre-Based Care,12 Sylvanwood Crescent,NARRE WARREN,VIC,3805,397032768,"12 Sylvanwood Crescent, NARRE WARREN, VIC, 3805, Australia",-38.0073345,145.2942065
+Chalcot Lodge Kindergarten,Centre-Based Care,26 Haverstock Hill Close,ENDEAVOUR HILLS,VIC,3802,397002678,"26 Haverstock Hill Close, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9704549,145.2491529
+Hartley Ridge Kindergarten,Centre-Based Care,36 Singleton Drive,ENDEAVOUR HILLS,VIC,3802,397005908,"36 Singleton Drive, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9810762,145.2699995
+Allara Kindergarten,Centre-Based Care,15-17 Gleneagles Drive,ENDEAVOUR HILLS,VIC,3802,397005766,"15-17 Gleneagles Drive, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9678054,145.2683288
+HAPPY KIDZ CHILD CARE & EARLY LEARNING CENTRE,Centre-Based Care,413-415 Princes Hwy,NARRE WARREN,VIC,3805,387532818,"413-415 Princes Hwy, NARRE WARREN, VIC, 3805, Australia",-38.021863,145.2995879
+Maramba Kindergarten,Centre-Based Care,2-8 Josephine Ave,NARRE WARREN,VIC,3805,397049305,"2-8 Josephine Ave, NARRE WARREN, VIC, 3805, Australia",-38.0043807,145.3038788
+Reema Kindergarten,Centre-Based Care,42 Reema Boulevard,ENDEAVOUR HILLS,VIC,3802,397061956,"42 Reema Boulevard, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9717883,145.2732512
+Oatlands Kindergarten,Centre-Based Care,19-23 Rozzy Pde,NARRE WARREN,VIC,3805,397966596,"19-23 Rozzy Pde, NARRE WARREN, VIC, 3805, Australia",-38.0058731,145.3159202
+Montessori Beginnings Greenvale,Centre-Based Care,985c Mickleham Rd,GREENVALE,VIC,3059,370187533,"985c Mickleham Rd, GREENVALE, VIC, 3059, Australia",-37.6151643,144.8857688
+Amiga Montessori Burwood,Centre-Based Care,1 Sparks Ave,BURWOOD,VIC,3125,370363389,"1 Sparks Ave, BURWOOD, VIC, 3125, Australia",-37.8567206,145.1256959
+Goodstart Early Learning Melbourne,Centre-Based Care,La Trobe Street,MELBOURNE,VIC,3000,03 9663 2881,"La Trobe Street, MELBOURNE, VIC, 3000, Australia",-37.8117817,144.9564399
+Goodstart Early Learning Melton - High Street,Centre-Based Care,443-445 High St,MELTON,VIC,3337,03 9746 6388,"443-445 High St, MELTON, VIC, 3337, Australia",-37.6840896,144.5761001
+Goodstart Early Learning Mont Albert,Centre-Based Care,15 Wellesley Street,MONT ALBERT,VIC,3127,03 9890 8846,"15 Wellesley Street, MONT ALBERT, VIC, 3127, Australia",-37.816124,145.1021218
+Goodstart Early Learning Greenvale,Centre-Based Care,2 McNab Way,GREENVALE,VIC,3059,03 9333 3533,"2 McNab Way, GREENVALE, VIC, 3059, Australia",-37.6485825,144.8883039
+Goodstart Early Learning Glenroy - Pascoe Vale Road,Centre-Based Care,851-853 Pascoe Vale Rd,GLENROY,VIC,3046,03 9304 2788,"851-853 Pascoe Vale Rd, GLENROY, VIC, 3046, Australia",-37.7027046,144.9151096
+Community Kids Haven Greensborough,Centre-Based Care,299 Plenty River Drive,GREENSBOROUGH,VIC,3088,394324033,"299 Plenty River Drive, GREENSBOROUGH, VIC, 3088, Australia",-37.6832699,145.1185659
+Goodstart Early Learning Vermont - Canterbury Road North,Centre-Based Care,425-429 Canterbury Rd,VERMONT,VIC,3133,03 9873 8400,"425-429 Canterbury Rd, VERMONT, VIC, 3133, Australia",-37.8365579,145.1896104
+Goodstart Early Learning Werribee,Centre-Based Care,39-41 Duncans Rd,WERRIBEE,VIC,3030,03 9749 8088,"39-41 Duncans Rd, WERRIBEE, VIC, 3030, Australia",-37.9038787,144.6658206
+Goodstart Early Learning Tarneit,Centre-Based Care,17 David John Drive,TARNEIT,VIC,3029,03 8742 2566,"17 David John Drive, TARNEIT, VIC, 3029, Australia",-37.8500028,144.7068303
+Pooh Bear's House,Centre-Based Care,323 Maroondah Highway,CROYDON,VIC,3136,03 9725 0403,"323 Maroondah Highway, CROYDON, VIC, 3136, Australia",-37.7798083,145.2898837
+Community Kids Melton Early Education Centre,Centre-Based Care,190 Centenary Ave,MELTON,VIC,3337,397476844,"190 Centenary Ave, MELTON, VIC, 3337, Australia",-37.6759517,144.5947059
+Craigieburn Child and Family Centre,Centre-Based Care,24-36 Cleveland Dr,CRAIGIEBURN,VIC,3064,392052712,"24-36 Cleveland Dr, CRAIGIEBURN, VIC, 3064, Australia",-37.578761,144.9254021
+Guardian Childcare & Education Moorabbin,Centre-Based Care,488 South Road,MOORABBIN,VIC,3189,395536635,"488 South Road, MOORABBIN, VIC, 3189, Australia",-37.9352558,145.0507129
+Kids World Child Care Centre,Centre-Based Care,14-16 Walls Rd,WERRIBEE,VIC,3030,397414525,"14-16 Walls Rd, WERRIBEE, VIC, 3030, Australia",-37.8976946,144.6378318
+CHOKLITS CROYDON,Centre-Based Care,374 Maroondah Highway,CROYDON,VIC,3136,397274414,"374 Maroondah Highway, CROYDON, VIC, 3136, Australia",-37.7742524,145.2934168
+Goodstart Early Learning Vermont - Canterbury Road South,Centre-Based Care,522-524 Canterbury Rd,VERMONT,VIC,3133,03 9873 8300,"522-524 Canterbury Rd, VERMONT, VIC, 3133, Australia",-37.8368756,145.1879626
+Headstart Early Learning Centre Croydon,Centre-Based Care,380 Dorset Rd,CROYDON,VIC,3136,397255515,"380 Dorset Rd, CROYDON, VIC, 3136, Australia",-37.8058145,145.2882258
+Jellystar Early Learning Centre,Centre-Based Care,34 Morton Street,CLAYTON,VIC,3168,399895158,"34 Morton Street, CLAYTON, VIC, 3168, Australia",-37.917382,145.1385134
+Our Lady of Immaculate Conception OSHC - Extend,Centre-Based Care,32 Station Place,SUNSHINE,VIC,3020,1300366437,"32 Station Place, SUNSHINE, VIC, 3020, Australia",-37.7885407,144.8341673
+City Kids Early Learning Centre,Centre-Based Care,216-222 Normanby Rd,SOUTHBANK,VIC,3006,03 9681 7774,"216-222 Normanby Rd, SOUTHBANK, VIC, 3006, Australia",-37.8282319,144.9492638
+Guardian Childcare & Education Lemon Tree,Centre-Based Care,2-10 Grattan St,CARLTON,VIC,3053,393474949,"2-10 Grattan St, CARLTON, VIC, 3053, Australia",-37.8007415,144.969539
+Story House Early Learning Tarneit,Centre-Based Care,414 Derrimut Road,TARNEIT,VIC,3029,397496300,"414 Derrimut Road, TARNEIT, VIC, 3029, Australia",-37.8154718,144.694269
+Werribee Little Learners,Centre-Based Care,85 Princes Highway,WERRIBEE,VIC,3030,03 9974 0002,"85 Princes Highway, WERRIBEE, VIC, 3030, Australia",-37.895889,144.6751693
+Craigieburn Global Learning Centre Children's Service,Centre-Based Care,75-95 Central Park Ave,CRAIGIEBURN,VIC,3064,393566148,"75-95 Central Park Ave, CRAIGIEBURN, VIC, 3064, Australia",-37.5901217,144.9093878
+Carlisle Park Kindergarten,Centre-Based Care,2-20i Majestic Bvd,CRANBOURNE,VIC,3977,359917243,"2-20i Majestic Bvd, CRANBOURNE, VIC, 3977, Australia",-38.0867291,145.2947791
+Hallam Kindergarten,Centre-Based Care,30 Harmer Rd,HALLAM,VIC,3803,397031223,"30 Harmer Rd, HALLAM, VIC, 3803, Australia",-38.0018439,145.2580443
+Mother's Choice Family Day Care,Family Day Care,24 Amsterdam Avenue,TARNEIT,VIC,3029,397483402,"24 Amsterdam Avenue, TARNEIT, VIC, 3029, Australia",-37.8420039,144.6618217
+Hilton Street Preschool,Centre-Based Care,20 Hilton St,CRAIGIEBURN,VIC,3064,393081562,"20 Hilton St, CRAIGIEBURN, VIC, 3064, Australia",-37.5948095,144.9396403
+NiÃ±o Early Learning Adventures - Chadstone,Centre-Based Care,11-15 Chadstone Rd,MALVERN EAST,VIC,3145,03 9086 4800,"11-15 Chadstone Rd, MALVERN EAST, VIC, 3145, Australia",-37.8855843,145.0782575
+LA GRANDE RECRE,Centre-Based Care,1003 Nepean Hwy,MOORABBIN,VIC,3189,490488411,"1003 Nepean Hwy, MOORABBIN, VIC, 3189, Australia",-37.9359686,145.0373662
+Amiga Montessori Alamanda,Centre-Based Care,7 ADELPHI BVD,POINT COOK,VIC,3030,390884186,"7 ADELPHI BVD, POINT COOK, VIC, 3030, Australia",-37.8991898,144.7393947
+CRANBOURNE ONE EARLY EDUCATION GROUP,Centre-Based Care,2-20 Elmslie Drive,CRANBOURNE,VIC,3977,390881889,"2-20 Elmslie Drive, CRANBOURNE, VIC, 3977, Australia",-38.1196593,145.3061281
+Guardian Childcare & Education Croydon,Centre-Based Care,20-22 Croydon Rd,CROYDON,VIC,3136,8393 1780,"20-22 Croydon Rd, CROYDON, VIC, 3136, Australia",-37.7929463,145.2823268
+Altona Early Education Centre,Centre-Based Care,40 Sargood St,ALTONA,VIC,3018,393985229,"40 Sargood St, ALTONA, VIC, 3018, Australia",-37.865792,144.8295422
+Green Leaves Early Learning Richmond,Centre-Based Care,556 Swan St,RICHMOND,VIC,3121,394283113,"556 Swan St, RICHMOND, VIC, 3121, Australia",-37.8273576,145.0119186
+Nido Early School Ferntree Gully,Centre-Based Care,2 Francis Cres,FERNTREE GULLY,VIC,3156,370360354,"2 Francis Cres, FERNTREE GULLY, VIC, 3156, Australia",-37.8811235,145.2938639
+TeamKids - Armadale Primary,Centre-Based Care,9-23 Densham Rd,ARMADALE,VIC,3143,1300035000,"9-23 Densham Rd, ARMADALE, VIC, 3143, Australia",-37.852206,145.0173507
+Blooming Stars Child Care Centre,Centre-Based Care,47 Renwick Rd,FERNTREE GULLY,VIC,3156,,"47 Renwick Rd, FERNTREE GULLY, VIC, 3156, Australia",-37.883635,145.2671822
+Hampton Park Community House,Centre-Based Care,101 Strong Dr,HAMPTON PARK,VIC,3976,387688342,"101 Strong Dr, HAMPTON PARK, VIC, 3976, Australia",-38.0334246,145.2772051
+Kool Kidz Preston,Centre-Based Care,59 Plenty Rd,PRESTON,VIC,3072,390411344,"59 Plenty Rd, PRESTON, VIC, 3072, Australia",-37.7496899,145.0030022
+Werribee Early Years Family Day Care,Family Day Care,2a Leigh St,WERRIBEE,VIC,3030,03 9734 1075,"2a Leigh St, WERRIBEE, VIC, 3030, Australia",-37.8890476,144.6496023
+Coburg West Primary School Out of School Hours Care,Centre-Based Care,185-187 Reynard St,COBURG,VIC,3058,393846306,"185-187 Reynard St, COBURG, VIC, 3058, Australia",-37.7477054,144.9476199
+Quantin Binnah Community Centre,Centre-Based Care,61 Thames Boulevard,WERRIBEE,VIC,3030,397425040,"61 Thames Boulevard, WERRIBEE, VIC, 3030, Australia",-37.8774956,144.6583395
+Early Years at Phoenix Park,Centre-Based Care,25 Quentin Road,MALVERN EAST,VIC,3145,395699500,"25 Quentin Road, MALVERN EAST, VIC, 3145, Australia",-37.880017,145.0821243
+Camp Australia - St Peter's Primary School Clayton OSHC,Centre-Based Care,16 Mary Street,CLAYTON,VIC,3168,450779671,"16 Mary Street, CLAYTON, VIC, 3168, Australia",-37.923128,145.1232217
+Camp Australia - Good Shepherd Parish School Wheelers Hill OSHC,Centre-Based Care,30 Academy Avenue,WHEELERS HILL,VIC,3150,428806104,"30 Academy Avenue, WHEELERS HILL, VIC, 3150, Australia",-37.9075801,145.1662827
+Donvale Christian College OSHClub,Centre-Based Care,155 Tindals Rd,DONVALE,VIC,3111,408148173,"155 Tindals Rd, DONVALE, VIC, 3111, Australia",-37.7727895,145.1937127
+My Stars Essendon,Centre-Based Care,22 Lincoln Road,ESSENDON,VIC,3040,393376490,"22 Lincoln Road, ESSENDON, VIC, 3040, Australia",-37.7541576,144.9085912
+Beyond EduCare - St John the Baptist Primary School OSHC,Centre-Based Care,17 Forest Road,FERNTREE GULLY,VIC,3156,478746424,"17 Forest Road, FERNTREE GULLY, VIC, 3156, Australia",-37.8869359,145.2954634
+St James School OSHC Vermont,Centre-Based Care,51 Centre Road,VERMONT,VIC,3133,493949124,"51 Centre Road, VERMONT, VIC, 3133, Australia",-37.8363712,145.2093865
+Big Childcare - Dorset PS OSHC,Centre-Based Care,Rescorla Ave,CROYDON,VIC,3136,1300273162,"Rescorla Ave, CROYDON, VIC, 3136, Australia",-37.8100026,145.2860059
+Carranballac College Boardwalk TheirCare,Centre-Based Care,Foxwood Dr,POINT COOK,VIC,3030,437112955,"Foxwood Dr, POINT COOK, VIC, 3030, Australia",-37.8820637,144.7439129
+Precious Stars Family Day Care,Family Day Care,109 Willowgreen Way,POINT COOK,VIC,3030,414910805,"109 Willowgreen Way, POINT COOK, VIC, 3030, Australia",-37.8768105,144.7491517
+Kinderclub,Centre-Based Care,35 Crimea Street,ST KILDA,VIC,3182,395103833,"35 Crimea Street, ST KILDA, VIC, 3182, Australia",-37.8602091,144.9876888
+Heathdale Christian College Early Learning Centre,Centre-Based Care,175 Derrimut Road,WERRIBEE,VIC,3030,399744827,"175 Derrimut Road, WERRIBEE, VIC, 3030, Australia",-37.8812456,144.6805861
+Guardian Childcare & Education Pascoe Vale,Centre-Based Care,188-204 Cumberland Road,PASCOE VALE,VIC,3044,393044090,"188-204 Cumberland Road, PASCOE VALE, VIC, 3044, Australia",-37.7249986,144.9396936
+Heidelberg Preschool,Centre-Based Care,4 ORIENT PL,HEIDELBERG,VIC,3084,394572492,"4 ORIENT PL, HEIDELBERG, VIC, 3084, Australia",-37.7572258,145.062723
+Clarendon Street Kindergarten,Centre-Based Care,43A Clarendon Street,CRANBOURNE,VIC,3977,359963117,"43A Clarendon Street, CRANBOURNE, VIC, 3977, Australia",-38.1058795,145.2853341
+Habib Family Day Care Services Pty Ltd,Family Day Care,469B Ballarat Road,SUNSHINE,VIC,3020,03 9310 2857,"469B Ballarat Road, SUNSHINE, VIC, 3020, Australia",-37.778724,144.843226
+St Paul Apostle North & Mossgiel Park OSHC,Centre-Based Care,76 Mossgiel Park Drive,ENDEAVOUR HILLS,VIC,3802,426998325,"76 Mossgiel Park Drive, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9674453,145.262858
+Camp Australia - Hughesdale Primary School OSHC,Centre-Based Care,Brine St,HUGHESDALE,VIC,3166,423940728,"Brine St, HUGHESDALE, VIC, 3166, Australia",-37.9064996,145.0773401
+Big Childcare - Hume Anglican OSHC,Centre-Based Care,100 Mount Ridley Road,CRAIGIEBURN,VIC,3064,1300273162,"100 Mount Ridley Road, CRAIGIEBURN, VIC, 3064, Australia",-37.5670312,144.9320836
+Camp Australia - Manorvale Primary School OSHC,Centre-Based Care,232-246 Greaves St N,WERRIBEE,VIC,3030,405428328,"232-246 Greaves St N, WERRIBEE, VIC, 3030, Australia",-37.8930682,144.643983
+being 3,Centre-Based Care,1 England Road,GLEN WAVERLEY,VIC,3150,385213550,"1 England Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8939336,145.1455551
+Sacred Heart OSHC Kew,Centre-Based Care,116 Cotham Road,KEW,VIC,3101,493947892,"116 Cotham Road, KEW, VIC, 3101, Australia",-37.8080426,145.0374022
+Little Blossoms Child Care Centre,Centre-Based Care,80-88 Ballan Rd,WERRIBEE,VIC,3030,397317999,"80-88 Ballan Rd, WERRIBEE, VIC, 3030, Australia",-37.8967267,144.6397675
+KU Craigieburn Children's Centre,Centre-Based Care,24-36 Cleveland Dr,CRAIGIEBURN,VIC,3064,392052701,"24-36 Cleveland Dr, CRAIGIEBURN, VIC, 3064, Australia",-37.578761,144.9254021
+Journey Early Learning Centre - Werribee,Centre-Based Care,28 Alfred Rd,WERRIBEE,VIC,3030,387466975,"28 Alfred Rd, WERRIBEE, VIC, 3030, Australia",-37.9194032,144.6275999
+Middleton Drive Kindergarten,Centre-Based Care,1 Middleton Dr,POINT COOK,VIC,3030,436534578,"1 Middleton Dr, POINT COOK, VIC, 3030, Australia",-37.908624,144.7522372
+St Josephâ€™s Primary School OSHC,Centre-Based Care,362 Station St,CHELSEA,VIC,3196,395814847,"362 Station St, CHELSEA, VIC, 3196, Australia",-38.0553123,145.1188704
+Creative Play Early Learning Centre Doncaster,Centre-Based Care,522-524 Doncaster Rd,DONCASTER,VIC,3108,398482157,"522-524 Doncaster Rd, DONCASTER, VIC, 3108, Australia",-37.7881711,145.1063433
+Amiga Montessori Craigieburn,Centre-Based Care,40 Highlander Dr,CRAIGIEBURN,VIC,3064,352730290,"40 Highlander Dr, CRAIGIEBURN, VIC, 3064, Australia",-37.588791,144.8954015
+Children's Montessori Centre,Centre-Based Care,1-9 Hellyer Way,ENDEAVOUR HILLS,VIC,3802,413181697,"1-9 Hellyer Way, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9787848,145.2636712
+Story House Early Learning Cheltenham,Centre-Based Care,329-345 Bay Road,CHELTENHAM,VIC,3192,395539974,"329-345 Bay Road, CHELTENHAM, VIC, 3192, Australia",-37.957035,145.048558
+Kool Kidz Greenvale,Centre-Based Care,1 Bonds Lane,GREENVALE,VIC,3059,03 9457 8563,"1 Bonds Lane, GREENVALE, VIC, 3059, Australia",-37.6427026,144.8799584
+Kool Kidz Narre Warren,Centre-Based Care,17 Cranbourne Rd,NARRE WARREN,VIC,3805,397051532,"17 Cranbourne Rd, NARRE WARREN, VIC, 3805, Australia",-38.0309243,145.3053971
+TeamKids - Templestowe Park Primary,Centre-Based Care,399 Church Road,TEMPLESTOWE,VIC,3106,1300035000,"399 Church Road, TEMPLESTOWE, VIC, 3106, Australia",-37.7556593,145.141761
+Story House Early Learning Reservoir,Centre-Based Care,762-764 PLENTY RD,RESERVOIR,VIC,3073,370461071,"762-764 PLENTY RD, RESERVOIR, VIC, 3073, Australia",-37.727703,145.0198669
+Froliq Early Learning Centre,Centre-Based Care,33 SHAWS RD,WERRIBEE,VIC,3030,430136123,"33 SHAWS RD, WERRIBEE, VIC, 3030, Australia",-37.8881815,144.646606
+Discovery Bay Croydon,Centre-Based Care,358-360 MT DANDENONG RD,CROYDON,VIC,3136,398900888,"358-360 MT DANDENONG RD, CROYDON, VIC, 3136, Australia",-37.8005481,145.2952392
+Happy Seeds Early Learning Centre and Kindergarten,Centre-Based Care,671-675 WAVERLEY RD,GLEN WAVERLEY,VIC,3150,399674368,"671-675 WAVERLEY RD, GLEN WAVERLEY, VIC, 3150, Australia",-37.8885276,145.1624927
+Guardian Childcare & Education Pascoe Vale South,Centre-Based Care,120-122 CUMBERLAND RD,PASCOE VALE,VIC,3044,390887440,"120-122 CUMBERLAND RD, PASCOE VALE, VIC, 3044, Australia",-37.7302442,144.9390955
+Pooh's Place ELC,Centre-Based Care,2-4 VICTORIA RD,LILYDALE,VIC,3140,397376988,"2-4 VICTORIA RD, LILYDALE, VIC, 3140, Australia",-37.7604309,145.3348107
+Bambini Bluff,Centre-Based Care,432-436 Bluff Rd,HAMPTON,VIC,3188,385521200,"432-436 Bluff Rd, HAMPTON, VIC, 3188, Australia",-37.9447698,145.0227052
+Papilio Early Learning Box Hill,Centre-Based Care,84-86 Carrington Rd,BOX HILL,VIC,3128,388407140,"84-86 Carrington Rd, BOX HILL, VIC, 3128, Australia",-37.820019,145.1204665
+Fleetwood OSHClub,Centre-Based Care,97 Fleetwood Dr,NARRE WARREN,VIC,3805,429996381,"97 Fleetwood Dr, NARRE WARREN, VIC, 3805, Australia",-38.0402512,145.3169612
+RMIT City Campus Children's Centre,Centre-Based Care,17-25 Lygon St,CARLTON,VIC,3053,03 9925 8500,"17-25 Lygon St, CARLTON, VIC, 3053, Australia",-37.806367,144.9656743
+Lilydale PS OSHC - Extend,Centre-Based Care,"Lilydale Primary School, 63-65 Castella St",LILYDALE,VIC,3140,1300366437,"Lilydale Primary School, 63-65 Castella St, LILYDALE, VIC, 3140, Australia",-37.7538158,145.3533477
+Leapkids William Ruthven,Centre-Based Care,"William Ruthven Primary School, 60 Merrilands Rd",RESERVOIR,VIC,3073,1300366235,"William Ruthven Primary School, 60 Merrilands Rd, RESERVOIR, VIC, 3073, Australia",-37.6970613,145.0020491
+Bulleen Kids Early Learning,Centre-Based Care,60 Manningham Road,BULLEEN,VIC,3105,398502791,"60 Manningham Road, BULLEEN, VIC, 3105, Australia",-37.765989,145.0883727
+Guardian Childcare & Education Preston,Centre-Based Care,418 Murray Road,PRESTON,VIC,3072,394711115,"418 Murray Road, PRESTON, VIC, 3072, Australia",-37.7371078,144.9972433
+First Early Learning Heywood Grove,Centre-Based Care,2 Heywood Grove,ENDEAVOUR HILLS,VIC,3802,397001922,"2 Heywood Grove, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9704773,145.2584464
+Pico Early Learning Centre and Kindergarten Endeavour Hills,Centre-Based Care,23-24 Oban Close,ENDEAVOUR HILLS,VIC,3802,397004891,"23-24 Oban Close, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.970761,145.265467
+Wallaby Early Learning Centre Greensborough,Centre-Based Care,45 Civic Drive,GREENSBOROUGH,VIC,3088,94324655,"45 Civic Drive, GREENSBOROUGH, VIC, 3088, Australia",-37.6883488,145.1111471
+Will Will Rook Preschool (KODE Glenroy),Centre-Based Care,208 Hilton Street,GLENROY,VIC,3046,393041966,"208 Hilton Street, GLENROY, VIC, 3046, Australia",-37.698736,144.9197305
+Bembit Bag-rook Kindergarten,Centre-Based Care,61 Polly Pde,TARNEIT,VIC,3029,391250649,"61 Polly Pde, TARNEIT, VIC, 3029, Australia",-37.8254735,144.6832058
+First Steps Early Learning Journey,Centre-Based Care,58-60 Smiths Rd,TEMPLESTOWE,VIC,3106,383722012,"58-60 Smiths Rd, TEMPLESTOWE, VIC, 3106, Australia",-37.7621129,145.1525406
+EQUIP EARLY LEARNING CENTRE,Centre-Based Care,423-427 Hogans Rd,TARNEIT,VIC,3029,397489233,"423-427 Hogans Rd, TARNEIT, VIC, 3029, Australia",-37.8601103,144.6570348
+Burwood House Early Learning Centre,Centre-Based Care,172-174 Burwood Hwy,BURWOOD,VIC,3125,386577584,"172-174 Burwood Hwy, BURWOOD, VIC, 3125, Australia",-37.8501766,145.1156331
+Big Childcare - Davis Creek PS OSHC,Centre-Based Care,65 Wootten Rd,TARNEIT,VIC,3029,1300273162,"65 Wootten Rd, TARNEIT, VIC, 3029, Australia",-37.8556653,144.6590568
+Snuggles Early Learning Centre,Centre-Based Care,552-554 Highbury Rd,GLEN WAVERLEY,VIC,3150,03 9886 6112,"552-554 Highbury Rd, GLEN WAVERLEY, VIC, 3150, Australia",-37.8604478,145.1551145
+Busy Bees at Preston East,Centre-Based Care,54-56 Victoria St,PRESTON,VIC,3072,394842333,"54-56 Victoria St, PRESTON, VIC, 3072, Australia",-37.7484653,145.0168509
+Nido  Early School Moorabbin Airport,Centre-Based Care,9 Joseph Avenue,MOORABBIN,VIC,3194,395583400,"9 Joseph Avenue, MOORABBIN, VIC, 3194, Australia",-37.9729923,145.1086711
+Little Stars Child Care & Kindergarten,Centre-Based Care,82 Heatherton Road,ENDEAVOUR HILLS,VIC,3802,03 9708 0411,"82 Heatherton Road, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9741868,145.2509887
+Hippity Hop Early Learning Endeavour Hills,Centre-Based Care,53 Heatherton Road,ENDEAVOUR HILLS,VIC,3802,397000155,"53 Heatherton Road, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9752769,145.2761535
+Developmental Learning Centre Rainbow - Moorabbin,Centre-Based Care,39-41 Isabella St,MOORABBIN,VIC,3189,395322049,"39-41 Isabella St, MOORABBIN, VIC, 3189, Australia",-37.9430685,145.0539816
+Pelican Childcare Fairways,Centre-Based Care,94-100 Fairways Bvd,CRAIGIEBURN,VIC,3064,383394700,"94-100 Fairways Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.6066548,144.9121001
+Boutique Bubs Early Education & Kindergarten,Centre-Based Care,417 Bluff Road,HAMPTON,VIC,3188,395983484,"417 Bluff Road, HAMPTON, VIC, 3188, Australia",-37.9406694,145.0229193
+Sparrow Early Learning Alamanda,Centre-Based Care,12-14 Paradise Pde,POINT COOK,VIC,3030,03 9395 7780,"12-14 Paradise Pde, POINT COOK, VIC, 3030, Australia",-37.9003329,144.740286
+Children's World Family Day Care Service,Family Day Care,25 Bronzewing St,WILLIAMS LANDING,VIC,3027,432281020,"25 Bronzewing St, WILLIAMS LANDING, VIC, 3027, Australia",-37.8560913,144.7415004
+Kiddy Palace Learning Centre,Centre-Based Care,134-136 McDonalds Rd,EPPING,VIC,3076,03 8401 4556,"134-136 McDonalds Rd, EPPING, VIC, 3076, Australia",-37.647188,145.0545303
+Smart Reader Kids Hallam,Centre-Based Care,41 Cornwall Street,HALLAM,VIC,3803,397031206,"41 Cornwall Street, HALLAM, VIC, 3803, Australia",-38.0022006,145.2640515
+East Malvern Early Learning Centre,Centre-Based Care,11 Illowa Street,MALVERN EAST,VIC,3145,398869142,"11 Illowa Street, MALVERN EAST, VIC, 3145, Australia",-37.8693244,145.0616283
+Springvale 1 World of Learning,Centre-Based Care,67 Balmoral Avenue,SPRINGVALE,VIC,3171,395740699,"67 Balmoral Avenue, SPRINGVALE, VIC, 3171, Australia",-37.9483167,145.144353
+Kids First Fairy Hills Kindergarten,Centre-Based Care,7 Thyer Road,IVANHOE,VIC,3079,394992936,"7 Thyer Road, IVANHOE, VIC, 3079, Australia",-37.7782342,145.0399276
+Quantin Binnah / Corpus Christi PS,Centre-Based Care,29 Russell Street,WERRIBEE,VIC,3030,397425040,"29 Russell Street, WERRIBEE, VIC, 3030, Australia",-37.9100523,144.6644662
+Eco Kids Child Care Centre,Centre-Based Care,286 Pound Road,HAMPTON PARK,VIC,3976,387742262,"286 Pound Road, HAMPTON PARK, VIC, 3976, Australia",-38.0295379,145.2756619
+Point Cook YMCA Early Learning Centre,Centre-Based Care,63-65 Tom Roberts Pde,POINT COOK,VIC,3030,393958222,"63-65 Tom Roberts Pde, POINT COOK, VIC, 3030, Australia",-37.8930579,144.7250292
+Springvale Service for Children Inc,Centre-Based Care,26-28 Lightwood Rd,SPRINGVALE,VIC,3171,385583800,"26-28 Lightwood Rd, SPRINGVALE, VIC, 3171, Australia",-37.9500675,145.1537159
+Cranbourne Carlisle OSHClub,Centre-Based Care,15 Silky Oak Drive,CRANBOURNE,VIC,3977,447051260,"15 Silky Oak Drive, CRANBOURNE, VIC, 3977, Australia",-38.0870065,145.2894944
+Rose Garden Epping Early Learning Centre,Centre-Based Care,100 Epping Road,EPPING,VIC,3076,384013077,"100 Epping Road, EPPING, VIC, 3076, Australia",-37.6290442,145.0285331
+Buckets Early Learning Centre,Centre-Based Care,577 Neerim Road,HUGHESDALE,VIC,3166,03 9569 4411,"577 Neerim Road, HUGHESDALE, VIC, 3166, Australia",-37.8923196,145.0811053
+Children's Choice Family Day Care,Family Day Care,73 Rutherglen Way,TAYLORS LAKES,VIC,3038,,"73 Rutherglen Way, TAYLORS LAKES, VIC, 3038, Australia",-37.7049051,144.802894
+Genazzano FCJ College,Centre-Based Care,301 Cotham Rd,KEW,VIC,3101,388621255,"301 Cotham Rd, KEW, VIC, 3101, Australia",-37.8083529,145.0560364
+Glenroy Central Kindergarten,Centre-Based Care,10 Logan St,GLENROY,VIC,3046,393003503,"10 Logan St, GLENROY, VIC, 3046, Australia",-37.7046761,144.9258903
+Dewdrops Early Learning - Coburg,Centre-Based Care,36-40 Barrow St,COBURG,VIC,3058,393841734,"36-40 Barrow St, COBURG, VIC, 3058, Australia",-37.7537801,144.9710427
+Azza Family Day Care,Family Day Care,11 Rising Sun Pde,TARNEIT,VIC,3029,380860055,"11 Rising Sun Pde, TARNEIT, VIC, 3029, Australia",-37.8463851,144.6828452
+BasicNeeds Family Day Care,Family Day Care,12 Frogmouth Ct,WILLIAMS LANDING,VIC,3027,393600993,"12 Frogmouth Ct, WILLIAMS LANDING, VIC, 3027, Australia",-37.8557995,144.7379335
+Camp Australia - Alamanda K-9 College OSHC,Centre-Based Care,86-100 Alamanda Bvd,POINT COOK,VIC,3030,450776943,"86-100 Alamanda Bvd, POINT COOK, VIC, 3030, Australia",-37.9088434,144.7414876
+Tarneit Central Kindergarten,Centre-Based Care,21-23 Brinbrook St,TARNEIT,VIC,3029,387422372,"21-23 Brinbrook St, TARNEIT, VIC, 3029, Australia",-37.836161,144.6797928
+Queensberry Childrens Centre,Centre-Based Care,228 Queensberry Street,CARLTON,VIC,3053,383449470,"228 Queensberry Street, CARLTON, VIC, 3053, Australia",-37.8040712,144.9612427
+Kensington Community Children's Centre,Centre-Based Care,81B Altona Street,KENSINGTON,VIC,3031,393764565,"81B Altona Street, KENSINGTON, VIC, 3031, Australia",-37.7971307,144.925456
+Fawkner Park Children's Centre,Centre-Based Care,65 Toorak Road West,SOUTH YARRA,VIC,3141,398202758,"65 Toorak Road West, SOUTH YARRA, VIC, 3141, Australia",-37.8380165,144.9800366
+Tommaso Fiaschi Child Care Centre,Centre-Based Care,59-65 Station St,CARLTON,VIC,3053,405696022,"59-65 Station St, CARLTON, VIC, 3053, Australia",-37.7960687,144.9740047
+Swanston Street Children's Centre,Centre-Based Care,856 Swanston Street,CARLTON,VIC,3053,390354300,"856 Swanston Street, CARLTON, VIC, 3053, Australia",-37.7963049,144.9652077
+Melton Uniting Kindergarten,Centre-Based Care,15 Yuille St,MELTON,VIC,3337,397434144,"15 Yuille St, MELTON, VIC, 3337, Australia",-37.6791398,144.5914669
+Billy-beet Childcare & Kindergarten,Centre-Based Care,221 Coburns Road,MELTON,VIC,3337,397439443,"221 Coburns Road, MELTON, VIC, 3337, Australia",-37.6792178,144.5687115
+Evesham Road Preschool,Centre-Based Care,75 Evesham Road,CHELTENHAM,VIC,3192,395836158,"75 Evesham Road, CHELTENHAM, VIC, 3192, Australia",-37.9698806,145.0682047
+Olympic Avenue Kindergarten,Centre-Based Care,28 Olympic Avenue,CHELTENHAM,VIC,3192,395836166,"28 Olympic Avenue, CHELTENHAM, VIC, 3192, Australia",-37.9618377,145.0464401
+Bruthen Street Kindergarten,Centre-Based Care,2 Bruthen Street,MOORABBIN,VIC,3189,385186308,"2 Bruthen Street, MOORABBIN, VIC, 3189, Australia",-37.9380731,145.0548936
+Robin's Nest Early Learning Centre,Centre-Based Care,1158 Nepean Highway,CHELTENHAM,VIC,3192,395842430,"1158 Nepean Highway, CHELTENHAM, VIC, 3192, Australia",-37.9595896,145.0529943
+Friendship Square Child Care & Kindergarten Co-op,Centre-Based Care,35 Friendship Square,CHELTENHAM,VIC,3192,395841889,"35 Friendship Square, CHELTENHAM, VIC, 3192, Australia",-37.9590948,145.0658162
+St Helena Early Learning,Centre-Based Care,189 St Helena Rd,GREENSBOROUGH,VIC,3088,03 8594 0181,"189 St Helena Rd, GREENSBOROUGH, VIC, 3088, Australia",-37.6977552,145.1220166
+MAYFIELD EARLY EDUCATION DANDENONG,Centre-Based Care,57-59 Stud Rd,DANDENONG,VIC,3175,397946763,"57-59 Stud Rd, DANDENONG, VIC, 3175, Australia",-37.9799125,145.2215287
+Altona Early Years Hub,Centre-Based Care,103B Grieve Parade,ALTONA,VIC,3018,393150295,"103B Grieve Parade, ALTONA, VIC, 3018, Australia",-37.8661426,144.8180981
+Kids Academy Melton,Centre-Based Care,1-7 Reserve Rd,MELTON,VIC,3337,370464812,"1-7 Reserve Rd, MELTON, VIC, 3337, Australia",-37.6860518,144.5919333
+Kelly Club OSHC Oscar Romero Primary School,Centre-Based Care,1 Mackillop St,CRAIGIEBURN,VIC,3064,401021581,"1 Mackillop St, CRAIGIEBURN, VIC, 3064, Australia",-37.5815356,144.8952675
+Aitken Hill Community Centre,Centre-Based Care,40 Waterview Bvd,CRAIGIEBURN,VIC,3064,393566778,"40 Waterview Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.6020297,144.9039982
+All Kids Family Day Care,Family Day Care,17 Gravid St,WERRIBEE,VIC,3030,427314445,"17 Gravid St, WERRIBEE, VIC, 3030, Australia",-37.9166575,144.6459525
+Hallam Early Learning,Centre-Based Care,87 Frawley Rd,HALLAM,VIC,3803,,"87 Frawley Rd, HALLAM, VIC, 3803, Australia",-38.0012606,145.2721415
+Southern Cross Kindergarten,Centre-Based Care,1-21 David Collins Dr,ENDEAVOUR HILLS,VIC,3802,397000931,"1-21 David Collins Dr, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9888012,145.2652052
+Paisley Park Early Learning Centre Malvern,Centre-Based Care,131-133 Waverley Rd,MALVERN EAST,VIC,3145,394110360,"131-133 Waverley Rd, MALVERN EAST, VIC, 3145, Australia",-37.8758837,145.0489731
+St John's College Preston - VillageOSHC,Centre-Based Care,1 Blanch St,PRESTON,VIC,3072,,"1 Blanch St, PRESTON, VIC, 3072, Australia",-37.7470993,144.9990095
+Glenroy Hub Children's Centre,Centre-Based Care,50-62 Wheatsheaf Road,GLENROY,VIC,3046,390389430,"50-62 Wheatsheaf Road, GLENROY, VIC, 3046, Australia",-37.7067467,144.9199717
+Where We Grow ELC Glenroy,Centre-Based Care,42 William St,GLENROY,VIC,3046,393001447,"42 William St, GLENROY, VIC, 3046, Australia",-37.7082855,144.9087238
+Camp Australia - Cheltenham Primary School OSHC,Centre-Based Care,Charman Road,CHELTENHAM,VIC,3192,478027314,"Charman Road, CHELTENHAM, VIC, 3192, Australia",-37.9713628,145.054567
+YMCA Leisure City â€“ Childrenâ€™s Services Programs,Centre-Based Care,41-53 Miller St,EPPING,VIC,3076,394012222,"41-53 Miller St, EPPING, VIC, 3076, Australia",-37.6485624,145.0195995
+Watsonia Heights PS TheirCare,Centre-Based Care,61 Henry Street,GREENSBOROUGH,VIC,3088,438522874,"61 Henry Street, GREENSBOROUGH, VIC, 3088, Australia",-37.7157102,145.0999569
+"St Mary's Outside School Hours Care, Hampton",Centre-Based Care,59 Holyrood Street,HAMPTON,VIC,3188,493136478,"59 Holyrood Street, HAMPTON, VIC, 3188, Australia",-37.9330072,145.0005579
+"St Peter's PS Epping Outside School Hours Care, Epping",Centre-Based Care,13 Davisson St,EPPING,VIC,3076,493136449,"13 Davisson St, EPPING, VIC, 3076, Australia",-37.6506208,145.0294458
+Child's Play Point Cook,Centre-Based Care,11-17 Frankie Way,POINT COOK,VIC,3030,397494399,"11-17 Frankie Way, POINT COOK, VIC, 3030, Australia",-37.8882996,144.7186106
+Banyan Fields PS TheirCare,Centre-Based Care,90 Cadles Road,CARRUM DOWNS,VIC,3201,1300072410,"90 Cadles Road, CARRUM DOWNS, VIC, 3201, Australia",-38.0948822,145.1867312
+Park Hill Primary School- VillageOSHC,Centre-Based Care,Parkhill Drive,ASHWOOD,VIC,3147,1300366437,"Parkhill Drive, ASHWOOD, VIC, 3147, Australia",-37.8630915,145.1096746
+Northwest Montessori Preschool,Centre-Based Care,174 O'Hea Street,COBURG,VIC,3058,413700913,"174 O'Hea Street, COBURG, VIC, 3058, Australia",-37.736735,144.9567986
+Pascoe Vale North PS TheirCare,Centre-Based Care,17-29 Kent Rd,PASCOE VALE,VIC,3044,476003636,"17-29 Kent Rd, PASCOE VALE, VIC, 3044, Australia",-37.7215267,144.9484002
+TeamKids - Kalinda Primary,Centre-Based Care,"Kalinda Primary School, 39-49 Kalinda Rd",RINGWOOD,VIC,3134,1300035000,"Kalinda Primary School, 39-49 Kalinda Rd, RINGWOOD, VIC, 3134, Australia",-37.7900741,145.2536598
+Craigieburn PS TheirCare,Centre-Based Care,87-91 Grand Bvd,CRAIGIEBURN,VIC,3064,1300072410,"87-91 Grand Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.5827386,144.9326136
+Our Kids,Centre-Based Care,203 Springvale Road,NUNAWADING,VIC,3131,03 9894 4123,"203 Springvale Road, NUNAWADING, VIC, 3131, Australia",-37.8223352,145.1756175
+CRESCENT EARLY LEARNING CENTRE,Centre-Based Care,3 Florence Court,DANDENONG,VIC,3175,401584682,"3 Florence Court, DANDENONG, VIC, 3175, Australia",-37.9702978,145.2026503
+Bright Early Learning Centre (Glen Waverley),Centre-Based Care,988-990 High Street Rd,GLEN WAVERLEY,VIC,3150,398021333,"988-990 High Street Rd, GLEN WAVERLEY, VIC, 3150, Australia",-37.8771339,145.1892564
+Big Childcare - Heathdale Christian College OSHC,Centre-Based Care,"Heathdale Christian College, 175 Derrimut Rd",WERRIBEE,VIC,3030,1300273162,"Heathdale Christian College, 175 Derrimut Rd, WERRIBEE, VIC, 3030, Australia",-37.8812456,144.6805861
+Norwood Kindergarten,Centre-Based Care,18A Notlen St,RINGWOOD,VIC,3134,343290445,"18A Notlen St, RINGWOOD, VIC, 3134, Australia",-37.8080577,145.228928
+Sparrow Early Learning Tarneit,Centre-Based Care,20 Mercantour Bvd,TARNEIT,VIC,3029,387548097,"20 Mercantour Bvd, TARNEIT, VIC, 3029, Australia",-37.8437565,144.6660596
+Lollypop Creek Kindergarten,Centre-Based Care,104 SHIPWRIGHT PDE,WERRIBEE,VIC,3030,473859367,"104 SHIPWRIGHT PDE, WERRIBEE, VIC, 3030, Australia",-37.9097295,144.6141008
+Little Lambs Early Education Templestowe,Centre-Based Care,1 NILAND RISE,TEMPLESTOWE,VIC,3106,484045064,"1 NILAND RISE, TEMPLESTOWE, VIC, 3106, Australia",-37.7537327,145.1409066
+Eunoia Education-Hampton Park,Centre-Based Care,9 WINNIMA AV,HAMPTON PARK,VIC,3976,,"9 WINNIMA AV, HAMPTON PARK, VIC, 3976, Australia",-38.029792,145.2557459
+Green Kids Early Learning Endeavour Hills,Centre-Based Care,18 Cristata Avenue,ENDEAVOUR HILLS,VIC,3802,397007674,"18 Cristata Avenue, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9665052,145.2410038
+Canberra Avenue Child Care & Kinder,Centre-Based Care,27-29 Canberra Ave,DANDENONG,VIC,3175,397912272,"27-29 Canberra Ave, DANDENONG, VIC, 3175, Australia",-37.9966962,145.2079092
+Guardian Childcare & Education East Ivanhoe,Centre-Based Care,71 Lower Heidelberg Road,IVANHOE,VIC,3079,394997690,"71 Lower Heidelberg Road, IVANHOE, VIC, 3079, Australia",-37.771612,145.0471057
+Ivanhoe Girls' Grammar Early Learning Centre,Centre-Based Care,18 Noel Street,IVANHOE,VIC,3079,394906216,"18 Noel Street, IVANHOE, VIC, 3079, Australia",-37.7665415,145.0460043
+Lowther Hall Anglican Grammar School Kindergarten,Centre-Based Care,17 Leslie Road,ESSENDON,VIC,3040,393255000,"17 Leslie Road, ESSENDON, VIC, 3040, Australia",-37.7594518,144.9150253
+One Tree Defence Childcare Unit Coventry,Centre-Based Care,32 Coventry St,SOUTHBANK,VIC,3006,499970080,"32 Coventry St, SOUTHBANK, VIC, 3006, Australia",-37.8288211,144.9694758
+Yarra Valley Grammar School Early Learning Centre,Centre-Based Care,Kalinda Rd,RINGWOOD,VIC,3134,392627738,"Kalinda Rd, RINGWOOD, VIC, 3134, Australia",-37.7816453,145.2561413
+Preshil - The Margaret Lyttle Memorial School,Centre-Based Care,395 Barkers Road,KEW,VIC,3101,398167911,"395 Barkers Road, KEW, VIC, 3101, Australia",-37.8160383,145.0522949
+Melbourne Girls Grammar Early Learning Centre,Centre-Based Care,63 Clowes Street,SOUTH YARRA,VIC,3141,398629240,"63 Clowes Street, SOUTH YARRA, VIC, 3141, Australia",-37.8309273,144.9858444
+Methodist Ladies College - Kindle,Centre-Based Care,207 Barkers Road,KEW,VIC,3101,03 9274 8190,"207 Barkers Road, KEW, VIC, 3101, Australia",-37.8137174,145.038613
+Littlecroft Kindergarten,Centre-Based Care,51 The Strand,NARRE WARREN,VIC,3805,397042439,"51 The Strand, NARRE WARREN, VIC, 3805, Australia",-38.0693278,145.3009198
+Explorers Early Learning - Williams Landing,Centre-Based Care,2 Fogarty Street,WILLIAMS LANDING,VIC,3027,370201900,"2 Fogarty Street, WILLIAMS LANDING, VIC, 3027, Australia",-37.8665185,144.7508185
+Nino Early Learning Adventures - Ivanhoe,Centre-Based Care,27 Livingstone Street,IVANHOE,VIC,3079,90812166,"27 Livingstone Street, IVANHOE, VIC, 3079, Australia",-37.7673865,145.0396906
+Bubup Nairm Children's Centre,Centre-Based Care,99B Carlisle Street,ST KILDA,VIC,3182,392096403,"99B Carlisle Street, ST KILDA, VIC, 3182, Australia",-37.8686628,144.9896805
+Coburg Children's Centre Inc.,Centre-Based Care,1 Wardens Walk,COBURG,VIC,3058,393547633,"1 Wardens Walk, COBURG, VIC, 3058, Australia",-37.7399374,144.9687188
+Busy Bees at Cranbourne,Centre-Based Care,1280 Thompsons Road,CRANBOURNE,VIC,3977,359956441,"1280 Thompsons Road, CRANBOURNE, VIC, 3977, Australia",-38.0832779,145.2800565
+Starfish Early Learning Centre (Reservoir),Centre-Based Care,17 Rosenthal Cres,RESERVOIR,VIC,3073,394608200,"17 Rosenthal Cres, RESERVOIR, VIC, 3073, Australia",-37.7018602,145.003944
+Kindoo,Centre-Based Care,8 Commercial Road,FERNTREE GULLY,VIC,3156,385957939,"8 Commercial Road, FERNTREE GULLY, VIC, 3156, Australia",-37.8794518,145.2824644
+Kindy Patch Chelsea,Centre-Based Care,71 Blantyre Avenue,CHELSEA,VIC,3196,397723351,"71 Blantyre Avenue, CHELSEA, VIC, 3196, Australia",-38.0500585,145.1228965
+Chelsea World of Learning 1,Centre-Based Care,29 Woodbine Grove,CHELSEA,VIC,3196,397760456,"29 Woodbine Grove, CHELSEA, VIC, 3196, Australia",-38.0537482,145.1213788
+Derby Street Children's Centre,Centre-Based Care,122 Derby Street,PASCOE VALE,VIC,3044,03 9354 9995,"122 Derby Street, PASCOE VALE, VIC, 3044, Australia",-37.7257917,144.9470504
+Kent Road Uniting Kindergarten,Centre-Based Care,Kent Road,PASCOE VALE,VIC,3044,393067647,"Kent Road, PASCOE VALE, VIC, 3044, Australia",-37.7199976,144.9389857
+Shirley Robertson Childrens Centre,Centre-Based Care,1A Cameron Street,COBURG,VIC,3058,03 9383 3359,"1A Cameron Street, COBURG, VIC, 3058, Australia",-37.7527223,144.9624982
+Anne Sgro Children's Centre,Centre-Based Care,45-47 May St,COBURG,VIC,3058,393543197,"45-47 May St, COBURG, VIC, 3058, Australia",-37.7342222,144.9608788
+Barry Beckett Children's Centre,Centre-Based Care,12 Connolly Avenue,COBURG,VIC,3058,393546712,"12 Connolly Avenue, COBURG, VIC, 3058, Australia",-37.7364525,144.9809333
+Moreland Kindergarten,Centre-Based Care,157-163 Moreland Rd,COBURG,VIC,3058,393863517,"157-163 Moreland Rd, COBURG, VIC, 3058, Australia",-37.7552829,144.9669084
+Rupert Street Uniting Early Learning,Centre-Based Care,115-117 Rupert St,COLLINGWOOD,VIC,3066,394191094,"115-117 Rupert St, COLLINGWOOD, VIC, 3066, Australia",-37.8041688,144.9891618
+Regans Road Kindergarten,Centre-Based Care,7 Regans Road,HAMPTON PARK,VIC,3976,397990717,"7 Regans Road, HAMPTON PARK, VIC, 3976, Australia",-38.0311611,145.2515648
+Valley Brook Kindergarten,Centre-Based Care,2 Brook Court,HAMPTON PARK,VIC,3976,397990230,"2 Brook Court, HAMPTON PARK, VIC, 3976, Australia",-38.0290306,145.2638857
+Clarendon Street Community Child Care Centre,Centre-Based Care,43A Clarendon Street,CRANBOURNE,VIC,3977,359966258,"43A Clarendon Street, CRANBOURNE, VIC, 3977, Australia",-38.1058795,145.2853341
+Bowerbird Kindergarten,Centre-Based Care,136-138 Lyrebird Drive,CARRUM DOWNS,VIC,3201,397864995,"136-138 Lyrebird Drive, CARRUM DOWNS, VIC, 3201, Australia",-38.1109968,145.176831
+Cranbourne Day Care & Kindergarten Centre Pty Ltd - Cranbourne Drive,Centre-Based Care,30 Cranbourne Drive,CRANBOURNE,VIC,3977,03 5996 1415,"30 Cranbourne Drive, CRANBOURNE, VIC, 3977, Australia",-38.1086036,145.2755642
+Woodbine Road Preschool,Centre-Based Care,4 Woodbine Road,CRANBOURNE,VIC,3977,359969167,"4 Woodbine Road, CRANBOURNE, VIC, 3977, Australia",-38.0814487,145.2794321
+Cranbourne Day Care & Kindergarten Centre Pty Ltd - Cameron Street,Centre-Based Care,Cameron Street,CRANBOURNE,VIC,3977,03 5996 1415,"Cameron Street, CRANBOURNE, VIC, 3977, Australia",-38.116907,145.2891373
+Rowellyn Preschool,Centre-Based Care,37 Rowellyn Avenue,CARRUM DOWNS,VIC,3201,397820700,"37 Rowellyn Avenue, CARRUM DOWNS, VIC, 3201, Australia",-38.1053784,145.1927847
+Cranbourne Day Care & Kindergarten Centre Pty Ltd - The Barn,Centre-Based Care,2 Cooper Court,CRANBOURNE,VIC,3977,03 5996 1415,"2 Cooper Court, CRANBOURNE, VIC, 3977, Australia",-38.1143843,145.2881394
+Cranbourne Day Care & Kindergarten Centre Pty Ltd - Mundaring Drive,Centre-Based Care,18 Mundaring Drive,CRANBOURNE,VIC,3977,03 5996 1415,"18 Mundaring Drive, CRANBOURNE, VIC, 3977, Australia",-38.1073308,145.2810336
+Kids Paradise Childcare Pty Ltd,Centre-Based Care,2-6 Fulmar St,CARRUM DOWNS,VIC,3201,03 9782 4711,"2-6 Fulmar St, CARRUM DOWNS, VIC, 3201, Australia",-38.1117462,145.1593563
+Cranbourne Day Care & Kindergarten Centre Pty Ltd - Duff Street,Centre-Based Care,3 Duff Street,CRANBOURNE,VIC,3977,359961415,"3 Duff Street, CRANBOURNE, VIC, 3977, Australia",-38.1012207,145.2795623
+Brentwood Park Kindergarten,Centre-Based Care,25 Mandowie Crescent,CROYDON,VIC,3136,397233230,"25 Mandowie Crescent, CROYDON, VIC, 3136, Australia",-37.7903084,145.2998885
+Hewish Road Child Care Centre,Centre-Based Care,78 Hewish Road,CROYDON,VIC,3136,397231892,"78 Hewish Road, CROYDON, VIC, 3136, Australia",-37.7972974,145.2900012
+Dorset Early Learning & Kindergarten,Centre-Based Care,214-216 Dorset Rd,CROYDON,VIC,3136,397231271,"214-216 Dorset Rd, CROYDON, VIC, 3136, Australia",-37.7906878,145.2913931
+Dandenong North East Kindergarten,Centre-Based Care,10 Ingrid Street,DANDENONG,VIC,3175,397920398,"10 Ingrid Street, DANDENONG, VIC, 3175, Australia",-37.9711843,145.2205342
+Dandenong North Preschool,Centre-Based Care,70A McFees Road,DANDENONG,VIC,3175,397929003,"70A McFees Road, DANDENONG, VIC, 3175, Australia",-37.9646228,145.2197252
+"St Mary of the Cross OSHC, Point Cook",Centre-Based Care,70 Carrick St,POINT COOK,VIC,3030,493213746,"70 Carrick St, POINT COOK, VIC, 3030, Australia",-37.908833,144.7657536
+STARFISH EARLY LEARNING CENTRE (NUNAWADING),Centre-Based Care,28 Mountain View Rd,NUNAWADING,VIC,3131,398941688,"28 Mountain View Rd, NUNAWADING, VIC, 3131, Australia",-37.8113739,145.171413
+Newbury Child and Community Centre,Centre-Based Care,450 Grand Boulevard,CRAIGIEBURN,VIC,3064,436928811,"450 Grand Boulevard, CRAIGIEBURN, VIC, 3064, Australia",-37.5710818,144.9071024
+Christ Church Grammar OSHC - Extend,Centre-Based Care,677 Punt Road,SOUTH YARRA,VIC,3141,1300366437,"677 Punt Road, SOUTH YARRA, VIC, 3141, Australia",-37.8386354,144.9858808
+Camp Australia - St Gregory the Great School OSHC,Centre-Based Care,396 Manningham Road,DONCASTER,VIC,3108,413594035,"396 Manningham Road, DONCASTER, VIC, 3108, Australia",-37.7744705,145.114969
+Donvale Primary School- VillageOSHC,Centre-Based Care,4 Elata Street,DONVALE,VIC,3111,1300366437,"4 Elata Street, DONVALE, VIC, 3111, Australia",-37.8002218,145.1742833
+Camp Australia - St Leonards Primary School OSHC,Centre-Based Care,349 Springvale Road,GLEN WAVERLEY,VIC,3150,413597873,"349 Springvale Road, GLEN WAVERLEY, VIC, 3150, Australia",-37.8854842,145.1646773
+Camp Australia - Camelot Rise Primary School OSHC,Centre-Based Care,Galahad Crescent,GLEN WAVERLEY,VIC,3150,438593298,"Galahad Crescent, GLEN WAVERLEY, VIC, 3150, Australia",-37.8647512,145.1852622
+Camp Australia - St Andrews Primary School OSHC,Centre-Based Care,110 Greaves Street North,WERRIBEE,VIC,3030,412001494,"110 Greaves Street North, WERRIBEE, VIC, 3030, Australia",-37.9014919,144.6508502
+Ferntree Gully North PS TheirCare,Centre-Based Care,111 Forest Road,FERNTREE GULLY,VIC,3156,423794680,"111 Forest Road, FERNTREE GULLY, VIC, 3156, Australia",-37.874643,145.29849
+TeamKids - Jells Park Primary,Centre-Based Care,Petronella Avenue,WHEELERS HILL,VIC,3150,1300035000,"Petronella Avenue, WHEELERS HILL, VIC, 3150, Australia",-37.9052777,145.1961041
+Camp Australia - Mountain Gate Primary School OSHC,Centre-Based Care,Adele Avenue,FERNTREE GULLY,VIC,3156,450776540,"Adele Avenue, FERNTREE GULLY, VIC, 3156, Australia",-37.8868059,145.2676557
+Camp Australia - Scotch College OSHC,Centre-Based Care,Callantina Rd,HAWTHORN,VIC,3122,401385843,"Callantina Rd, HAWTHORN, VIC, 3122, Australia",-37.8331997,145.0320307
+Camp Australia - Glen Waverley Primary School OSHC,Centre-Based Care,774 High Street,GLEN WAVERLEY,VIC,3150,422009098,"774 High Street, GLEN WAVERLEY, VIC, 3150, Australia",-37.8753827,145.1684895
+Kelly Club OSHC Aitken College,Centre-Based Care,1010 Mickleham Road,GREENVALE,VIC,3059,467772667,"1010 Mickleham Road, GREENVALE, VIC, 3059, Australia",-37.627337,144.8881929
+TeamKids - Brandon Park Primary,Centre-Based Care,Cootamundra Drive,WHEELERS HILL,VIC,3150,1300035000,"Cootamundra Drive, WHEELERS HILL, VIC, 3150, Australia",-37.9076479,145.1712517
+Camp Australia - Glendal Primary School OSHC,Centre-Based Care,55 Nottingham Street,GLEN WAVERLEY,VIC,3150,423794695,"55 Nottingham Street, GLEN WAVERLEY, VIC, 3150, Australia",-37.866788,145.1576859
+Camp Australia - Ivanhoe Grammar OSHC,Centre-Based Care,The Ridgeway,IVANHOE,VIC,3079,401053531,"The Ridgeway, IVANHOE, VIC, 3079, Australia",-37.7737064,145.0439063
+After The Bell Aus- Ruyton Girls School,Centre-Based Care,12 Selbourne Road,KEW,VIC,3101,397586744,"12 Selbourne Road, KEW, VIC, 3101, Australia",-37.8114087,145.0393991
+Camp Australia - Genazzano Girls School OSHC,Centre-Based Care,301 Cotham Road,KEW,VIC,3101,413944342,"301 Cotham Road, KEW, VIC, 3101, Australia",-37.8083529,145.0560364
+St Therese's Primary YMCA Outside School Hours Care,Centre-Based Care,Albion Street,KENNINGTON,VIC,3550,,"Albion Street, KENNINGTON, VIC, 3550, Australia",-36.7679363,144.2970023
+Carey Donvale OSHClub,Centre-Based Care,9 Era Court,DONVALE,VIC,3111,431532200,"9 Era Court, DONVALE, VIC, 3111, Australia",-37.772439,145.1856673
+Reservoir West PS TheirCare,Centre-Based Care,5a Carrington Road,RESERVOIR,VIC,3073,394785238,"5a Carrington Road, RESERVOIR, VIC, 3073, Australia",-37.7229788,144.9901913
+Camp Australia - St Joachims Primary School OSHC,Centre-Based Care,25 Broderick Road,CARRUM DOWNS,VIC,3201,423793628,"25 Broderick Road, CARRUM DOWNS, VIC, 3201, Australia",-38.1029037,145.1785215
+Oakbrook Kindergarten,Centre-Based Care,36 Holroyd Drive,EPPING,VIC,3076,394011695,"36 Holroyd Drive, EPPING, VIC, 3076, Australia",-37.6574156,145.0329745
+Camp Australia - Werribee Primary School OSHC,Centre-Based Care,Deutgam Street,WERRIBEE,VIC,3030,403039487,"Deutgam Street, WERRIBEE, VIC, 3030, Australia",-37.9074314,144.6581086
+Camp Australia - Oatlands Primary School OSHC,Centre-Based Care,79-93 Kurrajong Rd,NARRE WARREN,VIC,3805,452247965,"79-93 Kurrajong Rd, NARRE WARREN, VIC, 3805, Australia",-38.0071399,145.3153909
+Mount View PS TheirCare,Centre-Based Care,Shepherd Rd,GLEN WAVERLEY,VIC,3150,419126321,"Shepherd Rd, GLEN WAVERLEY, VIC, 3150, Australia",-37.8839343,145.1837311
+TeamKids - Greenhills Primary,Centre-Based Care,8 Mine Street,GREENSBOROUGH,VIC,3088,1300035000,"8 Mine Street, GREENSBOROUGH, VIC, 3088, Australia",-37.6939561,145.1178877
+Epping Views Primary School OSHC,Centre-Based Care,20 Mansfield Street,EPPING,VIC,3076,384013791,"20 Mansfield Street, EPPING, VIC, 3076, Australia",-37.6291999,145.0240465
+HAPPY SPROUTS EARLY LEARNING,Centre-Based Care,505 Mt Ridley Rd,CRAIGIEBURN,VIC,3064,370689858,"505 Mt Ridley Rd, CRAIGIEBURN, VIC, 3064, Australia",-37.5644106,144.895214
+Explorers Early Learning - Werribee,Centre-Based Care,28 Scotsburn Gr,WERRIBEE,VIC,3030,392483000,"28 Scotsburn Gr, WERRIBEE, VIC, 3030, Australia",-37.8972804,144.660765
+Nido Early School Bulleen,Centre-Based Care,29 Manningham Rd,BULLEEN,VIC,3105,390391922,"29 Manningham Rd, BULLEEN, VIC, 3105, Australia",-37.7635721,145.0852418
+Newlands OSHClub,Centre-Based Care,2-26 Murphy St,PRESTON,VIC,3072,1300035000,"2-26 Murphy St, PRESTON, VIC, 3072, Australia",-37.7298156,144.9854531
+Yallabirrang Kindergarten,Centre-Based Care,"Collingwood College, 1-7 McCutcheon Way",COLLINGWOOD,VIC,3066,392055465,"Collingwood College, 1-7 McCutcheon Way, COLLINGWOOD, VIC, 3066, Australia",-37.8028442,144.9907114
+Point Cook Montessori Centre Pty Ltd,Centre-Based Care,13-19 Boardwalk Bvd,POINT COOK,VIC,3030,383531299,"13-19 Boardwalk Bvd, POINT COOK, VIC, 3030, Australia",-37.8792355,144.736218
+Early Years at MC Square,Centre-Based Care,687 Doncaster Rd,DONCASTER,VIC,3108,398409255,"687 Doncaster Rd, DONCASTER, VIC, 3108, Australia",-37.7870385,145.1313092
+Headstart Early Learning Centre Hughesdale,Centre-Based Care,105A Kangaroo Road,HUGHESDALE,VIC,3166,395681984,"105A Kangaroo Road, HUGHESDALE, VIC, 3166, Australia",-37.8996069,145.0797427
+Bubbles Pre-School,Centre-Based Care,168-172 Waverley Rd,MALVERN EAST,VIC,3145,395721995,"168-172 Waverley Rd, MALVERN EAST, VIC, 3145, Australia",-37.8765059,145.0512765
+Goodstart Early Learning Preston â€“ Dalgety Street,Centre-Based Care,15 Dalgety St,PRESTON,VIC,3072,399764722,"15 Dalgety St, PRESTON, VIC, 3072, Australia",-37.7423288,145.0047094
+Riverwalk Primary School Kindergarten,Centre-Based Care,"Riverwalk Primary School, 56 Timbarra Dr",WERRIBEE,VIC,3030,391128060,"Riverwalk Primary School, 56 Timbarra Dr, WERRIBEE, VIC, 3030, Australia",-37.9217808,144.6385099
+Inspire Early Learning Journey Moorabbin,Centre-Based Care,254 Chesterville Rd,MOORABBIN,VIC,3189,395515999,"254 Chesterville Rd, MOORABBIN, VIC, 3189, Australia",-37.9414281,145.060487
+SchoolsOUT! Keelonith Primary,Centre-Based Care,1 Blossom Dr,GREENVALE,VIC,3059,498841359,"1 Blossom Dr, GREENVALE, VIC, 3059, Australia",-37.6270471,144.8778753
+Imagine Childcare and Kindergarten Coburg,Centre-Based Care,311-321 Sydney Rd,COBURG,VIC,3058,393845004,"311-321 Sydney Rd, COBURG, VIC, 3058, Australia",-37.7400394,144.9667515
+Little Lane Early Learning Box Hill,Centre-Based Care,757 Station St,BOX HILL,VIC,3128,388499243,"757 Station St, BOX HILL, VIC, 3128, Australia",-37.8138846,145.1245418
+GREEN LEAVES EARLY LEARNING HIGHLANDS,Centre-Based Care,281 Marathon Bvd,CRAIGIEBURN,VIC,3064,392190998,"281 Marathon Bvd, CRAIGIEBURN, VIC, 3064, Australia",-37.5827609,144.8969496
+Camp Australia - Chalcot Lodge Primary School OSHC,Centre-Based Care,15a Primrose Hill Cl,ENDEAVOUR HILLS,VIC,3802,422005466,"15a Primrose Hill Cl, ENDEAVOUR HILLS, VIC, 3802, Australia",-37.9699624,145.2473747
+Fitzroy Early Learning Centre,Centre-Based Care,300-302 Nicholson St,FITZROY,VIC,3065,383901133,"300-302 Nicholson St, FITZROY, VIC, 3065, Australia",-37.8060774,144.9736045
+Children Unplugged Family Day Care Service,Family Day Care,4 William St,FAWKNER,VIC,3060,411365625,"4 William St, FAWKNER, VIC, 3060, Australia",-37.7066724,144.9672233
+YMCA Tulliallan Primary School OSHC,Centre-Based Care,89 Wheelers park Drive,CRANBOURNE,VIC,3977,,"89 Wheelers park Drive, CRANBOURNE, VIC, 3977, Australia",-38.0815005,145.3261679
+YMCA Point Cook P-9 College OSHC,Centre-Based Care,63-65 Tom Roberts Pde,POINT COOK,VIC,3030,,"63-65 Tom Roberts Pde, POINT COOK, VIC, 3030, Australia",-37.8933386,144.7283226
+YMCA Aitken Creek Primary School OSHC,Centre-Based Care,265 Waterview Boulevard,CRAIGIEBURN,VIC,3064,,"265 Waterview Boulevard, CRAIGIEBURN, VIC, 3064, Australia",-37.5850114,144.9065973
