@@ -124,7 +124,7 @@ export const useCases = [
         description:
           "Use AI to optimize energy consumption in industries and cities.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Urban_Tree_Planting.html",
       },
       {
         heading: "Waste Efficiency Argyle Square case study",
