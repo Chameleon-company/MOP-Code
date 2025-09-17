@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { InstagramEmbed } from 'react-social-media-embed';
-
+ 
 const SocialMediaFeed: React.FC = () => {
   return (
     <section
@@ -16,13 +16,21 @@ const SocialMediaFeed: React.FC = () => {
           Explore the latest updates, events, and city stories.
         </p>
       </div>
-
-      <div className="flex justify-center">
-        <div className="w-full max-w-[600px]">
+ 
+      <div className="flex flex-col lg:flex-row justify-center items-stretch gap-8 flex-wrap">
+        <div className="p-4 border rounded-lg dark:bg-[#37474F] w-full max-w-[400px] h-[500px] flex items-center justify-center">
           <InstagramEmbed
             url="https://www.instagram.com/cityofmelbourne/?igsh=OXFqa25sdno5OTRv#"
             width="100%"
           /> 
+        </div>
+        <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-[#37474F] w-full max-w-[400px] h-[500px] flex items-center justify-center">
+          <iframe
+            src="https://www.linkedin.com/embed/feed/update/urn:li:share:7348199910858493953?collapsed=1"
+            height="440"
+            width="100%"
+            title="LinkedIn Embed"
+          ></iframe>
         </div>
       </div>
     </section>
