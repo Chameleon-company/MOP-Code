@@ -204,7 +204,7 @@ export const useCases = [
         description:
           "AI-powered cameras and monitoring systems for public safety.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "/dummypages/Enhancing_Community_Wellbeing_Through_Public_Transport.html",
+        link: "/dummypages/Night_Time_Safety_Index.html",
       },
       {
         heading: "Populations and Accidents",
@@ -402,7 +402,7 @@ export const useCases = [
         description:
           "Remote consultation platforms with intelligent diagnostic support.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Enhancing_Community_Wellbeing_Through_Public_Transport.html",
       },
       {
         heading: "Food Services and its impact on wellbeing indicators",
