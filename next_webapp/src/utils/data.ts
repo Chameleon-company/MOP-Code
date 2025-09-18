@@ -428,5 +428,5 @@ export const useCases = [
     ],
   },
 ];
-
+export const blogs = [ /* ...your blog data... */ ];
 
