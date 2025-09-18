@@ -429,28 +429,4 @@ export const useCases = [
   },
 ];
 
-export const blogs = [  {
-    id: 1,
-    title: "How AI is Transforming Business",
-    description: "Explore the latest trends in AI and how they're impacting various industries.",
-    image: "/img/ai-business.jpg",
-    date: "2025-09-18",
-    author: "Jane Doe"
-  },
-  {
-    id: 2,
-    title: "Next.js Best Practices",
-    description: "Tips and tricks for building scalable web apps with Next.js.",
-    image: "/img/nextjs-tips.jpg",
-    date: "2025-09-10",
-    author: "John Smith"
-  },
-  {
-    id: 3,
-    title: "Getting Started with Supabase",
-    description: "A beginner's guide to using Supabase as your backend.",
-    image: "/img/supabase-guide.jpg",
-    date: "2025-08-28",
-    author: "Alex Lee"
-  }
-]; 
+
