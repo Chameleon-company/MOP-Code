@@ -337,7 +337,7 @@ export const useCases = [
         description:
           "Integrate eco-friendly designs and green spaces in urban projects.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Population_Growth_&_Active_Transportation_Needs_Analysis.html",
       },
       {
         heading: "Urban Development analysis",
