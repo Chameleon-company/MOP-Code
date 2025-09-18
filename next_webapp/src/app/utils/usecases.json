@@ -1,0 +1,44 @@
+[
+  {
+    "category": "Urban Planning and Development",
+    "usecases": [
+      {
+        "name": "UC00143: Data Driven Land Use Classification and Growth Forecasting",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00143_Data_Driven_Land_Use_Classification_And_Growth_Forecasting/"
+      },
+      {
+        "name": "US00147: Melbourne Housing Market Multi Dimensional Analysis",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00147_Melbourne_Housing_Market_Multi_Dimensional_Analysis/"
+      },
+      {
+        "name": "UC00154: Property Development Trends and Urban Growth In Melbourne",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00154_Property_Development_Trends_and_Urban_Growth_In_Melbourne/"
+      },
+      {
+        "name": "UC00156: Real Estate Market Analysis and Forecasting",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00156_Real_Estate_Market_Analysis_and_Forecasting/"
+      },
+      {
+        "name": "UC00158: Analysing Porperty Ownership Patterns in Melbourne",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00159_Analysing_Property_Ownership_Patterns_in_Melbourne/"
+      },
+      {
+        "name": "UC00166: Smart Street Lighting Efficiency",
+        "address": "/usecases/Urban_Planning_and_Development/2025/T1/UC00166_Smart Street Lighting Efficiency/"
+      }
+    ]
+  },
+  {
+    "category": "Business and Economy",
+    "usecases": [
+      {
+        "name": "UC00047: Coworking Spaces",
+        "address": "/usecases/Business_and_Economy/2025/T1/UC00047_Coworking-Spaces/"
+      },
+      {
+        "name": "UC00165: Enhancing Job Accessibility and Opportunities in Melbourne",
+        "address": "/usecases/Business_and_Economy/2025/T1/UC00165_Enhancing_Job_Accessibility_and_Opportunities_in_Melbourne/"
+      }
+    ]
+  }
+]

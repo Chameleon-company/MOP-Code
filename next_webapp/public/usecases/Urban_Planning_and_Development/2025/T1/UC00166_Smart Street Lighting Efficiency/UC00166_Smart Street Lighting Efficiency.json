@@ -1,0 +1,54 @@
+{
+    "title": "UC00166_Smart_Street_Lighting_Efficiency",
+    "name": "UC00166_Smart_Street_Lighting_Efficiency",
+    "description": "Analyze pedestrian flow and street light distribution to assess the efficiency of smart street lighting in Melbourne.",
+    "tags": [
+        "pedestriancounting",
+        "streetlighting",
+        "urban planning",
+        "smart infrastructure",
+        "data visualisation",
+        "geopy",
+        "folium"
+    ],
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "requests",
+            "code": "python"
+        },
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "geopy",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "json",
+            "code": "python"
+        },
+        {
+            "name": "os",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "Pedestrian Counting System (counts per hour)",
+        "Street Lighting Locations (City of Melbourne)",
+        "City of Melbourne open data (location-based assets)"
+    ]
+}
