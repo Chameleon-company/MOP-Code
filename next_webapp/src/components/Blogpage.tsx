@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Link } from "@/i18n-navigation";
-import { blogs } from "@/utils/data";
+
 
 const BlogPage: React.FC = () => {
   return (
