@@ -176,4 +176,22 @@
   "ClickOrDrag": "Click or drag file to upload",
   "SupportedTypes": "Supported: PDF, DOCX, PNG…"
 }
+,
+"communitySocial": {
+  "title": "Community and Social Facilities",
+  "categories": "Categories",
+  "civicTitle": "Civic and Administrative Facilities",
+  "civicDesc": "See Melbourne’s historic Town Hall, Parliament House, and the grand State Library.",
+  "townHall": "Melbourne Town Hall",
+  "treasury": "Melbourne Treasury",
+  "fedSquare": "Federation Square",
+  "parliament": "Parliament of Victoria",
+  "educationalTitle": "Educational Facilities",
+  "educationalDesc": "Explore Melbourne's top educational institutions including universities and libraries.",
+  
+  "deakin": "Deakin University - Burwood Campus",
+  "rmit": "RMIT University",
+  "monash": "Monash University",
+  "vicLibrary": "State Library of Victoria"
+}
 }

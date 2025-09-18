@@ -11,7 +11,7 @@ export const useCases = [
         description:
           "Leverage AI to analyze market trends and predict customer behavior.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Coworking_spaces.html",
       },
       {
         heading: "Enhancing job accessibility and opportunities in Melbourne",
@@ -77,7 +77,7 @@ export const useCases = [
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/CommunityWellbeing.html",
       },
       {
         heading: "Social indicator changes",
@@ -101,7 +101,7 @@ export const useCases = [
         description:
           "AI adapts lessons to individual student needs for better outcomes.",
         image: "/img/insights/ChldC.jpeg",
-        link: "/dummypages/UC00009_Childcare_Facilities_Analysis.html",
+        link: "/dummypages/Childcare_Facilities.html",
       },
       {
         heading: "Optimizing school infrastructure planning",

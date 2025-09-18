@@ -527,11 +527,15 @@ const categories = [
   { icon: "🏢", label: "EV Infrastructure" },
   { icon: "🅿️", label: "Parking" },
   { icon: "🚨", label: "Safety" },
+  { icon: "🤝", label: "Community & Social Facilities" },
 ];
 
 const openPage = (label: string) => {
   if (label === "EV Infrastructure") {
     window.location.href = "/en/ev-infrastructure";
+  }
+  if (label === "Community & Social Facilities") {
+    window.location.href = "/en/community-social"; 
   }
 };
 
