@@ -146,7 +146,7 @@ export const useCases = [
         description:
           "Analyze climate data to predict trends and take preventive measures.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00153_Biodiversity_corridors_creation_melbourne2025.html",
       },
       {
         heading: "Sustainable mobility and Emission Reduction in Melbourne",
@@ -167,7 +167,7 @@ export const useCases = [
         description:
           "Analyze climate data to predict trends and take preventive measures.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00169_Heat_Vulnerability_Mapping.html",
       },
       {
         heading: "Melbourne Urban Microclimate Dynamics",
