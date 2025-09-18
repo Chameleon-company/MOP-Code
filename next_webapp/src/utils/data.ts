@@ -265,7 +265,7 @@ export const useCases = [
         description:
           "AI optimizes traffic flow and reduces congestion in real-time.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Optimising_Parking_Accessibility_Near_Healthcare_and_Education.html",
       },
       {
         heading: "Smart Urban mobility",
