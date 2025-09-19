@@ -42,7 +42,7 @@ import pandas as pd
 import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
