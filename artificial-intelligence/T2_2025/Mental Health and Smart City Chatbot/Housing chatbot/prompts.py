@@ -28,13 +28,13 @@ Definition:
 - min_num_bathrooms: The minimum number of bathrooms in the house. Default: 1.
 - min_num_carspaces: The minimum number of carspaces in the house. Default: 0.
 - property_type: The list that contains the types of the property, must be in ["Apartment", "Townhouse", "House", "Studio", "Unit"].
-- use_public_transporation: "true" if user mentions they use public transporation, including ["bus", "train", "tram"]. "false" if they own private vehicles. Default: false.
+- use_public_transporation: "true" if user mentions they use public transporation, including ["bus", "train", "tram"]. "false" if they own private vehicles. Default: "false".
 - close_to: The list of entities that user wants to be close to. Don't include the same result with "area". Return [] if they don't mention anything. Make sure the items in the list are not duplicated.
 
 Rules:
-1. Fill missing values with defaults. If "area" or "max_rental_fee_per_week" (budget) is not specified, please leave it as "null".
+1. Fill missing values with defaults. If "area" or "max_rental_fee_per_week" (budget) is not specified, please leave it as "null". Don't fill these values if not specified. If user explicitly says that they don't have a budget, use 10000 as a default.
 2. property_type must be strictly from the list: ["Apartment", "Townhouse", "House", "Studio", "Unit"], please make sure the items in the output list are not duplicated.
-3. close_to: only list places explicitly mentioned, excluding area itself. Make sure the items in the list are not duplicated.
+3. close_to: only list places explicitly mentioned, excluding area itself. Make sure the items in the list are not duplicated. Use "null" if no information specified. For transportation_type, make sure the value is in the list ["Walking", "Public transportation", "Private vehicle"], with default is "Private vehicle".
 4. Parse numbers from ranges or currency without symbols, make sure you extract the correct budget. For example: "My budget is $700 per week" means that max_rental_fee_per_week = 700.
 5. Try to extract the correct amount based on the phrases like "less than", "greater than", "maximum", "minimum", "above", "below". For example, less than 5 means maximum is 4. When there is no specific amount mentioned, just use default values.
 6. Output strictly valid JSON, no extra text, no markdown.

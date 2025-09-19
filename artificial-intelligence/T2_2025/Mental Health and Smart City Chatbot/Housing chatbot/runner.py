@@ -1,8 +1,10 @@
 from langchain_core.runnables.config import RunnableConfig
-import json
+from langchain_core.messages import HumanMessage
+from langgraph.types import Command
 
+import json
 import uuid
-from graph import chatbot_graph as app
+from graph import create_graph
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -20,24 +22,33 @@ def stream_graph_updates(user_input: str, config: RunnableConfig):
 
 config_id = uuid.uuid4()
 config = {"configurable": {"thread_id": config_id}}
+app = create_graph()
 
-current_message_id = ""
 while True:
     try:
+        print("HELLO!")
         user_input = input("User: ")
         if user_input.lower() in ["quit", "exit", "q"]:
             print("Goodbye!")
             break
         
-        try:
-            last_message_id = app.get_state(config=config)[0]["messages"][-1].id
-        except:
-            last_message_id = "_"
-            
-        # Check if there is a new message:
-        if current_message_id != last_message_id:
-            stream_graph_updates(user_input, config=config)
-            current_message_id = last_message_id
+        for stream_mode, chunk in app.stream(
+            {"messages": [{"role": "user", "content": user_input}]},
+            config,
+            stream_mode=["values", "updates"]
+        ):  
+            if "messages" in chunk:
+                chunk["messages"][-1].pretty_print()
+                
+            if "__interrupt__" in chunk:
+                human_input = input(chunk["__interrupt__"][0].value)
+                for stream_mode, chunk in app.stream(
+                    Command(resume=human_input),
+                    config,
+                    stream_mode=["values", "updates"]
+                ):
+                    if "messages" in chunk:
+                        chunk["messages"][-1].pretty_print()
         
     except Exception as e:
         print(f"Error: {e}")
