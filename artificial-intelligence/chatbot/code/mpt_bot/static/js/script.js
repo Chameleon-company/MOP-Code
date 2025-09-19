@@ -31,7 +31,12 @@ window.addEventListener('load', () => {
     $("div").removeClass("tap-target-origin");
 
     // drop down menu for close, restart conversation & clear the chats.
-    $(".dropdown-trigger").dropdown();
+    $(".dropdown-trigger").dropdown({
+      coverTrigger: false,
+      constrainWidth: false,
+      alignment: 'right',
+      container: document.body
+    });
 
     // initiate the modal for displaying the charts,
     // if you dont have charts, then you comment the below line
@@ -45,9 +50,9 @@ window.addEventListener('load', () => {
     // customActionTrigger();
   });
   // Toggle the chatbot screen
-  $("#profile_div").click(() => {
-    $(".profile_div").toggle();
-    $(".widget").toggle();
+  $("#profile_div").off('click').on('click', () => {
+    $(".profile_div").hide();
+    $(".widget").show();
   });
 
   // clear function to clear the chat contents of the widget.
@@ -58,10 +63,19 @@ window.addEventListener('load', () => {
     });
   });
 
+  // restart: always send backend /restart, then optionally greet
+  $("#restart").off('click').on('click', () => {
+    if (typeof restartConversation === 'function') {
+      restartConversation();
+    } else if (typeof send === 'function') {
+      $(".chats").html("");
+      send('/restart');
+    }
+  });
+
   // close function to close the widget.
-  $("#close").click(() => {
-    $(".profile_div").toggle();
-    $(".widget").toggle();
-    scrollToBottomOfResults();
+  $("#close").off('click').on('click', () => {
+    $(".widget").hide();
+    $(".profile_div").show();
   });
 });
