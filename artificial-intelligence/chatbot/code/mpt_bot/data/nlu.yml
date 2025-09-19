@@ -390,6 +390,8 @@ nlu:
     - drive time from [Melbourne Airport](source) to [80 Collins St, Melbourne VIC](destination)
     - ETA by car from [Williams Landing](source) to [Box Hill, VIC](destination)
     - how long does it take to drive from [Carlton VIC](source) to [Prahran VIC](destination)
+    - drive time from [Southern Cross station](source) to [Yarraville station](destination)
+    - by car from [North Melbourne station](source) to [Newport station](destination)
 
 # Helps the classifier latch onto the “drive…from…to…” pattern
 - regex: drive_from_to

@@ -43,6 +43,7 @@ intents:
 - request_train_map
 - request_tram_map
 - run_direction_script
+- ask_driving_time
 entities:
 - feature
 - station_a
