@@ -11,7 +11,7 @@ export const useCases = [
         description:
           "Leverage AI to analyze market trends and predict customer behavior.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Coworking_spaces.html",
       },
       {
         heading: "Enhancing job accessibility and opportunities in Melbourne",
@@ -77,7 +77,7 @@ export const useCases = [
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/CommunityWellbeing.html",
       },
       {
         heading: "Social indicator changes",
@@ -101,7 +101,7 @@ export const useCases = [
         description:
           "AI adapts lessons to individual student needs for better outcomes.",
         image: "/img/insights/ChldC.jpeg",
-        link: "/dummypages/UC00009_Childcare_Facilities_Analysis.html",
+        link: "/dummypages/Childcare_Facilities.html",
       },
       {
         heading: "Optimizing school infrastructure planning",
@@ -146,7 +146,7 @@ export const useCases = [
         description:
           "Analyze climate data to predict trends and take preventive measures.",
         image: "/img/bio_corridor.jpg",
-        link: "",
+        link: "/dummypages/UC00153_Biodiversity_corridors_creation_melbourne2025.html",
       },
       {
         heading: "Sustainable mobility and Emission Reduction in Melbourne",
@@ -167,7 +167,7 @@ export const useCases = [
         description:
           "Analyze climate data to predict trends and take preventive measures.",
         image: "/img/heat_map.png",
-        link: "",
+        link: "/dummypages/UC00169_Heat_Vulnerability_Mapping.html",
       },
       {
         heading: "Melbourne Urban Microclimate Dynamics",
@@ -204,7 +204,7 @@ export const useCases = [
         description:
           "AI-powered cameras and monitoring systems for public safety.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Night_Time_Safety_Index.html",
       },
       {
         heading: "Populations and Accidents",
@@ -234,7 +234,7 @@ export const useCases = [
         description:
           "AI-driven booking systems for hotels, flights, and experiences.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Optimizing_Event_Locations.html",
       },
       {
         heading: "Cultural tourism route optimisation",
@@ -265,7 +265,7 @@ export const useCases = [
         description:
           "AI optimizes traffic flow and reduces congestion in real-time.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Optimising_Parking_Accessibility_Near_Healthcare_and_Education.html",
       },
       {
         heading: "Smart Urban mobility",
@@ -337,7 +337,7 @@ export const useCases = [
         description:
           "Integrate eco-friendly designs and green spaces in urban projects.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Population_Growth_&_Active_Transportation_Needs_Analysis.html",
       },
       {
         heading: "Urban Development analysis",
@@ -428,3 +428,5 @@ export const useCases = [
     ],
   },
 ];
+export const blogs = [ /* ...your blog data... */ ];
+

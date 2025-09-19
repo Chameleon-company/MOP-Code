@@ -1,180 +1,362 @@
 {
-    "greet": {
-      "response": "Hello! How can I help you today?"
+  "greet": {
+    "response": "Hello! How can I help you today?"
+  },
+  "greet_morning": {
+    "response": "Good morning! How can I assist you today?"
+  },
+  "greet_afternoon": {
+    "response": "Good afternoon! What can I do for you?"
+  },
+  "greet_evening": {
+    "response": "Good evening! How may I help you?"
+  },
+  "about": {
+    "p1": "MOP (Melbourne Open Data Project) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making.",
+    "p2": "This project aligns with strategic documents from the Melbourne City Council and aims to provide insightful data solutions."
+  },
+  "mop_full_form": {
+    "response": "Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council."
+  },
+  "project_overview": {
+    "response": "This project provides access to open data about Melbourne, enabling analysis of urban challenges and opportunities."
+  },
+  "contact": {
+    "response": "You can contact us via our Contact Us page or email us at info@melbourneopendata.org."
+  },
+  "help": {
+    "response": "How can I assist you? You can ask about the project, use cases, navigation, or any other information you need."
+  },
+  "bye": {
+    "response": "Goodbye! Have a nice day 😊"
+  },
+  "thank_you": {
+    "response": "You're welcome!"
+  },
+  "fallback": {
+    "response": "Sorry, I didn’t understand that. Can you try rephrasing?"
+  },
+  "no_results": {
+    "response": "No matching case studies found. Please try a different search term."
+  },
+  "use_cases": {
+    "intro": "Here are some relevant case studies:"
+  },
+  "use_case_prompt": {
+    "response": "We didn't find that use case. Could you please provide more details: Title, Description, and Tags?"
+  },
+  "validation": {
+    "empty_input": "Please enter a valid message."
+  },
+  "navigation": {
+    "home": "Navigating to Home page.",
+    "about": "Navigating to About Us page.",
+    "use_cases": "Displaying Use Cases.",
+    "statistics": "Navigating to Statistics page.",
+    "upload": "Navigating to Upload page.",
+    "language": "Opening language selection.",
+    "sign_up": "Navigating to Sign Up page.",
+    "log_in": "Navigating to Log In page.",
+    "contact": "Navigating to Contact Us page.",
+    "licensing": "Navigating to Licensing information.",
+    "privacy": "Navigating to Privacy Policy page."
+  },
+  "initial": {
+    "welcome": "Hi, How can I help you? Check out our ",
+    "faq_link_text": "FAQ page",
+    "faq_url": "/en/faq",
+    "more_info": " for more information."
+  },
+  "language_prompt": {
+    "response": "We currently support these languages.",
+    "languages": [
+      "English",
+      "中文",
+      "Español",
+      "Ελληνικά"
+    ]
+  },
+  "use_case_details": {
+    "disability_services": {
+      "title": "Disability Services and Public Transport Analysis within CBD",
+      "description": "This use case provides an analysis and visualization into public transport and footpaths for disabled users.",
+      "tags": ["public transport", "footpath gradient", "disability features", "train stations", "tram stops"]
     },
-    "greet_morning": {
-      "response": "Good morning! How can I assist you today?"
+    "return_to_office": {
+      "title": "Flexible Return To Office Options",
+      "description": "The City Of Melbourne Council is looking for ideas to bring people back into the city post COVID.",
+      "tags": ["folium", "coworking spaces", "colleagues", "maps"]
     },
-    "greet_afternoon": {
-      "response": "Good afternoon! What can I do for you?"
+    "urban_heat_island": {
+      "title": "Urban Heat Island Effect Reduction",
+      "description": "This use case aims to deliver a tool for Melbourne city planners to explore possible areas of greening.",
+      "tags": ["maps", "well-being", "environmental"]
     },
-    "greet_evening": {
-      "response": "Good evening! How may I help you?"
+    "live_events": {
+      "title": "Live Events and the Effect on Foot Traffic and Business",
+      "description": "Tracking how live events affect foot traffic and the resulting impact on local business.",
+      "tags": ["folium", "maps", "foot traffic", "api", "business", "live events"]
     },
-    "about": {
-      "p1": "MOP (Melbourne Open Data Project) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making.",
-      "p2": "This project aligns with strategic documents from the Melbourne City Council and aims to provide insightful data solutions."
-    },
-    "mop_full_form": {
-      "response": "Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council."
-    },
-    "project_overview": {
-      "response": "This project provides access to open data about Melbourne, enabling analysis of urban challenges and opportunities."
-    },
-    "contact": {
-      "response": "You can contact us via our Contact Us page or email us at info@melbourneopendata.org."
-    },
-    "help": {
-      "response": "How can I assist you? You can ask about the project, use cases, navigation, or any other information you need."
-    },
-    "bye": {
-      "response": "Goodbye! Have a nice day 😊"
-    },
-    "thank_you": {
-      "response": "You're welcome!"
-    },
-    "fallback": {
-      "response": "Sorry, I didn’t understand that. Can you try rephrasing?"
-    },
-    "no_results": {
-      "response": "No matching case studies found. Please try a different search term."
-    },
-    "use_cases": {
-      "intro": "Here are some relevant case studies:"
-    },
-    "use_case_prompt": {
-      "response": "We didn't find that use case. Could you please provide more details: Title, Description, and Tags?"
-    },
-    "validation": {
-      "empty_input": "Please enter a valid message."
-    },
-    "navigation": {
-      "home": "Navigating to Home page.",
-      "about": "Navigating to About Us page.",
-      "use_cases": "Displaying Use Cases.",
-      "statistics": "Navigating to Statistics page.",
-      "upload": "Navigating to Upload page.",
-      "language": "Opening language selection.",
-      "sign_up": "Navigating to Sign Up page.",
-      "log_in": "Navigating to Log In page.",
-      "contact": "Navigating to Contact Us page.",
-      "licensing": "Navigating to Licensing information.",
-      "privacy": "Navigating to Privacy Policy page."
-    },
-    "initial": {
-      "welcome": "Hi, How can I help you? Check out our ",
-      "faq_link_text": "FAQ page",
-      "faq_url": "/en/faq",
-      "more_info": " for more information."
-    },
-    "language_prompt": {
-      "response": "We currently support these languages.",
-      "languages": [
-        "English",
-        "中文",
-        "Español",
-        "Ελληνικά"
-      ]
-    },
-    "use_case_details": {
-      "disability_services": {
-        "title": "Disability Services and Public Transport Analysis within CBD",
-        "description": "This use case provides an analysis and visualization into public transport and footpaths for disabled users.",
-        "tags": [
-          "public transport",
-          "footpath gradient",
-          "disability features",
-          "train stations",
-          "tram stops"
-        ]
-      },
-      "return_to_office": {
-        "title": "Flexible Return To Office Options",
-        "description": "The City Of Melbourne Council is looking for ideas to bring people back into the city post COVID.",
-        "tags": [
-          "folium",
-          "coworking spaces",
-          "colleagues",
-          "maps"
-        ]
-      },
-      "urban_heat_island": {
-        "title": "Urban Heat Island Effect Reduction",
-        "description": "This use case aims to deliver a tool for Melbourne city planners to explore possible areas of greening.",
-        "tags": [
-          "maps",
-          "well-being",
-          "environmental"
-        ]
-      },
-      "live_events": {
-        "title": "Live Events and the Effect on Foot Traffic and Business",
-        "description": "Tracking how live events affect foot traffic and the resulting impact on local business.",
-        "tags": [
-          "folium",
-          "maps",
-          "foot traffic",
-          "api",
-          "business",
-          "live events"
-        ]
-      },
-      "tourist_activity": {
-        "title": "Business & Activity – Supporting Local Businesses Surrounding Tourist Attractions",
-        "description": "In Melbourne, our strategic approach to enhancing the tourist experience involves utilizing curated data.",
-        "tags": [
-          "folium",
-          "maps",
-          "business",
-          "tourism",
-          "landmarks",
-          "melbourne",
-          "food outlets"
-        ]
-      },
-      "population_growth": {
-        "title": "Small Area Population Growth Active Transport",
-        "description": "Identify key areas where active transportation routes could experience higher demand.",
-        "tags": [
-          "folium",
-          "bikes",
-          "population growth",
-          "active transport",
-          "transport"
-        ]
-      },
-      "green_roof": {
-        "title": "Ideal Green Roof Locations",
-        "description": "Create a visual map incorporating GIS to assess which areas of Melbourne are suitable for green roof retrofits.",
-        "tags": [
-          "building management",
-          "climate",
-          "energy",
-          "energy performance",
-          "property management",
-          "data processing"
-        ]
-      },
-      "smart_bin": {
-        "title": "Smart Bin Waste Collection AI Application T2 2023",
-        "description": "Examined the benefit of introducing smart bins around the City of Melbourne and investigated their use.",
-        "tags": [
-          "maps",
-          "environment & wellbeing",
-          "ai/ml application"
-        ]
-      },
-      "tree_canopy": {
-        "title": "Tree Canopy Changes",
-        "description": "Study the effect on development activity on nearby trees.",
-        "tags": [
-          "heat island effect",
-          "climate",
-          "environment",
-          "development planning",
-          "data processing"
-        ]
-      }
-    }
+  "tourist_activity": {
+    "title": "Business & Activity – Supporting Local Businesses Surrounding Tourist Attractions",
+    "description": "In Melbourne, our strategic approach to enhancing the tourist experience involves utilizing curated data.",
+    "tags": ["folium", "maps", "business", "tourism", "landmarks", "melbourne", "food outlets"]
+  },
+  "population_growth": {
+    "title": "Small Area Population Growth Active Transport",
+    "description": "Identify key areas where active transportation routes could experience higher demand.",
+    "tags": ["folium", "bikes", "population growth", "active transport", "transport"]
+  },
+  "green_roof": {
+    "title": "Ideal Green Roof Locations",
+    "description": "Create a visual map incorporating GIS to assess which areas of Melbourne are suitable for green roof retrofits.",
+    "tags": ["building management", "climate", "energy", "energy performance", "property management", "data processing"]
+  },
+  "smart_bin": {
+    "title": "Smart Bin Waste Collection AI Application T2 2023",
+    "description": "Examined the benefit of introducing smart bins around the City of Melbourne and investigated their use.",
+    "tags": ["maps", "environment & wellbeing", "ai/ml application"]
+  },
+  "tree_canopy": {
+    "title": "Tree Canopy Changes",
+    "description": "Study the effect on development activity on nearby trees.",
+    "tags": ["heat island effect", "climate", "environment", "development planning", "data processing"]
+  },
+
+  "business_energy": {
+    "title": "Business Energy Consumption",
+    "description": "Analyzing energy consumption patterns across Melbourne businesses to improve sustainability.",
+    "tags": ["business", "energy", "sustainability", "consumption"]
+  },
+  "job_forecasting": {
+    "title": "Job Forecasting",
+    "description": "Forecasting future employment opportunities to support Melbourne's economic planning.",
+    "tags": ["jobs", "forecasting", "economy"]
+  },
+  "business_hotspots": {
+    "title": "Top Hotspots for Business and Activities",
+    "description": "Identifying Melbourne's busiest areas for economic and social activities.",
+    "tags": ["business", "economy", "hotspots", "urban planning"]
+  },
+  "business_activity_cafes": {
+    "title": "Business Activity Cafes and Restaurants",
+    "description": "Studying how cafes and restaurants contribute to Melbourne's business ecosystem.",
+    "tags": ["business", "cafes", "restaurants", "economy"]
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "description": "Exploring accessibility improvements for communities across Melbourne.",
+    "tags": ["community", "accessibility", "social impact"]
+  },
+  "social_trend": {
+    "title": "Melbourne Social Trend",
+    "description": "Analyzing key social trends shaping the lives of Melbourne residents.",
+    "tags": ["social", "trend", "community"]
+  },
+  "community_wellbeing": {
+    "title": "Community Wellbeing",
+    "description": "Exploring indicators of wellbeing and quality of life within Melbourne communities.",
+    "tags": ["community", "wellbeing", "social impact"]
+  },
+  "social_indicators": {
+    "title": "Social Indicator Changes",
+    "description": "Tracking how social indicators evolve with urban and economic changes.",
+    "tags": ["social", "indicators", "urban planning"]
+  },
+  "childcare_facility": {
+    "title": "Childcare Facility",
+    "description": "Mapping and analyzing childcare facility accessibility in Melbourne.",
+    "tags": ["education", "childcare", "community"]
+  },
+  "school_infrastructure": {
+    "title": "Optimizing School Infrastructure Planning",
+    "description": "Using data to optimize school placement and resource planning.",
+    "tags": ["education", "schools", "infrastructure", "planning"]
+  },
+  "urban_tree_air_quality": {
+    "title": "Enhancing Urban Tree Planting through Air Quality Analysis",
+    "description": "Using air quality data to prioritize urban tree planting.",
+    "tags": ["environment", "air quality", "tree planting", "sustainability"]
+  },
+  "waste_efficiency": {
+    "title": "Waste Efficiency – Argyle Square Case Study",
+    "description": "A case study into improving waste collection efficiency in Argyle Square.",
+    "tags": ["waste", "efficiency", "case study", "sustainability"]
+  },
+  "biodiversity_corridors": {
+    "title": "Biodiversity Corridors Creation Melbourne",
+    "description": "Creating biodiversity corridors to connect ecosystems across Melbourne.",
+    "tags": ["biodiversity", "environment", "corridors", "sustainability"]
+  },
+  "sustainable_mobility": {
+    "title": "Sustainable Mobility and Emission Reduction in Melbourne",
+    "description": "Encouraging low-emission mobility solutions across Melbourne.",
+    "tags": ["mobility", "sustainability", "transport", "emissions"]
+  },
+  "wildfire_risk": {
+    "title": "AI Driven Wildfire Risk Assessment and Hotspot Prediction",
+    "description": "Applying AI to predict wildfire hotspots and assess risks.",
+    "tags": ["ai", "wildfire", "risk", "prediction"]
+  },
+  "heat_vulnerability": {
+    "title": "Heat Vulnerability Mapping",
+    "description": "Mapping vulnerable populations at risk from heat waves.",
+    "tags": ["heat", "vulnerability", "mapping", "climate"]
+  },
+  "microclimate_dynamics": {
+    "title": "Melbourne Urban Microclimate Dynamics",
+    "description": "Studying microclimate changes in Melbourne urban areas.",
+    "tags": ["climate", "microclimate", "urban planning"]
+  },
+  "insect_species": {
+    "title": "Tracking Unique Insect Species in Melbourne",
+    "description": "Documenting and tracking rare insect species within the city.",
+    "tags": ["biodiversity", "insects", "environment"]
+  },
+  "climate_impact": {
+    "title": "Climate Change Impact Simulation",
+    "description": "Simulating climate change impacts for long-term planning.",
+    "tags": ["climate change", "simulation", "planning"]
+  },
+  "mental_wellbeing": {
+    "title": "Mental Wellbeing",
+    "description": "Studying mental wellbeing factors across communities.",
+    "tags": ["mental health", "wellbeing", "community"]
+  },
+  "transport_wellbeing": {
+    "title": "Enhancing Community Wellbeing through Public Transport",
+    "description": "Investigating how public transport improves wellbeing indicators.",
+    "tags": ["public transport", "community", "wellbeing"]
+  },
+  "food_services": {
+    "title": "Food Services and Its Impact on Wellbeing Indicators",
+    "description": "Analyzing how food service availability affects wellbeing.",
+    "tags": ["food", "wellbeing", "community"]
+  },
+  "coworking_social": {
+    "title": "Impact of Coworking Spaces on Social Wellbeing Indicators",
+    "description": "Exploring how coworking spaces affect community connections and wellbeing.",
+    "tags": ["coworking", "social", "wellbeing"]
+  },
+  "outdoor_fitness": {
+    "title": "Optimization of Outdoor Fitness Activities (2025)",
+    "description": "Optimizing placement of outdoor fitness resources to maximize benefits.",
+    "tags": ["fitness", "outdoor", "health", "planning"]
+  },
+  "night_safety": {
+    "title": "Night Time Safety Index",
+    "description": "Evaluating safety across Melbourne at night using multiple indicators.",
+    "tags": ["safety", "night", "index", "community"]
+  },
+  "accidents_population": {
+    "title": "Populations and Accidents",
+    "description": "Studying accident trends across different population groups.",
+    "tags": ["accidents", "population", "safety"]
+  },
+  "bicycle_network": {
+    "title": "Melbourne Bicycle Network Road",
+    "description": "Analyzing bicycle networks and infrastructure for safety and accessibility.",
+    "tags": ["bicycle", "network", "safety", "transport"]
+  },
+  "pedestrian_accidents": {
+    "title": "Pedestrian Accidents and Bus Stops",
+    "description": "Investigating accident patterns near bus stops to improve safety.",
+    "tags": ["pedestrian", "bus stops", "safety"]
+  },
+  "pedestrian_safety": {
+    "title": "Pedestrian Safety",
+    "description": "Improving pedestrian safety measures across Melbourne.",
+    "tags": ["pedestrian", "safety", "urban planning"]
+  },
+  "tourist_accommodation": {
+    "title": "Optimising Tourist Accommodation through Landmark and Parking",
+    "description": "Optimizing accommodation placement by analyzing landmarks and parking availability.",
+    "tags": ["tourism", "accommodation", "landmarks", "parking"]
+  },
+  "event_locations": {
+    "title": "Optimizing Event Locations and Urban Management in Melbourne",
+    "description": "Using data to select the best event locations for maximum impact.",
+    "tags": ["events", "urban management", "planning"]
+  },
+  "cultural_tourism": {
+    "title": "Cultural Tourism Route Optimisation",
+    "description": "Optimizing cultural tourism routes to enhance visitor experiences.",
+    "tags": ["tourism", "culture", "routes"]
+  },
+  "parking_healthcare": {
+    "title": "Optimising Parking Accessibility near Healthcare and Education",
+    "description": "Analyzing parking accessibility around hospitals and schools.",
+    "tags": ["parking", "healthcare", "education"]
+  },
+  "smart_mobility": {
+    "title": "Smart Urban Mobility",
+    "description": "Implementing smart mobility solutions for Melbourne's transport challenges.",
+    "tags": ["transport", "smart", "mobility"]
+  },
+  "parking_availability": {
+    "title": "Parking Availability in Melbourne",
+    "description": "Mapping parking availability across the city.",
+    "tags": ["parking", "availability", "transport"]
+  },
+  "bike_usage": {
+    "title": "Bike Usage",
+    "description": "Tracking trends in bike usage across Melbourne.",
+    "tags": ["bikes", "usage", "transport"]
+  },
+  "traffic_congestion": {
+    "title": "Traffic Congestion and Parking Zone Impact",
+    "description": "Studying how parking zones affect traffic congestion.",
+    "tags": ["traffic", "parking", "congestion"]
+  },
+  "parking_occupancy": {
+    "title": "Parking Slot Occupancy",
+    "description": "Analyzing occupancy patterns of parking slots for better management.",
+    "tags": ["parking", "occupancy", "transport"]
+  },
+  "public_transport_demand": {
+    "title": "Public Transport Demand",
+    "description": "Studying current and forecasted demand for public transport.",
+    "tags": ["public transport", "demand", "mobility"]
+  },
+  "bike_route": {
+    "title": "Bike Route Optimization",
+    "description": "Optimizing bike routes for accessibility and safety.",
+    "tags": ["bike routes", "optimization", "transport"]
+  },
+  "real_estate": {
+    "title": "Real Estate",
+    "description": "Analyzing real estate trends and developments in Melbourne.",
+    "tags": ["real estate", "urban planning", "development"]
+  },
+  "urban_development": {
+    "title": "Urban Development Analysis",
+    "description": "Studying patterns of urban growth and development.",
+    "tags": ["urban development", "planning", "growth"]
+  },
+  "bin_fill": {
+    "title": "Bin Fill Levels",
+    "description": "Monitoring and predicting bin fill levels to optimize waste management.",
+    "tags": ["waste", "bins", "management"]
+  },
+  "smart_lighting": {
+    "title": "Smart Street Lighting Efficiency",
+    "description": "Analyzing the efficiency of smart street lighting across Melbourne.",
+    "tags": ["lighting", "smart", "efficiency", "energy"]
+  },
+  "capacity_forecasting": {
+    "title": "Capacity Forecasting and Strategic Insights",
+    "description": "Forecasting urban capacity needs for future planning.",
+    "tags": ["forecasting", "capacity", "planning", "urban"]
+  },
+  "route_planner": {
+    "title": "Route Planner",
+    "description": "Creating a tool for efficient urban route planning.",
+    "tags": ["route planning", "urban mobility", "transport"]
+  },
+  "public_amenities": {
+    "title": "Optimising Public Amenities in Melbourne",
+    "description": "Analyzing usage patterns to optimize public amenities.",
+    "tags": ["public amenities", "community", "planning"]
   }
-  
+}
+}

@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "@/i18n-navigation";
 import { blogs } from "@/utils/data";
+// filepath: d:\GitHub\MOP-Code\next_webapp\src\components\Blogpage.tsx
 
 const BlogPage: React.FC = () => {
   return (
