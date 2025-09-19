@@ -218,7 +218,7 @@ export const useCases = [
         description:
           "Optimized emergency response using predictive analytics and real-time alerts.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00068_Pedestrian_Accidents_and_Bus-stops.html",
       },
     ],
   },
