@@ -105,6 +105,7 @@ station_data['norm_name'] = (
 # Juveria-End GLobal variable-------------------
 load_dotenv(dotenv_path="./key.env")
 google_api_key = os.getenv("GOOGLE_API_KEY")
+tomtom_api_key = os.getenv("TOMTOM_API_KEY")
 if not google_api_key:
     logger.warning(msg="Your google api key is not set, please set it inside key.env file")
 
@@ -489,6 +490,7 @@ class ActionCheckDisruptions(Action):
         return [SlotSet("transport_mode", None)]
 
 ALLOWED_PUBLIC_TRANSPORT = ["train", "tram", "bus"]
+ALLOWED_TRANSPORT_MODE = ["DRIVE", "TRANSIT"]
 class ValidateNearestTransportForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_nearest_transport_form"
@@ -604,6 +606,166 @@ class ActionAskForPublicTransportMode(Action):
             buttons=[{"title": mode, "payload": mode} for mode in transport_mode],
         )
 
+        return []
+
+class ActionCompareTwoTransportMode(Action):
+    def __init__(self):
+        super().__init__()
+        self.router = None
+        logger = logging.getLogger(__name__)
+        logger.info("ActionRunDirectionScript initialized")
+    
+    def name(self) -> Text:
+        return "action_compare_two_mode"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get locations from slots
+        location_from = tracker.get_slot('location_from')
+        location_to = tracker.get_slot('location_to')
+        
+        if not location_from:
+            current_addr = tracker.get_slot('address')
+            station_a = tracker.get_slot('station_a')
+            source = tracker.get_slot('source')
+            if current_addr:
+                location_from = current_addr
+            elif station_a:
+                location_from = station_a
+        
+        if not location_to:
+            station_b = tracker.get_slot('station_b')
+            destination = tracker.get_slot('destination')
+            if destination:
+                location_to = destination
+            elif station_b:
+                location_to = station_b
+
+        logger.info(f"Final location_from: {location_from}")
+        logger.info(f"Final location_to: {location_to}")
+        
+        if not location_from or not location_to:
+            error_msg = f"Missing {'origin' if not location_from else 'destination'} location"
+            logger.error(f"Validation failed: {error_msg}")
+            dispatcher.utter_message(text=f"Please provide both starting location and destination. {error_msg}.")
+            return []
+        
+
+        if not tomtom_api_key:
+            dispatcher.utter_message(text="TomTom API key is not configured on the server.")
+            return []
+
+        # (5) Geocode BOTH ends with Melbourne bias + VIC preference (to avoid NSW/QLD/TAS)
+        MEL_CBD_LAT, MEL_CBD_LON = -37.8136, 144.9631   # Melbourne CBD
+        MEL_RADIUS_KM = 150
+
+        # First attempt with CBD bias (keeps ambiguous names in metro VIC)
+        o = tt_geocode(location_from, tomtom_api_key,
+                        country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+        d = tt_geocode(location_to,   tomtom_api_key,
+                        country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+
+        # (5b) If either side failed, retry with explicit ", VIC" suffix (no extra kwargs)
+        if not o:
+            o = tt_geocode(f"{location_from}, VIC", tomtom_api_key,
+                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+        if not d:
+            d = tt_geocode(f"{location_to}, VIC", tomtom_api_key,
+                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+
+        # (5c) Still missing? Tell the user which side failed
+        if not o or not d:
+            which = "origin" if not o else "destination"
+            dispatcher.utter_message(text=f"Sorry, I couldn't locate the {which} on the map.")
+            return []
+
+        o_lat, o_lon, o_label = o
+        d_lat, d_lon, d_label = d
+
+        # (6) Request the fastest *car* route with traffic ON (current conditions)
+        summary = tt_route(o_lat, o_lon, d_lat, d_lon, tomtom_api_key)
+        # provide region
+        location_from += ", Australia"
+        location_to += ", Australia"
+        transit_trip = GTFSUtils.find_pt_route_between_two_address(location_from, location_to, google_api_key)
+        message = ""
+
+        def find_better_route(drive_route, transit_route):
+            if not drive_route:
+                if 'route_description' in transit_route:
+                    return 2
+            if 'route_description' not in transit_route:
+                if drive_route:
+                    return 1
+            if drive_route and 'route_description' in transit_route:
+                drive_time = drive_route.get("travelTimeInSeconds") 
+                transit_time = transit_route['total_time'] * 60
+                logger.info(f"Driving time = {drive_time} seconds")
+                logger.info(f"Transit time = {transit_time} seconds")
+                if transit_time <= drive_time:
+                    return 2
+                else:
+                    return 1
+            else:
+                return 0
+        
+        best_trip = find_better_route(summary, transit_trip)
+        if best_trip == 0:
+            message = f"I could not find your trip from {location_from} to {location_to}"
+            dispatcher.utter_message(text=message)
+        elif best_trip == 1:
+
+            # (7) Format a friendly message (ETA with/without traffic + distance)
+            travel = summary.get("travelTimeInSeconds")                  # with live traffic
+            free   = summary.get("noTrafficTravelTimeInSeconds")         # free-flow (no traffic)
+            delay  = summary.get("trafficDelayInSeconds")                # pure delay component
+            hist   = summary.get("historicTrafficTravelTimeInSeconds")   # typical traffic (optional)
+            live   = summary.get("liveTrafficIncidentsTravelTimeInSeconds")  # incidents component (optional)
+            dist_m = summary.get("lengthInMeters")
+            arriveTime = summary.get("arrivalTime")  # ISO 8601 string; optional
+            date = datetime.fromisoformat(arriveTime)
+            arriveTime = date.strftime("%B %d, %Y, %I:%M:%S %p")
+
+            parts = [f"Driving time from {o_label} to {d_label} (now): {fmt_time(travel)}"]
+
+            if free is not None:
+                parts.append(f"- Free-Flow: {fmt_time(free)}.")
+            if delay is not None:
+                parts.append(f"- Traffic Delay: {fmt_time(delay)}.")
+            if hist is not None:
+                parts.append(f"- Typical Traffic: {fmt_time(hist)}.")
+            if live is not None:
+                parts.append(f"- Incidents Time: {fmt_time(live)}.")
+            if dist_m is not None:
+                parts.append(f"- Distance: {fmt_km(dist_m)}.")
+            if arriveTime:
+                parts.append(f"- ETA arrival: {arriveTime}.")
+            dispatcher.utter_message(text=f"You should travel by car!")
+            message = "\n".join(parts)
+            dispatcher.utter_message(text=message)
+        else:
+            if 'route_description' in transit_trip:
+                departure_datetime = datetime.now()
+                minutes_delta = timedelta(minutes=transit_trip['total_time'])
+                arrival_datetime = departure_datetime + minutes_delta
+
+                # Format the new datetime to "DD-MM-YY HH-MM-SS"
+                formatted_datetime = arrival_datetime.strftime('%d-%m-%y %H:%M:%S')
+                dispatcher.utter_message(text=f"You should travel by public transport!")
+                dispatcher.utter_message(text=transit_trip['route_description'])
+                dispatcher.utter_message(text=f"Distance: {round(transit_trip['distance_meters'] / 1000, 1)} kilometers")
+                dispatcher.utter_message(text=f"Your total travel time: {transit_trip['total_time']} min")
+                dispatcher.utter_message(text=f"Arrival Time: {formatted_datetime}")
+                if 'encoded_polyline' in transit_trip:
+                    if transit_trip['encoded_polyline'] != "":
+                        map_file = GTFSUtils.create_polyline_map(transit_trip['encoded_polyline'])
+                        if os.path.exists(map_file):
+                            relative_path = os.path.relpath(map_file, current_dir)
+                            map_url = f"http://localhost:8080/{relative_path.replace(os.sep, '/')}"
+                            link_message = f'<a href="{map_url}" target="_blank">Click here to view the route map</a>'
+                            dispatcher.utter_message(text=link_message, parse_mode="html")
         return []
 
 
@@ -1404,6 +1566,7 @@ class ActionRunDirectionScriptOriginal(Action):
             else:
                 dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
         else:
+            logger.info(best_trip['error'])
             current_dir = os.path.dirname(os.path.abspath(__file__))
             script_path = os.path.join(current_dir, "userlocationmaps_executablepassingactions.py")
             
@@ -1911,11 +2074,7 @@ class ActionRunDirectionScript(Action):
             
         # Log debug information
         latest_message = tracker.latest_message
-        logger.info("========== START DEBUG INFO ==========")
-        logger.info(f"Latest message text: {latest_message.get('text')}")
-        logger.info(f"Recognized intent: {latest_message.get('intent', {}).get('name')}")
-        logger.info(f"Confidence score: {latest_message.get('intent', {}).get('confidence')}")
-        logger.info(f"Extracted entities: {latest_message.get('entities', [])}")
+        
         
         run_start = time.time()
         logger.info("Starting action execution")
@@ -1977,7 +2136,13 @@ class ActionRunDirectionScript(Action):
             else:
                 dispatcher.utter_message(text=f"I could not find your trip from {location_from} to {location_to}")
         else:
+            logger.info(best_trip['error'])
             try:
+                logger.info("========== START DEBUG INFO ==========")
+                logger.info(f"Latest message text: {latest_message.get('text')}")
+                logger.info(f"Recognized intent: {latest_message.get('intent', {}).get('name')}")
+                logger.info(f"Confidence score: {latest_message.get('intent', {}).get('confidence')}")
+                logger.info(f"Extracted entities: {latest_message.get('entities', [])}")
                 self._initialize_router()
                 
                 # Get route
@@ -2570,25 +2735,28 @@ class ActionDrivingTimeByCar(Action):
             hist   = summary.get("historicTrafficTravelTimeInSeconds")   # typical traffic (optional)
             live   = summary.get("liveTrafficIncidentsTravelTimeInSeconds")  # incidents component (optional)
             dist_m = summary.get("lengthInMeters")
-            arrive = summary.get("arrivalTime")  # ISO 8601 string; optional
+            arriveTime = summary.get("arrivalTime")  # ISO 8601 string; optional
+            date = datetime.fromisoformat(arriveTime)
+            arriveTime = summary.get("arrivalTime")  # ISO 8601 string; optional
+            date = datetime.fromisoformat(arriveTime)
+            arriveTime = date.strftime("%B %d, %Y, %I:%M:%S %p")
 
             parts = [f"Driving time from {o_label} to {d_label} (now): {fmt_time(travel)}"]
 
             if free is not None:
-                parts.append(f"free-flow: {fmt_time(free)}")
+                parts.append(f"- Free-Flow: {fmt_time(free)}.")
             if delay is not None:
-                parts.append(f"traffic delay: {fmt_time(delay)}")
+                parts.append(f"- Traffic Delay: {fmt_time(delay)}.")
             if hist is not None:
-                parts.append(f"typical traffic: {fmt_time(hist)}")
+                parts.append(f"- Typical Traffic: {fmt_time(hist)}.")
             if live is not None:
-                parts.append(f"incidents time: {fmt_time(live)}")
+                parts.append(f"- Incidents Time: {fmt_time(live)}.")
             if dist_m is not None:
-                parts.append(f"distance: {fmt_km(dist_m)}")
-            if arrive:
-                parts.append(f"ETA arrival: {arrive}")
-
-            msg = "; ".join(parts) + "."
-            dispatcher.utter_message(text=msg)
+                parts.append(f"- Distance: {fmt_km(dist_m)}.")
+            if arriveTime:
+                parts.append(f"- ETA arrival: {arriveTime}.")
+            message = "\n".join(parts)
+            dispatcher.utter_message(text=message)
             return []
 
         except Exception as e:
