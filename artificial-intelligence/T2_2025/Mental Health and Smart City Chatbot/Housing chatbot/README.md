@@ -20,7 +20,7 @@ The housing chatbot aims to recommend the most suitable properties for the users
 
 ### 1. Setup the environment
 - `Python >=3.11`.
-- `pip install langgraph langchain-google-genai dotenv geopy scipy openrouteservice pandas folium geopandas`.
+- `pip install langgraph langchain-google-genai dotenv chainlit geopy scipy openrouteservice pandas folium geopandas`.
 - Add your Gemini API key and GTFS API key in the `.env` file.
 
 ### 2. Run the code on terminal (for testing purposes)
