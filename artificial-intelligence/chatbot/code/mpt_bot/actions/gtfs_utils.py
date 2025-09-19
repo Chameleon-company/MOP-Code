@@ -2029,6 +2029,7 @@ class GTFSUtils:
         else:
             avail = set(stop_times_df['stop_id'].astype(str))
         ids = sorted({i for i in ids if i in avail})
+        return ids
 
         
 

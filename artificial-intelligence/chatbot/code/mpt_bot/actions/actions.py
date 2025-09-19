@@ -801,7 +801,7 @@ class ActionFindNextTrain(Action):
     	ID: REQ_02 implementation
     	Name: Schedule Information
     	Author: AlexT
-        Modifier: Andre Nguyen
+        Modifier: Andre Nguyen, Juveria Nishath
     	-------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
