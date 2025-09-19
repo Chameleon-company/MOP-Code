@@ -108,6 +108,12 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 if not google_api_key:
     logger.warning(msg="Your google api key is not set, please set it inside key.env file")
 
+# importing tomm tomm 
+tomtom_api_key = os.getenv("TOMTOM_API_KEY")
+if not tomtom_api_key:
+    logger.warning(msg="Your tommtomm api key is not set, please set it inside key.env file")
+
+
 class ActionFindNextTram(Action):
     """
     -------------------------------------------------------------------------------------------------------
@@ -2529,8 +2535,7 @@ class ActionDrivingTimeByCar(Action):
                 return []
 
             # (4) Pull TomTom key from environment; fail fast if not set (no 503 crashes)
-            api_key = os.getenv("TOMTOM_API_KEY")
-            if not api_key:
+            if not tomtom_api_key:
                 dispatcher.utter_message(text="TomTom API key is not configured on the server.")
                 return []
 
@@ -2539,17 +2544,17 @@ class ActionDrivingTimeByCar(Action):
             MEL_RADIUS_KM = 150
 
             # First attempt with CBD bias (keeps ambiguous names in metro VIC)
-            o = tt_geocode(origin, api_key,
+            o = tt_geocode(origin, tomtom_api_key,
                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
-            d = tt_geocode(dest,   api_key,
+            d = tt_geocode(dest,   tomtom_api_key,
                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
 
             # (5b) If either side failed, retry with explicit ", VIC" suffix (no extra kwargs)
             if not o:
-                o = tt_geocode(f"{origin}, VIC", api_key,
+                o = tt_geocode(f"{origin}, VIC", tomtom_api_key,
                                country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
             if not d:
-                d = tt_geocode(f"{dest}, VIC", api_key,
+                d = tt_geocode(f"{dest}, VIC", tomtom_api_key,
                                country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
 
             # (5c) Still missing? Tell the user which side failed
@@ -2562,7 +2567,7 @@ class ActionDrivingTimeByCar(Action):
             d_lat, d_lon, d_label = d
 
             # (6) Request the fastest *car* route with traffic ON (current conditions)
-            summary = tt_route(o_lat, o_lon, d_lat, d_lon, api_key)
+            summary = tt_route(o_lat, o_lon, d_lat, d_lon, tomtom_api_key)
             if not summary:
                 dispatcher.utter_message(text="I couldn't fetch the driving time right now.")
                 return []
