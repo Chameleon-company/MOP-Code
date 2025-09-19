@@ -83,7 +83,15 @@ class GTFSUtils:
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
         stops_df['stop_id'] = stops_df['stop_id'].astype(str).str.strip()
 
-        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower().str.replace("station", "").str.replace("railway", "").str.replace('(',"").str.replace(')',"")
+        stops_df['normalized_stop_name'] = (stops_df['stop_name']
+        .str.lower()
+        .str.replace("station", "")
+        .str.replace("railway", "")
+        .str.replace("(", "")
+        .str.replace(")", "")
+        .str.replace(r"\s+", " ", regex=True)   # collapse whitespace
+        .str.strip()
+)
 
         stop_times_df['stop_id'] = stop_times_df['stop_id'].astype(str).str.strip()
         expected_columns = ['stop_id', 'trip_id', 'arrival_time', 'departure_time']
@@ -301,7 +309,7 @@ class GTFSUtils:
             if not station_name_list or not normalised_user_input:
                 return station_name_list
                 
-            normalised_user_input_split = normalised_user_input.split(" ")
+            normalised_user_input_split = normalised_user_input.split()
             from_index = 0
             to_index = 0
             
@@ -355,7 +363,8 @@ class GTFSUtils:
                 return []
                 
             potential_station_list = []
-            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'] .apply(lambda name: name.replace("station", "").replace("railway", "")).str.replace(r"\s+", " ", regex=True).str.strip()
+
             
             # Using FuzzyWuzzy to find station name in user query
             try:
@@ -376,7 +385,7 @@ class GTFSUtils:
                             # so next matching will not have duplicate result
                             highest_score = 0
                             word_to_remove = ""
-                            for word in shorten_user_input.split(" "):
+                            for word in shorten_user_input.split():
                                 current_score = fuzz.ratio(best_match, word)
                                 if current_score > highest_score:
                                     word_to_remove = word
@@ -414,7 +423,8 @@ class GTFSUtils:
             stops_df = stops_df.astype(str)
             user_input = user_input.lower().strip()
             stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
-            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", "")).str.replace(r"\s+", " ", regex=True).str.strip()
+
             
             potential_station_list = []
             remove_list = {
@@ -423,14 +433,18 @@ class GTFSUtils:
                 "(": "",
                 ")": ""
             }
+            # set from the cleaned user_input first, then collapse whitespace
             normalised_user_input = user_input
+            normalised_user_input = re.sub(r"\s+", " ", normalised_user_input).strip()
+
             for old, new in remove_list.items():
                 normalised_user_input = normalised_user_input.replace(old, new)
-            user_input_split = normalised_user_input.split(" ")
+
+            user_input_split = normalised_user_input.split()   # NOTE: no-arg split
             
             for index, stop in stops_df.iterrows():
                 try:
-                    stop_name_list = stop['normalized_stop_name'].split(" ")
+                    stop_name_list = stop['normalized_stop_name'].split()
                     flag = 1
                     for word in stop_name_list:
                         if word not in user_input_split:
@@ -1287,7 +1301,7 @@ class GTFSUtils:
             route_long_names = routes_df["route_long_name"].tolist()
 
             # split the query by whitespace
-            query_split = query.split(' ')
+            query_split = query.split()
 
             # Check if a route short name matches directly in the query
             for short_name in route_short_names:

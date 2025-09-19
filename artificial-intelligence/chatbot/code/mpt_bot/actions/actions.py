@@ -129,6 +129,10 @@ class ActionFindNextTram(Action):
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
             user_text = (tracker.latest_message or {}).get("text", "") or ""
+            # --- MODE GUARD: if the user clearly asked for a *train*, hand over ---
+            if "train" in user_text.lower():
+                return ActionFindNextTrain().run(dispatcher, tracker, domain)
+# ----------------------------------------------------------------------
 
             # Fallback: extract from user text when slots are empty
             if not station_a or not station_b:
