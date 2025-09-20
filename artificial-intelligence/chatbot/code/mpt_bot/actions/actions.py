@@ -108,7 +108,7 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 if not google_api_key:
     logger.warning(msg="Your google api key is not set, please set it inside key.env file")
 
-# importing tomm tomm 
+# importing tomtom 
 tomtom_api_key = os.getenv("TOMTOM_API_KEY")
 if not tomtom_api_key:
     logger.warning(msg="Your tommtomm api key is not set, please set it inside key.env file")
@@ -1477,7 +1477,7 @@ class ActionCheckFeature(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        # Local imports only (no changes to your global imports)
+        # Local imports only (no changes to global imports)
         import re
         from difflib import get_close_matches
         from rasa_sdk.events import SlotSet
