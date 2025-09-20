@@ -29,6 +29,8 @@
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
+        - find_pt_route_between_two_address: Find route between two address: (Author: Andre Nguyen)
+        - create_polyline_map: Create map from encoded polyline code (Author: Andre Nguyen)
 	-------------------------------------------------------------------------------------------------------
 '''
 import spacy
@@ -42,7 +44,7 @@ import pandas as pd
 import logging
 from typing import Any, Text, Dict, List, Optional
 from fuzzywuzzy import process, fuzz
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
@@ -78,6 +80,7 @@ class GTFSUtils:
     def normalise_gtfs_data(stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> None:
         """
            Author: AlexT
+           Modifier: Juveria Nishath
             Normalise the stop names and ensure the stop_times DataFrame is indexed correctly.
         """
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
@@ -239,6 +242,7 @@ class GTFSUtils:
     def find_parent_station(station_name_list: List[str], stops_df: pd.DataFrame) -> List[str]:
         """
             Author: Andre Nguyen
+            Modifier: Juveria Nishath
             Find the parent station from list of station name
         """
         try:
@@ -273,6 +277,7 @@ class GTFSUtils:
     def find_child_station(parent_station_id: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
         """
             Author: Andre Nguyen
+            Modifier: Juveria Nishath
             Find all child stations and return list of their id
         """
         try:
@@ -303,6 +308,7 @@ class GTFSUtils:
     def keep_station_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
         """
             Author:  Andre Nguyen
+            Modifier: Juveria Nishath
             Keep stations in mentioned order in the query (from - to order) as in user query
         """
         try:
@@ -356,6 +362,7 @@ class GTFSUtils:
     def find_station_name_by_fuzzy(normalised_user_input: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author:  Andre Nguyen
+            Modifier: Juveria Nishath
             Find the best matching station name from the stops DataFrame by fuzzywuzzy.
         """
         try:
@@ -413,7 +420,7 @@ class GTFSUtils:
     def find_station_name_from_query(user_input: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
-            Modifier: Andre Nguyen
+            Modifier: Andre Nguyen, Juveria Nishath
             Find the best matching station name from the stops DataFrame.
         """
         try:
@@ -501,7 +508,7 @@ class GTFSUtils:
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
-            Modifier: Andre Nguyen
+            Modifier: Andre Nguyen, Juveria Nishath
             Extract potential station names from a query using NLP and fuzzy matching.
         """
         try:
@@ -529,6 +536,7 @@ class GTFSUtils:
     def get_stop_id(stop_name: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
+            Modifier: Juveria Nishath
             Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
         """
         try:
@@ -1988,9 +1996,13 @@ class GTFSUtils:
             print(f"Error creating map: {str(e)}")
             return None
         
-    ####author Juveria
     @staticmethod
     def collect_platform_ids(display_name: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
+        """
+        Author: Juveria Nishath
+        Collect platform/child stop_ids for a given station name: canonicalize name → gather parent/children/siblings → expand by prefix; keep only IDs present in stop_times.
+        Returns a sorted list[str] of valid stop_ids.
+        """
         # 1) get the best-matched canonical stop_name (your existing helper)
         matched_name = GTFSUtils.find_station_name(display_name, stops_df) or display_name
 
