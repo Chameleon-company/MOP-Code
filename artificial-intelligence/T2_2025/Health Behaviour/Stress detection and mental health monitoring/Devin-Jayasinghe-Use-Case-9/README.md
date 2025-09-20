@@ -150,14 +150,14 @@ Dropout(0.15) → Linear(256, 7)
 
 ```
 FER2013_Model_Files/
-├── fer2013_gpu_optimized.ipynb          # Main training notebook
-├── best_emotion_model_gpu.pth           # Best model from initial training
-├── best_emotion_model_finetuned_gpu.pth # Best fine-tuned model
-├── fer2013_emotion_model_gpu_final.pth  # Final model with metadata
-├── fer2013_emotion_model_torchscript.pt # TorchScript for deployment
-├── fer2013_gpu_training_metadata.json   # Training configuration and metrics
+├── fer2013_gpu_optimized.ipynb          # Main training notebook (Provided)
+├── best_emotion_model_gpu.pth           # Best model from initial training (After Running Notebook)
+├── best_emotion_model_finetuned_gpu.pth # Best fine-tuned model (After Running Notebook)
+├── fer2013_emotion_model_gpu_final.pth  # Final model with metadata (After Running Notebook)
+├── fer2013_emotion_model_torchscript.pt # TorchScript for deployment (After Running Notebook)
+├── fer2013_gpu_training_metadata.json   # Training configuration and metrics (Provided)
 ├── data_fer2013/                        # Dataset folder (user provided)
-├── logs/                                 # TensorBoard logs
+├── logs/                                 # TensorBoard logs (After Running Notebook)
 └── README.md                             # This file
 ```
 
