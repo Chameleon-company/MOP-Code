@@ -1,0 +1,31 @@
+{
+  "title": "Teacher Workforce Planning",
+  "name": "UC00202_Teacher_Workforce_Planning",
+  "description": "A data-driven use case exploring student–teacher ratios, teacher shortages, and uncertainty modelling with Monte Carlo simulations. The analysis highlights risks, trade-offs, and planning strategies to support education policy.",
+  "tags": [
+    "education",
+    "workforce",
+    "planning",
+    "open data",
+    "simulation"
+  ],
+  "difficulty": "Intermediate",
+  "technology": [
+    {
+      "name": "pandas",
+      "code": "python"
+    },
+    {
+      "name": "numpy",
+      "code": "python"
+    },
+    {
+      "name": "matplotlib",
+      "code": "python"
+    },
+    {
+      "name": "seaborn",
+      "code": "python"
+    }
+  ]
+}
