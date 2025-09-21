@@ -93,8 +93,12 @@ nlu:
     - What’s the best way to go from [Box Hill](station_a) to [Glenferrie](station_b) by [bus](transport_mode)?
 - intent: ask_direct_route
   examples: |
-    - Is there a direct train from [Dandenong](station_a) to [Parliament](station_b)?
-    - Do I need to change trains to get from [Melbourne Central](station_a) to [Flinders Street](station_b)?
+    - Is there a direct train from [Flinders Street](station_a) to [Southern Cross](station_b)?
+    - Is there a direct train from [Laverton](station_a) to [Williams Landing](station_b)?
+    - Do I need to change trains between [Laverton](station_a) and [Williams Landing](station_b)?
+    - Is there a service without transfers from [Yarraville](station_a) to [Seddon](station_b)?
+    - Any direct rail from [Caulfield](station_a) to [South Yarra](station_b)?
+
 - intent: ask_transfers
   examples: |
     - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
@@ -118,8 +122,12 @@ nlu:
     - At what time does the next train depart from [Box Hill](station_a) to [Richmond](station_b)?
 - intent: find_next_tram
   examples: |
-    - When is the next [tram](transport_mode) from [Port Melbourne](station_a) to [Box Hill](station_b)?
-    - I want the next [tram](transport_mode) to [Box Hill](station_b) from [Port Melbourne](station_a).
+    - When is the next [tram](transport_mode) from [La Trobe St/Swanston St](station_a) to [Queen Victoria Market/Elizabeth St](station_b)?
+    - Next [tram](transport_mode) from [Brunswick Rd/Sydney Rd](station_a) to [Elizabeth St/Flinders St](station_b)?
+    - What time is the next [tram](transport_mode) from [Melbourne Central Station/Elizabeth St #5](station_a) to [Queen Victoria Market/Elizabeth St #7](station_b)?
+    - Show the next [tram](transport_mode) from [Lygon St/Elgin St](station_a) to [Bourke St/Swanston St](station_b)
+    - At what time is the next [tram](transport_mode) [La Trobe St/Queen St](station_a) → [Elizabeth St/Flinders St](station_b)?
+    - I need the next [tram](transport_mode) from [Collins St/Swanston St](station_a) to [Melbourne University/Royal Parade](station_b)
 - intent: request_train_map
   examples: |
     - show me a train map
@@ -219,8 +227,6 @@ nlu:
     - From [Carlton](location_from) to [MCG](location_to)
     - [Footscray](location_from) to [Richmond](location_to)
     - Navigate [Essendon](location_from) to [Prahran](location_to)
-    - Direct me from [Collingwood](location_from) to [Federation Square](location_to)
-    - Take me from [St Kilda](location_from) to [Brunswick](location_to)
     - I need to get from [Footscray](location_from) to [Richmond](location_to)
     - Planning to go from [Prahran](location_from) to [Docklands](location_to)
     - Looking for route from [Carlton](location_from) to [MCG](location_to)
@@ -251,8 +257,9 @@ nlu:
     - Are there [tactile edges](feature) at [Burnley Station](station_name)?
     - Does [Parliament Station](station_name) have [lifts](feature)?
     - Is there a [restroom](feature) at [Flagstaff Station](station_name)?
-    - does yaraville station have [lifts][{"entity": "feature"}, {"entity": "feature"}]?
-    - does yarraville railway station have [lifts][{"entity": "feature"}, {"entity": "feature"}]?
+    - does yarraville station have [lifts](feature)?
+    - does yarraville railway station have [lifts](feature)?
+
 - intent: ask_about_station
   examples: |
     - What are the accessibility features at [Flinders Street Station](station_name)?
@@ -375,7 +382,23 @@ nlu:
     - what is traffic in [Albert Park](station_a)?
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+- intent: ask_driving_time
+  examples: |
+    - how long to drive from [Southbank, VIC](source) to [St Kilda, VIC](destination)
+    - driving time from [Tarneit](source) to [Deakin University Burwood](destination)
+    - by car from [4 Anderson St, Yarraville VIC 3013](source) to [1016 Morris Rd, Truganina VIC 3029](destination)
+    - drive time from [Melbourne Airport](source) to [80 Collins St, Melbourne VIC](destination)
+    - ETA by car from [Williams Landing](source) to [Box Hill, VIC](destination)
+    - how long does it take to drive from [Carlton VIC](source) to [Prahran VIC](destination)
+    - drive time from [Southern Cross station](source) to [Yarraville station](destination)
+    - by car from [North Melbourne station](source) to [Newport station](destination)
+
+# Helps the classifier latch onto the “drive…from…to…” pattern
+- regex: drive_from_to
+  examples: |
+    - (?i)\b(drive|driving|by car|driving time|drive time|how long to drive)\b.*\bfrom\b.+\bto\b.+
 - regex: station_name
   examples: |
     - [Central Station](station_name)
     - [North Station](station_name)
+

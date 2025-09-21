@@ -318,7 +318,7 @@ stories:
     - intent: ask_user_about_location_for_traffic
     - action: action_fetch_traffic 
 #Awanish stories (end)----------------------
-  - story: interactive_story_1
+  - story: check about feature
     steps:
       - intent: ask_about_feature
         entities:
@@ -326,10 +326,9 @@ stories:
       - slot_was_set:
           - feature: lifts
       - action: action_check_feature
-      - intent: ask_about_feature
-        entities:
-          - feature: lifts
-      - slot_was_set:
-          - feature: lifts
-      - action: action_check_feature
+# Juveria Nishath (start)---------------------
+  - story: Answer driving time by car
+    steps:
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
 

@@ -43,6 +43,7 @@ intents:
 - request_train_map
 - request_tram_map
 - run_direction_script
+- ask_driving_time
 entities:
 - feature
 - station_a
@@ -239,3 +240,4 @@ actions:
 - action_find_tram_route_with_transfers
 - action_fetch_traffic
 - action_fetch_traffic_location
+- action_driving_time_by_car

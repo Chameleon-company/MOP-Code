@@ -70,8 +70,6 @@ rules:
   - rule: Find next tram timing
     steps:
       - intent: find_next_tram
-      - slot_was_set:
-          - transport_mode: tram
       - action: action_find_next_tram
 
   - rule: Find next bus timing
@@ -136,11 +134,15 @@ rules:
   - rule: Respond to asking about a specific feature
     steps:
     - intent: ask_about_feature
+    - slot_was_set:
+        - feature
     - action: action_check_feature
 
   - rule: Respond to asking about all features of a station
     steps:
     - intent: ask_about_station
+    - slot_was_set:
+        - station_name
     - action: action_check_station
 
   - rule: Respond to listing all stations
@@ -219,4 +221,9 @@ rules:
     steps:
     - intent: affirm
     - action: utter_ack
+# Juveria Nishath ---start
+  - rule: Answer driving time by car
+    steps:
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
 
