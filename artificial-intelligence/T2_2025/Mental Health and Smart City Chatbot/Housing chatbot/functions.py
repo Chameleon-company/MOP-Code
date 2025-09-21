@@ -259,8 +259,7 @@ class API_GTFS:
                 "mode": "car",
                 "total_minutes": minutes,
                 "segments": [
-                    {"type": "car", "minutes": minutes, "meters": meters,
-                    "from": {"lat": start_lat, "lon": start_lon}, "to": {"lat": end_lat, "lon": end_lon}}
+                    {"type": "car", "minutes": minutes, "meters": meters}
                 ]
             }
 
@@ -273,8 +272,7 @@ class API_GTFS:
                 "mode": "walk",
                 "total_minutes": minutes,
                 "segments": [
-                    {"type": "walk", "minutes": minutes, "meters": meters,
-                    "from": {"lat": start_lat, "lon": start_lon}, "to": {"lat": end_lat, "lon": end_lon}}
+                    {"type": "walk", "minutes": minutes, "meters": meters}
                 ]
             }
 
@@ -305,9 +303,9 @@ class API_GTFS:
             "stations": {"origin_station": station_a_name, "dest_station": station_b_name},
             "segments": [
                 {"type": "walk", "minutes": walk1_min, "meters": walk1_m,
-                "from": {"lat": start_lat, "lon": start_lon}, "to": {"lat": a_lat, "lon": a_lon}},
+                "from": {"start_address": start_address}, "to": {"station_name": station_a_name}},
                 {"type": "train", "minutes": train_min, "from_station": station_a_name, "to_station": station_b_name},
                 {"type": "walk", "minutes": walk2_min, "meters": walk2_m,
-                "from": {"lat": b_lat, "lon": b_lon}, "to": {"lat": end_lat, "lon": end_lon}},
+                "from": {"station_name": station_b_name}, "to": {"end_address": end_address}},
             ]
         }
