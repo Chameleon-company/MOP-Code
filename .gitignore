@@ -1,2 +1,41 @@
-# macOS system files
+# macOS
 .DS_Store
+**/.DS_Store
+
+# Jupyter
+**/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+coverage/
+*.log
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Rasa (adjust if you want models committed)
+.rasa/
+results/
+logs/
+# If you don't want trained models in git, uncomment:
+# models/
+
+# Project-specific (covers master’s very specific paths)
+Playground/**/.ipynb_checkpoints/
+Playground/**/.DS_Store
+datascience/**/.DS_Store
