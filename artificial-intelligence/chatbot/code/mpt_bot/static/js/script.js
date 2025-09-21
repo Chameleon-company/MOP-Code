@@ -65,4 +65,3 @@ window.addEventListener('load', () => {
     scrollToBottomOfResults();
   });
 });
-

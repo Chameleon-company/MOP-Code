@@ -5,6 +5,7 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
+    # Alex Start  -----------------------------------------------------------
   - greet
   - goodbye
   - affirm
@@ -25,11 +26,14 @@ intents:
   - check_disruptions_tram
   - check_disruptions_bus
   - check_disruptions_train
+  # Alex Finish intents  ----------------------------------------------------------
+  # Ross Start intenets
   - find_nearest_station
   - find_nearest_tram_stop
   - find_nearest_bus_stop
   - find_user_address
   - map_transport_in_area
+  # Ross Finish intents
   - run_direction_script
   - provide_location
   - provide_destination
@@ -38,35 +42,42 @@ intents:
   - list_all_stations
   - nlu_fallback
   - list_stations_with_feature
+  #Jubal intents (start) -------------------------------------------
   - ask_tram_route
   - ask_tram_route_with_transfers
+  #Jubal intents (End) -------------------------------------------
+  #Awanish intents (start) -------------------------------------------
   - ask_traffic
   - ask_traffic_location
-  - get_directions
-  - find_parking_near_station
-  - ask_direct_tram_route
-  - ask_user_about_location_for_traffic
+  #Awanish intents (End) -------------------------------------------
+
 entities:
+    # Alex Start entities  -----------------------------------------------------------
   - station_a
   - station_b
   - current_longitude
   - current_latitude
   - transport_mode
   - route_name
+  # Alex Finish entities  ----------------------------------------------------------
+  # Ross Start entities
   - address
   - tansport_mode_rp
   - locationa
+  # Ross Finish entities
+  #Logan entities
   - location
   - station_name
   - feature  
   - location_from
   - location_to
+  #Awanish entities start
   - source
   - destination
-#rathanak entities
-  - station
+  #Awanish entities end
 
 slots:
+    # Alex Start slots  ---------------------------------------------------------------
   station_a:
     type: text
     influence_conversation: true
@@ -89,12 +100,24 @@ slots:
     mappings:
       - type: from_entity
         entity: route_name
+  # Alex Finish slots  ---------------------------------------------------------------
+
+  # user_location:
+  #   type: text
+  #   mappings:
+  #     - type: from_text
+  # destination:
+  #   type: text
+  #   mappings:
+  #     - type: from_text
+
   station_name:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: station_name
+
   feature:
     type: text
     influence_conversation: true
@@ -114,21 +137,17 @@ slots:
     mappings:
       - type: from_entity
         entity: location_to
+  
+  #Awanish --Slot
   source:
     type: text
     mappings:
       - type: from_text
-#rathanak slots
-  station:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: station
-
       
 
 
 responses:
+    # Alex Start responses -----------------------------------------------------------
   utter_ask_origin:
     - text: "Where are you starting your journey?"
   utter_ask_destination:
@@ -218,15 +237,10 @@ responses:
   - text: "For which loaction you want to know the traffic status?"
   utter_traffic_details:
     - text: "Traffic is {traffic_status} from {source} to {destination} with a current speed of {current_speed} km/h. Estimated travel time is {travel_time} minutes for a distance of {distance} km."
-#rathanak response
-  utter_ask_station_for_parking:
-    - text: "Which station are you looking for parking near?"
-
-  utter_could_not_find_station:
-    - text: "Sorry, I couldn't identify the station you're asking about. Please try rephrasing."
-
+ #Awanish responses (end) -------------------------------------------
 
 actions:
+ # Alex Start Actions  -----------------------------------------------------------
   - action_generate_train_map
   - action_generate_tram_map
   - action_generate_bus_map
@@ -244,26 +258,24 @@ actions:
   - action_check_disruptions_bus
   - action_check_disruptions_train
   - validate_transport_mode
+  # Alex Finish Actions  -----------------------------------------------------------
+  # Ross Start actions
   - action_find_user_address
   - action_find_nearest_station
   - action_find_nearest_tram_stop
   - action_find_nearest_bus_stop
   - action_map_transport_in_area
+  # Ross finish Actions
   - action_run_direction_script
   - action_check_feature
   - action_check_station
   - action_list_all_stations
   - action_list_stations_with_feature
-#  - action_check_direct_tram_route
+  #Jubal actions (start) -------------------------------------------
+  - action_check_direct_tram_route
   - action_find_tram_route_with_transfers
+  #Jubal actions (end) -------------------------------------------
+  #Awanish actions (Start) -------------------------------------------
   - action_fetch_traffic
   - action_fetch_traffic_location
- #rathanak action--------
-  - action_find_parking_near_station
-  - action_check_direct_tram
-
-
-
-
-
-
+  #Awanish actions (end) -------------------------------------------

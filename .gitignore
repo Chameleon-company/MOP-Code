@@ -1,36 +1,60 @@
-# macOS
+# ---------- OS ----------
 .DS_Store
 **/.DS_Store
 
-# Jupyter
-**/.ipynb_checkpoints/
-
-# Python
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.so
 *.egg-info/
+
+# ---------- Virtual Environments ----------
 .venv/
 venv/
-.env
-.env.*
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+env/
+env*/
 
-# Node / Frontend
+# ---------- Jupyter & Logs ----------
+.ipynb_checkpoints/
+*.log
+*.out
+*.err
+
+# ---------- YOLO / Training Artifacts ----------
+runs/
+checkpoints/
+weights/
+*.pt
+
+# ---------- UC5 results (legacy path) ----------
+# Ignore heavy outputs but keep plots/notes
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
+
+# ---------- UC5 results (T2_2025 new path) ----------
+# Ignore heavy outputs but keep plots/notes
+artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
+!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
+!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
+
+# ---------- Node / Frontend ----------
 node_modules/
 dist/
 build/
 coverage/
 *.log
 
-# IDE / Editor
+# ---------- IDE / Editor ----------
 .vscode/
 .idea/
 
-# Rasa (adjust if you want models committed)
+# ---------- Rasa (if present) ----------
 .rasa/
 results/
 logs/
-# If you don't want trained models in git, uncomment:
+
+# If you don’t want trained models in git, uncomment:
 # models/
