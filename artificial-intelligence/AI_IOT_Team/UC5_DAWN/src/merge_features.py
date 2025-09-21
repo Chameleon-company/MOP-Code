@@ -1,18 +1,19 @@
 from pathlib import Path
 import pandas as pd
 
-ROOT = Path(r"C:\Users\ramad\Downloads\dawn_yolo")
-out_dir = Path(r"C:\Users\ramad\Documents\MOP-Code\datascience\air-quality\uc5_dawn\results")
-out_dir.mkdir(parents=True, exist_ok=True)
+RES = Path("artificial-intelligence/AI_IOT_Team/UC5_DAWN/results")
+counts = pd.read_csv(RES/"vehicle_counts.csv")
+haze   = pd.read_csv(RES/"haze_dcp.csv")
 
-density = pd.read_csv(ROOT / "vehicle_density.csv")
-haze = pd.read_csv(ROOT / "haze_dcp.csv")
+df = counts.merge(haze, on=["split","image"])
+df.to_csv(RES/"uc5_features.csv", index=False)
+print("Merged features saved:", RES/"uc5_features.csv")
 
-df = density.merge(haze, on=["split","image"], how="inner")
+# Balance check
+counts = df.groupby("split")["vehicle_count"].count()
+print("Images per split:\n", counts)
 
-# tidy columns and save
-cols = ["split","image","vehicle_count","haze_score_dcp"]
-df = df[cols].sort_values(["split","image"])
-dst = out_dir / "uc5_features.csv"
-df.to_csv(dst, index=False)
-print("Wrote:", dst, "rows:", len(df))
+min_count = counts.min()
+balanced = df.groupby("split").apply(lambda g: g.sample(min_count, random_state=42)).reset_index(drop=True)
+balanced.to_csv(RES/"uc5_features_balanced.csv", index=False)
+print("Balanced features saved:", RES/"uc5_features_balanced.csv")
