@@ -1,23 +1,39 @@
-# macOS system files
-**/.DS_Store
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
 
-# Jupyter Notebook checkpoints
-**/.ipynb_checkpoints/
+# ---- Virtual Environment ----
+venv/
+.venv/
 
-# Specific ignored files from master
-Playground/Vamshi/.ipynb_checkpoints/UC00149_Enhancing_Urban_Tree_Planting_through_Air_Quality_Analysis-checkpoint.ipynb
-Playground/.DS_Store
-datascience/.DS_Store
+# ---- Jupyter & Logs ----
+.ipynb_checkpoints/
+*.log
+*.out
+*.err
+
+# ---- YOLO / Training Runs ----
+runs/
+checkpoints/
+weights/
+*.pt
+
+# ---- UC5_DAWN generated results (keep configs/scripts)
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
+
+# ---- OS & Editor ----
 .DS_Store
-Playground/.DS_Store
-.DS_Store
-Playground/.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
 
-# macOS
-.DS_Store
-
-
-# macOS
-.DS_Store
-
-.DS_Store
+# ---- Secrets (if any) ----
+.env
+*.key
