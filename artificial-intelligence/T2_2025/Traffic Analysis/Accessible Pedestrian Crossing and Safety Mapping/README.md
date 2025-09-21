@@ -4,7 +4,7 @@
 
 This project analyses and predicts **pedestrian crash risk in Victoria** using road environment factors. The goal is to identify high-risk conditions (e.g., lighting, speed zones, road geometry) and provide interpretable machine learning models that support safer and more sustainable urban planning.
 
-The work forms part of **Use Case 1** in the MOP AI+IoT capstone project, contributing to SDG 11 (Sustainable Cities).
+The work forms part of **Use Case 1 Traffic Analysis (T2_2025)** in the MOP AI+IoT capstone project, contributing to SDG 11 (Sustainable Cities).
 
 ---
 
@@ -52,9 +52,9 @@ The work forms part of **Use Case 1** in the MOP AI+IoT capstone project, contri
 ### 1. Clone the repository
 
 ```bash
-git clone <repo-url>
-cd Use_Case_1
-jupyter notebook Use_case_1_Pedestrian_Crash_Risk_Analysis_&_Prediction.ipynb
+git clone https://github.com/Chameleon-company/MOP-Code.git
+cd "MOP-Code/artificial-intelligence/T2_2025/Traffic Analysis/Accessible Pedestrian Crossing and Safety Mapping"
+
 ```
 
 ### 2. Install dependencies
@@ -76,7 +76,7 @@ Execute cells in the notebook to reproduce preprocessing, EDA, and model trainin
 ### 4. (Optional) Launch the dashboard
 
 ```bash
-streamlit run dashboard.py
+streamlit run dashboard_risk.py
 ```
 
 ---
@@ -84,7 +84,7 @@ streamlit run dashboard.py
 ## 📂 Repository Contents
 
 * `Use_case_1_Pedestrian_Crash_Risk_Analysis_&_Prediction.ipynb` – Full pipeline (preprocessing, EDA, modelling, evaluation)
-* `dashboard.py` – Streamlit app for interactive visualisation (if included)
+* `dashboard_risk.py` – Streamlit app for interactive visualisation (if included)
 * `requirements.txt` – Dependencies for reproducing results
 * `README.md` – Project documentation (this file)
 
@@ -92,8 +92,8 @@ streamlit run dashboard.py
 
 ## 👥 Contributors
 
-* **Project Manager / Use Case 1 Lead**: \KAH YAN LAI
-* Team Members: \EMIRA SHEIKH, ROHAN KORLAHALLI, SONA JOSEPH, SANDUNI CHAMINDI THATHSARANI DENAGAMA GAM ACHARIGE
+* **Project Manager / Use Case 1 Lead**: KAH YAN LAI
+* Team Members: EMIRA SHEIKH, ROHAN KORLAHALLI, SONA JOSEPH, SANDUNI CHAMINDI THATHSARANI DENAGAMA GAM ACHARIGE
 
 ---
 
@@ -104,4 +104,5 @@ streamlit run dashboard.py
 * Enhance dashboard with additional stakeholder-facing features
 
 ---
+
 
