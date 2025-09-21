@@ -72,7 +72,7 @@ export const useCases = [
         image: "/img/insights/melbsocial.jpg",
         link: "/dummypages/UC00146_Melbourne_Social_Trend_Analysis.html",
       },
-      {
+     {
         heading: "Community Wellbeing",
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
@@ -83,8 +83,8 @@ export const useCases = [
         heading: "Social indicator changes",
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/social_indicator.jpg",
+        link: "/dummypages/UC00077_Social_Indicator_Changes.html",
       },
     ],
   },
@@ -123,14 +123,14 @@ export const useCases = [
         heading: "Enhancing Urban Tree Planting through air quality analysis",
         description:
           "Use AI to optimize energy consumption in industries and cities.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/tree_planting.jpeg",
+        link: "/dummypages/UC00149_Enhancing_Urban_Tree_Planting_through_Air_Quality_Analysis.html",
       },
       {
         heading: "Waste Efficiency Argyle Square case study",
         description:
           "Intelligent systems to manage recycling and reduce environmental impact.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/waste_efficiency.jpg",
         link: "/dummypages/UC00150_Waste_Efficiency_Argyle_Square_case_study.html",
       },
       {
@@ -138,57 +138,57 @@ export const useCases = [
           "Evaluating the impact of urban Heat Islands on Community Wellbeing",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/heat_island.png",
         link: "/dummypages/UC00152_Evaluating_the_Impact_of_Urban_Heat_Islands_on_Community_Wellbeing.html",
       },
       {
         heading: "Biodiversity corridors creation Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/bio_corridor.jpg",
+        link: "/dummypages/UC00153_Biodiversity_corridors_creation_melbourne2025.html",
       },
       {
         heading: "Sustainable mobility and Emission Reduction in Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/sustainable_mobility.jpg",
+        link: "/dummypages/UC00158_Sustainable_Mobility_and_Emission_Reduction_in_Melbourne.html",
       },
       {
         heading: "AI Driven Wildfire Risk Assessment and Hotspot Prediction",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/AI_fire.jpg",
         link: "",
       },
       {
         heading: "Heat Vulnerability Mapping",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/heat_map.png",
+        link: "/dummypages/UC00169_Heat_Vulnerability_Mapping.html",
       },
       {
         heading: "Melbourne Urban Microclimate Dynamics",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/urban_climate.jpg",
+        link: "/dummypages/UC00171_Melbourne_Urban_Microclimate_Dynamics.html",
       },
       {
         heading: "Climate change Impact Simulation",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/climate_change.jpg",
+        link: "/dummypages/UC00167_Climate_Change_Impact_Simulation.html",
       },
       {
         heading: "Tracking unique insect species in Melbourne",
         description:
           "Analyze climate data to predict trends and take preventive measures.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/unique_insects.jpg",
+        link: "/dummypages/UC00042_Tracking_Unique_Insect_Species_in_City_of_Melbourne.html",
       },
     ],
   },
@@ -204,7 +204,7 @@ export const useCases = [
         description:
           "AI-powered cameras and monitoring systems for public safety.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Night_Time_Safety_Index.html",
       },
       {
         heading: "Populations and Accidents",
@@ -234,7 +234,7 @@ export const useCases = [
         description:
           "AI-driven booking systems for hotels, flights, and experiences.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Optimizing_Event_Locations.html",
       },
       {
         heading: "Cultural tourism route optimisation",
@@ -266,6 +266,8 @@ export const useCases = [
           "AI optimizes traffic flow and reduces congestion in real-time.",
         image: "/img/insights/parking_.jpg",
         link: "",
+        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        link: "/dummypages/Optimising_Parking_Accessibility_Near_Healthcare_and_Education.html",
       },
       {
         heading: "Smart Urban mobility",
@@ -337,7 +339,7 @@ export const useCases = [
         description:
           "Integrate eco-friendly designs and green spaces in urban projects.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/Population_Growth_&_Active_Transportation_Needs_Analysis.html",
       },
       {
         heading: "Urban Development analysis",
@@ -395,14 +397,14 @@ export const useCases = [
         description:
           "AI predicts patient risks and recommends proactive care measures.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00058_Mental_Wellbeing.html",
       },
       {
         heading: "Enhancing community wellbeing through public transport",
         description:
           "Remote consultation platforms with intelligent diagnostic support.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport.html",
       },
       {
         heading: "Food Services and its impact on wellbeing indicators",
@@ -416,7 +418,7 @@ export const useCases = [
         description:
           "Monitor lifestyle and health metrics to improve daily wellbeing.",
         image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        link: "/dummypages/UC00096_Impact_of_Coworking_Spaces_on_Social_Wellbeing_Indicators.html",
       },
       {
         heading: "Optimization of outdoor fitness activities (2025)",
@@ -428,3 +430,5 @@ export const useCases = [
     ],
   },
 ];
+export const blogs = [ /* ...your blog data... */ ];
+
