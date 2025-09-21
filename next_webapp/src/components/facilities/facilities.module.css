@@ -1,0 +1,86 @@
+/* page width & centering */
+.section {
+  padding: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* colored panel that contains header + grid */
+.panel {
+  border-radius: 14px;
+  padding: 16px 18px 20px;
+  margin-bottom: 22px;
+}
+.panelGreen { background: #cfeecd; } /* pastel green */
+.panelBlue  { background: #cfe2ff; } /* pastel blue */
+
+/* header inside the panel (no extra white space) */
+.panelHeader { margin: 0 0 10px 0; }
+.panelTitle {
+  margin: 0;                 /* no gap above */
+  font-weight: 700;
+  font-size: 20px;
+  color: #0b0b0b;
+}
+.panelSubtitle {
+  margin: 2px 0 0 0;         /* almost no gap between title + subtitle */
+  font-size: 15px;
+  color: #0b0b0b;
+}
+
+/* grid of white cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+/* white card */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.10);
+}
+
+/* image inside the white card with a thick white frame */
+.imageWrap {
+  width: 260px;
+  height: 160px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  border: 5px solid #ffffff;      /* 4–5px white frame */
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* caption under image */
+.cardTitle {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #0b0b0b;
+}
+
+@media (max-width: 860px) {
+  .imageWrap { width: 220px; height: 140px; }
+}
+@media (max-width: 640px) {
+  .section { padding: 14px; }
+  .imageWrap { width: 100%; height: 160px; }
+}

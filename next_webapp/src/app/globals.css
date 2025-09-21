@@ -1,0 +1,15 @@
+/* Tailwind globals (safe even if you don't use many classes yet) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+* { box-sizing: border-box; }
+
+:root {
+  --panel-green: #3e8e63;   /* lighter green panel */
+  --panel-text:  #ffffff;
+  --card-bg:     #ffffff;    /* white picture box */
+  --card-border: #e2e8e2;    /* light border */
+  --panel-radius: 8px;
+}

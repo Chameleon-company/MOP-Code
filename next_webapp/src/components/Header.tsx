@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n-navigation";
@@ -22,6 +23,7 @@ const Header = () => {
     { name: "Use Cases", link: "/usecases" },
     { name: "Statistics", link: "/statistics" },
     { name: "Upload", link: "/upload" },
+    
   ];
 
   return (
@@ -70,6 +72,7 @@ const Header = () => {
               ))}
             </nav>
           </div>
+          
           <div className="flex items-center">
             <button
               onClick={toggleTheme}
