@@ -95,7 +95,7 @@ confusion matrices (PNGs)
 
 Week10_System_Report.md
 
-**Results (typical)
+##Results (typical)
 
 CNN: ~81–85% test accuracy (with T=256 window).
 
@@ -103,7 +103,7 @@ LSTM: ~85-92% test accuracy when trained longer (e.g., 50 epochs).
 
 Optimized variants show lower latency / size with small accuracy deltas.
 
-**Repro notes
+##Repro notes
 
 Fixed seeds used where appropriate (e.g., 42).
 
