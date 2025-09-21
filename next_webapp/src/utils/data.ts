@@ -62,21 +62,21 @@ export const useCases = [
         heading: "Accessibility",
         description:
           "Organize and track volunteer initiatives using smart management tools.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/insights/accessibility.jpg",
+        link: "/dummypages/UC00126_Accessibility_Analysis_finalT1.html",
       },
       {
         heading: "Melbourne Social Trend",
         description:
           "Launch projects that directly improve local communities’ wellbeing.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/insights/melbsocial.jpg",
+        link: "/dummypages/UC00146_Melbourne_Social_Trend_Analysis.html",
       },
       {
         heading: "Community Wellbeing",
         description:
           "Use data to evaluate the impact of social and charity initiatives.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/community-wellbeing.jpg",
         link: "/dummypages/CommunityWellbeing.html",
       },
       {
@@ -264,56 +264,56 @@ export const useCases = [
         heading: "Optimising parking accessibility near healthcare and education",
         description:
           "AI optimizes traffic flow and reduces congestion in real-time.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/parking_.jpg",
         link: "",
       },
       {
         heading: "Smart Urban mobility",
         description:
           "Integrate AI for safer and more efficient self-driving solutions.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/smartmobility.jpg",
         link: "",
       },
       {
         heading: "Parking availability Melbourne",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/insights/parking.jpg",
+        link: "/dummypages/UC00163_ParkingAvailabilityMelbourneCBD_API.html",
       },
       {
         heading: "Bike usage",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
-        link: "",
+        image: "/img/insights/bike.jpg",
+        link: "/dummypages/UC00170_Bike_Usage.html",
       },
       {
         heading: "Traffic congestion and parking zone impact",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/traffic.jpg",
         link: "",
       },
       {
         heading: "Parking slot occupany",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/parkingslot.jpg",
         link: "",
       },
       {
         heading: "Public Transport Demand",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/publictransport.jpg",
         link: "",
       },
       {
         heading: "Bike route optimization",
         description:
           "Enhance city transit systems using passenger and route data.",
-        image: "/img/2bafb41a2f7d47daa950025568befe0218893c90-2880x1440.avif",
+        image: "/img/insights/bikeroute.jpg",
         link: "",
       },
     ],
