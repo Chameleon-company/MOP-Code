@@ -753,6 +753,10 @@ class ActionCompareTwoTransportMode(Action):
             if arriveTime:
                 parts.append(f"- ETA arrival: {arriveTime}.")
             dispatcher.utter_message(text=f"You should travel by car!")
+            if 'total_time' in transit_trip:
+                dispatcher.utter_message(text=f"Total travel time: {fmt_time(travel)} (Car) vs {transit_trip['total_time']} mins (Public Transport)")
+            else:
+                dispatcher.utter_message(text=f"We could not find the transit route for you!")
             message = "\n".join(parts)
             dispatcher.utter_message(text=message)
         else:
@@ -764,9 +768,14 @@ class ActionCompareTwoTransportMode(Action):
                 # Format the new datetime to "DD-MM-YY HH-MM-SS"
                 formatted_datetime = arrival_datetime.strftime('%d-%m-%y %H:%M:%S')
                 dispatcher.utter_message(text=f"You should travel by public transport!")
+                if summary:
+                    dispatcher.utter_message(text=f"Total travel time: {fmt_time(travel)} (Car) vs {transit_trip['total_time']} mins (Public Transport)")
+                else:
+                    dispatcher.utter_message(text=f"We could not find the driving route for you!")
+                
                 dispatcher.utter_message(text=transit_trip['route_description'])
                 dispatcher.utter_message(text=f"Distance: {round(transit_trip['distance_meters'] / 1000, 1)} kilometers")
-                dispatcher.utter_message(text=f"Your total travel time: {transit_trip['total_time']} min")
+                dispatcher.utter_message(text=f"Your total travel time: {transit_trip['total_time']} mins")
                 dispatcher.utter_message(text=f"Arrival Time: {formatted_datetime}")
                 if 'encoded_polyline' in transit_trip:
                     if transit_trip['encoded_polyline'] != "":
