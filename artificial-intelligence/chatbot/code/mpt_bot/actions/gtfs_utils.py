@@ -29,6 +29,8 @@
         - extract_route_name: Applicable for Tram, Bus and Train: (Author: AlexT)
         - determine_user_route: Determine the route (bus or tram): (Author: AlexT)
         - determine_schedule: Determine the schedule for a specific route (bus or tram): (Author: AlexT)
+        - find_pt_route_between_two_address: Find route between two address: (Author: Andre Nguyen)
+        - create_polyline_map: Create map from encoded polyline code (Author: Andre Nguyen)
 	-------------------------------------------------------------------------------------------------------
 '''
 import spacy
@@ -78,12 +80,21 @@ class GTFSUtils:
     def normalise_gtfs_data(stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> None:
         """
            Author: AlexT
+           Modifier: Juveria Nishath
             Normalise the stop names and ensure the stop_times DataFrame is indexed correctly.
         """
         stops_df['stop_name'] = stops_df['stop_name'].astype(str).str.strip()
         stops_df['stop_id'] = stops_df['stop_id'].astype(str).str.strip()
 
-        stops_df['normalized_stop_name'] = stops_df['stop_name'].str.lower().str.replace("station", "").str.replace("railway", "").str.replace('(',"").str.replace(')',"")
+        stops_df['normalized_stop_name'] = (stops_df['stop_name']
+        .str.lower()
+        .str.replace("station", "")
+        .str.replace("railway", "")
+        .str.replace("(", "")
+        .str.replace(")", "")
+        .str.replace(r"\s+", " ", regex=True)   # collapse whitespace
+        .str.strip()
+)
 
         stop_times_df['stop_id'] = stop_times_df['stop_id'].astype(str).str.strip()
         expected_columns = ['stop_id', 'trip_id', 'arrival_time', 'departure_time']
@@ -231,6 +242,7 @@ class GTFSUtils:
     def find_parent_station(station_name_list: List[str], stops_df: pd.DataFrame) -> List[str]:
         """
             Author: Andre Nguyen
+            Modifier: Juveria Nishath
             Find the parent station from list of station name
         """
         try:
@@ -265,6 +277,7 @@ class GTFSUtils:
     def find_child_station(parent_station_id: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
         """
             Author: Andre Nguyen
+            Modifier: Juveria Nishath
             Find all child stations and return list of their id
         """
         try:
@@ -295,13 +308,14 @@ class GTFSUtils:
     def keep_station_in_order(station_name_list: List[str], normalised_user_input: str) -> List[str]:
         """
             Author:  Andre Nguyen
+            Modifier: Juveria Nishath
             Keep stations in mentioned order in the query (from - to order) as in user query
         """
         try:
             if not station_name_list or not normalised_user_input:
                 return station_name_list
                 
-            normalised_user_input_split = normalised_user_input.split(" ")
+            normalised_user_input_split = normalised_user_input.split()
             from_index = 0
             to_index = 0
             
@@ -348,6 +362,7 @@ class GTFSUtils:
     def find_station_name_by_fuzzy(normalised_user_input: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author:  Andre Nguyen
+            Modifier: Juveria Nishath
             Find the best matching station name from the stops DataFrame by fuzzywuzzy.
         """
         try:
@@ -355,7 +370,8 @@ class GTFSUtils:
                 return []
                 
             potential_station_list = []
-            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'] .apply(lambda name: name.replace("station", "").replace("railway", "")).str.replace(r"\s+", " ", regex=True).str.strip()
+
             
             # Using FuzzyWuzzy to find station name in user query
             try:
@@ -376,7 +392,7 @@ class GTFSUtils:
                             # so next matching will not have duplicate result
                             highest_score = 0
                             word_to_remove = ""
-                            for word in shorten_user_input.split(" "):
+                            for word in shorten_user_input.split():
                                 current_score = fuzz.ratio(best_match, word)
                                 if current_score > highest_score:
                                     word_to_remove = word
@@ -404,7 +420,7 @@ class GTFSUtils:
     def find_station_name_from_query(user_input: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
-            Modifier: Andre Nguyen
+            Modifier: Andre Nguyen, Juveria Nishath
             Find the best matching station name from the stops DataFrame.
         """
         try:
@@ -414,7 +430,8 @@ class GTFSUtils:
             stops_df = stops_df.astype(str)
             user_input = user_input.lower().strip()
             stops_df['word_count'] = stops_df['normalized_stop_name'].apply(lambda x: len(x.split()))
-            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", ""))
+            stops_df['normalized_stop_name'] = stops_df['normalized_stop_name'].apply(lambda name: name.replace("station", "").replace("railway", "")).str.replace(r"\s+", " ", regex=True).str.strip()
+
             
             potential_station_list = []
             remove_list = {
@@ -423,14 +440,18 @@ class GTFSUtils:
                 "(": "",
                 ")": ""
             }
+            # set from the cleaned user_input first, then collapse whitespace
             normalised_user_input = user_input
+            normalised_user_input = re.sub(r"\s+", " ", normalised_user_input).strip()
+
             for old, new in remove_list.items():
                 normalised_user_input = normalised_user_input.replace(old, new)
-            user_input_split = normalised_user_input.split(" ")
+
+            user_input_split = normalised_user_input.split()   # NOTE: no-arg split
             
             for index, stop in stops_df.iterrows():
                 try:
-                    stop_name_list = stop['normalized_stop_name'].split(" ")
+                    stop_name_list = stop['normalized_stop_name'].split()
                     flag = 1
                     for word in stop_name_list:
                         if word not in user_input_split:
@@ -487,7 +508,7 @@ class GTFSUtils:
     def extract_stations_from_query(query: str, stops_df: pd.DataFrame) -> List[str]:
         """
             Author: AlexT
-            Modifier: Andre Nguyen
+            Modifier: Andre Nguyen, Juveria Nishath
             Extract potential station names from a query using NLP and fuzzy matching.
         """
         try:
@@ -515,6 +536,7 @@ class GTFSUtils:
     def get_stop_id(stop_name: str, stops_df: pd.DataFrame) -> Optional[str]:
         """
             Author: AlexT
+            Modifier: Juveria Nishath
             Get the stop ID for a given station name, using fuzzy matching to find the correct station name.
         """
         try:
@@ -1287,7 +1309,7 @@ class GTFSUtils:
             route_long_names = routes_df["route_long_name"].tolist()
 
             # split the query by whitespace
-            query_split = query.split(' ')
+            query_split = query.split()
 
             # Check if a route short name matches directly in the query
             for short_name in route_short_names:
@@ -1974,9 +1996,13 @@ class GTFSUtils:
             print(f"Error creating map: {str(e)}")
             return None
         
-    ####author Juveria
     @staticmethod
     def collect_platform_ids(display_name: str, stops_df: pd.DataFrame, stop_times_df: pd.DataFrame) -> List[str]:
+        """
+        Author: Juveria Nishath
+        Collect platform/child stop_ids for a given station name: canonicalize name → gather parent/children/siblings → expand by prefix; keep only IDs present in stop_times.
+        Returns a sorted list[str] of valid stop_ids.
+        """
         # 1) get the best-matched canonical stop_name (your existing helper)
         matched_name = GTFSUtils.find_station_name(display_name, stops_df) or display_name
 
@@ -2015,6 +2041,7 @@ class GTFSUtils:
         else:
             avail = set(stop_times_df['stop_id'].astype(str))
         ids = sorted({i for i in ids if i in avail})
+        return ids
 
         
 

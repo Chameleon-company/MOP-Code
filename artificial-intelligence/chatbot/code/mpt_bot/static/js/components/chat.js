@@ -305,7 +305,7 @@ function actionTrigger() {
 // eslint-disable-next-line no-unused-vars
 function customActionTrigger() {
   $.ajax({
-    url: "http://localhost:5055/webhook/",
+    url: "http://localhost:5005/webhooks/rest/webhook",
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify({

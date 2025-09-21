@@ -109,6 +109,12 @@ tomtom_api_key = os.getenv("TOMTOM_API_KEY")
 if not google_api_key:
     logger.warning(msg="Your google api key is not set, please set it inside key.env file")
 
+# importing tomtom 
+tomtom_api_key = os.getenv("TOMTOM_API_KEY")
+if not tomtom_api_key:
+    logger.warning(msg="Your tommtomm api key is not set, please set it inside key.env file")
+
+
 class ActionFindNextTram(Action):
     """
     -------------------------------------------------------------------------------------------------------
@@ -130,6 +136,10 @@ class ActionFindNextTram(Action):
             station_a = tracker.get_slot("station_a")
             station_b = tracker.get_slot("station_b")
             user_text = (tracker.latest_message or {}).get("text", "") or ""
+            # --- MODE GUARD: if the user clearly asked for a *train*, hand over ---
+            if "train" in user_text.lower():
+                return ActionFindNextTrain().run(dispatcher, tracker, domain)
+# ----------------------------------------------------------------------
 
             # Fallback: extract from user text when slots are empty
             if not station_a or not station_b:
@@ -959,7 +969,7 @@ class ActionFindNextTrain(Action):
     	ID: REQ_02 implementation
     	Name: Schedule Information
     	Author: AlexT
-        Modifier: Andre Nguyen
+        Modifier: Andre Nguyen, Juveria Nishath
     	-------------------------------------------------------------------------------------------------------
     '''
     def name(self) -> Text:
@@ -1630,7 +1640,7 @@ class ActionCheckFeature(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        # Local imports only (no changes to your global imports)
+        # Local imports only (no changes to global imports)
         import re
         from difflib import get_close_matches
         from rasa_sdk.events import SlotSet
@@ -2690,8 +2700,7 @@ class ActionDrivingTimeByCar(Action):
                 return []
 
             # (4) Pull TomTom key from environment; fail fast if not set (no 503 crashes)
-            api_key = os.getenv("TOMTOM_API_KEY")
-            if not api_key:
+            if not tomtom_api_key:
                 dispatcher.utter_message(text="TomTom API key is not configured on the server.")
                 return []
 
@@ -2700,17 +2709,17 @@ class ActionDrivingTimeByCar(Action):
             MEL_RADIUS_KM = 150
 
             # First attempt with CBD bias (keeps ambiguous names in metro VIC)
-            o = tt_geocode(origin, api_key,
+            o = tt_geocode(origin, tomtom_api_key,
                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
-            d = tt_geocode(dest,   api_key,
+            d = tt_geocode(dest,   tomtom_api_key,
                            country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
 
             # (5b) If either side failed, retry with explicit ", VIC" suffix (no extra kwargs)
             if not o:
-                o = tt_geocode(f"{origin}, VIC", api_key,
+                o = tt_geocode(f"{origin}, VIC", tomtom_api_key,
                                country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
             if not d:
-                d = tt_geocode(f"{dest}, VIC", api_key,
+                d = tt_geocode(f"{dest}, VIC", tomtom_api_key,
                                country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
 
             # (5c) Still missing? Tell the user which side failed
@@ -2723,7 +2732,7 @@ class ActionDrivingTimeByCar(Action):
             d_lat, d_lon, d_label = d
 
             # (6) Request the fastest *car* route with traffic ON (current conditions)
-            summary = tt_route(o_lat, o_lon, d_lat, d_lon, api_key)
+            summary = tt_route(o_lat, o_lon, d_lat, d_lon, tomtom_api_key)
             if not summary:
                 dispatcher.utter_message(text="I couldn't fetch the driving time right now.")
                 return []
