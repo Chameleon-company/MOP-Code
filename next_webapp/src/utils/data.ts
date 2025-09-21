@@ -272,7 +272,7 @@ export const useCases = [
         description:
           "Integrate AI for safer and more efficient self-driving solutions.",
         image: "/img/insights/smartmobility.jpg",
-        link: "",
+        link: "/dummypages/UC00155_Smart_Urban_Mobility_Analysis.htm",
       },
       {
         heading: "Parking availability Melbourne",
