@@ -1,0 +1,22 @@
+# Core scientific stack
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+
+# Deep learning
+torch
+torchvision
+torchaudio
+
+# Visualization & demo
+streamlit
+
+# Deployment / APIs
+fastapi
+uvicorn
+pyngrok
+
+# Optional: for pruning/quantization experiments
+torch-summary
