@@ -92,8 +92,8 @@ streamlit run dashboard.py
 
 ## 👥 Contributors
 
-* **Project Manager / Use Case 1 Lead**: \[Your Name]
-* Team Members: \[List names here if required]
+* **Project Manager / Use Case 1 Lead**: \KAH YAN LAI
+* Team Members: \EMIRA SHEIKH, ROHAN KORLAHALLI, SONA JOSEPH, SANDUNI CHAMINDI THATHSARANI DENAGAMA GAM ACHARIGE
 
 ---
 
@@ -104,3 +104,4 @@ streamlit run dashboard.py
 * Enhance dashboard with additional stakeholder-facing features
 
 ---
+
