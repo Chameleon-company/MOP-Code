@@ -12,18 +12,19 @@ type Props = {
 };
 
 export default function FoodServicesCaseBody({
-  heroSrc = "public/img/P1.png",
-  charts = { barSrc: "public/img/P2.png", lineSrc: "public/img/P3.png" },
-  wordCloudSrc = "public/img/P3.png",
+  heroSrc = "/img/P0.jpg", 
+  charts = { barSrc: "/img/P2.png", lineSrc: "/img/P3.png" },
+  wordCloudSrc = "/img/P3.png", 
   title = "Food Services & Wellbeing",
   subtitle = "Understanding the impact of diet on lifestyle and wellness",
   introTitle = "Forecasting Hunger: A Decade Of Uncertainty",
   introParas = [
-    "We analysed open-data on service listings and trends from 2013–2023. The data shows fluctuations with a notable spike in 2020–21.",
-    "The bar chart summarises the most accessed service categories. The line chart shows the demand signal year-over-year. A keyword analysis is visualised with a word cloud.",
+    "This line graph offers a sobering look at food insecurity trends from 2013 to 2027. The historical data shows fluctuations, with a notable dip in 2015 and a peak in 2014. The forecasted values from 2018 onward suggest continued instability, raising concerns about future access to food.",
+    "However, this model comes with limitations. It does not account for macroeconomic disruptions like inflation, the COVID-19 pandemic, or shifts in global supply chains—all of which have deeply impacted household food access. These omissions mean the forecast may underestimate the severity of future challenges.",
+    "Still, the message is clear: cities must act proactively. A resilient food support system is essential. Every resident deserves reliable access to nutritious food, and forecasting tools like this can help policymakers anticipate needs and allocate resources effectively. Because no one should ever feel that their basic needs are being overlooked."
   ],
-  conclusion = "Service discoverability, proximity, and eligibility clarity correlate with uptake. Improving signposting, extending hours, and keeping descriptions current can reduce unmet need.",
-}: Props) {
+  conclusion = "With only 17 food services currently available in Melbourne and food insecurity projected to persist around the 6% mark, it is crucial for Melbourne to consider expanding and enhancing food services throughout the city. Ensuring adequate food access is not just a matter of convenience; it is essential for personal safety and security. Reliable access to food supports well-being, reduces stress, and fosters a safer, more resilient community. Addressing these needs proactively can make a significant difference in improving the quality of life for all residents.",
+}: Props): React.JSX.Element {
   return (
     <article className="bg-white">
       {/* HERO */}
