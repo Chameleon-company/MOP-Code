@@ -15,7 +15,6 @@ intents:
 - ask_tram_route
 - ask_tram_route_with_transfers
 - ask_transfers
-- ask_driving_time
 - bot_challenge
 - check_disruptions
 - compare_two_mode
@@ -41,7 +40,6 @@ intents:
 - request_bus_map
 - request_train_map
 - request_tram_map
-- run_direction_script
 - ask_driving_time
 entities:
 - feature
