@@ -527,11 +527,14 @@ const categories = [
   { icon: "🏢", label: "EV Infrastructure" },
   { icon: "🅿️", label: "Parking" },
   { icon: "🚨", label: "Safety" },
+  { icon: "♿", label: "Accessibility" },
 ];
 
 const openPage = (label: string) => {
   if (label === "EV Infrastructure") {
     window.location.href = "/en/ev-infrastructure";
+  } else if (label === "Accessibility") {
+    window.location.href = "/en/accessibility";
   }
 };
 
