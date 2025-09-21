@@ -54,7 +54,7 @@ project-root/
   - lstm_model.pth`
 
 
-## ▶️ How to run (Colab or local)
+##  How to run (Colab or local)
 
 1) Install deps
 
@@ -81,7 +81,7 @@ Accuracy vs Latency
 
 F1 vs Model Size
 
-3) Final stress testing (Week 10)
+3) Final stress testing 
 
 Run notebooks/FinalTesting.ipynb:
 
@@ -97,9 +97,9 @@ Week10_System_Report.md
 
 **Results (typical)
 
-CNN: ~81–82% test accuracy (with T=256 window).
+CNN: ~81–85% test accuracy (with T=256 window).
 
-LSTM: ~85% test accuracy when trained longer (e.g., 50 epochs).
+LSTM: ~85-92% test accuracy when trained longer (e.g., 50 epochs).
 
 Optimized variants show lower latency / size with small accuracy deltas.
 
