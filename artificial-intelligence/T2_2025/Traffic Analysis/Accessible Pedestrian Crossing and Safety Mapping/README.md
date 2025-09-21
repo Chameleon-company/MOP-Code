@@ -87,6 +87,7 @@ streamlit run dashboard_risk.py
 * `dashboard_risk.py` – Streamlit app for interactive visualisation (if included)
 * `requirements.txt` – Dependencies for reproducing results
 * `README.md` – Project documentation (this file)
+* `Pedestrian_Crash_Risk_Analysis_&_Prediction (1).ipynb` – Early EDA and data cleaning (Sprint 1–2). *For reference only, not part of final pipeline.*
 
 ---
 
@@ -104,5 +105,6 @@ streamlit run dashboard_risk.py
 * Enhance dashboard with additional stakeholder-facing features
 
 ---
+
 
 
