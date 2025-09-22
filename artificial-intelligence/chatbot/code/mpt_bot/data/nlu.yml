@@ -214,26 +214,26 @@ nlu:
     - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).
 - intent: get_directions
   examples: |
-    - How to get from [Essendon](location_from) to [Footscray](location_to)
-    - Navigate from [279 Blackburn Rd Mount Waverley](location_from) to [Glen Waverley Station](location_to)
-    - I want to go from [Southbank](location_from) to [St Kilda](location_to)
-    - Get me from [116/118 Thames St Box Hill North](location_from) to [Federation Square](location_to)
-    - Show me how to get from [Melbourne Airport](location_from) to [CBD](location_to)
-    - How do I get from [262 Mountain Hwy Wantirna](location_from) to [Level 16/330 Collins St](location_to)?
-    - What's the way from [Footscray](location_from) to [Flagstaff Station](location_to)?
-    - How can I get from [50 Albert Rd South Melbourne](location_from) to [161 Keilor Rd Essendon](location_to)?
-    - Find route from [Mount Waverley](location_from) to [CBD](location_to)
-    - Show directions from [Syndal Station](location_from) to [Glenferrie Station](location_to)
-    - Get me directions from [Carlton](location_from) to [250 Blackburn Rd Mount Waverley](location_to)
-    - [Glen Waverley](location_from) to [St Kilda](location_to)
-    - From [1 Diosma Ave Sunshine West](location_from) to [Footscray](location_to)
-    - [Footscray Station](location_from) to [Richmond](location_to)
-    - Navigate [20 Collins St](location_from) to [1 Diosma Ave Sunshine West](location_to)
-    - Direct me from [1 A'Beckett Street Melboune](location_from) to [Federation Square](location_to)
-    - Take me from [St Kilda](location_from) to [Brunswick](location_to)
-    - I need to get from [Flinders Street Station](location_from) to [Richmond](location_to)
-    - Planning to go from [11/31 Queen St Melboune](location_from) to [30 A'Beckett Street Melbourne](location_to)
-    - Looking for route from [Carlton](location_from) to [47 Market St](location_to)
+    - How do I get from [Essendon](location_from) to [Footscray](location_to)?
+    - Navigate from [279 Blackburn Rd Mount Waverley](location_from) to [Glen Waverley Station](location_to).
+    - Show me the route from [116/118 Thames St Box Hill North](location_from) to [Federation Square](location_to).
+    - What is the best way to travel from [262 Mountain Hwy Wantirna](location_from) to [Level 16/330 Collins St](location_to)?
+    - Find the path from [Footscray](location_from) to [Flagstaff Station](location_to).
+    - How can I travel from [50 Albert Rd South Melbourne](location_from) to [161 Keilor Rd Essendon](location_to)?
+    - Show me how to go from [Mount Waverley](location_from) to [CBD](location_to).
+    - Directions from [Syndal Station](location_from) to [Glenferrie Station](location_to).
+    - How to reach [250 Blackburn Rd Mount Waverley](location_to) from [Carlton](location_from)?
+    - Guide me from [Glen Waverley](location_from) to [St Kilda](location_to).
+    - What is the route from [1 Diosma Ave Sunshine West](location_from) to [Footscray](location_to)?
+    - Navigate from [20 Collins St](location_from) to [1 Diosma Ave Sunshine West](location_to).
+    - Direct me from [1 A'Beckett Street](location_from) to [Federation Square](location_to).
+    - How do I travel from [Flinders Street Station](location_from) to [Richmond](location_to)?
+    - Show the path from [11/31 Queen St Melbourne](location_from) to [30 A'Beckett Street Melbourne](location_to).
+    - Find a route from [Carlton](location_from) to [47 Market St](location_to).
+    - How to get to [Docklands](location_to) from [Southbank](location_from)?
+    - What is the best route from [Prahran](location_from) to [Chapel Street](location_to)?
+    - Guide me from [Brunswick](location_from) to [Collingwood](location_to).
+    - Show directions to [Melbourne University](location_to) from [Hawthorn](location_from).
 - intent: ask_about_feature
   examples: |
     - Does [Richmond Station](station_name) have [lifts](feature)?
@@ -403,10 +403,20 @@ nlu:
     - Estimate the car travel time from [Kew](location_from) to [Balwyn](location_to).
     - How long is the road trip from [Prahran](location_from) to [Docklands](location_to)?
     - What is the drive duration from [Southern Cross Station](location_from) to [Caulfield](location_to)?
+
+- intent: compare_two_mode
+  examples: |
+    - Should I drive the destination?
+    - Help me to find faster transport mode?
+    - Which transport mode should be used to get there ASAP?
+    - Compare travel time of driving and transiting
+    - Should I use public transport to get to the destination?
+
+
 # Helps the classifier latch onto the “drive…from…to…” pattern
 - regex: drive_from_to
   examples: |
-    - (?i)\b(drive|driving|by car|driving time|drive time|how long to drive)\b.*\bfrom\b.+\bto\b.+
+    - (?i)\b(how long to drive|driving time|drive time|ETA by car|driving duration|time to drive)\b.*\bfrom\b.+\bto\b.+
 - regex: station_name
   examples: |
     - [Central Station](station_name)

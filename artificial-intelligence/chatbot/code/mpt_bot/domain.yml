@@ -15,11 +15,10 @@ intents:
 - ask_tram_route
 - ask_tram_route_with_transfers
 - ask_transfers
+- ask_driving_time
 - bot_challenge
 - check_disruptions
-- check_disruptions_bus
-- check_disruptions_train
-- check_disruptions_tram
+- compare_two_mode
 - deny
 - find_best_route
 - find_nearest_public_transport
@@ -118,6 +117,18 @@ slots:
     mappings:
     - type: from_entity
       entity: route_name
+  source:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: source
+  destination:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: destination
 forms:
   nearest_transport_form:
     required_slots:
@@ -241,3 +252,4 @@ actions:
 - action_fetch_traffic
 - action_fetch_traffic_location
 - action_driving_time_by_car
+- action_compare_two_mode

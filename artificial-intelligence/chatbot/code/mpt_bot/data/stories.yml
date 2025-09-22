@@ -223,6 +223,26 @@ stories:
         - station_b
     - action: action_fetch_traffic_location
     - action: action_reset_all_slots # For testing purposes, must reset all slots after each question
+  
+  - story: Choose transport mode to get to the destination
+    steps:
+    - intent: get_directions
+    - action: action_run_direction_script
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
+    - intent: compare_two_mode
+    - action: action_compare_two_mode
+  
+  - story: Ask driving time before ask transit time
+    steps:
+    - intent: ask_driving_time
+    - action: action_driving_time_by_car
+    - intent: get_directions
+    - action: action_run_direction_script
+    - intent: compare_two_mode
+    - action: action_compare_two_mode
+  
+  
 
     
   

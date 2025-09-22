@@ -129,6 +129,11 @@ rules:
     - action: utter_nearest_tranport_slot
     - action: action_submit_nearest_transport
     - action: action_reset_all_slots
+  
+  - rule: Compare two transport mode
+    steps:
+    - intent: compare_two_mode
+    - action: action_compare_two_mode
     
   # Andre Finish -------------------------------------------------------------------------------------------
   - rule: Respond to asking about a specific feature
