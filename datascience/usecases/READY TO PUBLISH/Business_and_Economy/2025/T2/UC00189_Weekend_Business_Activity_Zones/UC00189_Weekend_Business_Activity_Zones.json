@@ -1,0 +1,57 @@
+{
+    "title": "UC00189_Weekend_Business_Activity_Zones",
+    "name": "Identifying Weekend Business Activity Zones in Melbourne",
+    "description": "Analysis of four City of Melbourne datasets—pedestrian counts, business establishments, cafés and restaurants, and industry-level business data—to identify Melbourne's busiest areas during weekends. The project highlights high-traffic hotspots and matches them with nearby businesses to support economic planning, marketing strategies, and event scheduling.",
+    "tags": [
+        "Weekend Activity",
+        "Pedestrian Counts",
+        "Business Density",
+        "Cafés and Restaurants",
+        "Economic Planning",
+        "Geospatial Analysis",
+        "Interactive Maps"
+    ],
+    "difficulty": "Intermediate",
+    "technology": [
+        {
+            "name": "pandas",
+            "alias": "pd",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "alias": "np",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "geopy",
+            "code": "python"
+        },
+        {
+            "name": "requests",
+            "code": "python"
+        },
+        {
+            "name": "os",
+            "code": "python"
+        },
+        {
+            "name": "math",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "Pedestrian Counting System (City of Melbourne)",
+        "Business Establishments Dataset (City of Melbourne)",
+        "Cafés and Restaurants Dataset (City of Melbourne)",
+        "Business Establishments by Size and Industry (City of Melbourne)"
+    ]
+}
