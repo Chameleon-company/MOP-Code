@@ -103,8 +103,7 @@ station_data['norm_name'] = (
       .str.strip()
 )
 # Juveria-End GLobal variable-------------------
-#load_dotenv(dotenv_path="./key.env")
-load_dotenv(dotenv_path="./TeamProject/MOP-Code/artificial-intelligence/chatbot/code/mpt_bot/key.env", override=True)
+load_dotenv(dotenv_path="./key.env")
 google_api_key = os.getenv("GOOGLE_API_KEY")
 tomtom_api_key = os.getenv("TOMTOM_API_KEY")
 if not google_api_key:

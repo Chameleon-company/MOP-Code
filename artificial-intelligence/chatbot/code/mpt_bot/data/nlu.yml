@@ -71,14 +71,12 @@ nlu:
     - so perfect
 - intent: mood_unhappy
   examples: |
+    - no
+    - never
+    - not really
     - I am sad
     - bad day
     - feeling down
-    - I am upset
-    - I feel depressed 
-    - I feel like crying
-    - crying
-    - cry
 - intent: bot_challenge
   examples: |
     - are you a bot?
