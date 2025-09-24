@@ -22,9 +22,19 @@ It includes training, evaluation, and visualisation of results, comparing ground
 
 Dataset citation:
 
-&nbsp;ZSL. (2024). pedestrian dataset. Roboflow Universe. https://universe.roboflow.com/zsl-hmu2b/pedestrian-w16dt
+ ZSL. (2024). pedestrian dataset. Roboflow Universe. https://universe.roboflow.com/zsl-hmu2b/pedestrian-w16dt
 
-&nbsp;(Accessed 2025-09-15)
+ (Accessed 2025-09-15)
+
+Please download data and upload to your Google Drive, find the path and recplace the current ipynb path.
+
+
+
+Datasets for potential future exploration (recommended better GPU):
+
+https://universe.roboflow.com/682projectpmp/682\_final\_project/dataset/9
+
+https://universe.roboflow.com/objectdetectiontuto/pedestrian-wri5e/dataset/2
 
 
 
@@ -36,7 +46,7 @@ Requirements:
 
 \- Download dataset from Roboflow
 
-\- GoogleDrive 
+\- GoogleDrive
 
 \- Google Colab
 
