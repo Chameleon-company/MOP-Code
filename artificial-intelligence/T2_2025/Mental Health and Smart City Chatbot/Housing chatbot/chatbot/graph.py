@@ -9,9 +9,9 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.types import Command, interrupt
 
-from prompts import PROMPT
-from json_schema import PropertyDetails
-from utils import HousingData
+from configs.prompts import PROMPT
+from configs.json_schema import PropertyDetails
+from utils.utils import HousingData
 
 import pandas as pd
 import json
@@ -21,8 +21,8 @@ load_dotenv()
 
 
 NUM_MAX_LOOP = 5
-HOUSING_DATA_PTH = "housing_data_preprocessed.csv"
-DATA_PTH = "temp_data.csv"
+HOUSING_DATA_PTH = "data/housing_data_preprocessed.csv"
+DATA_PTH = "data/temp_data.csv"
 
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
@@ -117,7 +117,9 @@ def filter_data(state: AgentState) -> AgentState:
     data = HousingData.preprocess_address(data)
     data = HousingData.get_coordination(data)
     data = HousingData.filter_basic_data(data, json_data)
-    data.to_csv(DATA_PTH)
+    data = HousingData.get_distance(data, json_data)
+    data = HousingData.filter_distance(data, json_data)
+    data.to_csv(DATA_PTH, index=False)
     state["data_pth"] = DATA_PTH
     
     return state
@@ -129,7 +131,7 @@ def rank_properties(state: AgentState) -> AgentState:
     data = HousingData.rank_properties(data)
     
     data = data.sort_values(by="score", ascending=False)
-    data.to_csv(DATA_PTH)
+    data.to_csv(DATA_PTH, index=False)
     state["data_pth"] = DATA_PTH
     
     return state
