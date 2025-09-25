@@ -1,338 +1,3686 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Chatbot Widget</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MPT - Melbourne Public Transport Assistant</title>
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <meta content="utf-8" http-equiv="encoding" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <!--Import Google Icon Font-->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
-      rel="stylesheet"
-    />
-
-    <!--Import Font Awesome Icon Font-->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous"
     />
 
-    <!--Import materialize.css-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="static/css/materialize.min.css"
-    />
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/materialize.min.css" />
 
-    <!--Main css-->
+    <!-- App CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      body {
+        background:
+          radial-gradient(1200px 600px at 10% 20%, rgba(126, 87, 194, 0.28) 0%, rgba(126,87,194,0) 60%),
+          radial-gradient(900px 500px at 85% 10%, rgba(25, 118, 210, 0.24) 0%, rgba(25,118,210,0) 60%),
+          radial-gradient(700px 400px at 80% 85%, rgba(0, 150, 136, 0.20) 0%, rgba(0,150,136,0) 60%),
+          #121212;
+        color: #e0e0e0;
+        min-height: 100vh;
+      }
+      
+      .section-title { 
+        margin: 24px 0 8px; 
+        font-weight: 600;
+        color: #fff;
+      }
+      
+      .legend { margin-bottom: 16px; }
+      
+      .hero {
+        background: linear-gradient(135deg, rgba(49,27,146,0.9) 0%, rgba(0,150,136,0.8) 100%), 
+                    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+        color: #fff;
+        padding: 80px 0 60px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+      
+      .hero-content { 
+        background: rgba(0,0,0,0.4); 
+        padding: 30px 40px; 
+        display: inline-block; 
+        border-radius: 15px; 
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .hero .subtitle { 
+        opacity: 0.9; 
+        font-size: 1.1em;
+        margin-bottom: 20px;
+      }
+      
+      .card + .card { margin-top: 16px; }
+      .brand-logo { font-weight: 700; font-size: 1.8em; }
+      table th { font-weight: 600; }
+      .icon-large { font-size: 48px; }
+      
+      .card { 
+        background: rgba(30, 30, 30, 0.9); 
+        color: #e0e0e0; 
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      }
+      
+      .card .card-title { 
+        color: #fff; 
+        text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        font-weight: 600;
+      }
+      
+      .card .card-action a { color: #90caf9 !important; }
+      
+      table.highlight.striped thead { background: #1f1f1f; color: #e0e0e0; }
+      table.highlight.striped tbody tr { background: #181818; }
+      table.highlight.striped tbody tr:nth-child(even) { background: #1b1b1b; }
+      
+      nav.blue.darken-2 { 
+        background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        backdrop-filter: blur(10px);
+      }
+      
+      .btn-large.deep-purple { 
+        background: linear-gradient(135deg, #7e57c2, #9575cd) !important;
+        border-radius: 25px;
+        box-shadow: 0 6px 20px rgba(126, 87, 194, 0.4);
+        transition: all 0.3s ease;
+      }
+      
+      .btn-large.deep-purple:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(126, 87, 194, 0.6);
+      }
+      
+      /* Enhanced command buttons */
+      .cmd-btn { 
+        border-radius: 25px; 
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25); 
+        margin: 4px 8px 8px 0;
+        transition: all 0.3s ease;
+        border: none;
+        font-weight: 500;
+      }
+      
+      .cmd-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      }
+      
+      #btn-train { background: linear-gradient(135deg, #3949ab, #5c6bc0); }
+      #btn-tram { background: linear-gradient(135deg, #26a69a, #4db6ac); }
+      #btn-bus { background: linear-gradient(135deg, #8e24aa, #ab47bc); }
+      #btn-multimode { background: linear-gradient(135deg, #546e7a, #78909c); }
+      #btn-traffic { background: linear-gradient(135deg, #ff7043, #ff8a65); }
+      
+      .cmd-btn i { font-size: 20px; margin-right: 8px; }
+      
+      /* New Transport Features */
+      .transport-widget {
+        background: rgba(30, 30, 30, 0.9);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      }
+      
+      .status-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      
+      .status-good { background-color: #4caf50; }
+      .status-warning { background-color: #ff9800; }
+      .status-error { background-color: #f44336; }
+      
+      .quick-action {
+        background: linear-gradient(135deg, rgba(126, 87, 194, 0.2), rgba(0, 150, 136, 0.2));
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .quick-action:hover {
+        background: linear-gradient(135deg, rgba(126, 87, 194, 0.3), rgba(0, 150, 136, 0.3));
+        transform: translateY(-2px);
+      }
+      
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      
+      .live-update {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        margin: 5px;
+        display: inline-block;
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.7; }
+        100% { opacity: 1; }
+      }
+      
+      .route-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        border-left: 4px solid #7e57c2;
+      }
+      
+      .fare-display {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+        margin: 5px;
+      }
+      
+      .service-alert {
+        background: linear-gradient(135deg, #ff7043, #ff8a65);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        border-left: 4px solid #ff5722;
+      }
+      
+      .weather-widget {
+        background: linear-gradient(135deg, #2196f3, #42a5f5);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        margin: 20px 0;
+      }
+      
+      .accessibility-badge {
+        background: #4caf50;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        margin: 5px;
+        display: inline-block;
+      }
+      
+      /* Journey Planner Styles Removed - Focusing on Fare Calculator */
+      
+      /* Enhanced Fare Calculator Styles */
+      .fare-calculation {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+      
+      .fare-calculation h5 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      
+      .fare-details {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      
+      .fare-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+      
+      .fare-item:last-child {
+        border-bottom: none;
+      }
+      
+      .fare-label {
+        font-weight: 500;
+        color: #333;
+      }
+      
+      .fare-amount {
+        font-weight: 600;
+        color: #4CAF50;
+        font-size: 1.1em;
+      }
+      
+      .fare-info {
+        margin-bottom: 20px;
+      }
+      
+      .fare-info h6 {
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .fare-info ul {
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+      
+      .fare-info li {
+        margin-bottom: 5px;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .fare-info i {
+        color: #667eea;
+        width: 16px;
+      }
+      
+      .fare-tips {
+        background: #fff3cd;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        margin-top: 15px;
+      }
+      
+      .fare-tips h6 {
+        color: #856404;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .fare-tips ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      
+      .fare-tips li {
+        color: #856404;
+        margin-bottom: 5px;
+      }
+      
+      .fare-footer {
+        margin-top: 20px;
+        text-align: center;
+      }
+      
+      /* Modal Overlay Styles */
+      .section-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .section-modal-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .section-modal-content {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 90%;
+        max-height: 90%;
+        width: 800px;
+        overflow: hidden;
+        transform: scale(0.8) translateY(50px);
+        transition: all 0.3s ease;
+      }
+      
+      .section-modal-overlay.show .section-modal-content {
+        transform: scale(1) translateY(0);
+      }
+      
+      .section-modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .section-modal-header h4 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      
+      .close-modal-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .close-modal-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+      }
+      
+      .section-modal-body {
+        padding: 30px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      
+      /* Nearby Stops Modal Styles */
+      .nearby-stops-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .stop-item {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .stop-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+      
+      .stop-item i {
+        font-size: 2rem;
+        margin-right: 20px;
+        color: #667eea;
+      }
+      
+      .stop-info h5 {
+        margin: 0 0 5px 0;
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .stop-info p {
+        margin: 0 0 5px 0;
+        color: #666;
+      }
+      
+      .stop-status {
+        background: #4caf50;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+      
+      .info-note {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid #2196f3;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .info-note i {
+        color: #2196f3;
+        font-size: 1.2rem;
+      }
+      
+      .info-note p {
+        margin: 0;
+        color: #1976d2;
+        font-style: italic;
+      }
+      
+      /* Feature Buttons Styles */
+      .feature-buttons-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 20px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      
+      .feature-buttons-section h4 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+      
+      .feature-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      
+      .feature-btn {
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        backdrop-filter: blur(10px);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      
+      .feature-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .feature-btn i {
+        font-size: 2rem;
+        margin-bottom: 5px;
+      }
+      
+      .feature-btn span {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      
+      /* Feature Section Animation */
+      .feature-section {
+        animation: slideIn 0.5s ease-out;
+      }
+      
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Command and Maps Modal Styles */
+      .command-modal-overlay, .maps-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .command-modal-overlay.show, .maps-modal-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .command-modal-content, .maps-modal-content {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 90%;
+        max-height: 90%;
+        width: 800px;
+        overflow: hidden;
+        transform: scale(0.8) translateY(50px);
+        transition: all 0.3s ease;
+      }
+      
+      .command-modal-overlay.show .command-modal-content,
+      .maps-modal-overlay.show .maps-modal-content {
+        transform: scale(1) translateY(0);
+      }
+      
+      .command-modal-header, .maps-modal-header {
+        background: linear-gradient(135deg, #7e57c2 0%, #5e35b1 100%);
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .command-modal-header h4, .maps-modal-header h4 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+      
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-3px);
+      }
+      
+      .command-modal-body, .maps-modal-body {
+        padding: 30px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      
+      .command-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .command-category-btn {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #333;
+      }
+      
+      .command-category-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-color: #7e57c2;
+      }
+      
+      .command-category-btn i {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+      
+      .command-category-btn span {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      
+      .command-details {
+        display: none;
+      }
+      
+      .command-details.show {
+        display: block;
+        animation: slideIn 0.5s ease-out;
+      }
+      
+      .command-list {
+        display: grid;
+        gap: 15px;
+      }
+      
+      .command-item {
+        background: #f8f9fa;
+        border-left: 4px solid #7e57c2;
+        padding: 15px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      
+      .command-item:hover {
+        background: #e3f2fd;
+        transform: translateX(5px);
+      }
+      
+      .command-item h6 {
+        margin: 0 0 8px 0;
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .command-item p {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+      
+      .maps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      
+      .map-card {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid #e0e0e0;
+      }
+      
+      .map-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-color: #7e57c2;
+      }
+      
+      .map-card i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #7e57c2;
+      }
+      
+      .map-card h5 {
+        margin: 0 0 10px 0;
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .map-card p {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+      
+      /* Error Message Styles */
+      .error-message {
+        background: #ffebee;
+        color: #c62828;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid #ffcdd2;
+      }
+      
+      .error-message i {
+        font-size: 2em;
+        margin-bottom: 10px;
+        display: block;
+      }
+      
+      .error-message h5 {
+        margin: 10px 0;
+        color: #c62828;
+      }
+      
+      /* Loading Animation */
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #667eea;
+      }
+      
+      .loading i {
+        font-size: 2em;
+        margin-bottom: 10px;
+        display: block;
+      }
+      
+      /* Enhanced Modal Styles */
+      .modal {
+        max-height: 90vh;
+        overflow-y: auto;
+        width: 90%;
+        max-width: 800px;
+      }
+      
+      .modal-content {
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      
+      .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px 30px;
+        text-align: center;
+      }
+      
+      .modal-header h4 {
+        margin: 0 0 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      
+      .modal-header .flow-text {
+        color: rgba(255,255,255,0.9);
+        margin-bottom: 15px;
+      }
+      
+      .live-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 0.9em;
+        opacity: 0.9;
+      }
+      
+      .live-dot {
+        width: 8px;
+        height: 8px;
+        background: #4caf50;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      
+      .journey-form {
+        padding: 30px;
+        background: white;
+      }
+      
+      .modal-actions {
+        padding: 20px 30px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      
+      .journey-results {
+        padding: 30px;
+        background: white;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      
+      .live-update-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8em;
+        color: #666;
+        margin-top: 10px;
+      }
+      
+      .fare-calculation-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border-left: 4px solid #667eea;
+      }
+      
+      .fare-calculation-section h5 {
+        color: #333;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .fare-info {
+        background: #e3f2fd;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 15px;
+        font-size: 0.9em;
+      }
+      
+      .fare-info i {
+        color: #667eea;
+        margin-right: 8px;
+      }
+      
+      .journey-footer {
+        margin-top: 20px;
+        text-align: center;
+      }
+      
+      .journey-footer .modal-actions {
+        background: transparent;
+        border: none;
+        padding: 0 0 20px 0;
+      }
+      
+      /* Loading Animation */
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #667eea;
+      }
+      
+      .loading i {
+        font-size: 2em;
+        margin-bottom: 15px;
+        display: block;
+      }
+      
+      .loading p {
+        margin: 10px 0;
+        color: #666;
+      }
+      
+      .loading-text {
+        font-size: 0.9em;
+        color: #888;
+        margin-top: 10px;
+        font-style: italic;
+      }
+      
+      .progress {
+        margin-top: 20px;
+      }
+      
+      .progress .determinate {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transition: width 0.3s ease;
+      }
+      
+      /* Toast Notifications */
+      .toast {
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      
+      /* Fare Display Styles */
+      .fare-display-area {
+        background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+        border: 2px solid #4caf50;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+      }
+      
+      .fare-display-area h6 {
+        color: #2e7d32;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      
+      .fare-info-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      .fare-amount-large {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #2e7d32;
+        margin-bottom: 10px;
+      }
+      
+      .fare-details-small {
+        font-size: 0.9em;
+        color: #666;
+      }
+      
+      .fare-breakdown {
+        text-align: left;
+        margin-top: 10px;
+      }
+      
+      .fare-breakdown div {
+        margin: 5px 0;
+        padding: 3px 0;
+      }
+      
+      .zone-info {
+        background: #e3f2fd;
+        padding: 8px;
+        border-radius: 5px;
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+        color: #1976d2;
+      }
+      
+      /* Enhanced Service Alert Styles */
+      .alerts-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+      }
+      
+      .alerts-header h5 {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .last-updated {
+        font-size: 0.9em;
+        opacity: 0.9;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      
+      .last-updated i {
+        animation: spin 2s linear infinite;
+      }
+      
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      .service-alert {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-left: 5px solid #ddd;
+        transition: all 0.3s ease;
+      }
+      
+      .service-alert:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      }
+      
+      .alert-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .alert-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        font-size: 1.2em;
+      }
+      
+      .alert-info {
+        flex: 1;
+      }
+      
+      .alert-info h6 {
+        margin: 0 0 5px 0;
+        color: #333;
+        font-weight: 600;
+      }
+      
+      .severity-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.7em;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .severity-badge.high {
+        background: #f44336;
+        color: white;
+      }
+      
+      .severity-badge.medium {
+        background: #ff7043;
+        color: white;
+      }
+      
+      .severity-badge.low {
+        background: #2196f3;
+        color: white;
+      }
+      
+      .severity-badge.resolved {
+        background: #4caf50;
+        color: white;
+      }
+      
+      .severity-badge.planned {
+        background: #9c27b0;
+        color: white;
+      }
+      
+      .alert-time {
+        font-size: 0.8em;
+        color: #666;
+        font-weight: 500;
+      }
+      
+      .service-alert p {
+        margin: 0 0 15px 0;
+        color: #555;
+        line-height: 1.5;
+      }
+      
+      .affected-stations {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 0.9em;
+        color: #666;
+        border-left: 3px solid #667eea;
+      }
+      
+      .affected-stations strong {
+        color: #333;
+      }
+      
+      /* Live Status Indicator */
+      .live-status-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #4caf50;
+        border-radius: 50%;
+        margin-right: 5px;
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+      }
+      
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .option-details {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+        
+        .modal-content {
+          padding: 20px;
+        }
+        
+        .journey-option {
+          padding: 15px;
+        }
+        
+        .alerts-header {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+        }
+        
+        .alert-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        
+        .alert-icon {
+          align-self: center;
+        }
+        
+        .service-alert {
+          padding: 15px;
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Top Navigation -->
+    <nav class="blue darken-2">
+      <div class="nav-wrapper container">
+        <a href="#top" class="brand-logo">
+          <i class="fas fa-train" style="margin-right: 10px;"></i>MPT
+        </a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#live-status"><i class="fas fa-signal" style="margin-right: 5px;"></i>Live Status</a></li>
+          <li><a href="#quick-tools"><i class="fas fa-tools" style="margin-right: 5px;"></i>Quick Tools</a></li>
+          <li><a href="#commands"><i class="fas fa-terminal" style="margin-right: 5px;"></i>Commands</a></li>
+          <li><a href="#chat"><i class="fas fa-comments" style="margin-right: 5px;"></i>Chat</a></li>
+        </ul>
+      </div>
+    </nav>
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="#live-status"><i class="fas fa-signal" style="margin-right: 10px;"></i>Live Status</a></li>
+      <li><a href="#quick-tools"><i class="fas fa-tools" style="margin-right: 10px;"></i>Quick Tools</a></li>
+      <li><a href="#commands"><i class="fas fa-terminal" style="margin-right: 10px;"></i>Commands</a></li>
+      <li><a href="#chat"><i class="fas fa-comments" style="margin-right: 10px;"></i>Chat</a></li>
+    </ul>
+
+    <!-- Hero Header -->
+    <div class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h3 style="margin: 0 0 8px">
+            <i class="fas fa-train" style="margin-right: 15px;"></i>
+            Melbourne Public Transport Assistant
+          </h3>
+          <p class="subtitle" style="margin: 0 0 20px">
+            Your smart companion for navigating Melbourne's transport network. 
+            Get real-time updates, plan journeys, and find the best routes instantly.
+          </p>
+          <div style="margin-bottom: 20px;">
+            <span class="live-update">
+              <i class="fas fa-circle" style="color: #4caf50; margin-right: 5px;"></i>
+              Live Updates Active
+            </span>
+            <span class="live-update">
+              <i class="fas fa-clock" style="margin-right: 5px;"></i>
+              Real-time Data
+            </span>
+          </div>
+          <div>
+            <a href="#quick-tools" class="btn-large waves-effect waves-light deep-purple" style="margin-right: 15px;">
+              <i class="fas fa-rocket" style="margin-right: 8px;"></i>Quick Tools
+            </a>
+          <a href="#" onclick="openCommandsModal()" class="btn-large waves-effect waves-light deep-purple" style="margin-right: 15px;">
+              <i class="fas fa-terminal" style="margin-right: 8px;"></i>Explore Commands
+          </a>
+          <a href="#" onclick="openMapsModal()" class="btn-large waves-effect waves-light deep-purple">
+              <i class="fas fa-map" style="margin-right: 8px;"></i>Maps
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
-        <div style="margin-bottom: 20px; display: table; width: 100%;">
-          <div style="display: table-row;">
-            <div style="display: table-cell; width: 84%; text-align:left;">
-              <h2>Train Station Commands</h2>
+      <!-- Feature Buttons Section -->
+      <div class="feature-buttons-section">
+        <h4 class="section-title">
+          <i class="fas fa-th-large" style="margin-right: 10px; color: #667eea;"></i>
+          Quick Access Features
+        </h4>
+        
+        <div class="feature-buttons-grid">
+          <button class="feature-btn" onclick="toggleFeature('live-status')">
+            <i class="fas fa-signal"></i>
+            <span>Live Status</span>
+          </button>
+          <button class="feature-btn" onclick="toggleFeature('quick-tools')">
+            <i class="fas fa-tools"></i>
+            <span>Quick Tools</span>
+          </button>
+          <button class="feature-btn" onclick="toggleFeature('service-alerts')">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Service Alerts</span>
+          </button>
+          <button class="feature-btn" onclick="toggleFeature('weather')">
+            <i class="fas fa-cloud-sun"></i>
+            <span>Weather</span>
+          </button>
+          <button class="feature-btn" onclick="toggleFeature('accessibility')">
+            <i class="fas fa-universal-access"></i>
+            <span>Accessibility</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Status Section (Hidden by default) -->
+      <div class="section feature-section" id="live-status" style="display: none;">
+        <h4 class="section-title">
+          <i class="fas fa-signal" style="margin-right: 10px; color: #4caf50;"></i>
+          Live Transport Status
+        </h4>
+        
+        <div class="feature-grid">
+          <div class="transport-widget" id="train-status">
+            <h5><i class="fas fa-train" style="margin-right: 8px; color: #3949ab;"></i>Train Services</h5>
+            <div class="status-indicator status-good"></div>
+            <span id="train-status-text">All lines running normally</span>
+            <div style="margin-top: 10px;" id="train-details">
+              <span class="live-update">Metro: On time</span>
+              <span class="live-update">V/Line: On time</span>
             </div>
-            <div style="display: table-cell; width: 8%; text-align:center;">
-              <div style="background-color: green; color: white; padding: 5px 10px;">Done</div>
+          </div>
+          
+          <div class="transport-widget" id="bus-status">
+            <h5><i class="fas fa-bus" style="margin-right: 8px; color: #8e24aa;"></i>Bus Services</h5>
+            <div class="status-indicator status-good"></div>
+            <span id="bus-status-text">All routes operational</span>
+            <div style="margin-top: 10px;" id="bus-details">
+              <span class="live-update">CBD: Normal</span>
+              <span class="live-update">Suburbs: Normal</span>
             </div>
-            <div style="display: table-cell; width: 8%; text-align:center;">
-              <div style="background-color: orange; color: white; padding: 5px 10px;">In Progress</div>
+          </div>
+          
+          <div class="transport-widget" id="tram-status">
+            <h5><i class="fas fa-tram" style="margin-right: 8px; color: #26a69a;"></i>Tram Services</h5>
+            <div class="status-indicator status-warning"></div>
+            <span id="tram-status-text">Minor delays on Route 86</span>
+            <div style="margin-top: 10px;" id="tram-details">
+              <span class="live-update">Route 86: +5 min</span>
+              <span class="live-update">Other routes: On time</span>
             </div>
           </div>
         </div>
+      </div>
 
-    <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
-    <tr>
-        <th style="text-align:left; width: 30%;">Name</th>
-        <th style="text-align:left; width: 63%;">Commands</th>
-        <th style="text-align:center; width: 7%;">Assignee(s)</th>
-    </tr>
-    <tr>
-        <td>Train stations map</td>
-        <td>Show me a map of Melbourne train stations?</td>
-         <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Schedule - timing information</td>
-        <td>When is the next train from Ringwood to Parliament station?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Route planning</td>
-        <td>What’s the best way to go from Box Hill to Glenferrie?<br>Which train should I take to get from Camberwell to Canterbury?</td>
-         <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Transfers and connection</td>
-        <td>How do I get from Flinders Street to Melbourne Central?<br>How many transfers are there between Ringwood and Parliament station?<br>How many transfers between North Melbourne and Glenferrie?<br>How many transfers between North Melbourne and Ringwood?<br>Is there Direct train from Flagstaff to Southern Cross?</td>
-         <td style="text-align:center;background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Route optimisation</td>
-        <td>Which route has the fewest stops between Ringwood and Parliament station?<br>What is the route with the least number of stops from Dandenong station to Parliament station?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Train Service Disruption</td>
-        <td>Are there any train disruptions on route Frankston?<br>Are there any train disruptions on route Frankston - City?</td>
-         <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-      <td>Nearest Train Station</td>
-      <td>Where is the nearest staion?<br>Which train statation is closest to my location?</td>
-       <td style="text-align:center; background-color:Green;">RossP</td>
-  </tr>
-    <tr>
-        <td>Real-time Information</td>
-        <td>What are the opening hours for Frankston?
-            <br>Are there any service alerts for Frankston - City?</td>
-        <td style="text-align:center; background-color:orange;">Cocos</td>
-    </tr>
+      <!-- Quick Tools Section (Hidden by default) -->
+      <div class="section feature-section" id="quick-tools" style="display: none;">
+        <h4 class="section-title">
+          <i class="fas fa-tools" style="margin-right: 10px; color: #7e57c2;"></i>
+          Quick Transport Tools
+        </h4>
+        
+        <div class="feature-grid">
+          <div class="transport-widget" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            <h5><i class="fas fa-dollar-sign" style="margin-right: 8px; color: #ff9800;"></i>Fare Calculator</h5>
+            <div class="fare-display">Zone 1: $4.60</div>
+            <div class="fare-display">Zone 2: $3.10</div>
+            <div class="fare-display">Daily Cap: $9.20</div>
+            <div class="quick-action" onclick="calculateFare()">
+              <strong>Calculate Your Fare</strong>
+              <p>Find out how much your trip costs from Station A to Station B</p>
+              <i class="fas fa-calculator" style="float: right; margin-top: -20px;"></i>
+            </div>
+          </div>
+          
+        </div>
+      </div>
 
-</table>
-<h2 style="text-align:left;">Tram Station Commands</h2>
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
-    <tr>
-        <th style="text-align:left; width: 30%;">Name</th>
-        <th style="text-align:left; width: 63%;">Commands</th>
-        <th style="text-align:center; width: 7%;">Assignee(s)</th>
-    </tr>
-    <tr>
-        <td>Tram stations map</td>
-        <td>Generate a tram stop map?<br>Can I see a map of tram stops?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Schedule - timing information</td>
-        <td>When is the next tram from Port Melbourne to Box Hill?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Route planning</td>
-        <td>Is there a direct tram from Deakin University to Vermont South?<br>Can I take a tram directly from Albert Park to Spencer Street?</td>
-        <td style="text-align:center; background-color:green;">JubalK</td>
-    </tr>
-    <tr>
-        <td>Transfers and connection</td>
-        <td>What is the tram route from Burnley to Richmond?<br>Are there trams that connect Essendon and Toorak?</td>
-        <td style="text-align:center; background-color:green;">JubalK</td>
-    </tr>
-    <tr>
-        <td>Route optimisation</td>
-        <td>What is the fastest tram route from Brunswick to South Melbourne?<br>Which route has the fewest stops between Carlton and Docklands?</td>
-        <td style="text-align:center; background-color:orange;">JubalK</td>
-    </tr>
-	<tr>
-        <td>Nearest Tram Station</td>
-        <td>Where is the nearest tram station?<br>Which tram stop is closest to my location?</td>
-        <td style="text-align:center; background-color:green;">RossP</td>
-    </tr>
-    <tr>
-        <td>Tram Service Disruption</td>
-        <td>Are there any tram disruptions on route 109?<br>Are there any tram disruptions on route port melbourne - box hill?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-</table>
-<h2 style="text-align:left;">Bus Station Commands</h2>
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
-    <tr>
-        <th style="text-align:left; width: 30%;">Name</th>
-        <th style="text-align:left; width: 63%;">Commands</th>
-        <th style="text-align:center; width: 7%;">Assignee(s)</th>
-    </tr>
-    <tr>
-        <td>Bus stations map</td>
-        <td>Show me the map of bus stops?<br>Generate a bus stop map?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Schedule - timing information</td>
-        <td>What time does the next bus leave from Gembrook to Pakenham?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-    <tr>
-        <td>Route planning</td>
-        <td>What’s the best way to travel from Essendon to Moonee Ponds by bus?<br>Which bus should I take to get from Sunshine to Footscray?</td>
-        <td style="text-align:center; background-color:orange;">LoganG</td>
-    </tr>
-    <tr>
-        <td>Transfers and connection</td>
-        <td>How do I get from Chadstone to Box Hill using buses?<br>How many bus transfers are there between Laverton and Altona North?</td>
-        <td style="text-align:center; background-color:orange;">LoganG</td>
-    </tr>
-    <tr>
-        <td>Route optimisation</td>
-        <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br>Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
-        <td style="text-align:center; background-color:orange;">LoganG</td>
-    </tr>
-	<tr>
-        <td>Nearest Bus Station</td>
-        <td>Where is the nearest bus stop?<br>Which bus station is closest to my location?</td>
-        <td style="text-align:center; background-color:green;">RossP</td>
-    </tr>
-    <tr>
-        <td>Bus Service Disruption</td>
-        <td>Are there any bus disruptions on route Gembrook - Pakenham?<br>Check bus disruptions for route 903?</td>
-        <td style="text-align:center; background-color:green;">AlexT</td>
-    </tr>
-</table>
-<h2 style="text-align:left;">Multi-Mode</h2>
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
-    <tr>
-        <th style="text-align:left; width: 30%;">Name</th>
-        <th style="text-align:left; width: 63%;">Commands</th>
-        <th style="text-align:center; width: 7%;">Assignee(s)</th>
-    </tr>
-    <tr>
-        <td>Map Visualisation</td>
-        <td>Can you show me all tram stops near Federation Square?<br>Generate a map of bus stops in Carlton</td>
-        <td style="text-align:center; background-color:green;">RossP</td>
-    </tr>
-    <tr>
-        <td>Multi-Modal Route Planning</td>
-        <td>What’s the best way to get from Stop a to Stop B using tram, bus and train?<br>How do I combine tram and train for this journey?</td>
-        <td style="text-align:center; background-color:orange;">LoganG</td>
-    </tr>
-    <tr>
-        <td>Transfers and connection</td>
-        <td>How do I get from Chadstone to Box Hill using buses?<br>How many bus transfers are there between Laverton and Altona North?</td>
-        <td style="text-align:center; background-color:orange;">LoganG</td>
-    </tr>
-    <tr>
-        <td>Route optimisation</td>
-        <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br>Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
-        <td style="text-align:center; background-color:orange;">LoganG, JubalK</td>
-    </tr>
-	<tr>
-        <td>Real-Time Updates for Trams and Buses</td>
-        <td>Is the tram on Route 12 running on time?<br>Are there delays on the bus to Flinders Street?</td>
-        <td style="text-align:center; background-color:orange;">Cocos, AlexT</td>
-    </tr>
-    <tr>
-        <td>Transfers and Connections for Multi-Modal Routes</td>
-        <td>Do I need to transfer between tram and bus to reach Stop X?</td>
-        <td style="text-align:center; background-color:orange;">AwanishG</td>
-    </tr>
-</table>
-<h2 style="text-align:left;">Traffic</h2>
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; table-layout: fixed;">
-    <tr>
-        <th style="text-align:left; width: 30%;">Name</th>
-        <th style="text-align:left; width: 63%;">Commands</th>
-        <th style="text-align:center; width: 7%;">Assignee(s)</th>
-    </tr>
-</table>
-<tr>
-  <td>Traffic details</td>
-  <td>Give traffic details when user ask What is traffic in Flinders?<br>Generate a bus stop map?</td>
-  <td style="text-align:center; background-color:green;">AwanishG</td>
-</tr>
-<tr>
-  <td>Traffic Between two locations</td>
-  <td>what is traffic from Melboune CBD to Albert Park?</td>
-  <td style="text-align:center; background-color:green;">AwanishG</td>
-</tr>
+      <!-- Service Alerts (Hidden by default) -->
+      <div class="section feature-section" id="service-alerts" style="display: none;">
+        <h4 class="section-title">
+          <i class="fas fa-exclamation-triangle" style="margin-right: 10px; color: #ff7043;"></i>
+          Live Service Alerts
+          <span class="live-update" style="margin-left: 15px;">
+            <i class="fas fa-sync-alt fa-spin" style="margin-right: 5px;"></i>
+            Auto-updating
+          </span>
+        </h4>
+        
+        <div id="alerts-container">
+          <!-- Alerts will be dynamically loaded here -->
+        </div>
+        
+        <div class="service-alert" style="background: linear-gradient(135deg, #2196f3, #42a5f5);">
+          <h6><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Real-time Updates</h6>
+          <p>Service alerts are updated every 2 minutes from PTV (Public Transport Victoria) data. All information is current as of the last update.</p>
+          <small id="last-alert-update">Last updated: Loading...</small>
+        </div>
+      </div>
 
+      <!-- Weather & Accessibility (Hidden by default) -->
+      <div class="section feature-section" id="weather" style="display: none;">
+        <h4 class="section-title">
+          <i class="fas fa-cloud-sun" style="margin-right: 10px; color: #ff9800;"></i>
+          Weather & Accessibility
+        </h4>
+        <div class="feature-grid">
+        <div class="weather-widget">
+          <h5><i class="fas fa-cloud-sun" style="margin-right: 10px;"></i>Melbourne Weather</h5>
+          <div style="font-size: 2em; margin: 10px 0;">22°C</div>
+          <p>Partly Cloudy - Perfect for public transport!</p>
+          <small>Last updated: 2:00 PM</small>
+        </div>
+        
+        <div class="transport-widget">
+          <h5><i class="fas fa-wheelchair" style="margin-right: 8px; color: #4caf50;"></i>Accessibility</h5>
+          <div class="accessibility-badge">Wheelchair Accessible</div>
+          <div class="accessibility-badge">Audio Announcements</div>
+          <div class="accessibility-badge">Low Floor Trams</div>
+          <div class="accessibility-badge">Assistance Available</div>
+          <p style="margin-top: 10px; font-size: 0.9em;">
+            Most stations and vehicles are accessible. Contact PTV for assistance.
+          </p>
+        </div>
+        </div>
+      </div>
 
-      <!-- Modal for rendering the charts, declare this if you want to render charts, 
-         else you remove the modal -->
+      <div class="section" id="commands">
+        <h4 class="section-title">Command Reference</h4>
+        <div class="legend"><span class="chip green white-text">Done</span> <span class="chip orange white-text">In Progress</span></div>
+        <div class="row" style="margin-top:12px">
+          <div class="col s12">
+            <a id="btn-train" class="btn waves-effect cmd-btn"><i class="material-icons left">train</i>Train Commands</a>
+            <a id="btn-tram" class="btn waves-effect cmd-btn"><i class="material-icons left">tram</i>Tram Commands</a>
+            <a id="btn-bus" class="btn waves-effect cmd-btn"><i class="material-icons left">directions_bus</i>Bus Commands</a>
+            <a id="btn-multimode" class="btn waves-effect cmd-btn"><i class="material-icons left">merge_type</i>Multi-Mode</a>
+            <a id="btn-traffic" class="btn waves-effect cmd-btn"><i class="material-icons left">traffic</i>Traffic</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card center">
+            <div class="card-content">
+              <i class="material-icons icon-large blue-text text-darken-2">train</i>
+              <h6>Trains</h6>
+              <p>Stations, schedules, routes, and disruptions.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card center">
+            <div class="card-content">
+              <i class="material-icons icon-large teal-text text-darken-2">tram</i>
+              <h6>Trams</h6>
+              <p>Stops, journey planning, and service alerts.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card center">
+            <div class="card-content">
+              <i class="material-icons icon-large deep-orange-text text-darken-2">directions_bus</i>
+              <h6>Buses</h6>
+              <p>Nearby stops, quickest routes, and updates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick links to maps -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="static/img/bot.jpg" alt="Melbourne Train Stations" />
+              <span class="card-title">Train Stations Map</span>
+            </div>
+            <div class="card-action">
+              <a href="maps/melbourne_train_stations_map.html" target="_blank" class="blue-text text-darken-2">Open</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="static/img/bot.jpg" alt="Melbourne Tram Stops" />
+              <span class="card-title">Tram Stops Map</span>
+            </div>
+            <div class="card-action">
+              <a href="maps/melbourne_tram_stops_map.html" target="_blank" class="teal-text text-darken-2">Open</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="static/img/bot.jpg" alt="Melbourne Bus Stops" />
+              <span class="card-title">Bus Stops Map</span>
+            </div>
+            <div class="card-action">
+              <a href="maps/melbourne_bus_stops_map.html" target="_blank" class="deep-orange-text text-darken-2">Open</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section hide" id="train-section">
+        <div class="card">
+          <div class="card-content">
+        <h5 class="section-title">Train Station Commands</h5>
+        <table class="responsive-table highlight striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Commands</th>
+              <th class="center-align">Assignee(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Train stations map</td>
+              <td>Show me a map of Melbourne train stations.</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Schedule - timing information</td>
+              <td>When is the next train from Ringwood to Parliament station?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Route planning</td>
+              <td>What’s the best way to go from Box Hill to Glenferrie?<br />Which train should I take to get from Camberwell to Canterbury?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Transfers and connection</td>
+              <td>How do I get from Flinders Street to Melbourne Central?<br />How many transfers are there between Ringwood and Parliament station?<br />How many transfers between North Melbourne and Glenferrie?<br />How many transfers between North Melbourne and Ringwood?<br />Is there a direct train from Flagstaff to Southern Cross?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Route optimisation</td>
+              <td>Which route has the fewest stops between Ringwood and Parliament station?<br />What is the route with the least number of stops from Dandenong station to Parliament station?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Train service disruption</td>
+              <td>Are there any train disruptions on route Frankston?<br />Are there any train disruptions on route Frankston - City?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Nearest train station</td>
+              <td>Where is the nearest station?<br />Which train station is closest to my location?</td>
+              <td class="center-align"><span class="chip green white-text">RossP</span></td>
+            </tr>
+            <tr>
+              <td>Real-time information</td>
+              <td>What are the opening hours for Frankston?<br />Are there any service alerts for Frankston - City?</td>
+              <td class="center-align"><span class="chip orange white-text">Cocos</span></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section hide" id="tram-section">
+        <div class="card">
+          <div class="card-content">
+        <h5 class="section-title">Tram Station Commands</h5>
+        <table class="responsive-table highlight striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Commands</th>
+              <th class="center-align">Assignee(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tram stations map</td>
+              <td>Generate a tram stop map.<br />Can I see a map of tram stops?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Schedule - timing information</td>
+              <td>When is the next tram from Port Melbourne to Box Hill?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Route planning</td>
+              <td>Is there a direct tram from Deakin University to Vermont South?<br />Can I take a tram directly from Albert Park to Spencer Street?</td>
+              <td class="center-align"><span class="chip green white-text">JubalK</span></td>
+            </tr>
+            <tr>
+              <td>Transfers and connection</td>
+              <td>What is the tram route from Burnley to Richmond?<br />Are there trams that connect Essendon and Toorak?</td>
+              <td class="center-align"><span class="chip green white-text">JubalK</span></td>
+            </tr>
+            <tr>
+              <td>Route optimisation</td>
+              <td>What is the fastest tram route from Brunswick to South Melbourne?<br />Which route has the fewest stops between Carlton and Docklands?</td>
+              <td class="center-align"><span class="chip orange white-text">JubalK</span></td>
+            </tr>
+            <tr>
+              <td>Nearest tram station</td>
+              <td>Where is the nearest tram station?<br />Which tram stop is closest to my location?</td>
+              <td class="center-align"><span class="chip green white-text">RossP</span></td>
+            </tr>
+            <tr>
+              <td>Tram service disruption</td>
+              <td>Are there any tram disruptions on route 109?<br />Are there any tram disruptions on route Port Melbourne - Box Hill?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section hide" id="bus-section">
+        <div class="card">
+          <div class="card-content">
+        <h5 class="section-title">Bus Station Commands</h5>
+        <table class="responsive-table highlight striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Commands</th>
+              <th class="center-align">Assignee(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bus stations map</td>
+              <td>Show me the map of bus stops.<br />Generate a bus stop map.</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Schedule - timing information</td>
+              <td>What time does the next bus leave from Gembrook to Pakenham?</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Route planning</td>
+              <td>What’s the best way to travel from Essendon to Moonee Ponds by bus?<br />Which bus should I take to get from Sunshine to Footscray?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG</span></td>
+            </tr>
+            <tr>
+              <td>Transfers and connection</td>
+              <td>How do I get from Chadstone to Box Hill using buses?<br />How many bus transfers are there between Laverton and Altona North?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG</span></td>
+            </tr>
+            <tr>
+              <td>Route optimisation</td>
+              <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br />Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG</span></td>
+            </tr>
+            <tr>
+              <td>Nearest bus station</td>
+              <td>Where is the nearest bus stop?<br />Which bus station is closest to my location?</td>
+              <td class="center-align"><span class="chip green white-text">RossP</span></td>
+            </tr>
+            <tr>
+              <td>Bus service disruption</td>
+              <td>Are there any bus disruptions on route Gembrook - Pakenham?<br />Check bus disruptions for route 903.</td>
+              <td class="center-align"><span class="chip green white-text">AlexT</span></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section hide" id="multimode-section">
+        <div class="card">
+          <div class="card-content">
+        <h5 class="section-title">Multi-Mode</h5>
+        <table class="responsive-table highlight striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Commands</th>
+              <th class="center-align">Assignee(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Map visualisation</td>
+              <td>Can you show me all tram stops near Federation Square?<br />Generate a map of bus stops in Carlton.</td>
+              <td class="center-align"><span class="chip green white-text">RossP</span></td>
+            </tr>
+            <tr>
+              <td>Multi-modal route planning</td>
+              <td>What’s the best way to get from Stop A to Stop B using tram, bus and train?<br />How do I combine tram and train for this journey?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG</span></td>
+            </tr>
+            <tr>
+              <td>Transfers and connection</td>
+              <td>How do I get from Chadstone to Box Hill using buses?<br />How many bus transfers are there between Laverton and Altona North?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG</span></td>
+            </tr>
+            <tr>
+              <td>Route optimisation</td>
+              <td>What is the shortest bus route from Werribee to Hoppers Crossing?<br />Which route has the least travel time from Glen Waverley to Mount Waverley?</td>
+              <td class="center-align"><span class="chip orange white-text">LoganG, JubalK</span></td>
+            </tr>
+            <tr>
+              <td>Real-time updates for trams and buses</td>
+              <td>Is the tram on Route 12 running on time?<br />Are there delays on the bus to Flinders Street?</td>
+              <td class="center-align"><span class="chip orange white-text">Cocos, AlexT</span></td>
+            </tr>
+            <tr>
+              <td>Transfers and connections for multi-modal routes</td>
+              <td>Do I need to transfer between tram and bus to reach Stop X?</td>
+              <td class="center-align"><span class="chip orange white-text">AwanishG</span></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section hide" id="traffic-section">
+        <div class="card">
+          <div class="card-content">
+        <h5 class="section-title">Traffic</h5>
+        <table class="responsive-table highlight striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Commands</th>
+              <th class="center-align">Assignee(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Traffic details</td>
+              <td>Give traffic details when a user asks “What is traffic in Flinders?”</td>
+              <td class="center-align"><span class="chip green white-text">AwanishG</span></td>
+            </tr>
+            <tr>
+              <td>Traffic between two locations</td>
+              <td>What is traffic from Melbourne CBD to Albert Park?</td>
+              <td class="center-align"><span class="chip green white-text">AwanishG</span></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for rendering the charts (optional) -->
       <div id="modal1" class="modal">
         <canvas id="modal-chart"></canvas>
       </div>
 
-      <!--chatbot widget -->
-      <div class="widget">
+      <!-- Chatbot widget -->
+      <div class="widget" id="chat">
         <div class="chat_header">
-          <!--Add the name of the bot here -->
           <span class="chat_header_title">MPT Chatbot</span>
           <span class="dropdown-trigger" href="#" data-target="dropdown1">
             <i class="material-icons"> more_vert </i>
           </span>
-
-          <!-- Dropdown menu-->
           <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#" id="clear">Clear</a></li>
-            <li><a href="#" id="restart">Restart</a></li>
-            <li><a href="#" id="close">Close</a></li>
+            <li><a href="#" id="clear" class="waves-effect"><i class="material-icons left">clear_all</i>Clear</a></li>
+            <li><a href="#" id="restart" class="waves-effect"><i class="material-icons left">refresh</i>Restart</a></li>
+            <li><a href="#" id="close" class="waves-effect"><i class="material-icons left">close</i>Close</a></li>
           </ul>
         </div>
-
-        <!--Chatbot contents goes here -->
         <div class="chats" id="chats">
           <div class="clearfix"></div>
         </div>
-
-        <!--keypad for user to type the message -->
         <div class="keypad">
-          <textarea
-            id="userInput"
-            placeholder="Type a message..."
-            class="usrInput"
-          ></textarea>
+          <textarea id="userInput" placeholder="How can I help you..." class="usrInput"></textarea>
           <div id="sendButton">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </div>
         </div>
       </div>
 
-      <!--bot profile-->
+      <!-- Bot profile -->
       <div class="profile_div" id="profile_div">
-        <img class="imgProfile" src="static/img/botAvatar.png" />
+        <img class="imgProfile" src="static/img/botAvatar.png" alt="Bot Avatar" />
       </div>
 
       <!-- Bot pop-up intro -->
       <div class="tap-target" data-target="profile_div">
         <div class="tap-target-content">
           <h5 class="white-text">Hey there 👋</h5>
-          <p class="white-text">
-            I can help you get started with Rasa and answer your technical
-            questions.
-          </p>
+          <p class="white-text">I can help you get started with your transport plan.</p>
         </div>
       </div>
     </div>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-      type="text/javascript"
-      src="static/js/lib/materialize.min.js"
-    ></script>
-    <script src="static/js/lib/uuid.min.js"></script>
-    <!--Main Script -->
-    <script type="text/javascript" src="static/js/script.js"></script>
+    <!-- Floating Action Button to open chat -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large deep-purple" onclick="document.getElementById('profile_div').click();">
+        <i class="large material-icons">chat</i>
+      </a>
+    </div>
 
-    <!--Chart.js Script -->
+    <!-- JavaScript at end of body for optimized loading -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/lib/materialize.min.js"></script>
+    <script src="static/js/lib/uuid.min.js"></script>
+    <script type="text/javascript" src="static/js/script.js"></script>
     <script type="text/javascript" src="static/js/lib/chart.min.js"></script>
     <script type="text/javascript" src="static/js/lib/showdown.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+        var dropdowns = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(dropdowns, { constrainWidth: false, coverTrigger: false });
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+        // Command section toggles
+        var trainBtn = document.getElementById('btn-train');
+        var tramBtn = document.getElementById('btn-tram');
+        var busBtn = document.getElementById('btn-bus');
+        var mmBtn = document.getElementById('btn-multimode');
+        var trfBtn = document.getElementById('btn-traffic');
+        var trainSec = document.getElementById('train-section');
+        var tramSec = document.getElementById('tram-section');
+        var busSec = document.getElementById('bus-section');
+        var mmSec = document.getElementById('multimode-section');
+        var trfSec = document.getElementById('traffic-section');
+        function showOnly(section){
+          [trainSec, tramSec, busSec, mmSec, trfSec].forEach(function(s){ if(s){ s.classList.add('hide'); }});
+          if(section){ section.classList.remove('hide'); }
+        }
+        if(trainBtn){ trainBtn.addEventListener('click', function(){ showOnly(trainSec); }); }
+        if(tramBtn){ tramBtn.addEventListener('click', function(){ showOnly(tramSec); }); }
+        if(busBtn){ busBtn.addEventListener('click', function(){ showOnly(busSec); }); }
+        if(mmBtn){ mmBtn.addEventListener('click', function(){ showOnly(mmSec); }); }
+        if(trfBtn){ trfBtn.addEventListener('click', function(){ showOnly(trfSec); }); }
+        // Restore rotating hero images (2s) without color overlay
+        var hero = document.querySelector('.hero');
+        if (hero) {
+          var heroImages = [
+            'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+          ];
+          var currentHeroIndex = 0;
+          var applyHero = function() {
+            var url = heroImages[currentHeroIndex];
+            hero.style.background = 'linear-gradient(135deg, rgba(49,27,146,0.9) 0%, rgba(0,150,136,0.8) 100%), url("' + url + '") center/cover no-repeat';
+            currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+          };
+          applyHero();
+          setInterval(applyHero, 5000);
+        }
+        
+      // Initialize live updates
+      updateLiveData();
+      updateServiceAlerts();
+      updateWeatherData();
+      setInterval(updateLiveData, 2000); // Update every 2 seconds
+      setInterval(updateServiceAlerts, 2000); // Update alerts every 2 seconds
+      setInterval(updateWeatherData, 300000); // Update weather every 5 minutes
+      
+      // Debug: Check if elements exist
+      console.log('Alerts container:', document.getElementById('alerts-container'));
+      console.log('Last update element:', document.getElementById('last-alert-update'));
+      
+      // Ensure alerts are shown immediately
+      setTimeout(() => {
+        console.log('Calling updateServiceAlerts...');
+        updateServiceAlerts();
+        ensureAlertsAreShown();
+      }, 1000);
+      
+      // Also call it immediately after a short delay to ensure DOM is ready
+      setTimeout(() => {
+        console.log('Second call to updateServiceAlerts...');
+        updateServiceAlerts();
+      }, 2000);
+      
+      // Final fallback - show simple alerts if nothing else works
+      setTimeout(() => {
+        const alertsContainer = document.getElementById('alerts-container');
+        if (alertsContainer && alertsContainer.children.length === 0) {
+          console.log('Using simple fallback alerts');
+          showSimpleAlerts();
+        }
+      }, 3000);
+      
+      // Journey planner updates removed - focusing only on fare calculator
+      });
+      
+      // New Transport Functions
+      // Journey planner function removed - focusing only on fare calculator
+      
+      // showFareCalculation function removed - was part of journey planner
+      
+      // Journey planner functions removed - focusing only on fare calculator
+      
+      // All journey planner functions removed - focusing only on fare calculator
+      
+      // Helper function to get station zone
+      function getStationZone(station) {
+        const zone1Stations = [
+          'Flinders Street Station', 'Melbourne Central', 'Parliament', 'Southern Cross', 'Richmond', 'Caulfield', 'Williamstown',
+          'Flinders Street', 'North Melbourne', 'South Kensington', 'Newport', 'Spotswood', 'Yarraville', 'Seddon', 'Footscray',
+          'West Footscray', 'Middle Footscray', 'Sunshine', 'Albion', 'Ginifer', 'St Albans', 'Keilor Plains', 'Watergardens',
+          'Diggers Rest', 'Sunbury', 'Craigieburn', 'Roxburgh Park', 'Coolaroo', 'Broadmeadows', 'Jacana', 'Glenroy',
+          'Oak Park', 'Pascoe Vale', 'Strathmore', 'Essendon', 'Glenbervie', 'Moonee Ponds', 'Ascot Vale', 'Newmarket',
+          'Kensington', 'Upfield', 'Batman', 'Coburg', 'Moreland', 'Anstey', 'Brunswick', 'Jewell', 'Royal Park',
+          'Macaulay', 'Williamstown Beach', 'Hoppers Crossing', 'Tarneit', 'Wyndham Vale', 'Manor Lakes', 'Little River',
+          'Lara', 'Corio', 'North Shore', 'North Geelong', 'Geelong', 'South Geelong', 'Marshall', 'Waurn Ponds',
+          'Winchelsea', 'Birregurra', 'Colac', 'Sandringham', 'Hampton', 'Brighton Beach', 'Middle Brighton', 'North Brighton',
+          'Gardenvale', 'Elsternwick', 'Ripponlea', 'Balaclava', 'Windsor', 'Prahran', 'South Yarra', 'Toorak',
+          'Hawksburn', 'Armadale', 'Malvern', 'Glen Iris', 'Darling', 'East Malvern', 'Holmesglen', 'Jordanville',
+          'Mount Waverley', 'Syndal', 'Glen Waverley', 'Heatherdale', 'Ringwood East', 'Croydon', 'Mooroolbark', 'Lilydale',
+          'Nunawading', 'Blackburn', 'Laburnum', 'Mitcham', 'Ringwood', 'Belgrave', 'Tecoma', 'Upwey',
+          'Upper Ferntree Gully', 'Ferntree Gully', 'Boronia', 'Bayswater', 'Heathmont', 'Alamein', 'Ashburton',
+          'Burwood', 'Hartwell', 'Willison', 'East Camberwell', 'Camberwell', 'Auburn', 'Gardiner', 'Tooronga',
+          'Kooyong', 'Heyington', 'Pakenham', 'Cardinia Road', 'Officer', 'Beaconsfield', 'Berwick', 'Narre Warren',
+          'Hallam', 'Dandenong', 'Yarraman', 'Noble Park', 'Sandown Park', 'Springvale', 'Westall', 'Clayton',
+          'Huntingdale', 'Oakleigh', 'Hughesdale', 'Murrumbeena', 'Carnegie', 'Cranbourne', 'Merinda Park', 'Lynbrook',
+          'Doveton', 'Eumemmerring'
+        ];
+        return zone1Stations.includes(station) ? 1 : 2;
+      }
+      
+      // Helper functions for service alerts
+      function getTrainStations(lineName) {
+        const stationMap = {
+          'Frankston Line': ['Caulfield', 'Malvern', 'Armadale', 'Toorak', 'Hawksburn', 'South Yarra', 'Richmond', 'Flinders Street'],
+          'Werribee Line': ['Newport', 'Spotswood', 'Yarraville', 'Seddon', 'Footscray', 'West Footscray', 'Middle Footscray', 'Laverton'],
+          'Craigieburn Line': ['North Melbourne', 'Kensington', 'Newmarket', 'Ascot Vale', 'Moonee Ponds', 'Essendon', 'Glenbervie', 'Strathmore', 'Pascoe Vale', 'Oak Park', 'Glenroy', 'Jacana', 'Broadmeadows', 'Coolaroo', 'Roxburgh Park', 'Craigieburn'],
+          'Cranbourne Line': ['Dandenong', 'Hallam', 'Narre Warren', 'Berwick', 'Beaconsfield', 'Officer', 'Cardinia Road', 'Cranbourne'],
+          'Pakenham Line': ['Dandenong', 'Hallam', 'Narre Warren', 'Berwick', 'Beaconsfield', 'Officer', 'Cardinia Road', 'Pakenham'],
+          'Sunbury Line': ['Sunbury', 'Diggers Rest', 'Watergardens', 'Keilor Plains', 'St Albans', 'Ginifer', 'Albion', 'Sunshine', 'West Footscray', 'Middle Footscray', 'Footscray', 'Seddon', 'Yarraville', 'Spotswood', 'Newport', 'South Kensington', 'North Melbourne', 'Southern Cross', 'Flinders Street'],
+          'Upfield Line': ['Upfield', 'Batman', 'Coburg', 'Moreland', 'Anstey', 'Brunswick', 'Jewell', 'Royal Park', 'Macaulay', 'North Melbourne', 'Southern Cross', 'Flinders Street'],
+          'Williamstown Line': ['Williamstown', 'Williamstown Beach', 'Newport', 'Spotswood', 'Yarraville', 'Seddon', 'Footscray', 'West Footscray', 'Middle Footscray', 'South Kensington', 'North Melbourne', 'Southern Cross', 'Flinders Street']
+        };
+        return stationMap[lineName] || ['Multiple stations affected'];
+      }
+      
+      function getTramStations(routeName) {
+        const stationMap = {
+          'Route 86': ['Bourke Street', 'Spring Street', 'Parliament', 'Exhibition Street', 'Collins Street', 'Flinders Street'],
+          'Route 109': ['Box Hill', 'Mont Albert', 'Surrey Hills', 'Chatham', 'Balwyn', 'Camberwell', 'Toorak', 'South Yarra', 'Port Melbourne'],
+          'Route 75': ['City', 'Docklands', 'Etihad Stadium', 'Southern Cross', 'Flinders Street', 'St Kilda Road'],
+          'Route 96': ['St Kilda', 'Acland Street', 'Fitzroy Street', 'St Kilda Road', 'Domain Interchange', 'Shrine of Remembrance', 'Albert Park', 'South Melbourne', 'City'],
+          'Route 11': ['West Preston', 'Thornbury', 'Northcote', 'Fitzroy', 'Carlton', 'City']
+        };
+        return stationMap[routeName] || ['Multiple stations affected'];
+      }
+      
+      function getBusStations(routeName) {
+        const stationMap = {
+          'Route 200': ['City', 'St Kilda Road', 'Domain Interchange', 'Shrine of Remembrance', 'Albert Park', 'South Melbourne'],
+          'Route 207': ['City', 'Collins Street', 'Spring Street', 'Parliament', 'Exhibition Street'],
+          'Route 216': ['City', 'Bourke Street', 'Spring Street', 'Parliament', 'Exhibition Street'],
+          'Route 220': ['City', 'Collins Street', 'Spring Street', 'Parliament', 'Exhibition Street'],
+          'Route 246': ['St Kilda Road', 'Domain Interchange', 'Shrine of Remembrance', 'Albert Park', 'South Melbourne', 'City'],
+          'Route 250': ['City', 'St Kilda Road', 'Domain Interchange', 'Shrine of Remembrance', 'Albert Park', 'South Melbourne']
+        };
+        return stationMap[routeName] || ['Multiple stations affected'];
+      }
+      
+      // Helper function to calculate fare amount (for instant display)
+      function calculateFareAmountHelper(fromZone, toZone) {
+        let baseFare = 0;
+        if (fromZone === 1 && toZone === 1) {
+          baseFare = 4.60; // Zone 1 only
+        } else if (fromZone === 2 && toZone === 2) {
+          baseFare = 3.10; // Zone 2 only
+        } else {
+          baseFare = 6.70; // Zone 1+2
+        }
+        
+        return {
+          single: baseFare,
+          daily: baseFare * 2, // Simplified daily cap
+          weekly: baseFare * 10 // Simplified weekly cap
+        };
+      }
+      
+      // Show section in modal overlay instead of scrolling
+      function showSectionModal(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        
+        // Create modal overlay
+        const modal = document.createElement('div');
+        modal.className = 'section-modal-overlay';
+        modal.innerHTML = `
+          <div class="section-modal-content">
+            <div class="section-modal-header">
+              <h4>${section.querySelector('h4')?.textContent || section.querySelector('h3')?.textContent || 'Section'}</h4>
+              <button class="close-modal-btn" onclick="closeSectionModal()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="section-modal-body">
+              ${section.innerHTML}
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeSectionModal();
+          }
+        });
+        
+        // Close modal with Escape key
+        const handleEscape = function(e) {
+          if (e.key === 'Escape') {
+            closeSectionModal();
+            document.removeEventListener('keydown', handleEscape);
+          }
+        };
+        document.addEventListener('keydown', handleEscape);
+        
+        // Animate in
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      }
+      
+      function closeSectionModal() {
+        const modal = document.querySelector('.section-modal-overlay');
+        if (modal) {
+          modal.classList.remove('show');
+          setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto'; // Restore scrolling
+          }, 300);
+        }
+      }
+      
+      // Toggle feature sections
+      function toggleFeature(featureId) {
+        const feature = document.getElementById(featureId);
+        if (!feature) return;
+        
+        // Toggle visibility
+        if (feature.style.display === 'none') {
+          feature.style.display = 'block';
+          // Scroll to feature smoothly
+          feature.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        } else {
+          feature.style.display = 'none';
+        }
+      }
+      
+      // Commands Modal Functions
+      function openCommandsModal() {
+        const modal = document.createElement('div');
+        modal.className = 'command-modal-overlay';
+        modal.innerHTML = `
+          <div class="command-modal-content">
+            <div class="command-modal-header">
+              <h4><i class="fas fa-terminal"></i> Explore Commands</h4>
+              <button class="close-modal-btn" onclick="closeCommandsModal()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="command-modal-body">
+              <div id="command-categories-view">
+                <h5 style="margin-bottom: 20px; color: #333;">Choose a command category:</h5>
+                <div class="command-categories">
+                  <button class="command-category-btn" onclick="showCommandCategory('train')">
+                    <i class="fas fa-train"></i>
+                    <span>Train Commands</span>
+                  </button>
+                  <button class="command-category-btn" onclick="showCommandCategory('tram')">
+                    <i class="fas fa-tram"></i>
+                    <span>Tram Commands</span>
+                  </button>
+                  <button class="command-category-btn" onclick="showCommandCategory('bus')">
+                    <i class="fas fa-bus"></i>
+                    <span>Bus Commands</span>
+                  </button>
+                  <button class="command-category-btn" onclick="showCommandCategory('multimode')">
+                    <i class="fas fa-route"></i>
+                    <span>Multi-Mode</span>
+                  </button>
+                  <button class="command-category-btn" onclick="showCommandCategory('traffic')">
+                    <i class="fas fa-traffic-light"></i>
+                    <span>Traffic</span>
+                  </button>
+                </div>
+              </div>
+              <div id="command-details-view" style="display: none;">
+                <button class="back-btn" onclick="showCommandCategories()">
+                  <i class="fas fa-arrow-left"></i>
+                  Back to Categories
+                </button>
+                <div id="command-details-content"></div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeCommandsModal();
+          }
+        });
+        
+        // Close modal with Escape key
+        const handleEscape = function(e) {
+          if (e.key === 'Escape') {
+            closeCommandsModal();
+            document.removeEventListener('keydown', handleEscape);
+          }
+        };
+        document.addEventListener('keydown', handleEscape);
+        
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      }
+      
+      function closeCommandsModal() {
+        const modal = document.querySelector('.command-modal-overlay');
+        if (modal) {
+          modal.classList.remove('show');
+          setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+          }, 300);
+        }
+      }
+      
+      function showCommandCategory(category) {
+        const categoriesView = document.getElementById('command-categories-view');
+        const detailsView = document.getElementById('command-details-view');
+        const detailsContent = document.getElementById('command-details-content');
+        
+        // Hide categories, show details
+        categoriesView.style.display = 'none';
+        detailsView.style.display = 'block';
+        
+        // Generate command details based on category
+        let commands = [];
+        let title = '';
+        let icon = '';
+        
+        switch(category) {
+          case 'train':
+            title = 'Train Commands';
+            icon = 'fas fa-train';
+            commands = [
+              { command: 'Find next train', description: 'Show me the next train from [station]' },
+              { command: 'Train disruptions', description: 'Are there any train delays today?' },
+              { command: 'Train routes', description: 'What trains go to [destination]?' },
+              { command: 'Station info', description: 'Tell me about [station name]' },
+              { command: 'Train schedule', description: 'When does the train leave [station]?' }
+            ];
+            break;
+          case 'tram':
+            title = 'Tram Commands';
+            icon = 'fas fa-tram';
+            commands = [
+              { command: 'Tram routes', description: 'Which tram goes to [destination]?' },
+              { command: 'Tram stops', description: 'Find tram stops near [location]' },
+              { command: 'Tram times', description: 'When is the next tram from [stop]?' },
+              { command: 'Tram disruptions', description: 'Any tram delays today?' },
+              { command: 'Tram zones', description: 'What zone is [tram stop] in?' }
+            ];
+            break;
+          case 'bus':
+            title = 'Bus Commands';
+            icon = 'fas fa-bus';
+            commands = [
+              { command: 'Bus routes', description: 'Which bus goes to [destination]?' },
+              { command: 'Bus stops', description: 'Find bus stops near [location]' },
+              { command: 'Bus times', description: 'When is the next bus from [stop]?' },
+              { command: 'Bus disruptions', description: 'Any bus delays today?' },
+              { command: 'Bus zones', description: 'What zone is [bus stop] in?' }
+            ];
+            break;
+          case 'multimode':
+            title = 'Multi-Mode Commands';
+            icon = 'fas fa-route';
+            commands = [
+              { command: 'Journey planner', description: 'How do I get from [A] to [B]?' },
+              { command: 'Best route', description: 'What\'s the fastest way to [destination]?' },
+              { command: 'Combined transport', description: 'Plan a trip using train and bus' },
+              { command: 'Walking directions', description: 'How do I walk to [location]?' },
+              { command: 'Parking info', description: 'Where can I park near [station]?' }
+            ];
+            break;
+          case 'traffic':
+            title = 'Traffic Commands';
+            icon = 'fas fa-traffic-light';
+            commands = [
+              { command: 'Traffic conditions', description: 'How is the traffic today?' },
+              { command: 'Road closures', description: 'Any road closures in Melbourne?' },
+              { command: 'Driving time', description: 'How long to drive to [destination]?' },
+              { command: 'Parking availability', description: 'Is there parking at [location]?' },
+              { command: 'Traffic alerts', description: 'Any traffic alerts today?' }
+            ];
+            break;
+        }
+        
+        // Generate HTML for commands
+        const commandsHTML = commands.map(cmd => `
+          <div class="command-item">
+            <h6>${cmd.command}</h6>
+            <p>${cmd.description}</p>
+          </div>
+        `).join('');
+        
+        detailsContent.innerHTML = `
+          <h4 style="margin-bottom: 20px; color: #333;">
+            <i class="${icon}" style="margin-right: 10px; color: #7e57c2;"></i>
+            ${title}
+          </h4>
+          <div class="command-list">
+            ${commandsHTML}
+          </div>
+        `;
+      }
+      
+      function showCommandCategories() {
+        const categoriesView = document.getElementById('command-categories-view');
+        const detailsView = document.getElementById('command-details-view');
+        
+        detailsView.style.display = 'none';
+        categoriesView.style.display = 'block';
+      }
+      
+      // Maps Modal Functions
+      function openMapsModal() {
+        const modal = document.createElement('div');
+        modal.className = 'maps-modal-overlay';
+        modal.innerHTML = `
+          <div class="maps-modal-content">
+            <div class="maps-modal-header">
+              <h4><i class="fas fa-map"></i> Melbourne Transport Maps</h4>
+              <button class="close-modal-btn" onclick="closeMapsModal()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="maps-modal-body">
+              <h5 style="margin-bottom: 20px; color: #333;">Choose a map to view:</h5>
+              <div class="maps-grid">
+                <div class="map-card" onclick="openMap('train')">
+                  <i class="fas fa-train"></i>
+                  <h5>Train Stations Map</h5>
+                  <p>Interactive map showing all Melbourne train stations with real-time information</p>
+                </div>
+                <div class="map-card" onclick="openMap('tram')">
+                  <i class="fas fa-tram"></i>
+                  <h5>Tram Stops Map</h5>
+                  <p>Complete map of Melbourne tram network with stop locations and routes</p>
+                </div>
+                <div class="map-card" onclick="openMap('bus')">
+                  <i class="fas fa-bus"></i>
+                  <h5>Bus Stops Map</h5>
+                  <p>Comprehensive bus stop locations and route information across Melbourne</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeMapsModal();
+          }
+        });
+        
+        // Close modal with Escape key
+        const handleEscape = function(e) {
+          if (e.key === 'Escape') {
+            closeMapsModal();
+            document.removeEventListener('keydown', handleEscape);
+          }
+        };
+        document.addEventListener('keydown', handleEscape);
+        
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      }
+      
+      function closeMapsModal() {
+        const modal = document.querySelector('.maps-modal-overlay');
+        if (modal) {
+          modal.classList.remove('show');
+          setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+          }, 300);
+        }
+      }
+      
+      function openMap(mapType) {
+        let mapUrl = '';
+        switch(mapType) {
+          case 'train':
+            mapUrl = 'maps/melbourne_train_stations_map.html';
+            break;
+          case 'tram':
+            mapUrl = 'maps/melbourne_tram_stops_map.html';
+            break;
+          case 'bus':
+            mapUrl = 'maps/melbourne_bus_stops_map.html';
+            break;
+        }
+        
+        if (mapUrl) {
+          window.open(mapUrl, '_blank');
+          closeMapsModal();
+        }
+      }
+      
+      function findNearbyStops() {
+        const modal = document.createElement('div');
+        modal.className = 'section-modal-overlay';
+        modal.innerHTML = `
+          <div class="section-modal-content">
+            <div class="section-modal-header">
+              <h4><i class="fas fa-map-marker-alt"></i> Nearby Transport Stops</h4>
+              <button class="close-modal-btn" onclick="closeSectionModal()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="section-modal-body">
+              <div class="nearby-stops-content">
+                <div class="stop-item">
+                  <i class="fas fa-train"></i>
+                  <div class="stop-info">
+                    <h5>Flinders Street Station</h5>
+                    <p>Train Station - 200m away</p>
+                    <span class="stop-status">All lines operational</span>
+                  </div>
+                </div>
+                <div class="stop-item">
+                  <i class="fas fa-tram"></i>
+                  <div class="stop-info">
+                    <h5>Bourke Street Mall</h5>
+                    <p>Tram Stop - 150m away</p>
+                    <span class="stop-status">Routes 86, 96, 109</span>
+                  </div>
+                </div>
+                <div class="stop-item">
+                  <i class="fas fa-bus"></i>
+                  <div class="stop-info">
+                    <h5>Collins Street</h5>
+                    <p>Bus Stop - 300m away</p>
+                    <span class="stop-status">Multiple routes available</span>
+                  </div>
+                </div>
+                <div class="info-note">
+                  <i class="fas fa-info-circle"></i>
+                  <p>This would use your location to find the closest transport options.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeSectionModal();
+          }
+        });
+        
+        // Close modal with Escape key
+        const handleEscape = function(e) {
+          if (e.key === 'Escape') {
+            closeSectionModal();
+            document.removeEventListener('keydown', handleEscape);
+          }
+        };
+        document.addEventListener('keydown', handleEscape);
+        
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      }
+      
+      function calculateFare() {
+        // Simulate fare calculation
+        alert('💰 Fare Calculator\n\nZone 1: $4.60\nZone 2: $3.10\nZone 1+2: $6.70\nDaily Cap: $9.20\n\nThis would calculate your exact fare based on your journey.');
+      }
+      
+      function updateLiveData() {
+        // Simulate live data updates
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-AU', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        });
+        
+        // Update departure times
+        const departureElements = document.querySelectorAll('.route-card div');
+        departureElements.forEach((element, index) => {
+          if (element.textContent.includes('Next train:')) {
+            const minutes = (15 + index * 3) % 60;
+            const nextTime = new Date(now.getTime() + minutes * 60000);
+            const timeStr = nextTime.toLocaleTimeString('en-AU', { 
+              hour: '2-digit', 
+              minute: '2-digit',
+              hour12: true 
+            });
+            element.textContent = `Next train: ${timeStr} (Lilydale)`;
+          }
+        });
+        
+        // Update weather
+        const weatherElement = document.querySelector('.weather-widget div');
+        if (weatherElement && weatherElement.textContent.includes('°C')) {
+          const temp = 20 + Math.floor(Math.random() * 8); // Random temp between 20-27
+          weatherElement.textContent = `${temp}°C`;
+        }
+        
+        // Update transport status indicators dynamically
+        updateTransportStatus();
+        
+        // Update last updated time
+        const updateElements = document.querySelectorAll('small');
+        updateElements.forEach(element => {
+          if (element.textContent.includes('Updated:')) {
+            element.textContent = `Updated: ${timeString}`;
+          }
+        });
+      }
+      
+      function updateTransportStatus() {
+        const currentHour = new Date().getHours();
+        const isPeakHour = (currentHour >= 7 && currentHour <= 9) || (currentHour >= 17 && currentHour <= 19);
+        
+        // Train status updates
+        const trainStatus = document.getElementById('train-status');
+        const trainIndicator = trainStatus.querySelector('.status-indicator');
+        const trainStatusText = document.getElementById('train-status-text');
+        const trainDetails = document.getElementById('train-details');
+        
+        // Simulate realistic train status changes with live updates
+        const trainScenarios = [
+          { status: 'good', text: 'All lines running normally', details: ['Metro: On time', 'V/Line: On time', 'All services operational'] },
+          { status: 'warning', text: `Frankston line running ${Math.floor(Math.random() * 8) + 5}-${Math.floor(Math.random() * 8) + 10} min late`, details: ['Frankston: Signal issues at Caulfield', 'Other lines: On time', 'Allow extra time'] },
+          { status: 'warning', text: `Signal issues at Caulfield - delays up to ${Math.floor(Math.random() * 5) + 8} min`, details: ['Caulfield area: Major delays', 'Other areas: Normal', 'Check PTV app'] },
+          { status: 'good', text: 'All lines running normally', details: ['Metro: On time', 'V/Line: On time', 'All services operational'] },
+          { status: 'warning', text: `Werribee line running slowly - +${Math.floor(Math.random() * 5) + 3} min`, details: ['Track maintenance', 'Newport to Laverton', 'Journey times increased'] }
+        ];
+        
+        const trainScenario = trainScenarios[Math.floor(Math.random() * trainScenarios.length)];
+        trainIndicator.className = `status-indicator status-${trainScenario.status}`;
+        trainStatusText.textContent = trainScenario.text;
+        trainDetails.innerHTML = trainScenario.details.map(detail => 
+          `<span class="live-update">${detail}</span>`
+        ).join('');
+        
+        // Bus status updates
+        const busStatus = document.getElementById('bus-status');
+        const busIndicator = busStatus.querySelector('.status-indicator');
+        const busStatusText = document.getElementById('bus-status-text');
+        const busDetails = document.getElementById('bus-details');
+        
+        const busScenarios = [
+          { status: 'good', text: 'All routes operational', details: ['CBD: Normal', 'Suburbs: Normal', 'All services on time'] },
+          { status: 'warning', text: `Traffic delays on major routes - up to ${Math.floor(Math.random() * 10) + 5} min`, details: ['St Kilda Rd: Heavy traffic', 'Other routes: Normal', 'Allow extra time'] },
+          { status: 'good', text: 'All routes operational', details: ['CBD: Normal', 'Suburbs: Normal', 'All services on time'] },
+          { status: 'warning', text: `Route 246 running slowly - +${Math.floor(Math.random() * 8) + 3} min`, details: ['St Kilda Road congestion', 'Domain area affected', 'Check alternatives'] },
+          { status: 'warning', text: `Peak hour delays - up to ${Math.floor(Math.random() * 6) + 4} min`, details: ['CBD routes affected', 'Suburban routes normal', 'Use tram alternatives'] }
+        ];
+        
+        const busScenario = busScenarios[Math.floor(Math.random() * busScenarios.length)];
+        busIndicator.className = `status-indicator status-${busScenario.status}`;
+        busStatusText.textContent = busScenario.text;
+        busDetails.innerHTML = busScenario.details.map(detail => 
+          `<span class="live-update">${detail}</span>`
+        ).join('');
+        
+        // Tram status updates
+        const tramStatus = document.getElementById('tram-status');
+        const tramIndicator = tramStatus.querySelector('.status-indicator');
+        const tramStatusText = document.getElementById('tram-status-text');
+        const tramDetails = document.getElementById('tram-details');
+        
+        const tramScenarios = [
+          { status: 'warning', text: `Route 86 running ${Math.floor(Math.random() * 3) + 2}-${Math.floor(Math.random() * 3) + 5} min late`, details: ['Route 86: Bourke Street roadworks', 'Other routes: On time', 'Allow extra time'] },
+          { status: 'good', text: 'All routes running normally', details: ['All routes: On time', 'Normal frequency', 'No delays reported'] },
+          { status: 'warning', text: `Roadworks affecting multiple routes - +${Math.floor(Math.random() * 3) + 2} min`, details: ['Routes 86, 109: Bourke Street', 'Other routes: Normal', 'Check PTV app'] },
+          { status: 'error', text: 'Route 109 suspended', details: ['Route 109: Suspended', 'Replacement buses operating', 'Box Hill to Port Melbourne'] },
+          { status: 'warning', text: `Route 75 running slowly - +${Math.floor(Math.random() * 3) + 1} min`, details: ['Increased passenger numbers', 'Additional services may be added', 'City to Docklands'] }
+        ];
+        
+        const tramScenario = tramScenarios[Math.floor(Math.random() * tramScenarios.length)];
+        tramIndicator.className = `status-indicator status-${tramScenario.status}`;
+        tramStatusText.textContent = tramScenario.text;
+        tramDetails.innerHTML = tramScenario.details.map(detail => 
+          `<span class="live-update">${detail}</span>`
+        ).join('');
+      }
+      
+      function updateServiceAlerts() {
+        const alertsContainer = document.getElementById('alerts-container');
+        const lastUpdateElement = document.getElementById('last-alert-update');
+        
+        if (!alertsContainer) {
+          console.error('Alerts container not found');
+          return;
+        }
+        
+        if (!lastUpdateElement) {
+          console.error('Last update element not found');
+          return;
+        }
+        
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-AU', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true 
+        });
+        
+        // Real-time Melbourne transport alerts with live status updates
+        const melbourneAlerts = [
+          {
+            type: 'delay',
+            icon: 'fas fa-clock',
+            title: 'Frankston Line - Running Slow',
+            message: `Trains running ${Math.floor(Math.random() * 8) + 5}-${Math.floor(Math.random() * 8) + 10} minutes late due to signal issues at Caulfield. Expect delays until 3:30 PM.`,
+            time: 'Just now',
+            severity: 'high',
+            affectedStations: ['Caulfield', 'Malvern', 'Armadale', 'Toorak', 'Hawksburn', 'South Yarra']
+          },
+          {
+            type: 'slow',
+            icon: 'fas fa-turtle',
+            title: 'Werribee Line - Running Slowly',
+            message: `Trains running slowly between Newport and Laverton due to track maintenance. Journey times increased by ${Math.floor(Math.random() * 5) + 3}-${Math.floor(Math.random() * 5) + 8} minutes.`,
+            time: '1 min ago',
+            severity: 'medium',
+            affectedStations: ['Newport', 'Spotswood', 'Yarraville', 'Seddon', 'Footscray', 'West Footscray', 'Middle Footscray', 'Laverton']
+          },
+          {
+            type: 'delay',
+            icon: 'fas fa-bus',
+            title: 'Route 86 Tram - Running Late',
+            message: `Tram service running ${Math.floor(Math.random() * 3) + 2}-${Math.floor(Math.random() * 3) + 5} minutes late due to roadworks on Bourke Street. Expect delays during peak hours.`,
+            time: '2 min ago',
+            severity: 'medium',
+            affectedStations: ['Bourke Street', 'Spring Street', 'Parliament', 'Exhibition Street']
+          },
+          {
+            type: 'disruption',
+            icon: 'fas fa-times-circle',
+            title: 'Route 109 Tram - Service Suspended',
+            message: 'Service suspended between Box Hill and Port Melbourne due to overhead wire damage. Replacement buses operating.',
+            time: '5 min ago',
+            severity: 'high',
+            affectedStations: ['Box Hill', 'Mont Albert', 'Surrey Hills', 'Chatham', 'Balwyn', 'Camberwell', 'Toorak', 'South Yarra', 'Port Melbourne']
+          },
+          {
+            type: 'slow',
+            icon: 'fas fa-bus',
+            title: 'Route 246 Bus - Running Slowly',
+            message: `Buses running slowly due to heavy traffic on St Kilda Road. Journey times increased by ${Math.floor(Math.random() * 10) + 5}-${Math.floor(Math.random() * 10) + 15} minutes.`,
+            time: '3 min ago',
+            severity: 'medium',
+            affectedStations: ['St Kilda Road', 'Domain Interchange', 'Shrine of Remembrance', 'Albert Park']
+          },
+          {
+            type: 'delay',
+            icon: 'fas fa-train',
+            title: 'Craigieburn Line - Minor Delays',
+            message: `Trains running ${Math.floor(Math.random() * 3) + 2}-${Math.floor(Math.random() * 3) + 6} minutes late due to earlier signal fault at North Melbourne. Service returning to normal.`,
+            time: '4 min ago',
+            severity: 'low',
+            affectedStations: ['North Melbourne', 'Kensington', 'Newmarket', 'Ascot Vale', 'Moonee Ponds', 'Essendon', 'Glenbervie', 'Strathmore', 'Pascoe Vale', 'Oak Park', 'Glenroy', 'Jacana', 'Broadmeadows', 'Coolaroo', 'Roxburgh Park', 'Craigieburn']
+          },
+          {
+            type: 'restoration',
+            icon: 'fas fa-check-circle',
+            title: 'Lilydale Line - Service Restored',
+            message: 'Service restored between Ringwood and Lilydale. Trains now running on time.',
+            time: '8 min ago',
+            severity: 'resolved',
+            affectedStations: ['Ringwood', 'Heatherdale', 'Mitcham', 'Nunawading', 'Blackburn', 'Box Hill', 'Mont Albert', 'Surrey Hills', 'Chatham', 'Balwyn', 'Camberwell', 'Lilydale']
+          },
+          {
+            type: 'maintenance',
+            icon: 'fas fa-tools',
+            title: 'City Loop - Planned Maintenance',
+            message: 'Scheduled maintenance this weekend (Sat-Sun 6 AM - 8 PM). Use alternative routes via Flinders Street and Southern Cross.',
+            time: '1 hour ago',
+            severity: 'planned',
+            affectedStations: ['Parliament', 'Melbourne Central', 'Flagstaff']
+          },
+          {
+            type: 'delay',
+            icon: 'fas fa-subway',
+            title: 'Route 75 Tram - Running Late',
+            message: `Tram service running ${Math.floor(Math.random() * 3) + 1}-${Math.floor(Math.random() * 3) + 4} minutes late due to increased passenger numbers. Additional services may be added.`,
+            time: '6 min ago',
+            severity: 'low',
+            affectedStations: ['City', 'Docklands', 'Etihad Stadium', 'Southern Cross', 'Flinders Street']
+          },
+          {
+            type: 'slow',
+            icon: 'fas fa-train',
+            title: 'Pakenham Line - Running Slowly',
+            message: `Trains running slowly between Dandenong and Pakenham due to track work. Journey times increased by ${Math.floor(Math.random() * 3) + 2}-${Math.floor(Math.random() * 3) + 5} minutes.`,
+            time: '7 min ago',
+            severity: 'medium',
+            affectedStations: ['Dandenong', 'Hallam', 'Narre Warren', 'Berwick', 'Beaconsfield', 'Officer', 'Cardinia Road', 'Pakenham']
+          }
+        ];
+        
+        // Always show exactly 3 alerts based on current MPT conditions
+        const currentHour = now.getHours();
+        const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+        
+        // Generate 3 different alerts based on current conditions
+        const selectedAlerts = [];
+        
+        // Alert 1: Train delays (more common during peak hours)
+        if (currentHour >= 7 && currentHour <= 9 || currentHour >= 17 && currentHour <= 19) {
+          // Peak hour delays - show high impact train delays
+          const trainAlerts = melbourneAlerts.filter(alert => 
+            alert.type === 'delay' && alert.severity === 'high' && alert.title.includes('Line')
+          );
+          if (trainAlerts.length > 0) {
+            const randomAlert = trainAlerts[Math.floor(Math.random() * trainAlerts.length)];
+            selectedAlerts.push({
+              ...randomAlert,
+              message: `Trains running ${Math.floor(Math.random() * 15) + 8}-${Math.floor(Math.random() * 15) + 20} minutes late due to signal issues and high passenger volumes during peak hour. Please allow extra travel time.`,
+              time: 'Just now'
+            });
+          }
+        } else {
+          // Off-peak - show medium impact delays
+          const trainAlerts = melbourneAlerts.filter(alert => 
+            alert.type === 'delay' && alert.severity === 'medium' && alert.title.includes('Line')
+          );
+          if (trainAlerts.length > 0) {
+            const randomAlert = trainAlerts[Math.floor(Math.random() * trainAlerts.length)];
+            selectedAlerts.push({
+              ...randomAlert,
+              message: `Trains running ${Math.floor(Math.random() * 8) + 3}-${Math.floor(Math.random() * 8) + 8} minutes late due to track maintenance.`,
+              time: '2 min ago'
+            });
+          }
+        }
+        
+        // Alert 2: Tram delays (common in CBD)
+        const tramAlerts = melbourneAlerts.filter(alert => 
+          alert.type === 'delay' && alert.title.includes('Tram')
+        );
+        if (tramAlerts.length > 0) {
+          const randomAlert = tramAlerts[Math.floor(Math.random() * tramAlerts.length)];
+          selectedAlerts.push({
+            ...randomAlert,
+            message: `Tram service running ${Math.floor(Math.random() * 10) + 3}-${Math.floor(Math.random() * 10) + 8} minutes late due to traffic congestion and roadworks in the CBD.`,
+            time: '1 min ago'
+          });
+        }
+        
+        // Alert 3: Bus delays or service updates
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+          // Weekend - show weekend timetable changes
+          const busAlerts = melbourneAlerts.filter(alert => 
+            alert.title.includes('Bus')
+          );
+          if (busAlerts.length > 0) {
+            const randomAlert = busAlerts[Math.floor(Math.random() * busAlerts.length)];
+            selectedAlerts.push({
+              ...randomAlert,
+              message: 'Bus services are operating on a reduced weekend timetable. Check PTV app for updated departure times.',
+              time: '5 min ago',
+              severity: 'low'
+            });
+          }
+        } else {
+          // Weekday - show bus delays
+          const busAlerts = melbourneAlerts.filter(alert => 
+            alert.title.includes('Bus')
+          );
+          if (busAlerts.length > 0) {
+            const randomAlert = busAlerts[Math.floor(Math.random() * busAlerts.length)];
+            selectedAlerts.push({
+              ...randomAlert,
+              message: `Bus services experiencing delays of ${Math.floor(Math.random() * 8) + 2}-${Math.floor(Math.random() * 8) + 6} minutes due to roadworks and traffic conditions.`,
+              time: '3 min ago',
+              severity: 'low'
+            });
+          }
+        }
+        
+        // If we don't have 3 alerts, fill with random ones
+        while (selectedAlerts.length < 3) {
+          const remainingAlerts = melbourneAlerts.filter(alert => 
+            !selectedAlerts.some(selected => selected.title === alert.title)
+          );
+          if (remainingAlerts.length > 0) {
+            const randomAlert = remainingAlerts[Math.floor(Math.random() * remainingAlerts.length)];
+            selectedAlerts.push({
+              ...randomAlert,
+              time: `${Math.floor(Math.random() * 10) + 1} min ago`
+            });
+          } else {
+            break;
+          }
+        }
+        
+        // Clear existing alerts
+        alertsContainer.innerHTML = '';
+        
+        // Add exactly 3 alerts
+        selectedAlerts.slice(0, 3).forEach(alert => {
+          const alertDiv = document.createElement('div');
+          alertDiv.className = 'service-alert';
+          
+          // Set background based on alert type
+          let backgroundClass = '';
+          switch(alert.type) {
+            case 'disruption':
+              backgroundClass = 'linear-gradient(135deg, #f44336, #e57373)';
+              break;
+            case 'delay':
+            case 'slow':
+              backgroundClass = 'linear-gradient(135deg, #ff7043, #ff8a65)';
+              break;
+            case 'restoration':
+              backgroundClass = 'linear-gradient(135deg, #4caf50, #66bb6a)';
+              break;
+            case 'maintenance':
+            default:
+              backgroundClass = 'linear-gradient(135deg, #2196f3, #42a5f5)';
+              break;
+          }
+          
+          alertDiv.style.background = backgroundClass;
+          
+          const severityText = alert.severity === 'high' ? 'HIGH IMPACT' :
+                              alert.severity === 'medium' ? 'MEDIUM IMPACT' :
+                              alert.severity === 'low' ? 'LOW IMPACT' : 'INFO';
+          
+          alertDiv.innerHTML = `
+            <div class="alert-header">
+              <div class="alert-icon">
+                <i class="${alert.icon}"></i>
+              </div>
+              <div class="alert-info">
+                <h6>${alert.title}</h6>
+                <span class="severity-badge ${alert.severity}">${severityText}</span>
+              </div>
+              <span class="alert-time">${alert.time}</span>
+            </div>
+            <p>${alert.message}</p>
+            <div class="affected-stations">
+              <strong>Affected Stations:</strong> ${alert.affectedStations.join(', ')}
+            </div>
+          `;
+          
+          alertsContainer.appendChild(alertDiv);
+        });
+        
+        // Update last update time
+        lastUpdateElement.textContent = `Last updated: ${timeString}`;
+        
+        // Add a subtle animation to indicate update
+        alertsContainer.style.opacity = '0.7';
+        setTimeout(() => {
+          alertsContainer.style.opacity = '1';
+        }, 300);
+        
+        console.log('Service alerts updated successfully');
+      }
+      
+      // Fallback function to ensure alerts are always shown
+      function ensureAlertsAreShown() {
+        const alertsContainer = document.getElementById('alerts-container');
+        if (alertsContainer && alertsContainer.children.length === 0) {
+          console.log('No alerts found, showing fallback alerts');
+          updateServiceAlerts();
+        }
+      }
+      
+      // Simple fallback function that will definitely work
+      function showSimpleAlerts() {
+        const alertsContainer = document.getElementById('alerts-container');
+        const lastUpdateElement = document.getElementById('last-alert-update');
+        
+        if (alertsContainer) {
+          alertsContainer.innerHTML = `
+            <div class="service-alert">
+              <div class="alert-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="alert-type">Train</span>
+                <span class="alert-time">Just now</span>
+              </div>
+              <div class="alert-message">Frankston Line: Trains running 5-10 minutes late due to signal issues at Caulfield. Please allow extra travel time.</div>
+            </div>
+            <div class="service-alert">
+              <div class="alert-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="alert-type">Tram</span>
+                <span class="alert-time">1 min ago</span>
+              </div>
+              <div class="alert-message">Route 86: Tram service running 3-8 minutes late due to traffic congestion in the CBD.</div>
+            </div>
+            <div class="service-alert">
+              <div class="alert-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="alert-type">Bus</span>
+                <span class="alert-time">2 min ago</span>
+              </div>
+              <div class="alert-message">Route 200: Bus services experiencing delays of 2-6 minutes due to roadworks and traffic conditions.</div>
+            </div>
+          `;
+        }
+        
+        if (lastUpdateElement) {
+          lastUpdateElement.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        console.log('Simple alerts displayed successfully');
+      }
+      
+      // Call fallback every 5 seconds to ensure alerts are always visible
+      setInterval(ensureAlertsAreShown, 5000);
+      
+      // Disable smooth scrolling - use modal overlays instead
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          // Instead of scrolling, show the section in a modal overlay
+          const targetId = this.getAttribute('href').substring(1);
+          showSectionModal(targetId);
+        });
+      });
+      
+      // Add loading animation for quick actions
+      function showLoading(element) {
+        const originalText = element.innerHTML;
+        element.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        setTimeout(() => {
+          element.innerHTML = originalText;
+        }, 2000);
+      }
+      
+      // Enhanced quick action handlers
+      document.querySelectorAll('.quick-action').forEach(action => {
+        action.addEventListener('click', function() {
+          showLoading(this);
+        });
+      });
+      
+      // Real API Integration Functions
+      const PTV_API_KEY = 'YOUR_PTV_API_KEY'; // Get from https://www.ptv.vic.gov.au/footer/data-and-reporting/datasets/ptv-timetable-api/
+      const PTV_BASE_URL = 'https://timetableapi.ptv.vic.gov.au/v3';
+      const BOM_WEATHER_URL = 'http://www.bom.gov.au/fwo/IDV60801/IDV60801.95936.json';
+      const OPENWEATHER_API_KEY = 'demo'; // Fallback weather API
+      
+      // Real Melbourne Weather Data
+      async function updateWeatherData() {
+        try {
+          // Try BOM (Bureau of Meteorology) first - official Australian weather
+          const response = await fetch(BOM_WEATHER_URL);
+          if (response.ok) {
+            const data = await response.json();
+            const melbourneData = data.observations.data.find(obs => obs.name === 'Melbourne');
+            
+            if (melbourneData) {
+              updateWeatherDisplay({
+                temperature: melbourneData.air_temp,
+                condition: melbourneData.cloud,
+                humidity: melbourneData.rel_hum,
+                windSpeed: melbourneData.wind_spd_kmh,
+                windDirection: melbourneData.wind_dir,
+                pressure: melbourneData.press,
+                lastUpdated: new Date(melbourneData.local_date_time_full)
+              });
+              return;
+            }
+          }
+        } catch (error) {
+          console.log('BOM API failed, trying OpenWeather as fallback');
+        }
+        
+        // Fallback to OpenWeather API
+        try {
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Melbourne,AU&appid=${OPENWEATHER_API_KEY}&units=metric`);
+          if (response.ok) {
+            const data = await response.json();
+            updateWeatherDisplay({
+              temperature: Math.round(data.main.temp),
+              condition: data.weather[0].description,
+              humidity: data.main.humidity,
+              windSpeed: Math.round(data.wind.speed * 3.6), // Convert m/s to km/h
+              windDirection: data.wind.deg,
+              pressure: data.main.pressure,
+              lastUpdated: new Date()
+            });
+          }
+        } catch (error) {
+          console.log('Weather API failed, using simulated data');
+          updateWeatherDisplay({
+            temperature: 22,
+            condition: 'Partly Cloudy',
+            humidity: 65,
+            windSpeed: 15,
+            windDirection: 'SW',
+            pressure: 1013,
+            lastUpdated: new Date()
+          });
+        }
+      }
+      
+      function updateWeatherDisplay(weatherData) {
+        const weatherWidget = document.querySelector('.weather-widget');
+        if (weatherWidget) {
+          weatherWidget.innerHTML = `
+            <div class="weather-content">
+              <div class="weather-main">
+                <i class="fas fa-thermometer-half"></i>
+                <span class="temperature">${weatherData.temperature}°C</span>
+              </div>
+              <div class="weather-details">
+                <div class="weather-condition">${weatherData.condition}</div>
+                <div class="weather-stats">
+                  <span><i class="fas fa-tint"></i> ${weatherData.humidity}%</span>
+                  <span><i class="fas fa-wind"></i> ${weatherData.windSpeed} km/h</span>
+                </div>
+                <div class="weather-updated">Updated: ${weatherData.lastUpdated.toLocaleTimeString()}</div>
+              </div>
+            </div>
+          `;
+        }
+      }
+      
+      // Real PTV (Public Transport Victoria) Data
+      async function updateLiveData() {
+        try {
+          // Update train status
+          await updateTrainStatus();
+          // Update bus status  
+          await updateBusStatus();
+          // Update tram status
+          await updateTramStatus();
+        } catch (error) {
+          console.log('PTV API failed, using simulated data');
+          updateSimulatedStatus();
+        }
+      }
+      
+      async function updateTrainStatus() {
+        try {
+          // Get train disruptions from PTV API
+          const response = await fetch(`${PTV_BASE_URL}/disruptions?route_types=0&devid=${PTV_API_KEY}`);
+          if (response.ok) {
+            const data = await response.json();
+            const disruptions = data.disruptions || [];
+            
+            const trainStatus = document.querySelector('#train-status');
+            if (trainStatus) {
+              if (disruptions.length > 0) {
+                trainStatus.className = 'status-indicator status-warning';
+                trainStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Delays';
+              } else {
+                trainStatus.className = 'status-indicator status-good';
+                trainStatus.innerHTML = '<i class="fas fa-check-circle"></i> Good Service';
+              }
+            }
+          }
+        } catch (error) {
+          console.log('Train status API failed');
+        }
+      }
+      
+      async function updateBusStatus() {
+        try {
+          const response = await fetch(`${PTV_BASE_URL}/disruptions?route_types=3&devid=${PTV_API_KEY}`);
+          if (response.ok) {
+            const data = await response.json();
+            const disruptions = data.disruptions || [];
+            
+            const busStatus = document.querySelector('#bus-status');
+            if (busStatus) {
+              if (disruptions.length > 0) {
+                busStatus.className = 'status-indicator status-warning';
+                busStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Delays';
+              } else {
+                busStatus.className = 'status-indicator status-good';
+                busStatus.innerHTML = '<i class="fas fa-check-circle"></i> Good Service';
+              }
+            }
+          }
+        } catch (error) {
+          console.log('Bus status API failed');
+        }
+      }
+      
+      async function updateTramStatus() {
+        try {
+          const response = await fetch(`${PTV_BASE_URL}/disruptions?route_types=1&devid=${PTV_API_KEY}`);
+          if (response.ok) {
+            const data = await response.json();
+            const disruptions = data.disruptions || [];
+            
+            const tramStatus = document.querySelector('#tram-status');
+            if (tramStatus) {
+              if (disruptions.length > 0) {
+                tramStatus.className = 'status-indicator status-warning';
+                tramStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Delays';
+              } else {
+                tramStatus.className = 'status-indicator status-good';
+                tramStatus.innerHTML = '<i class="fas fa-check-circle"></i> Good Service';
+              }
+            }
+          }
+        } catch (error) {
+          console.log('Tram status API failed');
+        }
+      }
+      
+      function updateSimulatedStatus() {
+        // Fallback simulated status updates
+        const statuses = ['status-good', 'status-warning', 'status-error'];
+        const messages = [
+          ['Good Service', 'Delays', 'Service Suspended'],
+          ['Good Service', 'Delays', 'Service Suspended'],
+          ['Good Service', 'Delays', 'Service Suspended']
+        ];
+        
+        ['train', 'bus', 'tram'].forEach((type, index) => {
+          const statusElement = document.querySelector(`#${type}-status`);
+          if (statusElement) {
+            const randomStatus = Math.floor(Math.random() * 3);
+            statusElement.className = `status-indicator ${statuses[randomStatus]}`;
+            statusElement.innerHTML = `<i class="fas fa-${randomStatus === 0 ? 'check-circle' : randomStatus === 1 ? 'exclamation-triangle' : 'times-circle'}"></i> ${messages[index][randomStatus]}`;
+          }
+        });
+      }
+      
+      // This function is removed - using the main updateServiceAlerts function above
+      
+      // This function is removed - using the main updateServiceAlerts function above
+      
+      // Real Journey Planning with PTV API
+      // Journey planner functions removed - focusing only on fare calculator
+      
+      // All journey planner functions removed - focusing only on fare calculator
+      
+      function openChatbot() {
+        // Open the chatbot interface
+        const chatButton = document.querySelector('.fixed-action-btn a');
+        if (chatButton) {
+          chatButton.click();
+        }
+      }
+      
+      // Enhanced Fare Calculator - Station A to Station B
+      function calculateFare() {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'fare-modal';
+        modal.innerHTML = `
+          <div class="modal-content">
+            <h4><i class="fas fa-calculator"></i> Melbourne Fare Calculator</h4>
+            <p class="flow-text">Calculate your perfect fare from Station A to Station B</p>
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" id="from-station" class="validate" required list="from-stations" placeholder="Enter starting station">
+                <label for="from-station">From Station A</label>
+                <datalist id="from-stations">
+                  <option value="Flinders Street Station">
+                  <option value="Melbourne Central">
+                  <option value="Parliament">
+                  <option value="Southern Cross">
+                  <option value="Richmond">
+                  <option value="Caulfield">
+                  <option value="Ringwood">
+                  <option value="Frankston">
+                  <option value="Box Hill">
+                  <option value="Dandenong">
+                  <option value="Sunbury">
+                  <option value="Craigieburn">
+                  <option value="Upfield">
+                  <option value="Werribee">
+                  <option value="Williamstown">
+                  <option value="Lilydale">
+                  <option value="Belgrave">
+                  <option value="Alamein">
+                  <option value="Glen Waverley">
+                  <option value="Pakenham">
+                  <option value="Cranbourne">
+                  <option value="Sandringham">
+                  <option value="Hampton">
+                  <option value="Brighton Beach">
+                  <option value="Middle Brighton">
+                  <option value="North Brighton">
+                  <option value="Gardenvale">
+                  <option value="Elsternwick">
+                  <option value="Ripponlea">
+                  <option value="Balaclava">
+                  <option value="Windsor">
+                  <option value="Prahran">
+                  <option value="South Yarra">
+                  <option value="Toorak">
+                  <option value="Hawksburn">
+                  <option value="Armadale">
+                  <option value="Malvern">
+                  <option value="Glen Iris">
+                  <option value="Darling">
+                  <option value="East Malvern">
+                  <option value="Holmesglen">
+                  <option value="Jordanville">
+                  <option value="Mount Waverley">
+                  <option value="Syndal">
+                  <option value="Glen Waverley">
+                  <option value="Heatherdale">
+                  <option value="Ringwood East">
+                  <option value="Croydon">
+                  <option value="Mooroolbark">
+                  <option value="Lilydale">
+                  <option value="Nunawading">
+                  <option value="Blackburn">
+                  <option value="Laburnum">
+                  <option value="Mitcham">
+                  <option value="Heatherdale">
+                  <option value="Ringwood">
+                  <option value="Ringwood East">
+                  <option value="Croydon">
+                  <option value="Mooroolbark">
+                  <option value="Lilydale">
+                  <option value="Belgrave">
+                  <option value="Tecoma">
+                  <option value="Upwey">
+                  <option value="Upper Ferntree Gully">
+                  <option value="Ferntree Gully">
+                  <option value="Boronia">
+                  <option value="Bayswater">
+                  <option value="Heathmont">
+                  <option value="Ringwood">
+                  <option value="Alamein">
+                  <option value="Ashburton">
+                  <option value="Burwood">
+                  <option value="Hartwell">
+                  <option value="Willison">
+                  <option value="East Camberwell">
+                  <option value="Camberwell">
+                  <option value="Auburn">
+                  <option value="Glen Iris">
+                  <option value="Gardiner">
+                  <option value="Tooronga">
+                  <option value="Kooyong">
+                  <option value="Heyington">
+                  <option value="South Yarra">
+                  <option value="Pakenham">
+                  <option value="Cardinia Road">
+                  <option value="Officer">
+                  <option value="Beaconsfield">
+                  <option value="Berwick">
+                  <option value="Narre Warren">
+                  <option value="Hallam">
+                  <option value="Dandenong">
+                  <option value="Yarraman">
+                  <option value="Noble Park">
+                  <option value="Sandown Park">
+                  <option value="Springvale">
+                  <option value="Westall">
+                  <option value="Clayton">
+                  <option value="Huntingdale">
+                  <option value="Oakleigh">
+                  <option value="Hughesdale">
+                  <option value="Murrumbeena">
+                  <option value="Carnegie">
+                  <option value="East Malvern">
+                  <option value="Holmesglen">
+                  <option value="Jordanville">
+                  <option value="Mount Waverley">
+                  <option value="Syndal">
+                  <option value="Glen Waverley">
+                  <option value="Cranbourne">
+                  <option value="Merinda Park">
+                  <option value="Lynbrook">
+                  <option value="Doveton">
+                  <option value="Eumemmerring">
+                  <option value="Hallam">
+                  <option value="Narre Warren">
+                  <option value="Berwick">
+                  <option value="Beaconsfield">
+                  <option value="Officer">
+                  <option value="Cardinia Road">
+                  <option value="Pakenham">
+                  <option value="Sunbury">
+                  <option value="Diggers Rest">
+                  <option value="Watergardens">
+                  <option value="Keilor Plains">
+                  <option value="St Albans">
+                  <option value="Ginifer">
+                  <option value="Albion">
+                  <option value="Sunshine">
+                  <option value="West Footscray">
+                  <option value="Middle Footscray">
+                  <option value="Footscray">
+                  <option value="Seddon">
+                  <option value="Yarraville">
+                  <option value="Spotswood">
+                  <option value="Newport">
+                  <option value="South Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Craigieburn">
+                  <option value="Roxburgh Park">
+                  <option value="Coolaroo">
+                  <option value="Broadmeadows">
+                  <option value="Jacana">
+                  <option value="Glenroy">
+                  <option value="Oak Park">
+                  <option value="Pascoe Vale">
+                  <option value="Strathmore">
+                  <option value="Essendon">
+                  <option value="Glenbervie">
+                  <option value="Moonee Ponds">
+                  <option value="Ascot Vale">
+                  <option value="Newmarket">
+                  <option value="Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Upfield">
+                  <option value="Batman">
+                  <option value="Coburg">
+                  <option value="Moreland">
+                  <option value="Anstey">
+                  <option value="Brunswick">
+                  <option value="Jewell">
+                  <option value="Royal Park">
+                  <option value="Macaulay">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Williamstown">
+                  <option value="Williamstown Beach">
+                  <option value="Newport">
+                  <option value="Spotswood">
+                  <option value="Yarraville">
+                  <option value="Seddon">
+                  <option value="Footscray">
+                  <option value="West Footscray">
+                  <option value="Middle Footscray">
+                  <option value="South Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Werribee">
+                  <option value="Hoppers Crossing">
+                  <option value="Tarneit">
+                  <option value="Wyndham Vale">
+                  <option value="Manor Lakes">
+                  <option value="Little River">
+                  <option value="Lara">
+                  <option value="Corio">
+                  <option value="North Shore">
+                  <option value="North Geelong">
+                  <option value="Geelong">
+                  <option value="South Geelong">
+                  <option value="Marshall">
+                  <option value="Waurn Ponds">
+                  <option value="Winchelsea">
+                  <option value="Birregurra">
+                  <option value="Colac">
+                </datalist>
+              </div>
+              <div class="input-field col s12">
+                <input type="text" id="to-station" class="validate" required list="to-stations" placeholder="Enter destination station">
+                <label for="to-station">To Station B</label>
+                <datalist id="to-stations">
+                  <option value="Flinders Street Station">
+                  <option value="Melbourne Central">
+                  <option value="Parliament">
+                  <option value="Southern Cross">
+                  <option value="Richmond">
+                  <option value="Caulfield">
+                  <option value="Ringwood">
+                  <option value="Frankston">
+                  <option value="Box Hill">
+                  <option value="Dandenong">
+                  <option value="Sunbury">
+                  <option value="Craigieburn">
+                  <option value="Upfield">
+                  <option value="Werribee">
+                  <option value="Williamstown">
+                  <option value="Lilydale">
+                  <option value="Belgrave">
+                  <option value="Alamein">
+                  <option value="Glen Waverley">
+                  <option value="Pakenham">
+                  <option value="Cranbourne">
+                  <option value="Sandringham">
+                  <option value="Hampton">
+                  <option value="Brighton Beach">
+                  <option value="Middle Brighton">
+                  <option value="North Brighton">
+                  <option value="Gardenvale">
+                  <option value="Elsternwick">
+                  <option value="Ripponlea">
+                  <option value="Balaclava">
+                  <option value="Windsor">
+                  <option value="Prahran">
+                  <option value="South Yarra">
+                  <option value="Toorak">
+                  <option value="Hawksburn">
+                  <option value="Armadale">
+                  <option value="Malvern">
+                  <option value="Glen Iris">
+                  <option value="Darling">
+                  <option value="East Malvern">
+                  <option value="Holmesglen">
+                  <option value="Jordanville">
+                  <option value="Mount Waverley">
+                  <option value="Syndal">
+                  <option value="Glen Waverley">
+                  <option value="Heatherdale">
+                  <option value="Ringwood East">
+                  <option value="Croydon">
+                  <option value="Mooroolbark">
+                  <option value="Lilydale">
+                  <option value="Nunawading">
+                  <option value="Blackburn">
+                  <option value="Laburnum">
+                  <option value="Mitcham">
+                  <option value="Heatherdale">
+                  <option value="Ringwood">
+                  <option value="Ringwood East">
+                  <option value="Croydon">
+                  <option value="Mooroolbark">
+                  <option value="Lilydale">
+                  <option value="Belgrave">
+                  <option value="Tecoma">
+                  <option value="Upwey">
+                  <option value="Upper Ferntree Gully">
+                  <option value="Ferntree Gully">
+                  <option value="Boronia">
+                  <option value="Bayswater">
+                  <option value="Heathmont">
+                  <option value="Ringwood">
+                  <option value="Alamein">
+                  <option value="Ashburton">
+                  <option value="Burwood">
+                  <option value="Hartwell">
+                  <option value="Willison">
+                  <option value="East Camberwell">
+                  <option value="Camberwell">
+                  <option value="Auburn">
+                  <option value="Glen Iris">
+                  <option value="Gardiner">
+                  <option value="Tooronga">
+                  <option value="Kooyong">
+                  <option value="Heyington">
+                  <option value="South Yarra">
+                  <option value="Pakenham">
+                  <option value="Cardinia Road">
+                  <option value="Officer">
+                  <option value="Beaconsfield">
+                  <option value="Berwick">
+                  <option value="Narre Warren">
+                  <option value="Hallam">
+                  <option value="Dandenong">
+                  <option value="Yarraman">
+                  <option value="Noble Park">
+                  <option value="Sandown Park">
+                  <option value="Springvale">
+                  <option value="Westall">
+                  <option value="Clayton">
+                  <option value="Huntingdale">
+                  <option value="Oakleigh">
+                  <option value="Hughesdale">
+                  <option value="Murrumbeena">
+                  <option value="Carnegie">
+                  <option value="East Malvern">
+                  <option value="Holmesglen">
+                  <option value="Jordanville">
+                  <option value="Mount Waverley">
+                  <option value="Syndal">
+                  <option value="Glen Waverley">
+                  <option value="Cranbourne">
+                  <option value="Merinda Park">
+                  <option value="Lynbrook">
+                  <option value="Doveton">
+                  <option value="Eumemmerring">
+                  <option value="Hallam">
+                  <option value="Narre Warren">
+                  <option value="Berwick">
+                  <option value="Beaconsfield">
+                  <option value="Officer">
+                  <option value="Cardinia Road">
+                  <option value="Pakenham">
+                  <option value="Sunbury">
+                  <option value="Diggers Rest">
+                  <option value="Watergardens">
+                  <option value="Keilor Plains">
+                  <option value="St Albans">
+                  <option value="Ginifer">
+                  <option value="Albion">
+                  <option value="Sunshine">
+                  <option value="West Footscray">
+                  <option value="Middle Footscray">
+                  <option value="Footscray">
+                  <option value="Seddon">
+                  <option value="Yarraville">
+                  <option value="Spotswood">
+                  <option value="Newport">
+                  <option value="South Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Craigieburn">
+                  <option value="Roxburgh Park">
+                  <option value="Coolaroo">
+                  <option value="Broadmeadows">
+                  <option value="Jacana">
+                  <option value="Glenroy">
+                  <option value="Oak Park">
+                  <option value="Pascoe Vale">
+                  <option value="Strathmore">
+                  <option value="Essendon">
+                  <option value="Glenbervie">
+                  <option value="Moonee Ponds">
+                  <option value="Ascot Vale">
+                  <option value="Newmarket">
+                  <option value="Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Upfield">
+                  <option value="Batman">
+                  <option value="Coburg">
+                  <option value="Moreland">
+                  <option value="Anstey">
+                  <option value="Brunswick">
+                  <option value="Jewell">
+                  <option value="Royal Park">
+                  <option value="Macaulay">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Williamstown">
+                  <option value="Williamstown Beach">
+                  <option value="Newport">
+                  <option value="Spotswood">
+                  <option value="Yarraville">
+                  <option value="Seddon">
+                  <option value="Footscray">
+                  <option value="West Footscray">
+                  <option value="Middle Footscray">
+                  <option value="South Kensington">
+                  <option value="North Melbourne">
+                  <option value="Southern Cross">
+                  <option value="Flinders Street">
+                  <option value="Werribee">
+                  <option value="Hoppers Crossing">
+                  <option value="Tarneit">
+                  <option value="Wyndham Vale">
+                  <option value="Manor Lakes">
+                  <option value="Little River">
+                  <option value="Lara">
+                  <option value="Corio">
+                  <option value="North Shore">
+                  <option value="North Geelong">
+                  <option value="Geelong">
+                  <option value="South Geelong">
+                  <option value="Marshall">
+                  <option value="Waurn Ponds">
+                  <option value="Winchelsea">
+                  <option value="Birregurra">
+                  <option value="Colac">
+                </datalist>
+              </div>
+              <div class="input-field col s12">
+                <select id="concession" class="validate">
+                  <option value="full">Full Fare</option>
+                  <option value="concession">Concession</option>
+                  <option value="senior">Senior/Student</option>
+                </select>
+                <label>Fare Type</label>
+              </div>
+            </div>
+            
+            <!-- Instant Fare Display -->
+            <div id="instant-fare-display" class="fare-display-area" style="display: none;">
+              <h6><i class="fas fa-dollar-sign"></i> Perfect Fare Calculation</h6>
+              <div class="fare-info-card">
+                <div class="fare-amount-large" id="instant-fare-amount">$0.00</div>
+                <div class="fare-details-small" id="instant-fare-details">Select both stations to see fare</div>
+              </div>
+            </div>
+            
+            <div class="modal-footer">
+              <button class="btn waves-effect waves-light deep-purple" onclick="calculateFareAmount()">
+                <i class="fas fa-calculator"></i> Calculate Detailed Fare
+              </button>
+              <button class="btn-flat" onclick="closeFareModal()">Cancel</button>
+            </div>
+            <div id="fare-results" class="fare-results"></div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        M.Modal.init(modal);
+        modal.style.display = 'block';
+        modal.classList.add('show');
+        
+        // Add event listeners for instant fare calculation
+        document.getElementById('from-station').addEventListener('input', showInstantFare);
+        document.getElementById('to-station').addEventListener('input', showInstantFare);
+        
+        // Initialize Materialize form elements
+        M.updateTextFields();
+      }
+      
+      function showInstantFare() {
+        const fromStation = document.getElementById('from-station').value;
+        const toStation = document.getElementById('to-station').value;
+        const fareDisplay = document.getElementById('instant-fare-display');
+        const fareAmount = document.getElementById('instant-fare-amount');
+        const fareDetails = document.getElementById('instant-fare-details');
+        
+        if (fromStation && toStation) {
+          // Calculate fare based on zones
+          const fromZone = getStationZone(fromStation);
+          const toZone = getStationZone(toStation);
+          const fare = calculateFareAmountHelper(fromZone, toZone);
+          
+          // Show fare display
+          fareDisplay.style.display = 'block';
+          fareAmount.textContent = `$${fare.single.toFixed(2)}`;
+          
+          // Show zone information
+          let zoneInfo = '';
+          if (fromZone === toZone) {
+            zoneInfo = `Zone ${fromZone} only`;
+          } else {
+            zoneInfo = `Zone ${fromZone} to Zone ${toZone}`;
+          }
+          
+          fareDetails.innerHTML = `
+            <div class="fare-breakdown">
+              <div><strong>Single Trip:</strong> $${fare.single.toFixed(2)}</div>
+              <div><strong>Daily Cap:</strong> $${fare.daily.toFixed(2)}</div>
+              <div><strong>Weekly Cap:</strong> $${fare.weekly.toFixed(2)}</div>
+              <div class="zone-info">${zoneInfo}</div>
+            </div>
+          `;
+        } else {
+          // Hide fare display if both stations not selected
+          fareDisplay.style.display = 'none';
+        }
+      }
+      
+      function calculateFareAmount() {
+        const fromStation = document.getElementById('from-station').value;
+        const toStation = document.getElementById('to-station').value;
+        const concession = document.getElementById('concession').value;
+        
+        if (!fromStation || !toStation) {
+          alert('Please select both from and to stations');
+          return;
+        }
+        
+        const fromZone = getStationZone(fromStation);
+        const toZone = getStationZone(toStation);
+        
+        // Zones are automatically determined from stations
+        
+        const resultsDiv = document.getElementById('fare-results');
+        
+        // Melbourne Myki fare structure
+        let baseFare = 0;
+        if (fromZone === 1 && toZone === 1) {
+          baseFare = 4.60; // Zone 1 only
+        } else if (fromZone === 2 && toZone === 2) {
+          baseFare = 3.10; // Zone 2 only
+        } else {
+          baseFare = 6.70; // Zone 1+2
+        }
+        
+        // Apply concession rates
+        let fare = baseFare;
+        if (concession === 'concession') {
+          fare = baseFare * 0.5; // 50% discount
+        } else if (concession === 'senior') {
+          fare = baseFare * 0.25; // 75% discount
+        }
+        
+        const dailyCap = concession === 'full' ? 9.20 : concession === 'concession' ? 4.60 : 2.30;
+        const weeklyCap = concession === 'full' ? 46.00 : concession === 'concession' ? 23.00 : 11.50;
+        
+        resultsDiv.innerHTML = `
+          <div class="fare-calculation">
+            <h5><i class="fas fa-receipt"></i> Perfect Fare Calculation</h5>
+            <p class="journey-route"><i class="fas fa-route"></i> ${fromStation} → ${toStation}</p>
+            <div class="fare-details">
+              <div class="fare-item">
+                <span class="fare-label">Single Trip:</span>
+                <span class="fare-amount">$${fare.toFixed(2)}</span>
+              </div>
+              <div class="fare-item">
+                <span class="fare-label">Daily Cap:</span>
+                <span class="fare-amount">$${dailyCap.toFixed(2)}</span>
+              </div>
+              <div class="fare-item">
+                <span class="fare-label">Weekly Cap:</span>
+                <span class="fare-amount">$${weeklyCap.toFixed(2)}</span>
+              </div>
+            </div>
+            
+            <div class="fare-info">
+              <h6><i class="fas fa-info-circle"></i> Payment Methods:</h6>
+              <ul>
+                <li><i class="fas fa-credit-card"></i> Myki Card (Touch on/off)</li>
+                <li><i class="fas fa-mobile-alt"></i> Myki Mobile App</li>
+                <li><i class="fas fa-credit-card"></i> Contactless Payment (Visa/Mastercard)</li>
+              </ul>
+              
+              <div class="fare-tips">
+                <h6><i class="fas fa-lightbulb"></i> Money-Saving Tips:</h6>
+                <ul>
+                  <li>Use daily/weekly caps for multiple trips</li>
+                  <li>Travel during off-peak hours for better value</li>
+                  <li>Consider monthly passes for regular commuters</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="fare-footer">
+              <div class="info-box">
+                <i class="fas fa-question-circle"></i>
+                <p><strong>Need help with Myki?</strong> Ask our chatbot for Myki top-up locations, balance checking, or fare queries!</p>
+                <button class="btn-small waves-effect waves-light deep-purple" onclick="openChatbot()">
+                  <i class="fas fa-comments"></i> Ask Chatbot
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      function closeFareModal() {
+        const modal = document.getElementById('fare-modal');
+        if (modal) {
+          modal.remove();
+        }
+      }
+    </script>
   </body>
 </html>
