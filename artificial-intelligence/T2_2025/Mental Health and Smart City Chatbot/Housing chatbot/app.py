@@ -7,7 +7,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.types import Command
 
-from graph import create_graph
+from chatbot.graph import create_graph
 
 
 @cl.on_chat_start

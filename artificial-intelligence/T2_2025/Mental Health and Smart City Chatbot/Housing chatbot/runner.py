@@ -4,7 +4,7 @@ from langgraph.types import Command
 
 import json
 import uuid
-from graph import create_graph
+from chatbot.graph import create_graph
 
 from dotenv import load_dotenv
 load_dotenv()

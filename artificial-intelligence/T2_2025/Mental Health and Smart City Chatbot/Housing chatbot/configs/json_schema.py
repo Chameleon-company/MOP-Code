@@ -1,5 +1,4 @@
-import json
-from typing import Optional, List, Literal
+from typing import Optional, Literal
 from pydantic import BaseModel, Field, conset
 
 # Schema definition for JSON output
