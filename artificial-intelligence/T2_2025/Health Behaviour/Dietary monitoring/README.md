@@ -8,7 +8,7 @@ The goal of this work is to build a food image classification pipeline using the
 - **Dataset:** [Food-101](https://www.vision.ee.ethz.ch/datasets_extra/food-101/) – 101 food categories with 1,000 images each.
 - **Model Architecture:** EfficientNetB0 (transfer learning with TensorFlow/Keras).
 - **Training Strategy:** Two-stage approach (frozen head → fine-tuning top layers) and an ultra-fast subset training mode for rapid prototyping.
-# Food-101 EfficientNetB0 – Dietary Monitoring (SIT782 Project)
+# Food-101 EfficientNetB0 – Dietary Monitoring.
 # Nutrition5k:
 
 5,000+ meals with paired video frames, metadata, and nutritional breakdowns
@@ -177,5 +177,6 @@ Hyperparameter tuning (learning rate, batch size, dropout)
 Extend model to multi-modal input (image + metadata fusion)
 
 Deploy pipeline to cloud for scalable dietary monitoring
+
 
 
