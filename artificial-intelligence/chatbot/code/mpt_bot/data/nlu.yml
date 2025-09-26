@@ -11,6 +11,17 @@ nlu:
     - North Station
     - South Station
     - East Station
+
+- lookup: station_name
+  examples: |
+    - Prahran Station/High St #30
+    - Armadale Station/High St #40
+    - Glenferrie Rd/Wattletree Rd #45
+    - Duncraig Ave/Wattletree Rd #44
+
+
+
+
 - intent: greet
   examples: |
     - hey
@@ -96,7 +107,6 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-# Alex Start - Transport Intents --------------------------------------------------------------------------------
 - intent: find_best_route
   examples: |
     - What is the best route from [Southern Cross](station_a) to [Richmond](station_b)?
@@ -173,9 +183,6 @@ nlu:
   examples: |
     - Are there any train disruptions on route [Frankston](route_name)?
     - Check train disruptions for route [Frankston - City](route_name).
-# Alex Finish - Transport Intents --------------------------------------------------------------------------------
-
-# Ross Start - Intents
 - intent: find_nearest_station
   examples: |
     - how to find nearest [train] station?(transport_mode_rp)
@@ -213,7 +220,6 @@ nlu:
     - Generate a map of [bus](transport_mode_rp) stops in [Carlton](location)
     - Show me the local [train](transport_mode_rp) stations nearby the [MCG](location)
     - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).  
-#Ross Finish - Intents
 
 - intent: run_direction_script
   examples: |
@@ -229,33 +235,32 @@ nlu:
 
 #Logan: Temporary location solution, working on better method
 
-# - intent: provide_location
-#   examples: |
-#     - [Southbank](location)
-#     - [St Kilda](location)
-#     - [Collingwood](location)
-#     - [Footscray](location)
-#     - [Melbourne Central](location)
-#     - [Prahran](location)
-#     - [Federation Square](location)
-#     - [Melbourne Airport](location)
-#     - [Essendon](location)
+- intent: provide_location
+  examples: |
+    - [Southbank](location)
+    - [St Kilda](location)
+    - [Collingwood](location)
+    - [Footscray](location)
+    - [Melbourne Central](location)
+    - [Prahran](location)
+    - [Federation Square](location)
+    - [Melbourne Airport](location)
+    - [Essendon](location)
 
 
-# - intent: provide_destination
-#   examples: |
-#     - [Melbourne CBD](location)
-#     - [Richmond](location)
-#     - [South Melbourne](location)
-#     - [Brunswick](location)
-#     - [Docklands](location)
-#     - [Fitzroy](location)
-#     - [North Melbourne](location)
-#     - [South Yarra](location)
-#     - [Carlton](location)
-#     - [MCG](location)    
+- intent: provide_destination
+  examples: |
+    - [Melbourne CBD](location)
+    - [Richmond](location)
+    - [South Melbourne](location)
+    - [Brunswick](location)
+    - [Docklands](location)
+    - [Fitzroy](location)
+    - [North Melbourne](location)
+    - [South Yarra](location)
+    - [Carlton](location)
+    - [MCG](location)    
 
-#Logan new
 - intent: get_directions
   examples: |
     - How to get from [Essendon](location_from) to [Prahran](location_to)
@@ -378,8 +383,6 @@ nlu:
     - Where can I find stations that have [parking](feature)?
     - Could you tell me about stations that have [lifts](feature)?
     
-    
-# Jubal NLU (start)-------------------------------------------------------------------------------
 - intent: ask_direct_tram_route
   examples: |
     - Is there a direct tram from [Flinders Street] to [Docklands]?
@@ -445,7 +448,26 @@ nlu:
     - What is taffic status in [Brighton](station_a)?
     - Can you tell me the traffic conditions in [Flinders Street](station_a)?
 
-#Awanish NLU ends ---------------------
+#rathanak-------
+- intent: find_parking_near_station
+  examples: |
+    - Is there parking close to [Richmond](station)?
+    - Show me nearby car parks near [Southern Cross](station)
+    - Where do I leave my car near [Carlton](station)?
+    - Parking options around [St Kilda](station)?
+    - Can I park at [Flagstaff](station)?
+    - Any parking zones near [Footscray](station)?
+    - I need to park near [Prahran](station)
+    - Car park near [Parkville](station)
+    - Where is a parking spot near [Melbourne Central](station)?
+    - Parking availability around [Flinders Street](station)?
+    - Where can I park near [Melbourne Central](station)?
+    - Is there any parking near [Richmond](station)?
+    - I need to find parking at [Flagstaff](station)
+    - Car park options near [Southern Cross](station)?
+    - Find parking near [Melbourne Central Station](station)
+    - Where can I park near [Melbourne Central](station)?
+    - Any parking around [Parliament Station](station)?
 
 entities:
   - station_name

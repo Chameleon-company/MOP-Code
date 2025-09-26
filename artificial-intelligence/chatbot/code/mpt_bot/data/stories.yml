@@ -241,10 +241,10 @@ stories:
     - intent: ask_tram_route_with_transfers
     - action: action_find_tram_route_with_transfers
 
-  - story: Find direct tram route
+  - story: Direct tram route
     steps:
-    - intent: ask_tram_route
-    - action: action_check_direct_tram_route
+    - intent: ask_direct_tram_route
+    - action: action_check_direct_tram
 #jubal stories (end)--------------------------------------------------------------------
 #Awanish stories (Start)----------------------
   - story: User asks about traffic
