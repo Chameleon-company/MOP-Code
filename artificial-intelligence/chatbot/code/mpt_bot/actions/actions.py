@@ -15,7 +15,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from typing import Tuple
 from collections import deque
 import certifi
-from actions.gtfs_utils import GTFSUtils
+from .gtfs_utils import GTFSUtils
 from sanic import Sanic
 from sanic.response import text
 from geopy.distance import geodesic
@@ -1167,16 +1167,21 @@ class ActionCheckStation(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         station_name = tracker.get_slot("station_name")
+
+        if not station_name:
+            dispatcher.utter_message(text="Sorry, I couldn't identify the station you're asking about. Please try rephrasing.")
+            return []
+
         station_name = station_name.strip().lower()
 
-        if station_name not in station_data['Station Name'].tolist():
+        if station_name not in station_data['Station Name'].str.lower().tolist():
             dispatcher.utter_message(text=f"Sorry, I don't have information about {station_name} station.")
             return []
 
-        station_info = station_data[station_data['Station Name'] == station_name]
+        station_info = station_data[station_data['Station Name'].str.lower() == station_name]
         
         features = station_info.iloc[0].to_dict()
-        feature_descriptions = "\n".join([f"{k}: {v}" for k, v in features.items() if k != "Station Name"])
+        feature_descriptions = "\n".join([f"{k}: {v}" for k, v in features.items() if k.lower() != "station name"])
         dispatcher.utter_message(text=f"Here are the accessibility features for {station_name.capitalize()} station:\n{feature_descriptions}")
         
         return []
@@ -1963,4 +1968,458 @@ class ActionMapTransportInArea(Action):
             dispatcher.utter_message(text="An error occurred while generating the tram map.")
         return []
 
-# Ross Finish Actions
+#rathanak action----------
+# from difflib import get_close_matches
+# import pandas as pd
+# import os
+# import csv
+# from rapidfuzz import fuzz
+# from typing import Any, Text, Dict, List
+# from rasa_sdk import Action, Tracker
+# from rasa_sdk.executor import CollectingDispatcher
+# class ActionFindParkingNearStation(Action):
+#     ''' -------------------------------------------------------------------------------------------------------
+#         Name: Find parking near station
+#         Author: rathanak
+#         Purpose: To find a parking near station
+#         -------------------------------------------------------------------------------------------------------
+#    '''
+#     def name(self) -> Text:
+#         return "action_find_parking_near_station"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         user_input = tracker.get_slot("station") or "unknown"
+#         parking_csv_path = "mpt_data/parking/parking_data.csv"
+
+#         try:
+#             df = pd.read_csv(parking_csv_path)
+#         except Exception as e:
+#             dispatcher.utter_message(text=f"Error loading parking data: {e}")
+#             return []
+
+#         known_stations = df['Nearby Station'].dropna().unique().tolist()
+#         match = get_close_matches(user_input.lower(), [s.lower() for s in known_stations], n=1, cutoff=0.6)
+
+#         if match:
+#             matched_station = next(s for s in known_stations if s.lower() == match[0])
+#             carparks = df[df['Nearby Station'].str.lower() == matched_station.lower()]
+#             if not carparks.empty:
+#                 carpark = carparks.iloc[0]
+#                 response = f"Nearest parking to {matched_station}: {carpark['Parking Name']}, approximately 100m walk."
+#             else:
+#                 response = f"No known parking found near {matched_station}."
+#         else:
+#             response = "Sorry, I couldn't identify the station you're asking about. Please try rephrasing."
+
+#         dispatcher.utter_message(text=response)
+#         return []
+    
+#=== no map ===
+# from typing import Any, Text, Dict, List
+# from rasa_sdk import Action, Tracker
+# from rasa_sdk.executor import CollectingDispatcher
+# import os
+# import pandas as pd
+# from rapidfuzz import process
+# from math import radians, sin, cos, sqrt, atan2
+
+# ''' -------------------------------------------------------------------------------------------------------
+#         Name: Find parking near station
+#         Author: rathanak
+#         Purpose: To find a parking near station
+#  -------------------------------------------------------------------------------------------------------
+#  '''
+
+# # Load parking and stop data once at module level
+# parking_df = pd.read_csv("mpt_data/parking/parking_data.csv")
+# stops_df = pd.read_csv("mpt_data/parking/stops.txt")
+
+# # Create a mapping: stop_name -> (lat, lon)
+# station_coordinates = {
+#     row["stop_name"].strip(): (row["stop_lat"], row["stop_lon"])
+#     for _, row in stops_df.iterrows()
+# }
+
+# # Helper to get closest station name using fuzzy matching
+# def get_closest_station_name(user_input: str) -> str:
+#     station_names = list(station_coordinates.keys())
+#     match = process.extractOne(user_input.strip(), station_names, score_cutoff=70)
+#     return match[0] if match else None
+
+# # Haversine distance between two lat/lon pairs
+# def haversine_distance(lat1, lon1, lat2, lon2):
+#     R = 6371  # Earth radius in km
+#     dlat = radians(lat2 - lat1)
+#     dlon = radians(lon2 - lon1)
+#     a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+#     c = 2 * atan2(sqrt(a), sqrt(1 - a))
+#     return R * c
+
+# class ActionFindParkingNearStation(Action):
+#     def name(self) -> Text:
+#         return "action_find_parking_near_station"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         user_station = tracker.get_slot("station") or ""
+#         print("📍 User input:", user_station)
+
+#         closest_station = get_closest_station_name(user_station)
+
+#         if not closest_station:
+#             dispatcher.utter_message(text="Sorry, I couldn't identify the station you're asking about. Please try rephrasing.")
+#             return []
+
+#         print(" Matched to station:", closest_station)
+
+#         if closest_station not in station_coordinates:
+#             print(f" Station not found in coordinates: {closest_station}")
+#             dispatcher.utter_message(text=f"Location data for {closest_station} Station is missing.")
+#             return []
+
+#         station_lat, station_lon = station_coordinates[closest_station]
+
+#         parking_df["Distance_km"] = parking_df.apply(
+#             lambda row: haversine_distance(
+#                 station_lat, station_lon, row["Latitude"], row["Longitude"]
+#             ), axis=1
+#         )
+
+#         nearest_parkings = parking_df.sort_values("Distance_km").head(5)
+
+#         if nearest_parkings.empty:
+#             response = f"No parking options found near {closest_station} Station."
+#         else:
+#             response = f"Here are some parking options near {closest_station} Station:\n"
+#             for _, row in nearest_parkings.iterrows():
+#                 maps_link = f"https://www.google.com/maps/search/?api=1&query={row['Latitude']},{row['Longitude']}"
+#                 response += f"• {row['Parking Name']} ({row['Distance_km']:.2f} km away)\n  📍 [View on Map]({maps_link})\n"
+
+#         dispatcher.utter_message(text=response)
+#         return []
+
+from typing import Any, Text, Dict, List, Optional
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import os
+import pandas as pd
+import numpy as np
+from rapidfuzz import process, fuzz
+from math import radians, sin, cos, sqrt, atan2
+
+# -------------------- Module-level data loads --------------------
+PARKING_CSV = os.getenv("PARKING_CSV", "mpt_data/parking/parking_data.csv")
+STOPS_TXT   = os.getenv("STOPS_TXT",   "mpt_data/parking/stops.txt")
+
+parking_df = pd.read_csv(PARKING_CSV)
+stops_df   = pd.read_csv(STOPS_TXT)
+
+# Normalize names (strip whitespace)
+stops_df["stop_name"] = stops_df["stop_name"].astype(str).str.strip()
+
+# Build name -> (lat, lon) dict
+station_coordinates: Dict[str, tuple] = {
+    row["stop_name"]: (float(row["stop_lat"]), float(row["stop_lon"]))
+    for _, row in stops_df.iterrows()
+}
+
+station_names = list(station_coordinates.keys())
+
+# -------------------- Helpers --------------------
+def fuzzy_station(user_text: str, cutoff: int = 70) -> Optional[str]:
+    if not user_text:
+        return None
+    match = process.extractOne(
+        user_text.strip(),
+        station_names,
+        scorer=fuzz.WRatio,      # robust scorer
+        score_cutoff=cutoff
+    )
+    return match[0] if match else None
+
+def haversine_km(lat1, lon1, lat2, lon2) -> float:
+    R = 6371.0
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+    return R * (2 * atan2(sqrt(a), sqrt(1 - a)))
+
+def distances_from(station_lat: float, station_lon: float, pdf: pd.DataFrame) -> np.ndarray:
+    # vectorized haversine
+    lat2 = np.radians(pdf["Latitude"].to_numpy())
+    lon2 = np.radians(pdf["Longitude"].to_numpy())
+    lat1 = np.radians(np.full_like(lat2, station_lat))
+    lon1 = np.radians(np.full_like(lon2, station_lon))
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = np.sin(dlat/2)**2 + np.cos(lat1)*np.cos(lat2)*np.sin(dlon/2)**2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+    return 6371.0 * c
+
+# -------------------- Action --------------------
+class ActionFindParkingNearStation(Action):
+    def name(self) -> Text:
+        return "action_find_parking_near_station"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        user_station = (tracker.get_slot("station") or "").strip()
+        print(f"📍 User station slot: {user_station!r}")
+
+        # Fuzzy resolve
+        matched_station = fuzzy_station(user_station, cutoff=70)
+        if not matched_station:
+            dispatcher.utter_message(
+                text="Sorry, I couldn’t identify the station. Try the full name (e.g., “Melbourne Central Station”)."
+            )
+            return []
+
+        if matched_station not in station_coordinates:
+            dispatcher.utter_message(text=f"Location data for {matched_station} is missing.")
+            return []
+
+        station_lat, station_lon = station_coordinates[matched_station]
+
+        # Work on a copy, don’t mutate global df
+        pdf = parking_df.copy()
+        pdf["Distance_km"] = distances_from(station_lat, station_lon, pdf)
+        nearest = pdf.sort_values("Distance_km").head(5).reset_index(drop=True)
+
+        if nearest.empty:
+            dispatcher.utter_message(text=f"No parking options found near {matched_station}.")
+            return []
+
+        # Build text response
+        lines = [f"Here are parking options near **{matched_station}**:"]
+        markers = [
+            {
+                "lat": float(station_lat),
+                "lng": float(station_lon),
+                "title": matched_station,
+                "label": "S",
+                "color": "#2563eb"
+            }
+        ]
+
+        for i, row in nearest.iterrows():
+            lat = float(row["Latitude"]); lon = float(row["Longitude"])
+            name = str(row["Parking Name"])
+            dist = float(row["Distance_km"])
+            maps_link = f"https://www.google.com/maps/search/?api=1&query={lat},{lon}"
+            lines.append(f"{i+1}) {name}  ({dist:.2f} km)\n   📍 [View on Map]({maps_link})")
+            markers.append({
+                "lat": lat, "lng": lon,
+                "title": name, "label": str(i+1),
+                "color": "#16a34a"
+            })
+
+        dispatcher.utter_message(text="\n".join(lines))
+
+        # Send custom map payload for your frontend to render markers
+        dispatcher.utter_message(json_message={
+            "map": {
+                "clear": True,
+                "markers": markers
+                # "polyline": [...]  # add when drawing a path
+            }
+        })
+
+        return []
+    
+
+#================================================================   
+#=================== Tram direct routing action ==================
+from typing import Any, Dict, List, Optional, Text, Tuple
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import pandas as pd
+from rapidfuzz import process, fuzz
+import os
+import re
+
+# ---------- Config ----------
+GTFS_DIR = os.getenv("GTFS_DIR", "mpt_data/3")  # mpt_data/3 = TRAM (route_type=0)
+STOPS      = os.path.join(GTFS_DIR, "stops.txt")
+TRIPS      = os.path.join(GTFS_DIR, "trips.txt")
+STOP_TIMES = os.path.join(GTFS_DIR, "stop_times.txt")
+ROUTES     = os.path.join(GTFS_DIR, "routes.txt")
+
+# ---------- Load GTFS once ----------
+stops_df = pd.read_csv(STOPS, dtype=str)
+trips_df = pd.read_csv(TRIPS, dtype=str)
+stopt_df = pd.read_csv(STOP_TIMES, dtype=str)
+routes_df = pd.read_csv(ROUTES, dtype=str)
+
+# If routes.txt has route_type, keep only trams (0)
+if "route_type" in routes_df.columns:
+    tram_route_ids = routes_df.loc[routes_df["route_type"].astype(str) == "0", "route_id"].unique()
+    trips_df = trips_df[trips_df["route_id"].isin(tram_route_ids)]
+    stopt_df = stopt_df[stopt_df["trip_id"].isin(trips_df["trip_id"])]
+
+# Normalised stop names for fuzzy matching
+stops_df["stop_name_norm"] = stops_df["stop_name"].astype(str).str.strip()
+STOP_NAMES = stops_df["stop_name_norm"].tolist()
+
+def fuzzy_stop(q: str, cutoff: int = 78) -> Optional[Dict[str, str]]:
+    if not q:
+        return None
+    match = process.extractOne(q.strip(), STOP_NAMES, scorer=fuzz.WRatio, score_cutoff=cutoff)
+    if not match:
+        return None
+    name = match[0]
+    row = stops_df.loc[stops_df["stop_name_norm"] == name].iloc[0]
+    return {"stop_id": str(row["stop_id"]), "stop_name": str(row["stop_name_norm"])}
+
+def find_direct_trip_with_sequence(stop_id_a: str, stop_id_b: str) -> Optional[Dict[str, Any]]:
+    """
+    Returns dict with trip_id, route info, seq_a, seq_b if A->B occur on the same trip in order.
+    """
+    ta = stopt_df.loc[stopt_df["stop_id"] == stop_id_a, ["trip_id", "stop_sequence"]].copy()
+    tb = stopt_df.loc[stopt_df["stop_id"] == stop_id_b, ["trip_id", "stop_sequence"]].copy()
+    if ta.empty or tb.empty:
+        return None
+
+    ta.rename(columns={"stop_sequence": "seq_a"}, inplace=True)
+    tb.rename(columns={"stop_sequence": "seq_b"}, inplace=True)
+
+    merged = pd.merge(ta, tb, on="trip_id", how="inner")
+    if merged.empty:
+        return None
+
+    merged["seq_a"] = merged["seq_a"].astype(int)
+    merged["seq_b"] = merged["seq_b"].astype(int)
+    candidates = merged[merged["seq_a"] < merged["seq_b"]]
+    if candidates.empty:
+        return None
+
+    # Choose the earliest segment (smallest seq gap) for deterministic output
+    candidates["span"] = candidates["seq_b"] - candidates["seq_a"]
+    best = candidates.sort_values(["span", "seq_a"]).iloc[0]
+
+    trip_id = str(best["trip_id"])
+    seq_a   = int(best["seq_a"])
+    seq_b   = int(best["seq_b"])
+
+    trip_row  = trips_df.loc[trips_df["trip_id"] == trip_id].iloc[0]
+    route_id  = trip_row["route_id"]
+    route_row = routes_df.loc[routes_df["route_id"] == route_id].iloc[0]
+    route_short = route_row.get("route_short_name", route_id)
+    route_long  = route_row.get("route_long_name", "")
+
+    return {
+        "trip_id": trip_id,
+        "route_id": route_id,
+        "route_short": str(route_short),
+        "route_long": str(route_long),
+        "seq_a": seq_a,
+        "seq_b": seq_b,
+    }
+
+def polyline_for_segment(trip_id: str, seq_a: int, seq_b: int) -> List[Dict[str, float]]:
+    """
+    Build a lat/lng polyline for the trip segment between seq_a..seq_b (inclusive).
+    """
+    seg = stopt_df.loc[stopt_df["trip_id"] == trip_id, ["stop_id", "stop_sequence"]].copy()
+    seg["stop_sequence"] = seg["stop_sequence"].astype(int)
+    seg = seg[(seg["stop_sequence"] >= seq_a) & (seg["stop_sequence"] <= seq_b)]
+    if seg.empty:
+        return []
+
+    merged = seg.merge(
+        stops_df[["stop_id", "stop_lat", "stop_lon"]],
+        on="stop_id", how="left"
+    ).sort_values("stop_sequence")
+
+    # Convert to floats and drop missing
+    merged["stop_lat"] = pd.to_numeric(merged["stop_lat"], errors="coerce")
+    merged["stop_lon"] = pd.to_numeric(merged["stop_lon"], errors="coerce")
+    merged = merged.dropna(subset=["stop_lat", "stop_lon"])
+
+    return [{"lat": float(r.stop_lat), "lng": float(r.stop_lon)} for r in merged.itertuples(index=False)]
+
+class ActionCheckDirectTram(Action):
+    def name(self) -> Text:
+        return "action_check_direct_tram"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict]:
+        text = tracker.latest_message.get("text", "")
+
+        # 1) Try entities (station_a / station_b / station_name / location)
+        ents = tracker.latest_message.get("entities", [])
+        a = next((e["value"] for e in ents if e.get("entity") in {"station_a","station_name","location"}), None)
+        b = next((e["value"] for e in ents if e.get("entity") in {"station_b","station_name","location"} and e.get("value") != a), None)
+
+        # 2) Regex fallback: "from X to Y" or "to Y from X"
+        if not (a and b):
+            m = re.search(r"\bfrom\s+(.+?)\s+to\s+(.+)$", text, flags=re.I)
+            if m:
+                a = a or m.group(1)
+                b = b or m.group(2)
+            else:
+                m2 = re.search(r"\bto\s+(.+?)\s+from\s+(.+)$", text, flags=re.I)
+                if m2:
+                    a = a or m2.group(2)
+                    b = b or m2.group(1)
+
+        if not (a and b):
+            dispatcher.utter_message(text="Please provide two tram stops, e.g. “Is there a direct tram from Prahran Station/High St #30 to Armadale Station/High St #40?”")
+            return []
+
+        sa = fuzzy_stop(a)
+        sb = fuzzy_stop(b)
+        if not sa:
+            dispatcher.utter_message(text=f"I couldn't match **{a}** to a tram stop.")
+            return []
+        if not sb:
+            dispatcher.utter_message(text=f"I couldn't match **{b}** to a tram stop.")
+            return []
+
+        # 3) Check direct trip (same trip, A before B)
+        result = find_direct_trip_with_sequence(sa["stop_id"], sb["stop_id"])
+
+        # Coordinates for map markers
+        la = stops_df.loc[stops_df["stop_id"] == sa["stop_id"]][["stop_lat","stop_lon"]].iloc[0].astype(float)
+        lb = stops_df.loc[stops_df["stop_id"] == sb["stop_id"]][["stop_lat","stop_lon"]].iloc[0].astype(float)
+
+        if result:
+            msg = f"✅ Yes. Take **tram {result['route_short']}** from **{sa['stop_name']}** to **{sb['stop_name']}** (no transfers)."
+            dispatcher.utter_message(text=msg)
+
+            # Polyline for the exact segment
+            segment = polyline_for_segment(result["trip_id"], result["seq_a"], result["seq_b"])
+
+            dispatcher.utter_message(json_message={
+                "map": {
+                    "clear": True,
+                    "markers": [
+                        {"lat": float(la["stop_lat"]), "lng": float(la["stop_lon"]), "title": sa["stop_name"], "label": "S"},   # station icon in frontend
+                        {"lat": float(lb["stop_lat"]), "lng": float(lb["stop_lon"]), "title": sb["stop_name"], "label": "1"},   # parking/target icon in frontend
+                    ],
+                    "polyline": segment  # your frontend draws red path; already supported
+                }
+            })
+        else:
+            dispatcher.utter_message(text=f"❌ No single-tram service found between **{sa['stop_name']}** and **{sb['stop_name']}**. I can look for a good transfer instead.")
+            # Still show pins to orient the user
+            dispatcher.utter_message(json_message={
+                "map": {
+                    "clear": True,
+                    "markers": [
+                        {"lat": float(la["stop_lat"]), "lng": float(la["stop_lon"]), "title": sa["stop_name"], "label": "S"},
+                        {"lat": float(lb["stop_lat"]), "lng": float(lb["stop_lon"]), "title": sb["stop_name"], "label": "1"},
+                    ]
+                }
+            })
+
+        return []
+
