@@ -34,8 +34,3 @@ results/
 logs/
 # If you don't want trained models in git, uncomment:
 # models/
-
-# Project-specific (covers master’s very specific paths)
-Playground/**/.ipynb_checkpoints/
-Playground/**/.DS_Store
-datascience/**/.DS_Store
