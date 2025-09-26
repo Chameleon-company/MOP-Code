@@ -1,15 +1,21 @@
-# Food-101 EfficientNetB0 – Dietary Monitoring (Alen, T2 2025)
+# Food-101 & Nutrition5k – Dietary Monitoring (Alen, T2 2025)
 
-This folder contains the training and evaluation code developed for the **Dietary Monitoring and Nutrition Analysis Using AI** use case under the Health Behaviour team.
+This repository contains the training and evaluation code developed for the Dietary Monitoring and Nutrition Analysis Using AI use case under the Health Behaviour team.
 
-The goal of this work is to build a food image classification pipeline using the **Food-101 dataset** to support dietary tracking, calorie estimation, and personalised nutrition guidance.
+The goal of this work is to build a food image classification pipeline using the Food-101 dataset, and extend it with the Nutrition5k dataset for enhanced dietary tracking, calorie estimation, and personalised nutrition guidance.
 
 ## Project Overview
 - **Dataset:** [Food-101](https://www.vision.ee.ethz.ch/datasets_extra/food-101/) – 101 food categories with 1,000 images each.
 - **Model Architecture:** EfficientNetB0 (transfer learning with TensorFlow/Keras).
 - **Training Strategy:** Two-stage approach (frozen head → fine-tuning top layers) and an ultra-fast subset training mode for rapid prototyping.
 # Food-101 EfficientNetB0 – Dietary Monitoring (SIT782 Project)
+# Nutrition5k:
 
+5,000+ meals with paired video frames, metadata, and nutritional breakdowns
+
+Side-angle frames extracted using FFmpeg
+
+Cleaned and standardised metadata (calories, protein, carbs, fat, ingredients)
 **Python | TensorFlow | Open-Source License**
 
 A comprehensive food image classification pipeline developed for the SIT782 coursework (Capstone – Health Behaviour Use Case).  
@@ -22,14 +28,21 @@ This project builds an end-to-end deep learning pipeline to classify food images
 The system is designed to support AI-powered dietary tracking by accurately recognising food items from photographs.
 
 **Key Features:**
-- Official Food-101 train/test splits with custom validation set
-- Automated data preprocessing and optional augmentation
-- Transfer learning using EfficientNetB0 (ImageNet weights)
-- Two-stage training: frozen head → fine-tuning top layers
-- Ultra-fast training mode for rapid prototyping
-- Accuracy/loss plots, confusion matrix, per-class classification report
-- Sample prediction outputs for quick validation
+Automated preprocessing & augmentation
 
+Modular tf.data pipeline with caching & prefetching
+
+Transfer learning with EfficientNetB0
+
+Training strategies:
+
+Full dataset (Food-101 / Nutrition5k)
+
+Balanced subset with capped steps (for faster experiments)
+
+Evaluation tools: accuracy/loss plots, confusion matrices, per-class classification reports
+
+Nutrition5k extension: integrated video frame → metadata pipeline
 ---
 
 ## 📊 Dataset
@@ -75,77 +88,94 @@ Download and extract into the same directory as Copy_of_Food_101_dataset.ipynb
 
 📁 Project Structure When Run
 
-Copy_of_Food_101_dataset/
-README.md                        # Project documentation
-Copy_of_Food_101_dataset.ipynb    # Main notebook (preprocessing + training)
-food-101/                         # Dataset directory
-images/                       # All images in subfolders per class
-meta/                         # Official splits and labels
-checkpoints/                      # Saved model checkpoints
-export/                           # Final model + labels
-results/                          # Accuracy/loss plots, confusion matrices, sample predictions
+📂 Food-Nutrition-Monitoring
+ ┣ 📜 Copy_of_Food_101_dataset.ipynb     # Food-101 preprocessing + training
+ ┣ 📜 Nutrition5k.ipynb                  # Nutrition5k preprocessing + training
+ ┣ 📜 README.md                          # Project documentation
+ ┣ 📂 food-101/                          # Food-101 dataset (images + meta)
+ ┣ 📂 nutrition5k/                       # Nutrition5k dataset (frames + metadata)
+ ┣ 📂 checkpoints/                       # Saved model checkpoints
+ ┣ 📂 export/                            # Exported models + labels
+ ┣ 📂 results/                           # Accuracy/loss plots, confusion matrices
+
 
 🔬 Methodology
-Data Pipeline
-Load official train/test splits from meta files
+Food-101
 
-Create validation set (10% of train data)
-
-Resize images to 224×224
+Load official splits → resize to 224×224×3 RGB
 
 Normalise for EfficientNet preprocessing
 
-Optional: augment with flips, rotation, zoom, brightness, contrast
+Augmentation (flip, rotate, zoom, brightness, contrast)
 
-Model Training
-Stage 1: Train only classification head
+Nutrition5k
 
-Stage 2: Fine-tune last 40 layers
+Extract side-angle frames via FFmpeg
 
-Optional ultra-fast mode: balanced subset, capped steps
+Map frames to dish metadata (ingredients, nutrition totals)
+
+Clean & standardise missing values
+
+Build TF pipeline for image + metadata training
+
+Training
+
+Stage 1: Train classification head (Adam, lr=1e-3)
+
+Stage 2: Fine-tune last 40 layers (Adam, lr=1e-4)
+
+Subset training: capped steps for quick validation
 
 Evaluation
-Training & validation accuracy/loss plots
 
-Confusion matrix and classification report
+Metrics: accuracy, precision, recall, F1
 
-Sample prediction visualisations
+Visualisations: accuracy/loss curves, confusion matrices
+
+Sample predictions for qualitative validation
 
 
 📈 Results (Ultra-Fast Mode Example)
-Metric	Value
-Test Accuracy	~0.22
-Epochs	2
-Images/Class	30
-Training Time	~3 min
+Food-101 (Ultra-Fast Mode, Example)
 
-⚠ Accuracy in ultra-fast mode is lower due to reduced dataset size and epochs. Full dataset training yields higher performance.
+Test Accuracy: ~0.22 (subset, 2 epochs, 30 imgs/class)
+
+Training Time: ~3 min
+
+Full dataset training yields significantly higher performance
+
+Nutrition5k (Early Experiments)
+
+Successfully built preprocessing pipeline
+
+Metadata cleaning + frame alignment complete
+
+Next step: integrate joint model (image + nutrition metadata)
 
 🛠️ Technical Implementation
 Key Components:
 
-Data Loaders: tf.data pipelines with prefetching and optional augmentation
+TensorFlow/Keras – Model development & training
 
-Model: EfficientNetB0 with dropout and dense classification head
+scikit-learn – Evaluation metrics
 
-Training: Two-phase transfer learning
+Matplotlib/Seaborn – Visualisation
 
-Evaluation: sklearn metrics + Matplotlib visualisation
+OpenCV / FFmpeg – Image & video frame processing
 
-Technologies Used:
+Google Colab – Experimentation environment
 
-TensorFlow/Keras
-
-scikit-learn
-
-Matplotlib, Seaborn
-
-OpenCV
+GitHub – Version control & collaboration
 
 🔮 Future Improvements
-Train on full dataset with 20–30 epochs
+Train Nutrition5k model on full dataset (20–30 epochs)
 
-Advanced augmentation (MixUp, CutMix)
-Hyperparameter tuning
-Integration into dietary tracking platform
+Explore advanced augmentations (MixUp, CutMix)
+
+Hyperparameter tuning (learning rate, batch size, dropout)
+
+Extend model to multi-modal input (image + metadata fusion)
+
+Deploy pipeline to cloud for scalable dietary monitoring
+
 
