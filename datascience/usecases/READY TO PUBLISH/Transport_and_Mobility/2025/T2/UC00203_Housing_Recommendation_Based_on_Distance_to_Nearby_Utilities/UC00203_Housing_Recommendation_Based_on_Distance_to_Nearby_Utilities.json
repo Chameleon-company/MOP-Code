@@ -1,0 +1,60 @@
+{
+  "title": "UC00203_Housing_Recommendation_Based_on_Distance_to_Nearby_Utilities",
+  "name": "A Housing Recommendation Tool Based on Distance to Nearby Schools, Train stations, and Workplace",
+  "description": "A tool to calculate the travelling distance from rental places to nearby schools, stations and to a workplace address via car and public transportation.",
+  "tags": [
+      "Housing", 
+      "Map", 
+      "Tenants", 
+      "Rentals", 
+      "Data Analysis",
+      "Public Transportation", 
+      "Data Processing"
+  ],
+  "difficulty": "Intermediate",
+  "technology": [
+      {
+          "name": "pandas",
+          "alias": "pd",
+          "code": "python"
+      },
+      {
+          "name": "numpy",
+          "alias": "np",
+          "code": "python"
+      },
+      {
+          "name": "matplotlib",
+          "code": "python"
+      },
+      {
+          "name": "geopy",
+          "alias": "sns",
+          "code": "python"
+      },
+      {
+          "name": "sklearn",
+          "code": "python"
+      },
+      {
+          "name": "folium",
+          "code": "python"
+      },
+        {
+            "name": "geopy",
+            "code": "python"
+        },
+        {
+            "name": "openrouteservice",
+            "code": "python"
+        },
+        {
+            "name": "scypy",
+            "code": "python"
+        }
+  ],
+  "datasets": [
+      "PTV API",
+      "Open Route Service API",
+      "School Locations"]
+}
