@@ -31,12 +31,13 @@ weights/
 # ---------- UC5 results (legacy path) ----------
 # Ignore heavy outputs but keep plots/notes
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
-artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
 !artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
 
 # ---------- UC5 results (T2_2025 new path) ----------
+# Ignore heavy outputs but keep plots/notes
 artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
-artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
+!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
 !artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
 
 # ---------- Node / Frontend ----------
@@ -44,6 +45,7 @@ node_modules/
 dist/
 build/
 coverage/
+*.log
 
 # ---------- IDE / Editor ----------
 .vscode/
@@ -53,3 +55,6 @@ coverage/
 .rasa/
 results/
 logs/
+
+# If you don’t want trained models in git, uncomment:
+# models/
