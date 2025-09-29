@@ -1,8 +1,8 @@
-# -------- macOS --------
+# ---------- macOS ----------
 .DS_Store
 **/.DS_Store
 
-# -------- Python --------
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
 *.pyo
@@ -10,45 +10,49 @@ __pycache__/
 *.so
 *.egg-info/
 
-# -------- Virtual Environments --------
+# ---------- Virtual Environments ----------
 .venv/
 venv/
 env/
 env*/
 
-# -------- Jupyter & Logs --------
+# ---------- Jupyter & Logs ----------
 .ipynb_checkpoints/
 *.log
 *.out
 *.err
 
-# -------- YOLO / Training Artifacts --------
+# ---------- YOLO / Training Artifacts ----------
 runs/
 checkpoints/
 weights/
 *.pt
 
-# -------- UC5 results (legacy path) --------
+# ---------- UC5 results (legacy path) ----------
+# Ignore heavy outputs but keep plots
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
 !artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
+# (Optional) keep small docs in results
 !artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
 
-# -------- UC5 results (T2_2025 new path) --------
+# ---------- UC5 results (T2_2025 new path) ----------
+# Ignore heavy outputs but keep plots
 artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
 !artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
+# (Optional) keep small docs in results
 !artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
 
-# -------- Node / Frontend --------
+# ---------- Node / Frontend ----------
 node_modules/
 dist/
 build/
 coverage/
 
-# -------- IDE / Editor --------
+# ---------- IDE / Editor ----------
 .vscode/
 .idea/
 
-# -------- Rasa (if present) --------
+# ---------- Rasa (if present) ----------
 .rasa/
 results/
 logs/
