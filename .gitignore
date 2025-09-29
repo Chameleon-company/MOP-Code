@@ -11,8 +11,8 @@ __pycache__/
 *.egg-info/
 
 # ---------- Virtual Environments ----------
-venv/
 .venv/
+venv/
 env/
 env*/
 
@@ -28,19 +28,16 @@ checkpoints/
 weights/
 *.pt
 
-# ---------- UC5 results (legacy path kept for history) ----------
-# Ignore heavy outputs but keep plots and small docs
+# ---------- UC5 results (legacy path) ----------
+# Ignore heavy outputs but keep plots/notes
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
 !artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
 
-# ---------- UC5 results (new T2_2025 path) ----------
-# Ignore heavy outputs but keep plots and small docs
+# ---------- UC5 results (T2_2025 new path) ----------
 artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
-!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
+artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
 !artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
-!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.csv
 
 # ---------- Node / Frontend ----------
 node_modules/
@@ -54,7 +51,5 @@ coverage/
 
 # ---------- Rasa (if present) ----------
 .rasa/
-
-# ---------- Generic folders (if someone creates them) ----------
 results/
 logs/
