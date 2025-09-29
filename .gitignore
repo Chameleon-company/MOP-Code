@@ -1,54 +1,54 @@
-# ---- Python ----
+# -------- macOS --------
+.DS_Store
+**/.DS_Store
+
+# -------- Python --------
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.so
+*.egg-info/
 
-# ---- Virtual Environment ----
-venv/
+# -------- Virtual Environments --------
 .venv/
+venv/
+env/
+env*/
 
-# ---- Jupyter & Logs ----
+# -------- Jupyter & Logs --------
 .ipynb_checkpoints/
 *.log
 *.out
 *.err
 
-# ---- YOLO / Training Runs ----
+# -------- YOLO / Training Artifacts --------
 runs/
 checkpoints/
 weights/
 *.pt
 
-# Ignore training outputs
-runs/
-results/
-*.pt
+# -------- UC5 results (legacy path) --------
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
 
-# Ignore cache files
-__pycache__/
-*.log
-*.tmp
+# -------- UC5 results (T2_2025 new path) --------
+artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
+!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
+!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
 
-# ---- UC5_DAWN generated results (keep configs/scripts)
-artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
-artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
-artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
-# Keep UC5 results plots
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
+# -------- Node / Frontend --------
+node_modules/
+dist/
+build/
+coverage/
 
-
-# ---- OS & Editor ----
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
+# -------- IDE / Editor --------
 .vscode/
 .idea/
 
-# ---- Secrets (if any) ----
-.env
-*.key
+# -------- Rasa (if present) --------
+.rasa/
+results/
+logs/
