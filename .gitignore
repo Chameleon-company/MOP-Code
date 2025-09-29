@@ -1,60 +1,49 @@
-# ---------- OS ----------
-.DS_Store
-**/.DS_Store
-
-# ---------- Python ----------
+# ---- Python ----
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.so
-*.egg-info/
 
-# ---------- Virtual Environments ----------
-.venv/
+# ---- Virtual Environment ----
 venv/
-env/
-env*/
+.venv/
 
-# ---------- Jupyter & Logs ----------
+# ---- Jupyter & Logs ----
 .ipynb_checkpoints/
 *.log
 *.out
 *.err
 
-# ---------- YOLO / Training Artifacts ----------
+# ---- YOLO / Training Runs ----
 runs/
 checkpoints/
 weights/
 *.pt
 
-# ---------- UC5 results (legacy path) ----------
-# Ignore heavy outputs but keep plots/notes
-artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/**
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/plots/**
-!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.md
+# Ignore training outputs
+runs/
+results/
+*.pt
 
-# ---------- UC5 results (T2_2025 new path) ----------
-# Ignore heavy outputs but keep plots/notes
-artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/**
-!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/plots/**
-!artificial-intelligence/T2_2025/Computer Vision and Vehicle Detection/Haze Level and Vehicle Density Analysis/UC5_DAWN/results/*.md
-
-# ---------- Node / Frontend ----------
-node_modules/
-dist/
-build/
-coverage/
+# Ignore cache files
+__pycache__/
 *.log
+*.tmp
 
-# ---------- IDE / Editor ----------
+# ---- UC5_DAWN generated results (keep configs/scripts)
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
+artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
+
+# ---- OS & Editor ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
 .vscode/
 .idea/
 
-# ---------- Rasa (if present) ----------
-.rasa/
-results/
-logs/
-
-# If you don’t want trained models in git, uncomment:
-# models/
+# ---- Secrets (if any) ----
+.env
+*.key
