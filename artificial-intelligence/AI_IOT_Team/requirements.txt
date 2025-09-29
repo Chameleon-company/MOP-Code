@@ -1,6 +1,0 @@
-ultralytics>=8.0.0
-pillow
-pandas
-numpy
-matplotlib
-scipy
