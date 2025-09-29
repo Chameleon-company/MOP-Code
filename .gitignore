@@ -35,6 +35,11 @@ __pycache__/
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
 artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
+# Keep UC5 results plots
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.png
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.csv
+!artificial-intelligence/AI_IOT_Team/UC5_DAWN/results/*.txt
+
 
 # ---- OS & Editor ----
 .DS_Store
