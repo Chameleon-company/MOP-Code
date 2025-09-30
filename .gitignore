@@ -22,3 +22,20 @@ Playground/.DS_Store
 
 .DS_Store
 artificial-intelligence/chatbot/code/mpt_bot/story_graph.dot
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/.rasa/
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/models/
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/mnt/
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/mpt_data/
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/key.env
+artificial-intelligence/T2_2025/Public Transport Chatbot/Smart Commute Advisor/maps/*.html
+**/__pycache__/
+*.pyc
+*.env
+**/.rasa/
+node_modules/
+*.db
+*.zip
+*.mp4
+*.pkl
+*.h5
+artificial-intelligence/chatbot/mpt_data/

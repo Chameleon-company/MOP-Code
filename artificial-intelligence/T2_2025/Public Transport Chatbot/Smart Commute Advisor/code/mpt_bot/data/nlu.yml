@@ -1,0 +1,422 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moinhellp
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - hi there
+- intent: goodbye
+  examples: |
+    - see you later
+    - cya
+    - catch you later
+    - see ya
+    - talk later
+    - take care
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - yeah
+    - yup
+    - yep
+    - absolutely
+    - exactly
+    - correct
+    - right
+    - sure
+    - sure thing
+    - sounds good
+    - definitely
+    - of course
+    - alright
+    - okay
+    - ok
+    - k
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - no
+    - never
+    - not really
+    - I am sad
+    - bad day
+    - feeling down
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: find_best_route
+  examples: |
+    - What is the best [train](transport_mode) route without transfer from [Southern Cross](station_a) to [Richmond](station_b)?
+    - Show me the fastest [train](transport_mode) route without transfer from [North Melbourne](station_a) to [Footscray](station_b)
+    - Recommend the best [train](transport_mode) route no transfer from [Dandenong](station_a) to [Caulfield](station_b)
+    - What is the best direct route from [Box Hill](station_a) to [Glenferrie](station_b) by [tram](transport_mode)?
+    - How do I get directly from [Richmond](station_a) to [Melbourne Central](station_b) by [train](transport_mode)?
+    - What’s the best way to go from [Box Hill](station_a) to [Glenferrie](station_b) by [bus](transport_mode)?
+- intent: ask_direct_route
+  examples: |
+    - Is there a direct train from [Flinders Street](station_a) to [Southern Cross](station_b)?
+    - Is there a direct train from [Laverton](station_a) to [Williams Landing](station_b)?
+    - Do I need to change trains between [Laverton](station_a) and [Williams Landing](station_b)?
+    - Is there a service without transfers from [Yarraville](station_a) to [Seddon](station_b)?
+    - Any direct rail from [Caulfield](station_a) to [South Yarra](station_b)?
+
+- intent: ask_transfers
+  examples: |
+    - Do I need to transfer from [Footscray](station_a) to [Richmond](station_b)?
+    - How many train changes between [Melbourne Central](station_a) and [Glenferrie](station_b)?
+- intent: ask_best_route_with_transfer
+  examples: |
+    - How can I find a route with transfer from [Richmond](station_a) to [North Melbourne](station_b)?
+    - What is the route containing transfer from [Syndal](station_a) to [Flinders Street](station_b)?
+    - How can I travel with the fewest transfers from [Richmond](station_a) to [North Melbourne](station_b)?
+    - Help me to find the fewest transfer route from [Sunshine](station_a) to [Kooyong](station_b)
+- intent: ask_least_stops_route
+  examples: |
+    - What is the route with the least number of stops from [Ringwood](station_a) to [Parliament](station_b)?
+    - Which route has the fewest stops between [Richmond](station_a) and [Flinders Street](station_b)?
+    - Show me the route with the least stops from [Box Hill](station_a) to [Southern Cross](station_b).
+- intent: find_next_train
+  examples: |
+    - When is the next train from [Ringwood](station_a) to [Parliament](station_b)?
+    - What time does the next train leave from [Flinders Street](station_a) to [Southern Cross](station_b)?
+    - Next train from [South Yarra](station_a) to [Hawthorn](station_b)?
+    - At what time does the next train depart from [Box Hill](station_a) to [Richmond](station_b)?
+- intent: find_next_tram
+  examples: |
+    - When is the next [tram](transport_mode) from [La Trobe St/Swanston St](station_a) to [Queen Victoria Market/Elizabeth St](station_b)?
+    - Next [tram](transport_mode) from [Brunswick Rd/Sydney Rd](station_a) to [Elizabeth St/Flinders St](station_b)?
+    - What time is the next [tram](transport_mode) from [Melbourne Central Station/Elizabeth St #5](station_a) to [Queen Victoria Market/Elizabeth St #7](station_b)?
+    - Show the next [tram](transport_mode) from [Lygon St/Elgin St](station_a) to [Bourke St/Swanston St](station_b)
+    - At what time is the next [tram](transport_mode) [La Trobe St/Queen St](station_a) → [Elizabeth St/Flinders St](station_b)?
+    - I need the next [tram](transport_mode) from [Collins St/Swanston St](station_a) to [Melbourne University/Royal Parade](station_b)
+- intent: request_train_map
+  examples: |
+    - show me a train map
+    - train map
+    - display the train map
+    - open the train network map
+    - can I see the train map?
+    - please show the train map
+    - map of trains
+    - rail map
+    - metro train map
+- intent: request_tram_map
+  examples: |
+    - show me a tram map
+    - tram map
+    - display the tram map
+    - open the tram network map
+    - can I see the tram map?
+    - please show the tram map
+    - map of trams
+    - show tram routes
+    - tramp map
+    - show me a tramp map
+
+  #Modified by Chaitanya  
+- intent: request_bus_map 
+  examples: |
+    - bus map
+    - show me a bus map
+    - display the bus map
+    - open the bus network map
+    - can I see the bus map?
+    - please show the bus map
+    - map of buses
+    - show bus routes map
+    - show me a bus stops map
+    - generate a bus stop map
+    - show the map of bus stops
+    
+
+- intent: check_disruptions
+  examples: |
+    - Are there any [train](transport_mode) disruptions on route [Frankston](route_name)?
+    - Check [train](transport_mode) disruptions for route [Frankston - City](route_name)
+    - Is [bus](transport_mode) [279](route_name) having disruptions?
+    - Does [tram](transport_mode) [3](route_name) have disruptions?
+    - Check [tram](transport_mode) disruptions for route [Port Melbourne - Box Hill](route_name)
+- intent: find_nearest_public_transport
+  examples: |
+    - How to find public transport near me?
+    - How can I get to the nearest public transport?
+    - Where are the nearest tram stops?
+    - Can you tell me where the nearest train station?
+    - How to find nearest bus stops?
+    - Help me to find train station nearby!
+    - Find me nearest train station
+- intent: inform_public_transport
+  examples: |
+    - I would like to find [Train](transport_mode)
+    - [Train](transport_mode)
+    - I am finding [Bus](transport_mode) near me
+    - [Tram](transport_mode)
+    - [Bus](transport_mode)
+    - [Bus](transport_mode) stops near me
+    - Is there any (train)[transport_mode] around me?
+- intent: inform_address
+  examples: |
+    - My address is [The Esplanade 138, St Kilda](address)
+    - It's [464 St Kilda Road, Melbourne](address)
+    - [250 Howe Cresent, Albert Park](address)
+    - I live at [205 Kooyong Rd, Toorak](address)
+    - The address is [192 High Steet, Kew](address)
+    - I am currently at [62 Glengarry Avenue, Burwood](address)
+    - Am at [38 Little Bourke Place, Melbourne](address)
+    - [11 Natasha Close, St Helana](address)
+    - I am at [426 Blackheath Mews, Waurn Ponds](address)
+- intent: map_transport_in_area
+  examples: |
+    - Can you show me all [tram](transport_mode_rp) stops near [Kew](location)?
+    - Generate a map of [bus](transport_mode_rp) stops in [Carlton](location)
+    - Show me the local [train](transport_mode_rp) stations nearby the [MCG](location)
+    - Please help me out with location of a [bus](transport_mode_rp) close to [Brighton](location).
+- intent: get_directions
+  examples: |
+    - How do I get from [Essendon](location_from) to [Footscray](location_to)?
+    - Navigate from [279 Blackburn Rd Mount Waverley](location_from) to [Glen Waverley Station](location_to).
+    - Show me the route from [116/118 Thames St Box Hill North](location_from) to [Federation Square](location_to).
+    - What is the best way to travel from [262 Mountain Hwy Wantirna](location_from) to [Level 16/330 Collins St](location_to)?
+    - Find the path from [Footscray](location_from) to [Flagstaff Station](location_to).
+    - How can I travel from [50 Albert Rd South Melbourne](location_from) to [161 Keilor Rd Essendon](location_to)?
+    - Show me how to go from [Mount Waverley](location_from) to [CBD](location_to).
+    - Directions from [Syndal Station](location_from) to [Glenferrie Station](location_to).
+    - How to reach [250 Blackburn Rd Mount Waverley](location_to) from [Carlton](location_from)?
+    - Guide me from [Glen Waverley](location_from) to [St Kilda](location_to).
+    - What is the route from [1 Diosma Ave Sunshine West](location_from) to [Footscray](location_to)?
+    - Navigate from [20 Collins St](location_from) to [1 Diosma Ave Sunshine West](location_to).
+    - Direct me from [1 A'Beckett Street](location_from) to [Federation Square](location_to).
+    - How do I travel from [Flinders Street Station](location_from) to [Richmond](location_to)?
+    - Show the path from [11/31 Queen St Melbourne](location_from) to [30 A'Beckett Street Melbourne](location_to).
+    - Find a route from [Carlton](location_from) to [47 Market St](location_to).
+    - How to get to [Docklands](location_to) from [Southbank](location_from)?
+    - What is the best route from [Prahran](location_from) to [Chapel Street](location_to)?
+    - Guide me from [Brunswick](location_from) to [Collingwood](location_to).
+    - Show directions to [Melbourne University](location_to) from [Hawthorn](location_from).
+- intent: ask_about_feature
+  examples: |
+    - Does [Richmond Station](station_name) have [lifts](feature)?
+    - Is there [parking](feature) at [Flinders Street Station](station_name)?
+    - Can I access the [restroom](feature) at [Glen Waverley Station](station_name)?
+    - Does [Southern Cross](station_name) have [escalators](feature)?
+    - What [features](feature) are available at [Parliament Station](station_name)?
+    - Are there [info screens](feature) at [Melbourne Central](station_name)?
+    - Does [Flinders](station_name) have [tactile edges](feature)?
+    - Is there a [pick up / drop off](feature) zone at [Box Hill](station_name)?
+    - Is [Hawthorn Station](station_name) accessible?
+    - Are there [ramps](feature) at [Camberwell Station](station_name)?
+    - What [accessibility options](feature) does [Burnley Station](station_name) have?
+    - Are [hearing loops](feature) available at [Flagstaff Station](station_name)?
+    - Does [Auburn Station](station_name) have [lifts](feature)?
+    - Can I find [parking](feature) at [Southern Cross Station](station_name)?
+    - Is there a [restroom](feature) at [Box Hill Station](station_name)?
+    - What are the [shelter options](feature) at [East Richmond Station](station_name)?
+    - Does [Union Station](station_name) have [hearing loops](feature)?
+    - Is there [independent boarding](feature) at [Flinders Street Station](station_name)?
+    - Are [info screens](feature) available at [Richmond](station_name)?
+    - Can I access the [toilets](feature) at [Melbourne Central Station](station_name)?
+    - Does [Glenferrie Station](station_name) have [parking](feature)?
+    - Are there [pick up / drop off zones](feature) at [Flinders](station_name)?
+    - Are there [tactile edges](feature) at [Burnley Station](station_name)?
+    - Does [Parliament Station](station_name) have [lifts](feature)?
+    - Is there a [restroom](feature) at [Flagstaff Station](station_name)?
+    - does yarraville station have [lifts](feature)?
+    - does yarraville railway station have [lifts](feature)?
+
+- intent: ask_about_station
+  examples: |
+    - What are the accessibility features at [Flinders Street Station](station_name)?
+    - Can you list all the features at [Richmond Station](station_name)?
+    - Tell me all features at [Glen Waverley Station](station_name).
+    - What is available at [Hawthorn Station](station_name)?
+    - What accessibility features does [Southern Cross](station_name) have?
+    - What features are at [Melbourne Central](station_name)?
+    - What are the options at [Box Hill](station_name)?
+    - Which features are available at [Flagstaff Station](station_name)?
+    - Can you tell me all about [Camberwell Station](station_name)?
+    - What can I find at [Auburn Station](station_name)?
+    - What accessibility features does [Burnley Station](station_name) have?
+    - Can you tell me about [Glenferrie Station](station_name)?
+    - List the features at [East Richmond Station](station_name).
+    - What facilities are available at [Union Station](station_name)?
+    - Which accessibility options are there at [Laburnum Station](station_name)?
+    - What is available at [Canterbury Station](station_name)?
+- intent: list_all_stations
+  examples: |
+    - Can you list all the stations?
+    - List all the metro stations.
+    - Show me all the metro stations.
+    - What are the available stations?
+    - Tell me the names of all stations.
+    - Can I see a list of all the metro stations?
+    - What metro stations are there?
+    - Provide a list of all the stations.
+- intent: list_stations_with_feature
+  examples: |
+    - Find stations with [lifts](feature)?
+    - Find stations with [parking](feature).
+    - Find stations with [toilets](feature).
+    - Find stations with [escalators](feature).
+    - Find stations with [hearing loops](feature).
+    - Which stations have [parking](feature)?
+    - List all stations with [toilets](feature).
+    - Show me stations with [escalators](feature).
+    - Can you tell me which stations have [lifts](feature)?
+    - I need a station with [elevators](feature).
+    - Do any stations have [ramps](feature)?
+    - Are there any stations with [hearing loops](feature)?
+    - Which stations provide [info screens](feature)?
+    - Find stations with [shelter](feature).
+    - Tell me the stations with [tactile edges](feature).
+    - I am looking for stations with [low platforms](feature).
+    - What stations have [path widths](feature)?
+    - Can you list stations with [pick up / drop off](feature)?
+    - Are there any stations that have [restrooms](feature)?
+    - Where can I find stations with [parking](feature)?
+    - Which stations offer [escalators](feature)?
+    - Do you know the stations with [toilets](feature)?
+    - I need to find a station with [lifts](feature).
+    - Could you show me the stations that have [hearing loops](feature)?
+    - Which stations have [shelter](feature) for passengers?
+    - Please list all the stations that have [escalators](feature).
+    - Are there stations with [info screens](feature) available?
+    - I am looking for a station with [ramps](feature).
+    - Do any metro stations offer [tactile edges](feature)?
+    - Where are the stations that have [low platforms](feature)?
+    - Which stations have [path widths](feature) available?
+    - Find me a station with [pick up / drop off](feature).
+    - Can you tell me which stations have [toilets](feature)?
+    - Is there a station with [escalators](feature) nearby?
+    - Which stations are equipped with [hearing loops](feature)?
+    - Where can I find stations that have [parking](feature)?
+    - Could you tell me about stations that have [lifts](feature)?
+- intent: ask_direct_tram_route
+  examples: |
+    - Is there a direct tram from [Flinders Street] to [Docklands]?
+    - Can I take a tram directly from [Southbank] to [Melbourne University](location)?
+    - Is there a tram that goes straight to [St Kilda](location)?
+    - Can I get to [Federation Square](location) without changing trams?
+    - Is it possible to reach [Brunswick](location) on a single tram?
+    - Does the tram from [Hawthorn](location) to [Collingwood](location) run directly?
+    - Can I travel from [Prahran](location) to [Chapel Street](location) on the same tram?
+    - Are there any direct tram connections to [Flemington](location)?
+    - Is there a direct tram between [Brunswick] and [Collingwood]?
+- intent: ask_tram_route_with_transfers
+  examples: |
+    - What tram should I take from [Docklands] to [Southbank]?
+    - Is there a tram from [Richmond] to [Chapel Street]?
+    - How can I get by tram from [Federation Square] to [St Kilda]?
+    - Can you find a tram from [Queen Victoria Market] to [Flinders Street]?
+    - Show me the tram route from [Hawthorn] to [Box Hill].
+    - Which tram connects [East Malvern] to [Prahran]?
+    - Tell me the tram route from [North Melbourne] to [South Yarra].
+    - How do I go by tram from [Melbourne Zoo] to [Royal Botanic Gardens]?
+    - I need a tram route from [Carlton] to [Parkville].
+    - Can you suggest a tram from [Albert Park] to [Spencer Street]?
+    - Is there a tram from [Elsternwick] to [Southbank]?
+    - Which tram should I catch to go from [Brunswick Street] to [Docklands]?
+    - Are there trams that connect [Essendon] and [Toorak]?
+    - Find a tram route between [Melbourne Central] and [MCG].
+    - What is the tram route from [Burnley] to [Richmond]?
+    - Suggest a tram from [Southern Cross] to [Caulfield].
+    - Which tram runs between [Flemington] and [East Melbourne]?
+    - Can I catch a tram from [Footscray] to [Maribyrnong]?
+    - How can I travel by tram from [Kew] to [Balwyn]?
+    - Which tram should I take to get from [Southern Cross] to [Queen Victoria Market]?
+    - How do I get from [Docklands] to [Prahran] on the tram network?
+    - Are there any connections needed to travel from [Richmond] to [Albert Park]?
+- intent: ask_traffic_between_two_locations
+  examples: |
+    - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
+    - what is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [Flinders Street](station_a) to [Brighton](station_b)?
+    - Traffic from [Flinders Street](station_a) to [Brighton](station_b)?
+    - what is traffic status from [CBD](station_a) to [St Kilda](station_b)?
+    - what is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - How is traffic from [CBD](station_a) to [St Kilda](station_b)?
+    - Traffic update from [CBD](station_a) to [Brighton](station_b)?
+    - Traffic from [CBD](station_a) to [Brighton](station_b)?
+- intent: ask_traffic
+  examples: |
+    - Can i know traffic status of [Melbourne CBD](station_a)?
+    - I want to get traffic updated for [Flinders Street](station_a)
+    - What is traffic in [Richmond](station_a)?
+    - what is traffic in [Albert Park](station_a)?
+    - What is taffic status in [Brighton](station_a)?
+    - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+- intent: ask_driving_time
+  examples: |
+    - How long does it take to drive from [Deakin University Geelong](location_from) to [St Kilda VIC](location_to)?
+    - What is the driving time from [Tarneit Station](location_from) to [Deakin University Burwood](location_to)?
+    - How many minutes to drive from [4 Anderson St Yarraville VIC 3013](location_from) to [1016 Morris Rd Truganina VIC 3029](location_to)?
+    - What is the ETA by car from [Melbourne Airport](location_from) to [80 Collins St Melbourne VIC](location_to)?
+    - How long is the drive from [Williams Landing Station](location_from) to [Box Hill Station](location_to)?
+    - Driving duration from [Carlton VIC](location_from) to [Glen Waverley Station](location_to)?
+    - How much time will it take to drive from [Flinders Street](location_from) to [Richmond](location_to)?
+    - What is the estimated drive time from [South Yarra](location_from) to [Hawthorn](location_to)?
+    - How long would it take to drive to [St Kilda](location_to) from [CBD](location_from)?
+    - Tell me the driving time from [Brighton](location_from) to [Melbourne Central](location_to).
+    - How many minutes by car from [Footscray](location_from) to [Essendon](location_to)?
+    - What is the time to drive from [20 Collins St](location_from) to [1 Diosma Ave Sunshine West](location_to)?
+    - Estimate the car travel time from [Kew](location_from) to [Balwyn](location_to).
+    - How long is the road trip from [Prahran](location_from) to [Docklands](location_to)?
+    - What is the drive duration from [Southern Cross Station](location_from) to [Caulfield](location_to)?
+
+- intent: compare_two_mode
+  examples: |
+    - Should I drive the destination?
+    - Help me to find faster transport mode?
+    - Which transport mode should be used to get there ASAP?
+    - Compare travel time of driving and transiting
+    - Should I use public transport to get to the destination?
+
+
+# Helps the classifier latch onto the “drive…from…to…” pattern
+- regex: drive_from_to
+  examples: |
+    - (?i)\b(how long to drive|driving time|drive time|ETA by car|driving duration|time to drive)\b.*\bfrom\b.+\bto\b.+
+- regex: station_name
+  examples: |
+    - [Central Station](station_name)
+    - [North Station](station_name)
+
