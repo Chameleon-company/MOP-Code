@@ -43,20 +43,20 @@ intents:
 - request_tram_map
 - run_direction_script
 entities:
-- feature
+- transport_mode
+- address
+- location_from
+- location_to
+- station_name
 - station_a
 - station_b
+- feature
 - current_longitude
 - current_latitude
-- transport_mode
 - route_name
-- address
 - tansport_mode_rp
 - locationa
 - location
-- station_name
-- location_from
-- location_to
 - source
 - destination
 slots:
@@ -252,3 +252,4 @@ actions:
 - action_fetch_traffic_location
 - action_driving_time_by_car
 - action_compare_two_mode
+- utter_nearest_tranport_slot

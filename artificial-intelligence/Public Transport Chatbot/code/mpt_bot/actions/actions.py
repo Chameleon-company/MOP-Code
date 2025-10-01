@@ -114,6 +114,8 @@ tomtom_api_key = os.getenv("TOMTOM_API_KEY")
 if not tomtom_api_key:
     logger.warning(msg="Your tommtomm api key is not set, please set it inside key.env file")
 
+MEL_CBD_LAT, MEL_CBD_LON = -37.8136, 144.9631   # Melbourne CBD
+MEL_RADIUS_KM = 150
 
 class ActionFindNextTram(Action):
     """
@@ -1887,13 +1889,35 @@ class ActionFetchTraffic(Action):
         return "action_fetch_traffic"
 
     def run(self, dispatcher, tracker, domain):
-        source = tracker.get_slot("station_a")
-        
-        source_coords = geocode_address(source)
+        user_text = (tracker.latest_message or {}).get("text", "") or ""
+
+        # (2) Extract origin/destination with strict preference: regex > entities > old slots
+        # (2a) Regex: capture "from ... to ..." even across newlines
+        origin_rgx = dest_rgx = None
+        m = re.search(r"\bfrom\s+(.+?)\s+to\s+(.+)", user_text, flags=re.I | re.S)
+        if m:
+            origin_rgx = m.group(1).strip()
+
+        # (2b) Latest entities (if your NLU tagged them)
+        ents = (tracker.latest_message or {}).get("entities", []) or []
+        origin_ent = next(
+            (e.get("value") for e in ents if e.get("entity") in ("source", "location_from", "station_a")),
+            None
+        )
+
+        # (2c) Build final origin/dest, preferring regex > entities > prior slots
+        source = (origin_rgx or origin_ent
+                    or tracker.get_slot("source")
+                    or tracker.get_slot("location_from")
+                    or tracker.get_slot("station_a") or "").strip()
+
+        api_key = tomtom_api_key
+        source_coords = tt_geocode(f"{source}, VIC", api_key = api_key, 
+                                   country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
         #source_coords = getAddressLatLong( address = source)
         #destination_coords = getAddressLatLong( address = destination )
 
-        api_key = "cBr8gVX64Y3q18xGfTKnxHvsGl7AcnMw"
+
         
         traffic_details_location = get_traffic_details(api_key, source_coords)
         traffic_status_start = get_traffic_status(
@@ -1902,7 +1926,6 @@ class ActionFetchTraffic(Action):
         dispatcher.utter_message(
             text=f"Traffic is {traffic_status_start} in {source} with a current speed of {traffic_details_location['current_speed']} km/h."
         )
-
 ''' -------------------------------------------------------------------------------------------------------
 	
 	Name: Traffic details for two location
@@ -1914,17 +1937,49 @@ class ActionFetchTrafficLocation(Action):
         return "action_fetch_traffic_location"
 
     def run(self, dispatcher, tracker, domain):
-        source = tracker.get_slot("station_a")
-        destination = tracker.get_slot("station_b")
+        # (1) Grab the raw user message text (handles full addresses, commas, line breaks)
+        user_text = (tracker.latest_message or {}).get("text", "") or ""
+
+        # (2) Extract origin/destination with strict preference: regex > entities > old slots
+        # (2a) Regex: capture "from ... to ..." even across newlines
+        origin_rgx = dest_rgx = None
+        m = re.search(r"\bfrom\s+(.+?)\s+to\s+(.+)", user_text, flags=re.I | re.S)
+        if m:
+            origin_rgx = m.group(1).strip()
+            dest_rgx   = m.group(2).strip()
+
+        # (2b) Latest entities (if your NLU tagged them)
+        ents = (tracker.latest_message or {}).get("entities", []) or []
+        origin_ent = next(
+            (e.get("value") for e in ents if e.get("entity") in ("source", "location_from", "station_a")),
+            None
+        )
+        dest_ent = next(
+            (e.get("value") for e in ents if e.get("entity") in ("destination", "location_to", "station_b")),
+            None
+        )
+
+        # (2c) Build final origin/dest, preferring regex > entities > prior slots
+        source = (origin_rgx or origin_ent
+                    or tracker.get_slot("source")
+                    or tracker.get_slot("location_from")
+                    or tracker.get_slot("station_a") or "").strip()
+
+        destination = (dest_rgx or dest_ent
+                or tracker.get_slot("destination")
+                or tracker.get_slot("location_to")
+                or tracker.get_slot("station_b") or "").strip()
         print(f"from: {source}")
         print(f"to: {destination}")
-        
-        source_coords = geocode_address(source)
-        destination_coords = geocode_address(destination)
+        api_key = tomtom_api_key
+        source_coords = tt_geocode(f"{source}, VIC", api_key = api_key, 
+                                   country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
+        destination_coords = tt_geocode(f"{destination}, VIC", api_key = api_key, 
+                                   country_set="AU", bias_lat=MEL_CBD_LAT, bias_lon=MEL_CBD_LON, radius_km=MEL_RADIUS_KM)
         #source_coords = getAddressLatLong( address = source)
         #destination_coords = getAddressLatLong( address = destination )
         
-        api_key = "cBr8gVX64Y3q18xGfTKnxHvsGl7AcnMw"
+        
         route_data = fetch_route(source_coords, destination_coords, api_key)
        
         if "error" in route_data:
@@ -1979,7 +2034,7 @@ def fetch_route(source_coords, destination_coords, api_key):
 
 def get_traffic_details(api_key, location):
     url = f"https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
-    latitude, longitude = location
+    latitude, longitude = location[0], location[1]
     params = {
         "point": f"{latitude},{longitude}",
         "unit": "KMPH",
@@ -2023,7 +2078,6 @@ def geocode_address(address):
     else:
         print("Address not found within Melbourne.")
         return None
-
 '''
 -------------------------------------------------------------------------------------------------------
 	Name: Bus and Trains

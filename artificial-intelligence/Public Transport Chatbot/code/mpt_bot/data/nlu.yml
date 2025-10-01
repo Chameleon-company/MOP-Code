@@ -175,6 +175,8 @@ nlu:
     - Is [bus](transport_mode) [279](route_name) having disruptions?
     - Does [tram](transport_mode) [3](route_name) have disruptions?
     - Check [tram](transport_mode) disruptions for route [Port Melbourne - Box Hill](route_name)
+    - [Train](transport_mode) disruptions on route [Glen Waverley](route_name)
+    - [Tram](transport_mode) disruptions on route [Central Pier Docklands - Vermont South](route_name)
 - intent: find_nearest_public_transport
   examples: |
     - How to find public transport near me?
@@ -193,6 +195,7 @@ nlu:
     - [Bus](transport_mode)
     - [Bus](transport_mode) stops near me
     - Is there any (train)[transport_mode] around me?
+    - [Train][{"entity": "transport_mode", "value": "train"}, {"entity": "transport_mode", "value": "train"}]
 - intent: inform_address
   examples: |
     - My address is [The Esplanade 138, St Kilda](address)
@@ -204,6 +207,8 @@ nlu:
     - Am at [38 Little Bourke Place, Melbourne](address)
     - [11 Natasha Close, St Helana](address)
     - I am at [426 Blackheath Mews, Waurn Ponds](address)
+    - My address is [Deakin Downtown][{"entity": "address"}, {"entity": "address"}]
+    - My address is [Deakin Downtown][{"entity": "address"}, {"entity": "address"}]
 - intent: map_transport_in_area
   examples: |
     - Can you show me all [tram](transport_mode_rp) stops near [Kew](location)?
@@ -232,6 +237,8 @@ nlu:
     - What is the best route from [Prahran](location_from) to [Chapel Street](location_to)?
     - Guide me from [Brunswick](location_from) to [Collingwood](location_to).
     - Show directions to [Melbourne University](location_to) from [Hawthorn](location_from).
+    - How to get there by public transport?
+    - Find me a route from [Southern Cross Station][{"entity": "location_from"}, {"entity": "location_from"}] to [Deakin University Burwood][{"entity": "location_to"}, {"entity": "location_to"}]
 - intent: ask_about_feature
   examples: |
     - Does [Richmond Station](station_name) have [lifts](feature)?
@@ -366,24 +373,58 @@ nlu:
     - Are there any connections needed to travel from [Richmond] to [Albert Park]?
 - intent: ask_traffic_between_two_locations
   examples: |
-    - what is traffic status from [Flinders Street](station_a) to [Albert Park](station_b)?
-    - what is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
-    - How is traffic from [Melboune CBD](station_a) to [St Kilda](station_b)?
-    - Traffic update from [Flinders Street](station_a) to [Brighton](station_b)?
-    - Traffic from [Flinders Street](station_a) to [Brighton](station_b)?
-    - what is traffic status from [CBD](station_a) to [St Kilda](station_b)?
-    - what is traffic from [CBD](station_a) to [St Kilda](station_b)?
-    - How is traffic from [CBD](station_a) to [St Kilda](station_b)?
-    - Traffic update from [CBD](station_a) to [Brighton](station_b)?
-    - Traffic from [CBD](station_a) to [Brighton](station_b)?
+    - What is the traffic status from [Flinders Street Station](station_a) to [123 Bourke Street Melbourne](station_b)?
+    - What is the traffic from [Melbourne Central](station_a) to [Sunshine](station_b)?
+    - How is the traffic from [Melbourne CBD](station_a) to [45 Chapel Street St Kilda](station_b)?
+    - Traffic update from [St Albans](station_a) to [Richmond Station](station_b)?
+    - Traffic from [1 Collins Street Melbourne](station_a) to [Brighton](station_b)?
+    - What's the traffic like from [South Yarra](station_a) to [789 High Street Toorak](station_b)?
+    - How's traffic between [Box Hill](station_a) and [12 Station Road Camberwell](station_b)?
+    - Can you tell me about traffic from [Southern Cross Station](station_a) to [56 Victoria Street Footscray](station_b)?
+    - Traffic conditions from [Docklands](station_a) to [101 Southbank Boulevard Southbank](station_b)?
+    - What's the traffic status between [Ringwood](station_a) and [Glen Waverley](station_b)?
+    - How is the traffic from [North Melbourne](station_a) to [23 Queens Road Kensington](station_b)?
+    - Traffic update from [Werribee](station_a) to [Hoppers Crossing](station_b)?
+    - What's traffic like from [Dandenong](station_a) to [5 Lonsdale Street Noble Park](station_b)?
+    - How's the traffic from [Parliament Station](station_a) to [88 Albert Street East Melbourne](station_b)?
+    - Traffic from [Carlton](station_a) to [321 Brunswick Street Fitzroy](station_b)?
+    - What's the traffic from [Chadstone](station_a) to [Malvern](station_b)?
+    - How is traffic between [Frankston](station_a) and [15 Beach Road Mornington](station_b)?
+    - Traffic status from [Geelong](station_a) to [Torquay](station_b)?
+    - What's the traffic like from [Melbourne Airport](station_a) to [456 Essendon Road Essendon](station_b)?
+    - Can you give me a traffic update from [Prahran](station_a) to [78 Malvern Road Windsor](station_b)?
+    - How's the traffic from [Richmond](station_a) to [Hawthorn](station_b)?
+    - Traffic from [123 Sydney Road Brunswick](station_a) to [Coburg](station_b)?
+    - What's the traffic status from [Bundoora](station_a) to [9 High Street Preston](station_b)?
+    - How is traffic from [Epping](station_a) to [Thomastown](station_b)?
+    - Traffic update from [Craigieburn](station_a) to [101 Bridge Road Roxburgh Park](station_b)?
 - intent: ask_traffic
   examples: |
-    - Can i know traffic status of [Melbourne CBD](station_a)?
-    - I want to get traffic updated for [Flinders Street](station_a)
-    - What is traffic in [Richmond](station_a)?
-    - what is traffic in [Albert Park](station_a)?
-    - What is taffic status in [Brighton](station_a)?
-    - Can you tell me the traffic conditions in [Flinders Street](station_a)?
+    - Can I know the traffic status of [Melbourne CBD](station_a)?
+    - I want to get a traffic update for [Flinders Street Station](station_a)?
+    - What is the traffic in [Richmond](station_a)?
+    - What is the traffic status in [Albert Park](station_a)?
+    - What are the traffic conditions in [Brighton](station_a)?
+    - Can you tell me the traffic conditions in [123 Collins Street Melbourne](station_a)?
+    - How's the traffic around [South Yarra](station_a)?
+    - Traffic status for [789 High Street Toorak](station_a)?
+    - What's the traffic like in [Box Hill](station_a)?
+    - Can you give me a traffic update for [56 Victoria Street Footscray](station_a)?
+    - How is the traffic in [Docklands](station_a)?
+    - Traffic conditions in [Southern Cross Station](station_a)?
+    - What's the traffic status at [101 Southbank Boulevard Southbank](station_a)?
+    - How's the traffic around [Ringwood](station_a)?
+    - Traffic update for [23 Queens Road Kensington](station_a)?
+    - What is the traffic in [Carlton](station_a)?
+    - Can you tell me about traffic at [321 Brunswick Street Fitzroy](station_a)?
+    - How's the traffic in [Chadstone](station_a)?
+    - Traffic status for [15 Beach Road Mornington](station_a)?
+    - What's the traffic like around [Melbourne Airport](station_a)?
+    - Can you give me a traffic update for [78 Malvern Road Windsor](station_a)?
+    - How is the traffic in [Hawthorn](station_a)?
+    - Traffic conditions at [123 Sydney Road Brunswick](station_a)?
+    - What's the traffic status in [Bundoora](station_a)?
+    - Traffic update for [9 High Street Preston](station_a)?
 - intent: ask_driving_time
   examples: |
     - How long does it take to drive from [Deakin University Geelong](location_from) to [St Kilda VIC](location_to)?
@@ -409,8 +450,8 @@ nlu:
     - Which transport mode should be used to get there ASAP?
     - Compare travel time of driving and transiting
     - Should I use public transport to get to the destination?
-
-
+    - Compare two transport mode
+    - Find me a better transport mode route
 # Helps the classifier latch onto the “drive…from…to…” pattern
 - regex: drive_from_to
   examples: |
