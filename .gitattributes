@@ -1,0 +1,23 @@
+# Ensure consistent line endings across OS
+* text=auto eol=lf
+
+# Treat these as text always
+*.md   text
+*.json text
+*.yml  text
+*.yaml text
+*.py   text
+*.js   text
+*.ts   text
+*.tsx  text
+*.css  text
+*.html text
+
+# Binary files (don’t change line endings)
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.pt   binary
+
