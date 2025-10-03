@@ -1,0 +1,74 @@
+[
+  {
+    "Location": "Federation Square",
+    "Nearby_Locker": "Yes",
+    "Distance_km": 0.1,
+    "Footfall_Total": 1285
+  },
+  {
+    "Location": "Flinders Street Station",
+    "Nearby_Locker": 1,
+    "Distance_km": 0.05,
+    "Footfall_Total": 2134
+  },
+  {
+    "Location": "State Library Victoria",
+    "Nearby_Locker": "No",
+    "Distance_km": 0.8,
+    "Footfall_Total": 987
+  },
+  {
+    "Location": "Queen Victoria Market",
+    "Nearby_Locker": 0,
+    "Distance_km": 0.95,
+    "Footfall_Total": 1560
+  },
+  {
+    "Location": "St Kilda Pier",
+    "Nearby_Locker": "No",
+    "Distance_km": 2.4,
+    "Footfall_Total": 742
+  },
+  {
+    "Location": "Royal Botanic Gardens",
+    "Nearby_Locker": "Yes",
+    "Distance_km": 0.6,
+    "Footfall_Total": 1104
+  },
+  {
+    "Location": "Melbourne Museum",
+    "Nearby_Locker": 1,
+    "Distance_km": 0.35,
+    "Footfall_Total": 1326
+  },
+  {
+    "Location": "Eureka Skydeck",
+    "Nearby_Locker": "Yes",
+    "Distance_km": 0.2,
+    "Footfall_Total": 1209
+  },
+  {
+    "Location": "Docklands",
+    "Nearby_Locker": "No",
+    "Distance_km": 1.9,
+    "Footfall_Total": 654
+  },
+  {
+    "Location": "National Gallery of Vic",
+    "Nearby_Locker": 0,
+    "Distance_km": 0.7,
+    "Footfall_Total": 1021
+  },
+  {
+    "Location": "Chapel Street",
+    "Nearby_Locker": "Unknown",
+    "Distance_km": 1.2,
+    "Footfall_Total": 530
+  },
+  {
+    "Location": "Old Treasury Building",
+    "Nearby_Locker": "Yes",
+    "Distance_km": 0.4,
+    "Footfall_Total": 845
+  }
+]
