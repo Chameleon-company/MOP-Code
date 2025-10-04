@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+.ipynb_checkpoints/
+.env
+*.key
+*.pem
+*.p12
+datasets/
+models/
+*.zip
+*.csv
+*.tar*
+*.pt
+*.h5
+*.pkl
