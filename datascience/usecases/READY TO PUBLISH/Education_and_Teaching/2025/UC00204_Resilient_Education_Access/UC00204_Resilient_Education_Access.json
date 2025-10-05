@@ -1,0 +1,29 @@
+{ 
+    "title": "usecase_Resilient_Education_Access",
+    "name": "Ruvinya Ekanayake",
+    "description": "This project focuses on resilient education access by analyzing how population forecasts and infrastructure planning can be used to ensure fair and sustainable distribution of schools and learning resources. It aims to support decision-making by identifying gaps in education access and providing insights for long-term resilience.",
+    "tags": [
+        "Resilient Education",
+        "Education Access",
+        "Population Forecasts",
+        "Infrastructure Planning",
+        "Sustainability",
+        "Data Analysis",
+        "Python"
+    ],
+    "difficulty": "Intermediate", 
+    "technology": [{
+        "name": "pandas",
+        "code": "python"
+    },{
+        "name": "numpy",
+        "code": "python"
+    },{
+        "name": "matplotlib",
+        "code": "python"
+    },{
+        "name": "os",
+        "code": "python"
+    }],
+    "datasets": ["population-forecasts", "school-locations-dataset"]
+}
