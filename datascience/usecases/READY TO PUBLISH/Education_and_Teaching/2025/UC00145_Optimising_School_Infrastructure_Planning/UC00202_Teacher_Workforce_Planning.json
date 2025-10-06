@@ -1,0 +1,25 @@
+{
+  "title": "Teacher Workforce Planning",
+  "name": "UC00202_Teacher_Workforce_Planning",
+  "description": "A data-driven use case exploring student–teacher ratios, teacher shortages, and uncertainty modelling with Monte Carlo simulations. The analysis highlights risks, trade-offs, and planning strategies to support education policy.",
+  "tags": ["education", "workforce", "planning", "open data", "simulation"],
+  "difficulty": "Intermediate",
+  "technology": [
+    { "name": "pandas", "code": "python" },
+    { "name": "numpy", "code": "python" },
+    { "name": "matplotlib", "code": "python" },
+    { "name": "seaborn", "code": "python" }
+  ],
+  "datasets": [
+    {
+      "name": "Teacher Workforce Statistics (Example)",
+      "url": "https://discover.data.vic.gov.au/dataset/de-2023-teacher-workforce-snapshot-supplementary-data",
+ 
+    },
+    {
+      "name": "Student Enrolments by Year (Example)",
+      "url": "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/families-with-children-profile-2016-aged-0-12-years/records?limit=20",
+      
+    }
+  ]
+}
