@@ -1,0 +1,4206 @@
+[
+  {
+    "item": "Aerosol cans",
+    "aliases": [
+      "spray can",
+      "deodorant can"
+    ],
+    "category": "Household waste",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place empty cans in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Adhesive strips (band aids)",
+    "aliases": [
+      "band aids",
+      "plasters"
+    ],
+    "category": "Medical waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Aluminium cans",
+    "aliases": [
+      "aluminum cans",
+      "soda cans",
+      "drink cans"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place empty cans in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Aluminium foil",
+    "aliases": [
+      "foil",
+      "cooking foil",
+      "aluminum foil"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Scrape clean, scrunch in a ball and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Contaminated foil should be placed in general waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Aluminium trays",
+    "aliases": [
+      "foil trays",
+      "aluminum trays"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Scrape clean, scrunch in a ball and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Contaminated trays should be placed in general waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Anti-freeze",
+    "aliases": [
+      "coolant",
+      "antifreeze"
+    ],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off unwanted chemicals for free at a Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Refer to Chemicals for further information.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Asbestos",
+    "aliases": [],
+    "category": "Hazardous waste",
+    "bin_type": "Special disposal",
+    "bin_color": null,
+    "instructions": "Refer to Asbestos in Victoria website for correct disposal methods.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [],
+    "website": "https://www.asbestos.vic.gov.au/",
+    "extra_notes": "Specialized disposal required due to health risks.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Australia Post satchels",
+    "aliases": [
+      "post satchels",
+      "mailing bags"
+    ],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Baby items",
+    "aliases": [
+      "baby clothes",
+      "baby toys"
+    ],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Drop off at your local op shop ",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items must be in good condition.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Balloons",
+    "aliases": [],
+    "category": "Household waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Baskets",
+    "aliases": [
+      "wicker baskets"
+    ],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Drop off at your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items must be in good condition.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Batteries (car)",
+    "aliases": [
+      "car battery",
+      "auto battery"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at locations listed on RecyclingNearYou website.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "RecyclingNearYou",
+        "address": null,
+        "suburb": null,
+        "website": "https://recyclingnearyou.com.au/car-batteries/MelbourneVIC"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Batteries (household)",
+    "aliases": [
+      "AA battery",
+      "AAA battery",
+      "used batteries"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Do not place in household bins. Drop off at approved locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      },
+      {
+        "name": "Aldi",
+        "address": "501 Swanston Street",
+        "suburb": "Melbourne",
+        "website": null
+      },
+      {
+        "name": "Aldi",
+        "address": "100 Market Street",
+        "suburb": "South Melbourne",
+        "website": null
+      },
+      {
+        "name": "Aldi",
+        "address": "315-325 Victoria Street",
+        "suburb": "Abbotsford",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Never place in any household bin due to fire hazard.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Bicycles",
+    "aliases": [
+      "bikes"
+    ],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Donate to Bicycles for Humanity or Brainwave Bikes.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Bicycles for Humanity",
+        "address": null,
+        "suburb": "",
+        "website": "https://bicyclesforhumanity.com/donate/donate-your-bicycle/"
+      },
+      {
+        "name": "Brainwave Bikes",
+        "address": null,
+        "suburb": "",
+        "website": "https://brainwavebikes.org.au/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Brainwave Bikes supports employment for people with disabilities.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Biscuit trays",
+    "aliases": [
+      "cookie tray",
+      "plastic tray"
+    ],
+    "category": "Food packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Blankets and bedding",
+    "aliases": [
+      "sheets",
+      "doonas"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Cannot be recycled.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Blister packs (medicinal)",
+    "aliases": [
+      "pill packs",
+      "tablet packs"
+    ],
+    "category": "Medical waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Pharmacycle locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Pharmacycle",
+        "address": null,
+        "suburb": "",
+        "website": "https://www.pharmacycle.com.au/find-a-location"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Voluntary recycling program funded by participating pharmacies.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Bottles (glass, plastic, metal)",
+    "aliases": [
+      "drink bottles",
+      "jars"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin. Squeeze air out of plastic bottles and replace the lid.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Branches",
+    "aliases": [
+      "tree branches",
+      "twigs"
+    ],
+    "category": "Garden waste",
+    "bin_type": "Organics",
+    "bin_color": "Lime-green",
+    "instructions": "Place in your food and garden organics (lime-green lid) bin or book a free monthly garden waste collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Maximum of 2 cubic meters per household for collection. Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Bread bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Bubble wrap",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cables (computer, charging, electronic)",
+    "aliases": [
+      "usb cables",
+      "power cords"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cameras",
+    "aliases": [
+      "digital cameras"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cans (steel, aluminium)",
+    "aliases": [
+      "tin cans",
+      "metal cans",
+      "cans"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place empty cans in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Car parts and bodies",
+    "aliases": [
+      "auto parts"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cardboard",
+    "aliases": [
+      "carton",
+      "boxes"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Flatten boxes and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Free drop-off at Dynon Road Waste and Recycling Centre for residents with proof of address.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cartons (milk and juice)",
+    "aliases": [
+      "tetra paks",
+      "juice cartons"
+    ],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Free drop-off for residents with proof of address.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Carpet",
+    "aliases": [
+      "rugs"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Book a hard waste collection.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": null,
+        "address": null,
+        "suburb": null,
+        "website": "https://cityofmelbourne-hardwaste.cleanaway.com.au/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cassette tapes",
+    "aliases": [
+      "audio tapes"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Drop off at Officeworks stores or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Officeworks",
+        "address": null,
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "CDs",
+    "aliases": [
+      "compact discs"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Drop off at Officeworks stores or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Officeworks",
+        "address": null,
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Ceramics (vases, pots, etc)",
+    "aliases": [
+      "pottery"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cellophane",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Chargers",
+    "aliases": [
+      "phone chargers",
+      "power adapters"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Chemicals",
+    "aliases": [
+      "household chemicals",
+      "cleaning chemicals"
+    ],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off unwanted chemicals for free at a Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Chip packets",
+    "aliases": [
+      "crisp packets"
+    ],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Chlorine",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off unwanted chemicals for free at a Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Christmas trees",
+    "aliases": [
+      "xmas trees"
+    ],
+    "category": "Garden waste",
+    "bin_type": "Organics",
+    "bin_color": "Lime-green",
+    "instructions": "Book a free monthly garden waste collection or drop off at Dynon Road Waste and Recycling Centre. Do not place whole tree in garbage bin.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Free drop-off for residents with proof of address. Building managers can arrange bulk pick-up for apartments.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cigarette butts",
+    "aliases": [],
+    "category": "Household waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cling wrap",
+    "aliases": [
+      "plastic wrap"
+    ],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Clothing and shoes",
+    "aliases": [
+      "clothes",
+      "footwear"
+    ],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Donate, give away, or sell items in good condition via local op shops, Facebook Marketplace, Gumtree, Ziilch, Diabetes Australia, Salvation Army, or Vinnies.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Diabetes Australia",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.diabetesvic.org.au/get-involved/donate/donate-your-pre-loved-clothes/"
+      },
+      {
+        "name": "Salvation Army",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.salvationarmy.org.au/donate/clothing-and-goods/"
+      },
+      {
+        "name": "Vinnies",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.vinnies.org.au/get-involved/donate-goods"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items must be in good condition.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Coffee cups and lids (single use)",
+    "aliases": [
+      "disposable coffee cups"
+    ],
+    "category": "Food packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Remove lid and place lid in recycling (yellow lid) bin. Place cup in general waste (red lid) bin or drop off at 7/11 stores for recycling.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "7/11",
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "7/11 partners with Simply Cups for recycling.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Coffee pods / capsules",
+    "aliases": [
+      "nespresso pods",
+      "dolce gusto pods"
+    ],
+    "category": "Food packaging",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Nespresso, Dolce Gusto, or Terracycle recycling programs.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Nespresso",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.nespresso.com/au/en/how-to-recycle-coffee-capsules"
+      },
+      {
+        "name": "Dolce Gusto",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.nescafe.com/au/dolce-gusto-capsule-recycling"
+      },
+      {
+        "name": "Terracycle",
+        "address": null,
+        "suburb": null,
+        "website": "https://shop.terracycle.com/en-AU/products/beverage-capsules-zero-waste-box"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Cannot be placed in recycling bin due to coffee contamination.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Coffee machines",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Computers and accessories",
+    "aliases": [
+      "PCs",
+      "laptops",
+      "monitors"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cooking oil",
+    "aliases": [
+      "vegetable oil"
+    ],
+    "category": "Household waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Crockery",
+    "aliases": [
+      "dishes",
+      "plates"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cutlery (metal)",
+    "aliases": [
+      "silverware"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": "",
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cutlery (plastic)",
+    "aliases": [
+      "disposable cutlery"
+    ],
+    "category": "Household items",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Cupboards",
+    "aliases": [
+      "cabinets"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Local op shop",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Detergent bottles (plastic)",
+    "aliases": [
+      "laundry detergent bottles"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place empty bottles in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Deodorant cans, roll-ons, sprays",
+    "aliases": [],
+    "category": "Household waste",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place empty cans and bottles in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Diabetic testing strip",
+    "aliases": [],
+    "category": "Medical waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Dishwasher",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Disposable coffee cups",
+    "aliases": [
+      "single use coffee cups"
+    ],
+    "category": "Food packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Remove lid and place lid in recycling (yellow lid) bin. Place cup in general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [
+      {
+        "name": "7/11",
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Cups can be recycled at 7/11 stores through Simply Cups program.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Dog faeces",
+    "aliases": [
+      "pet waste"
+    ],
+    "category": "Organic waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Door mat",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Dryer",
+    "aliases": [
+      "clothes dryer"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "DVDs",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "DVD player",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "E-waste",
+    "aliases": [
+      "electronic waste"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations. Anything with a plug, cord, or battery is considered e-waste.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Residents are entitled to one free hard waste collection of one cubic meter each year.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fabric",
+    "aliases": [
+      "textiles"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to your local op shop.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fire extinguishers",
+    "aliases": [],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Contact Cleanaway Laverton Technical Waste Services at 03 9371 8500 to organise a drop-off.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Cleanaway Laverton",
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Disposal fees apply at customer’s cost.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fluorescent tubes and compact fluorescent light globes (CFLs)",
+    "aliases": [
+      "CFLs",
+      "fluorescent lights"
+    ],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection or Port Phillip Resource Recovery Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      },
+      {
+        "name": "Port Phillip Resource Recovery Centre",
+        "address": null,
+        "suburb": "",
+        "website": "https://www.portphillip.vic.gov.au/council-services/waste-recycling-and-cleaning/resource-recovery-centre-and-depot"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Foam",
+    "aliases": [
+      "polystyrene foam"
+    ],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or refer to hard waste for further information.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Food pouches",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Food scraps",
+    "aliases": [
+      "food waste",
+      "kitchen scraps"
+    ],
+    "category": "Organic waste",
+    "bin_type": "Organics",
+    "bin_color": "Lime-green",
+    "instructions": "Place in your food and garden organics (lime-green lid) bin. Alternatively, compost at home.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Includes fruit/vegetable scraps, bread, rice, pasta, dairy, meat, fish, bones, eggshells, etc.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Formula tins",
+    "aliases": [
+      "baby formula tins"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fridge / freezer",
+    "aliases": [
+      "refrigerators"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Frozen food bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fruit tree netting",
+    "aliases": [],
+    "category": "Garden waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in a strong biodegradable bag and then in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Old netting poses an entanglement risk.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Fuels",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Furniture",
+    "aliases": [
+      "chairs",
+      "tables"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": "",
+        "website": "https://opshop.org/#google_vignette"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Residents are entitled to one free hard waste collection of one cubic meter each year.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Garden waste",
+    "aliases": [
+      "green waste"
+    ],
+    "category": "Organic waste",
+    "bin_type": "Organics",
+    "bin_color": "Lime-green",
+    "instructions": "Place in your food and garden organics (lime-green lid) bin or book a free monthly garden waste collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Keep garden waste loose, not bagged. Maximum of 2 cubic meters per household for collection.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Gas cylinders and bottles",
+    "aliases": [],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Return to a swap-and-go location or contact Cleanaway Laverton (03 9371 8500) or Envirostore (03 9308 6636) for nitrous oxide canisters.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Swap-and-go locations",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Cleanaway Laverton",
+        "address": null,
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Envirostore Chemical Consulting",
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Disposal fees apply at customer’s cost for nitrous oxide canisters.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Glass bottles and jars",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Empty and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Glass windows, cups, mirrors and table tops",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Securely wrap and place in your general waste (red lid) bin or refer to hard waste.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Hard waste",
+    "aliases": [
+      "large household items"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Book a free hard waste collection (one cubic meter per year) or drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off. Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Hair dryers or straighteners",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Household chemicals",
+    "aliases": [],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Ice cream containers",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Empty and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Insect spray bottles and cans",
+    "aliases": [],
+    "category": "Household waste",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Empty and place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Iron",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Jars and lids",
+    "aliases": [
+      "glass jars"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Juice boxes and containers",
+    "aliases": [
+      "tetra paks",
+      "cartons"
+    ],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Kettles",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Keyboards",
+    "aliases": [
+      "computer keyboards"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Kitchenware",
+    "aliases": [
+      "saucepans",
+      "pots and pans"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, Ziilch, Diabetes Australia, Salvation Army, or Vinnies.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Diabetes Australia",
+        "address": "https://www.diabetesvic.org.au/get-involved/donate/donate-your-pre-loved-clothes/",
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Salvation Army",
+        "address": "https://www.salvationarmy.org.au/donate/clothing-and-goods/",
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Vinnies",
+        "address": "https://www.vinnies.org.au/get-involved/donate-goods",
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Kitty litter",
+    "aliases": [
+      "cat litter"
+    ],
+    "category": "Household waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Wrap in a plastic bag and place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Laptops",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Laminated paper",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Cannot be recycled due to plastic coating.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Light globes",
+    "aliases": [
+      "light bulbs"
+    ],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection or Port Phillip Resource Recovery Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      },
+      {
+        "name": "Port Phillip Resource Recovery Centre",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.portphillip.vic.gov.au/council-services/waste-recycling-and-cleaning/resource-recovery-centre-and-depot"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Can also be placed in general waste if no drop-off available.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Linen",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Check with local vets for donation or place in general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Lolly wrappers",
+    "aliases": [
+      "candy wrappers"
+    ],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Magazines",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Mattresses",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre or use Bedcollect, Soft Landing Mattress Recycling.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Bedcollect",
+        "address": null,
+        "suburb": null,
+        "website": "https://bedcollect.com.au/"
+      },
+      {
+        "name": "Soft Landing Mattress Recycling",
+        "address": null,
+        "suburb": null,
+        "website": "https://softlanding.com.au/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges apply: $60 (Bedcollect), $40 (Mattress Collection), $50 first piece (Soft Landing).",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Medicines",
+    "aliases": [
+      "pharmaceuticals"
+    ],
+    "category": "Medical waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at your local pharmacy.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local pharmacy",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Metal scraps",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Free drop-off for residents with proof of address.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Microwaves",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Mirrors",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Securely wrap and place in your general waste (red lid) bin or refer to hard waste.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Monitors (computer)",
+    "aliases": [
+      "computer screens",
+      "displays"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Motor oil",
+    "aliases": [
+      "engine oil"
+    ],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Supercheap Auto stores for free recycling.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Supercheap Auto",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.supercheapauto.com.au/services/in-store-fitment-services/oil-recycling"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Accepted at 229 stores across Australia.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Nappies",
+    "aliases": [
+      "diapers"
+    ],
+    "category": "Household waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or consider reusable nappies or Diaper Recycle program.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Diaper Recycle",
+        "address": null,
+        "suburb": "",
+        "website": "https://diaperrecycle.com/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Reusable nappies are recommended to reduce waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Netting (fruit trees)",
+    "aliases": [],
+    "category": "Garden waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in a strong biodegradable bag and then in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Old netting poses an entanglement risk.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Netting produce bags",
+    "aliases": [
+      "produce netting"
+    ],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Remove metal clips and place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Newspapers",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Nitrous oxide canisters",
+    "aliases": [],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Contact Cleanaway Laverton (03 9371 8500), Envirostore (03 9308 6636), Wastechoice (03 9708 8770), or Transnitro (0403 362 600) for collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Envirostore Chemical Consulting",
+        "address": null,
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Wastechoice",
+        "address": null,
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Transnitro Collections",
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Disposal fees apply at customer’s cost.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Oils - cooking",
+    "aliases": [
+      "vegetable oil"
+    ],
+    "category": "Household waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Oils – motor",
+    "aliases": [
+      "engine oil"
+    ],
+    "category": "Hazardous waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Supercheap Auto stores for free recycling.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Supercheap Auto",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.supercheapauto.com.au/services/in-store-fitment-services/oil-recycling"
+      }
+    ],
+    "website": null,
+    "extra_notes": "Accepted at 229 stores across Australia.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Oven",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Oven cleaner",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Paint and paint stripper",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Paintback locations or Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Paintback",
+        "address": "https://www.paintback.com.au/",
+        "suburb": null,
+        "website": null
+      },
+      {
+        "name": "Detox Your Home",
+        "address": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home",
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Paint tins",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Empty paint tins with lids off can be placed in your recycling (yellow lid) bin. Otherwise, drop off at Paintback locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Paintback",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.paintback.com.au/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Paper and cardboard",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin or drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Free drop-off for residents with proof of address.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Paper towel",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Pens and markers",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Officeworks stores.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Officeworks",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Pet food bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plant pots",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plasterboard",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plastic bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plastic containers and bottles",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place all rigid plastic containers and bottles in your recycling (yellow lid) bin. Plastic type 1, 2, and 5 are accepted.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plastic film",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plastic sachets",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Plastic strapping, packing tape",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Put in a bag and place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Polystyrene",
+    "aliases": [
+      "styrofoam"
+    ],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or check Recycling Near You for other options.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Recycling Near You",
+        "address": null,
+        "suburb": null,
+        "website": "https://recyclingnearyou.com.au/polystyrene/"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Potting mix bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Power tools",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Printer cartridges",
+    "aliases": [
+      "ink cartridges",
+      "toner cartridges"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Officeworks stores.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Officeworks",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Prunings",
+    "aliases": [
+      "garden clippings"
+    ],
+    "category": "Garden waste",
+    "bin_type": "Organics",
+    "bin_color": "Lime-green",
+    "instructions": "Place in your food and garden organics (lime-green lid) bin or book a free monthly garden waste collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Keep garden waste loose, not bagged.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Pyrex",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Radios",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Rat poison",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Refrigerators",
+    "aliases": [
+      "fridges"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Residents are entitled to one free hard waste collection of one cubic metre per year",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": null,
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Remote control",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Reusable shopping bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Scrap metal",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Shoes",
+    "aliases": [
+      "footwear"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Smoke detectors (household)",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Soft plastics",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Solvents",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Sporting equipment",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": "",
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Steel cans",
+    "aliases": [
+      "tin cans"
+    ],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Stoves",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tables",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tea bags",
+    "aliases": [],
+    "category": "Organic waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tetra Paks",
+    "aliases": [
+      "juice cartons",
+      "milk cartons"
+    ],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Timber",
+    "aliases": [
+      "wood"
+    ],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tissues",
+    "aliases": [],
+    "category": "Paper",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Toaster",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tools",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Toothbrushes",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Toothbrushes (electric)",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Towels",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "Donation",
+    "bin_color": null,
+    "instructions": "Check with local vets for donation or place in general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Toys (no batteries)",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": "",
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Toys (with plug, cord or battery)",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      },
+      {
+        "name": "Local op shop",
+        "address": "See website for locations",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Transmission fluid",
+    "aliases": [],
+    "category": "Chemicals",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Detox Your Home chemical collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Detox Your Home",
+        "address": null,
+        "suburb": null,
+        "website": "https://www.sustainability.vic.gov.au/recycling-and-reducing-waste-at-home/hazardous-household-chemicals/dispose-of-household-chemicals-detox-your-home"
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "TV units",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tupperware",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": null,
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Tyres",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Vacuum cleaners",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Vacuum cleaner dust",
+    "aliases": [],
+    "category": "Household waste",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Vapes",
+    "aliases": [
+      "e-cigarettes"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "VHS / Cassette tapes",
+    "aliases": [
+      "video tapes"
+    ],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin or donate to local op shop, Facebook Marketplace, Gumtree, or Ziilch if in good condition.",
+    "recyclable": false,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Local op shop",
+        "address": null,
+        "suburb": "",
+        "website": "https://opshop.org/#google_vignette"
+      },
+      {
+        "name": "Facebook Marketplace",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Gumtree",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      },
+      {
+        "name": "Ziilch",
+        "address": "Online",
+        "suburb": "",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Items in good condition can be donated.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Wardrobes",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Refer to hard waste for further information.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Watches",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Boyd Community Hub",
+        "address": "207 City Road",
+        "suburb": "Southbank",
+        "website": null
+      },
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      },
+      {
+        "name": "East Melbourne Library",
+        "address": "22 George Street",
+        "suburb": "East Melbourne",
+        "website": null
+      },
+      {
+        "name": "Kathleen Syme Library and Community Centre",
+        "address": "251 Faraday Street",
+        "suburb": "Carlton",
+        "website": null
+      },
+      {
+        "name": "Kensington Town Hall",
+        "address": "30-34 Bellair Street",
+        "suburb": "Kensington",
+        "website": null
+      },
+      {
+        "name": "Library at The Dock",
+        "address": "107 Victoria Harbour Promenade",
+        "suburb": "Docklands",
+        "website": null
+      },
+      {
+        "name": "North Melbourne Library",
+        "address": "66 Errol Street",
+        "suburb": "North Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Anything with a plug, cord, or battery is considered e-waste.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Washing machines",
+    "aliases": [],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations or book a hard waste collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": null,
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Waxed cardboard",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Whitegoods",
+    "aliases": [
+      "appliances"
+    ],
+    "category": "E-waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at approved e-waste locations or book a hard waste collection.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": null,
+        "address": null,
+        "suburb": null,
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply for drop-off.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Window glass",
+    "aliases": [],
+    "category": "Household items",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Securely wrap and place in your general waste (red lid) bin or refer to hard waste.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Wood pallets",
+    "aliases": [],
+    "category": "Hard waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Drop off at Dynon Road Waste and Recycling Centre.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Dynon Road Waste and Recycling Centre",
+        "address": "437 Dynon Road",
+        "suburb": "West Melbourne",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "Charges may apply. Open 9am to 3pm, 7 days a week, excluding Good Friday and Christmas Day.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "X-rays",
+    "aliases": [],
+    "category": "Medical waste",
+    "bin_type": "Drop-off",
+    "bin_color": null,
+    "instructions": "Post to Siltech PMR, X-Ray Recycling, 7/220 Barry Road, Campbellfield VIC 3061.",
+    "recyclable": true,
+    "drop_off_required": true,
+    "drop_off_locations": [
+      {
+        "name": "Siltech PMR",
+        "address": "7/220 Barry Road",
+        "suburb": "Campbellfield",
+        "website": null
+      }
+    ],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Yoghurt containers",
+    "aliases": [],
+    "category": "Packaging",
+    "bin_type": "Recycling",
+    "bin_color": "Yellow",
+    "instructions": "Place in your recycling (yellow lid) bin.",
+    "recyclable": true,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "",
+    "source": "City of Melbourne A–Z Waste Guide"
+  },
+  {
+    "item": "Zip lock bags",
+    "aliases": [],
+    "category": "Soft plastics",
+    "bin_type": "General waste",
+    "bin_color": "Red",
+    "instructions": "Place in your general waste (red lid) bin.",
+    "recyclable": false,
+    "drop_off_required": false,
+    "drop_off_locations": [],
+    "website": null,
+    "extra_notes": "Soft plastic recycling is currently paused.",
+    "source": "City of Melbourne A–Z Waste Guide"
+  }
+]

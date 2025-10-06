@@ -1,144 +1,92 @@
-from flask import Flask, render_template, request, send_file
-import pandas as pd
-import matplotlib
-matplotlib.use("Agg")  #using a non-GUI backend
-import matplotlib.pyplot as plt
-import io
-import base64
-import matplotlib.patches as mpatches
-
-#creating Flask app
-app = Flask(__name__)
-
-#loading dataset
-data = pd.read_csv("cleaned_data_with_splits.csv")
-
-#filtering only for Male and Female in the Gender column
-data = data[data["Gender"].isin(["Male", "Female"])]
-
-print(data["Gender"].unique())
-data.to_csv("gender_filtered_data.csv", index=False)
-
-@app.route('/')
-def home():
-    #extracting unique values for dropdowns
-    activity_types = data["ActivityType"].unique()
-    response_types = data["Response"].unique()
-    #passing the values to the template
-    return render_template("index.html", activity_types=activity_types, response_types=response_types)
-
-@app.route("/visualize", methods=["GET"])
-def visualize():
-    #getting user selections from dropdowns
-    activity = request.args.get("activity")
-    response = request.args.get("response")
-
-    #filtering the data based on the user's selections
-    filtered_data = data[(data["ActivityType"] == activity) & (data["Response"] == response)]
-
-    #grouping by Year and Gender
-    gender_trends = filtered_data.groupby(["Year", "Gender"])["Percentage"].mean().unstack()
-
-    #creating the plot
-    if not gender_trends.empty:
-        plt.figure(figsize=(12, 7))  # Wider plot
-        ax = gender_trends.plot(kind="bar", color={"Male": "cornflowerblue", "Female": "lightpink"}, alpha=0.85, edgecolor="black")
-
-        #titles and labels
-        plt.title(f"Visualization for {activity} ({response})", fontsize=7, pad=20, fontweight="bold")
-        plt.xlabel("Year", fontsize=12, fontweight="medium")
-        plt.ylabel("Percentage", fontsize=12, fontweight="medium")
-
-        #gridlines
-        plt.grid(axis="y", linestyle="--", linewidth=0.7, alpha=0.6)
-
-        #fonts
-        plt.xticks(fontsize=10, fontfamily="sans-serif")
-        plt.yticks(fontsize=10, fontfamily="sans-serif")
-
-        #legend
-        plt.legend(title="Gender", fontsize=10, title_fontsize=12, loc="upper left", bbox_to_anchor=(1.02, 1))
-
-        #background
-        plt.gca().set_facecolor("#f7f7f7")
-        plt.gca().spines["top"].set_visible(False)  # Hide top and right spines
-        plt.gca().spines["right"].set_visible(False)
-
-        #data Labels
-        for container in ax.containers:
-            ax.bar_label(container, fmt='%.1f', label_type="edge", fontsize=10, padding=3)
-
-        plt.tight_layout()  # Avoid overlap
-
-        #saving the plot as a PNG image in-memory
-        img = io.BytesIO()
-        plt.savefig(img, format="png")
-        img.seek(0)
-        plt.close()
-
-        #encoding the image to base64 for embedding in HTML
-        plot_url = base64.b64encode(img.getvalue()).decode()
-
-        #passing the image to the template
-        return render_template("visualize.html", plot_url=plot_url, activity=activity, response=response)
-    else:
-        return render_template("no_data.html", activity=activity, response=response)
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
+import json
 import os
+import requests
+
+app = Flask(__name__)
+CORS(app)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(BASE_DIR, "recycling_data_clean.json")
+with open(json_path, "r", encoding="utf-8") as f:
+    recycling_data = json.load(f)
+
+def get_relevant_items(message):
+    message_lower = message.lower()
+    relevant = []
+    for entry in recycling_data:
+        if entry["item"].lower() in message_lower:
+            relevant.append(entry)
+        else:
+            for alias in entry.get("aliases", []):
+                if alias.lower() in message_lower:
+                    relevant.append(entry)
+    if not relevant:
+        relevant = recycling_data[:3]
+    return relevant
+
+def build_prompt(message, relevant_items):
+    details_list = []
+    for item in relevant_items:
+        detail = f"- Item: {item['item']}\n"
+        detail += f"  Instructions: {item['instructions']}\n"
+        detail += f"  Bin Type: {item.get('bin_type', 'N/A')}\n"
+        if item.get("bin_color"):
+            detail += f"  Bin Color: {item['bin_color']}\n"
+        if item.get("drop_off_locations"):
+            locs = []
+            for loc in item["drop_off_locations"]:
+                loc_str = loc.get("name", "Unknown location")
+                if loc.get("website"):
+                    loc_str += f" ({loc['website']})"
+                locs.append(loc_str)
+            detail += f"  Drop-off Locations: {', '.join(locs)}\n"
+        if item.get("website"):
+            detail += f"  Website: {item['website']}\n"
+        if item.get("extra_notes"):
+            detail += f"  Extra Notes: {item['extra_notes']}\n"
+        details_list.append(detail)
+    details_text = "\n".join(details_list)
+    prompt = f"""You are a helpful recycling assistant in Victoria, Australia.
+Use the following information about items to answer the user's question in a friendly and helpful way.
+
+Information:
+{details_text}
+
+User question: {message}"""
+    return prompt
+
+def ask_mistral(prompt):
+    API_KEY = "Ol1lWKKBKfFKSXpN5OWCgR7weAWPOTiO"
+    url = "https://api.mistral.ai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": "mistral-tiny",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        result = response.json()
+        return result["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        print("Mistral API error:", e)
+        return "Sorry, I could not generate an answer right now."
+
+
+@app.route("/ask", methods=["POST"])
+def ask():
+    question = request.json.get("question")
+    if not question:
+        return jsonify({"error": "No question provided"}), 400
+    relevant_items = get_relevant_items(question)
+    prompt = build_prompt(question, relevant_items)
+    answer = ask_mistral(prompt)
+    return jsonify({"answer": answer})
 
 if __name__ == "__main__":
-    debug_mode = os.getenv("FLASK_DEBUG", "False").lower() in ["true", "1", "t"]
-    app.run(debug=debug_mode)
-
-# Physical Activity Dashboard
-
-#This dashboard provides visual insights into physical activity trends among males and females in Melbourne. Users can select activity types and responses to generate visualizations. The project includes features like dark mode, error handling, and an about page.
-
-#**Goals:**
-#- Help users analyze physical activity trends.
-#- Provide user-friendly visualizations and insights.
-
-#**Target Audience:** Researchers, students, and policymakers interested in health data.
-
-## Features
-#1. Dropdowns for selecting activity type and response.
-#2. Bar chart visualizations grouped by gender and year.
-#3. Dark mode toggle for better accessibility.
-#4. Error handling: Displays a "No Data Found" page for invalid inputs.
-#5. About page to explain the project and its purpose.
-
-## Setup and Installation
-
-### Prerequisites
-#- Python 3.9+
-#- `pip` package manager
-
-### Steps
-#1. Clone the repository: `git clone <repository-url>`
-#2. Navigate to the project folder: `cd flask_project`
-#3. Install dependencies: `pip install -r requirements.txt`
-#4. Run the Flask app: `python app.py`
-#5. Open `http://127.0.0.1:5000` in your browser.
-
-## Usage
-#1. Select an activity type and response from the dropdowns.
-#2. Click "Show Visualization" to generate a chart.
-#3. Toggle between light and dark modes using the switch.
-#4. Visit the "About" page to learn more about the project.
-#5. If no data is available, a "No Data Found" page will appear.
-
-## Technical Details
-
-#- **Backend:** Flask
- # - Routes:
-  #  - `/`: Home page
-   # - `/visualize`: Generates visualizations based on user input.
-    #- `/about`: Provides project details.
-#- **Frontend:** HTML, CSS, JavaScript
- # - Dark mode toggle implemented with JavaScript and localStorage.
-#- **Data Processing:** pandas for filtering and aggregating data.
-#- **Visualizations:** matplotlib for creating bar charts.
+    app.run(port=5000, debug=True)
