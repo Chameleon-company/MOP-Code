@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MPT Route Optimizer</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet (free, no API key needed) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <!-- Fullscreen map -->
+  <div id="map"></div>
+
+  <!-- Floating chat launcher -->
+  <button id="chatFab" aria-label="Open chat">💬</button>
+
+  <!-- Chat panel -->
+  <div id="chatPanel" aria-hidden="true">
+    <div class="chat-header">
+      <span>🚉 Route Optimizer</span>
+      <button id="closeChat" aria-label="Close">✕</button>
+    </div>
+    <div id="chatbox" class="chatbox" aria-live="polite"></div>
+    <div class="chat-input">
+      <textarea id="userInput" rows="2" placeholder="Ask me: Best park-and-ride to NGV at 10:00"></textarea>
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
