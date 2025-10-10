@@ -1,0 +1,9 @@
+"I want to rent a unit or apartment with exactly 2 bedrooms near Footscray, with the weekly rental fee below 400 dollars."
+"I want to rent a unit or apartment with exactly 2 bedrooms and 2 bathrooms near Melbourne CBD, with the weekly rental fee below 700 dollars. Must be within 10 minutes walking to Southern Cross Station or 20 minutes with public transportation."
+"I want to rent an apartment, my budget is $600 per week. It must be within 20 minute using buses to Deakin University."
+"I want to rent an apartment, my budget is $700 per week in BoxHill.
+"I want to rent an apartment, my budget is $700 per week in BoxHill. It must be within 10 minutes using train and tram to Deakin University."
+"I want to rent a townhouse with less than 5 bedrooms near Burwood, my budget is $600 per week."
+"I want to find a room in Burwood, my budget is $600 per week."
+"I want to rent a house or apartment in Box Hill. My budget is $700 per week.
+"I want to rent a house or apartment with maximum 2 bedrooms and a carspace in Box Hill. My budget is $700 per week. It must be within 40 minutes driving to the University of Melbourne and 10 minutes driving to Deakin University."
