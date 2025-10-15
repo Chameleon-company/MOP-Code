@@ -28,9 +28,47 @@ coverage/
 .vscode/
 .idea/
 
-# Rasa (adjust if you want models committed)
-.rasa/
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.h5
+
+# Envs
+.env
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Archives / media / dbs
+*.db
+*.zip
+*.mp4
+
+# Rasa artifacts & logs
+**/.rasa/
 results/
 logs/
+**/story_graph.dot
+
+# Project-specific 
+**/mpt_bot/models/
+**/mpt_bot/mpt_data/
+**/mpt_bot/maps/*.html
+**/mpt_bot/mnt/
+**/key.env
+
+
+artificial-intelligence/chatbot/mpt_data/
+artificial-intelligence/chatbot/code/mpt_bot/story_graph.dot
+
 # If you don't want trained models in git, uncomment:
 # models/
