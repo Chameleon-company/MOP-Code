@@ -705,7 +705,7 @@ const Dashboard = () => {
 								placeholder="blur"
 							/>
 						</div>
-
+{/* hero contact section */}
 						<div className="hero-content">
 							<h1 className="hero-title">{t_hero("hero-top")}</h1>
 							<p className="hero-subtitle">{t_hero("hero-sub")}</p>
@@ -809,6 +809,7 @@ const Dashboard = () => {
 							<ChevronDown size={40} />
 						</div>
 					</section>
+					{/* City Metric Solution  */}
 					<section className="city-metrics-section bg-gray-50 dark:bg-gray-900 py-12">
 						<div className="container mx-auto px-4">
 							<h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
@@ -822,7 +823,7 @@ const Dashboard = () => {
 						</div>
 					</section>
 
-
+{/* Our vision section */}
 					<section className="our-vision-section">
 						<div className="img-div">
 							<Image src={secondimage} alt="Second Image" />
@@ -832,7 +833,7 @@ const Dashboard = () => {
 							<p>{t("intro")}</p>
 						</div>
 					</section>
-
+{/* Explore by category  */}
 					<section className="w-full max-w-6xl mx-auto mt-10 px-2 md:px-0">
             			<h3 className="text-xl font-semibold mb-3">Explore by category</h3>
               				<div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mb-2">
@@ -900,12 +901,24 @@ const Dashboard = () => {
 									</div>
 								))}
 							</Carousel>
+							
 						</section>
-					</section>
+
+
+
+						</section>
+
+
+
+
 				</div>
+
 			</div>
+
+
 		</>
 	);
+
 
 };
 
