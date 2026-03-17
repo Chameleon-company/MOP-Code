@@ -60,6 +60,7 @@ logs/
 **/story_graph.dot
 
 # Project-specific 
+Project 2: Smart Street Lighting Design .md
 **/mpt_bot/models/
 **/mpt_bot/mpt_data/
 **/mpt_bot/maps/*.html
