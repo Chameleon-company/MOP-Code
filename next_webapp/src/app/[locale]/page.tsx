@@ -3,6 +3,8 @@ import Footer from "../../components/Footer";
 import Dashboard from "../../components/Dashboard";
 import Chatbot from "../chatbot/chatbot";
 import SocialMediaFeed from "@/components/SocialMediaFeed";
+import PartnersSection from "@/components/PartnersSection";
+
 import CityMetricCard from "@/components/CityMetricCard";
 import Insights from "@/components/Insights";
 
@@ -12,9 +14,11 @@ const Home = () => {
       <Header />
       <Dashboard />
       <Insights />
+      <PartnersSection />
       <SocialMediaFeed />
       <Chatbot />
       <Footer />
+
     </div>
   );
 };
