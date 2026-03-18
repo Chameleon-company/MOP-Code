@@ -62,9 +62,6 @@ class Chunk:
 # Matches any markdown heading: # … through ###### …
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+)$")
 
-# Matches our custom page-marker convention: [PAGE 12] or [page 12]
-PAGE_MARKER_RE = re.compile(r"\[PAGE\s+(\d+)\]", re.IGNORECASE)
-
 # Matches a line that starts a bullet or numbered list item
 LIST_ITEM_RE = re.compile(r"^\s*([-*+]|\d+\.)\s+")
 
@@ -93,7 +90,6 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
 
     # Accumulate lines until we hit the next heading
     current_lines: List[str] = []
-    current_page: Optional[int] = None
     
     def flush_section() -> None:
         """Push the accumulated lines as a completed section."""
@@ -124,13 +120,6 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
         
     # Process each line
     for line in lines:
-        # Update the running page number
-        page_match = PAGE_MARKER_RE.search(line)
-        if page_match:
-            current_page = int(page_match.group(1))
-            # Don't add the marker line itself to the content.
-            continue
-        
         # Check for markdown headings like # or ## or ###
         heading_match = HEADING_RE.match(line)
         if heading_match:
@@ -358,8 +347,8 @@ def make_chunk_id(source_file: str, section_path: str, chunk_text: str) -> str:
 def chunk_markdown_document(
     markdown_text: str,
     source_file: str,
-    max_tokens: int = 10000,
-    overlap_tokens: int = 100,
+    max_tokens: int = 4000,
+    overlap_tokens: int = 40,
 ) -> List[Chunk]:
     """
     Main chunking pipeline. Combine everything above.
@@ -442,26 +431,26 @@ def chunk_markdown_document(
     return all_chunks
 
 
-# Test
-file_path = r"D:\Deakin-Data-Science\T2Y3\SIT378 - Team project B\Project\Project 6 - Bridge and Road Crack Detection System\RAG pipeline\processed_documents\Austroads Guide to Bridge Technology Part 7.md"
-with open(file_path, "r", encoding="utf-8") as f:
-    markdown_text = f.read()
+# # Test
+# file_path = r"D:\Deakin-Data-Science\T2Y3\SIT378 - Team project B\Project\Project 6 - Bridge and Road Crack Detection System\RAG pipeline\processed_documents\Austroads Guide to Bridge Technology Part 7.md"
+# with open(file_path, "r", encoding="utf-8") as f:
+#     markdown_text = f.read()
     
-chunks = chunk_markdown_document(
-    markdown_text=markdown_text,
-    source_file=file_path,
-)
+# chunks = chunk_markdown_document(
+#     markdown_text=markdown_text,
+#     source_file=file_path,
+# )
 
-print(f"\n{'='*60}")
-print(f"  Total chunks produced: {len(chunks)}")
-print(f"{'='*60}\n")
+# print(f"\n{'='*60}")
+# print(f"  Total chunks produced: {len(chunks)}")
+# print(f"{'='*60}\n")
 
-# Process first 20 chunks
-for i, chunk in enumerate(chunks[:20], 1):
-    print(f"--- Chunk {i} ---")
-    print(f"  id           : {chunk.chunk_id}")
-    print(f"  section_path : {chunk.section_path}")
-    print(f"  type         : {chunk.chunk_type}")
-    print(f"  tokens       : {chunk.token_count}")
-    print(f"  text preview : {chunk.chunk_text[:80]!r}")
-    print()
+# # Process first 20 chunks
+# for i, chunk in enumerate(chunks[:20], 1):
+#     print(f"--- Chunk {i} ---")
+#     print(f"  id           : {chunk.chunk_id}")
+#     print(f"  section_path : {chunk.section_path}")
+#     print(f"  type         : {chunk.chunk_type}")
+#     print(f"  tokens       : {chunk.token_count}")
+#     print(f"  text preview : {chunk.chunk_text[:80]!r}")
+#     print()
