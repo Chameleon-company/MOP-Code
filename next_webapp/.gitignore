@@ -28,6 +28,13 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# environment secrets (never commit real secrets)
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+
 # vercel
 .vercel
 
