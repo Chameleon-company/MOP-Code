@@ -250,12 +250,11 @@ def split_block_by_tokens(
     400,000 token context window, so I decide to set the max_token to high.
     The focus is not constrain but retrieval quality.
     
-    Parameters
-    ----------
-    block         : The text to split.
-    max_tokens    : Hard upper bound (in tokens) for each output chunk.
-    overlap_tokens: How many tokens of the *previous* chunk to prepend to the
-                    next one. 
+    Args:
+        block         : The text to split.
+        max_tokens    : Hard upper bound (in tokens) for each output chunk.
+        overlap_tokens: How many tokens of the *previous* chunk to prepend to the
+                        next one. 
     """
     if count_tokens(block) <= max_tokens:
         return [block]
@@ -333,9 +332,7 @@ def make_chunk_id(source_file: str, section_path: str, chunk_text: str) -> str:
       - section_path  : same text appearing in two sections gets different ids
       - chunk_text    : the actual content
 
-    SHA-256 gives a 64-character hex string.  Truncating to 16 characters
-    (64 bits) is plenty for deduplication — the probability of a collision
-    across millions of chunks is negligible.
+    SHA-256 gives a 64-character hex string.
 
     Because the hash is deterministic, re-running the chunker on an unchanged
     document produces the exact same ids, making upserts into a vector store
@@ -352,20 +349,19 @@ def chunk_markdown_document(
 ) -> List[Chunk]:
     """
     Main chunking pipeline. Combine everything above.
-    markdown text → list of `Chunk` objects.
+    markdown text to list of `Chunk` objects.
     
-    Parameters
-    ----------
-    markdown_text : The full content of the markdown file as a string.
-    source_file   : Path to the source file (used for metadata and the id).
-    max_tokens    : Target token budget per chunk.  
-    overlap_tokens: How many tokens of context to carry over between
-                    consecutive sub-chunks of the same block.
+    Args:
+        markdown_text : The full content of the markdown file as a string.
+        source_file   : Path to the source file (used for metadata and the id).
+        max_tokens    : Target token budget per chunk.  
+        overlap_tokens: How many tokens of context to carry over between
+                        consecutive sub-chunks of the same block.
 
-    Returns
-    -------
-    A list of `Chunk` dataclass instances, ready to embed and store.
+    Returns:
+        A list of `Chunk` dataclass instances, ready to embed and store.
     """
+    
     
     if not markdown_text.strip():
         print("Empty document!")
@@ -385,14 +381,14 @@ def chunk_markdown_document(
         section_path = section["section_path"] or doc_title
         prev_heading = section["prev_heading"]
         
-        # Step 1: Split the section content into semantic blocks.
+        # 1 Split the section content into semantic blocks.
         blocks = split_into_blocks(section["content"])
 
         for block in blocks:
             block = normalize_whitespace(block)
             chunk_type = detect_chunk_type(block)
 
-            # Step 2: Further split any block that's too large.
+            # 2. Further split any block that's too large.
             sub_chunks = split_block_by_tokens(
                 block,
                 max_tokens=max_tokens,
@@ -400,7 +396,7 @@ def chunk_markdown_document(
             )
 
             for sub_chunk in sub_chunks:
-                # Step 3: Build the enriched embedding text.
+                # 3. Build the enriched embedding text.
                 embedding_text = build_embedding_text(
                     doc_title=doc_title,
                     section_path=section_path,
@@ -408,10 +404,10 @@ def chunk_markdown_document(
                     chunk_text=sub_chunk,
                 )
 
-                # Step 4: Generate a stable chunk id.
+                # 4. Generate a stable chunk id.
                 chunk_id = make_chunk_id(source_file, section_path, sub_chunk)
 
-                # Step 5: Cache the token count so callers don't re-tokenize.
+                # 5. Cache the token count so callers don't re-tokenize.
                 token_count = count_tokens(embedding_text)
 
                 all_chunks.append(
