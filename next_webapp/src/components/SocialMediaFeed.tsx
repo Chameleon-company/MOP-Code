@@ -22,7 +22,7 @@ const SocialMediaFeed: React.FC = () => {
           <InstagramEmbed
             url="https://www.instagram.com/cityofmelbourne/?igsh=OXFqa25sdno5OTRv#"
             width="100%"
-          />
+          /> 
         </div>
         <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-[#37474F] w-full max-w-[400px] h-[500px] flex items-center justify-center">
           <iframe
