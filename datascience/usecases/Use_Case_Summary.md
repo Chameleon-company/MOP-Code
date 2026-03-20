@@ -1,4 +1,4 @@
-# Use Case Summary
+# Use Case Index
 
 Names of all use cases, location in GitHub and description of data collection methods used as well as last update of data collection method.
 
