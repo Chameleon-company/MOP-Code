@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import supabase from '../../../../lib/postgresql';
+import supabase from '../../../../../lib/postgresql';
 
-// Define the request type for clarity
+// Define the request type for clarity - jus testing
 interface LoginRequest {
   email: string;
   password: string;
