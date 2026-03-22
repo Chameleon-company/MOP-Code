@@ -4,7 +4,7 @@ import Dashboard from "../../components/Dashboard";
 import Chatbot from "../chatbot/chatbot";
 import SocialMediaFeed from "@/components/SocialMediaFeed";
 import PartnersSection from "@/components/PartnersSection";
-
+import TestimonialsSection from "@/components/TestimonialsSection";
 import CityMetricCard from "@/components/CityMetricCard";
 import Insights from "@/components/Insights";
 
@@ -14,6 +14,8 @@ const Home = () => {
       <Header />
       <Dashboard />
       <Insights />
+      
+      <TestimonialsSection />
       <PartnersSection />
       <SocialMediaFeed />
       <Chatbot />
