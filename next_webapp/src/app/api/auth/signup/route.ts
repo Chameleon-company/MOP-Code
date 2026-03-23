@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/library/supabaseClient';
 import bcrypt from 'bcryptjs';
+import { errorResponse } from '@/app/api/library/errorResponse';
 
 export async function POST(request: Request) {
     try {
@@ -8,10 +9,7 @@ export async function POST(request: Request) {
 
         // Validate input
         if (!firstName || !lastName || !email || !password) {
-            return NextResponse.json(
-                { success: false, message: 'All fields are required' },
-                { status: 400 }
-            );
+            return errorResponse('All fields are required', 400, 'MISSING_FIELDS');
         }
 
         // Check if user already exists
@@ -22,10 +20,7 @@ export async function POST(request: Request) {
             .single();
 
         if (existingUser) {
-            return NextResponse.json(
-                { success: false, message: 'User already exists' },
-                { status: 400 }
-            );
+            return errorResponse('User already exists', 400, 'USER_EXISTS');
         }
 
         // Hash password
@@ -38,7 +33,7 @@ export async function POST(request: Request) {
                 {
                     email: email,
                     password: hashedPassword,
-                    role_id: 1 
+                    role_id: 1
                 }
             ])
             .select()
@@ -70,10 +65,6 @@ export async function POST(request: Request) {
 
     } catch (error) {
         console.error('Signup Error:', error);
-
-        return NextResponse.json(
-            { success: false, message: 'Internal Server Error bla' },
-            { status: 500 }
-        );
+        return errorResponse('Internal Server Error', 500, 'INTERNAL_ERROR');
     }
 }
