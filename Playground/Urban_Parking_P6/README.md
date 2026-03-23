@@ -90,3 +90,16 @@ This approach allows capturing both spatial and temporal relationships in the da
 - Implement and train the GNN model  
 - Evaluate model performance  
 - Improve prediction accuracy  
+
+## Step by Step process
+cleaned_parking.csv
+        ↓
+graph.py  → builds graph
+        ↓
+features.py → adds features
+        ↓
+model.py → defines GNN
+        ↓
+train.py → trains & predicts
+        ↓
+visualize.py → shows results
