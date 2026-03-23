@@ -15,7 +15,7 @@ This project focuses on predicting parking availability in urban areas using dat
 
 ## Dataset
 - **Dataset:** Melbourne Parking Dataset  
-- **Source:** (Add link here)  
+- **Source:** https://data.melbourne.vic.gov.au/explore/dataset/on-street-parking-bays/information/ 
 - **Status:** Cleaned and prepared for analysis  
 
 ### Key Features
