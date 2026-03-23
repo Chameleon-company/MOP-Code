@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Dashboard from "../../components/Dashboard";
 import Chatbot from "../chatbot/chatbot";
 import SocialMediaFeed from "@/components/SocialMediaFeed";
+import BackToTopButton from "@/components/BackToTopButton";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Header />
       <Dashboard />
       <SocialMediaFeed />
+      <BackToTopButton />
       <Chatbot />
       <Footer />
     </div>
