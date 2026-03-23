@@ -9,184 +9,268 @@ import axios from "axios";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
 
 const Upload = () => {
-  const t = useTranslations("upload");
-  const inputRef = useRef<HTMLInputElement>(null);
+	const t = useTranslations("upload");
+	const inputRef = useRef<HTMLInputElement>(null);
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(0);
-  const [uploadStatus, setUploadStatus] = useState<"select" | "uploading" | "done">("select");
-  const [tags, setTags] = useState<string[]>([]);
-  const [darkMode, setDarkMode] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [trimester, setTrimester] = useState("Trimester 1");
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+	const [progress, setProgress] = useState<number>(0);
+	const [uploadStatus, setUploadStatus] = useState<
+		"select" | "uploading" | "done"
+	>("select");
+	const [tags, setTags] = useState<string[]>([]);
+	const [darkMode, setDarkMode] = useState(false);
+	const [name, setName] = useState("");
+	const [description, setDescription] = useState("");
+	const [trimester, setTrimester] = useState("Trimester 1");
 
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-    if (theme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+	// NEW: highlight state when dragging files over the dropzone
+	const [isDragging, setIsDragging] = useState(false);
 
-  useEffect(() => {
-    if (darkMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [darkMode]);
+	// NEW: keyboard support to open the file dialog
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			onChooseFile();
+		}
+	};
 
-  const handleToggle = (val: boolean) => {
-    setDarkMode(val);
-    localStorage.setItem("theme", val ? "dark" : "light");
-  };
+	// NEW: drag & drop handlers
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(true);
+	};
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      setSelectedFileName(file.name);
-    }
-  };
+	const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(true);
+	};
 
-  const onChooseFile = () => inputRef.current?.click();
+	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
+	};
 
-  const clearFileInput = () => {
-    if (inputRef.current) inputRef.current.value = "";
-    setSelectedFile(null);
-    setSelectedFileName(null);
-    setProgress(0);
-    setUploadStatus("select");
-  };
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
 
-  const handleUpload = async () => {
-    if (uploadStatus === "done") {
-      clearFileInput();
-      return;
-    }
+		const file = e.dataTransfer.files?.[0];
+		if (file) {
+			setSelectedFile(file);
+			setSelectedFileName(file.name);
+		}
+	};
 
-    if (!selectedFile) return;
+	useEffect(() => {
+		const theme = localStorage.getItem("theme");
+		if (theme === "dark") {
+			setDarkMode(true);
+			document.documentElement.classList.add("dark");
+		}
+	}, []);
 
-    try {
-      setUploadStatus("uploading");
+	useEffect(() => {
+		if (darkMode) document.documentElement.classList.add("dark");
+		else document.documentElement.classList.remove("dark");
+	}, [darkMode]);
 
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("tags", JSON.stringify(tags));
-      formData.append("trimester", trimester);
+	const handleToggle = (val: boolean) => {
+		setDarkMode(val);
+		localStorage.setItem("theme", val ? "dark" : "light");
+	};
 
-      await axios.post("/api/upload", formData, {
-        onUploadProgress: (event) => {
-          const percent = Math.round((event.loaded * 100) / (event.total ?? 1));
-          setProgress(percent);
-        },
-      });
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			setSelectedFile(file);
+			setSelectedFileName(file.name);
+		}
+	};
 
-      setUploadStatus("done");
-    } catch (err) {
-      console.error("Upload failed", err);
-      setUploadStatus("select");
-    }
-  };
+	const onChooseFile = () => inputRef.current?.click();
 
-  return (
-    <div className="bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
-      <Header />
+	const clearFileInput = () => {
+		if (inputRef.current) inputRef.current.value = "";
+		setSelectedFile(null);
+		setSelectedFileName(null);
+		setProgress(0);
+		setUploadStatus("select");
+	};
 
-      <main className="px-8 py-10 font-sans max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-10">{t("Upload Case Studies")}</h1>
+	const handleUpload = async () => {
+		if (uploadStatus === "done") {
+			clearFileInput();
+			return;
+		}
 
-        <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">{t("Upload Details")}</h2>
+		if (!selectedFile) return;
 
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <div>
-              <label className="block mb-2">{t("Name")}</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter name"
-                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
-              />
+		try {
+			setUploadStatus("uploading");
 
-              <label className="block mt-6 mb-2">{t("Tags")}</label>
-              <TagsInput
-                value={tags}
-                onChange={setTags}
-                name="tags"
-                placeHolder="Tags"
-                classNames={{
-                  input: "dark:bg-[#1d1d1d] dark:text-white border border-gray-300 dark:border-gray-600 rounded-md p-2",
-                  tag: "bg-green-500 text-white px-2 py-1 rounded",
-                }}
-              />
-            </div>
+			const formData = new FormData();
+			formData.append("file", selectedFile);
+			formData.append("name", name);
+			formData.append("description", description);
+			formData.append("tags", JSON.stringify(tags));
+			formData.append("trimester", trimester);
 
-            <div>
-              <label className="block mb-2">{t("Description")}</label>
-              <input
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter description"
-                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
-              />
+			await axios.post("/api/upload", formData, {
+				onUploadProgress: (event) => {
+					const percent = Math.round((event.loaded * 100) / (event.total ?? 1));
+					setProgress(percent);
+				},
+			});
 
-              <label className="block mt-6 mb-2">{t("Trimester")}</label>
-              <select
-                value={trimester}
-                onChange={(e) => setTrimester(e.target.value)}
-                className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
-              >
-                <option>{t("Trimester 1")}</option>
-                <option>{t("Trimester 2")}</option>
-                <option>{t("Trimester 3")}</option>
-              </select>
-            </div>
-          </form>
+			setUploadStatus("done");
+		} catch (err) {
+			console.error("Upload failed", err);
+			setUploadStatus("select");
+		}
+	};
 
-          <div className="border-2 border-dashed border-gray-400 dark:border-gray-600 rounded-md p-10 text-center">
-            <input ref={inputRef} type="file" onChange={handleFileChange} hidden />
-            <button type="button" onClick={onChooseFile}>
-              <img src="/img/Upload_use_case.png" alt="Upload" className="h-20 w-auto mx-auto" />
-            </button>
-            <p className="text-lg mt-4">{t("Click on logo to upload files")}</p>
-          </div>
+	return (
+		<div className="bg-gray-100 dark:bg-[#1d1919] min-h-screen text-black dark:text-white transition-all duration-300">
+			<Header />
 
-          {selectedFile && (
-            <div className="mt-8 bg-gray-100 dark:bg-[#1a1a1a] p-6 rounded-lg shadow-inner">
-              <div className="flex justify-between items-center mb-2">
-                <div className="flex items-center gap-2">
-                  <img src="/img/document.png" alt="doc" className="h-6" />
-                  <span>{selectedFileName}</span>
-                </div>
-                <span>{progress}%</span>
-              </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
-                <div
-                  className="bg-green-500 h-2 rounded-full"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+			<main className="px-8 py-10 font-sans max-w-6xl mx-auto">
+				<h1 className="text-4xl font-bold mb-10">{t("Upload Case Studies")}</h1>
 
-              <div className="mt-6 text-center">
-                <button
-                  className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-                  onClick={handleUpload}
-                >
-                  {uploadStatus === "done" ? t("Clear") : t("Upload File")}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </main>
+				<div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-md p-8">
+					<h2 className="text-2xl font-semibold mb-6">{t("Upload Details")}</h2>
 
-      <Footer />
-    </div>
-  );
+					<form className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+						<div>
+							<label className="block mb-2">{t("Name")}</label>
+							<input
+								type="text"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+								placeholder="Enter name"
+								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+							/>
+
+							<label className="block mt-6 mb-2">{t("Tags")}</label>
+							<TagsInput
+								value={tags}
+								onChange={setTags}
+								name="tags"
+								placeHolder="Tags"
+								classNames={{
+									input:
+										"dark:bg-[#1d1d1d] dark:text-white border border-gray-300 dark:border-gray-600 rounded-md p-2",
+									tag: "bg-green-500 text-white px-2 py-1 rounded",
+								}}
+							/>
+						</div>
+
+						<div>
+							<label className="block mb-2">{t("Description")}</label>
+							<input
+								type="text"
+								value={description}
+								onChange={(e) => setDescription(e.target.value)}
+								placeholder="Enter description"
+								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+							/>
+
+							<label className="block mt-6 mb-2">{t("Trimester")}</label>
+							<select
+								value={trimester}
+								onChange={(e) => setTrimester(e.target.value)}
+								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+							>
+								<option>{t("Trimester 1")}</option>
+								<option>{t("Trimester 2")}</option>
+								<option>{t("Trimester 3")}</option>
+							</select>
+						</div>
+					</form>
+
+					<div
+						role="button"
+						tabIndex={0}
+						onKeyDown={handleKeyDown}
+						onClick={onChooseFile}
+						onDragOver={handleDragOver}
+						onDragEnter={handleDragEnter}
+						onDragLeave={handleDragLeave}
+						onDrop={handleDrop}
+						className={[
+							"rounded-xl p-12 text-center transition-all duration-300 select-none",
+							"border-2 border-dashed",
+							"border-gray-400 dark:border-gray-600",
+							isDragging
+								? "bg-green-50 dark:bg-[#1e2d1e] border-green-600 shadow-md"
+								: "hover:border-green-500 hover:bg-green-50 dark:hover:bg-[#1e2d1e]",
+						].join(" ")}
+					>
+						<input
+							ref={inputRef}
+							type="file"
+							onChange={handleFileChange}
+							hidden
+							// optional filters:
+							// accept=".pdf,.doc,.docx,.png,.jpg"
+							// multiple
+						/>
+
+						<img
+							src="/img/Upload_use_case.png"
+							alt="Upload"
+							className={[
+								"mx-auto w-auto",
+								"h-28 md:h-32",
+								"transform transition-transform duration-300",
+								isDragging ? "scale-110" : "hover:scale-110",
+							].join(" ")}
+						/>
+
+						<p className="text-lg mt-4 font-medium text-gray-600 dark:text-gray-300">
+							{t("ClickOrDrag")}
+						</p>
+						<p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
+							{t("SupportedTypes")}
+						</p>
+					</div>
+
+					{selectedFile && (
+						<div className="mt-8 bg-gray-100 dark:bg-[#1a1a1a] p-6 rounded-lg shadow-inner">
+							<div className="flex justify-between items-center mb-2">
+								<div className="flex items-center gap-2">
+									<img src="/img/document.png" alt="doc" className="h-6" />
+									<span>{selectedFileName}</span>
+								</div>
+								<span>{progress}%</span>
+							</div>
+							<div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
+								<div
+									className="bg-green-500 h-2 rounded-full"
+									style={{ width: `${progress}%` }}
+								/>
+							</div>
+
+							<div className="mt-6 text-center">
+								<button
+									className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+									onClick={handleUpload}
+								>
+									{uploadStatus === "done" ? t("Clear") : t("Upload File")}
+								</button>
+							</div>
+						</div>
+					)}
+				</div>
+			</main>
+
+			<Footer />
+		</div>
+	);
 };
 
 export default Upload;
