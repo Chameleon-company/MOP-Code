@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/library/supabaseClient';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { errorResponse } from '@/app/api/library/errorResponse';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -11,10 +12,7 @@ export async function POST(request: Request) {
 
         // 1. Validate input
         if (!email || !password) {
-            return NextResponse.json(
-                { success: false, message: 'Email and password are required' },
-                { status: 400 },
-            );
+            return errorResponse('Email and password are required', 400, 'MISSING_FIELDS');
         }
 
         // 2. Find user by email
@@ -25,10 +23,7 @@ export async function POST(request: Request) {
             .single();
 
         if (userError || !userData) {
-            return NextResponse.json(
-                { success: false, message: 'Invalid email or password' },
-                { status: 401 },
-            );
+            return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
         // 3. Compare password with hashed password in DB
@@ -38,10 +33,7 @@ export async function POST(request: Request) {
         );
 
         if (!isPasswordValid) {
-            return NextResponse.json(
-                { success: false, message: 'Invalid email or password' },
-                { status: 401 },
-            );
+            return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
         // 4. Fetch role details from roles table
@@ -52,10 +44,7 @@ export async function POST(request: Request) {
             .single();
 
         if (roleError || !roleData) {
-            return NextResponse.json(
-                { success: false, message: 'Could not fetch user role' },
-                { status: 500 },
-            );
+            return errorResponse('Could not fetch user role', 500, 'ROLE_FETCH_ERROR');
         }
 
         // 5. Fetch user details from user_details table
@@ -66,10 +55,7 @@ export async function POST(request: Request) {
             .single();
 
         if (detailsError || !userDetails) {
-            return NextResponse.json(
-                { success: false, message: 'Could not fetch user details' },
-                { status: 500 },
-            );
+            return errorResponse('Could not fetch user details', 500, 'DETAILS_FETCH_ERROR');
         }
 
         // 6. Generate JWT token
@@ -101,9 +87,6 @@ export async function POST(request: Request) {
         );
     } catch (error) {
         console.error('Login Error:', error);
-        return NextResponse.json(
-            { success: false, message: 'Internal Server Error' },
-            { status: 500 },
-        );
+        return errorResponse('Internal Server Error', 500, 'INTERNAL_ERROR');
     }
 }
