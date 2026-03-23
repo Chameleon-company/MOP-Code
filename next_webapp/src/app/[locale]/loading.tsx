@@ -7,7 +7,7 @@ export default function Loading() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShow(false);
-    }, 1000); // ⏱ change time 
+    }, 1000); // change time 
 
     return () => clearTimeout(timer);
   }, []);
