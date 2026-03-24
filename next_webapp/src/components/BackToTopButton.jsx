@@ -21,7 +21,6 @@ export default function BackToTopButton() {
 
   if (!mounted) return null;
 
-  
   return (
     <button
       onClick={() =>
