@@ -1,0 +1,22 @@
+{% extends "layout.html" %} 
+{%block content %}
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <table border = "1" >
+                {% for key, value in result.items() %}
+                <tr>
+                    <th>
+                        {{key}}
+                    </th>
+                    <td>
+                        {{value}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+        </div>
+    </div>
+
+{% endblock %}
