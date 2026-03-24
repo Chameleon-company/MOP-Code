@@ -34,20 +34,16 @@ class Chunk:
                     ```
                     It will be "Chapter 3 > Retrieval > Dense Retrieval"
                     
-    prev_heading: The parent heading one level up from the current section.
-                    Useful for adding context.
+    prev_heading: The parent heading one level up from the current section. Useful for adding context.
                 
     chunk_type: One of: "paragraph", "bullet_list", "table", "code_block",
                 "mixed", "empty".
     
     chunk_text: Raw chunk text
     
-    embedding_text: chunk_text after processed with metadata. Feed this to
-                    embedding model, not chunk_text.
+    embedding_text: chunk_text after processed with metadata. This is fed to embedding model.
     
-    token_count: Cached token count of embedding_text, so callers don't need to
-                re-tokenize when building batches. 
-    
+    token_count: Cached token count of embedding_text, so callers don't need to re-tokenize when building batches. 
     """
     chunk_id: str
     doc_title: str
@@ -73,7 +69,7 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
     """
     Split a markdown document into a list of sections
     
-    Each section is the content the falls under a particular heading. 
+    Each section and its content the falls under a particular heading. 
     The function tracks:
         - section_path: breadcrumb heading path
         - prev_heading: Immediate closing parent heading
@@ -105,7 +101,7 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
         section_path = " > ".join(h[1] for h in heading_stack)
         
         # Extract parent heading (one level up in hierarchy)
-        # Useful when current heading is vague like "Overview" or "Introduction"        
+        # Useful when current heading is vague like "Overview" or "Introduction"
         prev_heading = heading_stack[-2][1] if len(heading_stack) >= 2 else None
 
         sections.append(
@@ -120,10 +116,11 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
         
     # Process each line
     for line in lines:
+        
         # Check for markdown headings like # or ## or ###
         heading_match = HEADING_RE.match(line)
         if heading_match:
-            # We've hit a new heading — finalize the previous section first.
+            # New heading, finalize the previous section first.
             flush_section()
 
             # Extract the heading level and text
@@ -146,7 +143,8 @@ def parse_markdown_sections(markdown_text: str) -> List[dict]:
 
 def split_into_blocks(section_text: str) -> List[str]:
     """
-    A block is group of lines separated from its neighbor by one or more black lines.
+    Each section is split into sematic blocks. 
+    A block is group of lines separated from its neighbor by one or more blank lines.
     Except fenced code blocks, we use ``` ... ```.
     
     Returns a list of non-empty block strings
@@ -192,12 +190,12 @@ def detect_chunk_type(block: str) -> str:
     """
     Classify a block into one of five sematic types.
     
-    "code_block"  — fenced code (``` … ```)
-    "table"       — markdown table rows
-    "bullet_list" — bullet or numbered list items
-    "paragraph"   — continuous prose
-    "mixed"       — block contains more than one of the above
-    "empty"       — nothing here
+    "code_block" - fenced code (``` … ```)
+    "table"- markdown table rows
+    "bullet_list" - bullet or numbered list items
+    "paragraph" - continuous prose
+    "mixed" - block contains more than one of the above
+    "empty" - nothing here
     """
     stripped = block.strip()
 
@@ -253,8 +251,7 @@ def split_block_by_tokens(
     Args:
         block         : The text to split.
         max_tokens    : Hard upper bound (in tokens) for each output chunk.
-        overlap_tokens: How many tokens of the *previous* chunk to prepend to the
-                        next one. 
+        overlap_tokens: How many tokens of the previous chunk to prepend to the next one. 
     """
     if count_tokens(block) <= max_tokens:
         return [block]
@@ -313,7 +310,7 @@ def build_embedding_text(
     Embedding models are just language models. They encode meaning by
     telling the model "this is from document X, section Y, and it's a table",
     we push the embedding into a part of the vector space that reflects both
-    the content and its provenance.  This makes retrieval more precise when
+    the content and its metadata. This makes retrieval more precise when
     a query asks about a specific section or document.
     """
     return (
@@ -328,15 +325,15 @@ def make_chunk_id(source_file: str, section_path: str, chunk_text: str) -> str:
     Produce a stable, unique identifier for a chunk.
 
     We hash three fields that together uniquely identify a piece of content:
-      - source_file   : different files with the same text get different ids
-      - section_path  : same text appearing in two sections gets different ids
-      - chunk_text    : the actual content
+      - source_file: different files with the same text get different ids
+      - section_path: same text appearing in two sections gets different ids
+      - chunk_text: the actual content
 
     SHA-256 gives a 64-character hex string.
 
     Because the hash is deterministic, re-running the chunker on an unchanged
     document produces the exact same ids, making upserts into a vector store
-    safe (you overwrite, not duplicate).
+    safe (overwrite, not duplicate).
     """
     raw = f"{source_file}||{section_path}||{chunk_text}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
@@ -348,26 +345,24 @@ def chunk_markdown_document(
     overlap_tokens: int = 40,
 ) -> List[Chunk]:
     """
-    Main chunking pipeline. Combine everything above.
-    markdown text to list of `Chunk` objects.
+    Main chunking pipeline. Combine everything above. Markdown text to list of `Chunk` objects.
     
     Args:
-        markdown_text : The full content of the markdown file as a string.
-        source_file   : Path to the source file (used for metadata and the id).
-        max_tokens    : Target token budget per chunk.  
+        markdown_text: The full content of the markdown file as a string.
+        source_file: Path to the source file.
+        max_tokens: Target token budget per chunk.  
         overlap_tokens: How many tokens of context to carry over between
                         consecutive sub-chunks of the same block.
 
     Returns:
-        A list of `Chunk` dataclass instances, ready to embed and store.
+        A list of `Chunk` dataclass instances that is ready to embed and store.
     """
-    
     
     if not markdown_text.strip():
         print("Empty document!")
         return []
     
-    # Clean doc title
+    # Get clean doc title
     doc_title = Path(source_file).stem.replace("_", " ").strip()
     
     sections = parse_markdown_sections(markdown_text)
@@ -381,14 +376,14 @@ def chunk_markdown_document(
         section_path = section["section_path"] or doc_title
         prev_heading = section["prev_heading"]
         
-        # 1 Split the section content into semantic blocks.
+        # 1. Split the section content into semantic blocks.
         blocks = split_into_blocks(section["content"])
 
         for block in blocks:
             block = normalize_whitespace(block)
             chunk_type = detect_chunk_type(block)
 
-            # 2. Further split any block that's too large.
+            # 2. Further split any block that is over max token.
             sub_chunks = split_block_by_tokens(
                 block,
                 max_tokens=max_tokens,
