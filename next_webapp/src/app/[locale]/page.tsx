@@ -8,6 +8,7 @@ import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CityMetricCard from "@/components/CityMetricCard";
 import Insights from "@/components/Insights";
+import BackToTopButton from "@/components/BackToTopButton";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <SocialMediaFeed />
       <BackToTopButton />
       <Chatbot />
+      <BackToTopButton />
       <Footer />
 
     </div>
