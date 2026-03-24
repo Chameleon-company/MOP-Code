@@ -451,45 +451,61 @@ const style = `
 .our-vision-section {
   display: flex;
   flex-direction: column;
-  background: white;
+  align-items: center;
+  background: #ffffff;
   color: #263238;
-  margin: 3rem auto;
+  margin: 4rem auto;
   gap: 2rem;
-    top: 100%;  /* Position below the search bar */
-  padding: 2rem;
+  padding: 2.5rem;
   width: 90%;
   max-width: 1200px;
   box-sizing: border-box;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.our-vision-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 .dark .our-vision-section {
-  background: #263238;
+  background: #324148;
   color: white;
 }
 @media (min-width: 768px) {
   .our-vision-section {
-    flex-direction: row;
-    height: auto;
-    min-height: 10rem;
+     flex-direction: row;
+    align-items: center;
     
   }
 }
 .img-div {
+  flex: 1;
   width: 100%;
-  height: 100%;
+  max-width: 460px;
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 .img-div img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.our-vision-section:hover .img-div img {
+  transform: scale(1.03);
 }
 .text-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 .our-vision {
-  font-weight: 900;
-  font-size: 2rem;
+  font-weight: 800;
+  font-size: 2.25rem;
+  margin: 0;
 }
 .case-studies-wrapper {
   background-color: #F6F9FC;
@@ -580,6 +596,16 @@ const style = `
   font-size: 0.8rem;
   max-height: 200px;
   overflow-y: auto;
+}
+.text-container p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #455a64;
+  margin: 0;
+}
+
+.dark .text-container p {
+  color: #d9e3e8;
 }
 .dark .debug-panel {
   background: #2d3748;
@@ -792,7 +818,7 @@ const Dashboard = () => {
 								placeholder="blur"
 							/>
 						</div>
-
+{/* hero contact section */}
 						<div className="hero-content">
 							<h1 className="hero-title">
 								{displayedTitle}
@@ -899,6 +925,7 @@ const Dashboard = () => {
 							<ChevronDown size={40} />
 						</div>
 					</section>
+					{/* City Metric Solution  */}
 					<section className="city-metrics-section bg-gray-50 dark:bg-gray-900 py-12">
 						<div className="container mx-auto px-4">
 							<h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
@@ -912,7 +939,7 @@ const Dashboard = () => {
 						</div>
 					</section>
 
-
+{/* Our vision section */}
 					<section className="our-vision-section">
 						<div className="img-div">
 							<Image src={secondimage} alt="Second Image" />
@@ -922,7 +949,7 @@ const Dashboard = () => {
 							<p>{t("intro")}</p>
 						</div>
 					</section>
-
+{/* Explore by category  */}
 					<section className="w-full max-w-6xl mx-auto mt-10 px-2 md:px-0">
             			<h3 className="text-xl font-semibold mb-3">Explore by category</h3>
               				<div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mb-2">
@@ -990,12 +1017,24 @@ const Dashboard = () => {
 									</div>
 								))}
 							</Carousel>
+							
 						</section>
-					</section>
+
+
+
+						</section>
+
+
+
+
 				</div>
+
 			</div>
+
+
 		</>
 	);
+
 
 };
 
