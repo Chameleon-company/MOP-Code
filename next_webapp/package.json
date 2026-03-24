@@ -54,7 +54,7 @@
     "babel-jest": "^29.7.0",
     "cypress": "^0.0.1",
     "eslint": "^8",
-    "eslint-config-next": "^16.1.6",
+    "eslint-config-next": "^16.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.3.0",
     "postcss": "^8",
