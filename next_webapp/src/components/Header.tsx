@@ -14,7 +14,7 @@ const Header = () => {
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
-
+<Link href="/en/profile">Profile</Link>
 
 	// Object array for navigation items
 	const navItems = [
@@ -24,6 +24,9 @@ const Header = () => {
 		{ name: "Statistics", link: "/statistics" },
 		{ name: "Upload", link: "/upload" },
 		{ name: "Blogs", link: "/blog" },
+  { name: "Profile", link: "/profile" }, 
+		
+		
 	];
 
 	return (
