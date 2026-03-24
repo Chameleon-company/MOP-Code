@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Dashboard from "../../components/Dashboard";
 import Chatbot from "../chatbot/chatbot";
 import SocialMediaFeed from "@/components/SocialMediaFeed";
+import BackToTopButton from "@/components/BackToTopButton";
 import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CityMetricCard from "@/components/CityMetricCard";
@@ -18,6 +19,7 @@ const Home = () => {
       <TestimonialsSection />
       <PartnersSection />
       <SocialMediaFeed />
+      <BackToTopButton />
       <Chatbot />
       <Footer />
 
