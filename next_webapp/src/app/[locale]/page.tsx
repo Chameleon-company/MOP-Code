@@ -17,10 +17,9 @@ const Home = () => {
       <Header />
       <Dashboard />
       <Insights />
-      
       <TestimonialsSection />
       <PartnersSection />
-      <SocialMediaFeed />
+     <ContactUsSection/>
       <BackToTopButton />
       <Chatbot />
       <BackToTopButton />
