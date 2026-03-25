@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import mainimage from "../../public/img/mainimage.png";
 import secondimage from "../../public/img/second_image.png";
+import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
 import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
 import { useEffect, useState, useRef } from "react";
@@ -446,7 +446,142 @@ const style = `
     flex: 1;
     text-align: center;
   }
+
+  /* ── Hero slider — mobile overrides ─────────────────────────────────── */
+
+  /* Reduce min-height so the hero does not overflow short phone screens */
+  .hero-section {
+    min-height: 580px;
+    height: 100svh; /* svh = small viewport height, accounts for mobile browser chrome */
+  }
+
+  /* On narrow screens the side gradients waste too much width; simplify to
+     a strong bottom fade only so the image subject stays fully visible */
+  .hero-image-container::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.2) 0%,
+      transparent 30%,
+      rgba(0,0,0,0.72) 100%
+    );
+  }
+
+  /* Gentler zoom on mobile — reduces motion and saves battery */
+  .hero-slide-img {
+    animation: kenBurnsMobile 6s ease-in-out forwards;
+  }
+
+  /* Hide the absolutely-positioned desktop dots on mobile */
+  .hero-slider-dots--desktop { display: none; }
+
+  /* Mobile dots — pinned to top of hero-section, between nav bar and headline */
+  .hero-slider-dots--mobile {
+    display: flex;
+    position: absolute;
+    top: 24px;
+    bottom: auto;            /* override the desktop bottom value */
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+    margin: 0;
+    gap: 12px;
+  }
+
+  /* Larger visual dot and an expanded invisible tap target via ::after */
+  .hero-dot {
+    width: 12px;
+    height: 12px;
+    position: relative;
+  }
+  .hero-dot::after {
+    content: "";
+    position: absolute;
+    inset: -14px; /* expands tap area to ~40px without changing visual size */
+  }
+  .hero-dot.active {
+    width: 30px;
+  }
 }
+
+/* ── Hero Slider ─────────────────────────────────────────────────────────────── */
+
+/* Ken Burns: subtle slow-zoom on each active slide.
+   Because every slide is a freshly-mounted component (keyed by index),
+   this animation automatically restarts for each new image. */
+@keyframes kenBurns {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.1) translate(-1%, -0.5%); }
+}
+/* Applied to the Next.js <img> inside each slide motion.div */
+.hero-slide-img {
+  object-fit: cover;
+  animation: kenBurns 6s ease-in-out forwards;
+  will-change: transform;
+}
+
+/* Subtler zoom used on mobile (applied inside the 768px block below) */
+@keyframes kenBurnsMobile {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.05); }
+}
+
+/* Respect the OS-level "reduce motion" preference — disable Ken Burns entirely */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-img {
+    animation: none;
+  }
+}
+
+/* Dot indicator strip — rendered as a sibling to hero-content at z-index 4 */
+.hero-slider-dots {
+  position: absolute;
+  bottom: 115px; /* ~45px clear gap above the scroll-indicator chevron (bottom:30px + 40px height) */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+/* Two-class selectors (specificity 0,2,0) beat all single-class rules above,
+   regardless of cascade order — this is the authoritative mobile override */
+@media (max-width: 768px) {
+  .hero-slider-dots.hero-slider-dots--mobile {
+    display: flex;  /* beats the single-class display:none defined later */
+    top: 24px;
+    bottom: auto;
+  }
+  .hero-slider-dots.hero-slider-dots--desktop {
+    display: none;  /* beats the single-class display:flex defined later */
+  }
+}
+/* Individual dot */
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+/* Active dot stretches into a pill */
+.hero-dot.active {
+  width: 26px;
+  border-radius: 5px;
+  background: white;
+  border-color: white;
+}
+.hero-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.75);
+  transform: scale(1.2);
+}
+
+/* Desktop: show the absolutely-positioned dots, hide the inline ones */
+.hero-slider-dots--mobile { display: none; }
+.hero-slider-dots--desktop { display: flex; }
 
 .our-vision-section {
   display: flex;
@@ -668,6 +803,31 @@ const Dashboard = () => {
 	const [isSearching, setIsSearching] = useState(false);
 	const [debugInfo, setDebugInfo] = useState<any>(null);
 
+	// ── Hero slider state ────────────────────────────────────────────────────────
+	// currentSlide: index of the visible background image
+	// sliderTimerKey: incrementing this value resets the auto-advance interval,
+	//   which gives a better UX when the user manually picks a slide via a dot.
+	const [currentSlide, setCurrentSlide] = useState(0);
+	const [sliderTimerKey, setSliderTimerKey] = useState(0);
+
+	// Auto-advance background every 5 s; restarts whenever sliderTimerKey changes
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+		}, 5000);
+		return () => clearInterval(timer);
+	}, [sliderTimerKey]);
+
+	// Jump to a specific slide and reset the auto-advance countdown
+	const goToSlide = (index: number) => {
+		setCurrentSlide(index);
+		setSliderTimerKey((k) => k + 1);
+	};
+
+	// Convenience helpers used by swipe gestures (HeroSlider) and dots
+	const handleNext = () => goToSlide((currentSlide + 1) % HERO_SLIDES.length);
+	const handlePrev = () => goToSlide((currentSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+
 	// Create ref for the search container
 	const searchContainerRef = useRef<HTMLDivElement>(null);
 
@@ -810,15 +970,24 @@ const Dashboard = () => {
 			<div className="main-wrapper bg-white dark:bg-[#263238] text-black dark:text-white min-h-screen">
 				<div className="main-container">
 					<section className="hero-section">
-						<div className="hero-image-container">
-							<Image
-								src={mainimage}
-								alt="main image"
-								priority
-								placeholder="blur"
-							/>
+						{/* Background image slider: HeroSlider reuses .hero-image-container so
+						     the gradient overlay (::before) and dark-mode filter keep working. */}
+						<HeroSlider currentIndex={currentSlide} onNext={handleNext} onPrev={handlePrev} />
+
+{/* Mobile slide dots — absolutely positioned at top of hero-section,
+                          visually between the nav bar and the headline */}
+						<div className="hero-slider-dots hero-slider-dots--mobile" aria-label="Slide indicators">
+							{HERO_SLIDES.map((_, idx) => (
+								<button
+									key={idx}
+									className={`hero-dot${currentSlide === idx ? " active" : ""}`}
+									onClick={() => goToSlide(idx)}
+									aria-label={`Go to slide ${idx + 1}`}
+								/>
+							))}
 						</div>
-{/* hero contact section */}
+
+{/* hero content section */}
 						<div className="hero-content">
 							<h1 className="hero-title">
 								{displayedTitle}
@@ -919,6 +1088,19 @@ const Dashboard = () => {
 									</div>
 								)}
 							</div>
+						</div>
+
+						{/* Desktop dots — absolutely positioned at hero section bottom.
+						     Hidden on mobile; replaced by inline dots inside hero-content. */}
+						<div className="hero-slider-dots hero-slider-dots--desktop" aria-label="Slide indicators">
+							{HERO_SLIDES.map((_, idx) => (
+								<button
+									key={idx}
+									className={`hero-dot${currentSlide === idx ? " active" : ""}`}
+									onClick={() => goToSlide(idx)}
+									aria-label={`Go to slide ${idx + 1}`}
+								/>
+							))}
 						</div>
 
 						<div className="scroll-indicator" onClick={scrollToContent}>
