@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4CAF50; 
+    color: rgb(76, 175, 80); 
 }
 
 .textarea1 {
@@ -29,7 +29,7 @@
     font-weight: inherit; 
     line-height: inherit; 
     letter-spacing: inherit; 
-    color: green; 
+    color: rgb(0, 128, 0); 
     margin: 0; 
     padding: 8px; 
     width: 100%; 

@@ -16,6 +16,7 @@ const Header = () => {
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
+
 	// Object array for navigation items
 	const navItems = [
 		{ name: "Home", link: "/" },
@@ -24,6 +25,9 @@ const Header = () => {
 		{ name: "Statistics", link: "/statistics" },
 		{ name: "Upload", link: "/upload" },
 		{ name: "Blogs", link: "/blog" },
+  { name: "Profile", link: "/profile" }, 
+		
+		
 	];
 	const isActiveLink = (link: string) => {
 		const cleanPath = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";

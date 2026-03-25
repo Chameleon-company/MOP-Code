@@ -116,17 +116,11 @@ const style = `
   left: 0;
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 35%, rgba(0,0,0,0.65) 100%),
-    linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.55) 100%);
+  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
   z-index: 2;
-  transition: background 0.5s ease;
 }
 .dark .hero-image-container::before {
-  background: rgba(10,15,18,0.25);
-}
-.dark .hero-image-container img {
-  filter: blur(2px) brightness(0.75);
+  background: linear-gradient(to right, rgba(38,50,56,0.8) 0%, rgba(38,50,56,0.4) 50%, rgba(38,50,56,0.8) 100%);
 }
 .hero-image-container img {
   width: 100%;
@@ -141,21 +135,14 @@ const style = `
   color: white;
   max-width: 900px;
   padding: 0 2rem;
+  animation: fadeInUp 1s ease-out;
 }
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
-  text-shadow:
-    1px 1px 0 rgba(0,0,0,0.4),
-    2px 2px 0 rgba(0,0,0,0.35),
-    3px 3px 0 rgba(0,0,0,0.3),
-    4px 4px 0 rgba(0,0,0,0.25),
-    5px 5px 0 rgba(0,0,0,0.2),
-    6px 6px 0 rgba(0,0,0,0.15),
-    6px 6px 15px rgba(0,0,0,0.4);
-  animation: fadeInUp 0.8s ease-out 0.1s both;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 .hero-subtitle {
   font-size: 1.5rem;
@@ -164,16 +151,12 @@ const style = `
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-  animation: fadeInUp 0.8s ease-out 0.45s both;
 }
 .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-bottom: 2rem;
-  animation: fadeInUp 0.8s ease-out 0.75s both;
 }
 .hero-button {
   padding: 1rem 2rem;
@@ -183,63 +166,24 @@ const style = `
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 .hero-button.primary {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: #10B981;
   color: white;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
-}
-.hero-button.primary::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 35%;
-  height: 200%;
-  background: rgba(255,255,255,0.25);
-  transform: skewX(-20deg);
-  animation: shimmer 3s 1.5s infinite;
 }
 .hero-button.primary:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.4);
-}
-.hero-button.primary:active {
-  transform: translateY(-1px);
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
 }
 .hero-button.secondary {
-  background: rgba(255,255,255,0.12);
+  background: transparent;
   color: white;
-  border: 2px solid rgba(255,255,255,0.75);
-  backdrop-filter: blur(6px);
+  border: 2px solid white;
 }
 .hero-button.secondary:hover {
-  background: rgba(255,255,255,0.22);
-  border-color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-.hero-button.secondary:active {
-  transform: translateY(-1px);
-}
-.typing-cursor {
-  display: inline-block;
-  width: 3px;
-  height: 0.85em;
-  background: white;
-  margin-left: 4px;
-  vertical-align: middle;
-  border-radius: 1px;
-  animation: blink 1s step-end infinite;
-}
-.typing-cursor.done {
-  animation: none;
-  opacity: 0;
-  transition: opacity 0.5s ease 0.8s;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
 }
 
 /* Search Container */
@@ -409,14 +353,6 @@ const style = `
     transform: translateY(-10px) translateX(-50%);
   }
 }
-@keyframes shimmer {
-  0% { left: -60%; }
-  100% { left: 130%; }
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -452,60 +388,74 @@ const style = `
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #ffffff;
-  color: #263238;
-  margin: 4rem auto;
-  gap: 2rem;
-  padding: 2.5rem;
-  width: 90%;
-  max-width: 1200px;
+  justify-content: center;
+  background: transparent;
+  color: inherit;
+  margin: clamp(2rem, 5vw, 4rem) auto;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  width: 100%;
+  max-width: 1240px;
   box-sizing: border-box;
-  border-radius: 1rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.our-vision-section:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-}
-.dark .our-vision-section {
-  background: #324148;
-  color: white;
+  min-width: 0;
 }
 @media (min-width: 768px) {
   .our-vision-section {
-     flex-direction: row;
+    flex-direction: row;
     align-items: center;
-    
+	gap: 3rem;
+    padding: 2.5rem 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .our-vision-section {
+    padding: 3rem 2rem;
+  }
+}
+@media (max-width: 767px) {
+  .our-vision-section .text-container {
+    text-align: center;
   }
 }
 .img-div {
   flex: 1;
   width: 100%;
-  max-width: 460px;
-  border-radius: 0.75rem;
+  min-width: 0;
+  max-width: 560px;
+  border-radius: 1.25rem;
   overflow: hidden;
 }
 .img-div img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
 .our-vision-section:hover .img-div img {
-  transform: scale(1.03);
+  transform: scale(1.06);
+  filter: brightness(1.03);
 }
 .text-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content:center;
+  gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+  max-width: 560px;
 }
 .our-vision {
   font-weight: 800;
-  font-size: 2.25rem;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   margin: 0;
+  color: #1f2d33;
+}
+.dark .our-vision {
+  color: rgba(255, 255, 255, 0.96);
 }
 .case-studies-wrapper {
   background-color: #F6F9FC;
@@ -598,8 +548,8 @@ const style = `
   overflow-y: auto;
 }
 .text-container p {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: clamp(0.9375rem, 2.8vw, 1rem);
+  line-height: 1.75;
   color: #455a64;
   margin: 0;
 }
@@ -652,9 +602,6 @@ const getSearchModeValues = () => {
 const Dashboard = () => {
 	const t = useTranslations("common");
 	const t_hero = useTranslations("hero");
-	const heroTitle = t_hero("hero-top");
-	const [displayedTitle, setDisplayedTitle] = useState("");
-	const [isTypingDone, setIsTypingDone] = useState(false);
 	const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
 		[]
 	);
@@ -694,26 +641,6 @@ const Dashboard = () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
-
-	// Typing effect for hero headline
-	useEffect(() => {
-		let i = 0;
-		setDisplayedTitle("");
-		setIsTypingDone(false);
-		const delay = setTimeout(() => {
-			const timer = setInterval(() => {
-				if (i < heroTitle.length) {
-					setDisplayedTitle(heroTitle.slice(0, i + 1));
-					i++;
-				} else {
-					setIsTypingDone(true);
-					clearInterval(timer);
-				}
-			}, 60);
-			return () => clearInterval(timer);
-		}, 300);
-		return () => clearTimeout(delay);
-	}, [heroTitle]);
 
 	const searchUseCases = async (searchParams: SearchParams) => {
 		const response = await fetch("/api/search-use-cases", {
@@ -820,10 +747,7 @@ const Dashboard = () => {
 						</div>
 {/* hero contact section */}
 						<div className="hero-content">
-							<h1 className="hero-title">
-								{displayedTitle}
-								<span className={`typing-cursor${isTypingDone ? " done" : ""}`} aria-hidden="true" />
-							</h1>
+							<h1 className="hero-title">{t_hero("hero-top")}</h1>
 							<p className="hero-subtitle">{t_hero("hero-sub")}</p>
 
 							<div className="hero-buttons">
@@ -942,7 +866,12 @@ const Dashboard = () => {
 {/* Our vision section */}
 					<section className="our-vision-section">
 						<div className="img-div">
-							<Image src={secondimage} alt="Second Image" />
+							<Image
+								src={secondimage}
+								alt="Second Image"
+								sizes="(max-width: 767px) 100vw, 560px"
+								className="w-full"
+							/>
 						</div>
 						<div className="text-container">
 							<h2 className="our-vision">{t("Our Vision")}</h2>
