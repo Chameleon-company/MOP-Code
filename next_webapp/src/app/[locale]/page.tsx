@@ -10,6 +10,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import CityMetricCard from "@/components/CityMetricCard";
 import Insights from "@/components/Insights";
 
+
 const Home = () => {
   return (
     <div>
