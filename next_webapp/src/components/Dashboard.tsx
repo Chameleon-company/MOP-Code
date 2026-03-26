@@ -529,11 +529,15 @@ const categories = [
   { icon: "🚨", label: "Safety" },
 ];
 
+
+
 const openPage = (label: string) => {
   if (label === "EV Infrastructure") {
     window.location.href = "/en/ev-infrastructure";
   }
 };
+
+
 
 const responsive = {
 	superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
