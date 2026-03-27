@@ -428,5 +428,38 @@ export const useCases = [
     ],
   },
 ];
+
+//edits for recent case studies
+export const recentCaseStudies = [
+  {
+    id: "biotechnology",
+    title: "Biotechnology",
+    description:
+      "Explore how biotechnology leverages Melbourne's open data to drive innovation in healthcare, research, and sustainable solutions. - dummy data",
+    image: "/img/biotech.jpeg",
+  },
+  {
+    id: "oil-supply-management",
+    title: "Oil Supply Management",
+    description:
+      "Analyze supply chain efficiency and demand forecasting in oil distribution using data-driven insights from Melbourne. - dummy data",
+    image: "/img/Oil-Supply.jpg",
+  },
+  {
+    id: "gas-supply-management",
+    title: "Gas Supply Management",
+    description:
+      "Utilize real-time data to optimize gas supply networks, improve distribution, and ensure energy sustainability. - dummy data",
+    image: "/img/gas-supply.png",
+  },
+  {
+    id: "education",
+    title: "Education",
+    description:
+      "Enhance learning outcomes through data-driven decision-making and smart education systems powered by Melbourne's open data. - dummy data",
+    image: "/img/education.jpg",
+  },
+];
+
 export const blogs = [ /* ...your blog data... */ ];
 
