@@ -1,4 +1,10 @@
 "use client";
+
+// edits for use case studies
+import { useCases } from "@/utils/data";
+import { recentCaseStudies } from "@/utils/data";
+import { useRouter } from "next/navigation";
+
 import Image from "next/image";
 import secondimage from "../../public/img/second_image.png";
 import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
@@ -785,6 +791,10 @@ const getSearchModeValues = () => {
 };
 
 const Dashboard = () => {
+
+  //edits for use case studies
+  const router = useRouter();
+
 	const t = useTranslations("common");
 	const t_hero = useTranslations("hero");
 	const heroTitle = t_hero("hero-top");
@@ -1153,6 +1163,41 @@ const Dashboard = () => {
 							<h2>{t("Recent Case Studies")}</h2>
 							<p>{t("p2")}</p>
 						</section>
+
+            {/*himesh's edits for small cards */}
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
+              {recentCaseStudies.map((item) => (
+                  <div
+                  key={item.id}
+                  className="bg-gray-50 dark:bg-[#37474F] rounded-2xl shadow-md hover:shadow-lg transition p-4 flex flex-col group cursor-pointer"
+                  >
+                  {/* image */}
+                  <img
+                      src={item.image}
+                      alt={item.title}
+                      className="rounded-xl mb-4 w-full h-40 object-cover group-hover:scale-[1.02] transition-transform"
+                  />
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold mb-2 text-center">
+                      {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 dark:text-gray-300 text-sm text-center flex-grow">
+                      {item.description}
+                  </p>
+
+                  {/* Button */}
+                  <button
+                      onClick={() => router.push(`/recent/${item.id}`)}
+                      className="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-xl text-sm font-medium text-center"
+                  >
+                      View Details →
+                  </button>
+                  </div>
+              ))}
+          </div>
 
 
 						<section className="case-studies">
