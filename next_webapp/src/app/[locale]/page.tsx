@@ -9,6 +9,7 @@ import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CityMetricCard from "@/components/CityMetricCard";
 import Insights from "@/components/Insights";
+import FAQSection from "@/components/FAQSection";
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       <Dashboard />
       <Insights />
       <TestimonialsSection />
+      <FAQSection />
       <PartnersSection />
      <ContactUsSection/>
       <BackToTopButton />
