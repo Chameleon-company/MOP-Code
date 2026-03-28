@@ -15,7 +15,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics","/api/profile"];
 
 /**
  * Paths that are always publicly accessible and skip every auth check.
@@ -211,6 +211,9 @@ export const config = {
     "/admin/:path*",
     "/upload/:path*",
     "/statistics/:path*",
+    // Protected API routes — profile
+    "/api/profile",
+    "/api/profile/:path*",
     // Public auth API routes (handled by isPublicPath — pass straight through)
     "/api/auth/:path*",
   ],
