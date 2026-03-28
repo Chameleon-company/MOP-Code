@@ -1,6 +1,31 @@
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 import { supabase } from '@/library/supabaseClient';
 import { errorResponse } from '@/app/api/library/errorResponse';
+
+const REQUIRED_SMTP_VARS = [
+    'SMTP_HOST',
+    'SMTP_PORT',
+    'SMTP_USER',
+    'SMTP_PASSWORD',
+    'SMTP_FROM',
+] as const;
+
+for (const varName of REQUIRED_SMTP_VARS) {
+    if (!process.env[varName]) {
+        throw new Error(`Missing required environment variable: ${varName}`);
+    }
+}
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: false, // STARTTLS on port 587
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+    },
+});
 
 export async function POST(request: Request) {
     try {
@@ -48,7 +73,26 @@ export async function POST(request: Request) {
             }
         }
 
-        // adminEmails is ready for the email-sending task (Task 3)
+        // Send notification email to each admin
+        const emailBody =
+            `New Contact Form Submission\n\n` +
+            `From: ${fullName} <${email}>\n` +
+            `Subject: ${subject}\n\n` +
+            `Message:\n${message}`;
+
+        for (const adminEmail of adminEmails) {
+            try {
+                await transporter.sendMail({
+                    from: process.env.SMTP_FROM,
+                    to: adminEmail,
+                    subject: `Contact Form: ${subject}`,
+                    text: emailBody,
+                });
+                console.log(`[contact] Notification sent to ${adminEmail}`);
+            } catch (mailError) {
+                console.error(`[contact] Failed to send email to ${adminEmail}:`, mailError);
+            }
+        }
 
         return NextResponse.json(
             { success: true, message: 'Message received' },
