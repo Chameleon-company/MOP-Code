@@ -13,5 +13,13 @@ export default async function LocaleLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  // return <>{children}</>;
+  //himesh's edits for use case
+  return (
+    <html lang="en">
+      <body>
+        {children}
+      </body>
+    </html>
+  );
 }
