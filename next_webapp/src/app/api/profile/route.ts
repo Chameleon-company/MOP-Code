@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
   const { data, error } = await supabase
     .from("user_details")
     .select(
-      "id, user_id, first_name, last_name, age, gender, profile_img, created_at, updated_at"
+      "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, created_at, updated_at"
     )
     .eq("user_id", userId)
     .maybeSingle(); // returns null (not an error) when no row is found
@@ -64,6 +64,10 @@ export async function GET(request: NextRequest) {
         age: null,
         gender: null,
         profile_img: null,
+        email: null,
+        phone: null,
+        address: null,
+        bio: null,
       },
     });
   }
@@ -81,6 +85,10 @@ interface ProfileUpdateBody {
   age?: number;
   gender?: string;
   profile_img?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  bio?: string;
 }
 
 export async function PUT(request: NextRequest) {
@@ -101,7 +109,7 @@ export async function PUT(request: NextRequest) {
     return badRequest("Validation failed", validation.errors);
   }
 
-  const { first_name, last_name, age, gender, profile_img } = body;
+  const { first_name, last_name, age, gender, profile_img, email, phone, address, bio } = body;
 
   // --- Build update payload (only supplied fields) --------------------------
   const updates: Record<string, unknown> = {
@@ -112,6 +120,10 @@ export async function PUT(request: NextRequest) {
   if (age !== undefined) updates.age = age;
   if (gender !== undefined) updates.gender = gender;
   if (profile_img !== undefined) updates.profile_img = profile_img;
+  if (email !== undefined) updates.email = email.trim();
+  if (phone !== undefined) updates.phone = phone.trim();
+  if (address !== undefined) updates.address = address.trim();
+  if (bio !== undefined) updates.bio = bio.trim();
 
   if (Object.keys(updates).length === 1) {
     // Only updated_at was added — nothing real to update
@@ -134,7 +146,7 @@ export async function PUT(request: NextRequest) {
       .update(updates)
       .eq("user_id", userId)
       .select(
-        "id, user_id, first_name, last_name, age, gender, profile_img, updated_at"
+        "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, updated_at"
       )
       .single();
 
@@ -149,7 +161,7 @@ export async function PUT(request: NextRequest) {
       .from("user_details")
       .insert({ user_id: userId, ...updates })
       .select(
-        "id, user_id, first_name, last_name, age, gender, profile_img, updated_at"
+        "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, updated_at"
       )
       .single();
 
