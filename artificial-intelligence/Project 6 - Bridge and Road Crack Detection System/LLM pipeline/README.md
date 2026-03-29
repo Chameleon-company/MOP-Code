@@ -1,22 +1,60 @@
 # Project Description
-
+This RAG pipeline is part of Project 6 - Road Crack Detection. The RAG system is designed to automatically generate engineering reports for bridge and road infrastructures with detectable cracks. It transforms crack metrics into grounded, actionable and maintenance recommendations. 
 
 # RAG Pipeline 
 
 ## Library installation
+Create a conda environment
+```
+conda create --name project6rag
+conda activate project6rag
+```
+
+Install the necessary libraries
+```
+pip install pymupdf marker docling openai sentence-transformers tiktoken nltk chromadb streamlit
+```
 
 ## Architecture
 <img src="diagram.png" width="50%" alt="RAG Pipeline Diagram">
 
-## Stage 1: Document preparation
+## Stage 1: Document preparation (`01_PDF_Processing.ipynb`)
+Converts raw PDF documents into markdown files. The markdown files need to have appropriate headings, and will be used for chunking and embedding. Here is the list of documents. 
 
-## Stage 2: Embedding, storage, and retrieval
+| Document Category | Target Manual Title                                                       | Why need it                                                   |
+|-------------------|---------------------------------------------------------------------------|---------------------------------------------------------------|
+| Bridges           | VicRoads Road Structures Inspection Manual (https://shorturl.at/g55yP)                      | Defining condition states for bridge components.              |
+| Roads/Pavement    | VicRoads Technical Bulletin TB 50: Guide to Surface Inspection Rating (https://shorturl.at/vtGv9)    | Focuses on asphalt and sprayed seal surfaces.                 |
+| Repair Standards  | VicRoads Section 687: Repair of Concrete Cracks (https://shorturl.at/hE54s)                          | Provide engineering methods the LLM should recommend.         |
+| Repair Standards  | VicRoads Section 689: Cementitious Patch Repair (https://shorturl.at/bMeGh)                          | Useful for larger spalling or severe crack repairs.           |
+| General           | Austroads Guide to Bridge Technology (Part 7: Maintenance and Management) (https://austroads.gov.au/publications/bridges/agbt07) | Used across Australia to provide general maintenance context. |
 
-## Stage 3: Reranking and report generation
+## Stage 2: Chunking (`chunking.py`)
+This is the document preparation layer where the headings (`#, ##, ###`) are parsed into breadcrumbs `section_path` (e.g. 1. Chapter 3 > 1.1. Retrieval > 1.1.1. Dense Retrieval). Then each section is split into sematic blocks (paragraph, table, bullet list, code block). Then further split any oversized block (over 4000 token) using sentence sliding window with token overlap. Each block becomes a `Chunk` object with SHA-256 id, and an enriched `embedding_text` that prepends metadata like source file, section path and corresponding text. This allows each chunk to have a structural context, not just raw content.
 
-## Stage 4: Hallucination auditing
+## Stage 3: Indexing (`indexing.py`)
+Embeds the chunks in batches with OpenAI embeddings and upserts them into ChromaDB. The SHA-256 chunk ID makes re-ingestion idempotent meaning chunks can be skipped if they are unchanged. 
+
+## Stage 4: Retrieval (`indexing.py`)
+Takes crack detection `InspectionPayload` object (crack JSON metrics) and converts it into English sentences before embedding it. Since vector search works on sematic meaning, by matching descriptive sentences against each other, the search will give better recall when compared to matching raw numbers. Top-20 candidates are returned from the vector store. 
+
+## Stage 5: Reranking (`answering.py`)
+A cross-encoder `ms-marco-MiniLM-L-6-v2` model is used to rerank each (query, candidate/retrieved chunk) pair. From the top 20 candidates, we pick top 5 most relevant chunks. 
+
+## Stage 6: Generation (`answering.py`)
+Builds a structured engineering prompt based on the `InspectionPayload` object and top 5 candidates. Then call an LLM to produce a 4 section report. After getting the raw LLM output, the citations are extracted and verified with the chunk metadata to prevent citation hallucinations. 
+
+## Stage 7: Evaluation (`evaluating.py`)
+Sends each section and the retrieved context to another LLM to judge the quality and hallucination risk of the output. 
 
 ## Example output
+To view the web dashboard of the output, run 
+```bash
+streamlit run app.py
+```
+
+[![Video Title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=2nEVq0-MiY4)
+
 To demonstrate the RAG pipeline in action, run:
 
 ```bash
