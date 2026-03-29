@@ -37,23 +37,6 @@ export function validateEmail(email: unknown): ValidationError | null {
   return null;
 }
 
-export function validatePhone(phone: unknown): ValidationError | null {
-  if (typeof phone !== "string") {
-    return { field: "phone", message: "Phone must be a string" };
-  }
-  if (phone.trim().length === 0) {
-    return null; // Phone is optional
-  }
-  if (phone.trim().length > 20) {
-    return { field: "phone", message: "Phone must be 20 characters or fewer" };
-  }
-  const phoneRegex = /^[0-9+\-\s()]+$/;
-  if (!phoneRegex.test(phone.trim())) {
-    return { field: "phone", message: "Phone format is invalid" };
-  }
-  return null;
-}
-
 // ============================================================================
 // NUMBER VALIDATORS
 // ============================================================================
@@ -187,42 +170,6 @@ export function validateProfileInput(body: unknown): ValidationResult {
   if (data.email !== undefined) {
     const error = validateEmail(data.email);
     if (error) errors.push(error);
-  }
-
-  // Validate phone
-  if (data.phone !== undefined) {
-    const error = validatePhone(data.phone);
-    if (error) errors.push(error);
-  }
-
-  // Validate address
-  if (data.address !== undefined) {
-    if (typeof data.address !== "string") {
-      errors.push({
-        field: "address",
-        message: "address must be a string",
-      });
-    } else if (data.address.trim().length > 255) {
-      errors.push({
-        field: "address",
-        message: "address must be 255 characters or fewer",
-      });
-    }
-  }
-
-  // Validate bio
-  if (data.bio !== undefined) {
-    if (typeof data.bio !== "string") {
-      errors.push({
-        field: "bio",
-        message: "bio must be a string",
-      });
-    } else if (data.bio.trim().length > 1000) {
-      errors.push({
-        field: "bio",
-        message: "bio must be 1000 characters or fewer",
-      });
-    }
   }
 
   return {

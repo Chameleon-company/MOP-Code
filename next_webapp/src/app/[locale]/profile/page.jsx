@@ -22,6 +22,7 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [fetchingProfile, setFetchingProfile] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -29,22 +30,84 @@ const Profile = () => {
   }, [darkMode]);
 
   useEffect(() => {
+    // First, populate from localStorage if available
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const userData = JSON.parse(storedUser);
+        // console.log("Loaded user from localStorage:", userData);
+        setFormData((prev) => ({
+          ...prev,
+          email: userData.email || "",
+          first_name: userData.firstName || "",
+          last_name: userData.lastName || "",
+        }));
+      } catch (e) {
+        console.error("Failed to parse stored user data:", e);
+      }
+    }
+
+    // Then fetch full profile from API
     fetchProfile();
   }, []);
 
   const getUserId = () => {
-    return localStorage.getItem("userId") || "1";
+    // Try to get userId from localStorage first (set during login)
+    const userId = localStorage.getItem("userId");
+    console.log("localStorage.userId:", userId);
+
+    if (userId) {
+      console.log("Using userId from localStorage:", userId);
+      return userId;
+    }
+
+    // Fallback: try to get from user object
+    const user = localStorage.getItem("user");
+    console.log("localStorage.user:", user);
+
+    if (user) {
+      try {
+        const userData = JSON.parse(user);
+        const extractedId = userData.userId?.toString();
+        console.log("Using userId from user object:", extractedId);
+        return extractedId;
+      } catch (e) {
+        console.error("Failed to parse user data:", e);
+      }
+    }
+
+    console.log("No userId found, using fallback: 1");
+    return "1"; // Final fallback
   };
 
   const fetchProfile = async () => {
     try {
+      setFetchingProfile(true);
       const userId = getUserId();
+      const token = localStorage.getItem("token");
+
+      console.log("Fetching profile for userId:", userId);
+      console.log("Token available:", !!token);
+
+      if (!token) {
+        console.error("No token found in localStorage");
+        setErrors({ form: "Authentication token not found. Please login again." });
+        setFetchingProfile(false);
+        return;
+      }
+
       const response = await fetch("/api/profile", {
         method: "GET",
-        headers: { "x-user-id": userId },
+        headers: {
+          "x-user-id": userId,
+          "Authorization": `Bearer ${token}`,
+        },
       });
 
+      console.log("Profile API response status:", response.status);
       const result = await response.json();
+      console.log("Profile API response:", result);
+
       if (result.success && result.data) {
         setFormData((prev) => ({
           ...prev,
@@ -54,13 +117,25 @@ const Profile = () => {
           gender: result.data.gender || "",
           profile_img: result.data.profile_img || "",
           email: result.data.email || "",
-          phone: result.data.phone || "",
-          address: result.data.address || "",
-          bio: result.data.bio || "",
         }));
+
+        // Set profile image preview if available
+        if (result.data.profile_img) {
+          setProfileImage(result.data.profile_img);
+        }
+
+        console.log("Profile data loaded successfully:", result.data);
+      } else {
+        console.error("Failed to fetch profile - success is false or no data:", result);
+        if (result.message === "Unauthorised") {
+          setErrors({ form: "You are not authorized. Please login again." });
+        }
       }
     } catch (error) {
       console.error("Failed to fetch profile:", error);
+      setErrors({ form: "Failed to load profile. Please try again." });
+    } finally {
+      setFetchingProfile(false);
     }
   };
 
@@ -75,10 +150,53 @@ const Profile = () => {
     }
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (!file) return;
+
+    try {
+      // Show preview
       setProfileImage(URL.createObjectURL(file));
+
+      const userId = getUserId();
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setErrors({ form: "Authentication token not found. Please login again." });
+        return;
+      }
+
+      // Create FormData for multipart upload
+      const formDataForUpload = new FormData();
+      formDataForUpload.append("file", file);
+      formDataForUpload.append("userId", userId);
+
+      // Upload to API endpoint (we'll need to create this)
+      const uploadResponse = await fetch("/api/profile/upload-image", {
+        method: "POST",
+        headers: {
+          "x-user-id": userId,
+          "Authorization": `Bearer ${token}`,
+        },
+        body: formDataForUpload,
+      });
+
+      const uploadResult = await uploadResponse.json();
+
+      if (uploadResult.success && uploadResult.imageUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          profile_img: uploadResult.imageUrl,
+        }));
+        console.log("Image uploaded successfully:", uploadResult.imageUrl);
+      } else {
+        setErrors({ form: uploadResult.message || "Failed to upload image" });
+        setProfileImage(null);
+      }
+    } catch (error) {
+      console.error("Image upload error:", error);
+      setErrors({ form: "Failed to upload image. Please try again." });
+      setProfileImage(null);
     }
   };
 
@@ -90,6 +208,14 @@ const Profile = () => {
 
     try {
       const userId = getUserId();
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setErrors({ form: "Authentication token not found. Please login again." });
+        setLoading(false);
+        return;
+      }
+
       const payload = {
         first_name: formData.first_name,
         last_name: formData.last_name,
@@ -97,9 +223,6 @@ const Profile = () => {
         gender: formData.gender,
         profile_img: formData.profile_img,
         email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        bio: formData.bio,
       };
 
       Object.keys(payload).forEach((key) =>
@@ -111,6 +234,7 @@ const Profile = () => {
         headers: {
           "Content-Type": "application/json",
           "x-user-id": userId,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -155,6 +279,12 @@ const Profile = () => {
           </div>
 
           <div className="bg-white dark:bg-[#1f2a30] border border-gray-200 dark:border-white/10 rounded-2xl shadow-md p-6 md:p-8">
+            {fetchingProfile && (
+              <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-500 text-blue-800 dark:text-blue-100 px-4 py-3 rounded-lg mb-6">
+                Loading your profile data...
+              </div>
+            )}
+
             {successMessage && (
               <div className="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-500 text-green-800 dark:text-green-100 px-4 py-3 rounded-lg mb-6">
                 {successMessage}
@@ -167,7 +297,7 @@ const Profile = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8" disabled={fetchingProfile}>
               <div className="flex flex-col items-center justify-center">
                 <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 flex items-center justify-center">
                   {profileImage ? (

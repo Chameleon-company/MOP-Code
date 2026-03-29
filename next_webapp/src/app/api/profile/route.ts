@@ -40,16 +40,29 @@ export async function GET(request: NextRequest) {
   const userId = getUserId(request);
   if (!userId) return unauthorized();
 
+  // Fetch profile from user_details
   const { data, error } = await supabase
     .from("user_details")
     .select(
-      "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, created_at, updated_at"
+      "id, user_id, first_name, last_name, age, gender, profile_img, created_at, updated_at"
     )
     .eq("user_id", userId)
-    .maybeSingle(); // returns null (not an error) when no row is found
+    .maybeSingle();
 
   if (error) {
     console.error("[GET /api/profile]", error);
+    return serverError();
+  }
+
+  // Fetch email from user table
+  const { data: userData, error: userError } = await supabase
+    .from("user")
+    .select("email")
+    .eq("id", userId)
+    .single();
+
+  if (userError) {
+    console.error("[GET /api/profile] user fetch error:", userError);
     return serverError();
   }
 
@@ -64,15 +77,18 @@ export async function GET(request: NextRequest) {
         age: null,
         gender: null,
         profile_img: null,
-        email: null,
-        phone: null,
-        address: null,
-        bio: null,
+        email: userData?.email || null,
       },
     });
   }
 
-  return NextResponse.json({ success: true, data });
+  return NextResponse.json({
+    success: true,
+    data: {
+      ...data,
+      email: userData?.email || null,
+    },
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -86,9 +102,6 @@ interface ProfileUpdateBody {
   gender?: string;
   profile_img?: string;
   email?: string;
-  phone?: string;
-  address?: string;
-  bio?: string;
 }
 
 export async function PUT(request: NextRequest) {
@@ -109,9 +122,9 @@ export async function PUT(request: NextRequest) {
     return badRequest("Validation failed", validation.errors);
   }
 
-  const { first_name, last_name, age, gender, profile_img, email, phone, address, bio } = body;
+  const { first_name, last_name, age, gender, profile_img, email } = body;
 
-  // --- Build update payload (only supplied fields) --------------------------
+  // --- Build update payload for user_details (only supplied fields) ---------
   const updates: Record<string, unknown> = {
     updated_at: new Date().toISOString(),
   };
@@ -120,56 +133,85 @@ export async function PUT(request: NextRequest) {
   if (age !== undefined) updates.age = age;
   if (gender !== undefined) updates.gender = gender;
   if (profile_img !== undefined) updates.profile_img = profile_img;
-  if (email !== undefined) updates.email = email.trim();
-  if (phone !== undefined) updates.phone = phone.trim();
-  if (address !== undefined) updates.address = address.trim();
-  if (bio !== undefined) updates.bio = bio.trim();
 
-  if (Object.keys(updates).length === 1) {
-    // Only updated_at was added — nothing real to update
+  // Check if there are any user_details fields to update
+  const hasUserDetailsUpdates = Object.keys(updates).length > 1;
+
+  if (!hasUserDetailsUpdates && !email) {
     return badRequest("No updatable fields provided");
   }
 
-  // --- Check if a profile row already exists for this user ------------------
-  const { data: existing } = await supabase
-    .from("user_details")
-    .select("id")
-    .eq("user_id", userId)
-    .maybeSingle();
+  // --- Update email in 'user' table if provided ----------------------------
+  if (email !== undefined) {
+    const { error: emailError } = await supabase
+      .from("user")
+      .update({ email: email.trim() })
+      .eq("id", userId);
 
-  let result;
+    if (emailError) {
+      console.error("[PUT /api/profile] email update error:", emailError);
+      console.error("[PUT /api/profile] email update error details:", {
+        message: emailError.message,
+        code: emailError.code,
+        details: emailError.details,
+      });
+      return serverError(`Failed to update email: ${emailError.message}`);
+    }
+  }
 
-  if (existing) {
-    // Row exists — UPDATE it
-    const { data, error } = await supabase
+  let result: any = { email };
+
+  // --- Update user_details if there are changes ---------------------------
+  if (hasUserDetailsUpdates) {
+    // --- Check if a profile row already exists for this user ------------------
+    const { data: existing } = await supabase
       .from("user_details")
-      .update(updates)
+      .select("id")
       .eq("user_id", userId)
-      .select(
-        "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, updated_at"
-      )
-      .single();
+      .maybeSingle();
 
-    if (error) {
-      console.error("[PUT /api/profile] update error:", error);
-      return serverError();
-    }
-    result = data;
-  } else {
-    // No row yet — INSERT a new one
-    const { data, error } = await supabase
-      .from("user_details")
-      .insert({ user_id: userId, ...updates })
-      .select(
-        "id, user_id, first_name, last_name, age, gender, profile_img, email, phone, address, bio, updated_at"
-      )
-      .single();
+    if (existing) {
+      // Row exists — UPDATE it
+      const { data, error } = await supabase
+        .from("user_details")
+        .update(updates)
+        .eq("user_id", userId)
+        .select(
+          "id, user_id, first_name, last_name, age, gender, profile_img, updated_at"
+        )
+        .single();
 
-    if (error) {
-      console.error("[PUT /api/profile] insert error:", error);
-      return serverError();
+      if (error) {
+        console.error("[PUT /api/profile] update error:", error);
+        console.error("[PUT /api/profile] update error details:", {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+        });
+        return serverError(`Update failed: ${error.message}`);
+      }
+      result = { ...data, email };
+    } else {
+      // No row yet — INSERT a new one
+      const { data, error } = await supabase
+        .from("user_details")
+        .insert({ user_id: userId, ...updates })
+        .select(
+          "id, user_id, first_name, last_name, age, gender, profile_img, updated_at"
+        )
+        .single();
+
+      if (error) {
+        console.error("[PUT /api/profile] insert error:", error);
+        console.error("[PUT /api/profile] insert error details:", {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+        });
+        return serverError(`Insert failed: ${error.message}`);
+      }
+      result = { ...data, email };
     }
-    result = data;
   }
 
   return NextResponse.json({

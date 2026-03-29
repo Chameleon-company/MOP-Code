@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import '../../../../public/styles/login.css';
 import Header from "../../../components/Header";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from 'next/navigation';
 import Footer from "../../../components/Footer";
 
 function LoginForm() {
     const t = useTranslations("login");
+    const locale = useLocale();
     const router = useRouter();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -52,11 +53,13 @@ function LoginForm() {
         setError("");
         alert("Login successful!");
 
-        // Optionally: Store user data in localStorage/sessionStorage
-        localStorage.setItem("user", JSON.stringify(result.user));
+        // Store user data in localStorage
+        localStorage.setItem("userId", result.data.userId.toString());
+        localStorage.setItem("user", JSON.stringify(result.data));
+        localStorage.setItem("token", result.data.token);
 
-        // Redirect to home page (or dashboard)
-        router.push("/"); // Update to your actual home route
+        // Redirect to profile page with locale
+        router.push(`/${locale}/profile`);
 
     } catch (error) {
         console.error("Login error:", error);
