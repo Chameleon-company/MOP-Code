@@ -200,11 +200,12 @@ export default async function middleware(request: NextRequest) {
   // 5b. Protected API route: forward with modified headers only.
   return NextResponse.next({ request: { headers: requestHeaders } });
 
+  
 }
 
 export const config = {
   matcher: [
-    
+
     // next-intl required patterns
     "/",
     "/(cn|en|es|el|ar|it|hi|vi)/:path*",
