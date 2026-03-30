@@ -17,8 +17,10 @@ export default async function LocaleLayout({
   //himesh's edits for use case
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="min-h-screen flex flex-col">
+        <div className="flex-1 flex flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

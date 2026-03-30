@@ -1,19 +1,40 @@
 "use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n-navigation";
+import { Link, useRouter as useI18nRouter, usePathname as useI18nPathname } from "@/i18n-navigation";
 import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun, HiChevronDown } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
 import { usePathname } from "next/navigation";
 
+const languages = [
+	{ name: "English", locale: "en" },
+	{ name: "Chinese (中文)", locale: "cn" },
+	{ name: "Spanish (Español)", locale: "es" },
+	{ name: "Greek (Ελληνικά)", locale: "el" },
+	{ name: "Arabic (العربية)", locale: "ar" },
+	{ name: "Italian (Italiano)", locale: "it" },
+	{ name: "Hindi (हिन्दी)", locale: "hi" },
+	{ name: "Vietnamese (Tiếng Việt)", locale: "vi" },
+] as const;
+
 const Header = () => {
 	const t = useTranslations("common");
 	const pathname = usePathname();
+	const i18nPathname = useI18nPathname();
+	const i18nRouter = useI18nRouter();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-    const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
+	const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
+	const [isLangOpen, setIsLangOpen] = useState(false);
 	const { theme, toggleTheme } = useTheme();
+
+	const selectLanguage = (locale: string) => {
+		i18nRouter.push(i18nPathname, { locale });
+		i18nRouter.refresh();
+		setIsLangOpen(false);
+		closeMenu();
+	};
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -21,6 +42,7 @@ const Header = () => {
 	const closeMenu = () => {
 		setIsMenuOpen(false);
 		setOpenMobileDropdown(null);
+		setIsLangOpen(false);
 	};
 	
 	const toggleMobileDropdown = (name: string) => {
@@ -31,16 +53,15 @@ const Header = () => {
 	const navItems = [
 		{ type: "link", name: "Home", link: "/" },
 		{ type: "link", name: "About Us", link: "/about" },
-		{ type: "link", name: "Upload", link: "/upload" },
-		{ type: "link", name: "Profile", link: "/profile" }, 
-		{ type: "link", name: "Stastics", link: "/stastics" }, 
+		{ type: "link", name: "Profile", link: "/profile" },
 		{
 			type: "dropdown",
 			name: "Explore",
 			items: [
 				{ name: "Use Cases", link: "/usecases" },
 				{ name: "Blogs", link: "/blog" },
-				
+				{ name: "Gallery", link: "/gallery" },
+				{ name: "Contact Us", link: "/contact" },
 			],
 		},
 	] as const;
@@ -148,17 +169,13 @@ const Header = () => {
 							)}
 						</button>
 
-						<LanguageDropdown />
+						<div className="hidden lg:block">
+							<LanguageDropdown />
+						</div>
 						<div className="hidden lg:flex">
 							<Link
-								href="/signup"
-								className=" bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-xl text-sm font-medium"
-							>
-								{t("Sign Up")}
-							</Link>
-							<Link
 								href="/login"
-								className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-xl text-sm font-medium"
+								className="bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-xl text-sm font-medium"
 							>
 								{t("Log In")}
 							</Link>
@@ -236,13 +253,35 @@ const Header = () => {
 		</div>
 	)
 )}
-							{/* Add Sign Up and Log In buttons to mobile menu */}
-							<Link
-								href="/signup"
-								className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
-							>
-								{t("Sign Up")}
-							</Link>
+							{/* Language accordion in mobile menu */}
+							<div>
+								<button
+									type="button"
+									onClick={() => setIsLangOpen((prev) => !prev)}
+									className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium transition-all duration-200 text-green-600 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-gray-800"
+								>
+									<span>{t("Language")}</span>
+									<HiChevronDown
+										className={`h-4 w-4 transition-transform duration-200 ${
+											isLangOpen ? "rotate-180" : ""
+										}`}
+									/>
+								</button>
+								{isLangOpen && (
+									<div className="mt-1 ml-4 space-y-1 border-l border-gray-200 pl-3 dark:border-gray-700">
+										{languages.map((lang) => (
+											<button
+												key={lang.locale}
+												onClick={() => selectLanguage(lang.locale)}
+												className="block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 text-green-600 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-gray-800"
+											>
+												{lang.name}
+											</button>
+										))}
+									</div>
+								)}
+							</div>
+							{/* Log In button */}
 							<Link
 								href="/login"
 								className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
