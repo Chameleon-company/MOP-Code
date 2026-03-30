@@ -1,0 +1,17 @@
+# Ignore large data
+data/raw/
+data/processed/
+*.csv
+*.zip
+
+# Ignore notebook junk
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+
+# Ignore large models
+*.pt
+
+# Ignore environment
+.venv/
