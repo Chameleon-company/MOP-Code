@@ -8,6 +8,9 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 const Footer = () => {
   const t = useTranslations("common");
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
+  const [showNewsletterToast, setShowNewsletterToast] = useState(false);
   const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
   const footerRef = useRef<HTMLElement>(null);
   const animFrameRef = useRef<number | null>(null);
@@ -43,6 +46,22 @@ const Footer = () => {
     el.addEventListener('mousemove', handleMouseMove);
     return () => el.removeEventListener('mousemove', handleMouseMove);
   }, [handleMouseMove]);
+
+  useEffect(() => {
+    if (!showNewsletterToast) return;
+    const id = window.setTimeout(() => setShowNewsletterToast(false), 4000);
+    return () => window.clearTimeout(id);
+  }, [showNewsletterToast]);
+
+  const isValidNewsletterEmail = (raw: string): boolean => {
+    const v = raw.trim();
+    if (v.length < 5) return false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return false;
+    const [local, domain] = v.split('@');
+    if (!local || !domain || /^\d+$/.test(local)) return false;
+    if (domain.startsWith('.') || domain.endsWith('.') || domain.includes('..')) return false;
+    return true;
+  };
 
   const links = [
     { name: "Licensing", path: "/licensing" },
@@ -412,6 +431,105 @@ const Footer = () => {
 
           </div>
 
+          {/* Newsletter */}
+          <div
+            className="footer-newsletter flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-10"
+            style={{
+              marginTop: '28px',
+              paddingTop: '22px',
+              borderTop: '1px solid rgba(255,255,255,0.25)',
+            }}
+          >
+            <div className="flex flex-col gap-4 flex-1 min-w-0 items-center md:items-start">
+              <p className="section-heading">Newsletter</p>
+              <div className="heading-bar" />
+              <p
+                style={{
+                  fontSize: '0.9rem',
+                  color: 'rgba(255,255,255,0.92)',
+                  lineHeight: '1.7',
+                  maxWidth: '220px',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.25)',
+                }}
+                className="text-center md:text-left"
+              >
+                Stay first in line for Melbourne open-data drops and playground news.
+              </p>
+            </div>
+            <div className="w-full lg:w-auto lg:min-w-[min(100%,380px)] flex flex-col gap-1">
+              <form
+                className="flex flex-col sm:flex-row gap-2 w-full"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const trimmed = newsletterEmail.trim();
+                  if (!trimmed) {
+                    setNewsletterError('Please enter your email address.');
+                    return;
+                  }
+                  if (!isValidNewsletterEmail(trimmed)) {
+                    setNewsletterError('Please enter a valid email address (e.g. morgan.lee@gmail.com).');
+                    return;
+                  }
+                  setNewsletterError(null);
+                  setNewsletterEmail('');
+                  setShowNewsletterToast(true);
+                }}
+                noValidate
+              >
+                <label htmlFor="footer-newsletter-email" className="sr-only">
+                  Email for newsletter
+                </label>
+                <input
+                  id="footer-newsletter-email"
+                  name="email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  required
+                  placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => {
+                    setNewsletterEmail(e.target.value);
+                    if (newsletterError) setNewsletterError(null);
+                  }}
+                  aria-invalid={newsletterError ? true : undefined}
+                  aria-describedby={newsletterError ? 'footer-newsletter-error' : undefined}
+                  className="flex-1 min-w-0 rounded-lg px-3 py-2 text-white placeholder:text-white/50 outline-none transition shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                  style={{
+                    fontSize: '0.9rem',
+                    background: 'rgba(255,255,255,0.1)',
+                    border: newsletterError
+                      ? '1px solid rgba(252, 165, 165, 0.95)'
+                      : '1px solid rgba(255,255,255,0.25)',
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg px-4 py-2 font-semibold whitespace-nowrap transition hover:opacity-95 active:scale-[0.98]"
+                  style={{
+                    fontSize: '0.9rem',
+                    background: 'rgba(255,255,255,0.95)',
+                    color: '#166534',
+                    border: '1px solid rgba(255,255,255,0.35)',
+                    boxShadow: '0 3px 10px rgba(0,0,0,0.18)',
+                  }}
+                >
+                  Submit
+                </button>
+              </form>
+              {newsletterError ? (
+                <p
+                  id="footer-newsletter-error"
+                  role="alert"
+                  className="text-red-100 px-0.5"
+                  style={{ fontSize: '0.9rem', textShadow: '0 1px 2px rgba(0,0,0,0.35)' }}
+                >
+                  {newsletterError}
+                </p>
+              ) : null}
+            </div>
+          </div>
+
           {/* Bottom bar */}
           <div
             className="footer-bottom"
@@ -431,6 +549,34 @@ const Footer = () => {
 
         </div>
       </footer>
+
+      {showNewsletterToast ? (
+        <div
+          className="fixed bottom-6 left-1/2 z-[200] flex max-w-[min(calc(100vw-2rem),420px)] -translate-x-1/2 items-center gap-3 rounded-2xl px-5 py-3.5 shadow-lg"
+          style={{
+            background: 'rgba(22, 101, 52, 0.97)',
+            border: '1px solid rgba(255,255,255,0.35)',
+            boxShadow:
+              '0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08) inset',
+          }}
+          role="status"
+          aria-live="polite"
+        >
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold"
+            style={{
+              background: 'rgba(255,255,255,0.2)',
+              color: '#fff',
+            }}
+            aria-hidden
+          >
+            ✓
+          </span>
+          <p className="text-sm font-medium text-white leading-snug">
+            You&apos;re in — we&apos;ll only email when there&apos;s something worth your time.
+          </p>
+        </div>
+      ) : null}
     </>
   );
 };
