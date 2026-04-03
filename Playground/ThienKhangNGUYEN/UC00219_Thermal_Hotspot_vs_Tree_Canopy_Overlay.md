@@ -1,4 +1,4 @@
-# Thermal Hotspot vs Tree Canopy Overlay
+# UC00219 - Thermal Hotspot vs Tree Canopy Overlay
 
 **Authored by:** Thien Khang Nguyen
 
@@ -36,6 +36,7 @@ This use case focuses on comparing two spatial datasets from the City of Melbour
 In this project, the thermal layer will be used to represent surface heat patterns, while the tree canopy layer will be used to represent vegetation coverage. By aligning and overlaying these two datasets, the analysis can identify areas where thermal intensity is high and canopy cover is low.
 
 The datasets used in this project are the "Thermal Image 2012" dataset and the "Tree Canopies 2021 (Urban Forest)" dataset from the City of Melbourne website.
+In the notebook implementation, both datasets are accessed through the City of Melbourne API v2.1 endpoints without exposing API keys.
 
 **Important note**
 
