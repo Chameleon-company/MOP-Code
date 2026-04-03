@@ -1,0 +1,4 @@
+path: /Users/tarunkaushik/Documents/Assignments/SEM_4/Team Proj/1_FinalSubmission
+train: /Users/tarunkaushik/Documents/Assignments/SEM_4/Team Proj/1_FinalSubmission/splits/val_fast.txt
+val: /Users/tarunkaushik/Documents/Assignments/SEM_4/Team Proj/1_FinalSubmission/splits/val_fast.txt
+names: [vehicle]

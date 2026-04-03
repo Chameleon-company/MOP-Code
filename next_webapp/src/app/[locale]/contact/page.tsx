@@ -3,11 +3,10 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import "../../../../public/styles/contact.css";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
-
 
 interface FormField {
   name: string;
@@ -21,14 +20,14 @@ interface FormField {
 const Contact = () => {
   const t = useTranslations("contact");
 
-  const formFields = [
+  const formFields: FormField[] = [
     {
       name: "firstName",
       spanName: t("First Name"),
       type: "text",
       placeholder: t("Enter Your First name"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
     {
       name: "lastName",
@@ -36,7 +35,7 @@ const Contact = () => {
       type: "text",
       placeholder: t("Enter Your Last name"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
     {
       name: "email",
@@ -44,7 +43,7 @@ const Contact = () => {
       type: "email",
       placeholder: t("Enter Company Email Address"),
       required: true,
-      validator: (email: string) => /^\S+@\S+\.\S+$/.test(email),
+      validator: (email) => /^\S+@\S+\.\S+$/.test(email),
     },
     {
       name: "phone",
@@ -52,67 +51,63 @@ const Contact = () => {
       type: "tel",
       placeholder: t("Enter Your Phone Number"),
       required: true,
-      validator: (phone: string) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
+      validator: (phone) => /^\d{10,}$/.test(phone.replace(/\D/g, "")),
     },
     {
       name: "message",
-      spanName: t("Message"),
+      spanName: t("What can I help you with"),
       type: "textarea",
       placeholder: t("Enter Message"),
       required: true,
-      validator: (value: string) => value.trim() !== "",
+      validator: (value) => value.trim() !== "",
     },
   ];
-  const [formValues, setFormValues] = useState < { [key: string]: string } > ({});
-  const [errors, setErrors] = useState < { [key: string]: string } > ({});
+
+  const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
-  // Handler to update form values and clear errors
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-    // If there's an error previously, validate again and clear if resolved
-    if (errors[name]) {
-      validateField(name, value);
-    }
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) validateField(name, value);
   };
 
-  // Function to validate individual fields
   const validateField = (name: string, value: string) => {
-    const field = formFields.find((field) => field.name === name);
+    const field = formFields.find((f) => f.name === name);
     if (field?.validator && !field.validator(value)) {
-      setErrors({
-        ...errors,
+      setErrors((prev) => ({
+        ...prev,
         [name]: `Invalid ${field.spanName.toLowerCase()}`,
-      });
+      }));
     } else {
-      const newErrors = { ...errors };
-      delete newErrors[name];
-      setErrors(newErrors);
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
 
-  // Form submission handler
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
-    // Validate all fields before submitting
-    formFields.forEach((field) => {
-      if (field.validator && !field.validator(formValues[field.name] || "")) {
-        setErrors((prev) => ({
-          ...prev,
-          [field.name]: `Invalid ${field.spanName.toLowerCase()}`,
-        }));
-        valid = false;
-      }
-    });
-    const newErrors = {};
+    const newErrors: { [key: string]: string } = {};
 
     formFields.forEach((field) => {
       const value = formValues[field.name] || "";
@@ -123,7 +118,6 @@ const Contact = () => {
     });
 
     setErrors(newErrors);
-
     if (!valid) return;
 
     try {
@@ -137,86 +131,97 @@ const Contact = () => {
     }
   };
 
-  return (<div className="contactPage font-sans bg-white min-h-screen">
-    <Header />
-    <main className="contactBody font-light text-xs leading-7 flex flex-col lg:flex-row lg:space-x-8 mt-12 items-start p-12">
-
-
-      <div className="imgContent relative w-full lg:w-1/2 mt-12 order-1 lg:order-2">
-
-        <span className="contactUsText block text-black text-4xl font-normal leading-snug font-montserrat mt-6 pl-6 text-left lg:pl-0 lg:text-left lg:mt-12 lg:mb-8 z-10 relative lg:relative lg:top-0 lg:left-0">
-          {t("Contact")}
-          <br />
-          {t("Us")}
-        </span>
-
-
-        <div className="imgWrap relative w-full mt-4 lg:mt-0">
-          <Image
-            src="/img/contact-us-city.png"
-            alt="City"
-            width={800}
-            height={600}
-            className="cityImage block w-full h-auto"
-          />
+  return (
+    <div className="bg-white dark:bg-black min-h-screen font-sans text-black dark:text-white transition-colors duration-300">
+      <Header />
+      <main className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-10">
+        <div className="w-full lg:w-1/2">
+          {successMessage && (
+            <p className="text-green-600 dark:text-green-400 text-sm mb-3">
+              {successMessage}
+            </p>
+          )}
+          {failureMessage && (
+            <p className="text-red-600 dark:text-red-400 text-sm mb-3">
+              {failureMessage}
+            </p>
+          )}
+          <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            {formFields.map((field) => (
+              <div key={field.name}>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  {field.spanName}
+                </label>
+                {field.type === "textarea" ? (
+                  <textarea
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    value={formValues[field.name] || ""}
+                    onChange={handleChange}
+                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none h-24"
+                  />
+                ) : (
+                  <input
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    value={formValues[field.name] || ""}
+                    onChange={handleChange}
+                    className="w-full border border-black dark:border-white bg-white dark:bg-gray-900 text-black dark:text-white rounded-md p-3 text-sm focus:ring-2 focus:ring-green-400 focus:outline-none"
+                  />
+                )}
+                {errors[field.name] && (
+                  <p className="text-red-500 dark:text-red-400 text-xs mt-1">
+                    {errors[field.name]}
+                  </p>
+                )}
+              </div>
+            ))}
+            <div className="flex justify-center pt-2">
+              <button
+                type="submit"
+                className="bg-green-600 hover:bg-green-900 text-white uppercase font-bold text-sm px-8 py-3 rounded-md transition duration-200"
+              >
+                {t("Submit")}
+              </button>
+            </div>
+          </form>
         </div>
-      </div>
 
-      <div className="formContent w-full lg:w-1/2 order-2 lg:order-1 lg:pr-8">
-        {successMessage && <p className="text-green-500 mb-3">{successMessage}</p>}
-        {failureMessage && <p className="text-red-500 mb-3">{failureMessage}</p>}
-        <form
-          id="contact"
-          action=""
-          onSubmit={handleSubmit}
-          method="post"
-          className="m-8"
-          noValidate
-        >
-          {formFields.map((field) => (
-            <fieldset
-              key={field.name}
-              className="border-0 m-0 mb-2.5 min-w-full p-0 w-full text-gray-700"
-            >
-              <span className="namaSpan text-black">{field.spanName}</span>
-              {field.type === "textarea" ? (
-                <textarea
-                  name={field.name}
-                  placeholder={field.placeholder}
-                  required={field.required}
-                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300 h-16"
-                  onChange={handleChange}
-                ></textarea>
-              ) : (
-                <input
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  required={field.required}
-                  className="w-full border border-gray-300 bg-white mb-1 p-2.5 font-normal text-xs rounded-md focus:border-gray-400 transition-colors ease-in-out duration-300"
-                  onChange={handleChange}
-                />
-              )}
-              {errors[field.name] && (
-                <span className="text-red-500 text-xs">
-                  {errors[field.name]}
-                </span>
-              )}
-            </fieldset>
-          ))}
-          <div className="flex justify-center items-center">
-            <button className="bg-green-800 text-white font-semibold text-lg py-1 px-6 rounded hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50 ">
-              {t("Submit")}
-            </button>
+        <div className="w-full lg:w-1/2 bg-[#F0F0F0] dark:bg-gray-800 p-8 rounded-lg shadow-md">
+          <h2 className="text-4xl font-bold text-black dark:text-white mb-4 text-center">
+            {t("Contact")} {t("Us")}
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 text-center">
+            Feel free to use the form or drop us an email
+          </p>
+          <div className="mb-4 text-sm text-gray-800 dark:text-gray-200">
+            <div className="flex items-center mb-2">
+              <span className="mr-3">📧</span>
+              <span>email@example.com</span>
+            </div>
+            <hr className="mb-4 border-gray-300 dark:border-gray-600" />
+            <div className="flex items-center">
+              <span className="mr-3">📞</span>
+              <span>+61 123 456 789</span>
+            </div>
           </div>
-        </form>
-      </div>
-
-    </main>
-    <Footer />
-  </div>
-
-
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d805190.2361230071!2d144.3937342027546!3d-37.97072605426427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad646b5d2ba4df7%3A0x4045675218ccd90!2sMelbourne%20VIC!5e0!3m2!1sen!2sau!4v1747916966526!5m2!1sen!2sau"
+            height="400"
+            className="w-full"
+            allowFullScreen
+            style={{ border: 0 }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Google Maps Embed"
+          ></iframe>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

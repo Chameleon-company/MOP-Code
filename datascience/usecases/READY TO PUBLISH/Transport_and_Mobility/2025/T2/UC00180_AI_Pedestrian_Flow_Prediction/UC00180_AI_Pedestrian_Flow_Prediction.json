@@ -1,0 +1,52 @@
+{
+    "title": "AI Pedestrian Flow Prediction",
+    "name": "Adithya Sentil",
+    "description": "The AI Pedestrian Flow Prediciton provides a data driven, solution to be able to determine pedestrian traffic at provided location venues, throughout the city. By combining multiple datasets from the Melbourne Open data portal utilising Machine learning models such as Linear regression and Random Forest it is able to capture the relationship between many of the features and pedestrian count to effectively predict the pedestrian traffic at a particular venue.",
+    "tags": [
+        "Pedestrian traffic",
+        "Venue traffic", 
+        "Pedestrian Flow Prediction", 
+        "Machine Learning", 
+        "visualisation",
+        "open data",
+        "Melbourne",
+        "geospatial analysis"
+    ],
+    "difficulty": "Intermediate",
+    "technology": [
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "requests",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "geopy",
+            "code": "python"
+        },
+        {
+            "name": "sklearn",
+            "code": "ML models"
+        }
+    ],
+    "datasets": [
+        "melbourne-pedestrian-counting-system",
+        "meshed-sensor-type-1",
+        "venues-for-event-bookings"
+  
+    ]
+}

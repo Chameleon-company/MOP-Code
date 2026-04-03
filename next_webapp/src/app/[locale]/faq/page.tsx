@@ -1,54 +1,192 @@
-import React from 'react';
-import Header from '../../../components/Header';
-import Chatbot from '../../chatbot/chatbot';
-import Footer from '../../../components/Footer';
-// import styles from '../chatbot_faq/faqchatbot.module.css';
+"use client";
 
+import React from "react";
+import Header from "../../../components/Header";
+import Chatbot from "../../chatbot/chatbot";
+import Footer from "../../../components/Footer";
+import { 
+  IoHelpCircleOutline, 
+  IoNavigate, 
+  IoSearch, 
+  IoMic 
+} from "react-icons/io5";
+import styles from "./faqchatbot.module.css";
 
-const FAQ = () => {
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-100"> {/* This ensures that the footer stays at the bottom of the page */}
-    
-      <Header /> 
+const FAQ: React.FC = () => (
+  <div
+    className={`
+      ${styles.faqContainer}
+      bg-[#F6F9FC] dark:bg-[#263238]
+      text-[#263238] dark:text-[#FFFFFF]
+      transition-colors duration-300
+    `}
+  >
+    <Header />
 
-      <main className="flex-grow container mx-auto px-4 text-black">
-        <header className="py-5">
-          <h1 className="text-center text-3xl font-bold">FAQ - Chatbot Help</h1>
-        </header>
+    <main className={styles.mainContent}>
+      <header className="mb-8 text-center">
+        <h1 className="text-4xl font-bold text-[#263238] dark:text-[#FFFFFF]">
+          FAQ – Chatbot Help
+        </h1>
+      </header>
 
-        <section className="mb-10 w-full md:w-2/3">
-          <h2 className="text-xl font-semibold mb-3">How to Use the Chatbot</h2>
-          <p className="text-md mb-2">
-            Here are some common questions and guides on how to interact with our chatbot effectively.
-          </p>
-          <ul className="list-disc pl-5">
-            <li>Start by clicking the chat icon in the bottom right corner of your screen.</li>
-            <li>Type your desired page in the input field that appears at the bottom of the chat window.</li>
-            <li className='font-bold'>Eg: Take me to the usecase page, show me contact us page</li>
-            <li>Press send or enter to submit your question.</li>
+      <details
+        className={`
+          ${styles.section}
+          bg-white dark:bg-[#263238]
+          border border-gray-200 dark:border-gray-700
+          rounded-md mb-6
+          transition-colors duration-300
+        `}
+        open
+      >
+        <summary
+          className="
+            flex items-center
+            px-4 py-2
+            cursor-pointer
+            bg-[#F6F9FC] dark:bg-[#2ECC71]
+            text-[#263238] dark:text-[#FFFFFF]
+            font-semibold
+            transition-colors duration-300
+          "
+        >
+          <IoHelpCircleOutline className="inline-block mr-2" />
+          How to Use the Chatbot
+        </summary>
+        <div className={styles.sectionContent}>
+          <ul className={styles.list}>
+            <li className={styles.listItem}>
+              <IoNavigate className={styles.listItemIcon} />
+              <span className="dark:text-white">Click the chat icon in the bottom‐right corner to open the widget.</span>
+            </li>
+            <li className={styles.listItem}>
+              <IoSearch className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                Type or speak your request:
+                <ul className="list-disc pl-5 mt-1 space-y-1">
+                  <li>Navigation: “Take me to the use‐case page.”</li>
+                  <li>Search: “Use case about public transport.”</li>
+                  <li>General: “What does MOP stand for?”</li>
+                </ul>
+              </span>
+            </li>
+            <li className={styles.listItem}>
+              <IoMic className={styles.listItemIcon} />
+              <span className="dark:text-white">Click Send icon to submit. Tap the mic icon for voice input.</span>
+            </li>
+            <li className={styles.listItem}>
+              <IoHelpCircleOutline className={styles.listItemIcon} />
+              <span className="dark:text-white">Toggle the speaker icon to have the bot read its response aloud.</span>
+            </li>
+            <li className={styles.listItem}>
+              <IoSearch className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                <strong>Best Live-Search Format:</strong> “use case on &lt;keyword&gt;”
+                (e.g. “use case on clustering”).
+              </span>
+            </li>
           </ul>
-        </section>
+        </div>
+      </details>
 
-        <section className="mb-10 w-full md:w-2/3">
-          <h2 className="text-xl font-semibold mb-3">Common Issues</h2>
-          <p className="text-md mb-2">
-            If you are experiencing issues, here are some quick tips:
-          </p>
-          <ul className="list-disc pl-5">
-            <li>Ensure your internet connection is stable.</li>
-            <li>Refer to the specific commands listed in the chatbot description.</li>
-            <li>Contact support if issues persist.</li>
+   
+      <details
+        className={`
+          ${styles.section}
+          bg-white dark:bg-[#263238]
+          border border-gray-200 dark:border-gray-700
+          rounded-md mb-6
+          transition-colors duration-300
+        `}
+      >
+        <summary
+          className="
+            flex items-center
+            px-4 py-2
+            cursor-pointer
+            bg-[#F6F9FC] dark:bg-[#2ECC71]
+            text-[#263238] dark:text-[#FFFFFF]
+            font-semibold
+            transition-colors duration-300
+          "
+        >
+          <IoHelpCircleOutline className="inline-block mr-2" />
+          What’s New
+        </summary>
+        <div className={styles.sectionContent}>
+          <ul className={styles.list}>
+            <li className={styles.listItem}>
+              <IoMic className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                <strong>Voice Commands:</strong> Real-time speech‐to‐text & text‐to‐speech.
+              </span>
+            </li>
+            <li className={styles.listItem}>
+              <IoNavigate className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                <strong>Instant Navigation:</strong> “navigate home”, “navigate about”, etc.
+              </span>
+            </li>
+            <li className={styles.listItem}>
+              <IoSearch className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                <strong>Live Keyword Search:</strong> “use case on…” pulls matching studies on‐the‐fly.
+              </span>
+            </li>
           </ul>
-        </section>
+        </div>
+      </details>
 
-        
-      </main>
+      <details
+        className={`
+          ${styles.section}
+          bg-white dark:bg-[#263238]
+          border border-gray-200 dark:border-gray-700
+          rounded-md
+          transition-colors duration-300
+        `}
+      >
+        <summary
+          className="
+            flex items-center
+            px-4 py-2
+            cursor-pointer
+            bg-[#F6F9FC] dark:bg-[#2ECC71]
+            text-[#263238] dark:text-[#FFFFFF]
+            font-semibold
+            transition-colors duration-300
+          "
+        >
+          <IoHelpCircleOutline className="inline-block mr-2" />
+          Common Issues
+        </summary>
+        <div className={styles.sectionContent}>
+          <ul className={styles.list}>
+            <li className={styles.listItem}>
+              <IoHelpCircleOutline className={styles.listItemIcon} />
+              <span className="dark:text-white">Check your internet connection; the chatbot requires network access.</span>
+            </li>
+            <li className={styles.listItem}>
+              <IoHelpCircleOutline className={styles.listItemIcon} />
+              <span className="dark:text-white">Refresh the page if the chatbot stops responding.</span>
+            </li>
+            <li className={styles.listItem}>
+              <IoHelpCircleOutline className={styles.listItemIcon} />
+              <span className="dark:text-white">
+                Use the exact command formats shown above if you don’t get the desired output.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </main>
 
-      <Chatbot />
-      
-      <Footer /> 
-    </div>
-  );
-};
+    <Chatbot />
+    <Footer />
+  </div>
+);
 
 export default FAQ;
+
+
