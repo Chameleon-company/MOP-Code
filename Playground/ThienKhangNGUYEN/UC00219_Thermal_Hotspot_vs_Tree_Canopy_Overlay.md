@@ -41,3 +41,7 @@ In the notebook implementation, both datasets are accessed through the City of M
 **Important note**
 
 One limitation of this project is that the two datasets come from different years. The thermal image is from 2012, while the tree canopy data is from 2021. Because of this, the results should be interpreted as an exploratory spatial analysis rather than a same-time causal comparison. However, the project can still provide useful insight into broad spatial patterns of heat vulnerability and canopy distribution in Melbourne.
+
+**Current Sprint Focus**
+
+This sprint focuses on robust data preparation, transparent rule-based hotspot identification, and initial clustering model training with clear justification. The next sprint will extend model depth and comparative evaluation while keeping the same project direction.
