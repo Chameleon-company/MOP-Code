@@ -64,7 +64,7 @@ export default function FAQSection() {
     setOpenIndex((prev) => (prev === index ? null : index));
 
   return (
-    <section className="w-full bg-gray-50 dark:bg-[#1f2a30] py-12 sm:py-20 px-4 sm:px-6">
+    <section className="w-full bg-white dark:bg-[#1f2a30] py-12 sm:py-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
 
         {/* ── Section header ────────────────────────────────────────────── */}
