@@ -1,0 +1,6 @@
+title,company,match_percentage,skill_overlap_score,prototype_score,matched_skills,missing_skills
+Machine Learning Intern,Company C,22.43,100.0,45.7,"computer vision, machine learning, python",None
+Junior Data Scientist,Company B,30.77,80.0,45.54,"feature engineering, machine learning, model evaluation, python",data preprocessing
+AI Engineer Intern,Company D,18.68,33.33,23.07,python,"deep learning, nlp"
+Data Analyst,Company A,12.12,42.86,21.34,"power bi, python, sql","dashboard, data visualization, reporting, tableau"
+Business Intelligence Analyst,Company E,4.05,60.0,20.84,"excel, power bi, sql","dashboard, reporting"
