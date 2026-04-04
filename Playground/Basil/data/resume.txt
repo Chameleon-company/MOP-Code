@@ -1,0 +1,85 @@
+Basil Behanan
+Tel: +61 468410310
+Email: Basilbehanan5@gmail.com
+LinkedIn: LinkedIn
+
+Career Profile
+Final-year Computer Science student majoring in Data Science with experience applying data analytics, machine learning, and data engineering techniques to solve complex problems. Skilled in extracting, transforming, and analysing large datasets using Python, SQL, and statistical modelling tools to generate actionable insights. Experienced working in collaborative technical teams to develop analytical solutions, improve data workflows, and communicate technical findings to technical and non-technical stakeholders.
+Key Skills
+Programming & Analytics
+Python, SQL, R, C++, C#, Excel, Power BI
+Data Science & Machine Learning
+TensorFlow, Scikit-learn, OpenCV, statistical modelling, feature engineering, model evaluation
+Data Engineering & Infrastructure
+ETL workflows, Docker, Git, GitHub Actions (CI/CD), Google Cloud Storage, AWS S3, Kubernetes
+Data Systems & Visualisation
+Power BI, MySQL, Jupyter Lab, Excel analytics
+Concepts
+Data lifecycle management, distributed computing, machine learning pipelines, data quality validation, reproducible experimentation 
+ 
+Education
+
+Deakin University                                                                                                                      Burwood, VIC
+Bachelor of Computer Science                                                                            Graduation Date: June 2026
+Major: Data Science
+Achievements: Above 75 WAM
+Relevant Coursework: Intro to Data Science and AI, Machine Learning, Database Fundamentals, Linear Algebra for Data Analysis, Discrete Mathematics, Data Wrangling, Applied Algebra and Statistics
+
+
+
+
+
+
+
+
+
+Professional Experience
+
+Superstat                                                                                                                                Richmond, VIC
+Computer Vision and Sports Analytics Intern                                                             Jul 2025 – Sep 2025                                   
+• Prepared and validated over 2,000 annotated AFL video frames to support machine learning model development and analytical workflows.
+• Contributed to computer vision classification and OCR pipelines achieving ~90% and ~95% accuracy respectively.
+• Implemented CI/CD workflows using GitHub Actions, automating testing, dependency installation, and validation checks for machine learning experiments.
+• Standardised development environments using Docker, improving reproducibility across machine learning experimentation.
+• Utilised AWS S3 for dataset storage and cloud-based experimentation workflows.
+• Collaborated closely with machine learning engineers to evaluate models and refine data preparation and validation processes.
+Leadership Experience
+
+RedBack Operations - Project Orion (Sports AI Pipeline)                                                   Burwood, VIC
+Team Lead – Sports Analytics & Annotation                                                                    Jul 2025 – Sep 2025
+• Led a team of five analysts to build a scalable annotation pipeline supporting machine learning training across 10,000+ video frames.
+• Designed structured data schemas and quality-control processes, improving dataset reliability by 30%+.
+• Managed dataset storage and access workflows using Google Cloud Storage to support distributed team collaboration.
+• Implemented Git-based version control workflows, coordinating dataset and code updates across teams through GitHub repositories.
+• Collaborated cross-functionally with engineering and analytics teams to ensure datasets aligned with model validation requirements.
+• Produced documentation and onboarding guides to streamline contributor onboarding and workflow consistency.
+Project Experience
+
+Distributed Recommendation System (Parallel ML Processing)
+•	Built distributed Python-based recommendation engine using MPI, reducing execution time by 38%.
+•	Designed scalable preprocessing workflows and evaluation pipelines.
+•	Applied collaborative and content-based filtering techniques.
+Financial Data Analysis - Cryptocurrency Market Study
+•	Performed exploratory data analysis on Bitcoin market data using Python (NumPy, Matplotlib) to analyse volatility trends and trading behaviour.
+•	Generated statistical summaries and visualisations to interpret financial data patterns and market fluctuations
+
+
+Health Data Analytics - BMI Population Analysis
+• Analysed NHANES health datasets using Python and NumPy to study BMI distribution across population groups.
+• Applied statistical analysis, correlation matrices, scatterplot analysis, and data visualisation techniques.
+Machine Learning – IoT Cyber-Attack Classification
+• Developed machine learning models to detect cyber-attacks within IoT networks using supervised learning techniques.
+• Evaluated model performance using accuracy, precision, recall, and confusion matrix metrics.
+Predictive Analytics – Heart Disease Prediction System
+• Designed a machine learning pipeline combining feature selection, PCA dimensionality reduction, and ensemble learning models.
+• Implemented models including Random Forest, Logistic Regression, and XGBoost for predictive health analytics.
+Courses and Certificates
+
+•	Data Analysis with python (freeCodeCamp)
+•	Intro to C++ (LCC Computer Education)
+
+Referees
+
+ Available upon request
+
+
