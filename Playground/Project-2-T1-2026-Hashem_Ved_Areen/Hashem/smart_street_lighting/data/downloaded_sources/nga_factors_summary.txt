@@ -1,0 +1,5 @@
+# nga_factors_summary.txt
+
+This file must be downloaded manually.
+
+National Greenhouse Accounts Factors — Victoria emission factors. Download from: https://www.dcceew.gov.au/climate-change/publications/national-greenhouse-accounts-factors

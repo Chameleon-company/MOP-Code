@@ -1,0 +1,723 @@
+{
+  "summary": {
+    "total_tests": 51,
+    "source_accuracy_pct": 90.2,
+    "avg_fact_score_pct": 80.1
+  },
+  "results": [
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7164
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestr",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.6612
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.603
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6818
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZ",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7267
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": false,
+      "fact_score": 0.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6389
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "category": "standards",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 0.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6374
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "category": "energy",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 0.67,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6637
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "category": "energy",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6489
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "category": "energy",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6752
+    },
+    {
+      "test_id": "NRG-04",
+      "query": "How many hours per year do street lights operate in Melbourne?",
+      "category": "energy",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 0.5,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.653
+    },
+    {
+      "test_id": "NRG-05",
+      "query": "What is the typical payback period for an LED street light upgrade?",
+      "category": "energy",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5975
+    },
+    {
+      "test_id": "MEL-01",
+      "query": "What ecological lighting guidelines does Melbourne follow for parks?",
+      "category": "melbourne",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.716
+    },
+    {
+      "test_id": "MEL-02",
+      "query": "What is Melbourne's renewable energy target for council operations?",
+      "category": "melbourne",
+      "top_k": 3,
+      "relevant_source_found": false,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6415
+    },
+    {
+      "test_id": "CALC-01",
+      "query": "How many LED lights are needed for a 200m park pathway with moderate use?",
+      "category": "calculation",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 0.33,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "Melbourne Urban Data",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.5594
+    },
+    {
+      "test_id": "CALC-02",
+      "query": "What is the annual energy cost for 13 x 30W LED lights operating 4200 hours at $",
+      "category": "calculation",
+      "top_k": 3,
+      "relevant_source_found": false,
+      "fact_score": 0.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5847
+    },
+    {
+      "test_id": "CALC-03",
+      "query": "Design lighting for a 300m high-traffic shared pathway. How many lights and what",
+      "category": "calculation",
+      "top_k": 3,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6152
+    },
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7164
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestr",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.6612
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.603
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6818
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZ",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7267
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6389
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "category": "standards",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 0.67,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6374
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "category": "energy",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 0.67,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6637
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "category": "energy",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6489
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "category": "energy",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6752
+    },
+    {
+      "test_id": "NRG-04",
+      "query": "How many hours per year do street lights operate in Melbourne?",
+      "category": "energy",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 0.5,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.653
+    },
+    {
+      "test_id": "NRG-05",
+      "query": "What is the typical payback period for an LED street light upgrade?",
+      "category": "energy",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5975
+    },
+    {
+      "test_id": "MEL-01",
+      "query": "What ecological lighting guidelines does Melbourne follow for parks?",
+      "category": "melbourne",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.716
+    },
+    {
+      "test_id": "MEL-02",
+      "query": "What is Melbourne's renewable energy target for council operations?",
+      "category": "melbourne",
+      "top_k": 5,
+      "relevant_source_found": false,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6415
+    },
+    {
+      "test_id": "CALC-01",
+      "query": "How many LED lights are needed for a 200m park pathway with moderate use?",
+      "category": "calculation",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 0.33,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "Melbourne Urban Data",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.5594
+    },
+    {
+      "test_id": "CALC-02",
+      "query": "What is the annual energy cost for 13 x 30W LED lights operating 4200 hours at $",
+      "category": "calculation",
+      "top_k": 5,
+      "relevant_source_found": false,
+      "fact_score": 0.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5847
+    },
+    {
+      "test_id": "CALC-03",
+      "query": "Design lighting for a 300m high-traffic shared pathway. How many lights and what",
+      "category": "calculation",
+      "top_k": 5,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6152
+    },
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7164
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestr",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.6612
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.603
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6818
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZ",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.7267
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6389
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "category": "standards",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 0.67,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6374
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "category": "energy",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 0.67,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6637
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "category": "energy",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6489
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "category": "energy",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6752
+    },
+    {
+      "test_id": "NRG-04",
+      "query": "How many hours per year do street lights operate in Melbourne?",
+      "category": "energy",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 0.5,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.653
+    },
+    {
+      "test_id": "NRG-05",
+      "query": "What is the typical payback period for an LED street light upgrade?",
+      "category": "energy",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5975
+    },
+    {
+      "test_id": "MEL-01",
+      "query": "What ecological lighting guidelines does Melbourne follow for parks?",
+      "category": "melbourne",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Melbourne Urban Data",
+        "AS/NZS 1158",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.716
+    },
+    {
+      "test_id": "MEL-02",
+      "query": "What is Melbourne's renewable energy target for council operations?",
+      "category": "melbourne",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.6415
+    },
+    {
+      "test_id": "CALC-01",
+      "query": "How many LED lights are needed for a 200m park pathway with moderate use?",
+      "category": "calculation",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 0.33,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "Melbourne Urban Data",
+        "Melbourne Urban Data"
+      ],
+      "top_score": 0.5594
+    },
+    {
+      "test_id": "CALC-02",
+      "query": "What is the annual energy cost for 13 x 30W LED lights operating 4200 hours at $",
+      "category": "calculation",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 0.0,
+      "sources_retrieved": [
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines",
+        "Energy Efficiency Guidelines"
+      ],
+      "top_score": 0.5847
+    },
+    {
+      "test_id": "CALC-03",
+      "query": "Design lighting for a 300m high-traffic shared pathway. How many lights and what",
+      "category": "calculation",
+      "top_k": 8,
+      "relevant_source_found": true,
+      "fact_score": 1.0,
+      "sources_retrieved": [
+        "AS/NZS 1158",
+        "AS/NZS 1158",
+        "AS/NZS 1158"
+      ],
+      "top_score": 0.6152
+    }
+  ]
+}
