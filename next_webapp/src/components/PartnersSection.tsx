@@ -18,7 +18,7 @@ export default function PartnersSection() {
   const repeatedPartners = [...partners, ...partners];
 
   return (
-    <section className="w-full bg-white dark:bg-[#263238] py-16 overflow-hidden">
+    <section className="w-full bg-white dark:bg-[#263238] py-20 overflow-hidden bottom-padding " >
       <div className="max-w-6xl mx-auto px-4 text-center mb-10">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-3">
           Our Partners
@@ -39,9 +39,9 @@ export default function PartnersSection() {
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={140}
-                  height={70}
-                  className="max-h-[56px] w-auto object-contain  opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                  width={250}
+                  height={125}
+                  className="max-h-[80px] w-auto object-contain opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
                 />
               </div>
             ))}
@@ -65,7 +65,11 @@ export default function PartnersSection() {
         .marquee-track:hover {
           animation-play-state: paused;
         }
-
+        .bottom-padding{
+        
+        padding-bottom:120px;
+        
+        }
         .logo-card {
           flex: 0 0 auto;
           width: 190px;
@@ -77,10 +81,14 @@ export default function PartnersSection() {
           border-radius: 18px;
           background: rgba(249, 250, 251, 1);
           padding: 24px;
+          box-shadow: none !important;
+          border: 1px solid #e5e7eb;
         }
 
         :global(.dark) .logo-card {
           background: #2f3b42;
+          box-shadow: none !important;
+          border: 1px solid #3f4d55;
         }
 
         @keyframes scroll {

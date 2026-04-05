@@ -20,8 +20,9 @@ const Home = () => {
       <Insights />
       <TestimonialsSection />
       <FAQSection />
-      <PartnersSection />
+      
      <ContactUsSection/>
+     <PartnersSection />
       <BackToTopButton />
       <Chatbot />
       <BackToTopButton />
