@@ -72,3 +72,6 @@ artificial-intelligence/chatbot/code/mpt_bot/story_graph.dot
 
 # If you don't want trained models in git, uncomment:
 # models/
+Playground/Project_3B_T126/data/raw/CANSIS SLC/*
+Playground/Project_3B_T126/data/raw/Ontario Soil Survey Complex/*
+
