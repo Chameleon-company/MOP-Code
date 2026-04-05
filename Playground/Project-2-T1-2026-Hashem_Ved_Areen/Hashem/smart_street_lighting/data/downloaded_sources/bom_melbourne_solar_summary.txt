@@ -1,0 +1,5 @@
+# bom_melbourne_solar_summary.txt
+
+This file must be downloaded manually.
+
+Melbourne solar exposure data. Download from: http://www.bom.gov.au/climate/averages/tables/cw_086071.shtml

@@ -1,0 +1,60 @@
+{
+  "park_name": "Fitzroy Gardens",
+  "park_boundary": {
+    "type": "Polygon",
+    "coordinates": [[
+      [144.9790, -37.8128],
+      [144.9820, -37.8128],
+      [144.9820, -37.8155],
+      [144.9790, -37.8155],
+      [144.9790, -37.8128]
+    ]]
+  },
+  "pathways": [
+    {
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [144.9795, -37.8130],
+          [144.9800, -37.8135],
+          [144.9805, -37.8140],
+          [144.9810, -37.8145],
+          [144.9815, -37.8150]
+        ]
+      },
+      "true_length_m": 310.5,
+      "intersections": [
+        {"lat": -37.8140, "lng": 144.9805, "paths_meeting": 2}
+      ],
+      "entry_points": [
+        {"lat": -37.8130, "lng": 144.9795, "adjacent_to": "park_boundary"},
+        {"lat": -37.8150, "lng": 144.9815, "adjacent_to": "park_boundary"}
+      ],
+      "is_primary": true,
+      "highway_type": "footway",
+      "name": "Main Walk",
+      "surface": "asphalt"
+    },
+    {
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [144.9800, -37.8128],
+          [144.9805, -37.8140]
+        ]
+      },
+      "true_length_m": 140.2,
+      "intersections": [
+        {"lat": -37.8140, "lng": 144.9805, "paths_meeting": 2}
+      ],
+      "entry_points": [
+        {"lat": -37.8128, "lng": 144.9800, "adjacent_to": "park_boundary"}
+      ],
+      "is_primary": false,
+      "highway_type": "path",
+      "name": null,
+      "surface": "gravel"
+    }
+  ],
+  "selected_pathway": 0
+}
