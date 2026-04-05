@@ -47,6 +47,18 @@ export async function POST(request: Request) {
             return errorResponse('Message is required', 400, 'MISSING_MESSAGE');
         }
 
+        if (fullName.length > 100) {
+            return errorResponse('Full name too long', 400, 'INVALID_FULL_NAME');
+        }
+
+        if (subject.length > 150) {
+            return errorResponse('Subject too long', 400, 'INVALID_SUBJECT');
+        }
+
+        if (message.length > 2000) {
+            return errorResponse('Message too long', 400, 'INVALID_MESSAGE');
+        }
+
         // Resolve the admin role_id from the roles table
         const { data: roleData, error: roleError } = await supabase
             .from('roles')
@@ -73,12 +85,13 @@ export async function POST(request: Request) {
             }
         }
 
-        // Send notification email to each admin
         const emailBody =
             `New Contact Form Submission\n\n` +
             `From: ${fullName} <${email}>\n` +
             `Subject: ${subject}\n\n` +
             `Message:\n${message}`;
+
+        let emailFailures = 0;
 
         for (const adminEmail of adminEmails) {
             try {
@@ -90,15 +103,31 @@ export async function POST(request: Request) {
                 });
                 console.log(`[contact] Notification sent to ${adminEmail}`);
             } catch (mailError) {
+                emailFailures++;
                 console.error(`[contact] Failed to send email to ${adminEmail}:`, mailError);
             }
+        }
+
+        // If all emails failed
+        if (emailFailures === adminEmails.length && adminEmails.length > 0) {
+            return errorResponse(
+                'Failed to send notification emails',
+                500,
+                'EMAIL_FAILED'
+            );
         }
 
         return NextResponse.json(
             { success: true, message: 'Message received' },
             { status: 200 },
         );
-    } catch {
-        return errorResponse('Internal Server Error', 500, 'INTERNAL_ERROR');
+    } catch (error: any) {
+        console.error('[contact] Unexpected error:', error);
+
+        return errorResponse(
+            'Internal Server Error',
+            500,
+            'INTERNAL_ERROR'
+        );
     }
 }
