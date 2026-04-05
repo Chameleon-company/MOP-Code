@@ -10,7 +10,7 @@ file_path = os.path.join(BASE_DIR, "data", "cleaned_parking.csv")
 
 df = pd.read_csv(file_path)
 
-df = df.sample(n=200)
+df = df.sample(n=50)
 
 # Create graph
 G = nx.Graph()
@@ -32,7 +32,7 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return R * c
 
 # Create edges (connect nearby bays)
-threshold = 0.1  # km (100 meters)
+threshold = 50  # km (100 meters)
 
 bays = df[['bay_id', 'latitude', 'longitude']].drop_duplicates()
 

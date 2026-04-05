@@ -3,8 +3,13 @@ from visualize import visualize_graph
 
 print("Running test_graph...")
 
-# Pick a node
 target = list(G.nodes())[0]
 
-# Call visualization
-visualize_graph(G, target_node=target)
+# Get neighbors
+neighbors = list(G.neighbors(target))
+
+# Create subgraph
+sub_nodes = [target] + neighbors
+subG = G.subgraph(sub_nodes)
+
+visualize_graph(subG, target_node=target)
