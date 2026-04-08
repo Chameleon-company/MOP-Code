@@ -241,6 +241,11 @@ const Footer = () => {
             padding-right: 0 !important;
             align-items: center !important;
           }
+          .footer-col-connect {
+            border-right: none !important;
+            padding-right: 0 !important;
+            align-items: center !important;
+          }
           .footer-bottom {
             flex-direction: column !important;
             text-align: center !important;
@@ -323,7 +328,7 @@ const Footer = () => {
             transition: 'transform 0.1s linear',
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-start">
 
             {/* BRAND */}
             <div className="flex flex-col items-center md:items-start gap-5">
@@ -331,7 +336,7 @@ const Footer = () => {
                 <img
                   src="/img/new-logo-white.png"
                   alt="Melbourne Open Playground logo"
-                  style={{ height: '96px', position: 'relative', zIndex: 1 }}
+                  style={{ height: '79px', position: 'relative', zIndex: 1 }}
                 />
                 <span className="shimmer-sweep" aria-hidden="true" />
               </div>
@@ -376,7 +381,13 @@ const Footer = () => {
             </div>
 
             {/* CONNECT */}
-            <div className="flex flex-col items-center md:items-start gap-4">
+            <div
+              className="footer-col-connect flex flex-col items-center md:items-start gap-4"
+              style={{
+                borderRight: '1px solid rgba(255,255,255,0.3)',
+                paddingRight: '28px',
+              }}
+            >
               <p className="section-heading">Connect</p>
               <div className="heading-bar" />
               <a
@@ -429,23 +440,13 @@ const Footer = () => {
               </div>
             </div>
 
-          </div>
-
-          {/* Newsletter */}
-          <div
-            className="footer-newsletter flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-10"
-            style={{
-              marginTop: '28px',
-              paddingTop: '22px',
-              borderTop: '1px solid rgba(255,255,255,0.25)',
-            }}
-          >
-            <div className="flex flex-col gap-4 flex-1 min-w-0 items-center md:items-start">
+            {/* NEWSLETTER */}
+            <div className="flex flex-col items-center md:items-start gap-4">
               <p className="section-heading">Newsletter</p>
               <div className="heading-bar" />
               <p
                 style={{
-                  fontSize: '0.9rem',
+                  fontSize: '0.95rem',
                   color: 'rgba(255,255,255,0.92)',
                   lineHeight: '1.7',
                   maxWidth: '220px',
@@ -453,81 +454,92 @@ const Footer = () => {
                 }}
                 className="text-center md:text-left"
               >
-                Stay first in line for Melbourne open-data drops and playground news.
+                Get Melbourne open-data updates first.
               </p>
-            </div>
-            <div className="w-full lg:w-auto lg:min-w-[min(100%,380px)] flex flex-col gap-1">
-              <form
-                className="flex flex-col sm:flex-row gap-2 w-full"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const trimmed = newsletterEmail.trim();
-                  if (!trimmed) {
-                    setNewsletterError('Please enter your email address.');
-                    return;
-                  }
-                  if (!isValidNewsletterEmail(trimmed)) {
-                    setNewsletterError('Please enter a valid email address (e.g. morgan.lee@gmail.com).');
-                    return;
-                  }
-                  setNewsletterError(null);
-                  setNewsletterEmail('');
-                  setShowNewsletterToast(true);
-                }}
-                noValidate
-              >
-                <label htmlFor="footer-newsletter-email" className="sr-only">
-                  Email for newsletter
-                </label>
-                <input
-                  id="footer-newsletter-email"
-                  name="email"
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  required
-                  placeholder="Enter your email"
-                  value={newsletterEmail}
-                  onChange={(e) => {
-                    setNewsletterEmail(e.target.value);
-                    if (newsletterError) setNewsletterError(null);
+              <div className="w-full xl:min-w-[280px] flex flex-col gap-1">
+                <form
+                  className="flex flex-col sm:flex-row gap-2 w-full"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const trimmed = newsletterEmail.trim();
+                    if (!trimmed) {
+                      setNewsletterError('Please enter your email address.');
+                      return;
+                    }
+                    if (!isValidNewsletterEmail(trimmed)) {
+                      setNewsletterError('Please enter a valid email address (e.g. morgan.lee@gmail.com).');
+                      return;
+                    }
+                    setNewsletterError(null);
+                    setNewsletterEmail('');
+                    setShowNewsletterToast(true);
                   }}
-                  aria-invalid={newsletterError ? true : undefined}
-                  aria-describedby={newsletterError ? 'footer-newsletter-error' : undefined}
-                  className="flex-1 min-w-0 rounded-lg px-3 py-2 text-white placeholder:text-white/50 outline-none transition shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
-                  style={{
-                    fontSize: '0.9rem',
-                    background: 'rgba(255,255,255,0.1)',
-                    border: newsletterError
-                      ? '1px solid rgba(252, 165, 165, 0.95)'
-                      : '1px solid rgba(255,255,255,0.25)',
-                  }}
-                />
-                <button
-                  type="submit"
-                  className="rounded-lg px-4 py-2 font-semibold whitespace-nowrap transition hover:opacity-95 active:scale-[0.98]"
-                  style={{
-                    fontSize: '0.9rem',
-                    background: 'rgba(255,255,255,0.95)',
-                    color: '#166534',
-                    border: '1px solid rgba(255,255,255,0.35)',
-                    boxShadow: '0 3px 10px rgba(0,0,0,0.18)',
-                  }}
+                  noValidate
                 >
-                  Submit
-                </button>
-              </form>
-              {newsletterError ? (
-                <p
-                  id="footer-newsletter-error"
-                  role="alert"
-                  className="text-red-100 px-0.5"
-                  style={{ fontSize: '0.9rem', textShadow: '0 1px 2px rgba(0,0,0,0.35)' }}
-                >
-                  {newsletterError}
-                </p>
-              ) : null}
+                  <label htmlFor="footer-newsletter-email" className="sr-only">
+                    Email for newsletter
+                  </label>
+                  <input
+                    id="footer-newsletter-email"
+                    name="email"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    required
+                    placeholder="Enter your email"
+                    value={newsletterEmail}
+                    onChange={(e) => {
+                      setNewsletterEmail(e.target.value);
+                      if (newsletterError) setNewsletterError(null);
+                    }}
+                    aria-invalid={newsletterError ? true : undefined}
+                    aria-describedby={newsletterError ? 'footer-newsletter-error' : undefined}
+                    className="flex-1 min-w-0 rounded-lg px-2.5 py-1.5 text-white placeholder:text-white/50 outline-none transition shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                    style={{
+                      fontSize: '0.85rem',
+                      background: 'rgba(255,255,255,0.1)',
+                      border: newsletterError
+                        ? '1px solid rgba(252, 165, 165, 0.95)'
+                        : '1px solid rgba(255,255,255,0.25)',
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-lg px-3 py-1.5 font-semibold whitespace-nowrap transition hover:opacity-95 active:scale-[0.98]"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.92)';
+                      e.currentTarget.style.color = '#166534';
+                      e.currentTarget.style.border = '1px solid rgba(255,255,255,0.7)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(110, 231, 183, 0.24)';
+                      e.currentTarget.style.color = '#f0fdf4';
+                      e.currentTarget.style.border = '1px solid rgba(167, 243, 208, 0.5)';
+                    }}
+                    style={{
+                      fontSize: '0.85rem',
+                      background: 'rgba(110, 231, 183, 0.24)',
+                      color: '#f0fdf4',
+                      border: '1px solid rgba(167, 243, 208, 0.5)',
+                      boxShadow: '0 3px 10px rgba(0,0,0,0.18)',
+                    }}
+                  >
+                    Submit
+                  </button>
+                </form>
+                {newsletterError ? (
+                  <p
+                    id="footer-newsletter-error"
+                    role="alert"
+                    className="text-red-100 px-0.5"
+                    style={{ fontSize: '0.9rem', textShadow: '0 1px 2px rgba(0,0,0,0.35)' }}
+                  >
+                    {newsletterError}
+                  </p>
+                ) : null}
+              </div>
             </div>
+
           </div>
 
           {/* Bottom bar */}
