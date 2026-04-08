@@ -1164,7 +1164,7 @@ const Dashboard = () => {
 							<p>{t("p2")}</p>
 						</section>
 
-            {/*himesh's edits for small cards */}
+            {/*edits for small cards */}
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
               {recentCaseStudies.map((item) => (
                   <div
