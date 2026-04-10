@@ -5,4 +5,14 @@
 *.zip
 
 # BUT allow zip files in DEPENDENCIES folder
-!datascience/usecases/DEPENDENCIES/**/*.zip.DS_Store
+!datascience/usecases/DEPENDENCIES/**/*.zip
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
