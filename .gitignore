@@ -1,1 +1,8 @@
+# Ignore mac system files
 .DS_Store
+
+# Ignore zip files everywhere
+*.zip
+
+# BUT allow zip files in DEPENDENCIES folder
+!datascience/usecases/DEPENDENCIES/**/*.zip.DS_Store
