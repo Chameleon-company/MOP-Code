@@ -1,0 +1,74 @@
+{ 
+    "title": "UC00183_Data-Driven_Climate_Resilience_for_Melbourne",
+    "name": "UC00183_Data-Driven_Climate_Resilience_for_Melbourne",
+    "description": "Integrates microclimate sensor data, tree canopy coverage, and population forecasts to analyse climate resilience and identify vulnerable zones in Melbourne.",
+    "tags": [
+        "microclimate sensor data", 
+        "tree canopies", 
+        "population forecasts", 
+        "data processing",
+        "GeoDataFrames",
+        "regression modelling",
+        "forecasting",
+        "classification",
+        "Heat Vulnerability Index"
+    ],
+    "difficulty": "Intermediate",
+    "technology": [
+      {
+        "name": "numpy",
+        "alias": "np",
+        "code": "python"
+      },
+      {
+        "name": "pandas",
+        "alias": "pd",
+        "code": "python"
+      },
+      {
+        "name": "matplotlib",
+        "alias": "plt",
+        "code": "python"
+      },
+      {
+        "name": "seaborn",
+        "alias": "sns",
+        "code": "python"
+      },
+      {
+        "name": "geopandas",
+        "alias": "gpd",
+        "code": "python"
+      },
+      {
+        "name": "GeoDataFrame",
+        "library": "geopandas",
+        "code": "python"
+      },
+      {
+        "name": "scikit-learn",
+        "alias": "sklearn",
+        "code": "python"
+      },
+      {
+        "name": "StandardScaler",
+        "library": "sklearn.preprocessing",
+        "code": "python"
+      },
+      {
+        "name": "MinMaxScaler",
+        "library": "sklearn.preprocessing",
+        "code": "python"
+      },
+      {
+        "name": "prophet",
+        "alias": "Prophet",
+        "code": "python"
+      }
+    ],
+    "datasets": [
+        "microclimate sensors",
+        "tree canopies (2021 urban forest)",
+        "population forecasts (2020–2040)"
+    ]
+}

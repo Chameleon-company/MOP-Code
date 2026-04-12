@@ -1,0 +1,148 @@
+suburb,suburb_encoded,location,location_encoded
+Kensington,4,North East Of Derby Street,103
+North Melbourne,6,30 Provost Street,2
+Kensington,4,North Of Macaulay Road,113
+Kensington,4,North Of Eastwood Street,110
+Carlton,0,Between Victoria Street And Queensberry Street Midblock,83
+Carlton,0,North Of Pelham Street,115
+West Melbourne,10,Between King Street And William Street,48
+South Yarra,8,54 Anderson Street,4
+South Yarra,8,North Of Fairlie Court,111
+West Melbourne,10,Between Abbottsford Street And Hawke Street,16
+Parkville,7,Between Fitzgibbon Street And Jageurs Lane,36
+Parkville,7,Between Gatehouse Street And Park Drive,40
+Kensington,4,Between Smith Street And Parsons Street.,72
+Southbank,9,East Of Wells Street,98
+Southbank,9,West Of St Kilda Road,142
+Kensington,4,Between Macaulay Road And Robertson Street,54
+North Melbourne,6,Between Abbotsford Street And Curzon Street,14
+North Melbourne,6,Between Howard Street And Peel Street,44
+North Melbourne,6,Between Victoria Street And Queensberry Street,82
+South Yarra,8,126 Anderson Street,0
+West Melbourne,10,Between Spencer Street And Ireland Street,74
+North Melbourne,6,Between Ireland Street And Spencer Street,45
+West Melbourne,10,Between Spencer Street And Miller Street,75
+West Melbourne,10,East Of Hawke Street,93
+West Melbourne,10,West Of Hawke Street,138
+North Melbourne,6,Between Abbottsford Street And Hawke Street,16
+East Melbourne,3,Between Palmer Street And Wellington Parade,59
+North Melbourne,6,East Of Lloyd Street,94
+North Melbourne,6,Between Levesson Street And Chetwynd Street,50
+Kensington,4,East Of Fairbairn Drive,92
+Kensington,4,26 Bateman Road,1
+Carlton,0,Between Queensberry Street And Leicester Street,63
+Docklands,2,Between Geographe Street And Import Lane,41
+Docklands,2,Between Geographe Street And Navigation Drive,42
+North Melbourne,6,East Of Vaughan Terrace,97
+North Melbourne,6,West Of Shands Lane,141
+Carlton,0,Between Elgin Street And Palmerston Street,33
+South Yarra,8,West Of Punt Road,140
+Carlton,0,Between Waterloo Street And Lytton Street,84
+Kensington,4,Between Smith Street And Parsons Street,71
+Kensington,4,South Of Parsons Street,130
+Docklands,2,Site1,118
+Docklands,2,Site2,119
+Carlton,0,South Of Elgin Street,126
+Melbourne Cbd,5,South Of Flinders Lane,128
+Melbourne Cbd,5,North Of Flinders Street,112
+Kensington,4,North Of Macaulay Road And Robertson Street,114
+Kensington,4,North Of Robertson Street,116
+Parkville,7,Between Grattan Street And Haymarket Roundabout,43
+Parkville,7,Between Bayles Street And Park Drive,22
+Parkville,7,Between Story Street And Morrah Street,79
+Parkville,7,East Of Story Street,96
+Parkville,7,Between Flemington Road And Royal Parade,37
+Melbourne Cbd,5,Between Flinders St And Flinders Lane,39
+Parkville,7,Between Royal Parade And Berkeley Street,67
+North Melbourne,6,Midblock,102
+Parkville,7,North Of Cade Way,109
+Melbourne Cbd,5,Between Elizabeth Street And Queens Street,34
+East Melbourne,3,Just East Of Jolimont Lane,99
+West Melbourne,10,Between Abbotsford Street And Curzon Street,14
+West Melbourne,10,Between Stawell Street And Anderson Street,77
+Carlton,0,Between Rathdowne Street And Canning Street,66
+North Melbourne,6,Between Abbottsford Street And Curzon Street,15
+Parkville,7,Between Bayles Street And Degraves Street,20
+Parkville,7,Between Flemington Road And Story Street,38
+Carlton,0,Between Canning Street And Nicholson Street,25
+Parkville,7,Between Park Drive And Jageurs Lane,60
+Melbourne Cbd,5,Northbound - Between Flinders Street And Flinders Lane,117
+Melbourne Cbd,5,Slip Lane,120
+Melbourne Cbd,5,Between King Street And William Street,48
+Melbourne Cbd,5,Westbound - Between Spring Street And Wellington Parade South,143
+North Melbourne,6,North East Of Henderson Street,105
+Kensington,4,South Of Stockmans Way,131
+Kensington,4,Between Stockmans Way And The Crescent,78
+Kensington,4,Between Smithfield Road And Stockmans Way,73
+Parkville,7,Between Bayles Street And Morrah Street,21
+Docklands,2,South Of Bourke Street,124
+North Melbourne,6,East Of Dryburgh Street,91
+North Melbourne,6,North East Of Macaulay Rd,106
+Docklands,2,North Of Bourke Street,108
+West Melbourne,10,Spencer Street And King Street,136
+West Melbourne,10,North Of Adderley Street,107
+North Melbourne,6,Between Queensberry Street And Provost Street,64
+Melbourne Cbd,5,Mid Block,101
+West Melbourne,10,Between Miller And Victoria  Streets,57
+West Melbourne,10,South Of Adderley Street,123
+West Melbourne,10,Abbotsford Street To Hawke Street,11
+Kensington,4,Between Macaulay Road And Wight Street,55
+North Melbourne,6,Just North Of Gracie Street,100
+North Melbourne,6,Between Both Caylre Cresents At No Nth Bound Entry Point,24
+South Yarra,8,Betweenn Domain And Toorak Road,86
+South Yarra,8,Between Domain And Toorak Road,30
+South Yarra,8,64 Park Street,6
+North Melbourne,6,At Entrance To Lost Dogs Home,12
+South Yarra,8,66 Hope Street,7
+Kensington,4,9 The Ridgeway,10
+Kensington,4,45 The Ridgeway,3
+South Yarra,8,63 Domain Street,5
+South Yarra,8,Between Toorak Road And Domain Road,81
+South Yarra,8,77 Millswyn Street,9
+South Yarra,8,71 Millswyn Street,8
+South Yarra,8,West Of Dallas Brooks Drive,137
+Kensington,4,Between Bangalore Street And The Ridgeway,19
+Kensington,4,South West Of Altona Street,132
+Melbourne Cbd,5,Between Exibition Street And Russell Street,35
+Melbourne Cbd,5,Between Russel Street And Swanston Street,68
+Melbourne Cbd,5,Between Spring Street And Exibition Street,76
+Melbourne Cbd,5,Between Russell Street And Swanston Street,69
+Kensington,4,Between Rail Bridge And Gate U To Qube Logistics Driveway,65
+Kensington,4,Between Bellair And Gower Streets,23
+Carlton,0,Between Drummond Street And Rathdowne Street,31
+Carlton,0,Between Lygon Street And Cardigan Street,53
+Docklands,2,East Of Batman Hill Drive,89
+North Melbourne,6,South East Of Fogarty Street,121
+North Melbourne,6,South Of Erskine Street,127
+Carlton,0,Between Canning Street And Rathdowne Street,26
+Carlton North,1,South Of Macpherson Street,129
+North Melbourne,6,East Of Munster Terrace,95
+North Melbourne,6,West Of Munster Terrace,139
+North Melbourne,6,Between Capel Street And Howard Street,28
+Carlton,0,Between Kay Street And Palmerston Street,47
+West Melbourne,10,Between Adderley Street And Spencer Street,17
+Parkville,7,Between Levers Street And Walker Street,49
+North Melbourne,6,Between Dryborough And Canning Street,32
+Parkville,7,Between Park Street And Levers Street,61
+Southbank,9,Between Wells Street And Anthony Lane,85
+Southbank,9,Bettween Speed Humps Just South Of Wadey Street,13
+Melbourne Cbd,5,Southbound - Between La Trobe Street And Little Lonsdale Street,135
+Kensington,4,South West Of Belmont Road,133
+Melbourne Cbd,5,Between Little Bourke Street And Bourke Street,51
+Melbourne Cbd,5,Between Lonsdale Street And Little Bourke Street,52
+Kensington,4,South Of Coote Street,125
+North Melbourne,6,Between Melrose Street And Dryburgh Street,56
+East Melbourne,3,Between Clarendon Street And Powlett Street,29
+East Melbourne,3,Between Powlett Street And Simpson Street,62
+East Melbourne,3,Between Simpson Street And Hoddle Street,70
+Kensington,4,South East Of Market Street,122
+Kensington,4,North East Of Durham Street,104
+Carlton,0,Between Nicholson Street And Station Street,58
+Carlton,0,Between Canning Street And Station Street,27
+Kensington,4,East Of Barnett Street,88
+Kensington,4,East Of Collett Street,90
+West Melbourne,10,Dryburgh Street To Abbotsford Street,87
+East Melbourne,3,Between Agnes Street And Charles Street,18
+East Melbourne,3,Between Jolimont Street And Wellington Parade,46
+Parkville,7,Between The Avenue And Royal Parade,80
+Kensington,4,South West Of Southey Street,134

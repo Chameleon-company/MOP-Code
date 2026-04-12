@@ -1,0 +1,44 @@
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.input {
+    flex: 1;
+    border: 2px solid #ccc;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.send-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4CAF50; 
+}
+
+.textarea1 {
+    font-family: inherit; 
+    font-feature-settings: inherit;
+    font-variation-settings: inherit; 
+    font-size: 100%;
+    font-weight: inherit; 
+    line-height: inherit; 
+    letter-spacing: inherit; 
+    color: green; 
+    margin: 0; 
+    padding: 8px; 
+    width: 100%; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+}
+
+.message {
+  overflow-wrap: anywhere; 
+  word-break: break-word;    
+}
+

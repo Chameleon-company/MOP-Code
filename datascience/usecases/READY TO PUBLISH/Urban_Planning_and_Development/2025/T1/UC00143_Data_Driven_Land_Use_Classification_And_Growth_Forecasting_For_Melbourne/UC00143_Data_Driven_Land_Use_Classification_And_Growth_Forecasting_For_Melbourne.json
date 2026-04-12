@@ -1,0 +1,45 @@
+{
+  "title": "UC00143_Data_Driven_Land_Use_Classification_And_Growth_Forecasting_For_Melbourne",
+  "name": "UC00143_Data_Driven_Land_Use_Classification_And_Growth_Forecasting_For_Melbourne",
+  "description": "This project analyzes Melbourne’s residential and business data to classify urban land use zones and forecast high-growth areas using machine learning techniques.",
+  "tags": [
+    "urban planning",
+    "zoning classification",
+    "machine learning",
+    "growth forecasting",
+    "spatial analysis",
+    "melbourne",
+    "data science"
+  ],
+  "difficulty": "intermediate",
+  "technology": [
+    {
+      "name": "pandas",
+      "code": "python"
+    },
+    {
+      "name": "scikit-learn",
+      "code": "python"
+    },
+    {
+      "name": "matplotlib",
+      "code": "python"
+    },
+    {
+      "name": "seaborn",
+      "code": "python"
+    },
+    {
+      "name": "numpy",
+      "code": "python"
+    },
+    {
+      "name": "jupyter-notebook",
+      "code": "python"
+    }
+  ],
+  "datasets": [
+    "residential_dwellings_melbourne",
+    "business_establishments_melbourne"
+  ]
+}

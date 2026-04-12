@@ -1,0 +1,50 @@
+{
+  "title": "Predictive Maintenance for Tram Tracks",
+  "name": "Tram Track Maintenance Use Case",
+  "description": "This use case involves using sensor data and machine learning to enable predictive maintenance of tram tracks in Melbourne. The project aims to identify wear and potential issues before failure, ensuring safety, optimizing maintenance schedules, and reducing operational disruptions.",
+  "tags": [
+    "Predictive Maintenance",
+    "Public Transport",
+    "Infrastructure",
+    "Machine Learning",
+    "Urban Mobility"
+  ],
+  "difficultly": "Advanced",
+  "technology": [
+    {
+      "name": "accelerometers",
+      "code": "hardware"
+    },
+    {
+      "name": "strain gauges",
+      "code": "hardware"
+    },
+    {
+      "name": "Python",
+      "code": "software"
+    },
+    {
+      "name": "TensorFlow",
+      "code": "machine_learning"
+    },
+    {
+      "name": "Keras",
+      "code": "machine_learning"
+    },
+    {
+      "name": "pandas",
+      "alias": "pd",
+      "code": "python"
+    },
+    {
+      "name": "NumPy",
+      "alias": "np",
+      "code": "python"
+    }
+  ],
+  "datasets": [
+    "tram-track-sensor-readings",
+    "maintenance-log-history",
+    "track-wear-progression-data"
+  ]
+}

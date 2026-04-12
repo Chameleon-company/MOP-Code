@@ -1,0 +1,147 @@
+//----------------------------------------------------------//
+//	NAVBAR
+//----------------------------------------------------------//
+header {
+  position: relative;
+}
+.navbar {
+  width: 100%;
+  z-index: $zindex-sticky;
+  .container {
+    position: relative;
+  }
+  .navbar-collapse {
+    align-items: center;
+  }
+  &.transparent {
+    .logo-dark {
+      display: none;
+    }
+    &.fixed {
+      .logo-light {
+        display: none;
+      }
+      .logo-dark {
+        display: inline-block;
+      }
+    }
+  }
+  &.navbar-dark {
+    .logo-dark {
+      display: none;
+    }
+  }
+  &.navbar-light {
+    &.fixed {
+      .logo-light {
+        display: none;
+      }
+      .logo-dark {
+        display: inline-block;
+      }
+      .btn:not(.btn-expand):not(.btn-gradient) {
+        background: $main-color;
+        border-color: $main-color;
+        color: $white;
+      }
+    }
+  }
+  &.navbar-bg-light {
+    background: $white;
+    box-shadow: none;
+  }
+  &.navbar-bg-dark {
+    background: $gray-800;
+  }
+  .navbar-other {
+    .nav-item .nav-link {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      > i {
+        @include font-size(1.1rem);
+      }
+    }
+    .navbar-nav > .nav-item .nav-link {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .navbar-nav > .nav-item + .nav-item {
+      margin-left: 0.8rem;
+    }
+  }
+}
+//----------------------------------------------------------//
+//	STICKY NAVBAR
+//----------------------------------------------------------//
+.navbar.fixed {
+  &:not(.extended) .topbar {
+    display: none !important;
+  }
+  .navbar-collapse-wrapper {
+    background: none !important;
+    box-shadow: none !important;
+  }
+}
+.navbar-clone {
+  position: fixed !important;
+  z-index: 1008;
+  top: 0;
+  left: 0;
+  box-shadow: $box-shadow-md;
+  background: rgba($white, 0.97);
+  animation: slideDown 300ms ease-in-out alternate;
+  // transform: translateY(-100%);
+  // @include transition(all 300ms ease-in-out, padding-right 0ms);
+}
+// .navbar-stick {
+//   transform: translateY(0%);
+//   &:not(.navbar-dark) {
+//     box-shadow: $box-shadow-md;
+//     background: rgba($white, 0.97);
+//   }
+// }
+//----------------------------------------------------------//
+//	HAMBURGER ICON
+//----------------------------------------------------------//
+button.hamburger {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $navbar-light-color;
+  @include transition($link-transition);
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+  &:focus {
+    outline: 0;
+  }
+  &:before,
+  &:after {
+    content: '';
+  }
+  &:before,
+  span,
+  &:after {
+    width: 1.2rem;
+    height: 0.15rem;
+    @include transition($link-transition);
+    background: currentColor;
+    border-radius: 2rem;
+  }
+  &:before,
+  span {
+    margin: 0 0 0.25rem;
+  }
+}
+.navbar.position-absolute:not(.fixed):not(.navbar-light) button.hamburger,
+.navbar.navbar-bg-dark button.hamburger,
+.navbar.navbar-dark button.hamburger {
+  color: $navbar-dark-color;
+}

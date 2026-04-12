@@ -1,0 +1,41 @@
+//----------------------------------------------------------//
+//	FUNCTIONS
+//----------------------------------------------------------//
+// Internal Bootstrap function to turn maps into its negative variant.
+// It prefixes the keys with `n` and makes the value negative.
+@function negativify-map($map) {
+  $result: ();
+  @each $key,
+  $value in $map {
+    @if $key !=0 {
+      $result: map-merge($result, ("n"+ $key: -#{$value}));
+    }
+  }
+  @return $result;
+}
+// Color contrast
+// See https://github.com/twbs/bootstrap/pull/30168
+@function color-contrast($background,
+  $color-contrast-dark: $color-contrast-dark,
+  $color-contrast-light: $color-contrast-light,
+  $min-contrast-ratio: $min-contrast-ratio) {
+  $foregrounds: $color-contrast-light, $color-contrast-dark, $white, $main-dark;
+  $max-ratio: 0;
+  $max-ratio-color: null;
+  @each $color in $foregrounds {
+    $contrast-ratio: contrast-ratio($background, $color);
+    @if $contrast-ratio > $min-contrast-ratio {
+      @return $color;
+    }
+    @else if $contrast-ratio > $max-ratio {
+      $max-ratio: $contrast-ratio;
+      $max-ratio-color: $color;
+    }
+  }
+  @warn "Found no color leading to #{$min-contrast-ratio}:1 contrast ratio against #{$background}...";
+  @return $max-ratio-color;
+}
+// URL Friendly Color
+@function url-color($colour) {
+  @return '%23' + str-slice('#{$colour}', 2, -1)
+}

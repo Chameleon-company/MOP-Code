@@ -1,0 +1,15 @@
+# UC5 stronger augmentations for haze/night/rain
+hsv_h: 0.015
+hsv_s: 0.8
+hsv_v: 0.6
+degrees: 5.0
+translate: 0.10
+scale: 0.6
+shear: 2.0
+perspective: 0.0005
+flipud: 0.0
+fliplr: 0.5
+mosaic: 1.0
+mixup: 0.20
+copy_paste: 0.20
+label_smoothing: 0.01

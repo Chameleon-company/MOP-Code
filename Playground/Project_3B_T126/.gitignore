@@ -1,0 +1,10 @@
+# Ignore large local raw GIS folders
+data/Ontario Soil Survey Complex/
+data/CANSIS SLC/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc

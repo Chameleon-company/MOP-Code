@@ -1,0 +1,51 @@
+{
+    "project_title": "Capacity Forecasting and Strategic Insights for Bars, Pubs, Cafes, and Restaurants in Melbourne",
+    "description": "An end-to-end data science pipeline to forecast venue patron capacities using time-series and ensemble modeling, and deliver interactive geospatial dashboards for stakeholder decision-making.",
+    "tags": [
+      "time_series_forecasting",
+      "geospatial_visualization",
+      "capacity_planning",
+      "hospitality_analytics",
+      "ARIMA",
+      "random_forest",
+      "interactive_dashboard"
+    ],
+    "technologies": {
+      "languages": ["Python"],
+      "libraries": [
+        "pandas",
+        "numpy",
+        "scikit-learn",
+        "pmdarima",
+        "matplotlib",
+        "folium",
+        "ipywidgets",
+        "requests"
+      ],
+      "tools": [
+        "Jupyter Notebook",
+        "GitHub",
+        "Microsoft Planner",
+        "Trello"
+      ]
+    },
+    "datasets": [
+      {
+        "name": "City of Melbourne Venue Data",
+        "description": "Location, capacity, and type information for hospitality venues in Melbourne",
+        "source": "City of Melbourne Open Data API"
+      },
+      {
+        "name": "Historical Patron Counts",
+        "description": "Weekly and daily venue occupancy records",
+        "source": "Internal booking logs / partner data"
+      },
+      {
+        "name": "Bureau of Meteorology Weather Data",
+        "description": "Local weather variables (temperature, humidity) for Melbourne",
+        "source": "BOM API"
+      }
+    ],
+    "difficulty": "Advanced"
+  }
+  

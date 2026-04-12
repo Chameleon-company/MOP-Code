@@ -1,0 +1,295 @@
+,Suburb,Postcode,Address,Price pw,Date available,Number of bedrooms,Number of bathrooms,Number of carspaces,Type of property,suburb_formatted,address_formatted,latitude,longitude
+0,Box Hill,3128,"1/8 Ashted Road, Box Hill, Vic 3128",500,12/9/2025,2,1,1,Unit,boxhill,"8 Ashted Road, Box Hill, Vic",-37.8231233,145.1236049
+1,Box Hill,3128,"1112/850 Whitehorse Road, Box Hill, Vic 3128",610,11/8/2025,2,1,1,Apartment,boxhill,"850 Whitehorse Road, Box Hill, Vic",-37.8176227,145.1184549
+2,Box Hill,3128,"1 Elland Avenue, Box Hill, Vic 3128",450,5/8/2025,1,1,0,Apartment,boxhill,"1 Elland Avenue, Box Hill, Vic",-37.8172198,145.1233661
+3,Box Hill,3128,"31/1045 Whitehorse Road, Box Hill, Vic 3128",700,6/8/2025,2,2,1,Apartment,boxhill,"1045 Whitehorse Road, Box Hill, Vic",-37.8182599,145.1281647
+4,Box Hill,3128,"12/40 Barkly Street, Box Hill, Vic 3128",550,7/8/2025,3,1,2,Unit,boxhill,"40 Barkly Street, Box Hill, Vic",-37.825994,145.1304693
+5,Hawthorn,3122,"3/494 Glenferrie Road, Hawthorn, Vic 3122",500,12/8/2025,2,1,1,Apartment,hawthorn,"494 Glenferrie Road, Hawthorn, Vic",-37.8318201,145.0338629
+6,Hawthorn,3122,"517B/200 Burwood Road, Hawthorn, Vic 3122",1100,5/9/2025,3,2,2,Apartment,hawthorn,"200 Burwood Road, Hawthorn, Vic",-37.8221063,145.0299116
+7,Hawthorn,3122,"4/27 Elphin Grove, Hawthorn, Vic 3122",650,10/9/2025,2,1,1,Apartment,hawthorn,"27 Elphin Grove, Hawthorn, Vic",-37.8181826,145.0423484
+8,Hawthorn,3122,"2/111 Riversdale Road, Hawthorn, Vic 3122",525,5/9/2025,1,1,1,Apartment,hawthorn,"111 Riversdale Road, Hawthorn, Vic",-37.8287084,145.0354497
+9,Hawthorn,3122,"418D/1 Drill Street, Hawthorn, Vic 3122",1200,1/9/2025,3,2,2,Apartment,hawthorn,"1 Drill Street, Hawthorn, Vic",-37.822137,145.0300486
+10,Doncaster,3108,"6/77-79 Wetherby Road, Doncaster, Vic 3108",600,19/8/2025,2,1,2,House,doncaster,"77-79 Wetherby Road, Doncaster, Vic",-37.79392,145.1419781
+11,Doncaster,3108,"1/21 Sargent Street, Doncaster, Vic 3108",1200,5/8/2025,4,3,2,Townhouse,doncaster,"21 Sargent Street, Doncaster, Vic",-37.7966039,145.1216103
+12,Doncaster,3108,"812/101 Tram Road, Doncaster, Vic 3108",535,21/8/2025,2,1,1,Apartment,doncaster,"101 Tram Road, Doncaster, Vic",-37.7881138,145.1244993
+13,Doncaster,3108,"38 Bordeaux Street, Doncaster, Vic 3108",600,5/8/2025,3,2,2,House,doncaster,"38 Bordeaux Street, Doncaster, Vic",-37.7823604,145.1191712
+14,Doncaster,3108,"46 Wetherby Road, Doncaster, Vic 3108",1220,11/8/2025,5,2,2,House,doncaster,"46 Wetherby Road, Doncaster, Vic",-37.7909058,145.1432728
+15,Mitcham,3132,"1A Bruce Street, Mitcham, Vic 3132",690,5/8/2025,3,2,1,House,mitcham,"1A Bruce Street, Mitcham, Vic",-37.8128985,145.1856979
+16,Mitcham,3132,"12 Norman Street, Mitcham, Vic 3132",800,12/8/2025,4,2,1,House,mitcham,"12 Norman Street, Mitcham, Vic",-37.8253421,145.1977296
+17,Mitcham,3132,"2/9 Mcghee Avenue, Mitcham, Vic 3132",480,5/9/2025,2,1,1,Unit,mitcham,"9 Mcghee Avenue, Mitcham, Vic",-37.8191561,145.1974361
+18,Mitcham,3132,"15/20 Harrison Street, Mitcham, Vic 3132",920,5/8/2025,4,3,2,Townhouse,mitcham,"20 Harrison Street, Mitcham, Vic",-37.8140322,145.1988733
+19,Mitcham,3132,"18/20 Harrison Street, Mitcham, Vic 3132",850,5/8/2025,3,2,2,Townhouse,mitcham,"20 Harrison Street, Mitcham, Vic",-37.8140322,145.1988733
+20,Burwood,3125,"15 Cumming Street, Burwood, Vic 3125",590,8/8/2025,3,1,2,House,burwood,"15 Cumming Street, Burwood, Vic",-37.8514363,145.1135434
+21,Burwood,3125,"G16/373 Burwood Highway, Burwood, Vic 3125",560,1/9/2025,2,2,1,Apartment,burwood,"373 Burwood Highway, Burwood, Vic",-37.8513696,145.1297299
+22,Burwood,3125,"206/310 Burwood Highway, Burwood, Vic 3125",540,5/8/2025,2,1,0,Apartment,burwood,"310 Burwood Highway, Burwood, Vic",-37.8509708,145.1210496
+23,Burwood,3125,"5/2D Ireland Street, Burwood, Vic 3125",700,18/8/2025,3,2,2,Townhouse,burwood,"2D Ireland Street, Burwood, Vic",-37.8500932,145.1068538
+24,Burwood,3125,"2/6 Beddows Street, Burwood, Vic 3125",1095,18/8/2025,4,3,2,Townhouse,burwood,"6 Beddows Street, Burwood, Vic",-37.8536571,145.11838
+25,Blackburn,3130,"1 Railway Road, Blackburn, Vic 3130",750,14/8/2025,3,2,2,House,blackburn,"1 Railway Road, Blackburn, Vic",-37.8195451,145.1456843
+26,Blackburn,3130,"16/12 John Street, Blackburn, Vic 3130",490,9/8/2025,2,1,0,Unit,blackburn,"12 John Street, Blackburn, Vic",-37.8157355,145.1523943
+27,Blackburn,3130,"18 Hillside Crescent, Blackburn, Vic 3130",1100,17/9/2025,4,3,2,Townhouse,blackburn,"18 Hillside Crescent, Blackburn, Vic",-37.8227382,145.1389796
+28,Blackburn,3130,"5/15-17 Laburnum Street, Blackburn, Vic 3130",550,11/9/2025,2,1,1,Unit,blackburn,"15-17 Laburnum Street, Blackburn, Vic",-37.8205679,145.1423475
+29,Blackburn,3130,"5/4 Lithgow Avenue, Blackburn, Vic 3130",500,5/8/2025,1,1,1,Unit,blackburn,"4 Lithgow Avenue, Blackburn, Vic",-37.8189811,145.1460425
+30,Ringwood,3134,"5/1 Vine Street, Ringwood, Vic 3134",550,5/8/2025,2,1,1,Unit,ringwood,"1 Vine Street, Ringwood, Vic",-37.8228431,145.2266004
+31,Ringwood,3134,"402 Maroondah Highway, Ringwood, Vic 3134",525,5/8/2025,3,1,2,House,ringwood,"402 Maroondah Highway, Ringwood, Vic",-37.7995192,145.2522882
+32,Ringwood,3134,"4A Keith Grove, Ringwood, Vic 3134",670,7/10/2025,3,2,1,House,ringwood,"4A Keith Grove, Ringwood, Vic",-37.8212336,145.2225223
+33,Ringwood,3134,"21 Oliver Street, Ringwood, Vic 3134",650,5/8/2025,4,1,0,House,ringwood,"21 Oliver Street, Ringwood, Vic",-37.8087679,145.2372398
+34,Ringwood,3134,"303/7-9 Bardia Street, Ringwood, Vic 3134",460,5/9/2025,1,1,1,Apartment,ringwood,"7-9 Bardia Street, Ringwood, Vic",-37.812136,145.2334027
+35,Nunawading,3131,"10 Tasman Avenue, Nunawading, Vic 3131",630,12/9/2025,3,1,2,House,nunawading,"10 Tasman Avenue, Nunawading, Vic",-37.8067118,145.1737738
+36,Nunawading,3131,"6/26 Oxford Street, Nunawading, Vic 3131",880,5/8/2025,4,3,2,Townhouse,nunawading,"26 Oxford Street, Nunawading, Vic",-37.8031081,145.1842019
+37,Nunawading,3131,"7/51 Mcculloch Street, Nunawading, Vic 3131",550,5/8/2025,2,1,1,Unit,nunawading,"51 Mcculloch Street, Nunawading, Vic",-37.8167535,145.1799277
+38,Nunawading,3131,"2/29 Efron Street, Nunawading, Vic 3131",375,5/8/2025,1,1,2,Unit,nunawading,"29 Efron Street, Nunawading, Vic",-37.8091754,145.1806545
+39,Nunawading,3131,"25/35-47 Burnt Street, Nunawading, Vic 3131",500,18/8/2025,2,1,1,House,nunawading,"35-47 Burnt Street, Nunawading, Vic",-37.8170696,145.1748608
+40,Camberwell,3124,"111/1101 Toorak Road, Camberwell, Vic 3124",620,25/8/2025,2,2,1,Apartment,camberwell,"1101 Toorak Road, Camberwell, Vic",-37.8479358,145.075152
+41,Camberwell,3124,"2/597 Burke Road, Camberwell, Vic 3124",1700,5/8/2025,4,3,2,Townhouse,camberwell,"597 Burke Road, Camberwell, Vic",-37.8404727,145.0547655
+42,Camberwell,3124,"14A Judd Street, Camberwell, Vic 3124",695,5/9/2025,2,1,2,Unit,camberwell,"14A Judd Street, Camberwell, Vic",-37.8368158,145.0647903
+43,Camberwell,3124,"43 Spencer Road, Camberwell, Vic 3124",890,5/8/2025,3,1,1,House,camberwell,"43 Spencer Road, Camberwell, Vic",-37.8289051,145.0707759
+44,Camberwell,3124,"S1/431 Camberwell Rd, Camberwell, Vic 3124",400,5/8/2025,1,1,1,Unit,camberwell,"431 Camberwell Rd, Camberwell, Vic",-37.8372814,145.0638821
+45,Glen Waverley,3150,"2/3 Owens Avenue, Glen Waverley, Vic 3150",700,30/8/2025,3,2,1,Unit,glenwaverley,"3 Owens Avenue, Glen Waverley, Vic",-37.8895557,145.1592866
+46,Glen Waverley,3150,"1/18 Garrisson Drive, Glen Waverley, Vic 3150",925,27/8/2025,4,2,2,Townhouse,glenwaverley,"18 Garrisson Drive, Glen Waverley, Vic",-37.8788361,145.173969
+47,Glen Waverley,3150,"18 Glen Road, Glen Waverley, Vic 3150",1380,8/8/2025,4,3,2,House,glenwaverley,"18 Glen Road, Glen Waverley, Vic",-37.8811099,145.1687042
+48,Glen Waverley,3150,"410/52-54 O'Sullivan Road, Glen Waverley, Vic 3150",950,5/8/2025,3,3,2,Apartment,glenwaverley,"52-54 O'Sullivan Road, Glen Waverley, Vic",-37.8789122,145.1649082
+49,Glen Waverley,3150,"802/2 Snedden Drive, Glen Waverley, Vic 3150",660,22/8/2025,1,1,1,Apartment,glenwaverley,"2 Snedden Drive, Glen Waverley, Vic",-37.878079,145.1641303
+50,Brighton,3186,"210/79-81 Asling Street, Brighton, Vic 3186",640,13/8/2025,2,1,1,Apartment,brighton,"79-81 Asling Street, Brighton, Vic",-37.9024096,145.0021649
+51,Brighton,3186,"56 Asling Street, Brighton, Vic 3186",1400,5/8/2025,3,2,2,House,brighton,"56 Asling Street, Brighton, Vic",-37.9010044,145.0026477
+52,Brighton,3186,"2/117 Cochrane Street, Brighton, Vic 3186",680,9/8/2025,2,1,1,Villa,brighton,"117 Cochrane Street, Brighton, Vic",-37.8941254,144.9997547
+53,Brighton,3186,"26/18 Cochrane Street, Brighton, Vic 3186",470,5/8/2025,1,1,1,Apartment,brighton,"18 Cochrane Street, Brighton, Vic",-37.9039974,144.998538
+54,Brighton,3186,"6 Byron Street, Brighton, Vic 3186",2300,15/8/2025,4,3,2,House,brighton,"6 Byron Street, Brighton, Vic",-37.9086188,145.006278
+55,Lilydale,3140,"17 Horatio Court, Lilydale, Vic 3140",700,11/9/2025,3,2,2,House,lilydale,"17 Horatio Court, Lilydale, Vic",-37.7468447,145.363589
+56,Lilydale,3140,"4/29 Maroondah Highway, Lilydale, Vic 3140",570,8/8/2025,3,1,2,House,lilydale,"29 Maroondah Highway, Lilydale, Vic",-37.7575967,145.3402256
+57,Lilydale,3140,"2/17 Rouke Street, Lilydale, Vic 3140",590,14/8/2025,2,1,1,Townhouse,lilydale,"17 Rouke Street, Lilydale, Vic",-37.7543306,145.338067
+58,Lilydale,3140,"2/114 Maroondah Highway, Croydon, Vic 3136",720,19/9/2025,3,2,2,Apartment,lilydale,"114 Maroondah Highway, Croydon, Vic",-37.7882867,145.2722109
+59,Lilydale,3140,"4/33 Slevin Street, Lilydale, Vic 3140",620,18/8/2025,4,1,3,House,lilydale,"33 Slevin Street, Lilydale, Vic",-37.7531077,145.3402557
+60,Berwick,3806,"25 Willslie Crescent, Berwick, Vic 3806",580,8/8/2025,3,1,2,House,berwick,"25 Willslie Crescent, Berwick, Vic",-38.0527953,145.3407911
+61,Berwick,3806,"10 Carnival Boulevard, Berwick, Vic 3806",550,22/9/2025,3,2,2,House,berwick,"10 Carnival Boulevard, Berwick, Vic",-38.0726252,145.3620879
+62,Berwick,3806,"83 Golf Links Road, Berwick, Vic 3806",630,5/9/2025,4,2,1,House,berwick,"83 Golf Links Road, Berwick, Vic",-38.0443933,145.3323069
+63,Berwick,3806,"2 Larne Close, Berwick, Vic 3806",670,13/8/2025,4,2,2,House,berwick,"2 Larne Close, Berwick, Vic",-38.0440072,145.3242004
+64,Berwick,3806,"32 Macreadie Drive, Berwick, Vic 3806",750,30/9/2025,4,2,2,House,berwick,"32 Macreadie Drive, Berwick, Vic",-38.0626213,145.3636491
+65,Noble Park,3174,"1/1030 Heatherton Road, Noble Park, Vic 3174",360,5/8/2025,2,1,1,Unit,noblepark,"1030 Heatherton Road, Noble Park, Vic",-37.9643698,145.1660001
+66,Noble Park,3174,"3/54 Corrigan Road, Noble Park, Vic 3174",450,11/8/2025,2,1,2,Unit,noblepark,"54 Corrigan Road, Noble Park, Vic",-37.9575062,145.1693578
+67,Noble Park,3174,"5/74 Callander Road, Noble Park, Vic 3174",440,45908,2,1,1,Unit,noblepark,"74 Callander Road, Noble Park, Vic",-37.9562219,145.1789047
+68,Noble Park,3174,"1 Shepreth Avenue, Noble Park, Vic 3174",600,15/8/2025,3,1,2,House,noblepark,"1 Shepreth Avenue, Noble Park, Vic",-37.9710629,145.1807365
+69,Noble Park,3174,"9/1244 Heatherton Road, Noble Park, Vic 3174",400,5/8/2025,1,1,1,Unit,noblepark,"1244 Heatherton Road, Noble Park, Vic",-37.9666641,145.1857818
+70,Springvale,3171,"38 Royal Avenue, Springvale, Vic 3171",550,5/8/2025,3,2,3,House,springvale,"38 Royal Avenue, Springvale, Vic",-37.9523736,145.1481272
+71,Springvale,3171,"1/44 Princess Avenue, Springvale, Vic 3171",570,5/8/2025,3,1,2,Unit,springvale,"44 Princess Avenue, Springvale, Vic",-37.9500776,145.1447966
+72,Springvale,3171,"2/34 Union Grove, Springvale, Vic 3171",750,5/8/2025,3,2,2,Townhouse,springvale,"34 Union Grove, Springvale, Vic",-37.9533694,145.1537176
+73,Springvale,3171,"2/10 Albert Avenue, Springvale, Vic 3171",420,5/8/2025,2,1,1,Apartment,springvale,"10 Albert Avenue, Springvale, Vic",-37.9461324,145.1467946
+74,Springvale,3171,"2/8 Kelvin Grove, Springvale, Vic 3171",320,22/8/2025,1,1,1,Apartment,springvale,"8 Kelvin Grove, Springvale, Vic",-37.9483553,145.1539961
+75,Clayton,3168,"1/1484 North Road, Clayton, Vic 3168",650,9/9/2025,4,1,1,Unit,clayton,"1484 North Road, Clayton, Vic",-37.9144319,145.1241133
+76,Clayton,3168,"1499 Centre Road, Clayton, Vic 3168",980,5/8/2025,4,4,1,House,clayton,"1499 Centre Road, Clayton, Vic",-37.9299205,145.1314434
+77,Clayton,3168,"12/6 Arnott Street, Clayton, Vic 3168",430,11/8/2025,1,1,1,Apartment,clayton,"6 Arnott Street, Clayton, Vic",-37.9166777,145.1350829
+78,Clayton,3168,"202/4 Nicholson Court, Clayton, Vic 3168",620,5/8/2025,2,1,1,Unit,clayton,"4 Nicholson Court, Clayton, Vic",-37.9246116,145.1188939
+79,Clayton,3168,"204/2-8 Murray Street, Clayton, Vic 3168",615,5/8/2025,3,2,1,Apartment,clayton,"2-8 Murray Street, Clayton, Vic",-37.9184034,145.1223336
+80,Caulfield,3162,"109/7-13 Dudley Street, Caulfield, Vic 3162",500,1/9/2025,2,1,1,Apartment,caulfield,"7-13 Dudley Street, Caulfield, Vic",-37.8801963,145.0474375
+81,Caulfield,3162,"G04/127-129 Murray Street, Caulfield, Vic 3162",710,5/8/2025,2,2,2,Apartment,caulfield,"127-129 Murray Street, Caulfield, Vic",-37.8852318,145.0171678
+82,Caulfield,3162,"5/22 Filbert Street, Caulfield, Vic 3162",450,5/8/2025,2,1,1,Unit,caulfield,"22 Filbert Street, Caulfield, Vic",-37.8909863,145.0230816
+83,Caulfield,3162,"3/118 Murray St, Caulfield, Vic 3162",550,5/8/2025,1,1,1,Apartment,caulfield,"118 Murray St, Caulfield, Vic",-37.8857198,145.0198736
+84,Caulfield,3162,"18 Newstead St, Caulfield, Vic 3162",1250,5/8/2025,6,3,2,House,caulfield,"18 Newstead St, Caulfield, Vic",-37.8830809,145.020606
+85,Hughesdale,3166,"Rear/94 Kangaroo Road, Hughesdale, Vic 3166",450,5/8/2025,1,1,0,Apartment,hughesdale,"94 Kangaroo Road, Hughesdale, Vic",-37.8986577,145.0761438
+86,Hughesdale,3166,"3/38 Maroo Street, Hughesdale, Vic 3166",550,22/8/2025,2,1,1,Unit,hughesdale,"38 Maroo Street, Hughesdale, Vic",-37.8913291,145.0821282
+87,Hughesdale,3166,"106/175 Kangaroo Road, Hughesdale, Vic 3166",440,3/9/2025,1,1,1,Apartment,hughesdale,"175 Kangaroo Road, Hughesdale, Vic",-37.9007375,145.0859074
+88,Hughesdale,3166,"12 Wilbur Crescent, Hughesdale, Vic 3166",795,5/8/2025,4,2,3,House,hughesdale,"12 Wilbur Crescent, Hughesdale, Vic",-37.8934766,145.0814042
+89,Hughesdale,3166,"4/89 Kangaroo Road, Hughesdale, Vic 3166",620,5/8/2025,2,1,1,Unit,hughesdale,"89 Kangaroo Road, Hughesdale, Vic",-37.8987933,145.0780948
+90,Chadstone,3148,"3/2 Kelly Street, Chadstone, Vic 3148",550,12/8/2025,2,1,2,Unit,chadstone,"2 Kelly Street, Chadstone, Vic",-37.8853751,145.0930106
+91,Chadstone,3148,"2/39 Jindabyne Avenue, Chadstone, Vic 3148",980,6/8/2025,4,2,1,House,chadstone,"39 Jindabyne Avenue, Chadstone, Vic",-37.8763366,145.1033744
+92,Chadstone,3148,"10B Highfield Road, Chadstone, Vic 3148",930,5/8/2025,4,3,1,House,chadstone,"10B Highfield Road, Chadstone, Vic",-37.8880102,145.1050869
+93,Chadstone,3148,"216/70 Batesford Road, Chadstone, Vic 3148",590,5/8/2025,2,1,1,Apartment,chadstone,"70 Batesford Road, Chadstone, Vic",-37.8758277,145.0935832
+94,Chadstone,3148,"302/21 Collins Street, Chadstone, Vic 3148",620,5/8/2025,2,1,1,Apartment,chadstone,"21 Collins Street, Chadstone, Vic",-37.8761115,145.0936238
+95,Carnegie,3163,"2/336 Neerim Road, Carnegie, Vic 3163",530,20/8/2025,2,1,1,Apartment,carnegie,"336 Neerim Road, Carnegie, Vic",-37.8893868,145.0609794
+96,Carnegie,3163,"1/1 Newman Avenue, Carnegie, Vic 3163",400,6/9/2025,1,1,1,Apartment,carnegie,"1 Newman Avenue, Carnegie, Vic",-37.9008079,145.0519522
+97,Carnegie,3163,"4/1100 Dandenong Road, Carnegie, Vic 3163",500,21/8/2025,1,1,1,Apartment,carnegie,"1100 Dandenong Road, Carnegie, Vic",-37.8845015,145.0593218
+98,Carnegie,3163,"110/316 Neerim Road, Carnegie, Vic 3163",650,5/8/2025,2,2,1,Apartment,carnegie,"316 Neerim Road, Carnegie, Vic",-37.8890956,145.0595058
+99,Carnegie,3163,"305/1256 Glen Huntly Road, Carnegie, Vic 3163",695,28/8/2025,2,2,1,Apartment,carnegie,"1256 Glen Huntly Road, Carnegie, Vic",-37.8901425,145.0470124
+100,Carlton,3053,"2512/551 Swanston Street, Carlton, Vic 3053",755,25/8/2025,2,2,0,Apartment,carlton,"551 Swanston Street, Carlton, Vic",-37.8056782,144.9623566
+101,Carlton,3053,"2006/28 Bouverie Street, Carlton, Vic 3053",795,11/8/2025,2,2,0,Apartment,carlton,"28 Bouverie Street, Carlton, Vic",-37.8056215,144.9618704
+102,Carlton,3053,"707A/640 Swanston Street, Carlton, Vic 3053",700,25/8/2025,2,1,1,Apartment,carlton,"640 Swanston Street, Carlton, Vic",-37.8048498,144.9631296
+103,Carlton,3053,"23/411 Lygon Street, Carlton, Vic 3053",660,5/8/2025,2,1,1,Townhouse,carlton,"411 Lygon Street, Carlton, Vic",-37.7948366,144.9675549
+104,Carlton,3053,"311/127 Cardigan Street, Carlton, Vic 3053",850,5/8/2025,2,2,1,Apartment,carlton,"127 Cardigan Street, Carlton, Vic",-37.7964776,144.9660926
+105,Carlton North,3054,"38 Pigdon Street, Carlton North, Vic 3054",675,5/8/2025,2,1,0,House,carltonnorth,"38 Pigdon Street, Carlton North, Vic",-37.7823295,144.9762792
+106,Carlton North,3054,"163 Lee Street, Carlton North, Vic 3054",600,5/8/2025,2,1,0,House,carltonnorth,"163 Lee Street, Carlton North, Vic",-37.791167,144.969489
+107,Carlton North,3054,"2/623 Drummond Street, Carlton North, Vic 3054",580,5/8/2025,2,1,1,Apartment,carltonnorth,"623 Drummond Street, Carlton North, Vic",-37.7904042,144.9696496
+108,Docklands,3008,"606/421 Docklands Drive, Docklands, Vic 3008",600,5/8/2025,1,1,0,Apartment,docklands,"421 Docklands Drive, Docklands, Vic",-37.81438,144.9393501
+109,Docklands,3008,"101/12 Waterview Walk, Docklands, Vic 3008",720,15/9/2025,2,2,1,Apartment,docklands,"12 Waterview Walk, Docklands, Vic",-37.8194588,144.9478508
+110,Docklands,3008,"406W/888 Collins Street, Docklands, Vic 3008",600,22/8/2025,1,1,0,Apartment,docklands,"888 Collins Street, Docklands, Vic",-37.8192663,144.9536472
+111,Docklands,3008,"2812B/100 Harbour Esplanade, Docklands, Vic 3008",480,22/8/2025,1,1,0,Studio,docklands,"100 Harbour Esplanade, Docklands, Vic",-37.8182734,144.9471193
+112,Docklands,3008,"1909/8 Pearl River Rd, Docklands, Vic 3008",600,8/8/2025,1,1,0,Apartment,docklands,"8 Pearl River Rd, Docklands, Vic",-37.8154756,144.9382401
+113,East Melbourne,3002,"16 Vale Street, East Melbourne, Vic 3002",1500,5/8/2025,3,3,1,Townhouse,eastmelbourne,"16 Vale Street, East Melbourne, Vic",-37.8192087,144.9891606
+114,East Melbourne,3002,"601/279 Wellington Parade South, East Melbourne, Vic 3002",1475,5/8/2025,3,2,2,Apartment,eastmelbourne,"279 Wellington Parade South, East Melbourne, Vic",-37.8166511,144.9824712
+115,East Melbourne,3002,"1105/162 Albert Street, East Melbourne, Vic 3002",575,5/8/2025,2,1,1,Apartment,eastmelbourne,"162 Albert Street, East Melbourne, Vic",-37.7697646,144.9693843
+116,Flemington,3031,"3/71-73 Edinburgh Street, Flemington, Vic 3031",860,5/8/2025,3,2,1,Apartment,flemington,"71-73 Edinburgh Street, Flemington, Vic",-37.7855844,144.9243707
+117,Flemington,3031,"228/1 Ascot Vale Road, Flemington, Vic 3031",600,9/8/2025,2,2,1,Apartment,flemington,"1 Ascot Vale Road, Flemington, Vic",-37.7868297,144.9211478
+118,Flemington,3031,"125D Victoria Street, Flemington, Vic 3031",700,3/9/2025,3,1,0,House,flemington,"125D Victoria Street, Flemington, Vic",-37.7851052,144.9353906
+119,Kensington,3031,"50 Westbourne Road, Kensington, Vic 3031",560,3/9/2025,2,1,1,House,kensington,"50 Westbourne Road, Kensington, Vic",-37.7924074,144.9231674
+120,Kensington,3031,"F107/348 Macaulay Road, Kensington, Vic 3031",680,5/8/2025,1,1,0,Apartment,kensington,"348 Macaulay Road, Kensington, Vic",-37.7947716,144.9345257
+121,Kensington,3031,"Eg11/348 Macaulay Road, Kensington, Vic 3031",1039,5/8/2025,3,2,1,Apartment,kensington,"348 Macaulay Road, Kensington, Vic",-37.7947716,144.9345257
+122,Melbourne,3000,"2710C/633 Little Lonsdale Street, Melbourne, Vic 3000",800,20/9/2025,2,1,0,Apartment,melbourne,"633 Little Lonsdale Street, Melbourne, Vic",-37.8138114,144.9531422
+123,Melbourne,3000,"3511A/250 Spencer Street, Melbourne, Vic 3000",880,5/8/2025,2,2,0,Apartment,melbourne,"250 Spencer Street, Melbourne, Vic",-37.8230178,144.9558744
+124,Melbourne,3000,"2709/23 Mackenzie Street, Melbourne, Vic 3000",980,5/8/2025,2,2,0,Apartment,melbourne,"23 Mackenzie Street, Melbourne, Vic",-37.7619012,144.9582278
+125,Melbourne,3000,"2409/33 Mackenzie Street, Melbourne, Vic 3000",700,5/8/2025,2,1,1,Apartment,melbourne,"33 Mackenzie Street, Melbourne, Vic",-37.7618882,144.9579456
+126,Melbourne,3000,"1202/442-450 Elizabeth Street, Melbourne, Vic 3000",780,5/8/2025,2,1,0,Apartment,melbourne,"442-450 Elizabeth Street, Melbourne, Vic",-37.8143341,144.9632901
+127,Melbourne,3000,"705/68 La Trobe Street, Melbourne, Vic 3000",730,5/8/2025,2,2,0,Apartment,melbourne,"68 La Trobe Street, Melbourne, Vic",-37.8083601,144.9665562
+128,Melbourne,3000,"2610/181 Abeckett Street, Melbourne, Vic 3000",470,18/8/2025,1,1,0,Apartment,melbourne,"181 Abeckett Street, Melbourne, Vic",-38.1164672,145.1491375
+129,Melbourne,3000,"803/589 Elizabeth Street, Melbourne, Vic 3000",620,5/8/2025,2,1,0,Apartment,melbourne,"589 Elizabeth Street, Melbourne, Vic",-37.8045608,144.9582843
+130,Melbourne,3000,"2409/35 Spring Street, Melbourne, Vic 3000",900,8/9/2025,1,1,1,Apartment,melbourne,"35 Spring Street, Melbourne, Vic",-37.682424,145.0089898
+131,Melbourne,3000,"913/233-239 Collins Street, Melbourne, Vic 3000",525,1/9/2025,1,1,0,Apartment,melbourne,"233-239 Collins Street, Melbourne, Vic",-37.815881,144.9659923
+132,Melbourne,3004,"33/27 Queens Road, Melbourne, Vic 3004",890,5/8/2025,3,2,1,Apartment,melbourne,"27 Queens Road, Melbourne, Vic",-38.2049908,145.2312604
+133,Melbourne,3004,"814/74 Queens Rd, Melbourne, Vic 3004",600,27/8/2025,2,1,1,Apartment,melbourne,"74 Queens Rd, Melbourne, Vic",-37.8522582,144.9795541
+134,Melbourne,3004,"1005/35 Albert Road, Melbourne, Vic 3004",610,11/8/2025,1,1,1,Apartment,melbourne,"35 Albert Road, Melbourne, Vic",-38.0034588,145.2666891
+135,Melbourne,3004,"311/605 St Kilda Road, Melbourne, Vic 3004",550,3/9/2025,1,1,1,Apartment,melbourne,"605 St Kilda Road, Melbourne, Vic",-37.8509393,144.9813496
+136,Melbourne,3004,"402/450 St Kilda Road, Melbourne, Vic 3004",505,6/9/2025,1,1,0,Apartment,melbourne,"450 St Kilda Road, Melbourne, Vic",-37.8386763,144.9759946
+137,Melbourne,3004,"929/572 St Kilda Road, Melbourne, Vic 3004",550,5/8/2025,1,1,1,Apartment,melbourne,"572 St Kilda Road, Melbourne, Vic",-37.847698,144.978991
+138,Melbourne,3004,"10/59 Queens Road, Melbourne, Vic 3004",620,11/9/2025,2,1,1,Apartment,melbourne,"59 Queens Road, Melbourne, Vic",-37.848415,144.9778262
+139,Melbourne,3004,"Unit 501/470 St Kilda Rd, Melbourne, Vic 3004",725,5/9/2025,2,2,1,Apartment,melbourne,"470 St Kilda Rd, Melbourne, Vic",-37.8413029,144.9765199
+140,North Melbourne,3051,"102/64 Macaulay Road, North Melbourne, Vic 3051",600,12/9/2025,2,1,1,Apartment,northmelbourne,"64 Macaulay Road, North Melbourne, Vic",-37.798307,144.9426186
+141,North Melbourne,3051,"3/315 Flemington Road, North Melbourne, Vic 3051",420,28/8/2025,1,1,1,Apartment,northmelbourne,"315 Flemington Road, North Melbourne, Vic",-37.7916668,144.9442298
+142,North Melbourne,3051,"213/3-11 High Street, North Melbourne, Vic 3051",380,9/8/2025,1,1,0,Studio,northmelbourne,"3-11 High Street, North Melbourne, Vic",-37.799604,144.9538522
+143,North Melbourne,3051,"1511/33 Blackwood Street, North Melbourne, Vic 3051",770,8/8/2025,2,1,1,Apartment,northmelbourne,"33 Blackwood Street, North Melbourne, Vic",-37.8006893,144.9551739
+144,North Melbourne,3051,"204/150 Peel Street, North Melbourne, Vic 3051",750,8/8/2025,2,1,1,Apartment,northmelbourne,"150 Peel Street, North Melbourne, Vic",-37.8030105,144.9565961
+145,Parkville,3052,"1106/61 Galada Ave, Parkville, Vic 3052",500,18/8/2025,1,1,1,Apartment,parkville,"61 Galada Ave, Parkville, Vic",-37.7800174,144.9396683
+146,Parkville,3052,"9/7 Manningham Street, Parkville, Vic 3052",400,18/8/2025,1,1,1,Apartment,parkville,"7 Manningham Street, Parkville, Vic",-37.7870453,144.9420064
+147,Parkville,3052,"6 Carrangall Place, Parkville, Vic 3052",850,26/9/2025,3,2,2,House,parkville,"6 Carrangall Place, Parkville, Vic",-37.7797099,144.9412906
+148,Parkville,3052,"7/78 The Avenue, Parkville, Vic 3052",750,5/8/2025,3,2,1,Townhouse,parkville,"78 The Avenue, Parkville, Vic",-37.7864845,144.9575048
+149,Parkville,3052,"123 Park Drive, Parkville, Vic 3052",1225,5/8/2025,3,2,1,House,parkville,"123 Park Drive, Parkville, Vic",-37.7948753,144.9547911
+150,Port Melbourne,3207,"24E/85 Rouse Street, Port Melbourne, Vic 3207",870,5/8/2025,2,2,1,Apartment,portmelbourne,"85 Rouse Street, Port Melbourne, Vic",-37.8435202,144.9412136
+151,Port Melbourne,3207,"202/99 Dow Street, Port Melbourne, Vic 3207",600,5/8/2025,2,1,1,Apartment,portmelbourne,"99 Dow Street, Port Melbourne, Vic",-37.8414358,144.9410909
+152,Port Melbourne,3207,"1/145 Beach Street, Port Melbourne, Vic 3207",545,20/8/2025,1,1,1,Apartment,portmelbourne,"145 Beach Street, Port Melbourne, Vic",-37.8395658,144.9271206
+153,Port Melbourne,3207,"199 Liardet Street, Port Melbourne, Vic 3207",1100,5/8/2025,3,1,2,House,portmelbourne,"199 Liardet Street, Port Melbourne, Vic",-37.8372918,144.9395871
+154,Port Melbourne,3207,"202/159 Beach Street, Port Melbourne, Vic 3207",810,5/8/2025,2,2,1,Apartment,portmelbourne,"159 Beach Street, Port Melbourne, Vic",-37.8390139,144.9252738
+155,Southbank,3006,"2304/60 Kavanagh Street, Southbank, Vic 3006",850,5/8/2025,2,2,1,Apartment,southbank,"60 Kavanagh Street, Southbank, Vic",-37.8229386,144.9663883
+156,Southbank,3006,"3/85 Dodds Street, Southbank, Vic 3006",480,11/8/2025,2,2,0,Apartment,southbank,"85 Dodds Street, Southbank, Vic",-37.8267243,144.96875
+157,Southbank,3006,"3701/11 Bale Circuit, Southbank, Vic 3006",800,5/8/2025,2,2,0,Apartment,southbank,"11 Bale Circuit, Southbank, Vic",-37.8259875,144.9634002
+158,Southbank,3006,"4016/70 Southbank Boulevard, Southbank, Vic 3006",780,29/8/2025,2,2,0,Apartment,southbank,"70 Southbank Boulevard, Southbank, Vic",-37.8234474,144.9672893
+159,Southbank,3006,"3708/151 City Road, Southbank, Vic 3006",700,5/9/2025,2,1,1,Apartment,southbank,"151 City Road, Southbank, Vic",-37.8247138,144.9616621
+161,Southbank,3006,"101/153 City Road, Southbank, Vic 3006",1000,5/8/2025,3,2,2,Apartment,southbank,"153 City Road, Southbank, Vic",-37.8247138,144.9616621
+162,Southbank,3006,"4701/81 City Road, Southbank, Vic 3006",1000,5/8/2025,3,2,1,Apartment,southbank,"81 City Road, Southbank, Vic",-37.822342,144.9651469
+163,Southbank,3006,"2308/163 City Road, Southbank, Vic 3006",860,27/8/2025,3,2,1,Apartment,southbank,"163 City Road, Southbank, Vic",-37.8242459,144.9626834
+164,Southbank,3006,"1003/80 Clarendon Street, Southbank, Vic 3006",849,5/8/2025,2,2,1,Apartment,southbank,"80 Clarendon Street, Southbank, Vic",-37.8270546,144.9575709
+165,South Wharf,3006,"323/20 Convention Centre Place, South Wharf, Vic 3006",830,11/8/2025,2,2,2,Apartment,southwharf,"20 Convention Centre Place, South Wharf, Vic",-37.8242605,144.949431
+166,South Wharf,3006,"302/20 Convention Centre Place, South Wharf, Vic 3006",850,5/8/2025,2,2,1,Townhouse,southwharf,"20 Convention Centre Place, South Wharf, Vic",-37.8242605,144.949431
+167,West Melbourne,3003,"508/5 Wominjeka Walk, West Melbourne, Vic 3003",720,5/8/2025,2,1,1,Apartment,westmelbourne,"5 Wominjeka Walk, West Melbourne, Vic",-37.810273,144.9486943
+168,West Melbourne,3003,"1112/65 Dudley Street, West Melbourne, Vic 3003",640,5/8/2025,2,1,1,Apartment,westmelbourne,"65 Dudley Street, West Melbourne, Vic",-37.8100944,144.9505256
+169,West Melbourne,3003,"5/50 Dudley St, West Melbourne, Vic 3003",390,5/8/2025,1,3,0,Studio,westmelbourne,"50 Dudley St, West Melbourne, Vic",-37.8086468,144.9535676
+170,West Melbourne,3003,"308/53 Batman Street, West Melbourne, Vic 3003",500,5/8/2025,1,1,0,Apartment,westmelbourne,"53 Batman Street, West Melbourne, Vic",-37.8110221,144.9515219
+171,West Melbourne,3003,"408/33 Batman Street, West Melbourne, Vic 3003",575,5/8/2025,2,1,1,Apartment,westmelbourne,"33 Batman Street, West Melbourne, Vic",-37.811688,144.9484318
+172,West Melbourne,3003,"104/5 Stawell Street, West Melbourne, Vic 3003",475,18/8/2025,1,1,0,Apartment,westmelbourne,"5 Stawell Street, West Melbourne, Vic",-37.8060155,144.9420453
+173,West Melbourne,3003,"713/65 Dudley Street, West Melbourne, Vic 3003",640,5/8/2025,2,1,0,Apartment,westmelbourne,"65 Dudley Street, West Melbourne, Vic",-37.8100944,144.9505256
+174,West Melbourne,3003,"222 Rosslyn Street, West Melbourne, Vic 3003",1700,5/8/2025,3,2,2,Townhouse,westmelbourne,"222 Rosslyn Street, West Melbourne, Vic",-37.809737,144.9477631
+175,Albert Park,3206,"2/80 Kerferd Road, Albert Park, Vic 3206",580,14/8/2025,2,1,0,Apartment,albertpark,"80 Kerferd Road, Albert Park, Vic",-37.8447239,144.955676
+176,Albert Park,3206,"169 Danks St, Albert Park, Vic 3206",725,3/9/2025,2,1,0,House,albertpark,"169 Danks St, Albert Park, Vic",-37.8470613,144.9519344
+177,Albert Park,3206,"G05/88 Beaconsfield Parade, Albert Park, Vic 3206",690,5/8/2025,1,1,1,Apartment,albertpark,"88 Beaconsfield Parade, Albert Park, Vic",-37.8471318,144.9480926
+178,St Kilda,3182,"9/6 Redan Street, St Kilda, Vic 3182",565,29/8/2025,2,1,1,Apartment,stkilda,"6 Redan Street, St Kilda, Vic",-37.8598889,144.9897603
+179,St Kilda,3182,"110/163 Fitzroy Street, St Kilda, Vic 3182",480,5/9/2025,1,1,0,Apartment,stkilda,"163 Fitzroy Street, St Kilda, Vic",-37.8579351,144.9806346
+180,St Kilda,3182,"8/52 Alma Road, St Kilda, Vic 3182",495,15/8/2025,1,1,1,Apartment,stkilda,"52 Alma Road, St Kilda, Vic",-37.8607076,144.9873624
+181,St Kilda,3182,"5/103 Barkly Street, St Kilda, Vic 3182",650,13/8/2025,3,1,0,Apartment,stkilda,"103 Barkly Street, St Kilda, Vic",-37.8637461,144.9816171
+182,South Melbourne,3205,"11/287 Bank Street, South Melbourne, Vic 3205",1100,14/8/2025,3,2,1,Apartment,southmelbourne,"287 Bank Street, South Melbourne, Vic",-37.8359156,144.955552
+183,South Melbourne,3205,"409/69-71 Stead Street, South Melbourne, Vic 3205",500,22/9/2025,1,1,1,Apartment,southmelbourne,"69-71 Stead Street, South Melbourne, Vic",-37.8359023,144.9691352
+184,South Melbourne,3205,"202/274 Coventry Street, South Melbourne, Vic 3205",635,10/9/2025,2,2,1,Apartment,southmelbourne,"274 Coventry Street, South Melbourne, Vic",-37.8318611,144.9590231
+185,South Melbourne,3205,"1704/41 Bank Street, South Melbourne, Vic 3205",575,5/8/2025,1,1,0,Apartment,southmelbourne,"41 Bank Street, South Melbourne, Vic",-37.832192,144.9684478
+186,South Melbourne,3205,"388 Coventry Street, South Melbourne, Vic 3205",1200,7/8/2025,3,2,0,House,southmelbourne,"388 Coventry Street, South Melbourne, Vic",-37.8333806,144.9539781
+187,Fitzroy,3065,"1/34 Alexandra Parade, Fitzroy, Vic 3065",650,8/8/2025,2,1,2,Townhouse,fitzroy,"34 Alexandra Parade, Fitzroy, Vic",-37.7934256,144.9771443
+188,Fitzroy,3065,"205/41 Kerr St, Fitzroy, Vic 3065",650,15/9/2025,1,1,1,Apartment,fitzroy,"41 Kerr St, Fitzroy, Vic",-37.7963801,144.976917
+189,Fitzroy,3065,"2/5 St David Street, Fitzroy, Vic 3065",540,5/8/2025,1,1,1,Apartment,fitzroy,"5 St David Street, Fitzroy, Vic",-37.8005332,144.9787012
+190,Fitzroy,3065,"32/98 Nicholson Street, Fitzroy, Vic 3065",450,5/8/2025,1,1,0,Apartment,fitzroy,"98 Nicholson Street, Fitzroy, Vic",-37.8029883,144.9747417
+191,Collingwood,3066,"1408D/21 Robert Street, Collingwood, Vic 3066",750,1/9/2025,2,2,1,Apartment,collingwood,"21 Robert Street, Collingwood, Vic",-37.8056976,144.9872391
+192,Collingwood,3066,"604D/21 Robert Street, Collingwood, Vic 3066",750,5/9/2025,2,2,1,Apartment,collingwood,"21 Robert Street, Collingwood, Vic",-37.8056976,144.9872391
+193,Collingwood,3066,"9/99 Oxford Street, Collingwood, Vic 3066",480,5/8/2025,1,1,1,Apartment,collingwood,"99 Oxford Street, Collingwood, Vic",-37.8036391,144.984611
+194,Collingwood,3066,"214/31 Wellington Street, Collingwood, Vic 3066",875,13/8/2025,2,2,1,Apartment,collingwood,"31 Wellington Street, Collingwood, Vic",-37.8074152,144.9857337
+195,Richmond,3121,"3/28 Tanner Street, Richmond, Vic 3121",1050,5/8/2025,2,2,1,Apartment,richmond,"28 Tanner Street, Richmond, Vic",-37.8231946,144.9917505
+196,Richmond,3121,"51 Farmer Street, Richmond, Vic 3121",1150,5/8/2025,3,2,1,House,richmond,"51 Farmer Street, Richmond, Vic",-37.8262424,145.009948
+197,Richmond,3121,"124/8 Garfield Street, Richmond, Vic 3121",490,12/8/2025,1,1,1,Apartment,richmond,"8 Garfield Street, Richmond, Vic",-37.8118544,144.9927345
+198,Richmond,3121,"22 Davison Street, Richmond, Vic 3121",775,5/8/2025,3,1,1,House,richmond,"22 Davison Street, Richmond, Vic",-37.8122106,145.0080359
+199,Richmond,3121,"309/253 Bridge Road, Richmond, Vic 3121",525,16/9/2025,1,1,1,Apartment,richmond,"253 Bridge Road, Richmond, Vic",-37.8181854,144.9978333
+200,Rosanna,3084,"31/1045 Whitehorse Road, Box Hill, Vic 3128",660,6/8/2025,3,1,0,Apartment,rosanna,"1045 Whitehorse Road, Box Hill, Vic",-37.8182599,145.1281647
+201,Rosanna,3084,"3/22 Station Road, Rosanna, Vic 3084",750,16/8/2025,3,2,1,Townhouse,rosanna,"22 Station Road, Rosanna, Vic",-37.7449021,145.0704042
+202,Rosanna,3084,"85 Mountain View Parade, Rosanna, Vic 3084",750,18/8/2025,4,2,2,Apartment,rosanna,"85 Mountain View Parade, Rosanna, Vic",-37.7392124,145.0604859
+203,Rosanna,3084,"7/46 Station Road, Rosanna, Vic 3084",750,12/8/20252,2,2,1,Townhouse,rosanna,"46 Station Road, Rosanna, Vic",-37.7443986,145.0679042
+204,Rosanna,3084,"137 Rosanna Road, Rosanna, Vic 3084",799,6/8/2025,3,2,2,House,rosanna,"137 Rosanna Road, Rosanna, Vic",-37.7467295,145.0712067
+205,Hiedelberg,3084,"405/76 Darebin Street, Heidelberg, Vic 3084",500,6/8/2025,2,1,1,Apartment,hiedelberg,"76 Darebin Street, Heidelberg, Vic",-37.753421,145.0611986
+206,Hiedelberg,3084,"9/127 Hawdon Street, Heidelberg, Vic 3084",530,15/8/2025,2,1,1,Apartment,hiedelberg,"127 Hawdon Street, Heidelberg, Vic",-37.7528369,145.0649863
+207,Hiedelberg,3084,"10/75 Hawdon Street, Heidelberg, Vic 3084",480,6/8/2025,2,1,1,Apartment,hiedelberg,"75 Hawdon Street, Heidelberg, Vic",-37.7569081,145.0642671
+208,Hiedelberg,3084,"7/68 Yarra Street, Heidelberg, Vic 3084",650,15/8/2025,2,1,1,Townhouse,hiedelberg,"68 Yarra Street, Heidelberg, Vic",-37.7577115,145.0632713
+209,Hiedelberg,3084,"2/16 Edgar Street, Heidelberg, Vic 3084",600,6/8/2025,3,1,2,Townhouse,hiedelberg,"16 Edgar Street, Heidelberg, Vic",-37.7491015,145.0707284
+210,Craigeburn,3064,"13 Gateshead Street, Craigieburn, Vic 3064",650,6/8/2025,4,2,2,House,craigeburn,"13 Gateshead Street, Craigieburn, Vic",-37.5704704,144.9048577
+211,Craigeburn,3064,"9 Goodrich Court, Craigieburn, Vic 3064",550,6/8/2025,4,2,2,House,craigeburn,"9 Goodrich Court, Craigieburn, Vic",-37.6112455,144.9320777
+212,Craigeburn,3064,"20 Birdswood Crescent, Craigieburn, Vic 3064",590,6/8/2025,4,2,2,House,craigeburn,"20 Birdswood Crescent, Craigieburn, Vic",-37.5826295,144.9095209
+213,Craigeburn,3064,"3 Bottlebrush Road, Craigieburn, Vic 3064",620,14/6/2025,4,2,2,House,craigeburn,"3 Bottlebrush Road, Craigieburn, Vic",-37.5737649,144.9118638
+214,Craigeburn,3064,"88 Yarcombe Crescent, Craigieburn, Vic 3064",510,6/8/2025,4,1,2,House,craigeburn,"88 Yarcombe Crescent, Craigieburn, Vic",-37.6114457,144.9269146
+215,Pascoe vale,3044,"3/83 Essex Street, Pascoe Vale, Vic 3044",500,1/9/2025,2,1,1,Unit,pascoevale,"83 Essex Street, Pascoe Vale, Vic",-37.7270132,144.9410607
+216,Pascoe vale,3044,"1/6 Kinross Street, Pascoe Vale, Vic 3044",700,11/8/2025,3,2,2,Townhouse,pascoevale,"6 Kinross Street, Pascoe Vale, Vic",-37.7341697,144.9408004
+217,Pascoe vale,3044,"1/7 Adelaide Street, Pascoe Vale, Vic 3044",720,6/8/2025,3,2,1,House,pascoevale,"7 Adelaide Street, Pascoe Vale, Vic",-37.7264626,144.9218796
+218,Pascoe vale,3044,"13 Kitchener Road, Pascoe Vale, Vic 3044",600,1/9/2025,3,1,2,House,pascoevale,"13 Kitchener Road, Pascoe Vale, Vic",-37.718254,144.9380741
+219,Pascoe vale,3044,"2/14 Bolingbroke Street, Pascoe Vale, Vic 3044",580,13/8/2025,2,2,1,House,pascoevale,"14 Bolingbroke Street, Pascoe Vale, Vic",-37.7322435,144.936236
+220,Brunswick,3056,"109/300 Victoria Street, Brunswick, Vic 3056",630,6/8/2025,2,1,1,Unit,brunswick,"300 Victoria Street, Brunswick, Vic",-37.7674598,144.9633086
+221,Brunswick,3056,"127/397 Albert Street, Brunswick, Vic 3056",1075,28/8/2025,2,1,1,Apartment,brunswick,"397 Albert Street, Brunswick, Vic",-37.7675285,144.9524095
+222,Brunswick,3056,"625/397 Albert Street, Brunswick, Vic 3056",690,28/8/2025,1,1,1,Apartment,brunswick,"397 Albert Street, Brunswick, Vic",-37.7675285,144.9524095
+223,Brunswick,3056,"903/395 Albert Street, Brunswick, Vic 3056",1310,28/8/2025,3,2,1,Apartment,brunswick,"395 Albert Street, Brunswick, Vic",-37.7675766,144.9527864
+224,Brunswick,3056,"5/64 Davies Street, Brunswick, Vic 3056",670,9/9/2025,3,1,2,Townhouse,brunswick,"64 Davies Street, Brunswick, Vic",-37.7572477,144.9693138
+225,Bundoora,3083,"106/95 Janefield Drive, Bundoora, Vic 3083",430,1/9/2025,1,1,1,Apartment,bundoora,"95 Janefield Drive, Bundoora, Vic",-37.6807371,145.0764294
+226,Bundoora,3083,"35/1251 Plenty Road, Bundoora, Vic 3083",520,6/8/2025,2,1,1,House,bundoora,"1251 Plenty Road, Bundoora, Vic",-37.700265,145.057711
+227,Bundoora,3083,"22B Arthur Street, Bundoora, Vic 3083",520,15/8/2025,2,2,1,Townhouse,bundoora,"22B Arthur Street, Bundoora, Vic",-37.6991209,145.0551952
+228,Bundoora,3083,"140 Mcleans Road, Bundoora, Vic 3083",600,29/8/2025,3,2,3,House,bundoora,"140 Mcleans Road, Bundoora, Vic",-37.6943391,145.0467727
+229,Bundoora,3083,"38 Darren Avenue, Bundoora, Vic 3083",510,3/9/2025,3,1,1,House,bundoora,"38 Darren Avenue, Bundoora, Vic",-37.7012003,145.0772088
+230,Hurstbridge,3099,"1/840 Heidelberg - Kinglake Road, Hurstbridge, Vic 3099",715,5/9/2025,3,2,2,House,hurstbridge,"840 Heidelberg - Kinglake Road, Hurstbridge, Vic",-37.6380244,145.194301
+231,Mernda,3754,"19 Hanley Street, Mernda, Vic 3754",600,6/8/2025,4,2,2,House,mernda,"19 Hanley Street, Mernda, Vic",-37.605398,145.0678728
+232,Mernda,3754,"37 Mango Crescent, Mernda, Vic 3754",730,6/8/2025,5,3,2,House,mernda,"37 Mango Crescent, Mernda, Vic",-37.6070938,145.0992668
+233,Mernda,3754,"3 Blaimore Way, Mernda, Vic 3754",560,6/8/2025,4,2,2,House,mernda,"3 Blaimore Way, Mernda, Vic",-37.5975479,145.09222
+234,Mernda,3754,"159 Everard Road, Mernda, Vic 3754",600,23/8/2025,4,2,2,House,mernda,"159 Everard Road, Mernda, Vic",-37.5906769,145.0821417
+235,Mernda,3754,"30 Yoemans Drive, Mernda, Vic 3754",590,25/8/2025,4,2,2,House,mernda,"30 Yoemans Drive, Mernda, Vic",-37.587792,145.0971445
+236,Reservoir,3073,"3/47 Drysdale Street, Reservoir, Vic 3073",700,6/8/2025,3,2,2,Townhouse,reservoir,"47 Drysdale Street, Reservoir, Vic",-37.7295655,145.021882
+237,Reservoir,3073,"11C Lloyd Avenue, Reservoir, Vic 3073",580,29/8/2025,2,2,2,Townhouse,reservoir,"11C Lloyd Avenue, Reservoir, Vic",-37.6983434,145.0169604
+238,Reservoir,3073,"195 Purinuan Road, Reservoir, Vic 3073",695,25/8/2025,4,1,2,House,reservoir,"195 Purinuan Road, Reservoir, Vic",-37.7073159,145.0125092
+239,Richmond,3121,"17 Campbell Street, Richmond, Vic 3121",1000,11/8/2025,3,2,1,House,richmond,"17 Campbell Street, Richmond, Vic",-37.8229923,145.0133025
+240,Richmond,3121,"145 Coppin Street, Richmond, Vic 3121",775,20/8/2025,2,1,0,House,richmond,"145 Coppin Street, Richmond, Vic",-37.8233133,145.0032252
+241,Richmond,3121,"208/9 Griffiths Street, Richmond, Vic 3121",800,13/8/2025,2,2,1,Apartment,richmond,"9 Griffiths Street, Richmond, Vic",-37.8168541,145.0035512
+243,Richmond,3121,"519/14 David Street, Richmond, Vic 3121",575,15/8/2025,1,1,1,Apartment,richmond,"14 David Street, Richmond, Vic",-37.8154472,145.0111626
+244,Sunbury,3429,"Unit 1/100-104 Anderson Road, Sunbury, Vic 3429",530,26/8/2025,4,2,2,House,sunbury,"100-104 Anderson Road, Sunbury, Vic",-37.5827116,144.7187953
+245,Sunbury,3429,"11 Palmatum Street, Sunbury, Vic 3429",640,13/8/2025,4,2,2,House,sunbury,"11 Palmatum Street, Sunbury, Vic",-37.6161862,144.7731608
+246,Sunbury,3429,"11 Wills Street, Sunbury, Vic 3429",530,8/8/2025,3,2,3,House,sunbury,"11 Wills Street, Sunbury, Vic",-37.5796571,144.7116599
+247,Sunbury,3429,"1/20 Vaughan Street, Sunbury, Vic 3429",430,6/8/2025,3,2,2,House,sunbury,"20 Vaughan Street, Sunbury, Vic",-37.5825252,144.7368779
+248,Sunbury,3429,"254 Gap Road, Sunbury, Vic 3429",500,6/8/2025,3,1,4,House,sunbury,"254 Gap Road, Sunbury, Vic",-37.5770835,144.6993997
+249,Sunbury,3429,"16 Dalkeith Court, Sunbury, Vic 3429",630,6/8/2025,4,2,2,House,sunbury,"16 Dalkeith Court, Sunbury, Vic",-37.5675787,144.707385
+250,Deer Park,3023,"15 Loxwood Court, Deer Park, Vic 3023",550,6/8/2025,3,2,2,House,deerpark,"15 Loxwood Court, Deer Park, Vic",-37.7803786,144.7553607
+251,Deer Park,3023,"36 Welwyn Parade, Deer Park, Vic 3023",475,7/8/2025,3,1,2,House,deerpark,"36 Welwyn Parade, Deer Park, Vic",-37.7632949,144.7714251
+252,Deer Park,3023,"12A Quinn Street, Deer Park, Vic 3023",520,7/8/2025,3,2,2,House,deerpark,"12A Quinn Street, Deer Park, Vic",-37.7715417,144.7586895
+253,Deer Park,3023,"77 Billingham Road, Deer Park, Vic 3023",500,6/8/2025,3,1,2,House,deerpark,"77 Billingham Road, Deer Park, Vic",-37.759311,144.7669749
+254,Deer Park,3023,"19 Aycliffe Drive, Deer Park, Vic 3023",470,7/8/2025,3,1,1,House,deerpark,"19 Aycliffe Drive, Deer Park, Vic",-37.7528582,144.7647377
+255,Williamstown,3016,"10 Tedesco Circuit, Williamstown, Vic 3016",850,7/8/2025,4,4,2,Townhouse,williamstown,"10 Tedesco Circuit, Williamstown, Vic",-37.8554647,144.8725752
+256,Williamstown,3016,"23 Kororoit Creek Road, Williamstown, Vic 3016",999,7/8/2025,4,3,2,Townhouse,williamstown,"23 Kororoit Creek Road, Williamstown, Vic",-37.8578658,144.8876827
+257,Williamstown,3016,"5/70 Kororoit Creek Road, Williamstown, Vic 3016",600,7/8/2025,3,2,2,Townhouse,williamstown,"70 Kororoit Creek Road, Williamstown, Vic",-37.8571206,144.8839608
+258,Williamstown,3016,"1 Syme Street, Williamstown, Vic 3016",950,7/8/2025,1,1,1,House,williamstown,"1 Syme Street, Williamstown, Vic",-37.8628329,144.9048103
+259,Williamstown,3016,"G01/190 Ferguson Street, Williamstown, Vic 3016",600,7/8/2025,2,2,1,Townhouse,williamstown,"190 Ferguson Street, Williamstown, Vic",-37.8578273,144.8905654
+260,Yarraville,3013,"169 Stephen Street, Yarraville, Vic 3013",715,11/8/2025,3,1,2,House,yarraville,"169 Stephen Street, Yarraville, Vic",-37.8196935,144.8939666
+261,Yarraville,3013,"9/131 Somerville Road, Yarraville, Vic 3013",420,7/8/2025,2,1,1,Apartment,yarraville,"131 Somerville Road, Yarraville, Vic",-37.8132691,144.8843165
+262,Yarraville,3013,"2/12 Charlotte Street, Yarraville, Vic 3013",720,4/9/2025,3,1,2,Unit,yarraville,"12 Charlotte Street, Yarraville, Vic",-37.8120288,144.872158
+263,Yarraville,3013,"604/125 Francis Street, Yarraville, Vic 3013",700,19/8/2025,3,2,2,Apartment,yarraville,"125 Francis Street, Yarraville, Vic",-37.8211765,144.8867744
+264,Yarraville,3013,"501/125 Francis, Yarraville, Vic 3013",620,7/8/2025,2,2,1,Apartment,yarraville,"125 Francis, Yarraville, Vic",-37.8211765,144.8867744
+266,Melton,3337,"85 Centenary Avenue, Melton, Vic 3337",430,7/8/2025,3,2,1,House,melton,"85 Centenary Avenue, Melton, Vic",-37.6761062,144.5959203
+270,Truganina,3029,"8 Sama Promenade, Truganina, Vic 3029",570,8/8/2025,4,2,2,House,truganina,"8 Sama Promenade, Truganina, Vic",-37.7554742,144.67418
+271,Truganina,3029,"13 Aylesbury Avenue, Truganina, Vic 3029",540,7/8/2025,4,2,2,House,truganina,"13 Aylesbury Avenue, Truganina, Vic",-37.833851,144.7078903
+272,Truganina,3029,"2/25-27 Starflower Way, Truganina, Vic 3029",540,22/8/2025,4,2,1,Townhouse,truganina,"25-27 Starflower Way, Truganina, Vic",-37.8404678,144.7207227
+273,Truganina,3029,"2/39 Horseshoe Circuit, Truganina, Vic 3029",540,7/8/2025,3,2,1,House,truganina,"39 Horseshoe Circuit, Truganina, Vic",-37.8409733,144.7221427
+274,Truganina,3029,"2 Clayfield Boulevard, Truganina, Vic 3029",510,18/8/2025,3,2,1,Townhouse,truganina,"2 Clayfield Boulevard, Truganina, Vic",-37.8622589,144.7249117
+275,Essendon,3040,"29 Peterleigh Grove, Essendon, Vic 3040",600,7/8/2025,3,1,2,House,essendon,"29 Peterleigh Grove, Essendon, Vic",-37.748545,144.9218971
+276,Essendon,3040,"7/91 Lincoln Road, Essendon, Vic 3040",450,25/8/2025,1,1,1,Unit,essendon,"91 Lincoln Road, Essendon, Vic",-37.7487428,144.9091268
+277,Essendon,3040,"2/91 Tennyson Street, Essendon, Vic 3040",550,29/8/2025,2,1,1,Unit,essendon,"91 Tennyson Street, Essendon, Vic",-37.7570612,144.9298892
+278,Essendon,3040,"49A Waverley St, Essendon, Vic 3040",800,28/8/2025,3,2,1,Townhouse,essendon,"49A Waverley St, Essendon, Vic",-37.756967,144.9071078
+279,Essendon,3040,"22 Levien St, Essendon, Vic 3040",940,25/8/2025,4,3,3,House,essendon,"22 Levien St, Essendon, Vic",-37.758763,144.9120776
+280,Avondale Heights,3034,"8 Hanley Street, Avondale Heights, Vic 3034",620,7/8/2025,3,2,2,House,avondaleheights,"8 Hanley Street, Avondale Heights, Vic",-37.7613084,144.8562041
+281,Avondale Heights,3034,"7B Westminster Dr, Avondale Heights, Vic 3034",710,15/8/2025,3,2,1,Townhouse,avondaleheights,"7B Westminster Dr, Avondale Heights, Vic",-37.7641341,144.8615149
+282,Avondale Heights,3034,"5 Mckenna Street, Avondale Heights, Vic 3034",550,7/8/2025,3,1,1,House,avondaleheights,"5 Mckenna Street, Avondale Heights, Vic",-37.7683173,144.8679868
+283,Avondale Heights,3034,"5 Selo Walk, Avondale Heights, Vic 3034",580,7/8/2025,3,2,2,Townhouse,avondaleheights,"5 Selo Walk, Avondale Heights, Vic",-37.7646412,144.8626821
+284,Avondale Heights,3034,"5 Edmonds Ct, Avondale Heights, Vic 3034",750,18/8/2025,3,2,2,House,avondaleheights,"5 Edmonds Ct, Avondale Heights, Vic",-37.7506953,144.8514337
+285,Werribee,3030,"6 Pigeon Street, Werribee, Vic 3030",460,7/8/2025,3,1,1,House,werribee,"6 Pigeon Street, Werribee, Vic",-37.8889304,144.6677636
+286,Werribee,3030,"1B Filippin Court, Werribee, Vic 3030",430,15/8/2025,2,1,1,House,werribee,"1B Filippin Court, Werribee, Vic",-37.9081268,144.6659915
+287,Werribee,3030,"20 Kimzy Circuit, Werribee, Vic 3030",460,7/8/2025,3,2,2,House,werribee,"20 Kimzy Circuit, Werribee, Vic",-37.9197732,144.6461488
+288,Werribee,3030,"5 Chestnut Grove, Werribee, Vic 3030",460,14/8/2025,3,2,2,House,werribee,"5 Chestnut Grove, Werribee, Vic",-37.8920627,144.6710555
+289,Werribee,3030,"38 Wedgebill Circuit, Werribee, Vic 3030",550,7/8/2025,4,3,2,House,werribee,"38 Wedgebill Circuit, Werribee, Vic",-37.9106751,144.6069592
+290,Wyndham Vale,3024,"40 Margie Street, Wyndham Vale, Vic 3024",480,12/9/2025,4,2,2,House,wyndhamvale,"40 Margie Street, Wyndham Vale, Vic",-37.8698471,144.6289936
+291,Wyndham Vale,3024,"8 Earlwood Way, Wyndham Vale, Vic 3024",460,15/8/2025,4,2,1,Townhouse,wyndhamvale,"8 Earlwood Way, Wyndham Vale, Vic",-37.8507531,144.5947249
+292,Wyndham Vale,3024,"3 Cloudburst Avenue, Wyndham Vale, Vic 3024",570,21/8/2025,5,3,2,House,wyndhamvale,"3 Cloudburst Avenue, Wyndham Vale, Vic",-37.8680858,144.6155572
+293,Wyndham Vale,3024,"2/29 Lady Penrhyn Drive, Wyndham Vale, Vic 3024",480,7/8/2025,3,1,1,Unit,wyndhamvale,"29 Lady Penrhyn Drive, Wyndham Vale, Vic",-37.8806308,144.6283974
+294,Wyndham Vale,3024,"5 Dundas Road, Wyndham Vale, Vic 3024",500,1/9/2025,4,2,2,House,wyndhamvale,"5 Dundas Road, Wyndham Vale, Vic",-37.8781557,144.6262292
+295,Caroline Springs,3023,"4 Hampstead Green, Caroline Springs, Vic 3023",540,7/8/2025,3,2,4,House,carolinesprings,"4 Hampstead Green, Caroline Springs, Vic",-37.7426782,144.7334079
+296,Caroline Springs,3023,"6 Streeton Avenue, Caroline Springs, Vic 3023",510,7/8/2025,3,1,2,House,carolinesprings,"6 Streeton Avenue, Caroline Springs, Vic",-37.7088957,144.7356885
+297,Caroline Springs,3023,"413 Hume Drive, Caroline Springs, Vic 3023",450,15/8/2025,2,1,1,House,carolinesprings,"413 Hume Drive, Caroline Springs, Vic",-37.7096298,144.739591
+298,Caroline Springs,3023,"7/11 Monckton Place, Caroline Springs, Vic 3023",480,12/8/2025,2,1,1,House,carolinesprings,"11 Monckton Place, Caroline Springs, Vic",-37.7291445,144.7471091
+299,Caroline Springs,3023,"9 Dartmouth Court, Caroline Springs, Vic 3023",600,22/8/2025,5,2,2,House,carolinesprings,"9 Dartmouth Court, Caroline Springs, Vic",-37.7507664,144.7389119

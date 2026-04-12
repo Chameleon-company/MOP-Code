@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.imgWrap::before,
+.imgWrap::after {
+    content: '';
+    position: absolute;
+    background-color: black;
+}
+
+.imgWrap::before {
+    right: 0;
+    top: -30px;
+    width: 70%;
+    height: 30px;
+}
+
+.imgWrap::after {
+    left: -30px;
+    bottom: 0;
+    width: 30px;
+    height: 80%;
+}
+
+@media screen and (min-width: 1024px) {
+    .contactUsText {
+        font-size: 48px;
+        line-height: 60px;
+        right: 85%;
+        top: -35%;
+    }
+
+    .contactBody {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .imgContent {
+        width: 50%;
+    }
+
+    .formContent {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .contactUsText {
+        font-size: 58px;
+        line-height: 80px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .contactUsText {
+        font-size: 70px;
+        line-height: 90px;
+    }
+
+    .contactBody {
+        margin-top: 150px;
+    }
+}
+
+/* Placeholder styles - light mode */
+::-webkit-input-placeholder {
+    color: #888;
+}
+:-moz-placeholder {
+    color: #888;
+}
+::-moz-placeholder {
+    color: #888;
+}
+:-ms-input-placeholder {
+    color: #888;
+}
+
+/* Responsive image/text layout  */
+.imgContent {
+    position: relative;
+    margin-top: -50px;
+}
+
+.contactUsText {
+    margin-top: -40px;
+    font-weight: normal;
+    z-index: 10;
+}
+
+@media (max-width: 768px) {
+    .imgContent {
+        margin-top: -10px;
+    }
+
+    .contactUsText {
+        margin-top: -20px;
+    }
+}
+
+/* Google Map Iframe Handling */
+.mapIframe {
+    border: 0;
+    width: 100%;
+    height: 400px;
+    filter: none !important; /* Ensure map is colored in light mode */
+}
+
+/* Dark Mode Support  */
+@media (prefers-color-scheme: dark) {
+    .mapIframe {
+        filter: grayscale(100%) invert(92%) contrast(90%);
+    }
+
+    ::-webkit-input-placeholder {
+        color: #ccc;
+    }
+
+    :-moz-placeholder {
+        color: #ccc;
+    }
+
+    ::-moz-placeholder {
+        color: #ccc;
+    }
+
+    :-ms-input-placeholder {
+        color: #ccc;
+    }
+
+    .imgWrap::before,
+    .imgWrap::after {
+        background-color: white;
+    }
+
+  .mapIframe {
+    border: 0;
+    width: 100%;
+    height: 400px;
+  }
+}

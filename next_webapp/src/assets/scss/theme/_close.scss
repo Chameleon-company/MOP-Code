@@ -1,0 +1,61 @@
+//----------------------------------------------------------//
+//	CLOSE BUTTON
+//----------------------------------------------------------//
+.btn-close {
+  padding: $btn-close-padding-y $btn-close-padding-x;
+  color: $btn-close-color;
+  background: none;
+  border: 0;
+  line-height: 1;
+  @include transition($btn-transition);
+  &:before {
+    background: $btn-close-bg;
+    font-family: $font-family-unicons;
+    @include font-size($btn-close-font-size);
+    content: $icon-close;
+    width: $btn-close-width;
+    height: $btn-close-height;
+    line-height: $btn-close-height;
+    border-radius: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    transition: background 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &:hover {
+    color: $btn-close-hover-color;
+    text-decoration: none;
+    &:before {
+      background: $btn-close-hover-bg;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+  &:disabled,
+  &.disabled {
+    pointer-events: none;
+    user-select: none;
+    opacity: $btn-close-disabled-opacity;
+  }
+}
+.btn-close-white {
+  color: $btn-close-light-color;
+  &:before {
+    background: $btn-close-light-bg;
+  }
+  &:hover {
+    color: $btn-close-light-hover-color;
+    &:before {
+      background: $btn-close-light-hover-bg;
+    }
+  }
+}
+.modal .btn-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+}
