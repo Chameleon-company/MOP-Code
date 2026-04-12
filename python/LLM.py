@@ -23,7 +23,7 @@ async def gpt(prompt):
     ]
 
     completion = await gpt_client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4.1-mini",
         messages=chat_prompt,
         max_tokens=100,
         temperature=0,
