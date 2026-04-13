@@ -1,19 +1,22 @@
 FROM node:18
 
-# Set the working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Copy the application code
-COPY . .
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Build the Next.js application
+# Copy the rest of the application code
+COPY . .
+
+# Build the Next.js app
 RUN npm run build
 
-# Expose the port the app runs on
+# Expose the default Next.js port
 EXPOSE 3000
 
-# Start the Next.js application
+# Start the production server
 CMD ["npm", "start"]
