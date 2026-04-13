@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowLeftCircle, ArrowRightCircle, FileText } from "lucide-react";
 import { CaseStudy } from "../../types";
 
@@ -17,41 +18,86 @@ interface CardProps {
   onClick?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ study, onClick }) => (
-  <div
-    onClick={onClick}
-    className={`${CARD_W} ${CARD_H} overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-gray-600 shadow hover:shadow-lg transition-shadow flex flex-col justify-between p-4 cursor-pointer`}
-  >
-    {/* Icon */}
-    <div className="flex justify-center mb-2">
-      <FileText size={48} className="text-primary" />
-      <FileText size={48} className="-ml-6 text-teal-400" />
-      <FileText size={48} className="-ml-6 rotate-6 text-green-700" />
+// const Card: React.FC<CardProps> = ({ study, onClick }) => (
+//   <div
+//     onClick={onClick}
+//     className={`${CARD_W} ${CARD_H} overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-gray-600 shadow hover:shadow-lg transition-shadow flex flex-col justify-between p-4 cursor-pointer`}
+//   >
+//     {/* Icon */}
+//     <div className="flex justify-center mb-2">
+//       <FileText size={48} className="text-primary" />
+//       <FileText size={48} className="-ml-6 text-teal-400" />
+//       <FileText size={48} className="-ml-6 rotate-6 text-green-700" />
+//     </div>
+
+//     {/* Title */}
+//     <h3 className="text-sm font-semibold text-dark dark:text-white text-center whitespace-normal break-words">
+//       {study.name}
+//     </h3>
+
+//     {/* Description */}
+//     <p className="text-xs text-center text-gray-700 dark:text-gray-300 line-clamp-2">
+//       {study.description}
+//     </p>
+
+//     {/* Tags */}
+//     <div className="flex flex-wrap justify-center gap-1 mt-1">
+//       {study.tags.slice(0, 3).map((t) => (
+//         <span
+//           key={t}
+//           className="text-[10px] px-2 py-[1px] bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white"
+//         >
+//           {t}
+//         </span>
+//       ))}
+//     </div>
+//   </div>
+// );
+
+const Card: React.FC<CardProps> = ({ study }) => {
+  const router = useRouter();
+
+  const slugify = (text: string) =>
+    text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+
+  const slug = slugify(study.name);
+
+  return (
+    <div
+      onClick={() => router.push(`/usecases/${slug}`)}
+      className={`${CARD_W} ${CARD_H} overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-gray-600 shadow hover:shadow-lg transition-shadow flex flex-col justify-between p-4 cursor-pointer`}
+    >
+      {/* Icon */}
+      <div className="flex justify-center mb-2">
+        <FileText size={48} className="text-primary" />
+        <FileText size={48} className="-ml-6 text-teal-400" />
+        <FileText size={48} className="-ml-6 rotate-6 text-green-700" />
+      </div>
+
+      {/* Title */}
+      <h3 className="text-sm font-semibold text-dark dark:text-white text-center whitespace-normal break-words">
+        {study.name}
+      </h3>
+
+      {/* Description */}
+      <p className="text-xs text-center text-gray-700 dark:text-gray-300 line-clamp-2">
+        {study.description}
+      </p>
+
+      {/* Tags */}
+      <div className="flex flex-wrap justify-center gap-1 mt-1">
+        {study.tags.slice(0, 3).map((t) => (
+          <span
+            key={t}
+            className="text-[10px] px-2 py-[1px] bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
     </div>
-
-    {/* Title */}
-    <h3 className="text-sm font-semibold text-dark dark:text-white text-center whitespace-normal break-words">
-      {study.name}
-    </h3>
-
-    {/* Description */}
-    <p className="text-xs text-center text-gray-700 dark:text-gray-300 line-clamp-2">
-      {study.description}
-    </p>
-
-    {/* Tags */}
-    <div className="flex flex-wrap justify-center gap-1 mt-1">
-      {study.tags.slice(0, 3).map((t) => (
-        <span
-          key={t}
-          className="text-[10px] px-2 py-[1px] bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white"
-        >
-          {t}
-        </span>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // 2. Trending (hidden on <lg>, only first 2)
