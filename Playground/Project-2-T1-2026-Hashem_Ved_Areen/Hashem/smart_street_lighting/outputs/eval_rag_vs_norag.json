@@ -1,0 +1,374 @@
+{
+  "summary": {
+    "total_tests": 10,
+    "rag_avg_score": 0.767,
+    "norag_avg_score": 0.2,
+    "rag_pass_rate": 9,
+    "norag_pass_rate": 4,
+    "rag_wins": 8,
+    "norag_wins": 0,
+    "ties": 2,
+    "improvement_pct": 283.5,
+    "rag_avg_latency_s": 52.12,
+    "norag_avg_latency_s": 24.3
+  },
+  "results": [
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "category": "standards",
+      "rag": {
+        "score": 1.0,
+        "pass": true,
+        "matched_facts": [
+          "7 lux",
+          "average"
+        ],
+        "missing_facts": [],
+        "latency_s": 71.39,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "AS/NZS 1158"
+        ],
+        "answer_preview": "**Design Report: Pedestrian Lighting for Melbourne Parks**  **Introduction:** As per the City of Melbourne's requirements, we have designed a lighting system for parks in accordance with AS/NZS 1158 s"
+      },
+      "no_rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "average"
+        ],
+        "missing_facts": [
+          "7 lux"
+        ],
+        "latency_s": 50.18,
+        "answer_preview": "**Design Report: Pedestrian Lighting for Melbourne's Public Spaces**  **Section 1: Design Rationale and Standards Compliance**  For the P-category pedestrian areas, we have selected the P3 category ba"
+      },
+      "rag_better": true,
+      "score_diff": 0.5
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestrian activity?",
+      "category": "standards",
+      "rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "P3"
+        ],
+        "missing_facts": [
+          "P2"
+        ],
+        "latency_s": 61.97,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "Melbourne Urban Data"
+        ],
+        "answer_preview": "**Design Report: Street Lighting for Busy Park Pathway**  **Introduction**  The City of Melbourne has engaged our team to design an energy-efficient and standards-compliant street lighting system for "
+      },
+      "no_rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "P3"
+        ],
+        "missing_facts": [
+          "P2"
+        ],
+        "latency_s": 21.67,
+        "answer_preview": "**Design Report: Busy Park Pathway Lighting**  **Introduction:** The City of Melbourne has commissioned the design of a lighting system for a busy park pathway with high evening pedestrian activity. A"
+      },
+      "rag_better": false,
+      "score_diff": 0.0
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "category": "standards",
+      "rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "minimum"
+        ],
+        "missing_facts": [
+          "1.0 lux"
+        ],
+        "latency_s": 48.91,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "AS/NZS 1158"
+        ],
+        "answer_preview": "**Design Report: Park Path Lighting System**  **Introduction:** The City of Melbourne has engaged our team to design a safe and energy-efficient lighting system for its park paths. This report outline"
+      },
+      "no_rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "minimum"
+        ],
+        "missing_facts": [
+          "1.0 lux"
+        ],
+        "latency_s": 24.55,
+        "answer_preview": "**Design Report: Illuminance Requirements for P9 Park Path**  **Introduction:** The City of Melbourne has commissioned us to design a safe and energy-efficient lighting system for a P9 park path. This"
+      },
+      "rag_better": false,
+      "score_diff": 0.0
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "category": "standards",
+      "rag": {
+        "score": 1.0,
+        "pass": true,
+        "matched_facts": [
+          "0.5",
+          "Emin/Eavg"
+        ],
+        "missing_facts": [],
+        "latency_s": 53.66,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "AS/NZS 1158"
+        ],
+        "answer_preview": "**Design Report: Pedestrian Lighting Design for Melbourne Parks**  **Introduction**  As part of the City of Melbourne's street lighting upgrade project, we have designed a pedestrian lighting system f"
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "0.5",
+          "Emin/Eavg"
+        ],
+        "latency_s": 21.87,
+        "answer_preview": "**Design Report: Pedestrian Lighting in Melbourne**  **Introduction:** The City of Melbourne has commissioned a street lighting design to ensure safe and energy-efficient illumination of public spaces"
+      },
+      "rag_better": true,
+      "score_diff": 1.0
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZS 1158.4?",
+      "category": "standards",
+      "rag": {
+        "score": 1.0,
+        "pass": true,
+        "matched_facts": [
+          "50 lux",
+          "1.5"
+        ],
+        "missing_facts": [],
+        "latency_s": 45.9,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "AS/NZS 1158"
+        ],
+        "answer_preview": "**Design Report: Pedestrian Crossing Lighting Requirements**  **Introduction:** The City of Melbourne's street lighting design for pedestrian crossings must comply with the Australian Standard AS/NZS "
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "50 lux",
+          "1.5"
+        ],
+        "latency_s": 22.18,
+        "answer_preview": "**Design Report: Pedestrian Crossing Lighting**  **Introduction:** The City of Melbourne's pedestrian crossing lighting design adheres to the Australian and New Zealand Standard for Lighting for Road "
+      },
+      "rag_better": true,
+      "score_diff": 1.0
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "category": "standards",
+      "rag": {
+        "score": 1.0,
+        "pass": true,
+        "matched_facts": [
+          "3000K",
+          "warm white"
+        ],
+        "missing_facts": [],
+        "latency_s": 47.6,
+        "sources": [
+          "Melbourne Urban Data",
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines"
+        ],
+        "answer_preview": "**Design Report: Street Lighting Design for Melbourne Parks**  **Introduction:** The City of Melbourne has engaged our team to design safe, energy-efficient, and standards-compliant lighting systems f"
+      },
+      "no_rag": {
+        "score": 0.5,
+        "pass": true,
+        "matched_facts": [
+          "3000K"
+        ],
+        "missing_facts": [
+          "warm white"
+        ],
+        "latency_s": 22.63,
+        "answer_preview": "**Street Lighting Design Report**  **Section 1: Colour Temperature Recommendation**  For street lighting in Melbourne, we recommend a colour temperature of 3000K to 3500K. This range aligns with the A"
+      },
+      "rag_better": true,
+      "score_diff": 0.5
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "category": "standards",
+      "rag": {
+        "score": 0.67,
+        "pass": true,
+        "matched_facts": [
+          "reduced",
+          "lower P-category"
+        ],
+        "missing_facts": [
+          "yes"
+        ],
+        "latency_s": 45.79,
+        "sources": [
+          "AS/NZS 1158",
+          "AS/NZS 1158",
+          "AS/NZS 1158"
+        ],
+        "answer_preview": "**Design Report: Street Lighting for Melbourne Parks and Pathways**  **Introduction:** The City of Melbourne has commissioned us to design a safe, energy-efficient, and standards-compliant lighting sy"
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "yes",
+          "reduced",
+          "lower P-category"
+        ],
+        "latency_s": 27.3,
+        "answer_preview": "**Design Report: Adaptive Dimming and Energy Efficiency**  **Introduction:** As part of the City of Melbourne's street lighting design, we have selected a P-category lighting system for the specified "
+      },
+      "rag_better": true,
+      "score_diff": 0.67
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "category": "energy",
+      "rag": {
+        "score": 0.67,
+        "pass": true,
+        "matched_facts": [
+          "50",
+          "70"
+        ],
+        "missing_facts": [
+          "percent"
+        ],
+        "latency_s": 46.5,
+        "sources": [
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines"
+        ],
+        "answer_preview": "**Design Report: Energy-Efficient Street Lighting for Melbourne**  **Introduction:** The City of Melbourne has committed to achieving net-zero emissions by 2040. As part of this strategy, upgrading th"
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "50",
+          "70",
+          "percent"
+        ],
+        "latency_s": 22.99,
+        "answer_preview": "**Design Report: Energy Efficiency Comparison of LED Street Lights to HPS**  **Introduction:** As part of our ongoing efforts to improve the sustainability and efficiency of Melbourne's public lightin"
+      },
+      "rag_better": true,
+      "score_diff": 0.67
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "category": "energy",
+      "rag": {
+        "score": 1.0,
+        "pass": true,
+        "matched_facts": [
+          "1.08",
+          "0.96",
+          "CO2"
+        ],
+        "missing_facts": [],
+        "latency_s": 55.3,
+        "sources": [
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines"
+        ],
+        "answer_preview": "**Design Report: Street Lighting System for Melbourne**  **Introduction**  As part of the City of Melbourne's sustainability efforts, we have designed a street lighting system that meets the AS/NZS 11"
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "1.08",
+          "0.96",
+          "CO2"
+        ],
+        "latency_s": 3.02,
+        "answer_preview": "I cannot provide information on Victoria\u2019s carbon emission factor for electricity. Is there anything else I can help you with?"
+      },
+      "rag_better": true,
+      "score_diff": 1.0
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "category": "energy",
+      "rag": {
+        "score": 0.33,
+        "pass": false,
+        "matched_facts": [
+          "winter"
+        ],
+        "missing_facts": [
+          "marginal",
+          "1.6"
+        ],
+        "latency_s": 44.16,
+        "sources": [
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines",
+          "Energy Efficiency Guidelines"
+        ],
+        "answer_preview": "**Design Report: Street Lighting Design for Melbourne Parks**  **Introduction:** The City of Melbourne has engaged our team to design energy-efficient street lighting systems for parks, pathways, and "
+      },
+      "no_rag": {
+        "score": 0.0,
+        "pass": false,
+        "matched_facts": [],
+        "missing_facts": [
+          "marginal",
+          "winter",
+          "1.6"
+        ],
+        "latency_s": 26.58,
+        "answer_preview": "**Design Report: Standalone Solar Street Lighting in Melbourne**  **Introduction:** As part of our ongoing efforts to enhance public spaces and reduce energy consumption, we have evaluated the viabili"
+      },
+      "rag_better": true,
+      "score_diff": 0.33
+    }
+  ]
+}

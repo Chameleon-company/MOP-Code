@@ -1,0 +1,507 @@
+{
+  "summary": {
+    "chain_of_thought": {
+      "avg_score": 0.433,
+      "pass_rate_pct": 50.0,
+      "avg_latency_s": 14.27,
+      "avg_answer_length": 1478,
+      "num_tests": 10
+    },
+    "few_shot": {
+      "avg_score": 0.4,
+      "pass_rate_pct": 60.0,
+      "avg_latency_s": 3.34,
+      "avg_answer_length": 339,
+      "num_tests": 10
+    },
+    "zero_shot": {
+      "avg_score": 0.382,
+      "pass_rate_pct": 40.0,
+      "avg_latency_s": 3.79,
+      "avg_answer_length": 301,
+      "num_tests": 10
+    }
+  },
+  "results": [
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "matched_facts": [
+        "average"
+      ],
+      "missing_facts": [
+        "7 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "zero_shot",
+      "latency_s": 11.78,
+      "answer_length": 316,
+      "answer_preview": "For a P3 category pedestrian area, according to CIE S 007 - 2008 (International Lighting Vocabulary) and EN 13201-2:2004 (European Standard), the recommended average illuminance is:  - Minimum of 20 l"
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestrian activity?",
+      "matched_facts": [
+        "P3"
+      ],
+      "missing_facts": [
+        "P2"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "zero_shot",
+      "latency_s": 3.58,
+      "answer_length": 435,
+      "answer_preview": "For a busy park pathway with high evening pedestrian activity, I would recommend using a P3 category of lighting.   P3 is typically defined as a medium to high level of illumination, suitable for area"
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "matched_facts": [
+        "minimum"
+      ],
+      "missing_facts": [
+        "1.0 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "zero_shot",
+      "latency_s": 1.65,
+      "answer_length": 143,
+      "answer_preview": "For a P9 park path, according to the CIE (Commission Internationale de l'Eclairage) recommendations, the minimum illuminance required is 2 lux."
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "matched_facts": [],
+      "missing_facts": [
+        "0.5",
+        "Emin/Eavg"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 3.15,
+      "answer_length": 279,
+      "answer_preview": "For P-category pedestrian lighting, the uniformity ratio (U0) is typically set at 4:1 or less, as per international standards such as CIE S 007:2008. This means that the minimum luminance level should"
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZS 1158.4?",
+      "matched_facts": [],
+      "missing_facts": [
+        "50 lux",
+        "1.5"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 1.4,
+      "answer_length": 104,
+      "answer_preview": "According to AS/NZS 1158.4, the minimum vertical illuminance required at pedestrian crossings is 20 lux."
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "matched_facts": [
+        "3000K",
+        "warm white"
+      ],
+      "missing_facts": [],
+      "score": 1.0,
+      "pass": true,
+      "strategy": "zero_shot",
+      "latency_s": 3.67,
+      "answer_length": 352,
+      "answer_preview": "The recommended color temperature for street lighting in Melbourne, as per the Australian Standard AS/NZS 1158.2.1 (2016), is a warm white or yellowish-white light with a correlated color temperature "
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "matched_facts": [
+        "yes"
+      ],
+      "missing_facts": [
+        "reduced",
+        "lower P-category"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 3.87,
+      "answer_length": 425,
+      "answer_preview": "Yes, according to AS/NZS 1158 (Australian and New Zealand Standard for Lighting in the Built Environment), dimming of streetlights is allowed during low-activity periods. However, it must be done in a"
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "matched_facts": [
+        "70"
+      ],
+      "missing_facts": [
+        "50",
+        "percent"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 2.7,
+      "answer_length": 236,
+      "answer_preview": "The typical energy savings when replacing High-Pressure Sodium (HPS) street lights with Light Emitting Diode (LED) street lights can range from 40% to 70%. However, this value may vary depending on th"
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "matched_facts": [
+        "CO2"
+      ],
+      "missing_facts": [
+        "1.08",
+        "0.96"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 3.24,
+      "answer_length": 351,
+      "answer_preview": "Victoria's carbon emission factor for electricity is approximately 0.69 kg CO2-e/MWh (kilograms of carbon dioxide equivalent per megawatt hour). However, this value may change over time due to the sta"
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "matched_facts": [
+        "winter"
+      ],
+      "missing_facts": [
+        "marginal",
+        "1.6"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "zero_shot",
+      "latency_s": 2.82,
+      "answer_length": 370,
+      "answer_preview": "Yes, standalone solar street lighting is viable for Melbourne. The city's temperate climate with moderate sunlight throughout the year makes it suitable for solar-powered systems. However, factors suc"
+    },
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "matched_facts": [
+        "average"
+      ],
+      "missing_facts": [
+        "7 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 2.61,
+      "answer_length": 140,
+      "answer_preview": "According to AS/NZS 1158, P3 (minor pedestrian activity areas like residential streets) requires an average horizontal illuminance of 2 lux."
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestrian activity?",
+      "matched_facts": [
+        "P2"
+      ],
+      "missing_facts": [
+        "P3"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 5.73,
+      "answer_length": 637,
+      "answer_preview": "Based on the provided information and general street lighting design principles, I would recommend using a P2 category area for a busy park pathway with high evening pedestrian activity.   P2 areas ty"
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "matched_facts": [
+        "minimum"
+      ],
+      "missing_facts": [
+        "1.0 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 2.42,
+      "answer_length": 158,
+      "answer_preview": "According to AS/NZS 1158, P9 areas (park paths) require an average horizontal illuminance of 2.5 lux, with a minimum of 1.25 lux and uniformity ratio of 0.40."
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "matched_facts": [
+        "0.5"
+      ],
+      "missing_facts": [
+        "Emin/Eavg"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 1.49,
+      "answer_length": 116,
+      "answer_preview": "According to AS/NZS 1158, a uniformity ratio of 0.50 is typically required for P-category pedestrian lighting areas."
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZS 1158.4?",
+      "matched_facts": [],
+      "missing_facts": [
+        "50 lux",
+        "1.5"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "few_shot",
+      "latency_s": 1.56,
+      "answer_length": 119,
+      "answer_preview": "According to AS/NZS 1158.4, for pedestrian crossings, a minimum vertical illuminance of 2 lux is typically recommended."
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "matched_facts": [
+        "3000K",
+        "warm white"
+      ],
+      "missing_facts": [],
+      "score": 1.0,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 1.98,
+      "answer_length": 198,
+      "answer_preview": "According to the City of Melbourne Urban Forest Strategy, a 3000K (warm white) colour temperature is recommended for street lighting in Melbourne to minimize ecological impact on nocturnal wildlife."
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "matched_facts": [],
+      "missing_facts": [
+        "yes",
+        "reduced",
+        "lower P-category"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "few_shot",
+      "latency_s": 3.32,
+      "answer_length": 377,
+      "answer_preview": "According to AS/NZS 1158, dynamic lighting control systems are allowed as long as they maintain or exceed the minimum illuminance levels and uniformity ratios specified for each category. This means t"
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "matched_facts": [
+        "50",
+        "70"
+      ],
+      "missing_facts": [
+        "percent"
+      ],
+      "score": 0.67,
+      "pass": true,
+      "strategy": "few_shot",
+      "latency_s": 2.93,
+      "answer_length": 249,
+      "answer_preview": "According to my knowledge as a street lighting design expert, LED street lights typically save 50-70% energy compared to High Pressure Sodium (HPS). For example, a 60W LED replaces a 175W HPS system ("
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "matched_facts": [],
+      "missing_facts": [
+        "1.08",
+        "0.96",
+        "CO2"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "few_shot",
+      "latency_s": 0.82,
+      "answer_length": 86,
+      "answer_preview": "Unfortunately I am unable to verify Victoria's carbon emission factor for electricity."
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "matched_facts": [
+        "winter"
+      ],
+      "missing_facts": [
+        "marginal",
+        "1.6"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "few_shot",
+      "latency_s": 10.56,
+      "answer_length": 1309,
+      "answer_preview": "Standalone solar street lighting can be a viable option for Melbourne, but it depends on various factors such as location, climate, and energy requirements.   Melbourne has an average annual solar irr"
+    },
+    {
+      "test_id": "STD-01",
+      "query": "What is the required average illuminance for a P3 category pedestrian area?",
+      "matched_facts": [
+        "average"
+      ],
+      "missing_facts": [
+        "7 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "chain_of_thought",
+      "latency_s": 13.67,
+      "answer_length": 1336,
+      "answer_preview": "To determine the required average illuminance for a P3 category pedestrian area, let's follow your step-by-step approach:  1. **Identify the standard or guideline that applies**:     The most widely u"
+    },
+    {
+      "test_id": "STD-02",
+      "query": "What P-category should be used for a busy park pathway with high evening pedestrian activity?",
+      "matched_facts": [
+        "P2",
+        "P3"
+      ],
+      "missing_facts": [],
+      "score": 1.0,
+      "pass": true,
+      "strategy": "chain_of_thought",
+      "latency_s": 16.22,
+      "answer_length": 1768,
+      "answer_preview": "To determine the P-category for a busy park pathway with high evening pedestrian activity, let's follow your step-by-step approach:  1. **Identify the standard or guideline**: In many countries, stree"
+    },
+    {
+      "test_id": "STD-03",
+      "query": "What is the minimum illuminance required for a P9 park path?",
+      "matched_facts": [
+        "minimum"
+      ],
+      "missing_facts": [
+        "1.0 lux"
+      ],
+      "score": 0.5,
+      "pass": true,
+      "strategy": "chain_of_thought",
+      "latency_s": 13.53,
+      "answer_length": 1371,
+      "answer_preview": "To determine the minimum illuminance required for a P9 park path, let's follow your step-by-step approach:  1. **Identify the standard or guideline that applies**:     - The most widely used standards"
+    },
+    {
+      "test_id": "STD-04",
+      "query": "What uniformity ratio is required for P-category pedestrian lighting?",
+      "matched_facts": [],
+      "missing_facts": [
+        "0.5",
+        "Emin/Eavg"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "chain_of_thought",
+      "latency_s": 12.77,
+      "answer_length": 1324,
+      "answer_preview": "To determine the uniformity ratio required for P-category pedestrian lighting, let's follow your step-by-step approach:  1. **Identify the standard or guideline that applies**:     - In many countries"
+    },
+    {
+      "test_id": "STD-05",
+      "query": "What vertical illuminance is required at pedestrian crossings according to AS/NZS 1158.4?",
+      "matched_facts": [],
+      "missing_facts": [
+        "50 lux",
+        "1.5"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "chain_of_thought",
+      "latency_s": 11.13,
+      "answer_length": 1113,
+      "answer_preview": "To determine the required vertical illuminance at pedestrian crossings according to AS/NZS 1158.4, let's break it down step by step:  1. **Identify the standard or guideline**: The given standard is A"
+    },
+    {
+      "test_id": "STD-06",
+      "query": "What is the recommended colour temperature for street lighting in Melbourne?",
+      "matched_facts": [
+        "3000K",
+        "warm white"
+      ],
+      "missing_facts": [],
+      "score": 1.0,
+      "pass": true,
+      "strategy": "chain_of_thought",
+      "latency_s": 13.43,
+      "answer_length": 1312,
+      "answer_preview": "To determine the recommended color temperature for street lighting in Melbourne, let's follow your step-by-step approach:  1. **Identify the standard or guideline**:     - In Australia, the Australian"
+    },
+    {
+      "test_id": "STD-07",
+      "query": "Can lighting be dimmed during low-activity periods under AS/NZS 1158?",
+      "matched_facts": [],
+      "missing_facts": [
+        "yes",
+        "reduced",
+        "lower P-category"
+      ],
+      "score": 0.0,
+      "pass": false,
+      "strategy": "chain_of_thought",
+      "latency_s": 17.41,
+      "answer_length": 1654,
+      "answer_preview": "To determine if lighting can be dimmed during low-activity periods under AS/NZS 1158, let's break it down step by step:  1. **Identify the standard or guideline**:     - The given standard is AS/NZS 1"
+    },
+    {
+      "test_id": "NRG-01",
+      "query": "What is the typical energy saving when replacing HPS street lights with LEDs?",
+      "matched_facts": [
+        "50",
+        "70"
+      ],
+      "missing_facts": [
+        "percent"
+      ],
+      "score": 0.67,
+      "pass": true,
+      "strategy": "chain_of_thought",
+      "latency_s": 12.91,
+      "answer_length": 1386,
+      "answer_preview": "To determine the typical energy saving when replacing HPS (High-Pressure Sodium) street lights with LEDs, let's follow your step-by-step approach:  1. **Identify a standard or guideline**:     - A wid"
+    },
+    {
+      "test_id": "NRG-02",
+      "query": "What is Victoria's carbon emission factor for electricity?",
+      "matched_facts": [
+        "CO2"
+      ],
+      "missing_facts": [
+        "1.08",
+        "0.96"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "chain_of_thought",
+      "latency_s": 12.71,
+      "answer_length": 1426,
+      "answer_preview": "To find Victoria's carbon emission factor for electricity, let's break it down step by step as you suggested:  1. **Identify the standard or guideline**: In Australia, the National Greenhouse and Ener"
+    },
+    {
+      "test_id": "NRG-03",
+      "query": "Is standalone solar street lighting viable for Melbourne?",
+      "matched_facts": [
+        "winter"
+      ],
+      "missing_facts": [
+        "marginal",
+        "1.6"
+      ],
+      "score": 0.33,
+      "pass": false,
+      "strategy": "chain_of_thought",
+      "latency_s": 18.88,
+      "answer_length": 2095,
+      "answer_preview": "To determine if standalone solar street lighting is viable for Melbourne, let's break down the process step by step:  1. **Identify relevant standards or guidelines**:     - In Australia, the Australi"
+    }
+  ]
+}
