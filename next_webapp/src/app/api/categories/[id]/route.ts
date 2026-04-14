@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
 import {
     UpdateCategoryDTO,
@@ -142,4 +142,106 @@ export async function PUT(
             "INTERNAL_ERROR"
         );
     }
+}
+
+// ==============================
+// DELETE /api/categories/:id
+// Delete Category (ADMIN ONLY)
+// ==============================
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    // 1. Auth check
+    const { userId, isAdmin } = getAuthUser(request);
+
+    if (!userId) {
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED");
+    }
+
+    if (!isAdmin) {
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN");
+    }
+
+    const categoryId = Number(params.id);
+
+    if (!categoryId || Number.isNaN(categoryId)) {
+      return errorResponse("Invalid category ID", 400, "INVALID_ID");
+    }
+
+    // 2. Check category exists
+    const { data: existingCategory, error: categoryError } = await supabase
+      .from("categories")
+      .select("id, category_name")
+      .eq("id", categoryId)
+      .single();
+
+    if (categoryError || !existingCategory) {
+      return errorResponse("Category not found", 404, "CATEGORY_NOT_FOUND");
+    }
+
+    // 3. Count how many use cases are using this category
+    const { count, error: countError } = await supabase
+      .from("usecases")
+      .select("*", { count: "exact", head: true })
+      .eq("category_id", categoryId);
+
+    if (countError) {
+      console.error("Use case count error:", countError);
+      return errorResponse(
+        "Failed to validate category usage",
+        500,
+        "USAGE_CHECK_ERROR"
+      );
+    }
+
+    if ((count ?? 0) > 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `${count} use case(s) are currently assigned to this category. Please change them before deleting the category.`,
+          code: "CATEGORY_IN_USE",
+          data: {
+            assigned_usecase_count: count,
+            category_id: categoryId,
+            category_name: existingCategory.category_name,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // 4. Delete category
+    const { error: deleteError } = await supabase
+      .from("categories")
+      .delete()
+      .eq("id", categoryId);
+
+    if (deleteError) {
+      console.error("Delete category error:", deleteError);
+      return errorResponse(
+        "Failed to delete category",
+        500,
+        "DELETE_ERROR"
+      );
+    }
+
+    // 5. Success response
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Category deleted successfully",
+        data: {
+          id: existingCategory.id,
+          category_name: existingCategory.category_name,
+        },
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Delete Category Error:", error);
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR");
+  }
 }
