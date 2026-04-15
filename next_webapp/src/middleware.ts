@@ -16,6 +16,7 @@ const intlMiddleware = createMiddleware({
  * Matched against the path with any locale prefix stripped.
  */
 const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories"];
+
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -133,8 +134,14 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 3. Protected path: verify the JWT 
+  // 3. Page routes: browsers don't send Authorization headers on navigation.
+  //    Skip JWT check here — protection is handled client-side by the admin
+  //    layout guard (checks localStorage for token + role).
+  if (!pathname.startsWith("/api/")) {
+    return intlMiddleware(request);
+  }
 
+  // 4. Protected API route: verify the JWT
   const JWT_SECRET = process.env.JWT_SECRET;
   if (!JWT_SECRET) {
     // Misconfigured server — fail closed
@@ -164,43 +171,15 @@ export default async function middleware(request: NextRequest) {
     );
   }
 
-  // 4. Token is valid: attach decoded claims to request headers for
+  // 5. Token is valid: attach decoded claims to request headers for
   //    downstream route handlers and server components.
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-user-id", String(payload.userId ?? ""));
   requestHeaders.set("x-user-role", String(payload.roleName ?? ""));
   requestHeaders.set("x-user-role-id", String(payload.roleId ?? ""));
 
-  // 5a. Protected PAGE route: run intl middleware for locale routing, then
-  //     merge our modified request headers into the final response so that
-  //     server components can read x-user-id / x-user-role via headers().
-  if (!pathname.startsWith("/api/")) {
-    const intlResponse = intlMiddleware(request);
-
-    // intl wants to redirect: allow it.
-    // The redirected request will re-enter this middleware and re-verify.
-    if (intlResponse.status !== 200) {
-      return intlResponse;
-    }
-
-    // intl is passing through — return next() with the modified headers,
-    // preserving any cookies and headers that intl set 
-    const response = NextResponse.next({ request: { headers: requestHeaders } });
-    intlResponse.headers.forEach((value, key) => {
-      if (key !== "set-cookie") {
-        response.headers.set(key, value);
-      }
-    });
-    intlResponse.cookies.getAll().forEach((cookie) => {
-      response.cookies.set(cookie);
-    });
-    return response;
-  }
-
-  // 5b. Protected API route: forward with modified headers only.
+  // Protected API route: forward with modified headers only.
   return NextResponse.next({ request: { headers: requestHeaders } });
-
-  
 }
 
 export const config = {
