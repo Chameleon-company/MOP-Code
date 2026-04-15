@@ -33,43 +33,42 @@ function LoginForm() {
             return;
         }
 
-    try {
-        const response = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const result = await response.json();
-        console.log("Login API response:", result);
+            const result = await response.json();
+            console.log("Login API response:", result);
 
-        if (!response.ok) {
-            setError(result.message || "Login failed");
-            return;
-        }
+            if (!response.ok) {
+                setError(result.message || "Login failed");
+                return;
+            }
 
-        setError("");
-        alert("Login successful!");
+            setError("");
 
-        // Store user data in localStorage
-        localStorage.setItem("userId", result.data.userId.toString());
-        localStorage.setItem("user", JSON.stringify(result.data));
-        localStorage.setItem("token", result.data.token);
+            // Store user data in localStorage
+            localStorage.setItem("userId", result.data.userId.toString());
+            localStorage.setItem("user", JSON.stringify(result.data));
+            localStorage.setItem("token", result.data.token);
 
-            s// Redirect based on role
+            // Redirect based on role
             if (result.data.roleId === 1) {
                 router.push(`/${locale}/admin/dashboard`);
             } else {
                 router.push(`/${locale}/profile`);
             }
 
-    } catch (error) {
-        console.error("Login error:", error);
-        setError("Something went wrong. Please try again.");
-    }
-};
+        } catch (error) {
+            console.error("Login error:", error);
+            setError("Something went wrong. Please try again.");
+        }
+    };
 
     return (
         <>
@@ -77,7 +76,7 @@ function LoginForm() {
                 <Header />
             </div>
             <div className="main-content login-container dark:bg-[#263238]">
-                <div className="login-content mt-16"> {/* Adjusted margin-top for title */}
+                <div className="login-content mt-16">
                     <h1 className="login-title dark:text-[#FFFFFF]">{t("Account Log In")}</h1>
                     <p className="login-subtitle dark:text-[#FFFFFF]">{t("Please login to continue to your account")}</p>
                     <form onSubmit={handleSubmit} action="/submit-your-login-form" method="POST">
@@ -89,7 +88,7 @@ function LoginForm() {
                                 type="email"
                                 id="emailInput"
                                 placeholder={t("Email")}
-                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide" // Made wider
+                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide"
                                 value={email}
                                 onChange={handleChange}
                                 name="email"
@@ -103,13 +102,13 @@ function LoginForm() {
                                 type={passwordVisible ? "text" : "password"}
                                 id="passwordInput"
                                 placeholder={t("Password")}
-                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide" // Made wider
+                                className="w-full p-3 rounded-md border-solid border-2 border-[#ccc] bg-[#e9ebeb] login-input-wide"
                                 value={password}
                                 onChange={handleChange}
                                 name="password"
                             />
                             <span className="absolute right-4 top-3 cursor-pointer" onClick={togglePasswordVisibility}>
-                                {passwordVisible ? "👁️" : "👁️‍🗨️"} {/* Eye icon */}
+                                {passwordVisible ? "👁️" : "👁️‍🗨️"}
                             </span>
                         </div>
                         <div className="options-container flex justify-between mb-4">
@@ -119,9 +118,15 @@ function LoginForm() {
                             </label>
                             <a href="#" className="forgot-password dark:text-[#FFFFFF]">{t("Forgot Password?")}</a>
                         </div>
-                        <button type="submit" className="login-button wide-button">{t("LOGIN")}</button> {/* Wider button */}
+                        <button type="submit" className="login-button wide-button">{t("LOGIN")}</button>
                     </form>
                     {error && <div className="error text-red-500 mt-4">{error}</div>}
+                    <p className="text-center mt-4 dark:text-white">
+                        Don&apos;t have an account?{" "}
+                        <a href={`/${locale}/signup`} className="text-[#2DBE6C] font-semibold hover:underline">
+                            Sign Up
+                        </a>
+                    </p>
                 </div>
             </div>
             {/* Logo */}
