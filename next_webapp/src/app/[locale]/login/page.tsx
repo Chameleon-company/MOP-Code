@@ -58,8 +58,12 @@ function LoginForm() {
         localStorage.setItem("user", JSON.stringify(result.data));
         localStorage.setItem("token", result.data.token);
 
-        // Redirect to profile page with locale
-        router.push(`/${locale}/profile`);
+            s// Redirect based on role
+            if (result.data.roleId === 1) {
+                router.push(`/${locale}/admin/dashboard`);
+            } else {
+                router.push(`/${locale}/profile`);
+            }
 
     } catch (error) {
         console.error("Login error:", error);
