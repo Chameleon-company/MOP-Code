@@ -5,9 +5,15 @@ import Head from "next/head";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import router from "next/dist/shared/lib/router/router";
+
 
 const SignUpPage = () => {
   const t = (key: string) => key;
+  const router = useRouter();   
+  const locale = useLocale(); 
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -93,7 +99,7 @@ const SignUpPage = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -101,8 +107,10 @@ const SignUpPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Sign-up successful!");
-      } else {
+          alert("Sign-up successful!");
+          // Add this line:
+          router.push(`/${locale}/login`);
+        }else {
         alert(`Sign-up failed: ${data.message}`);
       }
     } catch (err) {
