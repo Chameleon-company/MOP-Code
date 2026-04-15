@@ -15,9 +15,14 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
+<<<<<<< HEAD
 //const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics","/api/profile"];
 //commented just for front end testing
 const PROTECTED_PATHS = [ "/upload", "/statistics","/api/profile"];
+=======
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics","/api/profile", "/api/categories"];
+
+>>>>>>> backend_work
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -171,6 +176,7 @@ export default async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-user-id", String(payload.userId ?? ""));
   requestHeaders.set("x-user-role", String(payload.roleName ?? ""));
+  requestHeaders.set("x-user-role-id", String(payload.roleId ?? ""));
 
   // 5a. Protected PAGE route: run intl middleware for locale routing, then
   //     merge our modified request headers into the final response so that
@@ -215,9 +221,15 @@ export const config = {
     "/admin/:path*",
     "/upload/:path*",
     "/statistics/:path*",
+    
     // Protected API routes — profile
     "/api/profile",
     "/api/profile/:path*",
+
+    // Protected API routes — category
+    "/api/categories",          
+    "/api/categories/:path*",
+
     // Public auth API routes (handled by isPublicPath — pass straight through)
     "/api/auth/:path*",
   ],
