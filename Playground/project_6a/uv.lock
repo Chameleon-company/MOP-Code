@@ -158,7 +158,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "charset-normalizer"
 version = "3.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -232,8 +231,6 @@ wheels = [
 ]
 
 [[package]]
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 name = "click"
 version = "8.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -730,10 +727,7 @@ dependencies = [
     { name = "seaborn" },
     { name = "segmentation-models-pytorch" },
     { name = "tqdm" },
-<<<<<<< HEAD
     { name = "ultralytics" },
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 ]
 
 [package.metadata]
@@ -749,10 +743,7 @@ requires-dist = [
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "segmentation-models-pytorch", specifier = ">=0.5.0" },
     { name = "tqdm", specifier = ">=4.67.3" },
-<<<<<<< HEAD
     { name = "ultralytics", specifier = ">=8.4.32" },
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 ]
 
 [[package]]
@@ -1422,7 +1413,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "polars"
 version = "1.39.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1451,8 +1441,6 @@ wheels = [
 ]
 
 [[package]]
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 name = "prompt-toolkit"
 version = "3.0.52"
 source = { registry = "https://pypi.org/simple" }
@@ -1725,7 +1713,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "requests"
 version = "2.33.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1741,8 +1728,6 @@ wheels = [
 ]
 
 [[package]]
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 name = "rich"
 version = "14.3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -2345,7 +2330,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "ultralytics"
 version = "8.4.32"
 source = { registry = "https://pypi.org/simple" }
@@ -2391,8 +2375,6 @@ wheels = [
 ]
 
 [[package]]
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 name = "wcwidth"
 version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }

@@ -16,8 +16,5 @@ dependencies = [
     "seaborn>=0.13.2",
     "segmentation-models-pytorch>=0.5.0",
     "tqdm>=4.67.3",
-<<<<<<< HEAD
     "ultralytics>=8.4.32",
-=======
->>>>>>> 0c90065c67ea80bc8cf4d1d977b305788509aa8f
 ]

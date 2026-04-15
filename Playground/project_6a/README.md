@@ -9,7 +9,7 @@ This repository contains notebook-based experiments for concrete crack detection
 
 - Python: `>=3.12`
 - Install dependencies: `uv sync`
-- Expected raw dataset location: `dataset/`
+- Expected dataset access: via the API v2.1 mount paths used by the notebooks. If you are running the notebooks outside that environment, set `API_V21_DATASET_ROOT` and `API_V21_SEGMENTATION_ROOT` to the mounted dataset locations.
 - Open and run the notebooks from the repository root so relative artifact paths resolve correctly.
 
 The notebooks are written to use CUDA when available, but they can still run on CPU with slower training and evaluation.
@@ -23,7 +23,7 @@ Notebook: `01_crack_segmentation_benchmark.ipynb`
 This notebook is designed to benchmark either:
 
 - crack segmentation, if paired image and mask files exist under `data/crack_segmentation`
-- cracked-vs-uncracked image classification, if only the raw SDNET2018 folder is available under `dataset/`
+- cracked-vs-uncracked image classification, if only the raw SDNET2018 folder is available via the API v2.1 dataset mount
 
 In the current repo state, the notebook detects raw SDNET2018 and automatically switches to classification mode because segmentation masks are not present.
 
@@ -99,10 +99,10 @@ Notebook: `03_yolo11_sdnet2018_still_image_classification.ipynb`
 
 This notebook builds a binary crack-classification workflow with Ultralytics YOLO11:
 
-- reads SDNET2018 from `dataset/`
+- reads SDNET2018 from the API v2.1 dataset mount path
 - converts the original surface/subclass folders into a binary `cracked` vs `uncracked` manifest
 - creates a YOLO classification directory layout under `artifacts/yolo11_sdnet2018_binary_cls_data`
-- trains `yolo11n-cls.pt`
+- trains `yolo11n-cls.pt`, which Ultralytics downloads automatically from the official assets release on first use
 - includes helper cells for held-out test evaluation, confusion matrices, and still-image inference
 
 ### Current recorded run
@@ -124,6 +124,15 @@ This notebook builds a binary crack-classification workflow with Ultralytics YOL
   - workers: `2`
   - device: CUDA if available, otherwise CPU
 - Recorded validation top-1 accuracy at epoch 20: `94.26%`
+
+### Pretrained weights
+
+The checked-in weight files are excluded from the repository and should be fetched at runtime from the official Ultralytics assets release:
+
+- `yolo11n-cls.pt`: https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11n-cls.pt
+- `yolo26n.pt`: https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26n.pt
+
+Ultralytics downloads these automatically the first time the relevant model is loaded.
 
 ### Saved artifacts
 
