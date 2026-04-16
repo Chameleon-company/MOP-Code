@@ -1,0 +1,22 @@
+column_name,description
+ACCIDENT_DATE,Date on which the accident occurred
+ACCIDENT_TIME,Time at which the accident occurred
+DAY_OF_WEEK,Day of the week of the accident
+ACCIDENT_TYPE,"Type of accident (e.g., collision, pedestrian)"
+DCA_CODE_DESCRIPTION,Detailed description of crash classification
+SEVERITY,Severity level of the accident
+LIGHT_CONDITION,Lighting condition at the time of accident
+SPEED_ZONE,Speed limit at accident location
+ROAD_GEOMETRY,"Road layout type (intersection, curve, etc.)"
+ROAD_TYPE,Type/category of road
+LGA_NAME,Local Government Area of accident
+LATITUDE,Latitude coordinate of accident location
+LONGITUDE,Longitude coordinate of accident location
+NO_OF_VEHICLES,Number of vehicles involved in the accident
+TOTAL_PERSONS,Total number of persons involved
+FATALITY,Number of fatalities
+SERIOUSINJURY,Number of serious injuries
+OTHERINJURY,Number of other (minor) injuries
+PEDESTRIAN,Number of pedestrians involved
+BICYCLIST,Number of cyclists involved
+MOTORCYCLIST,Number of motorcyclists involved
