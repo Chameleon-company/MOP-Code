@@ -1,0 +1,5 @@
+zone,pipe_count,avg_risk_score,total_expected_loss,avg_failure_prob
+commercial,1215,55.05,81491905.0,0.55
+industrial,742,55.41,46853264.0,0.55
+mixed,752,55.27,40405434.0,0.55
+residential,2291,54.93,101003359.0,0.55
