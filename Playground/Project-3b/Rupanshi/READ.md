@@ -39,3 +39,23 @@ Random Forest - AUC: 0.8468 | F1: 0.6758 | Accuracy: 0.7633
 3. Results saved to outputs and reports folders
 
 ### Project Structure
+- README.md
+- Chameleon_Water_Pipe_Prediction.ipynb
+- data/raw_epa.csv
+- data/raw_syracuse.csv
+- data/water_pipe_dataset.csv
+- outputs/01_eda.png
+- outputs/02_model_evaluation.png
+- outputs/03_shap.png
+- outputs/04_risk_dashboard.png
+- outputs/risk_assessment.csv
+- reports/pipe_analyses.txt
+- reports/qa_responses.txt
+- reports/maintenance_plan.txt
+
+### References
+1. EPA ECHO Federal Database - https://data.epa.gov
+2. City of Syracuse Open Data - https://data.syrgov.net
+3. AWWA C151, C900, M28 Standards
+4. EPA DWINS 6th Assessment Report
+5. NACE SP0169 Soil Corrosion Standards
