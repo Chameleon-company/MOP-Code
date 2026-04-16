@@ -1,0 +1,122 @@
+
+Pipe: SYR-0923 | Source: Syracuse_Real_Data
+───────────────────────────────────────────────────────
+Risk Score: 99.0/100 | Level: CRITICAL
+Material: steel | Age: 93 yrs (133% of lifespan)
+
+Risk Factors:
+  - Age: 93 years (133% of 70-year lifespan)
+  - Corrosive soil: highly_corrosive
+
+Failure Mode: External corrosion and weld deterioration
+
+Actions:
+  1. Deploy inspection crew within 7 days
+  2. Ultrasonic wall thickness testing
+  3. Acoustic leak detection
+  4. Replace within 30 days
+  5. Notify customers
+
+Standards (RAG):
+  - NACE/AWWA Soil Corrosion Standards: Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+  - EPA Drinking Water Infrastructure Guidelines: Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+───────────────────────────────────────────────────────
+
+Pipe: SYR-0377 | Source: Syracuse_Real_Data
+───────────────────────────────────────────────────────
+Risk Score: 98.2/100 | Level: CRITICAL
+Material: pvc | Age: 88 yrs (117% of lifespan)
+
+Risk Factors:
+  - Age: 88 years (117% of 75-year lifespan)
+  - Corrosive soil: highly_corrosive
+  - High pressure: 114.9 PSI
+
+Failure Mode: Brittle fracture at joints
+
+Actions:
+  1. Deploy inspection crew within 7 days
+  2. Ultrasonic wall thickness testing
+  3. Acoustic leak detection
+  4. Replace within 30 days
+  5. Notify customers
+
+Standards (RAG):
+  - AWWA C900 - PVC Pressure Pipe: Lifespan 50-100 years. Failures from brittle fracture and joint separation. Regular pressure testing recommended.
+  - NACE/AWWA Soil Corrosion Standards: Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+  - EPA Drinking Water Infrastructure Guidelines: Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+───────────────────────────────────────────────────────
+
+Pipe: SYR-0732 | Source: Syracuse_Real_Data
+───────────────────────────────────────────────────────
+Risk Score: 98.1/100 | Level: CRITICAL
+Material: steel | Age: 85 yrs (121% of lifespan)
+
+Risk Factors:
+  - Age: 85 years (121% of 70-year lifespan)
+  - Corrosive soil: corrosive
+  - High pressure: 85.6 PSI
+
+Failure Mode: External corrosion and weld deterioration
+
+Actions:
+  1. Deploy inspection crew within 7 days
+  2. Ultrasonic wall thickness testing
+  3. Acoustic leak detection
+  4. Replace within 30 days
+  5. Notify customers
+
+Standards (RAG):
+  - NACE/AWWA Soil Corrosion Standards: Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+  - EPA Drinking Water Infrastructure Guidelines: Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+───────────────────────────────────────────────────────
+
+Pipe: SYR-0135 | Source: Syracuse_Real_Data
+───────────────────────────────────────────────────────
+Risk Score: 98.0/100 | Level: CRITICAL
+Material: steel | Age: 98 yrs (140% of lifespan)
+
+Risk Factors:
+  - Age: 98 years (140% of 70-year lifespan)
+  - Corrosive soil: corrosive
+  - High pressure: 92.7 PSI
+
+Failure Mode: External corrosion and weld deterioration
+
+Actions:
+  1. Deploy inspection crew within 7 days
+  2. Ultrasonic wall thickness testing
+  3. Acoustic leak detection
+  4. Replace within 30 days
+  5. Notify customers
+
+Standards (RAG):
+  - NACE/AWWA Soil Corrosion Standards: Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+  - EPA Drinking Water Infrastructure Guidelines: Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+───────────────────────────────────────────────────────
+
+Pipe: SYR-0242 | Source: Syracuse_Real_Data
+───────────────────────────────────────────────────────
+Risk Score: 97.8/100 | Level: CRITICAL
+Material: asbestos_cement | Age: 99 yrs (141% of lifespan)
+
+Risk Factors:
+  - Age: 99 years (141% of 70-year lifespan)
+  - High-risk material: asbestos_cement
+  - Corrosive soil: corrosive
+  - Repeat failures: 3 previous repairs
+
+Failure Mode: Calcium leaching and brittleness
+
+Actions:
+  1. Deploy inspection crew within 7 days
+  2. Ultrasonic wall thickness testing
+  3. Acoustic leak detection
+  4. Replace within 30 days
+  5. Notify customers
+
+Standards (RAG):
+  - NACE/AWWA Soil Corrosion Standards: Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+  - AWWA M28 - Rehabilitation of Water Mains: Options: slip lining, pipe bursting, CIPP lining. Rehabilitation is 30-50% cheaper than replacement. Prioritize pipes with more than 3 breaks per mile per year.
+  - EPA Drinking Water Infrastructure Guidelines: Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+───────────────────────────────────────────────────────

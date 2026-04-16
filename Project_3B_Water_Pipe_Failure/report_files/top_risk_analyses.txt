@@ -1,0 +1,273 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║  🦎 CHAMELEON AI ANALYSIS                                    ║
+║  Pipe: PIPE-03589                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 RISK ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Risk Score:  95.6/100
+   Risk Level:  CRITICAL
+   Probability: 95.6% chance of failure
+
+   This cast iron pipe, installed 80 years ago, 
+   has a critically elevated failure risk.
+   It has consumed 80% of its expected 100-year lifespan.
+
+⚠️  KEY RISK FACTORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. OLD AGE: 80 years old (80% of expected 100-year lifespan)
+   2. HIGH-RISK MATERIAL: Cast Iron has known degradation issues
+   3. CORROSIVE SOIL: Highly Corrosive accelerates pipe deterioration
+   4. HIGH PRESSURE: 107.3 PSI increases stress on aging pipe
+
+🔍 PREDICTED FAILURE MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Corrosion-related failure (pitting, graphitization, or circumferential break)
+
+🔧 RECOMMENDED ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • 🚨 Deploy inspection crew within 7 days
+   • Conduct ultrasonic wall thickness testing
+   • Install cathodic protection as interim measure
+   • Schedule full replacement within 30 days
+   • Notify affected customers of potential service disruption
+   • Prepare emergency response plan for this segment
+
+📅 TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Urgency: Action required within 30 days
+   Priority Rank: #1 out of 5,000 pipes
+
+💰 FINANCIAL IMPACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Estimated Repair Cost: $155,700
+   Risk-Weighted Loss:    $148,826
+   Zone: mixed (affects repair complexity and cost)
+
+📋 APPLICABLE STANDARDS (RAG Retrieved)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📄 Cast Iron Pipe Assessment Standards
+   📄 Soil Corrosion Standards (NACE/AWWA)
+   📄 EPA Water Infrastructure Assessment Guidelines
+
+
+
+╔══════════════════════════════════════════════════════════════╗
+║  🦎 CHAMELEON AI ANALYSIS                                    ║
+║  Pipe: PIPE-02285                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 RISK ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Risk Score:  95.5/100
+   Risk Level:  CRITICAL
+   Probability: 95.5% chance of failure
+
+   This cast iron pipe, installed 58 years ago, 
+   has a critically elevated failure risk.
+   It has consumed 58% of its expected 100-year lifespan.
+
+⚠️  KEY RISK FACTORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. OLD AGE: 58 years old (58% of expected 100-year lifespan)
+   2. HIGH-RISK MATERIAL: Cast Iron has known degradation issues
+   3. CORROSIVE SOIL: Highly Corrosive accelerates pipe deterioration
+   4. HIGH SOIL MOISTURE: 83.8% increases corrosion rate
+   5. REPEAT FAILURES: 4 previous repairs suggest systemic deterioration
+   6. HIGH PRESSURE: 82.8 PSI increases stress on aging pipe
+
+🔍 PREDICTED FAILURE MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Corrosion-related failure (pitting, graphitization, or circumferential break)
+
+🔧 RECOMMENDED ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • 🚨 Deploy inspection crew within 7 days
+   • Conduct ultrasonic wall thickness testing
+   • Install cathodic protection as interim measure
+   • Schedule full replacement within 30 days
+   • Notify affected customers of potential service disruption
+   • Prepare emergency response plan for this segment
+
+📅 TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Urgency: Action required within 30 days
+   Priority Rank: #2 out of 5,000 pipes
+
+💰 FINANCIAL IMPACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Estimated Repair Cost: $99,499
+   Risk-Weighted Loss:    $94,981
+   Zone: industrial (affects repair complexity and cost)
+
+📋 APPLICABLE STANDARDS (RAG Retrieved)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📄 Cast Iron Pipe Assessment Standards
+   📄 Soil Corrosion Standards (NACE/AWWA)
+   📄 AWWA M28 - Rehabilitation of Water Mains
+   📄 EPA Water Infrastructure Assessment Guidelines
+
+
+
+╔══════════════════════════════════════════════════════════════╗
+║  🦎 CHAMELEON AI ANALYSIS                                    ║
+║  Pipe: PIPE-04400                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 RISK ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Risk Score:  95.4/100
+   Risk Level:  CRITICAL
+   Probability: 95.4% chance of failure
+
+   This cast iron pipe, installed 79 years ago, 
+   has a critically elevated failure risk.
+   It has consumed 79% of its expected 100-year lifespan.
+
+⚠️  KEY RISK FACTORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. OLD AGE: 79 years old (79% of expected 100-year lifespan)
+   2. HIGH-RISK MATERIAL: Cast Iron has known degradation issues
+   3. CORROSIVE SOIL: Corrosive accelerates pipe deterioration
+   4. HIGH SOIL MOISTURE: 81.9% increases corrosion rate
+
+🔍 PREDICTED FAILURE MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Corrosion-related failure (pitting, graphitization, or circumferential break)
+
+🔧 RECOMMENDED ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • 🚨 Deploy inspection crew within 7 days
+   • Conduct ultrasonic wall thickness testing
+   • Install cathodic protection as interim measure
+   • Schedule full replacement within 30 days
+   • Notify affected customers of potential service disruption
+   • Prepare emergency response plan for this segment
+
+📅 TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Urgency: Action required within 30 days
+   Priority Rank: #3 out of 5,000 pipes
+
+💰 FINANCIAL IMPACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Estimated Repair Cost: $92,703
+   Risk-Weighted Loss:    $88,431
+   Zone: industrial (affects repair complexity and cost)
+
+📋 APPLICABLE STANDARDS (RAG Retrieved)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📄 Cast Iron Pipe Assessment Standards
+   📄 Soil Corrosion Standards (NACE/AWWA)
+   📄 EPA Water Infrastructure Assessment Guidelines
+
+
+
+╔══════════════════════════════════════════════════════════════╗
+║  🦎 CHAMELEON AI ANALYSIS                                    ║
+║  Pipe: PIPE-02901                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 RISK ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Risk Score:  95.2/100
+   Risk Level:  CRITICAL
+   Probability: 95.2% chance of failure
+
+   This cast iron pipe, installed 56 years ago, 
+   has a critically elevated failure risk.
+   It has consumed 56% of its expected 100-year lifespan.
+
+⚠️  KEY RISK FACTORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. OLD AGE: 56 years old (56% of expected 100-year lifespan)
+   2. HIGH-RISK MATERIAL: Cast Iron has known degradation issues
+   3. CORROSIVE SOIL: Highly Corrosive accelerates pipe deterioration
+   4. REPEAT FAILURES: 3 previous repairs suggest systemic deterioration
+
+🔍 PREDICTED FAILURE MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Corrosion-related failure (pitting, graphitization, or circumferential break)
+
+🔧 RECOMMENDED ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • 🚨 Deploy inspection crew within 7 days
+   • Conduct ultrasonic wall thickness testing
+   • Install cathodic protection as interim measure
+   • Schedule full replacement within 30 days
+   • Notify affected customers of potential service disruption
+   • Prepare emergency response plan for this segment
+
+📅 TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Urgency: Action required within 30 days
+   Priority Rank: #4 out of 5,000 pipes
+
+💰 FINANCIAL IMPACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Estimated Repair Cost: $174,302
+   Risk-Weighted Loss:    $166,021
+   Zone: commercial (affects repair complexity and cost)
+
+📋 APPLICABLE STANDARDS (RAG Retrieved)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📄 Cast Iron Pipe Assessment Standards
+   📄 Soil Corrosion Standards (NACE/AWWA)
+   📄 AWWA M28 - Rehabilitation of Water Mains
+   📄 EPA Water Infrastructure Assessment Guidelines
+
+
+
+╔══════════════════════════════════════════════════════════════╗
+║  🦎 CHAMELEON AI ANALYSIS                                    ║
+║  Pipe: PIPE-03873                                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 RISK ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Risk Score:  95.0/100
+   Risk Level:  CRITICAL
+   Probability: 95.0% chance of failure
+
+   This cast iron pipe, installed 84 years ago, 
+   has a critically elevated failure risk.
+   It has consumed 84% of its expected 100-year lifespan.
+
+⚠️  KEY RISK FACTORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. OLD AGE: 84 years old (84% of expected 100-year lifespan)
+   2. HIGH-RISK MATERIAL: Cast Iron has known degradation issues
+   3. REPEAT FAILURES: 3 previous repairs suggest systemic deterioration
+
+🔍 PREDICTED FAILURE MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Corrosion-related failure (pitting, graphitization, or circumferential break)
+
+🔧 RECOMMENDED ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • 🚨 Deploy inspection crew within 7 days
+   • Conduct ultrasonic wall thickness testing
+   • Install cathodic protection as interim measure
+   • Schedule full replacement within 30 days
+   • Notify affected customers of potential service disruption
+   • Prepare emergency response plan for this segment
+
+📅 TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Urgency: Action required within 30 days
+   Priority Rank: #5 out of 5,000 pipes
+
+💰 FINANCIAL IMPACT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Estimated Repair Cost: $118,980
+   Risk-Weighted Loss:    $113,026
+   Zone: residential (affects repair complexity and cost)
+
+📋 APPLICABLE STANDARDS (RAG Retrieved)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📄 Cast Iron Pipe Assessment Standards
+   📄 AWWA M28 - Rehabilitation of Water Mains
+   📄 EPA Water Infrastructure Assessment Guidelines
+
+

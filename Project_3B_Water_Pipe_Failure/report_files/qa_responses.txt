@@ -1,0 +1,43 @@
+Q: What causes cast iron pipe failure?
+
+[Cast Iron Pipe Assessment Standards]
+Pipes before 1970 are highest risk. Common failures: circumferential breaks, pitting, graphitization. Replace cast iron in corrosive soil with more than 2 previous breaks.
+
+Data: 3,000 pipes | Critical: 656 | Loss: $141,838,239
+
+Q: When should pipes be replaced versus rehabilitated?
+
+[Cast Iron Pipe Assessment Standards]
+Pipes before 1970 are highest risk. Common failures: circumferential breaks, pitting, graphitization. Replace cast iron in corrosive soil with more than 2 previous breaks.
+
+[AWWA M28 - Rehabilitation of Water Mains]
+Options: slip lining, pipe bursting, CIPP lining. Rehabilitation is 30-50% cheaper than replacement. Prioritize pipes with more than 3 breaks per mile per year.
+
+Data: 3,000 pipes | Critical: 656 | Loss: $141,838,239
+
+Q: How do soil conditions affect pipe corrosion?
+
+[NACE/AWWA Soil Corrosion Standards]
+Soil resistivity below 2000 ohm-cm is highly corrosive. pH below 5.5 or above 8.5 increases risk. High moisture with clay is worst combination for metallic pipes.
+
+[Cast Iron Pipe Assessment Standards]
+Pipes before 1970 are highest risk. Common failures: circumferential breaks, pitting, graphitization. Replace cast iron in corrosive soil with more than 2 previous breaks.
+
+Data: 3,000 pipes | Critical: 656 | Loss: $141,838,239
+
+Q: What is the recommended inspection frequency for critical pipes?
+
+[EPA Drinking Water Infrastructure Guidelines]
+Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+
+Data: 3,000 pipes | Critical: 656 | Loss: $141,838,239
+
+Q: How can we reduce financial losses from pipe failures?
+
+[AWWA M28 - Rehabilitation of Water Mains]
+Options: slip lining, pipe bursting, CIPP lining. Rehabilitation is 30-50% cheaper than replacement. Prioritize pipes with more than 3 breaks per mile per year.
+
+[EPA Drinking Water Infrastructure Guidelines]
+Consider pipe age, material, soil, break history, and criticality. Inspect critical pipes annually. Maintain all repair and inspection records.
+
+Data: 3,000 pipes | Critical: 656 | Loss: $141,838,239
