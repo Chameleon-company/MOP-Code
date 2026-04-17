@@ -53,7 +53,7 @@ export default function AdminSidebar({
       <nav className="px-2 pt-4 space-y-2">
         {menuItems.map((item) => {
           const href = `/${locale}${item.path}`;
-          const isActive = pathname === href;
+          const isActive = pathname === href || pathname.startsWith(`${href}/`)
           const Icon = item.icon;
 
           return (
