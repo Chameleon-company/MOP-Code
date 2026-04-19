@@ -8,6 +8,7 @@ export enum CATEGORY {
 export enum SEARCH_MODE {
   TITLE = "title",
   CONTENT = "content",
+  TAG = "tag"
 }
 
 export type SearchParams = {
