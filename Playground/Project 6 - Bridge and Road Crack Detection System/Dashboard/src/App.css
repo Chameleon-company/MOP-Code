@@ -1,0 +1,65 @@
+:root {
+  --bg: #4d4d4d;
+  --surface: #3d3632;
+  --border: #4a4c5a;
+  --text: #ffffff;
+  --accent: #3a8663;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.MuiDataGrid-root {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.MuiDataGrid-columnHeader {
+  background-color: #252525 !important;
+}
+
+.MuiDataGrid-filler {
+  background-color: #252525 !important;
+}
+
+.MuiDataGrid-row:hover {
+  background-color: var(--border) !important;
+}
+
+.MuiDataGrid-row.Mui-selected {
+  background-color: var(--accent) !important;
+}
+
+
+.MuiDataGrid-cell {
+  border-color: var(--border) !important;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.submit {
+  margin-top: 1rem;
+  background-color: #4f8c00;
+}
+
+.submit:hover {
+  border-color: #d6d8fa;
+}
+
