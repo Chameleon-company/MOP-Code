@@ -25,7 +25,7 @@ export function Home() {
             `Estimated largest crack length ratio: ${report.estimatedcracklength}`,
             `Risk Assessment: ${report.riskassessment || 'N/A'}`,
             `Recommended repair: ${report.repairactions || 'N/A'}`,
-            `Next action: ${report.inspectionschedule || 'N/A'}`
+            `Inspection Schedule: ${report.inspectionschedule || 'N/A'}`
         ].join('\n\n')
     }
 

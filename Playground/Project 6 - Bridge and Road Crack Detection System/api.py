@@ -1,25 +1,37 @@
+
+import requests
 from flask import Flask, request, jsonify
-import random
 from dotenv import load_dotenv
 import os
 from supabase import create_client, Client
 from flask_cors import CORS
 from pathlib import Path
-import sys
 from PIL import Image
 import io
-import threading
 from concurrent.futures import ThreadPoolExecutor
+import tempfile
+import cv2
+import numpy as np
 
+# ── TO-DO ──────────────    
+
+# - UploadImage should use generateAiReports function
+# - Image to Binary Mask conversion needs to be added to image upload
+# - Image upload also needs to upload image to seperate supabase database
+
+
+
+
+# ── Local imports ────────────────────
 from Metric_Generator.crackAnalyser import generateMetricReport
 from LLM_pipeline.llm import report_generation
 from reportGenerationHelpers import fetchSingleRow, uploadReport, changeRowStatus, convertReport, generateAiReport, updateRowWithAiReport
-
+from crack_detection.pipeline import run_pipeline
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-#Supdabase database connection 
+# ── Supabase Setup ────────────────────
 result = load_dotenv(Path(__file__).parent / '.env.local', verbose=True)
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_PUBLISHABLE_DEFAULT_KEY")
@@ -27,22 +39,34 @@ SUPABASE_KEY = os.getenv("SUPABASE_PUBLISHABLE_DEFAULT_KEY")
 print("Supabase URL:", SUPABASE_URL)
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-#How many threads can be created by the AI report generator:
+# ── Threading setup (Used by background AI reports) ────────────────────
 executor = ThreadPoolExecutor(max_workers=4)
 
-       
+
+# ── Ping Endpoint ──────────────    
 @app.get("/api/ping")
 def ping():
     return jsonify("Hello from the Road Crack Detection Project!"), 200
 
+
+
+# ── Get all rows ──────────────    
 @app.route("/api/getData")
 def get_data():
-    data = supabase.table("crack_reports").select("*").execute()
-    if data.data is None:
-        return jsonify({"error": "Couldnt load crack reports"}), 500
+    try:
+        data = supabase.table("crack_reports").select("*").execute()
+        if data.data is None:
+            return jsonify({"error": "Couldnt load crack reports"}), 500
     
-    return jsonify({"Data": data.data})
+        return jsonify({"Data": data.data})
+    except ConnectionError as e:
+        return jsonify(f"Error connection to Supabase database {e}"), 500
+    except TimeoutError as e:
+        return jsonify(f"Connection timed out {e}"), 500
+    except Exception as e:
+        return jsonify({"error": "Couldnt load crack reports"}), 500
 
+# ── Get all rows without an AI report ──────────────    
 @app.route("/api/getNoReportData")
 def get_no_report_data():
     try:
@@ -58,17 +82,19 @@ def get_no_report_data():
     except Exception as e:
         return jsonify({"error": "Couldnt load crack reports"}), 500 
     
-
+# ── Generate AI report in the background ──────────────    
 @app.patch("/api/generateAiReport")
 def generateAiReports():
-    #Get ID's from request and ensure they can be found within the database.
     try:
-        #executor.submit(startReportGeneration, report)
+        #Get ID's
         data = request.get_json()
         idArray = data.get("IDs")
         print(idArray)
+        
         reports = []
         rows = []
+        
+        #Check if id's are in the database
         for id in idArray:
             row = fetchSingleRow(supabase, id)
             if row == None:
@@ -82,16 +108,19 @@ def generateAiReports():
     
     
     def executeReportgeneration(report):
-        print(report)
+        #Change status to pending
         try:
             changeRowStatus(supabase, report["id"], "Pending")
         except Exception as e:
             print(f"Error updating status to pending: {e}")
         
+        #Convert report to correct format, generate AI report and upload it
         try:
             convertedReport = convertReport(report)
             newReport = generateAiReport(convertedReport)
             updateRowWithAiReport(supabase, newReport)
+            
+        #If anything goes wrong status must be reverted back to None
         except Exception as e:
             try:
                 changeRowStatus(supabase, report["id"], "None")
@@ -99,29 +128,53 @@ def generateAiReports():
             except:
                 print(f"CRITICAL ERROR, Could change report status back to None: {e}")
     
+    #For each row that corresponds with the uploaded ID's run reeport generation (multi threaded)
     for row in rows:
         executor.submit(executeReportgeneration, row)       
 
     return jsonify({"message": "Report Generation started"}), 202
  
 
-
+# ── Take image, convert to binary mask, generate metric and if selected generate AI report ──────────────    
 @app.post("/api/uploadImage")
 def uploadImage():
+    #Get flag, if flag is true AI report generation should also be executed
     flag = request.args.get("flag", "false").lower() == "true"
     file = request.files["file"]
     filename = file.filename 
+    
     imageBytes = file.read()
     image = Image.open(io.BytesIO(imageBytes))
     
+    #Image to crack mask conversion.
+    if image is not None:   
+        temp_dir = tempfile.gettempdir() 
+        temp_path = os.path.join(temp_dir, filename)
+        image.save(temp_path)
+        result = run_pipeline(temp_path)      
+        
+    else:
+        return jsonify(f"Image was None: {e}"), 400
+    
     try:
-        report = generateMetricReport(image, filename)
+        mask_url = result["mask_url"]
+        response = requests.get(mask_url)
+        mask_png = response.content
+        mask = Image.open(io.BytesIO(mask_png))
+    except Exception as e:
+        return jsonify(f"Error retrieving crack mask from supabase: {e}"), 500
+    
+    #Generate crack metrics
+    try:
+        print("Generating Crack metrics")
+        report = generateMetricReport(mask, filename)
     except Exception as e:
         return jsonify(f"Error generating report: {e}"), 500
 
     if report["crack_detected"] == False:
         return jsonify("No crack detected in image"), 200
     
+    #upload, if flag is true start AI report generation
     elif report["crack_detected"] == True:
         try:
             del report["crack_detected"]

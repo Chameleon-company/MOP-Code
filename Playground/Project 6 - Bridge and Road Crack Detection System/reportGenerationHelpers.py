@@ -3,6 +3,8 @@ from LLM_pipeline.llm import report_generation
 
 print("reportGenerationHelpers loaded")
 
+# ── Fetch Single Row ────────────────────
+#Based on ID
 def fetchSingleRow(supabase, id):
     try:
         print("Called")
@@ -13,7 +15,7 @@ def fetchSingleRow(supabase, id):
     except Exception as e:
         raise Exception
     
-    
+# ── Upload Report ────────────────────
 def uploadReport(supabase, report):
     print(f"Report = {report}")
     try:
@@ -32,7 +34,8 @@ def uploadReport(supabase, report):
     except Exception as e:
         raise
 
-    
+# ── Convert Report ────────────────────
+#Converts from format used in the database to format used for AI report generation 
 def convertReport(oldReport):
     report = {
         "id": oldReport["id"],
@@ -48,6 +51,8 @@ def convertReport(oldReport):
     return report
 
 
+# ── Change Row Status ────────────────────
+#Should only be changed to either None or Pending. Status change to Generated happens when AI report is uploaded. 
 def changeRowStatus(supabase, id, status):
     if status != "Pending" and status != "None":
         print("status must be Pending or None")
@@ -59,6 +64,7 @@ def changeRowStatus(supabase, id, status):
         print(f"Error updating row {id} to {status}. Error: {e}")
 
 
+# ── Generate AI Report ────────────────────
 def generateAiReport(report):
     try:
         llm_result = report_generation(report)
@@ -77,7 +83,7 @@ def generateAiReport(report):
         raise Exception(f"General Error: {e}")
     
     
-
+# ── Update report Columns ────────────────────
 def updateRowWithAiReport(supabase, report):
     try:
         supabase.table("crack_reports").update({

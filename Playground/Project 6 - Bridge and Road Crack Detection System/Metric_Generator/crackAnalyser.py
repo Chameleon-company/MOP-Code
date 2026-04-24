@@ -170,11 +170,11 @@ def printForTesting(crackMasks, totalCrackPixelCount, mask):
         
 def generateMetricReport(mask, imgName):
     if mask.format not in SUPPORTED_IMAGE_FORMATS and not isinstance(mask, list):
+        print("Type Error")
         raise TypeError
      
     if mask.format in SUPPORTED_IMAGE_FORMATS:
         mask = convertMask(mask)
-    
     
     #locateIndividualCracks creates a mask of each crack and finds its size (total pixels)
     crackCount, totalCrackPixelCount, crackMasks = locateIndividualCracks(mask)

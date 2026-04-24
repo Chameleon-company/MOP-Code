@@ -8,7 +8,7 @@ scikit-image==0.25.2
 streamlit==1.56.0
 openai==2.32.0
 sentence-transformers==5.4.1
-chromadb
-tiktoken
-nltk
+chromadb==1.5.8
+tiktoken==0.12.0
+nltk==3.9.4
 
