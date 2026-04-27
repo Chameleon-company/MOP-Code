@@ -4,3 +4,6 @@ matplotlib
 scikit-learn
 nltk
 jupyter
+streamlit
+sentence-transformers
+PyPDF2
