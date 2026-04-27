@@ -1,17 +1,77 @@
-# Resume Job Matcher
 
-A notebook-based prototype that ranks job postings against a resume using a combination of text similarity and skill overlap.
+# **Resume Job Matcher**
 
-## What It Does
+An NLP-based Resume-to-Job Matching Assistant that evaluates how well a candidate’s resume aligns with a job description using a combination of keyword matching, semantic similarity, and skill analysis.
 
-This project compares a resume with a set of job descriptions and produces ranked matches. It uses two signals:
+---
 
-- TF-IDF + cosine similarity for overall text relevance
-- Skill extraction and overlap for a more targeted match score
+## **Overview**
 
-The notebook then combines those scores into a final prototype score and exports the results.
+This project started as a notebook-based prototype and was extended into a full system that combines multiple matching techniques to produce a more accurate and interpretable **job-fit score**.
 
-## Project Structure
+The system helps users:
+
+* Identify strong-fit roles
+* Understand skill gaps
+* Avoid applying to poorly matched jobs
+
+---
+
+## **Key Features**
+
+### **1. Multi-Method Matching**
+
+The system uses three complementary approaches:
+
+* **TF-IDF + Cosine Similarity**
+  Captures keyword-level relevance between resume and job description.
+
+* **Semantic Similarity (Embeddings)**
+  Uses `sentence-transformers` to understand contextual meaning and related concepts.
+
+* **Skill Extraction & Gap Analysis**
+  Identifies:
+
+  * Matched skills
+  * Missing skills
+    based on a curated technical skill list.
+
+---
+
+### **2. Hybrid Scoring Model**
+
+A final **Job Fit Score (%)** is computed using:
+
+* 50% Semantic similarity
+* 30% Skill overlap
+* 20% TF-IDF similarity
+
+This balances:
+
+* contextual understanding
+* explicit skill requirements
+* keyword precision
+
+---
+
+### **3. Interactive UI (Streamlit App)**
+
+A lightweight web interface allows users to:
+
+* Upload a resume (`.txt` or `.pdf`)
+* Or paste resume text
+* Paste a job description
+* Generate:
+
+  * Job Fit Score (%)
+  * TF-IDF match score
+  * Semantic match score
+  * Skill overlap score
+  * Matched & missing skills
+
+---
+
+## **Project Structure**
 
 ```text
 resume_job_matcher/
@@ -23,65 +83,158 @@ resume_job_matcher/
 ├── outputs/
 │   ├── final_prototype_results.csv
 │   ├── ranked_jobs.csv
-│   └── prototype_results_chart.png
-├── src/
-└── requirements.txt
+│   ├── prototype_results_chart.png
+│   └── tfidf_vs_semantic_comparison.csv
+├── app.py
+├── requirements.txt
+└── README.md
 ```
 
-## Notebook Workflow
+---
 
-The notebook is organized into clear sections:
+## **Notebook Workflow**
+
+The notebook follows a structured pipeline:
 
 1. Imports and setup
 2. Load input data
 3. Text preprocessing
-4. Text similarity matching
-5. Skill extraction and overlap
-6. Final scoring and ranking
-7. Reporting, visualization, and export
+4. TF-IDF similarity (baseline model)
+5. Skill extraction and gap analysis
+6. Prototype scoring and ranking
+7. Semantic similarity (advanced model)
+8. TF-IDF vs semantic comparison
+9. Final hybrid scoring model
+10. Evaluation and reflection
 
-## Requirements
+---
 
-Install the Python packages listed in `requirements.txt`.
+## **Requirements**
 
-Typical dependencies include:
+Install dependencies using:
 
-- pandas
-- nltk
-- scikit-learn
-- matplotlib
+```bash
+pip install -r requirements.txt
+```
 
-## How to Run
+### Main libraries:
 
-1. Open `notebooks/resume_job_matching.ipynb`.
-2. Run the cells from top to bottom.
-3. Make sure the data files are available in `data/`.
-4. Review the ranked matches and generated outputs in `outputs/`.
+* pandas
+* nltk
+* scikit-learn
+* matplotlib
+* sentence-transformers
+* streamlit
+* PyPDF2
 
-## Inputs
+---
 
-- `data/resume.txt`: Plain-text resume used as the matching profile
-- `data/jobs.csv`: Job postings dataset with job titles, companies, and descriptions
+## **How to Run**
 
-## Outputs
+### **Notebook (Analysis & Development)**
 
-The notebook writes the following files to `outputs/`:
+1. Open:
 
-- `ranked_jobs.csv`: Jobs ranked by similarity score
-- `final_prototype_results.csv`: Final combined results with match and skill scores
-- `prototype_results_chart.png`: Bar chart of final prototype scores
+   ```
+   notebooks/resume_job_matching.ipynb
+   ```
+2. Run all cells from top to bottom.
+3. Ensure data files exist in `data/`.
+4. Outputs will be saved in `outputs/`.
 
-## Matching Logic
+---
 
-The ranking is based on a weighted score:
+### **Streamlit App (UI)**
 
-- 70% text match score
-- 30% skill overlap score
+Run:
 
-This keeps the prototype simple while still reflecting both broad relevance and concrete skill alignment.
+```bash
+streamlit run app.py
+```
 
-## Notes
+Then open the browser link (usually `http://localhost:8501`).
 
-- The notebook downloads the NLTK `punkt` and `stopwords` resources on first run.
-- If you change the resume or job data, rerun the notebook from the top to refresh all outputs.
+---
+
+## **Inputs**
+
+* `data/resume.txt`: Resume used for matching (plain text)
+* `data/jobs.csv`: Job dataset with:
+
+  * title
+  * company
+  * description
+
+### UI Inputs:
+
+* Resume upload (`.txt` or `.pdf`) or pasted text
+* Single job description (pasted)
+
+---
+
+## **Outputs**
+
+### Notebook outputs:
+
+* `ranked_jobs.csv`: TF-IDF ranking results
+* `final_prototype_results.csv`: Combined prototype scores
+* `tfidf_vs_semantic_comparison.csv`: Method comparison
+* `prototype_results_chart.png`: Visualization
+
+### UI outputs:
+
+* Job Fit Score (%)
+* TF-IDF match
+* Semantic match
+* Skill overlap
+* Matched skills
+* Missing skills
+
+---
+
+## **Core Insights**
+
+* **TF-IDF** is precise but limited to exact keywords
+* **Semantic similarity** captures meaning but can overgeneralize
+* **Skill overlap** improves interpretability but may introduce bias
+
+A **hybrid approach** produces the most balanced results.
+
+---
+
+## **Limitations**
+
+* Scoring weights are manually defined (not learned from real data)
+* Skill extraction depends on a predefined list
+* Does not account for:
+
+  * experience level
+  * years of experience
+  * project depth
+* Does not predict actual hiring outcomes (only job-fit estimation)
+
+---
+
+## **Future Improvements**
+
+* Learn scoring weights from real hiring data
+* Improve skill extraction using NLP (e.g., NER)
+* Add resume parsing for structured formats (PDF/DOCX)
+* Integrate LLM-based explanations or recommendations
+* Expand UI into a full application
+
+---
+
+## **Summary**
+
+This project demonstrates how combining multiple NLP techniques can improve resume-to-job matching by balancing:
+
+* keyword precision
+* contextual understanding
+* skill-based reasoning
+
+It evolves from a simple prototype into a **hybrid decision-support system** with both analytical and practical applications.
+
+---
+
 
