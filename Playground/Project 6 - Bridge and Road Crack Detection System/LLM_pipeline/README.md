@@ -131,3 +131,5 @@ Search returned 5 result(s).
 
   inspection_schedule: low - All three inspection items directly reflect the retrieved context: recording crack dimensions/location/orientation and associated rust/efflorescence/differential movement; reviewing codes, analyses, drawings/specs, soil investigations, construction records, and prior reports and comparing foundation movement/loads; and for prestressed structures checking analysis/drawings/actual stressing forces, shrinkage/creep, and environmental factors. No additional requirements beyond the context are introduced.
 ```
+
+For further query please contact: Long Tran (s223128143)

@@ -11,4 +11,5 @@ sentence-transformers==5.4.1
 chromadb==1.5.8
 tiktoken==0.12.0
 nltk==3.9.4
+gdown
 
