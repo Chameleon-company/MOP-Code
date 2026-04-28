@@ -16,8 +16,6 @@ import numpy as np
 # ── TO-DO ──────────────    
 
 # - UploadImage should use generateAiReports function
-# - Image to Binary Mask conversion needs to be added to image upload
-# - Image upload also needs to upload image to seperate supabase database
 
 
 
@@ -25,7 +23,7 @@ import numpy as np
 # ── Local imports ────────────────────
 from Metric_Generator.crackAnalyser import generateMetricReport
 from LLM_pipeline.llm import report_generation
-from reportGenerationHelpers import fetchSingleRow, uploadReport, changeRowStatus, convertReport, generateAiReport, updateRowWithAiReport
+from reportGenerationHelpers import fetchSingleRow, uploadReport, changeRowStatus, convertReport, generateAiReport, updateRowWithAiReport, noCrackReport
 from crack_detection.pipeline import run_pipeline
 
 app = Flask(__name__)
@@ -46,7 +44,7 @@ executor = ThreadPoolExecutor(max_workers=4)
 # ── Ping Endpoint ──────────────    
 @app.get("/api/ping")
 def ping():
-    return jsonify("Hello from the Road Crack Detection Project!"), 200
+    return jsonify({"message": "Hello from the Road Crack Detection Project!"}), 200
 
 
 
@@ -56,15 +54,15 @@ def get_data():
     try:
         data = supabase.table("crack_reports").select("*").execute()
         if data.data is None:
-            return jsonify({"error": "Couldnt load crack reports"}), 500
+            return jsonify({"error": "Couldnt load crack reports. No Data returned"}), 404
     
         return jsonify({"Data": data.data})
     except ConnectionError as e:
-        return jsonify(f"Error connection to Supabase database {e}"), 500
+        return jsonify({"error": f"Couldnt connect to supabase: {e}"}), 500
     except TimeoutError as e:
-        return jsonify(f"Connection timed out {e}"), 500
+        return jsonify({"error": f"Connection timed out: {e}"}), 500
     except Exception as e:
-        return jsonify({"error": "Couldnt load crack reports"}), 500
+        return jsonify({"error": f"Undefined Error: {e}"}), 500
 
 # ── Get all rows without an AI report ──────────────    
 @app.route("/api/getNoReportData")
@@ -72,16 +70,15 @@ def get_no_report_data():
     try:
         data = supabase.table("crack_reports").select("*").eq("reportstatus", "None").execute()
         if data.data is None:
-            return jsonify({"error": "Couldnt load crack reports"}), 500
+            return jsonify({"error": "Couldnt load crack reports. No Data returned"}), 500
         
         return jsonify({"Data": data.data})
     except ConnectionError as e:
-        return jsonify(f"Error connection to Supabase database {e}"), 500
+        return jsonify({"error": f"Couldnt connect to supabase: {e}"}), 500
     except TimeoutError as e:
-        return jsonify(f"Connection timed out {e}"), 500
+        return jsonify({"error": f"Connection timed out: {e}"}), 500
     except Exception as e:
-        return jsonify({"error": "Couldnt load crack reports"}), 500 
-    
+        return jsonify({"error": f"Undefined Error: {e}"}), 500
 # ── Generate AI report in the background ──────────────    
 @app.patch("/api/generateAiReport")
 def generateAiReports():
@@ -98,13 +95,13 @@ def generateAiReports():
         for id in idArray:
             row = fetchSingleRow(supabase, id)
             if row == None:
-                return jsonify(f"No row with id {id} could be found: {e}"), 500
+                return jsonify({"error": f"No row with id {id} could be found: {e}"}), 500
             else:
                 rows.append(row)
                 
     except Exception as e:
         print(e)
-        return jsonify(f"Error: {e}"), 500
+        return jsonify({"error": f"Error: {e}"}), 500
     
     
     def executeReportgeneration(report):
@@ -112,7 +109,7 @@ def generateAiReports():
         try:
             changeRowStatus(supabase, report["id"], "Pending")
         except Exception as e:
-            print(f"Error updating status to pending: {e}")
+            print({"error": f"Error updating status to pending: {e}"})
         
         #Convert report to correct format, generate AI report and upload it
         try:
@@ -124,9 +121,9 @@ def generateAiReports():
         except Exception as e:
             try:
                 changeRowStatus(supabase, report["id"], "None")
-                print(f"Error generating AI report: {e}")
+                print({"error": f"Error generating AI report: {e}"})
             except:
-                print(f"CRITICAL ERROR, Could change report status back to None: {e}")
+                print({"error": f"CRITICAL ERROR, Could change report status back to None: {e}"})
     
     #For each row that corresponds with the uploaded ID's run reeport generation (multi threaded)
     for row in rows:
@@ -154,7 +151,7 @@ def uploadImage():
         result = run_pipeline(temp_path)      
         
     else:
-        return jsonify(f"Image was None: {e}"), 400
+        return jsonify({"error": f"Image was None: {e}"}), 400
     
     try:
         mask_url = result["mask_url"]
@@ -162,16 +159,17 @@ def uploadImage():
         mask_png = response.content
         mask = Image.open(io.BytesIO(mask_png))
     except Exception as e:
-        return jsonify(f"Error retrieving crack mask from supabase: {e}"), 500
+        return jsonify({"error": f"Error retrieving crack mask from supabase: {e}"}), 500
     
     #Generate crack metrics
     try:
         print("Generating Crack metrics")
         report = generateMetricReport(mask, filename)
     except Exception as e:
-        return jsonify(f"Error generating report: {e}"), 500
-
+        return jsonify({"error": f"Error generating report: {e}"}), 500
+    
     if report["crack_detected"] == False:
+        report = noCrackReport(report)
         return jsonify("No crack detected in image"), 200
     
     #upload, if flag is true start AI report generation
@@ -202,15 +200,15 @@ def uploadImage():
             return jsonify(report), 201    
             
         except AttributeError as e:
-            return jsonify(f"Missing / invalid field on report object: {e}"), 500
+            return jsonify({"error": f"Missing / invalid field on report object: {e}"}), 500
         except ConnectionError as e:
-            return jsonify(f"Error connection to Supabase database {e}"), 500
+            return jsonify({"error": f"Error connection to Supabase database {e}"}), 500
         except TimeoutError as e:
-            return jsonify(f"Connection timed out {e}"), 500
+            return jsonify({"error": f"Connection timed out {e}"}), 500
         except Exception as e:
-            return jsonify(f"Unknown error occurred uploading to database: {e}"), 500
+            return jsonify({"error": f"Unknown error occurred uploading to database: {e}"}), 500
     else:
-        return jsonify(f"No crack_detected field found"), 500
+        return jsonify({"error": f"No crack_detected field found"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
