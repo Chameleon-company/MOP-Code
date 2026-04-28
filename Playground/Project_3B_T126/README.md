@@ -16,12 +16,30 @@ To keep the final repository clear and easy to review, the project has been orga
 Project_3B_T126/
 ├── README.md
 ├── REPORT.md
-├── 01_Project_3B_Demo.ipynb
-├── requirements.txt
+├── Project_3B.ipynb
+│
 ├── data/
+│   ├── raw/
+│   │   ├── Kitchener/
+│   │   ├── Melbourne/
+│   │   └── external_soil/
+│   └── processed/
+│       ├── kitchener_breaks_clean.csv
+│       ├── kitchener_mains_clean.csv
+│       ├── kitchener_pipe_level.csv
+│       ├── kitchener_pipe_master.csv
+│       └── kitchener_model_ready.csv
+│
 ├── src/
-├── outputs/
+│   ├── kitchener_preprocessing.py
+│   ├── random_forest_model.py
+│   ├── logistic_regression_model.py
+│   ├── xgboost_model.py
+│   └── evaluation.py
+│
 └── archive/
+    ├── old_versions/
+    └── unused_files/
 ```
 
 ## Folder Guide
