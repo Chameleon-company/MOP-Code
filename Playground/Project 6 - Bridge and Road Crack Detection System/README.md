@@ -25,6 +25,26 @@ OPENAI_API_KEY=your_openai_key
 ### Install Python dependencies
 `pip install -r requirements.txt`
 
+### Set up supebase
+Create a table named `crack_reports` with the following columns
+|        Column        |  Type  |
+|:--------------------:|:------:|
+| id                   | uuid   |
+| imageid              | text   |
+| severity             | text   |
+| numcracks            | int8   |
+| crackarearatio       | float8 |
+| estimatedcracklength | float8 |
+| damagelevel          | float8 |
+| reportstatus         | text   |
+| riskassessment       | text   |
+| repairactions        | text   |
+| inspectionschedule   | text   |
+
+Make sure to Disable RLS.
+
+Go to Storage and create 2 buckets named `original-images` and `crack-masks`.
+
 ## Run application
 Run the backend first
 ```
