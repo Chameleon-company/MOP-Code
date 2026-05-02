@@ -4,6 +4,7 @@ import { Bell, Search, UserCircle2, Settings, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AdminHeader() {
   const [profileOpen, setProfileOpen] = useState(false);
@@ -30,34 +31,37 @@ export default function AdminHeader() {
 
   const handleLogout = () => {
     setProfileOpen(false);
-
-    // later you can also clear token/cookies here
-    // localStorage.removeItem("token");
-
     router.push(`/${locale}/login`);
   };
 
   return (
-    <header className="flex items-center justify-between border-b border-[#D9D9D9] bg-white px-6 py-4">
-      <div className="text-sm font-semibold text-[#1F8F50]">
-        Melbourne Open Data
-      </div>
-
-      <div className="flex w-full max-w-[420px] items-center rounded-lg border border-[#D9D9D9] bg-[#F8F8F8] px-3 py-2">
-        <Search size={16} className="text-[#9CA3AF]" />
-        <input
-          type="text"
-          placeholder="Search data"
-          className="ml-2 w-full bg-transparent text-sm outline-none"
+    <header className="flex h-[72px] w-full items-center justify-between border-b border-[#D9D9D9] bg-[#F1EFEF] px-3 sm:px-4 md:px-6">
+      <div className="flex shrink-0 items-center">
+        <Image
+          src="/img/new-logo-green.png"
+          alt="Chameleon Logo"
+          width={60}
+          height={24}
+          className="object-contain sm:w-[72px] md:w-[90px]"
+          priority
         />
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="mx-2 flex w-full min-w-0 max-w-[160px] items-center rounded-lg border border-[#D9D9D9] bg-white px-3 py-2 sm:mx-4 sm:max-w-[260px] md:max-w-[420px]">
+        <Search size={16} className="shrink-0 text-[#9CA3AF]" />
+        <input
+          type="text"
+          placeholder="Search data"
+          className="ml-2 w-full min-w-0 bg-transparent text-sm outline-none"
+        />
+      </div>
+
+      <div className="flex shrink-0 items-center gap-3 sm:gap-4 md:gap-5">
         <button
           type="button"
           className="text-[#4ADE80] transition hover:scale-105"
         >
-          <Bell size={18} />
+          <Bell size={20} className="sm:h-[22px] sm:w-[22px]" />
         </button>
 
         <div className="relative" ref={dropdownRef}>
@@ -66,7 +70,7 @@ export default function AdminHeader() {
             onClick={() => setProfileOpen((prev) => !prev)}
             className="text-[#4ADE80] transition hover:scale-105"
           >
-            <UserCircle2 size={24} />
+            <UserCircle2 size={26} className="sm:h-[30px] sm:w-[30px]" />
           </button>
 
           {profileOpen && (

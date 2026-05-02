@@ -33,7 +33,7 @@ export async function POST(request: Request) {
                 {
                     email: email,
                     password: hashedPassword,
-                    role_id: 1
+                    role_id: 2 // default to regular user role
                 }
             ])
             .select()

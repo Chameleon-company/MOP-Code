@@ -7,6 +7,7 @@ export interface Category {
   id: number;
   category_name: string | null;
   description: string | null;
+  cover_img: string | null;
   created_at: string;
   updated_at: string | null;
   created_by: number | null;
@@ -20,12 +21,14 @@ export interface Category {
 export interface CreateCategoryDTO {
   category_name: string;
   description?: string;
+  cover_img?: string;
 }
 
 // For updating a category
 export interface UpdateCategoryDTO {
   category_name?: string;
   description?: string;
+  cover_img?: string;
 }
 
 // ==============================

@@ -1,34 +1,94 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FolderOpen, Plus, Pencil, Trash2 } from "lucide-react";
+import { useParams } from "next/navigation";
+import { Plus, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 
-const categories = [
-  {
-    id: 1,
-    title: "Transport",
-    description: "Transport related open data and services.",
-    image: "/images/category-placeholder.png",
-  },
-  {
-    id: 2,
-    title: "Environment",
-    description: "Environment related insights and reports.",
-    image: "/images/category-placeholder.png",
-  },
-  {
-    id: 3,
-    title: "Health",
-    description: "Health and wellbeing data resources.",
-    image: "/images/category-placeholder.png",
-  },
-];
+function getAuthHeaders(): HeadersInit {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
+  const roleId = user.roleId ?? user.role_id ?? "";
+  const token = user.token ?? "";
+  return {
+    "x-user-id": String(userId),
+    "x-user-role-id": String(roleId),
+    "x-user-role": user.roleName ?? user.role_name ?? "",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
 
-export default function CategoriesPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+const PAGE_SIZE = 10;
+
+export default function CategoriesPage() {
+  const { locale } = useParams() as { locale: string };
+
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    fetchCategories(page);
+  }, [page]);
+
+  async function fetchCategories(currentPage: number) {
+    setLoading(true);
+    setError("");
+    try {
+      const params = new URLSearchParams({
+        page: String(currentPage),
+        pageSize: String(PAGE_SIZE),
+      });
+      const res = await fetch(`/api/categories?${params}`, {
+        headers: getAuthHeaders(),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setCategories(json.data || []);
+        setTotalPages(json.pagination?.totalPages ?? 1);
+        setTotal(json.pagination?.total ?? 0);
+      } else {
+        setError(json.message || "Failed to load categories.");
+      }
+    } catch {
+      setError("Failed to load categories.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDelete(id: number, name: string) {
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+    try {
+      const res = await fetch(`/api/categories/${id}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+      });
+      const json = await res.json();
+      if (!json.success) {
+        alert(json.message || "Failed to delete category.");
+        return;
+      }
+      // If we deleted the last item on a non-first page, go back one page
+      if (categories.length === 1 && page > 1) {
+        setPage((p) => p - 1);
+      } else {
+        fetchCategories(page);
+      }
+    } catch {
+      alert("Failed to delete category.");
+    }
+  }
+
+  const rangeStart = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
+  const rangeEnd = Math.min(page * PAGE_SIZE, total);
+
   return (
     <div>
+      {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">
@@ -40,7 +100,7 @@ export default function CategoriesPage({
         </div>
 
         <Link
-          href={`/${params.locale}/admin/categories/add`}
+          href={`/${locale}/admin/categories/add`}
           className="inline-flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-3 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C]"
         >
           <Plus size={18} />
@@ -48,20 +108,13 @@ export default function CategoriesPage({
         </Link>
       </div>
 
-      {/* <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="rounded-2xl bg-[#ECEAEA] px-5 py-6">
-          <div className="mb-3 flex justify-center text-[#2DBE6C]">
-            <FolderOpen size={30} />
-          </div>
-          <h3 className="text-center text-[32px] font-semibold text-black">
-            {categories.length}
-          </h3>
-          <p className="mt-2 text-center text-[14px] text-black">
-            Total Categories
-          </p>
+      {error && (
+        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+          {error}
         </div>
-      </div> */}
+      )}
 
+      {/* Table */}
       <div className="rounded-2xl bg-[#ECEAEA] p-5">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -83,30 +136,43 @@ export default function CategoriesPage({
             </thead>
 
             <tbody>
-              {categories.map((category) => (
+              {loading && (
+                <tr>
+                  <td colSpan={4} className="px-3 py-10 text-center text-[14px] text-[#687280]">
+                    Loading...
+                  </td>
+                </tr>
+              )}
+
+              {!loading && categories.map((category) => (
                 <tr key={category.id} className="border-b border-black/10">
                   <td className="px-3 py-4">
                     <img
-                      src={category.image}
-                      alt={category.title}
+                      src={category.cover_img || "/images/category-placeholder.png"}
+                      alt={category.category_name}
                       className="h-14 w-14 rounded-lg object-cover border border-gray-300 bg-white"
                     />
                   </td>
 
                   <td className="px-3 py-4 text-[14px] font-medium text-black">
-                    {category.title}
+                    {category.category_name}
                   </td>
 
                   <td className="px-3 py-4 text-[14px] text-[#687280]">
-                    {category.description}
+                    {category.description || "—"}
                   </td>
 
                   <td className="px-3 py-4">
                     <div className="flex items-center gap-2">
-                      <button className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]">
-                        <Pencil size={16} />
-                      </button>
-                      <button className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50">
+                      <Link href={`/${locale}/admin/categories/edit/${category.id}`}>
+                        <button className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]">
+                          <Pencil size={16} />
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(category.id, category.category_name)}
+                        className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50"
+                      >
                         <Trash2 size={16} />
                       </button>
                     </div>
@@ -114,13 +180,10 @@ export default function CategoriesPage({
                 </tr>
               ))}
 
-              {categories.length === 0 && (
+              {!loading && categories.length === 0 && (
                 <tr>
-                  <td
-                    colSpan={4}
-                    className="px-3 py-8 text-center text-[14px] text-[#687280]"
-                  >
-                    No categories found.
+                  <td colSpan={4} className="px-3 py-10 text-center text-[14px] text-[#687280]">
+                    No data available at the moment.
                   </td>
                 </tr>
               )}
@@ -128,6 +191,36 @@ export default function CategoriesPage({
           </table>
         </div>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between">
+          <p className="text-sm text-[#687280]">
+            Showing {rangeStart}–{rangeEnd} of {total}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => p - 1)}
+              disabled={page === 1}
+              className="inline-flex items-center gap-1 rounded-lg border border-[#CFEFD9] bg-white px-3 py-2 text-sm text-[#1F8F50] transition hover:bg-[#DFF7E8] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft size={16} />
+              Previous
+            </button>
+            <span className="text-sm text-[#687280]">
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => p + 1)}
+              disabled={page === totalPages}
+              className="inline-flex items-center gap-1 rounded-lg border border-[#CFEFD9] bg-white px-3 py-2 text-sm text-[#1F8F50] transition hover:bg-[#DFF7E8] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Next
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

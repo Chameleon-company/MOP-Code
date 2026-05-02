@@ -1,34 +1,26 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import SearchBar from "./searchbar";
+import SearchBar, { LocalSearchMode } from "./searchbar";
 import PreviewComponent from "./preview";
-import { CATEGORY, SEARCH_MODE, SearchParams, CaseStudy } from "../../types";
-import { useTranslations } from "next-intl";
+import { CATEGORY } from "../../types";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
 
-async function searchUseCases(params: SearchParams) {
-  const res = await fetch("/api/search-use-cases", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  });
-  if (!res.ok) throw new Error(`Error ${res.status}`);
-  return res.json();
-}
+const PAGE_SIZE = 9;
 
 const UseCases: React.FC = () => {
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+  const [usecases, setUsecases] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchMode, setSearchMode] = useState<LocalSearchMode>("title");
   const [darkMode, setDarkMode] = useState(false);
 
-  const t = useTranslations("usecases");
-
   useEffect(() => {
-    handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
-
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
       setDarkMode(true);
@@ -44,49 +36,99 @@ const UseCases: React.FC = () => {
     }
   }, [darkMode]);
 
+  const fetchUseCases = useCallback(async (
+    term: string,
+    mode: LocalSearchMode,
+    currentPage: number
+  ) => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        page: String(currentPage),
+        pageSize: String(PAGE_SIZE),
+      });
+
+      if (term) {
+        if (mode === "title")   { params.set("search", term); params.set("search_by", "title"); }
+        if (mode === "content") { params.set("search", term); params.set("search_by", "description"); }
+        if (mode === "tag")     { params.set("tag_name", term); }
+      }
+
+      const res = await fetch(`/api/usecases?${params}`);
+      const json = await res.json();
+      if (json.success) {
+        setUsecases(json.data || []);
+        setTotal(json.pagination?.total ?? 0);
+        setTotalPages(json.pagination?.totalPages ?? 1);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUseCases(searchTerm, searchMode, page);
+  }, [searchTerm, searchMode, page, fetchUseCases]);
+
   const handleToggle = (value: boolean) => {
     setDarkMode(value);
     localStorage.setItem("theme", value ? "dark" : "light");
   };
 
-  const handleSearch = async (
-    term: string,
-    mode: SEARCH_MODE,
-    cat: CATEGORY
-  ) => {
-    try {
-      const res = await searchUseCases({
-        searchTerm: term,
-        searchMode: mode,
-        category: cat,
-      });
-      setFilteredCaseStudies(res.filteredStudies || []);
-    } catch (err) {
-      console.error("Search error:", err);
-      setFilteredCaseStudies([]);
-    }
+  const handleSearch = (term: string, mode: LocalSearchMode, _cat: CATEGORY) => {
+    setSearchTerm(term);
+    setSearchMode(mode);
+    setPage(1);
   };
 
+  const mapped = usecases.map((u) => ({
+    id: String(u.id),
+    name: u.title,
+    title: u.title,
+    description: u.description ?? "",
+    image: u.cover_img ?? "",
+    tags: (u.tags ?? []).map((t: { name: string }) => t.name),
+    category: String(u.category_id ?? ""),
+    filename: "",
+  }));
+
   return (
-    <div className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800 text-black dark:text-white transition-all duration-300">
+    <div className="flex min-h-screen flex-col bg-[#f7f9fb] text-black transition-all duration-300 dark:bg-gray-900 dark:text-white">
       <Header />
+
       <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 lg:px-10">
-          <section className="py-5">
-            <h1 className="text-4xl font-bold mb-6">{t("User Cases")}</h1>
-            {!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
-            <PreviewComponent
-              caseStudies={filteredCaseStudies}
-              trendingCaseStudies={filteredCaseStudies}
-              selectedCaseStudy={selectedCaseStudy}
-              onSelectCaseStudy={setSelectedCaseStudy}
-              onBack={() => setSelectedCaseStudy(null)}
-            />
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
+          <section className="mb-8 rounded-[28px] border border-gray-200 bg-white px-6 py-8 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:px-8">
+            <div className="mb-4 inline-flex items-center rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">
+              Open Data Use Cases
+            </div>
+            <div className="max-w-3xl">
+              <h1 className="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                Use Cases
+              </h1>
+            </div>
           </section>
+
+          <SearchBar onSearch={handleSearch} />
+
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+            </div>
+          ) : (
+            <PreviewComponent
+              caseStudies={mapped}
+              page={page}
+              totalPages={totalPages}
+              total={total}
+              onPageChange={setPage}
+            />
+          )}
         </div>
       </main>
 
-      {/* Dark Mode Toggle */}
       <div className="fixed bottom-4 right-4 z-50">
         <Tooglebutton onValueChange={handleToggle} />
       </div>

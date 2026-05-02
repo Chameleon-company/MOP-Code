@@ -13,7 +13,6 @@ export async function POST(request) {
 
     const { title, description, cover_img, category_id, created_by, tags } = body;
 
-    // Validate required fields
     if (typeof title !== 'string' || title.trim().length === 0) {
       return errorResponse('title is required', 400, 'MISSING_FIELDS');
     }
@@ -21,7 +20,6 @@ export async function POST(request) {
       return errorResponse('created_by is required', 400, 'MISSING_FIELDS');
     }
 
-    // Insert use case row
     const { data: usecaseRow, error: usecaseError } = await supabase
       .from('usecases')
       .insert({
@@ -41,7 +39,6 @@ export async function POST(request) {
 
     const resolvedTags = [];
 
-    // Process tags if provided and non-empty
     if (Array.isArray(tags) && tags.length > 0) {
       for (const raw of tags) {
         if (typeof raw !== 'string' || raw.trim().length === 0) continue;
@@ -49,7 +46,6 @@ export async function POST(request) {
         const name = raw.trim();
         const slug = name.toLowerCase().replace(/\s+/g, '-');
 
-        // Attempt to insert the tag; handle unique constraint violation (23505)
         const { data: insertedTag, error: tagInsertError } = await supabase
           .from('tags')
           .insert({ name, slug })
@@ -60,7 +56,6 @@ export async function POST(request) {
 
         if (tagInsertError) {
           if (tagInsertError.code === '23505') {
-            // Slug already exists — fetch the existing tag
             const { data: existingTag, error: fetchError } = await supabase
               .from('tags')
               .select('id, name, slug')
@@ -80,11 +75,9 @@ export async function POST(request) {
           tag = insertedTag;
         }
 
-        // Link tag to use case
         const { error: linkError } = await supabase
           .from('usecase_tags')
           .insert({ usecase_id: usecaseRow.id, tag_id: tag.id });
-          
 
         if (linkError) {
           if (linkError.code === '23505') {
@@ -110,5 +103,192 @@ export async function POST(request) {
   } catch (error) {
     console.error('[POST /api/usecases] unexpected error:', error);
     return errorResponse('Internal server error', 500, 'INTERNAL_ERROR');
+  }
+}
+
+export async function GET(request) {
+  try {
+    const url = new URL(request.url);
+
+    const q = url.searchParams.get('q')?.trim() || '';
+    const search = url.searchParams.get('search')?.trim() || '';
+    const keyword = q || search;
+
+    // 'title' | 'description' | 'all' (default)
+    const searchBy = url.searchParams.get('search_by')?.trim() || 'all';
+
+    const categoryId = url.searchParams.get('category_id');
+    const tagId = url.searchParams.get('tag_id');
+    const tagIds = url.searchParams.get('tag_ids');
+    const tagSlug = url.searchParams.get('tag')?.trim();
+    // tag_name: search tags by name (ilike), used by the usecases explore page
+    const tagName = url.searchParams.get('tag_name')?.trim();
+
+    const page = Math.max(1, parseInt(url.searchParams.get('page') ?? '1', 10) || 1);
+    const pageSize = Math.max(1, parseInt(url.searchParams.get('pageSize') ?? '10', 10) || 10);
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    // Include tags via junction table in a single query
+    let query = supabase
+      .from('usecases')
+      .select('id, title, description, cover_img, category_id, created_at, usecase_tags(tags(id, name, slug))', { count: 'exact' })
+      .order('created_at', { ascending: false });
+
+    // Keyword search — narrows to title, description, or both based on search_by
+    if (keyword) {
+      if (searchBy === 'title') {
+        query = query.ilike('title', `%${keyword}%`);
+      } else if (searchBy === 'description') {
+        query = query.ilike('description', `%${keyword}%`);
+      } else {
+        query = query.or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%`);
+      }
+    }
+
+    if (categoryId) {
+      const parsedCategoryId = Number(categoryId);
+
+      if (Number.isNaN(parsedCategoryId)) {
+        return errorResponse('category_id must be a valid number', 400, 'INVALID_CATEGORY_ID');
+      }
+
+      query = query.eq('category_id', parsedCategoryId);
+    }
+
+    const tagFilterIds = [];
+
+    if (tagId) {
+      const parsedTagId = Number(tagId);
+
+      if (Number.isNaN(parsedTagId)) {
+        return errorResponse('tag_id must be a valid number', 400, 'INVALID_TAG_ID');
+      }
+
+      tagFilterIds.push(parsedTagId);
+    }
+
+    if (tagIds) {
+      const parsedTagIds = tagIds
+        .split(',')
+        .map((id) => Number(id.trim()))
+        .filter((id) => !Number.isNaN(id));
+
+      if (parsedTagIds.length === 0) {
+        return errorResponse('tag_ids must contain valid numbers', 400, 'INVALID_TAG_IDS');
+      }
+
+      tagFilterIds.push(...parsedTagIds);
+    }
+
+    if (tagSlug) {
+      const { data: tagData, error: tagError } = await supabase
+        .from('tags')
+        .select('id')
+        .eq('slug', tagSlug)
+        .single();
+
+      if (tagError || !tagData) {
+        return NextResponse.json({
+          success: true,
+          data: [],
+          count: 0,
+          pagination: { page, pageSize, total: 0, totalPages: 0 },
+        });
+      }
+
+      tagFilterIds.push(tagData.id);
+    }
+
+    // tag_name: look up all tags whose name matches (partial, case-insensitive)
+    if (tagName) {
+      const { data: matchingTags, error: tagNameError } = await supabase
+        .from('tags')
+        .select('id')
+        .ilike('name', `%${tagName}%`);
+
+      if (tagNameError) {
+        console.error('[GET /api/usecases] tag_name lookup error:', tagNameError);
+        return errorResponse('Failed to search tags', 500, 'TAG_SEARCH_ERROR');
+      }
+
+      if (!matchingTags || matchingTags.length === 0) {
+        return NextResponse.json({
+          success: true,
+          data: [],
+          count: 0,
+          pagination: { page, pageSize, total: 0, totalPages: 0 },
+        });
+      }
+
+      tagFilterIds.push(...matchingTags.map((t) => t.id));
+    }
+
+    const uniqueTagFilterIds = [...new Set(tagFilterIds)];
+
+    if (uniqueTagFilterIds.length > 0) {
+      const { data: usecaseTags, error: tagFilterError } = await supabase
+        .from('usecase_tags')
+        .select('usecase_id')
+        .in('tag_id', uniqueTagFilterIds);
+
+      if (tagFilterError) {
+        console.error('[GET /api/usecases] tag filter error:', tagFilterError);
+        return errorResponse('Failed to filter use cases by tags', 500, 'TAG_FILTER_ERROR');
+      }
+
+      const usecaseIds = [
+        ...new Set((usecaseTags || []).map((item) => item.usecase_id)),
+      ];
+
+      if (usecaseIds.length === 0) {
+        return NextResponse.json({
+          success: true,
+          data: [],
+          count: 0,
+          pagination: { page, pageSize, total: 0, totalPages: 0 },
+        });
+      }
+
+      query = query.in('id', usecaseIds);
+    }
+
+    const { data, error, count } = await query.range(from, to);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { success: false, error: 'Failed to fetch use cases' },
+        { status: 500 }
+      );
+    }
+
+    const total = count ?? 0;
+
+    // Flatten usecase_tags → tags for each use case
+    const usecases = (data || []).map(({ usecase_tags, ...rest }) => ({
+      ...rest,
+      tags: (usecase_tags || [])
+        .map((row) => row.tags)
+        .filter(Boolean),
+    }));
+
+    return NextResponse.json({
+      success: true,
+      data: usecases,
+      count: usecases.length,
+      pagination: {
+        page,
+        pageSize,
+        total,
+        totalPages: Math.ceil(total / pageSize),
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching use cases:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to fetch use cases' },
+      { status: 500 }
+    );
   }
 }

@@ -4,12 +4,14 @@ import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
 
 export default function DashboardPage() {
   return (
-    <div>
+    <div className="p-6">
+      {/* Title */}
       <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">
         Dashboard
       </h1>
 
-      <div className="flex flex-wrap gap-4">
+      {/* Cards Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <AdminStatCard
           title="Total Categories"
           value="5"
@@ -32,7 +34,10 @@ export default function DashboardPage() {
         />
       </div>
 
-      <AdminRecentActivity />
+      {/* Recent Activity */}
+      <div className="mt-12">
+        <AdminRecentActivity />
+      </div>
     </div>
   );
 }
