@@ -1,5 +1,6 @@
 import pandas as pd
 import torch
+import numpy as np
 
 
 def map_nodes(G):
@@ -39,15 +40,34 @@ def prepare_features(df, node_map):
     ordered_nodes = list(node_map.keys())
     latest = latest.reindex(ordered_nodes)
 
-    # Fill any missing values if a node has no matching row
+    # Fill missing values safely
     latest['hour'] = latest['hour'].fillna(0)
     latest['day'] = latest['day'].fillna(0)
     latest['occupancy'] = latest['occupancy'].fillna(0)
 
-    # Features: hour and day
-    X = latest[['hour', 'day']].values
+    # Handle latitude & longitude safely
+    latest['latitude'] = latest['latitude'].fillna(latest['latitude'].mean())
+    latest['longitude'] = latest['longitude'].fillna(latest['longitude'].mean())
 
-    # Labels: occupancy
+    # ---------------------------------------
+    # FEATURE MATRIX
+    # ---------------------------------------
+    X = latest[['hour', 'day', 'latitude', 'longitude']].values.astype(float)
+
+    # ---------------------------------------
+    # 🔥 NORMALIZATION (CRITICAL FIX)
+    # ---------------------------------------
+    mean = X.mean(axis=0)
+    std = X.std(axis=0)
+
+    # Avoid division by zero
+    std[std == 0] = 1
+
+    X = (X - mean) / std
+
+    # ---------------------------------------
+    # LABELS
+    # ---------------------------------------
     y = latest['occupancy'].values
 
     # Convert to tensors

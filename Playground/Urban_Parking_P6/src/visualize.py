@@ -4,9 +4,9 @@ import networkx as nx
 
 
 def generate_insights(G, target_node=None):
-    """
-    Generate short insights for presentation based on the graph.
-    """
+
+    #Generate short insights for presentation based on the graph.
+
     insights = []
 
     occupied_nodes = [n for n in G.nodes() if G.nodes[n].get("occupancy", 0) == 1]
