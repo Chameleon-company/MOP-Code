@@ -32,7 +32,7 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return R * c
 
 # Create edges (connect nearby bays)
-threshold = 50  # km (100 meters)
+threshold = 2  # km (100 meters)
 
 bays = df[['bay_id', 'latitude', 'longitude']].drop_duplicates()
 
