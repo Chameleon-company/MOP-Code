@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_6f3f9d0b05a0489dfbb7873007765b08 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position: fixed; top: 10px; left: 50px; z-index: 9999;
+            background-color: #0f9295; color: white;
+            padding: 10px 20px; border-radius: 5px; font-family: Arial;
+            font-weight: bold; font-size: 14px;">
+    Smart Street Lighting Priority Map - Melbourne CBD
+</div>
+    
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background-color: white; padding: 10px 15px; border: 2px solid #0f9295;
+            border-radius: 5px; font-family: Arial; font-size: 12px;">
+    <b>Priority Tier</b><br>
+    <span style="color: #c0392b;">●</span> High (66-100)<br>
+    <span style="color: #f39c12;">●</span> Medium (33-65)<br>
+    <span style="color: #27ae60;">●</span> Low (0-32)
+</div>
+    
+            <div class="folium-map" id="map_6f3f9d0b05a0489dfbb7873007765b08" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_6f3f9d0b05a0489dfbb7873007765b08 = L.map(
+                "map_6f3f9d0b05a0489dfbb7873007765b08",
+                {
+                    center: [-37.8136, 144.9631],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_41da2e6e77ac310b0890bb05f0fedcae = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_41da2e6e77ac310b0890bb05f0fedcae.addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+            var circle_marker_ac41178f467ce18e0ce1c4a98d900211 = L.circleMarker(
+                [-37.81874249, 144.96787656],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.0, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_497d522e5496e51f8eb961ecb0f12f3b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8fb9db32c926b6548ed0865c5e11ac0e = $(`<div id="html_8fb9db32c926b6548ed0865c5e11ac0e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">PriNW_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 1,305<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 50.0<br>         <b style="color: #f39c12;">Priority: Medium</b>     </div>     </div>`)[0];
+                popup_497d522e5496e51f8eb961ecb0f12f3b.setContent(html_8fb9db32c926b6548ed0865c5e11ac0e);
+            
+        
+
+        circle_marker_ac41178f467ce18e0ce1c4a98d900211.bindPopup(popup_497d522e5496e51f8eb961ecb0f12f3b)
+        ;
+
+        
+    
+    
+            circle_marker_ac41178f467ce18e0ce1c4a98d900211.bindTooltip(
+                `<div>
+                     PriNW_T - Medium priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b6978af4b5f586824919525994f9341 = L.circleMarker(
+                [-37.82401776, 144.95604426],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.26, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_a5098ee2e33bc449d4eaa89f9dd5684c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e0a16897e77e431b018a8c19d5faa3ad = $(`<div id="html_e0a16897e77e431b018a8c19d5faa3ad" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">MCEC_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 1,112<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 42.6<br>         <b style="color: #f39c12;">Priority: Medium</b>     </div>     </div>`)[0];
+                popup_a5098ee2e33bc449d4eaa89f9dd5684c.setContent(html_e0a16897e77e431b018a8c19d5faa3ad);
+            
+        
+
+        circle_marker_3b6978af4b5f586824919525994f9341.bindPopup(popup_a5098ee2e33bc449d4eaa89f9dd5684c)
+        ;
+
+        
+    
+    
+            circle_marker_3b6978af4b5f586824919525994f9341.bindTooltip(
+                `<div>
+                     MCEC_T - Medium priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_decff9bd9cf7a4da0381094698ba5f21 = L.circleMarker(
+                [-37.81531435, 144.95227769],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.129999999999999, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_cb3881640cf3df19bb5df244855fedbe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b94a9a710d4790b8a45ffdfbd713468b = $(`<div id="html_b94a9a710d4790b8a45ffdfbd713468b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spen229_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 818<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 31.3<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_cb3881640cf3df19bb5df244855fedbe.setContent(html_b94a9a710d4790b8a45ffdfbd713468b);
+            
+        
+
+        circle_marker_decff9bd9cf7a4da0381094698ba5f21.bindPopup(popup_cb3881640cf3df19bb5df244855fedbe)
+        ;
+
+        
+    
+    
+            circle_marker_decff9bd9cf7a4da0381094698ba5f21.bindTooltip(
+                `<div>
+                     Spen229_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6993995bb92e645e380d37b5556d0906 = L.circleMarker(
+                [-37.80767455, 144.96309114],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.79, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_5d9c54bf73e1713151d107a6d413c953 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ce38e80a7b51d7259f492662a2947ac = $(`<div id="html_0ce38e80a7b51d7259f492662a2947ac" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">RMIT14_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 729<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 27.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_5d9c54bf73e1713151d107a6d413c953.setContent(html_0ce38e80a7b51d7259f492662a2947ac);
+            
+        
+
+        circle_marker_6993995bb92e645e380d37b5556d0906.bindPopup(popup_5d9c54bf73e1713151d107a6d413c953)
+        ;
+
+        
+    
+    
+            circle_marker_6993995bb92e645e380d37b5556d0906.bindTooltip(
+                `<div>
+                     RMIT14_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_35bb3d6266459be96fa9f37a215c2fe7 = L.circleMarker(
+                [-37.82129925, 144.96879309],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.76, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_6ae255d12017d9858594e1df5b595ec3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f9d21b1ce758fa176c8dbe35fa1bfa58 = $(`<div id="html_f9d21b1ce758fa176c8dbe35fa1bfa58" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">VAC_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 721<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 27.6<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_6ae255d12017d9858594e1df5b595ec3.setContent(html_f9d21b1ce758fa176c8dbe35fa1bfa58);
+            
+        
+
+        circle_marker_35bb3d6266459be96fa9f37a215c2fe7.bindPopup(popup_6ae255d12017d9858594e1df5b595ec3)
+        ;
+
+        
+    
+    
+            circle_marker_35bb3d6266459be96fa9f37a215c2fe7.bindTooltip(
+                `<div>
+                     VAC_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b9df7cc24b6de829a3206dce3fc437b = L.circleMarker(
+                [-37.81414075, 144.96609379],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.45, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_c96ade620de9352dd3065c30a6e92f60 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_26cefc41b05399e3e6c4dc51aa9beb19 = $(`<div id="html_26cefc41b05399e3e6c4dc51aa9beb19" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Swa148_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 640<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 24.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_c96ade620de9352dd3065c30a6e92f60.setContent(html_26cefc41b05399e3e6c4dc51aa9beb19);
+            
+        
+
+        circle_marker_2b9df7cc24b6de829a3206dce3fc437b.bindPopup(popup_c96ade620de9352dd3065c30a6e92f60)
+        ;
+
+        
+    
+    
+            circle_marker_2b9df7cc24b6de829a3206dce3fc437b.bindTooltip(
+                `<div>
+                     Swa148_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7ec90afd2b41b32f12313a7759bca501 = L.circleMarker(
+                [-37.80169681, 144.96658911],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.379999999999999, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_6656359553685ff26b6853c617d4a003 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_10b9bf2e945ca4527154c2d6f14a68f2 = $(`<div id="html_10b9bf2e945ca4527154c2d6f14a68f2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Lyg161_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Carlton<br>         <b>Avg hourly pedestrians:</b> 622<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 23.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_6656359553685ff26b6853c617d4a003.setContent(html_10b9bf2e945ca4527154c2d6f14a68f2);
+            
+        
+
+        circle_marker_7ec90afd2b41b32f12313a7759bca501.bindPopup(popup_6656359553685ff26b6853c617d4a003)
+        ;
+
+        
+    
+    
+            circle_marker_7ec90afd2b41b32f12313a7759bca501.bindTooltip(
+                `<div>
+                     Lyg161_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_424de189815d0ac6a50f84d145085468 = L.circleMarker(
+                [-37.81009465, 144.96143149],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.1, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_bfa179fc204070e1eefb3153669579b3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_980f18d8840a73762bf2363ade4ede25 = $(`<div id="html_980f18d8840a73762bf2363ade4ede25" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Eli368_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 549<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 21.0<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_bfa179fc204070e1eefb3153669579b3.setContent(html_980f18d8840a73762bf2363ade4ede25);
+            
+        
+
+        circle_marker_424de189815d0ac6a50f84d145085468.bindPopup(popup_bfa179fc204070e1eefb3153669579b3)
+        ;
+
+        
+    
+    
+            circle_marker_424de189815d0ac6a50f84d145085468.bindTooltip(
+                `<div>
+                     Eli368_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dce39cb5e3f187a241a00517a74c363c = L.circleMarker(
+                [-37.81694221, 144.95303935],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.07, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_59a3e40e194f774998de6b7467afe9c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f835caea7efc8c707afb68a79cf9b3c9 = $(`<div id="html_f835caea7efc8c707afb68a79cf9b3c9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spen201_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 542<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 20.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_59a3e40e194f774998de6b7467afe9c8.setContent(html_f835caea7efc8c707afb68a79cf9b3c9);
+            
+        
+
+        circle_marker_dce39cb5e3f187a241a00517a74c363c.bindPopup(popup_59a3e40e194f774998de6b7467afe9c8)
+        ;
+
+        
+    
+    
+            circle_marker_dce39cb5e3f187a241a00517a74c363c.bindTooltip(
+                `<div>
+                     Spen201_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c3223d748504a113b52c95ecb0e43b7 = L.circleMarker(
+                [-37.81172914, 144.9682466],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.02, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_7b2df070283dbf456817abe73650de81 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5970b9d7cbf37c1543e9e336a9287c6b = $(`<div id="html_5970b9d7cbf37c1543e9e336a9287c6b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">LtB170_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 528<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 20.2<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_7b2df070283dbf456817abe73650de81.setContent(html_5970b9d7cbf37c1543e9e336a9287c6b);
+            
+        
+
+        circle_marker_6c3223d748504a113b52c95ecb0e43b7.bindPopup(popup_7b2df070283dbf456817abe73650de81)
+        ;
+
+        
+    
+    
+            circle_marker_6c3223d748504a113b52c95ecb0e43b7.bindTooltip(
+                `<div>
+                     LtB170_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6ee131784de5982a8cd4c3430d79c2b0 = L.circleMarker(
+                [-37.81295822, 144.95678789],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.88, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_b1c19fb94bca2dc1ec45ae3c59febf08 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9d6891af4235d8b1375c179febd0d3a1 = $(`<div id="html_9d6891af4235d8b1375c179febd0d3a1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">261Will_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 492<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 18.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_b1c19fb94bca2dc1ec45ae3c59febf08.setContent(html_9d6891af4235d8b1375c179febd0d3a1);
+            
+        
+
+        circle_marker_6ee131784de5982a8cd4c3430d79c2b0.bindPopup(popup_b1c19fb94bca2dc1ec45ae3c59febf08)
+        ;
+
+        
+    
+    
+            circle_marker_6ee131784de5982a8cd4c3430d79c2b0.bindTooltip(
+                `<div>
+                     261Will_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ad78dd7c2d05f094f6ab3247fbf44a91 = L.circleMarker(
+                [-37.8168479, 144.96559789],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.82, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_1f4973d798392b9e9de0c574c4fee6ee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2775a1fe25b1bd3b751b9c9a16ff7f9d = $(`<div id="html_2775a1fe25b1bd3b751b9c9a16ff7f9d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">FLDegN_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 476<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 18.2<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_1f4973d798392b9e9de0c574c4fee6ee.setContent(html_2775a1fe25b1bd3b751b9c9a16ff7f9d);
+            
+        
+
+        circle_marker_ad78dd7c2d05f094f6ab3247fbf44a91.bindPopup(popup_1f4973d798392b9e9de0c574c4fee6ee)
+        ;
+
+        
+    
+    
+            circle_marker_ad78dd7c2d05f094f6ab3247fbf44a91.bindTooltip(
+                `<div>
+                     FLDegN_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_20eb98b88bad62f4806c7a770951b36a = L.circleMarker(
+                [-37.81258467, 144.9625775],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.81, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4396de244345b56715ce2556fceca46d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5c56b359fffe1170dea2f4248eb5c06e = $(`<div id="html_5c56b359fffe1170dea2f4248eb5c06e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Eli250_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 473<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 18.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4396de244345b56715ce2556fceca46d.setContent(html_5c56b359fffe1170dea2f4248eb5c06e);
+            
+        
+
+        circle_marker_20eb98b88bad62f4806c7a770951b36a.bindPopup(popup_4396de244345b56715ce2556fceca46d)
+        ;
+
+        
+    
+    
+            circle_marker_20eb98b88bad62f4806c7a770951b36a.bindTooltip(
+                `<div>
+                     Eli250_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d651d5404c59a83c5e1f93c79f578cc2 = L.circleMarker(
+                [-37.80999341, 144.97227587],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.47, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_e97bb026bd6847874997f07e1240483d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c20d79b47d6a8578ab9376715f849e44 = $(`<div id="html_c20d79b47d6a8578ab9376715f849e44" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spr201_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 384<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 14.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_e97bb026bd6847874997f07e1240483d.setContent(html_c20d79b47d6a8578ab9376715f849e44);
+            
+        
+
+        circle_marker_d651d5404c59a83c5e1f93c79f578cc2.bindPopup(popup_e97bb026bd6847874997f07e1240483d)
+        ;
+
+        
+    
+    
+            circle_marker_d651d5404c59a83c5e1f93c79f578cc2.bindTooltip(
+                `<div>
+                     Spr201_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_518ccbf24e1060d05f7592ceda9edfa5 = L.circleMarker(
+                [-37.81252157, 144.9619401],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.45, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_9dadc20fb6e914cdae2927c70dc5469b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76d65465165179ff06b0aa60e96fa179 = $(`<div id="html_76d65465165179ff06b0aa60e96fa179" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Eli263_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 380<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 14.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_9dadc20fb6e914cdae2927c70dc5469b.setContent(html_76d65465165179ff06b0aa60e96fa179);
+            
+        
+
+        circle_marker_518ccbf24e1060d05f7592ceda9edfa5.bindPopup(popup_9dadc20fb6e914cdae2927c70dc5469b)
+        ;
+
+        
+    
+    
+            circle_marker_518ccbf24e1060d05f7592ceda9edfa5.bindTooltip(
+                `<div>
+                     Eli263_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_527f5a8782b0ce4b464066d8c1d913a4 = L.circleMarker(
+                [-37.81794046, 144.96616678],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.38, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_cb1b558c13d984df10ec8157f1ed98d1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3bc4a917dd8a9524fd87ceea08dc563e = $(`<div id="html_3bc4a917dd8a9524fd87ceea08dc563e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">FliSS_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 361<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 13.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_cb1b558c13d984df10ec8157f1ed98d1.setContent(html_3bc4a917dd8a9524fd87ceea08dc563e);
+            
+        
+
+        circle_marker_527f5a8782b0ce4b464066d8c1d913a4.bindPopup(popup_cb1b558c13d984df10ec8157f1ed98d1)
+        ;
+
+        
+    
+    
+            circle_marker_527f5a8782b0ce4b464066d8c1d913a4.bindTooltip(
+                `<div>
+                     FliSS_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b9764785563b7e37b715dfcad698302c = L.circleMarker(
+                [-37.821728, 144.95557015],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.31, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_180fa85310a9c182e3d32a433baae00b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1ea3f61f5ca7500a20d684d0df6e6faa = $(`<div id="html_1ea3f61f5ca7500a20d684d0df6e6faa" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spencer_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 342<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 13.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_180fa85310a9c182e3d32a433baae00b.setContent(html_1ea3f61f5ca7500a20d684d0df6e6faa);
+            
+        
+
+        circle_marker_b9764785563b7e37b715dfcad698302c.bindPopup(popup_180fa85310a9c182e3d32a433baae00b)
+        ;
+
+        
+    
+    
+            circle_marker_b9764785563b7e37b715dfcad698302c.bindTooltip(
+                `<div>
+                     Spencer_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a63bbe3123ae282c1ee9996d23b10c85 = L.circleMarker(
+                [-37.8199817, 144.96872865],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.17, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_f886e0651a31b61d401d382ebbab97d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a756f376e3c8cc7dbac32ba16b8edc87 = $(`<div id="html_a756f376e3c8cc7dbac32ba16b8edc87" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">AG_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 306<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 11.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_f886e0651a31b61d401d382ebbab97d8.setContent(html_a756f376e3c8cc7dbac32ba16b8edc87);
+            
+        
+
+        circle_marker_a63bbe3123ae282c1ee9996d23b10c85.bindPopup(popup_f886e0651a31b61d401d382ebbab97d8)
+        ;
+
+        
+    
+    
+            circle_marker_a63bbe3123ae282c1ee9996d23b10c85.bindTooltip(
+                `<div>
+                     AG_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f86a368435d8bb6219c83988d6b7756a = L.circleMarker(
+                [-37.81237202, 144.96550671],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.1, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_9d38e0c8a552e2edc2cc33da7560ae7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d42c6e7a488db9d19820de3a304c5bc = $(`<div id="html_5d42c6e7a488db9d19820de3a304c5bc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">LtB210_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 289<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 11.0<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_9d38e0c8a552e2edc2cc33da7560ae7d.setContent(html_5d42c6e7a488db9d19820de3a304c5bc);
+            
+        
+
+        circle_marker_f86a368435d8bb6219c83988d6b7756a.bindPopup(popup_9d38e0c8a552e2edc2cc33da7560ae7d)
+        ;
+
+        
+    
+    
+            circle_marker_f86a368435d8bb6219c83988d6b7756a.bindTooltip(
+                `<div>
+                     LtB210_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4970b3ba713b5365db1546be0164f7c9 = L.circleMarker(
+                [-37.82009057, 144.95758725],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.09, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_fb775e5748b9d9ff26cafb9b243ca624 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5233a7347dbadb39a42741a9f78c4a9 = $(`<div id="html_d5233a7347dbadb39a42741a9f78c4a9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">King2_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 286<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 10.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_fb775e5748b9d9ff26cafb9b243ca624.setContent(html_d5233a7347dbadb39a42741a9f78c4a9);
+            
+        
+
+        circle_marker_4970b3ba713b5365db1546be0164f7c9.bindPopup(popup_fb775e5748b9d9ff26cafb9b243ca624)
+        ;
+
+        
+    
+    
+            circle_marker_4970b3ba713b5365db1546be0164f7c9.bindTooltip(
+                `<div>
+                     King2_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_52073d400f8a2e84251f6073a20fe0b1 = L.circleMarker(
+                [-37.81512416, 144.96371988],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.08, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_5956c128812d159af79d5a3a63e21385 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_32323d77cee1fa9a59a00871a2af3fbf = $(`<div id="html_32323d77cee1fa9a59a00871a2af3fbf" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Eli124_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 283<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 10.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_5956c128812d159af79d5a3a63e21385.setContent(html_32323d77cee1fa9a59a00871a2af3fbf);
+            
+        
+
+        circle_marker_52073d400f8a2e84251f6073a20fe0b1.bindPopup(popup_5956c128812d159af79d5a3a63e21385)
+        ;
+
+        
+    
+    
+            circle_marker_52073d400f8a2e84251f6073a20fe0b1.bindTooltip(
+                `<div>
+                     Eli124_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d581586e14d4c8ee973591d2e57fcb04 = L.circleMarker(
+                [-37.82590962, 144.96185972],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.04, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_b171b0bb44b529621a404e3e5ec5a81c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_69daca06968a59d6af7bccad5c5ef7c3 = $(`<div id="html_69daca06968a59d6af7bccad5c5ef7c3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Boyd2837_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Southbank<br>         <b>Avg hourly pedestrians:</b> 271<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 10.4<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_b171b0bb44b529621a404e3e5ec5a81c.setContent(html_69daca06968a59d6af7bccad5c5ef7c3);
+            
+        
+
+        circle_marker_d581586e14d4c8ee973591d2e57fcb04.bindPopup(popup_b171b0bb44b529621a404e3e5ec5a81c)
+        ;
+
+        
+    
+    
+            circle_marker_d581586e14d4c8ee973591d2e57fcb04.bindTooltip(
+                `<div>
+                     Boyd2837_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ff99d88d71b757f4f606b9edecd7623 = L.circleMarker(
+                [-37.82293543, 144.9471751],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.99, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_af5241d0b5f88e9b4395c9e68aa8a2e0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cc14a49dc2c6934aac7c6dcc3f7f4193 = $(`<div id="html_cc14a49dc2c6934aac7c6dcc3f7f4193" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">WebBN_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 258<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 9.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_af5241d0b5f88e9b4395c9e68aa8a2e0.setContent(html_cc14a49dc2c6934aac7c6dcc3f7f4193);
+            
+        
+
+        circle_marker_1ff99d88d71b757f4f606b9edecd7623.bindPopup(popup_af5241d0b5f88e9b4395c9e68aa8a2e0)
+        ;
+
+        
+    
+    
+            circle_marker_1ff99d88d71b757f4f606b9edecd7623.bindTooltip(
+                `<div>
+                     WebBN_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_72b08b70de810449a0ea40e0dd10c359 = L.circleMarker(
+                [-37.81688755, 144.96562569],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.98, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_603b1972a09812f09a652307021ecedb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_848c05c5900c59aec8ec42c64f28444e = $(`<div id="html_848c05c5900c59aec8ec42c64f28444e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">FLDegS_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 257<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 9.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_603b1972a09812f09a652307021ecedb.setContent(html_848c05c5900c59aec8ec42c64f28444e);
+            
+        
+
+        circle_marker_72b08b70de810449a0ea40e0dd10c359.bindPopup(popup_603b1972a09812f09a652307021ecedb)
+        ;
+
+        
+    
+    
+            circle_marker_72b08b70de810449a0ea40e0dd10c359.bindTooltip(
+                `<div>
+                     FLDegS_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9a8f43a13a36cb68788ba0c4597c4526 = L.circleMarker(
+                [-37.80841815, 144.95906316],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.97, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_c74c8817c9d1944a5ee1d45483fc20fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_254de9cf6966910eb4f4272b3a9acda7 = $(`<div id="html_254de9cf6966910eb4f4272b3a9acda7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Fra118_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 253<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 9.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_c74c8817c9d1944a5ee1d45483fc20fa.setContent(html_254de9cf6966910eb4f4272b3a9acda7);
+            
+        
+
+        circle_marker_9a8f43a13a36cb68788ba0c4597c4526.bindPopup(popup_c74c8817c9d1944a5ee1d45483fc20fa)
+        ;
+
+        
+    
+    
+            circle_marker_9a8f43a13a36cb68788ba0c4597c4526.bindTooltip(
+                `<div>
+                     Fra118_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b52a5905be2d05e1b4a84c96e55fb86 = L.circleMarker(
+                [-37.80996494, 144.96216521],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.91, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4dd9e471c80ebfa66111d09466d30070 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93751ae31f623d46237fa108c8d37513 = $(`<div id="html_93751ae31f623d46237fa108c8d37513" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Lat224_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 238<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 9.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4dd9e471c80ebfa66111d09466d30070.setContent(html_93751ae31f623d46237fa108c8d37513);
+            
+        
+
+        circle_marker_2b52a5905be2d05e1b4a84c96e55fb86.bindPopup(popup_4dd9e471c80ebfa66111d09466d30070)
+        ;
+
+        
+    
+    
+            circle_marker_2b52a5905be2d05e1b4a84c96e55fb86.bindTooltip(
+                `<div>
+                     Lat224_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c70ea94927c0f9f613cf3259832c00f9 = L.circleMarker(
+                [-37.80456984, 144.94946228],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.88, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_ee501558c7a742e5e7949d20b3d5c58a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0fed979bcbc465ccb7098f8ef6a4030a = $(`<div id="html_0fed979bcbc465ccb7098f8ef6a4030a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Errol20_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> North Melbourne<br>         <b>Avg hourly pedestrians:</b> 231<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 8.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_ee501558c7a742e5e7949d20b3d5c58a.setContent(html_0fed979bcbc465ccb7098f8ef6a4030a);
+            
+        
+
+        circle_marker_c70ea94927c0f9f613cf3259832c00f9.bindPopup(popup_ee501558c7a742e5e7949d20b3d5c58a)
+        ;
+
+        
+    
+    
+            circle_marker_c70ea94927c0f9f613cf3259832c00f9.bindTooltip(
+                `<div>
+                     Errol20_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0935f0f73afb8f331cf83face430d891 = L.circleMarker(
+                [-37.80740397, 144.95987909],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.79, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_9059c3a61df37915db4e46d210e2b464 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3493ac1043d40fdfb5985e8c3e8c7162 = $(`<div id="html_3493ac1043d40fdfb5985e8c3e8c7162" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Eli489_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 206<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 7.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_9059c3a61df37915db4e46d210e2b464.setContent(html_3493ac1043d40fdfb5985e8c3e8c7162);
+            
+        
+
+        circle_marker_0935f0f73afb8f331cf83face430d891.bindPopup(popup_9059c3a61df37915db4e46d210e2b464)
+        ;
+
+        
+    
+    
+            circle_marker_0935f0f73afb8f331cf83face430d891.bindTooltip(
+                `<div>
+                     Eli489_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_35232db850bf1313f30a51fca585cf30 = L.circleMarker(
+                [-37.81441438, 144.94433026],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.77, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_485f5c97d9354673ff1c714789dbe591 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6542b234e8a503097c7cf90160b3cbe3 = $(`<div id="html_6542b234e8a503097c7cf90160b3cbe3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">HarEsP_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Docklands<br>         <b>Avg hourly pedestrians:</b> 202<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 7.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_485f5c97d9354673ff1c714789dbe591.setContent(html_6542b234e8a503097c7cf90160b3cbe3);
+            
+        
+
+        circle_marker_35232db850bf1313f30a51fca585cf30.bindPopup(popup_485f5c97d9354673ff1c714789dbe591)
+        ;
+
+        
+    
+    
+            circle_marker_35232db850bf1313f30a51fca585cf30.bindTooltip(
+                `<div>
+                     HarEsP_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d593c548c1656b11eea1cb8808cb4f9b = L.circleMarker(
+                [-37.82011242, 144.96291897],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.71, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_68f723317df07fa8ae976ea278ac5238 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1017ec8f133fa0164760e10d6e974127 = $(`<div id="html_1017ec8f133fa0164760e10d6e974127" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">SanBri_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 185<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 7.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_68f723317df07fa8ae976ea278ac5238.setContent(html_1017ec8f133fa0164760e10d6e974127);
+            
+        
+
+        circle_marker_d593c548c1656b11eea1cb8808cb4f9b.bindPopup(popup_68f723317df07fa8ae976ea278ac5238)
+        ;
+
+        
+    
+    
+            circle_marker_d593c548c1656b11eea1cb8808cb4f9b.bindTooltip(
+                `<div>
+                     SanBri_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_186ab949fc7878774725b0443ad53cdb = L.circleMarker(
+                [-37.80107122, 144.96704554],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.64, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_9bb323125e7fb069e9c5027edf081cf6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_648a751d68f229b5df1312081e23da61 = $(`<div id="html_648a751d68f229b5df1312081e23da61" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Lyg260_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Carlton<br>         <b>Avg hourly pedestrians:</b> 167<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 6.4<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_9bb323125e7fb069e9c5027edf081cf6.setContent(html_648a751d68f229b5df1312081e23da61);
+            
+        
+
+        circle_marker_186ab949fc7878774725b0443ad53cdb.bindPopup(popup_9bb323125e7fb069e9c5027edf081cf6)
+        ;
+
+        
+    
+    
+            circle_marker_186ab949fc7878774725b0443ad53cdb.bindTooltip(
+                `<div>
+                     Lyg260_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f0d396b84801df190aeec10ee75a9e4d = L.circleMarker(
+                [-37.80606888, 144.95644692],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.61, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_b9ad7ac5f15f870754cecf561eaed6ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f7afea91630d2074f21e71a6d0fa4603 = $(`<div id="html_f7afea91630d2074f21e71a6d0fa4603" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Vic_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 160<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 6.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_b9ad7ac5f15f870754cecf561eaed6ce.setContent(html_f7afea91630d2074f21e71a6d0fa4603);
+            
+        
+
+        circle_marker_f0d396b84801df190aeec10ee75a9e4d.bindPopup(popup_b9ad7ac5f15f870754cecf561eaed6ce)
+        ;
+
+        
+    
+    
+            circle_marker_f0d396b84801df190aeec10ee75a9e4d.bindTooltip(
+                `<div>
+                     Vic_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e4cc045736232c43f8bcea6794fdaa78 = L.circleMarker(
+                [-37.81629332, 144.97090877],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.61, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_ffa3ef859c00b8ac3ec838c05c255ca4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_06390d9976cfc8f2d067fcc656d502e9 = $(`<div id="html_06390d9976cfc8f2d067fcc656d502e9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Fli114F_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 159<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 6.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_ffa3ef859c00b8ac3ec838c05c255ca4.setContent(html_06390d9976cfc8f2d067fcc656d502e9);
+            
+        
+
+        circle_marker_e4cc045736232c43f8bcea6794fdaa78.bindPopup(popup_ffa3ef859c00b8ac3ec838c05c255ca4)
+        ;
+
+        
+    
+    
+            circle_marker_e4cc045736232c43f8bcea6794fdaa78.bindTooltip(
+                `<div>
+                     Fli114F_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cca4871ec3d5a9fb44d18687f4f6ecaf = L.circleMarker(
+                [-37.81627451, 144.95550503],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.58, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4434e73a4ceff1fab6da10184f7f3b16 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70b312a7c0376369d7e1c8300aec2e44 = $(`<div id="html_70b312a7c0376369d7e1c8300aec2e44" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">King163_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 153<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 5.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4434e73a4ceff1fab6da10184f7f3b16.setContent(html_70b312a7c0376369d7e1c8300aec2e44);
+            
+        
+
+        circle_marker_cca4871ec3d5a9fb44d18687f4f6ecaf.bindPopup(popup_4434e73a4ceff1fab6da10184f7f3b16)
+        ;
+
+        
+    
+    
+            circle_marker_cca4871ec3d5a9fb44d18687f4f6ecaf.bindTooltip(
+                `<div>
+                     King163_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b31cccba38622a17f99a12a2f60a8868 = L.circleMarker(
+                [-37.81379749, 144.96995745],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.36, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_f589dcdfed076366565ccef66496aaf6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b6569a70a57a703d35958b186a260615 = $(`<div id="html_b6569a70a57a703d35958b186a260615" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">AlfPl_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 95<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 3.6<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_f589dcdfed076366565ccef66496aaf6.setContent(html_b6569a70a57a703d35958b186a260615);
+            
+        
+
+        circle_marker_b31cccba38622a17f99a12a2f60a8868.bindPopup(popup_f589dcdfed076366565ccef66496aaf6)
+        ;
+
+        
+    
+    
+            circle_marker_b31cccba38622a17f99a12a2f60a8868.bindTooltip(
+                `<div>
+                     AlfPl_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d055e9d82da930f98f0ac892ec472030 = L.circleMarker(
+                [-37.80896733, 144.94931703],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.35, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_94c96c3162ebc4bb6c569ae9f4aab688 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_13c085f1299dceb5eeb50b4942243665 = $(`<div id="html_13c085f1299dceb5eeb50b4942243665" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spen484_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 92<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 3.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_94c96c3162ebc4bb6c569ae9f4aab688.setContent(html_13c085f1299dceb5eeb50b4942243665);
+            
+        
+
+        circle_marker_d055e9d82da930f98f0ac892ec472030.bindPopup(popup_94c96c3162ebc4bb6c569ae9f4aab688)
+        ;
+
+        
+    
+    
+            circle_marker_d055e9d82da930f98f0ac892ec472030.bindTooltip(
+                `<div>
+                     Spen484_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a9bfe2ee25c23a5dc64b7b9f54ce0776 = L.circleMarker(
+                [-37.79453803, 144.93036194],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.31, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4faf60ba0f8b7d55d1576bcafa15ee17 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79a1278ccc7a75aaaf9f379fe1e63d2e = $(`<div id="html_79a1278ccc7a75aaaf9f379fe1e63d2e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">KenMac_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 83<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 3.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4faf60ba0f8b7d55d1576bcafa15ee17.setContent(html_79a1278ccc7a75aaaf9f379fe1e63d2e);
+            
+        
+
+        circle_marker_a9bfe2ee25c23a5dc64b7b9f54ce0776.bindPopup(popup_4faf60ba0f8b7d55d1576bcafa15ee17)
+        ;
+
+        
+    
+    
+            circle_marker_a9bfe2ee25c23a5dc64b7b9f54ce0776.bindTooltip(
+                `<div>
+                     KenMac_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_98b793ecd5677c5e00958ee8c29ee42c = L.circleMarker(
+                [-37.80240719, 144.9615673],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.31, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4885f272e6ef4120b75a290bd1a9f51b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c96220a5afc2e6fb59672b2863a31bd3 = $(`<div id="html_c96220a5afc2e6fb59672b2863a31bd3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Pel147_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Carlton<br>         <b>Avg hourly pedestrians:</b> 82<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 3.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4885f272e6ef4120b75a290bd1a9f51b.setContent(html_c96220a5afc2e6fb59672b2863a31bd3);
+            
+        
+
+        circle_marker_98b793ecd5677c5e00958ee8c29ee42c.bindPopup(popup_4885f272e6ef4120b75a290bd1a9f51b)
+        ;
+
+        
+    
+    
+            circle_marker_98b793ecd5677c5e00958ee8c29ee42c.bindTooltip(
+                `<div>
+                     Pel147_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8c6ba9c6c4cea4663f1d9e0a7a469c8c = L.circleMarker(
+                [-37.79432415, 144.92973378],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.29, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_71e25587cac6defea6c885c23bb6923e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_11b33ee499a9ff14fecde1d8757f0a83 = $(`<div id="html_11b33ee499a9ff14fecde1d8757f0a83" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">488Mac_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 76<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 2.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_71e25587cac6defea6c885c23bb6923e.setContent(html_11b33ee499a9ff14fecde1d8757f0a83);
+            
+        
+
+        circle_marker_8c6ba9c6c4cea4663f1d9e0a7a469c8c.bindPopup(popup_71e25587cac6defea6c885c23bb6923e)
+        ;
+
+        
+    
+    
+            circle_marker_8c6ba9c6c4cea4663f1d9e0a7a469c8c.bindTooltip(
+                `<div>
+                     488Mac_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_725e47336b0bf146b24e3ce02fc2a766 = L.circleMarker(
+                [-37.81726338, 144.96872809],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.28, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_ccb3379e795d47fe3ea21fec00de2d11 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_25332449af46117946899de6116b7422 = $(`<div id="html_25332449af46117946899de6116b7422" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">ACMI_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 73<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 2.8<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_ccb3379e795d47fe3ea21fec00de2d11.setContent(html_25332449af46117946899de6116b7422);
+            
+        
+
+        circle_marker_725e47336b0bf146b24e3ce02fc2a766.bindPopup(popup_ccb3379e795d47fe3ea21fec00de2d11)
+        ;
+
+        
+    
+    
+            circle_marker_725e47336b0bf146b24e3ce02fc2a766.bindTooltip(
+                `<div>
+                     ACMI_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_81cd13224dfa615f14f09e032dbf1b34 = L.circleMarker(
+                [-37.80953359, 144.94939004],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.27, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_7f9a960521ada4ebc1c305d3f2db4a0b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c5b9fb1040c5d0048af1eb44b492d1ec = $(`<div id="html_c5b9fb1040c5d0048af1eb44b492d1ec" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spen475_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 71<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 2.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_7f9a960521ada4ebc1c305d3f2db4a0b.setContent(html_c5b9fb1040c5d0048af1eb44b492d1ec);
+            
+        
+
+        circle_marker_81cd13224dfa615f14f09e032dbf1b34.bindPopup(popup_7f9a960521ada4ebc1c305d3f2db4a0b)
+        ;
+
+        
+    
+    
+            circle_marker_81cd13224dfa615f14f09e032dbf1b34.bindTooltip(
+                `<div>
+                     Spen475_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c80c51c16f3b03f69755c02fa645481 = L.circleMarker(
+                [-37.80454949, 144.94921863],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.25, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_fa602fcbac2d1a2ddd6bc86047e5917e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_564155022a54515069aa41cf7f5c129f = $(`<div id="html_564155022a54515069aa41cf7f5c129f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Errol23_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> North Melbourne<br>         <b>Avg hourly pedestrians:</b> 67<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 2.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_fa602fcbac2d1a2ddd6bc86047e5917e.setContent(html_564155022a54515069aa41cf7f5c129f);
+            
+        
+
+        circle_marker_6c80c51c16f3b03f69755c02fa645481.bindPopup(popup_fa602fcbac2d1a2ddd6bc86047e5917e)
+        ;
+
+        
+    
+    
+            circle_marker_6c80c51c16f3b03f69755c02fa645481.bindTooltip(
+                `<div>
+                     Errol23_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e60e2fe40c8f41de10553734c781afa = L.circleMarker(
+                [-37.81564989, 144.93970694],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.24, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_45aad35caf105aadb04c62914c40c30f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_286b40699c18d1a9487395d434a55f16 = $(`<div id="html_286b40699c18d1a9487395d434a55f16" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">WatCit_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Docklands<br>         <b>Avg hourly pedestrians:</b> 63<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 2.4<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_45aad35caf105aadb04c62914c40c30f.setContent(html_286b40699c18d1a9487395d434a55f16);
+            
+        
+
+        circle_marker_6e60e2fe40c8f41de10553734c781afa.bindPopup(popup_45aad35caf105aadb04c62914c40c30f)
+        ;
+
+        
+    
+    
+            circle_marker_6e60e2fe40c8f41de10553734c781afa.bindTooltip(
+                `<div>
+                     WatCit_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_792868b7dcd808f86f3e5d475d6c2d5a = L.circleMarker(
+                [-37.804024, 144.96308399],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.19, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_a0c1875e5648702099999f26921ed2bf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_633a123c0af4b6a085882b04e527df02 = $(`<div id="html_633a123c0af4b6a085882b04e527df02" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Swa607_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Carlton<br>         <b>Avg hourly pedestrians:</b> 51<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_a0c1875e5648702099999f26921ed2bf.setContent(html_633a123c0af4b6a085882b04e527df02);
+            
+        
+
+        circle_marker_792868b7dcd808f86f3e5d475d6c2d5a.bindPopup(popup_a0c1875e5648702099999f26921ed2bf)
+        ;
+
+        
+    
+    
+            circle_marker_792868b7dcd808f86f3e5d475d6c2d5a.bindTooltip(
+                `<div>
+                     Swa607_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_71a2d410e7810e123b2cf010b21df3e9 = L.circleMarker(
+                [-37.81344862, 144.97305353],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.17, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_3eadf3dd844bd5e6b3aa6364ea853ac7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f67febe6dcb98d1f5d78d641b75fa881 = $(`<div id="html_f67febe6dcb98d1f5d78d641b75fa881" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Col12_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 45<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_3eadf3dd844bd5e6b3aa6364ea853ac7.setContent(html_f67febe6dcb98d1f5d78d641b75fa881);
+            
+        
+
+        circle_marker_71a2d410e7810e123b2cf010b21df3e9.bindPopup(popup_3eadf3dd844bd5e6b3aa6364ea853ac7)
+        ;
+
+        
+    
+    
+            circle_marker_71a2d410e7810e123b2cf010b21df3e9.bindTooltip(
+                `<div>
+                     Col12_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f3ca614e283c64f6a3bf1c16a8b5d35 = L.circleMarker(
+                [-37.81911705, 144.96558255],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.17, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_a1628feaf42da811e9010b519ccda941 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6cc2edd28bbc65bb3bb10a18c5843834 = $(`<div id="html_6cc2edd28bbc65bb3bb10a18c5843834" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">FliS_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 45<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.7<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_a1628feaf42da811e9010b519ccda941.setContent(html_6cc2edd28bbc65bb3bb10a18c5843834);
+            
+        
+
+        circle_marker_3f3ca614e283c64f6a3bf1c16a8b5d35.bindPopup(popup_a1628feaf42da811e9010b519ccda941)
+        ;
+
+        
+    
+    
+            circle_marker_3f3ca614e283c64f6a3bf1c16a8b5d35.bindTooltip(
+                `<div>
+                     FliS_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e22cf16929b27ab414c2ce5ccc13167a = L.circleMarker(
+                [-37.81246271, 144.95690188],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.15, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_28e0827ed9ea422d587a795938d9228e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15cf8a370ba94120f36065dfa5dd32bd = $(`<div id="html_15cf8a370ba94120f36065dfa5dd32bd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">280Will_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 39<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_28e0827ed9ea422d587a795938d9228e.setContent(html_15cf8a370ba94120f36065dfa5dd32bd);
+            
+        
+
+        circle_marker_e22cf16929b27ab414c2ce5ccc13167a.bindPopup(popup_28e0827ed9ea422d587a795938d9228e)
+        ;
+
+        
+    
+    
+            circle_marker_e22cf16929b27ab414c2ce5ccc13167a.bindTooltip(
+                `<div>
+                     280Will_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_892e4a7ef1d5755a9b370d4b22cacaba = L.circleMarker(
+                [-37.81982992, 144.95102555],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.13, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_4f11494ac8eaa82b72a113b30442e94d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a897470539d0a213fed4f9e6aa568c4f = $(`<div id="html_a897470539d0a213fed4f9e6aa568c4f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Col700_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 34<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.3<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_4f11494ac8eaa82b72a113b30442e94d.setContent(html_a897470539d0a213fed4f9e6aa568c4f);
+            
+        
+
+        circle_marker_892e4a7ef1d5755a9b370d4b22cacaba.bindPopup(popup_4f11494ac8eaa82b72a113b30442e94d)
+        ;
+
+        
+    
+    
+            circle_marker_892e4a7ef1d5755a9b370d4b22cacaba.bindTooltip(
+                `<div>
+                     Col700_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3fdfd3fc567b66b73804d05a05a28709 = L.circleMarker(
+                [-37.81234775, 144.96153311],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.12, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_da597ca54ca6950d413b9ef0c75abe66 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b4b30d12120db56874d2825cd888db59 = $(`<div id="html_b4b30d12120db56874d2825cd888db59" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Lon364_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 31<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.2<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_da597ca54ca6950d413b9ef0c75abe66.setContent(html_b4b30d12120db56874d2825cd888db59);
+            
+        
+
+        circle_marker_3fdfd3fc567b66b73804d05a05a28709.bindPopup(popup_da597ca54ca6950d413b9ef0c75abe66)
+        ;
+
+        
+    
+    
+            circle_marker_3fdfd3fc567b66b73804d05a05a28709.bindTooltip(
+                `<div>
+                     Lon364_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b21ca816c13fd741b72b94c5f1d95d75 = L.circleMarker(
+                [-37.81304149, 144.95155955],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.11, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_8bbe9713c96573169e815c1de1871132 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0dd422b9d9c7a6cba983035c8927a4ee = $(`<div id="html_0dd422b9d9c7a6cba983035c8927a4ee" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Lat526_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 29<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_8bbe9713c96573169e815c1de1871132.setContent(html_0dd422b9d9c7a6cba983035c8927a4ee);
+            
+        
+
+        circle_marker_b21ca816c13fd741b72b94c5f1d95d75.bindPopup(popup_8bbe9713c96573169e815c1de1871132)
+        ;
+
+        
+    
+    
+            circle_marker_b21ca816c13fd741b72b94c5f1d95d75.bindTooltip(
+                `<div>
+                     Lat526_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df2b6c645fedfd033936bd0c0cb60122 = L.circleMarker(
+                [-37.81894815, 144.94612292],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.11, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_0ff124a385333fc6ac571257b4f9d2b5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_69b86b0e76209d9406af01b39be0891b = $(`<div id="html_69b86b0e76209d9406af01b39be0891b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">BouHbr2353_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 30<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.1<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_0ff124a385333fc6ac571257b4f9d2b5.setContent(html_69b86b0e76209d9406af01b39be0891b);
+            
+        
+
+        circle_marker_df2b6c645fedfd033936bd0c0cb60122.bindPopup(popup_0ff124a385333fc6ac571257b4f9d2b5)
+        ;
+
+        
+    
+    
+            circle_marker_df2b6c645fedfd033936bd0c0cb60122.bindTooltip(
+                `<div>
+                     BouHbr2353_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2fbaa2e1189205c3375f9f5c9e6e4684 = L.circleMarker(
+                [-37.79698741, 144.96441306],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.1, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_dde90ca2d26f3edaec2a0fdeee48831c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f71f402f892a0274d23b6941ece4e5f7 = $(`<div id="html_f71f402f892a0274d23b6941ece4e5f7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">UM3_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Carlton<br>         <b>Avg hourly pedestrians:</b> 28<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 1.0<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_dde90ca2d26f3edaec2a0fdeee48831c.setContent(html_f71f402f892a0274d23b6941ece4e5f7);
+            
+        
+
+        circle_marker_2fbaa2e1189205c3375f9f5c9e6e4684.bindPopup(popup_dde90ca2d26f3edaec2a0fdeee48831c)
+        ;
+
+        
+    
+    
+            circle_marker_2fbaa2e1189205c3375f9f5c9e6e4684.bindTooltip(
+                `<div>
+                     UM3_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5e5c986109c9550226a39a67e2101749 = L.circleMarker(
+                [-37.81687226, 144.96559144],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.09, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_f6977d468a9ac7a0a64eb5b68114f7f8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c4c94167aec76e9ff76f8234d215e9cc = $(`<div id="html_c4c94167aec76e9ff76f8234d215e9cc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">FLDegC_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 25<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_f6977d468a9ac7a0a64eb5b68114f7f8.setContent(html_c4c94167aec76e9ff76f8234d215e9cc);
+            
+        
+
+        circle_marker_5e5c986109c9550226a39a67e2101749.bindPopup(popup_f6977d468a9ac7a0a64eb5b68114f7f8)
+        ;
+
+        
+    
+    
+            circle_marker_5e5c986109c9550226a39a67e2101749.bindTooltip(
+                `<div>
+                     FLDegC_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4a7c355eacb697778a485aab34164262 = L.circleMarker(
+                [-37.8172861, 144.95319102],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.09, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_b63ed2adb7c3d10f549b11fe230fb6da = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e877bf92701c38eade91228d0c632d0a = $(`<div id="html_e877bf92701c38eade91228d0c632d0a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">Spen161_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 24<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_b63ed2adb7c3d10f549b11fe230fb6da.setContent(html_e877bf92701c38eade91228d0c632d0a);
+            
+        
+
+        circle_marker_4a7c355eacb697778a485aab34164262.bindPopup(popup_b63ed2adb7c3d10f549b11fe230fb6da)
+        ;
+
+        
+    
+    
+            circle_marker_4a7c355eacb697778a485aab34164262.bindTooltip(
+                `<div>
+                     Spen161_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f671af4379dbac835a63b304b05574d = L.circleMarker(
+                [-37.81193681, 144.95621105],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.09, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_71cb482cd070a1727b25d9ffc02827b9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_012327b104bb6e899ef99140c1747277 = $(`<div id="html_012327b104bb6e899ef99140c1747277" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">LatWill_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 25<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.9<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_71cb482cd070a1727b25d9ffc02827b9.setContent(html_012327b104bb6e899ef99140c1747277);
+            
+        
+
+        circle_marker_3f671af4379dbac835a63b304b05574d.bindPopup(popup_71cb482cd070a1727b25d9ffc02827b9)
+        ;
+
+        
+    
+    
+            circle_marker_3f671af4379dbac835a63b304b05574d.bindTooltip(
+                `<div>
+                     LatWill_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24ba63f59903f20801eaaa93f9185a00 = L.circleMarker(
+                [-37.81471642, 144.9446508],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.05, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_b19b322031b65c78e794956355d313b8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_13ad5fa2e9bde3dbc2b567e0f6ed8dbb = $(`<div id="html_13ad5fa2e9bde3dbc2b567e0f6ed8dbb" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">HarEsB_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Docklands<br>         <b>Avg hourly pedestrians:</b> 13<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.5<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_b19b322031b65c78e794956355d313b8.setContent(html_13ad5fa2e9bde3dbc2b567e0f6ed8dbb);
+            
+        
+
+        circle_marker_24ba63f59903f20801eaaa93f9185a00.bindPopup(popup_b19b322031b65c78e794956355d313b8)
+        ;
+
+        
+    
+    
+            circle_marker_24ba63f59903f20801eaaa93f9185a00.bindTooltip(
+                `<div>
+                     HarEsB_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6186fa581216ff020ab73230f27aea78 = L.circleMarker(
+                [-37.81876474, 144.94710545],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.04, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_60060c40351007a787e93fd060c2d009 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9ec5d5d2ae2edba3e8acae2b9a0144e3 = $(`<div id="html_9ec5d5d2ae2edba3e8acae2b9a0144e3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">BouHbr_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 12<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.4<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_60060c40351007a787e93fd060c2d009.setContent(html_9ec5d5d2ae2edba3e8acae2b9a0144e3);
+            
+        
+
+        circle_marker_6186fa581216ff020ab73230f27aea78.bindPopup(popup_60060c40351007a787e93fd060c2d009)
+        ;
+
+        
+    
+    
+            circle_marker_6186fa581216ff020ab73230f27aea78.bindTooltip(
+                `<div>
+                     BouHbr_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5786d7db753644907958704ab7560994 = L.circleMarker(
+                [-37.81267639, 144.95386444],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.02, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_94c44377e3241bd10ad1760f1e6be1be = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4f87c3b2f5cb5ee897678a5a84d3437c = $(`<div id="html_4f87c3b2f5cb5ee897678a5a84d3437c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">King335_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 6<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.2<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_94c44377e3241bd10ad1760f1e6be1be.setContent(html_4f87c3b2f5cb5ee897678a5a84d3437c);
+            
+        
+
+        circle_marker_5786d7db753644907958704ab7560994.bindPopup(popup_94c44377e3241bd10ad1760f1e6be1be)
+        ;
+
+        
+    
+    
+            circle_marker_5786d7db753644907958704ab7560994.bindTooltip(
+                `<div>
+                     King335_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f90527a7512fdae35cd534f2837daed5 = L.circleMarker(
+                [-37.80309992, 144.94908064],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.0, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_9d4d67df31020a9a9c13ec4cdcea5ade = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3856b934d847b8ff03cd6c11decad13a = $(`<div id="html_3856b934d847b8ff03cd6c11decad13a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">574Qub_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> North Melbourne<br>         <b>Avg hourly pedestrians:</b> 2<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.0<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_9d4d67df31020a9a9c13ec4cdcea5ade.setContent(html_3856b934d847b8ff03cd6c11decad13a);
+            
+        
+
+        circle_marker_f90527a7512fdae35cd534f2837daed5.bindPopup(popup_9d4d67df31020a9a9c13ec4cdcea5ade)
+        ;
+
+        
+    
+    
+            circle_marker_f90527a7512fdae35cd534f2837daed5.bindTooltip(
+                `<div>
+                     574Qub_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c3e43c8ec7d18299ef024af1ee8626d = L.circleMarker(
+                [-37.81235775, 144.97136962],
+                {"bubblingMouseEvents": true, "color": "#27ae60", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.0, "stroke": true, "weight": 2}
+            ).addTo(map_6f3f9d0b05a0489dfbb7873007765b08);
+        
+    
+        var popup_997425c39a7dd7b1e1776995ee844e9f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b24a58a4360083a064d073219adb5e03 = $(`<div id="html_b24a58a4360083a064d073219adb5e03" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; min-width: 220px;">         <b style="color: #0f9295;">WestWP_T</b><br>         <hr style="margin: 4px 0;">         <b>Suburb:</b> Melbourne<br>         <b>Avg hourly pedestrians:</b> 1<br>         <b>Lighting-relevant incidents:</b> 3,260,584<br>         <b>Priority score:</b> 0.0<br>         <b style="color: #27ae60;">Priority: Low</b>     </div>     </div>`)[0];
+                popup_997425c39a7dd7b1e1776995ee844e9f.setContent(html_b24a58a4360083a064d073219adb5e03);
+            
+        
+
+        circle_marker_0c3e43c8ec7d18299ef024af1ee8626d.bindPopup(popup_997425c39a7dd7b1e1776995ee844e9f)
+        ;
+
+        
+    
+    
+            circle_marker_0c3e43c8ec7d18299ef024af1ee8626d.bindTooltip(
+                `<div>
+                     WestWP_T - Low priority
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
