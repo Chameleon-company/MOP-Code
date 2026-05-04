@@ -18,6 +18,8 @@ type crackReport = {
     riskassessment: string
     repairactions: string
     inspectionschedule: string
+    imageurl: string
+    crackmaskurl: string
 }
 
 const columns: GridColDef[] = [
@@ -94,7 +96,7 @@ export default function TableSelect({ onRowSelect }: tableProps) {
 
 
   return (
-    <Paper sx={{ height: 900, width: '100%' }}>
+    <Paper sx={{ height: 750, width: '100%' }}>
       <DataGrid
         rows={crackReport}
         columns={columns}

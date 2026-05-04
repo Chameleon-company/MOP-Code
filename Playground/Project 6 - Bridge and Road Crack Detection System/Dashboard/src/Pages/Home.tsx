@@ -8,6 +8,8 @@ import TheDrawer from '../Components/drawer'
 export function Home() {
 
   const [selectedRow, setSelectedRow] = useState<crackReport | null>(null)
+  
+
 
   const handleRowSelect = (rowData: crackReport | null) => {
         setSelectedRow(rowData)
@@ -52,6 +54,22 @@ export function Home() {
                     '& .MuiInputLabel-root': { color: 'white' },
                 }}
             />
+            <h2 style={{marginTop: '20px'}}>Images:</h2>
+            <details style={{marginBottom: '120px'}}>
+              <summary>Click to expand</summary>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <div>
+                  <h3>Original Image:</h3>
+                  <img src={selectedRow.imageurl} />
+                  <p style={{ fontSize: "0.65rem" }}>URL: {selectedRow.imageurl}</p>
+                </div>
+                <div>
+                  <h3>Binary Mask:</h3>
+                  <img src={selectedRow.crackmaskurl} />
+                  <p style={{ fontSize: "0.65rem" }}>URL: {selectedRow.crackmaskurl}</p>
+                </div>
+              </div>
+            </details>
         </Box>
       )}
     </>

@@ -29,7 +29,9 @@ def uploadReport(supabase, report):
             'reportstatus': report["report_status"],
             'riskassessment': report["risk_assessment"],
             'repairactions': report["repair_actions"],
-            'inspectionschedule': report["inspection_schedule"]            
+            'inspectionschedule': report["inspection_schedule"],  
+            'imageurl': report["image_url"],
+            'crackmaskurl': report["mask_url"]
         }).execute()
     except Exception as e:
         raise
@@ -49,6 +51,28 @@ def convertReport(oldReport):
     print(f"Old report = {oldReport}")
     print(f"New report = {report}")
     return report
+
+
+# ── No Crack Report Report ────────────────────
+#Report generated when no crack is detected
+def noCrackReport(report):
+    print(f"No crack report = {report}")
+    cracklessReport = {
+        "image_id": report["image_id"],
+        "severity": "N/A",
+        "num_crack_regions": 0,
+        "largest_crack_area_ratio": 0,
+        "largest_crack_length": 0, 
+        "damage_level": 0,
+        "reportStatus": "None",
+        "risk_assessment": "N/A",
+        "repair_actions": "N/A",
+        "inspection_schedule": "N/A",
+        "image_url": report["image_url"],
+        "mask_url": report["mask_url"]
+    }
+
+    return cracklessReport
 
 
 # ── Change Row Status ────────────────────

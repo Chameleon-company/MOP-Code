@@ -37,7 +37,6 @@ const MultipleFileUploader = () => {
         if (files) {
             setLoading(true)
             console.log('Uploading file');
-            const fileNum = files.length
             for (const file of files) {
                 const formData = new FormData()
                 formData.append('file', file)
@@ -100,7 +99,7 @@ const MultipleFileUploader = () => {
 
             {files.length > 0 && !uploadSuccess && (
                 <>
-                <Box sx={{ marginTop: 1, width: '12%', maxWidth: '80%', marginX: 'auto' }}>
+                <Box sx={{ marginTop: 1, width: '28%', maxWidth: '80%', marginX: 'auto' }}>
                     <TextField
                         fullWidth
                         label="Files to be uploaded"

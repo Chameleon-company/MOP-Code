@@ -155,6 +155,7 @@ def uploadImage():
     
     try:
         mask_url = result["mask_url"]
+        img_url = result["original_url"]
         response = requests.get(mask_url)
         mask_png = response.content
         mask = Image.open(io.BytesIO(mask_png))
@@ -165,11 +166,18 @@ def uploadImage():
     try:
         print("Generating Crack metrics")
         report = generateMetricReport(mask, filename)
+        report["image_url"] = img_url
+        report["mask_url"] = mask_url
+        
+        print(f"Mask Url = {mask_url}")
+        print(f"Original Url = {img_url}")
+        print(f"report = {report}")
     except Exception as e:
         return jsonify({"error": f"Error generating report: {e}"}), 500
     
     if report["crack_detected"] == False:
         report = noCrackReport(report)
+        uploadReport(supabase, report)
         return jsonify("No crack detected in image"), 200
     
     #upload, if flag is true start AI report generation
