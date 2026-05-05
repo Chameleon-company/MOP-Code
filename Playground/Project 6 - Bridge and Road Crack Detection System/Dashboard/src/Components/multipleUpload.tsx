@@ -81,84 +81,103 @@ const MultipleFileUploader = () => {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, mt: 6 }}>
             
-
+            {/* ── Upload Files button ────────────── */}
             {!uploadSuccess && (
-                <Box
-                    onClick={() => fileInputRef.current?.click()}
-                    sx={{
-                        border: '1.5px dashed',
-                        borderColor: files.length > 0 ? 'rgba(99,153,34,0.55)' : 'rgba(255,255,255,0.12)',
-                        borderRadius: '12px',
-                        bgcolor: files.length > 0 ? 'rgba(99,153,34,0.04)' : 'rgba(255,255,255,0.02)',
-                        py: 6, px: 4,
-                        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5,
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.2s ease',
-                        '&:hover': !loading ? {
-                            borderColor: 'rgba(99,153,34,0.6)',
-                            bgcolor: 'rgba(99,153,34,0.06)',
-                        } : {},
-                    }}
-                >
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
-                        stroke={files.length > 0 ? '#7ec83a' : 'rgba(255,255,255,0.25)'} strokeWidth="1.2">
-                        <polyline points="16 16 12 12 8 16"/>
-                        <line x1="12" y1="12" x2="12" y2="21"/>
-                        <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/>
-                    </svg>
-                    <Typography sx={{ fontSize: '0.9rem', color: files.length > 0 ? '#a8d870' : 'rgba(255,255,255,0.35)' }}>
+                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 3, mt: 6 }}>
+                    <Box
+                        onClick={() => fileInputRef.current?.click()}
+                        sx={{
+                            border: '1.5px dashed',
+                            borderColor: files.length > 0 ? 'rgba(99,153,34,0.55)' : 'rgba(255,255,255,0.12)',
+                            borderRadius: '12px',
+                            bgcolor: files.length > 0 ? 'rgba(99,153,34,0.04)' : 'rgba(255,255,255,0.02)',
+                            py: 6, px: 4,
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            transition: 'all 0.2s ease',
+                            '&:hover': !loading ? {
+                                borderColor: 'rgba(99,153,34,0.6)',
+                                bgcolor: 'rgba(99,153,34,0.06)',
+                            } : {},
+                        }}
+                    >
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke={files.length > 0 ? '#7ec83a' : 'rgba(255,255,255,0.25)'} strokeWidth="1.2">
+                            <polyline points="16 16 12 12 8 16"/>
+                            <line x1="12" y1="12" x2="12" y2="21"/>
+                            <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/>
+                        </svg>
+                        <Typography sx={{ fontSize: '0.9rem', color: files.length > 0 ? '#a8d870' : 'rgba(255,255,255,0.35)' }}>
 
-                    {files.length > 0
-                        ? `${files.length} file${files.length > 1 ? 's' : ''} selected`
-                        : 'Click to select files'}
+                        {files.length > 0
+                            ? `${files.length} file${files.length > 1 ? 's' : ''} selected`
+                            : 'Click to select files'}
 
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>
-                        .png · .jpg · .jpeg
-                    </Typography>
+                        </Typography>
+                        <Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>
+                            .png · .jpg · .jpeg
+                        </Typography>
 
 
-                    <input
-                        id="file"
-                        ref={fileInputRef}
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                        disabled={loading}
-                        style={{ display: 'none' }}
-                    />
+                        <input
+                            id="file"
+                            ref={fileInputRef}
+                            type="file"
+                            multiple
+                            onChange={handleFileChange}
+                            disabled={loading}
+                            style={{ display: 'none' }}
+                        />
+                    </Box>
+                    {/* ── Files to be uploaded ────────────── */}
+                    <Box sx={{ width: 700, height: 200 }}>
+                        <Box sx={{ marginTop: 1, width: '100%', maxWidth: '100%', height: '250px !important', maxHeight: '100%', marginX: 'auto'}}>
+                            <TextField
+                                fullWidth
+                                label="Files to be uploaded"
+                                multiline
+                                rows={6}
+                                value={files.map(f => f.name).join('\n')}
+                                InputLabelProps={{ shrink: true }}
+                                InputProps={{ readOnly: true }}
+                                sx={{
+                                    '& .MuiInputBase-input': { color: 'white', textAlign: 'center', maxHeight: '350px', overflowY: 'auto !important',},
+                                    '& .MuiInputLabel-root': { color: 'white' }
+                                }}
+                            />
+                        </Box>
+                    </Box>
                 </Box>
-            )}
                 
+            )}  
 
+            {/* ── Button display after upload ────────────── */}
             {uploadSuccess && (
                 <button 
                     onClick={handleReset}
                     className="submit"
                     disabled={loading}
-                    style={{ fontSize: '1.2rem', padding: '12px 20px' }}
+                    style={{ fontSize: '1.2rem', padding: '12px 20px', borderRadius: '12px' }}
                 >Upload new files:
                 </button>
             )}
             
             
-
+            
             {files.length > 0 && !uploadSuccess && (
                 <>
-                <Box sx={{ marginTop: 1, width: '28%', maxWidth: '80%', marginX: 'auto' }}>
-                    <TextField
-                        fullWidth
-                        label="Files to be uploaded"
-                        multiline
-                        rows={files.length}
-                        value={files.map(f => f.name).join('\n')}
-                        sx={{
-                            '& .MuiInputBase-input': { color: 'white', textAlign: 'center', maxHeight: '350px', overflowY: 'auto !important',},
-                            '& .MuiInputLabel-root': { color: 'white' },
-                        }}
-                    />
-                </Box>
-                <label>
+                {/* ── Upload Button ────────────── */}
+                <button 
+                    onClick={handleUpload}
+                    className="submit"
+                    disabled={loading}
+                    style={{ fontSize: '1.2rem', padding: '12px 20px', borderRadius: '12px' }}
+                >Upload files
+                </button>
+
+
+                {/* ── Generate AI report button ────────────── */}
+                <label style={{ fontSize: '0.82rem', fontFamily: 'monospace', color: 'rgba(255,255,255,0.92)' }}>
                 <input
                     type="checkbox"
                     checked={checked}
@@ -167,15 +186,7 @@ const MultipleFileUploader = () => {
                 />
                 Generate AI Report?
                 </label>
-                <p style={{ fontSize: "0.65rem" }}>Each report takes around 20 seconds to generate. This can also be done later in the Generate Reports Tab</p>
-
-                <button 
-                    onClick={handleUpload}
-                    className="submit"
-                    disabled={loading}
-                    style={{ fontSize: '1.2rem', padding: '12px 20px' }}
-                >Upload files
-                </button>
+                <p style={{ fontSize: "0.65rem", fontFamily: 'monospace', color: 'rgba(255, 255, 255, 0.92)'  }}>Each report takes around 20 seconds to generate. This can also be done later in the Generate Reports Tab</p>
                 </>
             )}
 
@@ -183,7 +194,10 @@ const MultipleFileUploader = () => {
 
             {uploadSuccess && returnData && (
             <>
-                <div>{returnData.length} reports successfully generated</div>
+                <Typography sx={{ fontSize: '0.82rem', fontFamily: 'monospace', color: 'rgba(255,255,255,0.5)' }}>
+                    {returnData.length} reports successfully generated
+                </Typography>
+
                 <Box sx={{ marginTop: 1, width: '55%', maxWidth: '80%', marginX: 'auto', maxHeight: '900px', overflowY: 'auto !important' }}>
                     {returnData.map((data, index) => (
                     <div key={index}>

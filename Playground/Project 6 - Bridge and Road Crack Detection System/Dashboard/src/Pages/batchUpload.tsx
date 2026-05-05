@@ -19,10 +19,10 @@ export function BatchUpload() {
             }}>
                 <Box sx={{mx: 'auto'}}>
                     <Typography sx={{ fontSize: '1.35rem', fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.2 }}>
-                        Batch Report Generation
+                        Upload Images:
                     </Typography>
                     <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', mt: 0.4, fontFamily: 'monospace' }}>
-                        INPUT FORMAT: binary mask · PNG / JPG / JPEG
+                        INPUT FORMAT: PNG / JPG / JPEG
                     </Typography>
                 </Box>
 
