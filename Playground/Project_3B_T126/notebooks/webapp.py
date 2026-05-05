@@ -73,9 +73,11 @@ with tab1:
         )
 
     fig.update_layout(
-        legend_title_text="Risk Level"
+        legend_title_text="Risk Level",
+        width=600,     # increasing width of pie chart
+        height=600     # increasing height of pie chart
     )
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=False)
 
     # Heatmap of average failure probability by material and risk level
     st.subheader("Risk Heatmap")
