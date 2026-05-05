@@ -43,7 +43,7 @@ model = smp.Unet(
     in_channels=3,
     classes=1
 )
-model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
 model.to(device)
 model.eval()
 print(f"Model loaded from: {MODEL_PATH}")

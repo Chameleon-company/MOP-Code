@@ -82,7 +82,7 @@ class CrossEncoderReranker:
     cross-encoder to pick the best 5. 
     """
     def __init__(self, model_name: str = DEFAULT_RERANKER_MODEL):
-        self.model = CrossEncoder(model_name)
+        self.model = CrossEncoder(model_name, device='cpu')
     
     def rerank(
         self,

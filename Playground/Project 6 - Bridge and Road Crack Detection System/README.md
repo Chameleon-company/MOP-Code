@@ -48,25 +48,25 @@ Create a table named `crack_reports` with the following columns
 | riskassessment | text |
 | repairactions | text |
 | inspectionschedule | text |
-| imageUrl | text |
-| crackMaskUrl | text |
+| imageurl | text |
+| crackmaskurl | text |
 
 ```sql
 CREATE table crack_reports(
   id SERIAL PRIMARY KEY,
-  imageId VARCHAR(300),
+  imageid VARCHAR(300),
   severity VARCHAR(30),
-  numCracks INT,
-  crackAreaRatio FLOAT,
-  estimatedCrackLength INT,
-  damageLevel FLOAT,
-  reportStatus VARCHAR(20) NOT NULL DEFAULT 'None'
+  numcracks INT,
+  crackarearatio FLOAT,
+  estimatedcracklength INT,
+  damagelevel FLOAT,
+  reportstatus VARCHAR(20) NOT NULL DEFAULT 'None'
     CHECK (reportStatus IN ('None', 'Pending', 'Generated')),
-  riskAssessment VARCHAR(5000),
-  repairActions VARCHAR(5000),
-  inspectionSchedule VARCHAR(5000),
-  imageUrl VARCHAR(300),
-  crackMaskUrl VARCHAR(300)
+  riskassessment VARCHAR(5000),
+  repairactions VARCHAR(5000),
+  inspectionschedule VARCHAR(5000),
+  imageurl VARCHAR(300),
+  crackmaskurl VARCHAR(300)
 );
 ```
 
@@ -76,6 +76,13 @@ Go to Storage and create 2 buckets named `original-images` and `crack-masks`.
 
 ## Run application
 
+### Engineering dashboard
+Demo: https://www.youtube.com/watch?v=VG-mAhJgPKI
+```
+streamlit run app.py
+```
+
+### Admin dashboard
 Run the backend first
 
 ```
