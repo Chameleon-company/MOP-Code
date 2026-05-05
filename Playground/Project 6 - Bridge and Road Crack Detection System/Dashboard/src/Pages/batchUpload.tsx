@@ -1,6 +1,6 @@
 import TheDrawer from '../Components/drawer'
 import MultipleFileUploader from '../Components/multipleUpload'
-
+import { Box, Typography } from '@mui/material';
 
 
 
@@ -10,14 +10,28 @@ import MultipleFileUploader from '../Components/multipleUpload'
 export function BatchUpload() {
 
     return (
-        <>
-            <div><TheDrawer></TheDrawer></div>
-            <h1>Upload a file for report generation</h1>
-            <div>File MUST be a binary mask in either PNG or JPG/JPEG format!</div>
-            <div>This page should be updated to allow for normal (non mask image) to be uploaded and mask should be auto generated! </div>
-            <div><MultipleFileUploader></MultipleFileUploader></div>
+        <Box sx={{ minHeight: '100vh', bgcolor: '#0f1117', color: '#e8eaf0' }}>
+            <TheDrawer></TheDrawer>
+            <Box sx={{
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
+                px: 5, py: 3,
+                display: 'flex', alignItems: 'flex-start', gap: 2,
+            }}>
+                <Box sx={{mx: 'auto'}}>
+                    <Typography sx={{ fontSize: '1.35rem', fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+                        Batch Report Generation
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', mt: 0.4, fontFamily: 'monospace' }}>
+                        INPUT FORMAT: binary mask · PNG / JPG / JPEG
+                    </Typography>
+                </Box>
+
+            </Box>
             
-        </>
+            <div><MultipleFileUploader></MultipleFileUploader></div>
+
+
+        </Box>
 
 
     )

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import Box from '@mui/material/Box'
+import { Box, Typography } from '@mui/material';
 import { TextField } from '@mui/material'
-
+import SeverityBadge from './severityBadge'
 
 const MultipleFileUploader = () => {
     const [files, setFiles] = useState<File[]>([]);
@@ -79,11 +79,57 @@ const MultipleFileUploader = () => {
 
 
     return (
-        <>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, mt: 6 }}>
-            <div className="input-group">
-            <input id="file" ref={fileInputRef} type="file" multiple onChange={handleFileChange} disabled={loading} style={{ fontSize: '1.2rem', padding: '12px 20px' }} />
-            </div>
+            
+
+            {!uploadSuccess && (
+                <Box
+                    onClick={() => fileInputRef.current?.click()}
+                    sx={{
+                        border: '1.5px dashed',
+                        borderColor: files.length > 0 ? 'rgba(99,153,34,0.55)' : 'rgba(255,255,255,0.12)',
+                        borderRadius: '12px',
+                        bgcolor: files.length > 0 ? 'rgba(99,153,34,0.04)' : 'rgba(255,255,255,0.02)',
+                        py: 6, px: 4,
+                        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5,
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.2s ease',
+                        '&:hover': !loading ? {
+                            borderColor: 'rgba(99,153,34,0.6)',
+                            bgcolor: 'rgba(99,153,34,0.06)',
+                        } : {},
+                    }}
+                >
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+                        stroke={files.length > 0 ? '#7ec83a' : 'rgba(255,255,255,0.25)'} strokeWidth="1.2">
+                        <polyline points="16 16 12 12 8 16"/>
+                        <line x1="12" y1="12" x2="12" y2="21"/>
+                        <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/>
+                    </svg>
+                    <Typography sx={{ fontSize: '0.9rem', color: files.length > 0 ? '#a8d870' : 'rgba(255,255,255,0.35)' }}>
+
+                    {files.length > 0
+                        ? `${files.length} file${files.length > 1 ? 's' : ''} selected`
+                        : 'Click to select files'}
+
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>
+                        .png · .jpg · .jpeg
+                    </Typography>
+
+
+                    <input
+                        id="file"
+                        ref={fileInputRef}
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
+                        disabled={loading}
+                        style={{ display: 'none' }}
+                    />
+                </Box>
+            )}
+                
 
             {uploadSuccess && (
                 <button 
@@ -119,8 +165,10 @@ const MultipleFileUploader = () => {
                     onChange={(e) => setChecked(e.target.checked)}
                     disabled={loading}
                 />
-                Generate AI Report? This can be done later
+                Generate AI Report?
                 </label>
+                <p style={{ fontSize: "0.65rem" }}>Each report takes around 20 seconds to generate. This can also be done later in the Generate Reports Tab</p>
+
                 <button 
                     onClick={handleUpload}
                     className="submit"
@@ -136,48 +184,62 @@ const MultipleFileUploader = () => {
             {uploadSuccess && returnData && (
             <>
                 <div>{returnData.length} reports successfully generated</div>
-                <Box sx={{ marginTop: 1, width: '35%', maxWidth: '80%', marginX: 'auto', maxHeight: '900px', overflowY: 'auto !important' }}>
+                <Box sx={{ marginTop: 1, width: '55%', maxWidth: '80%', marginX: 'auto', maxHeight: '900px', overflowY: 'auto !important' }}>
                     {returnData.map((data, index) => (
                     <div key={index}>
-                        <h4>Report successfully generated for file {index + 1}:</h4>
-                        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-                        <thead>
-                            <tr>
-                            <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>Field</th>
-                            <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {[
-                            ['Image ID', data.image_id],    
-                            ['Severity', data.severity],
-                            ['Damage Level', data.damage_level],
-                            ['Largest Crack Area Ratio', data.largest_crack_area_ratio],
-                            ['Largest Crack Est. Length', data.largest_crack_length],
-                            ['Num Crack Regions', data.num_crack_regions],
-                            ['Report Status', data.report_status],
-                            ['Risk Assessment', data.risk_assessment],
-                            ['Inspection Schedule', data.inspection_schedule],
-                            ['Repair Actions', data.repair_actions],
+                        <Box sx={{ minHeight: '20vh', bgcolor: '#141720', color: '#e8eaf0', borderRadius: '12px', marginTop: 2 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                            <Box sx={{
+                                width: 40, height: 40, borderRadius: '50%',
+                                bgcolor: 'rgba(99,153,34,0.2)',
+                                border: '1px solid rgba(99,153,34,0.4)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontSize: '0.65rem', fontWeight: 700, color: '#7ec83a',
+                            }}>
+                                {index + 1}
+                            </Box>
                             
-                            ].map(([label, value]) => (
-                            <tr key={label}>
-                                <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>{label}</td>
-                                <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>{String(value)}</td>
-                            </tr>
+                            <Typography sx={{ fontSize: '0.82rem', fontFamily: 'monospace', color: 'rgba(255,255,255,0.5)' }}>
+                                Report for: {data.image_id}
+                            </Typography>
+
+                            <SeverityBadge severity={data.severity} />
+                        </Box>
+                        
+                        <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0,}}>
+                            {[
+                            ['Crack Severity', data.severity],
+                            ['Damage level', data.damage_level],
+                            ['Crack area ratio', data.largest_crack_area_ratio],
+                            ['Est. crack length', data.largest_crack_length],
+                            ['Crack regions', data.num_crack_regions],
+                            ['Report status', data.report_status],
+                            ['Inspection schedule', data.inspection_schedule],
+                            ['Risk assessment', data.risk_assessment],
+                            ['Repair actions', data.repair_actions],
+                            ].map(([label, value], i) => (
+                            <Box key={label as string} sx={{
+                                px: 2.5, py: 1.5,
+                                borderBottom: i < 6 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                                borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                            }}>
+                                <Typography sx={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.28)', mb: 0.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                {label}
+                                </Typography>
+                                <Typography sx={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.8)', fontFamily: 'monospace' }}>
+                                {String(value)}
+                                </Typography>
+                            </Box>
                             ))}
-                        </tbody>
-                        </table>
+                        </Box>
+                                  
+                    </Box>
                     </div>
-                    
                     ))}
                 </Box>
             </>
-            )}
-
-            
+            )}   
         </Box>
-        </>
     );
     };
 

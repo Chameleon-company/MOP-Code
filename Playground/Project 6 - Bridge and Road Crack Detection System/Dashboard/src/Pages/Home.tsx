@@ -39,6 +39,7 @@ export function Home() {
     <>
       <div><TheDrawer></TheDrawer></div>
       <h1>Crack Database Dashboard</h1>
+      <p>Please select a row to view infomation and images</p>
       <div style={{ marginTop: '20px', width: '90%', margin: '20px auto 0' }}><TableSelect onRowSelect={handleRowSelect}></TableSelect></div>
 
       {selectedRow && (
@@ -56,7 +57,7 @@ export function Home() {
             />
             <h2 style={{marginTop: '20px'}}>Images:</h2>
             <details style={{marginBottom: '120px'}}>
-              <summary>Click to expand</summary>
+              <summary>Click to show images</summary>
               <div style={{ display: 'flex', gap: '1rem' }}>
                 <div>
                   <h3>Original Image:</h3>
