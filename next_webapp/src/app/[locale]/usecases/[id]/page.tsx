@@ -2,44 +2,54 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { demoCaseStudies } from "../database";
 
 const UseCasePage: React.FC = () => {
   const params = useParams();
-  const id = params.id;
+  const id = params?.id;
 
-  const [htmlContent, setHtmlContent] = useState("");
+  const [useCase, setUseCase] = useState<any>(null);
+  const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const useCase = demoCaseStudies.find(
-    (item) => String(item.id) === String(id)
-  );
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    const loadHtml = async () => {
-      if (!useCase?.htmlFile) {
-        setLoading(false);
-        return;
-      }
+    if (!id) return;
 
-      try {
-        const response = await fetch(useCase.htmlFile);
-        const html = await response.text();
-        setHtmlContent(html);
-      } catch (error) {
-        console.error("Failed to load HTML:", error);
-        setHtmlContent("<p>Failed to load content.</p>");
-      } finally {
-        setLoading(false);
-      }
-    };
+    Promise.all([
+      fetch(`/api/usecases/${id}`).then((r) => r.json()),
+      fetch(`/api/usecases/${id}/tags`).then((r) => r.json()),
+    ])
+      .then(([ucJson, tagsJson]) => {
+        if (!ucJson.success) {
+          setNotFound(true);
+          return;
+        }
+        setUseCase(ucJson.data);
+        if (tagsJson.success && Array.isArray(tagsJson.data)) {
+          setTags(tagsJson.data.map((t: any) => t.name));
+        }
+      })
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-    loadHtml();
-  }, [useCase]);
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <main className="flex min-h-screen items-center justify-center bg-[#f7f9fb] dark:bg-gray-900">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
-  if (!useCase) {
+  if (notFound || !useCase) {
     return (
       <>
         <Header />
@@ -68,34 +78,40 @@ const UseCasePage: React.FC = () => {
             {useCase.title}
           </h1>
 
-          <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
-            {useCase.description}
-          </p>
-
-          <div className="mb-8 flex flex-wrap gap-2">
-            {useCase.tags?.map((tag, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {loading ? (
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Loading content...
+          {useCase.description && (
+            <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
+              {useCase.description}
             </p>
-          ) : (
-            <div
-              className="prose prose-lg max-w-none dark:prose-invert
-                         prose-headings:font-bold
-                         prose-img:rounded-2xl
-                         prose-img:shadow-md"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
+          )}
+
+          {tags.length > 0 && (
+            <div className="mb-8 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {useCase.cover_img && (
+            <img
+              src={useCase.cover_img}
+              alt={useCase.title}
+              className="mb-8 w-full rounded-2xl object-cover shadow-md"
             />
           )}
+
+          <Link
+            href="/usecases"
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+          >
+            <ArrowLeft size={16} />
+            Back to use cases
+          </Link>
         </div>
       </main>
       <Footer />
@@ -104,4 +120,3 @@ const UseCasePage: React.FC = () => {
 };
 
 export default UseCasePage;
-

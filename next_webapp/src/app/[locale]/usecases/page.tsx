@@ -1,31 +1,27 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar, { LocalSearchMode } from "./searchbar";
 import PreviewComponent from "./preview";
-import { CATEGORY } from "../../types";
+import { CATEGORY, CaseStudy } from "../../types";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
 
 const PAGE_SIZE = 9;
 
 const UseCases: React.FC = () => {
-	const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
-		null,
-	);
-
 	const [darkMode, setDarkMode] = useState(false);
-
+	const [usecases, setUsecases] = useState<CaseStudy[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const [total, setTotal] = useState(0);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchMode, setSearchMode] = useState<LocalSearchMode>("title");
-	const [selectedCategory, setSelectedCategory] = useState<CATEGORY>(
-		"All" as CATEGORY,
-	);
 
 	useEffect(() => {
 		const storedTheme = localStorage.getItem("theme");
-
 		if (storedTheme === "dark") {
 			setDarkMode(true);
 			document.documentElement.classList.add("dark");
@@ -41,49 +37,56 @@ const UseCases: React.FC = () => {
 		localStorage.setItem("theme", value ? "dark" : "light");
 	}, []);
 
-	const filteredCaseStudies = useMemo(() => {
-		const keyword = searchTerm.trim().toLowerCase();
+	const fetchUsecases = useCallback(async (currentPage: number, term: string, mode: LocalSearchMode) => {
+		setLoading(true);
+		try {
+			const params = new URLSearchParams({
+				page: String(currentPage),
+				pageSize: String(PAGE_SIZE),
+			});
 
-		if (!keyword) {
-			return demoCaseStudies;
+			if (term) {
+				if (mode === "tag") {
+					params.set("tag_name", term);
+				} else {
+					params.set("search", term);
+					params.set("search_by", mode === "content" ? "description" : "title");
+				}
+			}
+
+			const res = await fetch(`/api/usecases?${params}`);
+			const json = await res.json();
+
+			if (json.success) {
+				const mapped: CaseStudy[] = (json.data || []).map((u: any) => ({
+					id: u.id,
+					title: u.title,
+					description: u.description ?? "",
+					tags: (u.tags || []).map((t: any) => (typeof t === "string" ? t : t.name)),
+					image: u.cover_img ?? "",
+					category: u.category_id ? String(u.category_id) : "",
+					htmlFile: "",
+				}));
+				setUsecases(mapped);
+				setTotal(json.pagination?.total ?? 0);
+				setTotalPages(json.pagination?.totalPages ?? 1);
+			}
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setLoading(false);
 		}
-
-		return demoCaseStudies.filter((study) => {
-			if (searchMode === "title") {
-				return study.name?.toLowerCase().includes(keyword);
-			}
-
-			if (searchMode === "tag") {
-				return study.tags?.some((tag) => tag.toLowerCase().includes(keyword));
-			}
-
-			if (searchMode === "content") {
-				return study.description?.toLowerCase().includes(keyword);
-			}
-
-			return true;
-		});
-	}, [searchTerm, searchMode]);
-
-	const handleSearch = useCallback(
-		(term: string, mode: LocalSearchMode, cat: CATEGORY) => {
-			setSearchTerm(term);
-			setSearchMode(mode);
-			setSelectedCategory(cat);
-			setSelectedCaseStudy(null);
-		},
-		[],
-	);
-
-	const handleSelectCaseStudy = useCallback((caseStudy: CaseStudy) => {
-		setSelectedCaseStudy(caseStudy);
 	}, []);
 
-	const handleBack = useCallback(() => {
-		setSelectedCaseStudy(null);
-	}, []);
+	useEffect(() => {
+		fetchUsecases(page, searchTerm, searchMode);
+	}, [page, searchTerm, searchMode, fetchUsecases]);
 
-	const hasCaseStudies = filteredCaseStudies.length > 0;
+	const handleSearch = useCallback((term: string, mode: LocalSearchMode, _cat: CATEGORY) => {
+		setSearchTerm(term);
+		setSearchMode(mode);
+		setPage(1);
+	}, []);
 
 	return (
 		<div className="flex min-h-screen flex-col bg-[#f7f9fb] text-black transition-colors duration-200 dark:bg-gray-900 dark:text-white">
@@ -95,7 +98,6 @@ const UseCases: React.FC = () => {
 						<div className="mb-4 inline-flex items-center rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">
 							Open Data Use Cases
 						</div>
-
 						<div className="max-w-3xl">
 							<h1 className="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">
 								Use Cases
@@ -103,22 +105,20 @@ const UseCases: React.FC = () => {
 						</div>
 					</section>
 
-					{!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
+					<SearchBar onSearch={handleSearch} />
 
-					{hasCaseStudies || selectedCaseStudy ? (
-						<PreviewComponent
-							caseStudies={filteredCaseStudies}
-							trendingCaseStudies={filteredCaseStudies}
-							selectedCaseStudy={selectedCaseStudy}
-							onSelectCaseStudy={handleSelectCaseStudy}
-							onBack={handleBack}
-						/>
-					) : (
-						<div className="mt-8 flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-							<p className="text-base font-medium text-gray-500 dark:text-gray-400">
-								No data available at the moment
-							</p>
+					{loading ? (
+						<div className="flex justify-center py-20">
+							<div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
 						</div>
+					) : (
+						<PreviewComponent
+							caseStudies={usecases}
+							page={page}
+							totalPages={totalPages}
+							total={total}
+							onPageChange={setPage}
+						/>
 					)}
 				</div>
 			</main>

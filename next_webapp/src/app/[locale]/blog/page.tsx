@@ -65,16 +65,16 @@ export default function BlogListingPage() {
           </div>
 
           {/* Responsive card grid: 1 → 2 → 3 columns */}
-          {posts.length > 0 ? (
+          {blogs.length > 0 ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
+              {blogs.map((blog) => (
                 <BlogCard
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  description={post.description}
-                  image={post.image}
-                  category={post.category}
+                  key={blog.id}
+                  id={String(blog.id)}
+                  title={blog.title ?? ""}
+                  description={blog.description ?? ""}
+                  image={blog.cover_img ?? ""}
+                  category={blog.published_date ?? ""}
                 />
               ))}
             </div>
