@@ -1,7 +1,6 @@
 "use client";
 
-
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import SearchBar, { LocalSearchMode } from "./searchbar";
@@ -12,131 +11,125 @@ import Tooglebutton from "../Tooglebutton/Tooglebutton";
 const PAGE_SIZE = 9;
 
 const UseCases: React.FC = () => {
-  const [usecases, setUsecases] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [total, setTotal] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchMode, setSearchMode] = useState<LocalSearchMode>("title");
-  const [darkMode, setDarkMode] = useState(false);
+	const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(
+		null,
+	);
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+	const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchMode, setSearchMode] = useState<LocalSearchMode>("title");
+	const [selectedCategory, setSelectedCategory] = useState<CATEGORY>(
+		"All" as CATEGORY,
+	);
 
-  const fetchUseCases = useCallback(async (
-    term: string,
-    mode: LocalSearchMode,
-    currentPage: number
-  ) => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({
-        page: String(currentPage),
-        pageSize: String(PAGE_SIZE),
-      });
+	useEffect(() => {
+		const storedTheme = localStorage.getItem("theme");
 
-      if (term) {
-        if (mode === "title")   { params.set("search", term); params.set("search_by", "title"); }
-        if (mode === "content") { params.set("search", term); params.set("search_by", "description"); }
-        if (mode === "tag")     { params.set("tag_name", term); }
-      }
+		if (storedTheme === "dark") {
+			setDarkMode(true);
+			document.documentElement.classList.add("dark");
+		}
+	}, []);
 
-      const res = await fetch(`/api/usecases?${params}`);
-      const json = await res.json();
-      if (json.success) {
-        setUsecases(json.data || []);
-        setTotal(json.pagination?.total ?? 0);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+	useEffect(() => {
+		document.documentElement.classList.toggle("dark", darkMode);
+	}, [darkMode]);
 
-  useEffect(() => {
-    fetchUseCases(searchTerm, searchMode, page);
-  }, [searchTerm, searchMode, page, fetchUseCases]);
+	const handleToggle = useCallback((value: boolean) => {
+		setDarkMode(value);
+		localStorage.setItem("theme", value ? "dark" : "light");
+	}, []);
 
-  const handleToggle = (value: boolean) => {
-    setDarkMode(value);
-    localStorage.setItem("theme", value ? "dark" : "light");
-  };
+	const filteredCaseStudies = useMemo(() => {
+		const keyword = searchTerm.trim().toLowerCase();
 
-  const handleSearch = (term: string, mode: LocalSearchMode, _cat: CATEGORY) => {
-    setSearchTerm(term);
-    setSearchMode(mode);
-    setPage(1);
-  };
+		if (!keyword) {
+			return demoCaseStudies;
+		}
 
-  const mapped = usecases.map((u) => ({
-    id: String(u.id),
-    name: u.title,
-    title: u.title,
-    description: u.description ?? "",
-    image: u.cover_img ?? "",
-    tags: (u.tags ?? []).map((t: { name: string }) => t.name),
-    category: String(u.category_id ?? ""),
-    filename: "",
-  }));
+		return demoCaseStudies.filter((study) => {
+			if (searchMode === "title") {
+				return study.name?.toLowerCase().includes(keyword);
+			}
 
-  return (
-    <div className="flex min-h-screen flex-col bg-[#f7f9fb] text-black transition-all duration-300 dark:bg-gray-900 dark:text-white">
-      <Header />
+			if (searchMode === "tag") {
+				return study.tags?.some((tag) => tag.toLowerCase().includes(keyword));
+			}
 
-      <main className="flex-grow">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
-          <section className="mb-8 rounded-[28px] border border-gray-200 bg-white px-6 py-8 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:px-8">
-            <div className="mb-4 inline-flex items-center rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">
-              Open Data Use Cases
-            </div>
-            <div className="max-w-3xl">
-              <h1 className="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">
-                Use Cases
-              </h1>
-            </div>
-          </section>
+			if (searchMode === "content") {
+				return study.description?.toLowerCase().includes(keyword);
+			}
 
-          <SearchBar onSearch={handleSearch} />
+			return true;
+		});
+	}, [searchTerm, searchMode]);
 
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
-            </div>
-          ) : (
-            <PreviewComponent
-              caseStudies={mapped}
-              page={page}
-              totalPages={totalPages}
-              total={total}
-              onPageChange={setPage}
-            />
-          )}
-        </div>
-      </main>
+	const handleSearch = useCallback(
+		(term: string, mode: LocalSearchMode, cat: CATEGORY) => {
+			setSearchTerm(term);
+			setSearchMode(mode);
+			setSelectedCategory(cat);
+			setSelectedCaseStudy(null);
+		},
+		[],
+	);
 
-      <div className="fixed bottom-4 right-4 z-50">
-        <Tooglebutton onValueChange={handleToggle} />
-      </div>
+	const handleSelectCaseStudy = useCallback((caseStudy: CaseStudy) => {
+		setSelectedCaseStudy(caseStudy);
+	}, []);
 
-      <Footer />
-    </div>
-  );
+	const handleBack = useCallback(() => {
+		setSelectedCaseStudy(null);
+	}, []);
+
+	const hasCaseStudies = filteredCaseStudies.length > 0;
+
+	return (
+		<div className="flex min-h-screen flex-col bg-[#f7f9fb] text-black transition-colors duration-200 dark:bg-gray-900 dark:text-white">
+			<Header />
+
+			<main className="flex-grow">
+				<div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
+					<section className="mb-8 rounded-[28px] border border-gray-200 bg-white px-6 py-8 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:px-8">
+						<div className="mb-4 inline-flex items-center rounded-full bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">
+							Open Data Use Cases
+						</div>
+
+						<div className="max-w-3xl">
+							<h1 className="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">
+								Use Cases
+							</h1>
+						</div>
+					</section>
+
+					{!selectedCaseStudy && <SearchBar onSearch={handleSearch} />}
+
+					{hasCaseStudies || selectedCaseStudy ? (
+						<PreviewComponent
+							caseStudies={filteredCaseStudies}
+							trendingCaseStudies={filteredCaseStudies}
+							selectedCaseStudy={selectedCaseStudy}
+							onSelectCaseStudy={handleSelectCaseStudy}
+							onBack={handleBack}
+						/>
+					) : (
+						<div className="mt-8 flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
+							<p className="text-base font-medium text-gray-500 dark:text-gray-400">
+								No data available at the moment
+							</p>
+						</div>
+					)}
+				</div>
+			</main>
+
+			<div className="fixed bottom-4 right-4 z-50">
+				<Tooglebutton onValueChange={handleToggle} />
+			</div>
+
+			<Footer />
+		</div>
+	);
 };
 
 export default UseCases;

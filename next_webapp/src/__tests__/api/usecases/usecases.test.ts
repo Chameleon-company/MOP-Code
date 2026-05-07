@@ -34,6 +34,8 @@ jest.mock('@/app/api/library/errorResponse', () => ({
 import { GET } from '../../../app/api/usecases/route';
 import { supabase } from '@/library/supabaseClient';
 
+const jestExpect = globalThis.expect as unknown as jest.Expect;
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function makeRequest(url: string) {
@@ -51,6 +53,8 @@ function makeChain(result: { data: unknown; error: unknown; count?: number }) {
   chain.range  = jest.fn().mockResolvedValue(result);
   chain.single = jest.fn().mockResolvedValue(result);
   chain.then   = (resolve: any, reject: any) => Promise.resolve(result).then(resolve, reject);
+  chain.ilike  = jest.fn().mockReturnValue(chain);
+  chain.order  = jest.fn().mockReturnValue(chain);
   return chain;
 }
 
@@ -75,10 +79,10 @@ describe('GET /api/usecases - pagination', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases'));
     const body = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(body.success).toBe(true);
-    expect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 3, totalPages: 1 });
-    expect(chain.range).toHaveBeenCalledWith(0, 9);
+    jestExpect(res.status).toBe(200);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 3, totalPages: 1 });
+    jestExpect(chain.range).toHaveBeenCalledWith(0, 9);
   });
 
   test('page=2 pageSize=5 → calls range(5,9) and metadata reflects request', async () => {
@@ -88,8 +92,8 @@ describe('GET /api/usecases - pagination', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?page=2&pageSize=5'));
     const body = await res.json();
 
-    expect(body.pagination).toEqual({ page: 2, pageSize: 5, total: 11, totalPages: 3 });
-    expect(chain.range).toHaveBeenCalledWith(5, 9);
+    jestExpect(body.pagination).toEqual({ page: 2, pageSize: 5, total: 11, totalPages: 3 });
+    jestExpect(chain.range).toHaveBeenCalledWith(5, 9);
   });
 
   test('totalPages rounds up (count=7, pageSize=3 → 3 pages)', async () => {
@@ -99,18 +103,19 @@ describe('GET /api/usecases - pagination', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?pageSize=3'));
     const body = await res.json();
 
-    expect(body.pagination.totalPages).toBe(3);
+    jestExpect(body.pagination.totalPages).toBe(3);
   });
 
-  test('invalid page param → falls back to page=1, calls range(0,9)', async () => {
+  test('invalid page param → returns 400 INVALID_PAGE', async () => {
     const chain = makeChain({ data: [], error: null, count: 0 });
     (supabase.from as jest.Mock).mockReturnValue(chain);
 
     const res = await GET(makeRequest('http://localhost/api/usecases?page=abc'));
     const body = await res.json();
 
-    expect(body.pagination.page).toBe(1);
-    expect(chain.range).toHaveBeenCalledWith(0, 9);
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('INVALID_PAGE');
+    jestExpect(chain.range).not.toHaveBeenCalled();
   });
 
   test('no results → total=0 totalPages=0', async () => {
@@ -120,7 +125,7 @@ describe('GET /api/usecases - pagination', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases'));
     const body = await res.json();
 
-    expect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
+    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
   });
 
   test('count field on response equals length of current page data', async () => {
@@ -130,8 +135,8 @@ describe('GET /api/usecases - pagination', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?pageSize=2'));
     const body = await res.json();
 
-    expect(body.count).toBe(2);
-    expect(body.pagination.total).toBe(50);
+    jestExpect(body.count).toBe(2);
+    jestExpect(body.pagination.total).toBe(50);
   });
 
 });
@@ -149,9 +154,9 @@ describe('GET /api/usecases - tag filter early returns', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?tag=ghost'));
     const body = await res.json();
 
-    expect(body.success).toBe(true);
-    expect(body.data).toHaveLength(0);
-    expect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.data).toHaveLength(0);
+    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
   });
 
   test('unknown tag slug with custom page/pageSize → metadata echoes those params', async () => {
@@ -163,7 +168,7 @@ describe('GET /api/usecases - tag filter early returns', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?tag=ghost&page=3&pageSize=5'));
     const body = await res.json();
 
-    expect(body.pagination).toEqual({ page: 3, pageSize: 5, total: 0, totalPages: 0 });
+    jestExpect(body.pagination).toEqual({ page: 3, pageSize: 5, total: 0, totalPages: 0 });
   });
 
   test('tag found but no usecases linked → empty response with pagination metadata', async () => {
@@ -176,9 +181,9 @@ describe('GET /api/usecases - tag filter early returns', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?tag=rare-tag'));
     const body = await res.json();
 
-    expect(body.success).toBe(true);
-    expect(body.data).toHaveLength(0);
-    expect(body.pagination.total).toBe(0);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.data).toHaveLength(0);
+    jestExpect(body.pagination.total).toBe(0);
   });
 
   test('tag filter with matches → paginated results include metadata', async () => {
@@ -195,11 +200,11 @@ describe('GET /api/usecases - tag filter early returns', () => {
     const res = await GET(makeRequest('http://localhost/api/usecases?tag=ml&pageSize=5'));
     const body = await res.json();
 
-    expect(body.success).toBe(true);
-    expect(body.pagination.pageSize).toBe(5);
-    expect(body.pagination.total).toBe(2);
-    expect(body.pagination.totalPages).toBe(1);
-    expect(usecasesChain.range).toHaveBeenCalledWith(0, 4);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.pagination.pageSize).toBe(5);
+    jestExpect(body.pagination.total).toBe(2);
+    jestExpect(body.pagination.totalPages).toBe(1);
+    jestExpect(usecasesChain.range).toHaveBeenCalledWith(0, 4);
   });
 
 });

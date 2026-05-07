@@ -52,6 +52,8 @@ import { supabase } from '../../../library/supabaseClient';
 import { getAuthUser } from '../../../app/api/library/auth';
 import { validateCreateCategory, validateUpdateCategory } from '../../../models/Category';
 
+const jestExpect = globalThis.expect as unknown as jest.Expect;
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function makeRequest(body?: object, headers?: Record<string, string>, url = 'http://localhost:3000/api/categories') {
@@ -61,6 +63,10 @@ function makeRequest(body?: object, headers?: Record<string, string>, url = 'htt
     json: jest.fn().mockResolvedValue(body ?? {}),
     url,
   } as any;
+}
+
+function makeRouteContext(id: string) {
+  return { params: Promise.resolve({ id }) } as any;
 }
 
 function makeChain(result: { data: unknown; error: unknown; count?: number }) {
@@ -124,9 +130,9 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: 'Technology', description: 'Tech use cases' }, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(201);
-    expect(body.success).toBe(true);
-    expect(body.message).toBe('Category created successfully');
+    jestExpect(res.status).toBe(201);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.message).toBe('Category created successfully');
   });
 
   test('non-admin user → 403 forbidden', async () => {
@@ -135,8 +141,8 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: 'Technology' }, USER_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(403);
-    expect(body.code).toBe('FORBIDDEN');
+    jestExpect(res.status).toBe(403);
+    jestExpect(body.code).toBe('FORBIDDEN');
   });
 
   test('unauthenticated user → 401 unauthorized', async () => {
@@ -145,8 +151,8 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: 'Technology' }));
     const body = await res.json();
 
-    expect(res.status).toBe(401);
-    expect(body.code).toBe('UNAUTHORIZED');
+    jestExpect(res.status).toBe(401);
+    jestExpect(body.code).toBe('UNAUTHORIZED');
   });
 
   test('validation error (empty category name) → 400', async () => {
@@ -156,8 +162,8 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: '' }, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('VALIDATION_ERROR');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('VALIDATION_ERROR');
   });
 
   test('duplicate category name → 400', async () => {
@@ -175,8 +181,8 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: 'Technology' }, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('DUPLICATE_CATEGORY');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('DUPLICATE_CATEGORY');
   });
 
   test('DB insert error → 500', async () => {
@@ -194,8 +200,8 @@ describe('POST /api/categories', () => {
     const res = await POST(makeRequest({ category_name: 'Technology' }, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(500);
-    expect(body.success).toBe(false);
+    jestExpect(res.status).toBe(500);
+    jestExpect(body.success).toBe(false);
   });
 
 });
@@ -217,10 +223,10 @@ describe('GET /api/categories', () => {
     const res = await GET(makeRequest(undefined, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(body.success).toBe(true);
-    expect(body.data).toHaveLength(2);
-    expect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 2, totalPages: 1 });
+    jestExpect(res.status).toBe(200);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.data).toHaveLength(2);
+    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 2, totalPages: 1 });
   });
 
   test('unauthenticated request → 401', async () => {
@@ -229,8 +235,8 @@ describe('GET /api/categories', () => {
     const res = await GET(makeRequest(undefined, {}));
     const body = await res.json();
 
-    expect(res.status).toBe(401);
-    expect(body.code).toBe('UNAUTHORIZED');
+    jestExpect(res.status).toBe(401);
+    jestExpect(body.code).toBe('UNAUTHORIZED');
   });
 
   test('fetch with search filter → 200 filtered results', async () => {
@@ -247,9 +253,9 @@ describe('GET /api/categories', () => {
     ));
     const body = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(body.success).toBe(true);
-    expect(body.data).toHaveLength(1);
+    jestExpect(res.status).toBe(200);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.data).toHaveLength(1);
   });
 
 });
@@ -273,8 +279,8 @@ describe('GET /api/categories - pagination', () => {
     ));
     const body = await res.json();
 
-    expect(chain.range).toHaveBeenCalledWith(5, 9);
-    expect(body.pagination).toEqual({ page: 2, pageSize: 5, total: 25, totalPages: 5 });
+    jestExpect(chain.range).toHaveBeenCalledWith(5, 9);
+    jestExpect(body.pagination).toEqual({ page: 2, pageSize: 5, total: 25, totalPages: 5 });
   });
 
   test('totalPages rounds up correctly (7 items / pageSize=3 → 3 pages)', async () => {
@@ -291,7 +297,7 @@ describe('GET /api/categories - pagination', () => {
     ));
     const body = await res.json();
 
-    expect(body.pagination.totalPages).toBe(3);
+    jestExpect(body.pagination.totalPages).toBe(3);
   });
 
   test('invalid page param falls back to page=1 and calls range(0, 9)', async () => {
@@ -307,8 +313,8 @@ describe('GET /api/categories - pagination', () => {
     ));
     const body = await res.json();
 
-    expect(body.pagination.page).toBe(1);
-    expect(chain.range).toHaveBeenCalledWith(0, 9);
+    jestExpect(body.pagination.page).toBe(1);
+    jestExpect(chain.range).toHaveBeenCalledWith(0, 9);
   });
 
   test('no results → total=0 totalPages=0', async () => {
@@ -321,7 +327,7 @@ describe('GET /api/categories - pagination', () => {
     const res = await GET(makeRequest(undefined, ADMIN_HEADERS));
     const body = await res.json();
 
-    expect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
+    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
   });
 
   test('DB error → 500', async () => {
@@ -334,7 +340,7 @@ describe('GET /api/categories - pagination', () => {
     await GET(makeRequest(undefined, ADMIN_HEADERS));
 
     const { errorResponse } = require('../../../app/api/library/errorResponse');
-    expect(errorResponse).toHaveBeenCalledWith('Failed to fetch categories', 500, 'DB_FETCH_ERROR');
+    jestExpect(errorResponse).toHaveBeenCalledWith('Failed to fetch categories', 500, 'DB_FETCH_ERROR');
   });
 
 });
@@ -363,13 +369,13 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Updated Tech' }, ADMIN_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(body.success).toBe(true);
-    expect(body.message).toBe('Category updated successfully');
+    jestExpect(res.status).toBe(200);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.message).toBe('Category updated successfully');
   });
 
   test('non-admin → 403 forbidden', async () => {
@@ -377,12 +383,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Updated' }, USER_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(403);
-    expect(body.code).toBe('FORBIDDEN');
+    jestExpect(res.status).toBe(403);
+    jestExpect(body.code).toBe('FORBIDDEN');
   });
 
   test('unauthenticated → 401', async () => {
@@ -390,12 +396,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Updated' }, {}),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(401);
-    expect(body.code).toBe('UNAUTHORIZED');
+    jestExpect(res.status).toBe(401);
+    jestExpect(body.code).toBe('UNAUTHORIZED');
   });
 
   test('invalid ID → 400', async () => {
@@ -403,12 +409,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Updated' }, ADMIN_HEADERS),
-      { params: { id: 'abc' } }
+      makeRouteContext('abc')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('INVALID_ID');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('INVALID_ID');
   });
 
   test('validation error → 400', async () => {
@@ -417,12 +423,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: '' }, ADMIN_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('VALIDATION_ERROR');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('VALIDATION_ERROR');
   });
 
   test('category not found → 404', async () => {
@@ -434,12 +440,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Updated' }, ADMIN_HEADERS),
-      { params: { id: '999' } }
+      makeRouteContext('999')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(404);
-    expect(body.code).toBe('NOT_FOUND');
+    jestExpect(res.status).toBe(404);
+    jestExpect(body.code).toBe('NOT_FOUND');
   });
 
   test('duplicate category name → 400', async () => {
@@ -456,12 +462,12 @@ describe('PUT /api/categories/[id]', () => {
 
     const res = await PUT(
       makeRequest({ category_name: 'Health' }, ADMIN_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('DUPLICATE_CATEGORY');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('DUPLICATE_CATEGORY');
   });
 
 });
@@ -483,13 +489,13 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, ADMIN_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(body.success).toBe(true);
-    expect(body.message).toBe('Category deleted successfully');
+    jestExpect(res.status).toBe(200);
+    jestExpect(body.success).toBe(true);
+    jestExpect(body.message).toBe('Category deleted successfully');
   });
 
   test('non-admin → 403 forbidden', async () => {
@@ -497,12 +503,12 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, USER_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(403);
-    expect(body.code).toBe('FORBIDDEN');
+    jestExpect(res.status).toBe(403);
+    jestExpect(body.code).toBe('FORBIDDEN');
   });
 
   test('unauthenticated → 401', async () => {
@@ -510,12 +516,12 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, {}),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(401);
-    expect(body.code).toBe('UNAUTHORIZED');
+    jestExpect(res.status).toBe(401);
+    jestExpect(body.code).toBe('UNAUTHORIZED');
   });
 
   test('invalid ID → 400', async () => {
@@ -523,12 +529,12 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, ADMIN_HEADERS),
-      { params: { id: 'abc' } }
+      makeRouteContext('abc')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('INVALID_ID');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('INVALID_ID');
   });
 
   test('category not found → 404', async () => {
@@ -540,12 +546,12 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, ADMIN_HEADERS),
-      { params: { id: '999' } }
+      makeRouteContext('999')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(404);
-    expect(body.code).toBe('CATEGORY_NOT_FOUND');
+    jestExpect(res.status).toBe(404);
+    jestExpect(body.code).toBe('CATEGORY_NOT_FOUND');
   });
 
   test('category in use by use cases → 400', async () => {
@@ -559,12 +565,12 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       makeRequest(undefined, ADMIN_HEADERS),
-      { params: { id: '1' } }
+      makeRouteContext('1')
     );
     const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.code).toBe('CATEGORY_IN_USE');
+    jestExpect(res.status).toBe(400);
+    jestExpect(body.code).toBe('CATEGORY_IN_USE');
   });
 
 });

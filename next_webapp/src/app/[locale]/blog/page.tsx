@@ -64,56 +64,26 @@ export default function BlogListingPage() {
             </p>
           </div>
 
-          {/* Loading */}
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
-            </div>
-          ) : blogs.length === 0 ? (
-            <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-              No blog posts yet. Check back soon.
+          {/* Responsive card grid: 1 → 2 → 3 columns */}
+          {posts.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <BlogCard
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  description={post.description}
+                  image={post.image}
+                  category={post.category}
+                />
+              ))}
             </div>
           ) : (
-            <>
-              {/* Card grid */}
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {blogs.map((blog) => (
-                  <BlogCard
-                    key={blog.id}
-                    id={String(blog.id)}
-                    title={blog.title ?? ""}
-                    description={blog.description ?? ""}
-                    image={blog.cover_img ?? ""}
-                    category={blog.published_date ?? ""}
-                  />
-                ))}
-              </div>
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="mt-12 flex items-center justify-center gap-4">
-                  <button
-                    onClick={() => setPage((p) => p - 1)}
-                    disabled={page === 1}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-                  >
-                    <ChevronLeft size={18} />
-                  </button>
-
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
-                    Page {page} of {totalPages} &nbsp;·&nbsp; {total} posts
-                  </span>
-
-                  <button
-                    onClick={() => setPage((p) => p + 1)}
-                    disabled={page === totalPages}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-                  >
-                    <ChevronRight size={18} />
-                  </button>
-                </div>
-              )}
-            </>
+            <div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-[#242424]">
+              <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+                No data available at the moment
+              </p>
+            </div>
           )}
         </section>
       </main>

@@ -84,14 +84,14 @@ export default function AdminHeader() {
                 Settings
               </Link>
 
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 transition hover:bg-red-50"
-              >
-                <LogOut size={16} />
-                Logout
-              </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex h-10 w-full min-w-[96px] items-center justify-center gap-2 rounded-lg border border-green-600 bg-white px-4 text-sm font-medium text-green-600 transition-all duration-200 transform hover:scale-105 hover:bg-green-50 hover:text-green-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            >
+              <LogOut size={16} />
+            Logout
+            </button>
             </div>
           )}
         </div>
