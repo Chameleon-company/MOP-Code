@@ -31,7 +31,7 @@ interface GalleryImage {
   src: string;
   titleKey: string;
   caption: string;
-  category: ImageCategory;
+  category: Category;
   glowColor: string;
 }
 
@@ -230,6 +230,7 @@ const IMAGES: GalleryImage[] = [
 
 export default function GalleryPage() {
   const t = useTranslations("common");
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [lightbox, setLightbox] = useState<GalleryImage | null>(null);
 
   const closeLightbox = useCallback(() => {

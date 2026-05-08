@@ -881,9 +881,9 @@ const Dashboard = () => {
 					setIsTypingDone(true);
 					clearInterval(timer);
 				}
-			}, 60);
+			}, 25);
 			return () => clearInterval(timer);
-		}, 300);
+		}, 100);
 		return () => clearTimeout(delay);
 	}, [heroTitle]);
 
