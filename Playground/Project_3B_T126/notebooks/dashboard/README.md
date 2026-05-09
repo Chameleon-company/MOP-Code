@@ -12,7 +12,7 @@ The interactive web application dashboard for visualizing and analyzing water pi
 
 ## Project Structure
 
-Melbourne-Water-Pipe-Risk/
+Melbourne-Water-Pipe-Risk
 ├── webapp.py                    # Main Streamlit application
 ├── predict_wpf.py               # Data loading and preprocessing
 ├── melbourne_risk_llm_ready.csv   # Main dataset with risk scores
@@ -41,7 +41,7 @@ cd /path/to/the/project
     venv\Scripts\activate
 
 ## 2. Install required Libraries
-- Create a text file - requirements.txt that contain the following librari:
+- Create a text file - requirements.txt that contain the following libraries:
 
         streamlit
         pandas
