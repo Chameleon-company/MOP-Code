@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def load_pipes():
     # Load the rich pre-computed file you have
@@ -12,6 +13,13 @@ def load_pipes():
         'ASSET_ID': 'ASSET_ID',      
         'MAIN_NAME': 'MAIN_NAME'
     })
+
+    # Create pipe_id for Streamlit selection if it does not already exist
+    if "pipe_id" not in df.columns:
+        if "ASSET_ID" in df.columns:
+            df["pipe_id"] = df["ASSET_ID"].astype(str)
+        else:
+            df["pipe_id"] = df.index.astype(str)
     
     # uppercase risk levels for consistency
     if 'RISK_LEVEL' in df.columns:
