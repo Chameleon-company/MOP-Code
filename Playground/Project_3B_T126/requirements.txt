@@ -1,0 +1,6 @@
+streamlit
+pandas
+plotly
+xgboost
+streamlit-folium
+groq
