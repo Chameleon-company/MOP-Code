@@ -107,7 +107,7 @@ def generate_llm_explanation(pipe_row):
 You are an infrastructure maintenance assistant for a water utility.
 
 The machine learning model has already predicted this pipe's failure risk.
-Your task is to explain the model output clearly and recommend a practical maintenance action.
+Your task is to clearly explain the model output and provide realistic maintenance recommendations based on the pipe attributes provided.
 
 Pipe information:
 - Pipe ID: {pipe_row.get("pipe_id", "Unknown")}
@@ -117,22 +117,29 @@ Pipe information:
 - Pipe Age: {pipe_row.get("pipe_age", "Unknown")}
 - Pipe Length: {pipe_row.get("shape__length", "Unknown")}
 
-Write the response using this structure:
+Format the response in clean Markdown using these exact headings:
 
-1. Risk Explanation:
-Explain why this pipe may have this risk level.
+### Risk Explanation
+- Explain why the pipe may be considered this risk level.
+- Refer to the failure probability and important pipe characteristics.
+- Include brief domain reasoning where appropriate (e.g. ageing infrastructure, material deterioration, long pipe sections, maintenance history implications).
 
-2. Maintenance Recommendation:
-Suggest a practical maintenance action.
+### Maintenance Recommendation
+- Suggest 2-3 realistic preventative or investigative maintenance actions.
+- Explain why those actions may help reduce operational risk.
+- Recommendations should sound practical for a water utility environment.
 
-3. Priority Reasoning:
-Explain why this pipe should or should not be prioritised.
+### Priority Reasoning
+- Explain whether this pipe should be prioritised compared to lower-risk assets.
+- Discuss potential operational consequences of failure where relevant.
+- Mention that the recommendation supports, but does not replace, engineering judgement.
 
 Rules:
+- Use Markdown formatting.
+- Use bullet points where appropriate.
+- Be descriptive but still concise and readable.
+- Do not invent missing data.
 - Do not claim certainty.
-- Do not invent information.
-- Use clear, concise language.
-- Mention that the prediction supports, but does not replace, engineering judgement.
 """
 
 #Groq API Call
