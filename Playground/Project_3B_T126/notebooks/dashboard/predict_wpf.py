@@ -2,7 +2,7 @@ import pandas as pd
 
 def load_pipes():
     # Load the rich pre-computed file you have
-    df = pd.read_csv("/Users/homedesk/Documents/S779/2026/SIT764/capstone/MOP-Code/Playground/Project_3B_T126/data/processed/melbourne_risk_llm_ready.csv")
+    df = pd.read_csv(".../data/processed/melbourne_risk_llm_ready.csv")
     
     # Standardizing column names 
     df = df.rename(columns={
