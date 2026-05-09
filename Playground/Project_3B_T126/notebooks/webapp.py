@@ -50,8 +50,8 @@ filtered = filtered[
 
 if risk_filter:
     filtered = filtered[filtered["risk_level"].isin(risk_filter)]
-
-# Tabs
+    
+# Main display - show number of pipes after filterin 
 tab1, tab2, tab3 = st.tabs(["📍 Risk Map", "📊 Insights & Charts", "🤖 AI Maintenance Reasoning"])
 # Tab 1: Risk Map
 with tab1:
