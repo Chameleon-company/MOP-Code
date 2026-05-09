@@ -1,3 +1,6 @@
+#Streamlit Secrets
+.streamlit/secrets.toml
+
 # Ignore large local raw GIS folders
 data/Ontario Soil Survey Complex/
 data/CANSIS SLC/

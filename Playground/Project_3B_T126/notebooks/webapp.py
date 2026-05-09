@@ -3,10 +3,29 @@ import pandas as pd
 import plotly.express as px
 from streamlit_folium import st_folium
 from predict_wpf import pipes   # already contains predictions
+from groq import Groq
 
 # Streamlit app configuration and layout
+# Page Config
 st.set_page_config(page_title="Water Pipe Failure Predictor", layout="wide")
+
+# Groq client setup
+from groq import Groq
+
+def get_groq_client():
+    try:
+        api_key = st.secrets["GROQ_API_KEY"]
+        return Groq(api_key=api_key)
+    except Exception:
+        return None
+
+client = get_groq_client()
+
+st.write("Client loaded:", client is not None)
+
+#App title
 st.title("Melbourne Water Pipe Failure Prediction Analysis")
+
 
 # Sidebar filters
 st.sidebar.header("Filters")
@@ -52,6 +71,92 @@ if risk_filter:
     filtered = filtered[filtered["risk_level"].isin(risk_filter)]
     
 # Main display - show number of pipes after filterin 
+
+#Explanation for Fallback
+# Pulls basic explanation from selected pipes
+def generate_fallback_explanation(pipe_row):
+    risk_level = pipe_row.get("risk_level", "Unknown")
+    probability = pipe_row.get("failure_probability", "Unknown")
+    material = pipe_row.get("material", "Unknown")
+    pipe_age = pipe_row.get("pipe_age", "Unknown")
+    pipe_length = pipe_row.get("shape__length", "Unknown")
+
+    return f"""
+### Risk Explanation
+This pipe has been classified as **{risk_level} risk** based on the model's predicted failure probability of **{probability}**.
+
+Key available factors include:
+- Material: {material}
+- Pipe age: {pipe_age}
+- Pipe length: {pipe_length}
+
+### Maintenance Recommendation
+For high-risk pipes, prioritise inspection, condition assessment, and possible preventative maintenance. For medium-risk pipes, schedule monitoring and review. For low-risk pipes, continue routine maintenance.
+
+### Priority Reasoning
+This recommendation is based on the model output and available pipe attributes. The prediction should support maintenance planning but should not replace engineering judgement.
+"""
+
+# Explanation using LLM
+def generate_llm_explanation(pipe_row):
+    if client is None:      
+        return generate_fallback_explanation(pipe_row)  #Uses fallback if no APIKey is detected
+
+#Generates prompt using charateristics of dataset
+    prompt = f"""
+You are an infrastructure maintenance assistant for a water utility.
+
+The machine learning model has already predicted this pipe's failure risk.
+Your task is to explain the model output clearly and recommend a practical maintenance action.
+
+Pipe information:
+- Pipe ID: {pipe_row.get("pipe_id", "Unknown")}
+- Risk Level: {pipe_row.get("risk_level", "Unknown")}
+- Failure Probability: {pipe_row.get("failure_probability", "Unknown")}
+- Material: {pipe_row.get("material", "Unknown")}
+- Pipe Age: {pipe_row.get("pipe_age", "Unknown")}
+- Pipe Length: {pipe_row.get("shape__length", "Unknown")}
+
+Write the response using this structure:
+
+1. Risk Explanation:
+Explain why this pipe may have this risk level.
+
+2. Maintenance Recommendation:
+Suggest a practical maintenance action.
+
+3. Priority Reasoning:
+Explain why this pipe should or should not be prioritised.
+
+Rules:
+- Do not claim certainty.
+- Do not invent information.
+- Use clear, concise language.
+- Mention that the prediction supports, but does not replace, engineering judgement.
+"""
+
+#Groq API Call
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+    
+        return response.choices[0].message.content
+
+    except Exception as e:
+        st.error(f"Groq API failed: {e}")
+        return generate_fallback_explanation(pipe_row)
+    #except Exception:
+     #   return generate_fallback_explanation(pipe_row) #additional lines to use fallback if problems arise.
+
+
+# Tabs
 tab1, tab2, tab3 = st.tabs(["📍 Risk Map", "📊 Insights & Charts", "🤖 AI Maintenance Reasoning"])
 # Tab 1: Risk Map
 with tab1:
@@ -186,3 +291,53 @@ with tab2:
         df_display.sort_values("Failure Probability", ascending=False),
         use_container_width=True
     )
+
+# Tab 3: LLM Suggestion
+with tab3:
+    st.subheader("AI Maintenance Reasoning")
+
+    st.write(
+        "Select a pipe to generate an explanation of its predicted risk level "
+        "and a suggested maintenance action."
+    )
+
+    if client is None:
+        st.warning(
+            "No OpenAI API key found. The app will use fallback rule-based explanations."
+        )
+
+    if filtered.empty:
+        st.warning("No pipes available based on the current filters.")
+    else:
+        selected_pipe_id = st.selectbox(
+            "Select Pipe ID",
+            filtered["pipe_id"].astype(str).unique()
+        )
+
+        pipe_row = filtered[
+            filtered["pipe_id"].astype(str) == selected_pipe_id
+        ].iloc[0]
+
+        st.markdown("### Selected Pipe Details")
+
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Risk Level", pipe_row.get("risk_level", "Unknown"))
+        col2.metric(
+            "Failure Probability",
+            round(float(pipe_row.get("failure_probability", 0)), 4)
+        )
+        col3.metric("Pipe Age", pipe_row.get("pipe_age", "Unknown"))
+
+        st.write({
+            "Pipe ID": pipe_row.get("pipe_id", "Unknown"),
+            "Material": pipe_row.get("material", "Unknown"),
+            "Pipe Age": pipe_row.get("pipe_age", "Unknown"),
+            "Pipe Length": pipe_row.get("shape__length", "Unknown"),
+            "Risk Level": pipe_row.get("risk_level", "Unknown"),
+            "Failure Probability": pipe_row.get("failure_probability", "Unknown")
+        })
+
+        if st.button("Generate Maintenance Explanation"):
+            with st.spinner("Generating explanation..."):
+                explanation = generate_llm_explanation(pipe_row)
+                st.markdown(explanation)
