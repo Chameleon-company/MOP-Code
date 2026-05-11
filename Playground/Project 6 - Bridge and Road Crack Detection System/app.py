@@ -44,6 +44,8 @@ if __name__ == "__main__":
         st.session_state.image_url = None
     if "mask_url" not in st.session_state:
         st.session_state.mask_url = None
+    if "overlay_url" not in st.session_state:                          # NEW
+        st.session_state.overlay_url = None                            # NEW
     if "report" not in st.session_state:
         st.session_state.report = None
     if "llm_results" not in st.session_state:
@@ -64,10 +66,11 @@ if __name__ == "__main__":
                 with open(temp_path, "wb") as f:
                     f.write(uploaded_file.getbuffer())
                     
-                # Upload images to Supastorage and return URLS
+                # Upload images to Supastorage and return URLs
                 result = run_pipeline(temp_path)
                 st.session_state.image_url = result["original_url"]
                 st.session_state.mask_url = result["mask_url"]
+                st.session_state.overlay_url = result["overlay_url"]   # NEW
                 
                 # Download mask and generate metrics
                 mask_response = requests.get(st.session_state.mask_url)
@@ -107,13 +110,19 @@ if __name__ == "__main__":
     # Display images
     if st.session_state.image_url and st.session_state.mask_url:
         st.subheader("Uploaded Images")
-        col_img, col_mask = st.columns(2)
+        col_img, col_mask, col_overlay = st.columns(3)              # CHANGED: 2 → 3 columns
         with col_img:
             st.markdown("**Original Image**")
             st.image(st.session_state.image_url)
         with col_mask:
             st.markdown("**Binary Mask**")
             st.image(st.session_state.mask_url)
+        with col_overlay:                                            # NEW column
+            st.markdown("**Crack Overlay**")
+            if st.session_state.overlay_url:
+                st.image(st.session_state.overlay_url)
+            else:
+                st.info("Overlay not available")
         st.markdown("---")
         
     # Main analysis
@@ -170,6 +179,7 @@ if __name__ == "__main__":
             "damage_level": damage_level,
             "image_url": st.session_state.image_url or "",
             "mask_url": st.session_state.mask_url or "",
+            "overlay_url": st.session_state.overlay_url or "",      # NEW
         }
         
         # Three-column layout for results
@@ -239,4 +249,3 @@ if __name__ == "__main__":
                 
     else:
         st.info("Upload the crack image in the sidebar and click 'Analyze Inspection' to begin.")
-        

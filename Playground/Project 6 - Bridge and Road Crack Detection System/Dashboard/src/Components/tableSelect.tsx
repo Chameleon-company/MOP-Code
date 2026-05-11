@@ -3,11 +3,6 @@ import type { GridColDef } from '@mui/x-data-grid'
 import Paper from '@mui/material/Paper'
 import { useEffect, useState } from "react"
 
-
-
-
-
-
 type crackReport = {
     id: number
     crackarearatio: number
@@ -20,6 +15,7 @@ type crackReport = {
     inspectionschedule: string
     imageurl: string
     crackmaskurl: string
+    overlayurl: string              // NEW
 }
 
 const columns: GridColDef[] = [
@@ -42,13 +38,10 @@ interface tableProps {
 
 const paginationModel = { page: 0, pageSize: 50 }
 
-
-
 export default function TableSelect({ onRowSelect }: tableProps) {
-
-
     
   const [crackReport, setCrackReport] = useState<crackReport[]>([])
+
   useEffect(() => {
     getCrackReports()
   }, [])
@@ -58,14 +51,11 @@ export default function TableSelect({ onRowSelect }: tableProps) {
       const url = `${(import.meta as any).env.VITE_API_URL}/api/getData`
       console.log(url)
       const res = await fetch(`${(import.meta as any).env.VITE_API_URL}/api/getData`)
-
       if(!res.ok) {
         throw new Error("failed to fetch crack report")
       }
-
       const data = await res.json()
       setCrackReport(data.Data ?? [])
-
     }
     catch (err) {
       console.error(err)
@@ -75,10 +65,8 @@ export default function TableSelect({ onRowSelect }: tableProps) {
 
   const handleRowSelection = (selectionModel: any) => {
     console.log("Selection model:", selectionModel)
-
     const selectedIds = Array.from(selectionModel.ids || [])
     console.log("Selected IDs:", selectedIds)
-
     if (selectedIds.length > 0) {
       const selectedId = selectedIds[0]
       console.log("Selected ID:", selectedId)
@@ -88,12 +76,7 @@ export default function TableSelect({ onRowSelect }: tableProps) {
     } else {
       onRowSelect(null)
     }
-
-
-
   }
-
-
 
   return (
     <Paper sx={{ height: 750, width: '100%' }}>
@@ -116,8 +99,5 @@ export default function TableSelect({ onRowSelect }: tableProps) {
     </Paper>
   )
 }
-
-
   
-
-export type {crackReport}
+export type { crackReport }
