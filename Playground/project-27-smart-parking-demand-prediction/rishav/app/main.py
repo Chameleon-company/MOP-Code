@@ -1,12 +1,30 @@
 from fastapi import FastAPI
 import pandas as pd
 import os
+import math
 
 app = FastAPI()
 
 sensors_df = None
 events_df = None
 
+# ========== HELPER FUNCTION ==========
+def clean_nan_from_dict(obj):
+    """
+    Recursively convert NaN, Infinity values to None (becomes null in JSON).
+    This fixes the "Out of range float values are not JSON compliant" error.
+    """
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    if isinstance(obj, dict):
+        return {k: clean_nan_from_dict(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [clean_nan_from_dict(item) for item in obj]
+    return obj
+
+# ========== STARTUP ==========
 @app.on_event("startup")
 def load_data():
     global sensors_df, events_df
@@ -33,6 +51,7 @@ def load_data():
         print(f"File not found: {events_path}")
         events_df = pd.DataFrame()
 
+# ========== ENDPOINTS ==========
 @app.get("/")
 def home():
     return {
@@ -42,23 +61,41 @@ def home():
     }
 
 @app.get("/sensors")
-def get_sensors(limit: int = 1000):
+def get_sensors(limit: int = 200, offset: int = 0):
     if sensors_df is None or len(sensors_df) == 0:
         return {"error": "No sensors data", "data": []}
+    
+    start = offset
+    end = offset + min(limit, len(sensors_df) - offset)
+    data_slice = sensors_df.iloc[start:end]
+    
+    raw_data = data_slice.to_dict(orient="records")
+    cleaned_data = clean_nan_from_dict(raw_data)
+    
     return {
         "total": len(sensors_df),
-        "limit": min(limit, len(sensors_df)),
-        "data": sensors_df.head(limit).to_dict(orient="records")
+        "limit": limit,
+        "offset": offset,
+        "data": cleaned_data
     }
 
 @app.get("/events")
-def get_events(limit: int = 1000):
+def get_events(limit: int = 500, offset: int = 0):
     if events_df is None or len(events_df) == 0:
         return {"error": "No events data", "data": []}
+    
+    start = offset
+    end = offset + min(limit, len(events_df) - offset)
+    data_slice = events_df.iloc[start:end]
+    
+    raw_data = data_slice.to_dict(orient="records")
+    cleaned_data = clean_nan_from_dict(raw_data)
+    
     return {
         "total": len(events_df),
-        "limit": min(limit, len(events_df)),
-        "data": events_df.head(limit).to_dict(orient="records")
+        "limit": limit,
+        "offset": offset,
+        "data": cleaned_data
     }
 
 @app.get("/columns")
