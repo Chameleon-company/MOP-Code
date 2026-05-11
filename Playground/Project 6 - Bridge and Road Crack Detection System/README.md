@@ -50,6 +50,7 @@ Create a table named `crack_reports` with the following columns
 | inspectionschedule | text |
 | imageurl | text |
 | crackmaskurl | text |
+| overlayurl | text |
 
 ```sql
 CREATE table crack_reports(
@@ -66,13 +67,14 @@ CREATE table crack_reports(
   repairactions VARCHAR(5000),
   inspectionschedule VARCHAR(5000),
   imageurl VARCHAR(300),
-  crackmaskurl VARCHAR(300)
+  crackmaskurl VARCHAR(300),
+  overlayurl VARCHAR(300)
 );
 ```
 
 Make sure to Disable RLS.
 
-Go to Storage and create 2 buckets named `original-images` and `crack-masks`.
+Go to Storage and create 3 buckets named `original-images`, `crack-masks` and `overlay_images`
 
 ## Run application
 
