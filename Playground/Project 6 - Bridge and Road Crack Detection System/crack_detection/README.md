@@ -89,7 +89,7 @@ mask = cv2.imdecode(mask_array, cv2.IMREAD_GRAYSCALE)
   "image_id": "abc-123-...",
   "original_url": "https://...supabase.co/.../original-images/...",
   "mask_url": "https://...supabase.co/.../crack-masks/...",
-  "overlay_url": "https://...supabase.co/.../overlay_images/...",
+  "overlay_url": "https://...supabase.co/.../overlay_images/..."
 }
 ```
 
