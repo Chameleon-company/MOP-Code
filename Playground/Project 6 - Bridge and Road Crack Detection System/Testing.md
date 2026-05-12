@@ -47,6 +47,14 @@ The following edge cases were tested by uploading images through the full pipeli
 
 ---
 
+### 6. Bridge Structural Crack
+**Description:** Close-up of a concrete bridge pillar with visible structural cracks running diagonally across the surface, with a complex 3D background.  
+**Result:** ⚠️ Partially Passed — model correctly detected the main structural cracks on the bridge pillar and ignored the background, but missed the upper portion of the diagonal crack and potentially misclassified the structural joint between bridge segments as a crack.
+
+![Test 6](test-case-images/test_case_6.jpeg)
+
+---
+
 ## Summary
 
 | Test Case | Result |
@@ -56,5 +64,6 @@ The following edge cases were tested by uploading images through the full pipeli
 | Road Markings | ✅ Passed |
 | Clean Road | ✅ Passed |
 | Pothole | ✅ Passed |
+| Bridge Crack |⚠️ Partially Passed |
 
-The model performed well across all 5 edge cases with no false positives or missed detections. The most notable finding was the model's ability to generalise to potholes, which were not part of the training data, showing the model's robustness to different types of road damage.
+The model performed well across all 6 edge cases with no critical failures. Notably, the model generalised to potholes and bridge structural cracks despite not being explicitly trained on either, demonstrating robustness to different surface types and damage categories. The bridge test case revealed some limitations — the model missed part of a diagonal crack and potentially misclassified a structural joint — however it still correctly identified the main crack on a complex 3D concrete surface, which is a strong result given the training data consists primarily of flat road surfaces.
