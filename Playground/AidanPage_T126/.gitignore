@@ -1,2 +1,5 @@
 venv/
-data/
+DEPENDENCIES/
+__pycache__/
+.DS_Store
+*.pyc
