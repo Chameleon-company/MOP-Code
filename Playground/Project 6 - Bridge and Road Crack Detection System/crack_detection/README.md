@@ -88,7 +88,8 @@ mask = cv2.imdecode(mask_array, cv2.IMREAD_GRAYSCALE)
 {
   "image_id": "abc-123-...",
   "original_url": "https://...supabase.co/.../original-images/...",
-  "mask_url": "https://...supabase.co/.../crack-masks/..."
+  "mask_url": "https://...supabase.co/.../crack-masks/...",
+  "overlay_url": "https://...supabase.co/.../overlay_images/...",
 }
 ```
 
@@ -97,6 +98,7 @@ mask = cv2.imdecode(mask_array, cv2.IMREAD_GRAYSCALE)
 | `image_id` | Unique ID for this inference run |
 | `original_url` | Public URL of the uploaded original image |
 | `mask_url` | Public URL of the predicted crack mask |
+| `overlay_url` | Public URL of the overlay image |
 
 ---
 
