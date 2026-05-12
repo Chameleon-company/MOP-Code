@@ -24,11 +24,9 @@ The ZIP file contains four CSV files, which are loaded and combined into one tra
 
 The weather dataset is sourced from the Bureau of Meteorology daily rainfall data for station 086338.
 
-The notebook first attempts to load the weather CSV from the local DEPENDENCIES folder. This is done to make the notebook reproducible because the BOM temporary download link may expire.
+The Bureau of Meteorology weather CSV is included as a separate dependency file because the BOM temporary download link may expire.
 
-If the local CSV is not found, the notebook attempts to download the BOM ZIP file programmatically. Once downloaded, the CSV is saved locally inside the DEPENDENCIES folder for future use.
-
-Expected local dependency path:
+The dependency file is stored in the shared repository dependency location:
 
 ```text
-DEPENDENCIES/UC00216_Weather_Impact_Public_Transport/IDCJAC0009_086338_2025.csv
+datascience/usecases/DEPENDENCIES/UC00216_Weather_Impact_Public_Transport/DEPENDENCIES/IDCJAC0009_086338_2025.csv
