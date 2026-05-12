@@ -289,7 +289,7 @@ with tab2:
         )
         st.plotly_chart(fig_material, use_container_width=True)
 
-    # Top 100 Highest Risk Pipes Table
+    # Top 100 highest risk pipes table
     st.subheader("Top 100 Highest Risk Pipes")
 
     display_cols = [col for col in [
@@ -340,7 +340,7 @@ with tab2:
     else:
         st.warning("No data available to display.")
 
-    # Additional insights - Average Risk Score by Material and Age vs Length Scatter
+    # Additional insights - average risk score by material and age vs length scatter
     st.subheader("Additional Insights")
 
     col3, col4 = st.columns(2)
@@ -357,7 +357,7 @@ with tab2:
         st.plotly_chart(fig_avg, use_container_width=True)
 
     with col4:
-        # Age vs Length Scatter
+        # Age vs length scatter
         fig_scatter = px.scatter(
             filtered,
             x="pipe_age",
@@ -388,7 +388,7 @@ with tab2:
     st.plotly_chart(fig_material_pct, use_container_width=True)
 
 
-# Tab 3: LLM Suggestion
+# Tab 3: LLM-based explanations and maintenance recommendations
 with tab3:
     st.subheader("AI Maintenance Reasoning")
 
