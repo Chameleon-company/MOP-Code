@@ -241,13 +241,13 @@ Based on the structure and content of the file, the important features that were
 
 The results displayed on the dashboard system helps the pipe engineering and operational maintenance team to better access all the pipes in all categories of risks. The below overview of the pipes age at 60 and above shows that out of the total number of pipes which is 3106, those that are at higher risk are 472 which is 15.2%, 2630 are at the medium risk of 84.7% whilst only 4 are at low risk of 0.129%.
 
-![alt text](image.png)
+![alt text](wpf1.png)
 
 ---
 
-# 6. LLM-Based Maintenance Recommendation Framework
+# 7. LLM-Based Maintenance Recommendation Framework
 
-## 6.1 Purpose of LLM Integration
+## 7.1 Purpose of LLM Integration
 The machine learning models developed in this project produce numerical risk outputs such as failure probability, classification labels, and feature importance values. While these outputs are useful for tefchnical analysis, they are not always easily interpretable for operational maintenance planning. 
 
 To improve interpretability and usability, A Large Language Model (LLM) recommendation layer was integrated into the final dashboard workflow. The purpose of this stage was to translate model outputs into concise maintenance reasoning that can support asset prioritisation and infrastructure decision-making.
@@ -256,7 +256,7 @@ The LLM component was implemented through a Streamlit dashboard interface and co
 
 The generated output is intended to support engineering judgement rather than replace professional maintenance assessment.
 
-## 6.2 LLM Input Features
+## 7.2 LLM Input Features
 The LLM recommendation workflow uses selected pipe-level fields from the Melbourne adaptation dataset together with the generated risk scoring outputs. 
 
 The final LLM-ready dataset contains:
@@ -276,7 +276,7 @@ The recommendation system uses structured prompt engineering to generate consist
 
 The workflow also includes a fallback rule-based explanation system to ensure the dashboard remains operational if the API becomes unavailable or fails during deployment.
 
-## 6.3 Example High-Risk Pipe Outputs
+## 7.3 Example High-Risk Pipe Outputs
 For high-risk pipes, the generated outputs typically identified ageing infrastructure, pipe material and physical dimensions as contributiing factors to elevated failure risk.
 
 Example recommendation themes included 
@@ -294,7 +294,7 @@ The recommendation outputs were then formatted into three sections:
 - Priority Reasoning
 The structure imporved readability and provided a clearer operation interpretation of the machine learning outputs.
 
-## 6.4 Practical Use Case
+## 7.4 Practical Use Case
 
 The final workflow demonstrates how machine learning and LLM-assisted reasoning can support proactive infrastructure maintenance planning.
 
@@ -312,7 +312,7 @@ Overall, the integrated workflow demonstrates how predictive analytics and AI-as
 
 ---
 
-# 7. Discussion and Limitations
+# 8. Discussion and Limitations
 
 The project successfully demonstrated that machine learning models can identify meaningful patterns associated with historical water pipe failures. Across all three models, pipe condition, age, material, and physical dimensions consistently appeared as the strongest indicators of break risk. 
 
@@ -338,7 +338,7 @@ Future improvements could include:
 
 ---
 
-# 8. Conclusion
+# 9. Conclusion
 
 This project developed an end-to-end workflow for ater pipe failure prediction, risk identification and AI-assisted maintenance recommendation.
 
