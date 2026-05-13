@@ -18,6 +18,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
     average_precision_score,
     confusion_matrix,
+    ConfusionMatrixDisplay,
     f1_score,
     precision_score,
     recall_score,
@@ -183,8 +184,9 @@ def display_random_forest_summary(results):
     display(results["feature_importance"].head(10))
 
 
-def plot_feature_importance(results, top_n=15):
-    """Plot top Random Forest feature importance."""
+def plot_feature_importance(results, top_n=15, save_path=None):
+    """Plot Random Forest feature importance."""
+    
     importance_df = (
         results["feature_importance"]
         .head(top_n)
@@ -192,26 +194,37 @@ def plot_feature_importance(results, top_n=15):
     )
 
     plt.figure(figsize=(8, 6))
-    plt.barh(importance_df["feature"], importance_df["importance"])
+
+    plt.barh(
+        importance_df["feature"],
+        importance_df["importance"],
+    )
+
     plt.xlabel("Feature importance")
     plt.ylabel("Feature")
-    plt.title(f"Top {top_n} Random Forest Feature Importance")
+    plt.title(f"Top {top_n} Random Forest Features")
+
     plt.tight_layout()
+
+    if save_path:
+        plt.savefig(save_path, bbox_inches="tight")
+
     plt.show()
+    
 
-def plot_confusion_matrix(results):
-    """Plot Random Forest test confusion matrix."""
-    from sklearn.metrics import ConfusionMatrixDisplay
-
+def plot_confusion_matrix(results, save_path=None):
+    """Plot Random Forest confusion matrix."""
     cm = results["test_metrics"]["confusion_matrix"]
-
-    fig, ax = plt.subplots(figsize=(5, 5))
 
     ConfusionMatrixDisplay(
         confusion_matrix=cm,
         display_labels=["No observed break", "Observed break"],
-    ).plot(ax=ax)
+    ).plot()
 
     plt.title("Random Forest Test Confusion Matrix")
     plt.grid(False)
+
+    if save_path:
+        plt.savefig(save_path, bbox_inches="tight")
+
     plt.show()

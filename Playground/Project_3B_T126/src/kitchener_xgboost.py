@@ -221,8 +221,8 @@ def display_xgboost_summary(results):
     display(results["feature_importance"].head(10))
 
 
-def plot_confusion_matrix(results):
-    """Plot XGBoost test confusion matrix."""
+def plot_confusion_matrix(results, save_path=None):
+    """Plot XGBoost confusion matrix."""
     cm = results["test_metrics"]["confusion_matrix"]
 
     ConfusionMatrixDisplay(
@@ -232,11 +232,16 @@ def plot_confusion_matrix(results):
 
     plt.title("XGBoost Test Confusion Matrix")
     plt.grid(False)
+
+    if save_path:
+        plt.savefig(save_path, bbox_inches="tight")
+
     plt.show()
 
 
-def plot_feature_importance(results, top_n=15):
-    """Plot top XGBoost feature importance."""
+def plot_feature_importance(results, top_n=15, save_path=None):
+    """Plot XGBoost feature importance."""
+
     importance_df = (
         results["feature_importance"]
         .head(top_n)
@@ -244,9 +249,19 @@ def plot_feature_importance(results, top_n=15):
     )
 
     plt.figure(figsize=(8, 6))
-    plt.barh(importance_df["feature"], importance_df["importance"])
-    plt.xlabel("Gain importance")
+
+    plt.barh(
+        importance_df["feature"],
+        importance_df["importance"],
+    )
+
+    plt.xlabel("Feature importance")
     plt.ylabel("Feature")
-    plt.title(f"Top {top_n} XGBoost Feature Importance")
+    plt.title(f"Top {top_n} XGBoost Features")
+
     plt.tight_layout()
+
+    if save_path:
+        plt.savefig(save_path, bbox_inches="tight")
+
     plt.show()
