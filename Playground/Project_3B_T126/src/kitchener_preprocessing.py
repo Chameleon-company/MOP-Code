@@ -3,24 +3,65 @@ Kitchener Preprocessing - Project 3B T126
 
 Converts raw Kitchener water mains and water main break datasets into clean
 pipe-level datasets for modelling.
-
-Main outputs:
-- kitchener_breaks_clean.csv
-- kitchener_mains_clean.csv
-- kitchener_pipe_level.csv
-- kitchener_pipe_master.csv
-- kitchener_model_ready.csv
 """
 
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 
-# --------------------------------------------------
-# 1. Load and inspect data
-# --------------------------------------------------
+BREAKS_DROP_COLS = [
+    "Type of Planned Maintenance",
+    "List Valves Opened",
+    "List Valves Closed",
+    "Related Asset Depth (m)",
+    "CW Service Request Number",
+    "List Hydrants Called Back In",
+    "List Hydrants Called Out",
+    "Depth of Frost (m)",
+    "Date operations was returned to normal service",
+    "Repair Type",
+    "Estimated Number of Units Impacted",
+    "Does the sidewalk need to be closed?",
+    "Estimated Hours for Repair",
+    "Does the road need to be closed?",
+    "CW Workorder #",
+    "OBJECTID",
+    "GLOBALID",
+    "UPDATE_BY",
+    "UPDATE_DATE",
+]
+
+MAINS_DROP_COLS = [
+    "BRIDGE_DETAILS",
+    "LINED_DATE",
+    "CONSULTANT",
+    "OBJECTID",
+    "MAP_LABEL",
+]
+
+BINARY_MAPS = {
+    "lined": {"YES": 1, "NO": 0},
+    "bridge_main": {"Y": 1, "N": 0},
+    "undersized": {"Y": 1, "N": 0},
+    "shallow_main": {"Y": 1, "N": 0},
+    "oversized": {"Y": 1, "N": 0},
+    "cleaned": {"Y": 1, "N": 0},
+}
+
+DROP_FOR_MODEL = [
+    "watmainid",
+    "roadsegmentid",
+    "installation_date",
+    "install_year",
+    "break_count",
+    "first_break_date",
+    "last_break_date",
+    "status",
+]
+
 
 def load_kitchener_data(mains_path, breaks_path):
     """Load raw Kitchener mains and break datasets."""
@@ -31,61 +72,32 @@ def load_kitchener_data(mains_path, breaks_path):
 
 def missing_summary(df):
     """Return missing percentage by column."""
-    return (df.isna().mean() * 100).sort_values(ascending=False)
+    return (df.isna().mean() * 100).round(2).sort_values(ascending=False)
 
-
-# --------------------------------------------------
-# 2. Clean source datasets
-# --------------------------------------------------
 
 def clean_source_tables(mains, breaks):
     """Drop weak columns and convert date fields."""
-    breaks_drop_cols = [
-        "Type of Planned Maintenance",
-        "List Valves Opened",
-        "List Valves Closed",
-        "Related Asset Depth (m)",
-        "CW Service Request Number",
-        "List Hydrants Called Back In",
-        "List Hydrants Called Out",
-        "Depth of Frost (m)",
-        "Date operations was returned to normal service",
-        "Repair Type",
-        "Estimated Number of Units Impacted",
-        "Does the sidewalk need to be closed?",
-        "Estimated Hours for Repair",
-        "Does the road need to be closed?",
-        "CW Workorder #",
-        "OBJECTID",
-        "GLOBALID",
-        "UPDATE_BY",
-        "UPDATE_DATE",
-    ]
-
-    mains_drop_cols = [
-        "BRIDGE_DETAILS",
-        "LINED_DATE",
-        "CONSULTANT",
-        "OBJECTID",
-        "MAP_LABEL",
-    ]
-
     breaks_clean = breaks.drop(
-        columns=[col for col in breaks_drop_cols if col in breaks.columns]
+        columns=[col for col in BREAKS_DROP_COLS if col in breaks.columns]
     ).copy()
 
     mains_clean = mains.drop(
-        columns=[col for col in mains_drop_cols if col in mains.columns]
+        columns=[col for col in MAINS_DROP_COLS if col in mains.columns]
     ).copy()
 
     for col in ["Incident date", "Status last updated date"]:
         if col in breaks_clean.columns:
-            breaks_clean[col] = pd.to_datetime(breaks_clean[col], errors="coerce")
+            breaks_clean[col] = pd.to_datetime(
+                breaks_clean[col],
+                errors="coerce",
+                format="mixed",
+            )
 
     if "INSTALLATION_DATE" in mains_clean.columns:
         mains_clean["INSTALLATION_DATE"] = pd.to_datetime(
             mains_clean["INSTALLATION_DATE"],
             errors="coerce",
+            format="mixed",
         )
 
     return mains_clean, breaks_clean
@@ -94,16 +106,18 @@ def clean_source_tables(mains, breaks):
 def duplicate_summary(mains_clean, breaks_clean):
     """Return duplicate checks after basic cleaning."""
     return {
-        "duplicate_break_ids": breaks_clean["Wat Break Incident ID"].duplicated().sum(),
-        "duplicate_main_ids": mains_clean["WATMAINID"].duplicated().sum(),
-        "duplicate_roadsegment_ids_in_mains": mains_clean["ROADSEGMENTID"].duplicated().sum(),
-        "duplicate_related_asset_ids_in_breaks": breaks_clean["Related Asset ID"].duplicated().sum(),
+        "duplicate_break_ids": int(
+            breaks_clean["Wat Break Incident ID"].duplicated().sum()
+        ),
+        "duplicate_main_ids": int(mains_clean["WATMAINID"].duplicated().sum()),
+        "duplicate_roadsegment_ids_in_mains": int(
+            mains_clean["ROADSEGMENTID"].duplicated().sum()
+        ),
+        "duplicate_related_asset_ids_in_breaks": int(
+            breaks_clean["Related Asset ID"].duplicated().sum()
+        ),
     }
 
-
-# --------------------------------------------------
-# 3. Match breaks to mains
-# --------------------------------------------------
 
 def asset_match_summary(mains_clean, breaks_clean):
     """Check how many break rows match a water main asset ID."""
@@ -126,10 +140,6 @@ def filter_matched_main_breaks(mains_clean, breaks_clean):
 
     return breaks_main, breaks_main_matched
 
-
-# --------------------------------------------------
-# 4. Create pipe-level dataset
-# --------------------------------------------------
 
 def build_break_summary(breaks_main_matched):
     """Aggregate event-level break records into pipe-level break history."""
@@ -163,16 +173,25 @@ def build_pipe_level_dataset(mains_clean, break_summary):
     return pipe_df
 
 
-# --------------------------------------------------
-# 5. Finalise modelling dataset
-# --------------------------------------------------
+def standardise_column_names(df):
+    """Standardise column names for easier modelling workflow."""
+    df = df.copy()
+    df.columns = (
+        df.columns
+        .str.strip()
+        .str.lower()
+        .str.replace(" ", "_", regex=False)
+    )
+    return df
+
 
 def finalise_model_datasets(pipe_df, breaks_main_matched):
     """
     Create final master and model-ready datasets.
 
-    The model-ready dataset removes ID/date/leakage fields and imputes the
-    small remaining numeric missing values.
+    Median imputation here creates a baseline model-ready file.
+    For strict modelling experiments, imputation should ideally be fitted
+    on the training split only.
     """
     model_df = pipe_df.copy()
 
@@ -186,41 +205,16 @@ def finalise_model_datasets(pipe_df, breaks_main_matched):
     model_df["Condition Score"] = model_df["Condition Score"].replace(-1, np.nan)
     model_df["CRITICALITY"] = model_df["CRITICALITY"].replace(-1, np.nan)
 
-    model_df.columns = (
-        model_df.columns
-        .str.strip()
-        .str.lower()
-        .str.replace(" ", "_")
-    )
+    model_df = standardise_column_names(model_df)
 
-    binary_maps = {
-        "lined": {"YES": 1, "NO": 0},
-        "bridge_main": {"Y": 1, "N": 0},
-        "undersized": {"Y": 1, "N": 0},
-        "shallow_main": {"Y": 1, "N": 0},
-        "oversized": {"Y": 1, "N": 0},
-        "cleaned": {"Y": 1, "N": 0},
-    }
-
-    for col, mapping in binary_maps.items():
+    for col, mapping in BINARY_MAPS.items():
         if col in model_df.columns:
             model_df[col] = model_df[col].map(mapping)
 
     pipe_master_df = model_df.copy()
 
-    drop_for_model = [
-        "watmainid",
-        "roadsegmentid",
-        "installation_date",
-        "install_year",
-        "break_count",
-        "first_break_date",
-        "last_break_date",
-        "status",
-    ]
-
     model_ready_df = model_df.drop(
-        columns=[col for col in drop_for_model if col in model_df.columns]
+        columns=[col for col in DROP_FOR_MODEL if col in model_df.columns]
     ).copy()
 
     for col in ["criticality", "condition_score"]:
@@ -232,10 +226,6 @@ def finalise_model_datasets(pipe_df, breaks_main_matched):
     return pipe_master_df, model_ready_df, reference_date
 
 
-# --------------------------------------------------
-# 6. Save outputs
-# --------------------------------------------------
-
 def save_processed_outputs(
     output_dir,
     breaks_clean,
@@ -244,7 +234,7 @@ def save_processed_outputs(
     pipe_master_df,
     model_ready_df,
 ):
-    """Save processed Kitchener datasets."""
+    """Save processed Kitchener datasets and return output paths."""
     os.makedirs(output_dir, exist_ok=True)
 
     output_paths = {
@@ -264,10 +254,6 @@ def save_processed_outputs(
     return output_paths
 
 
-# --------------------------------------------------
-# 7. Plot helper
-# --------------------------------------------------
-
 def plot_target_distribution(pipe_df):
     """Plot target class distribution."""
     class_counts = pipe_df["has_break"].value_counts().sort_index()
@@ -281,15 +267,45 @@ def plot_target_distribution(pipe_df):
     plt.show()
 
 
-# --------------------------------------------------
-# 8. Full workflow
-# --------------------------------------------------
+def display_kitchener_preprocessing_summary(results):
+    """Display key preprocessing outputs for notebook demonstration."""
+    raw_summary = results["raw_summary"]
+    final_summary = results["final_summary"]
+    match_summary = results["asset_match_summary"]
+
+    print("Raw data")
+    print("Raw mains shape:", raw_summary["raw_mains_shape"])
+    print("Raw breaks shape:", raw_summary["raw_breaks_shape"])
+
+    print("\nAfter cleaning")
+    print("Cleaned mains shape:", final_summary["cleaned_mains_shape"])
+    print("Cleaned breaks shape:", final_summary["cleaned_breaks_shape"])
+
+    print("\nAsset matching")
+    print(match_summary)
+
+    print("\nMAIN break filtering")
+    print("MAIN breaks shape:", final_summary["main_breaks_shape"])
+    print("Matched MAIN breaks shape:", final_summary["matched_main_breaks_shape"])
+
+    print("\nFinal datasets")
+    print("Pipe-level dataset shape:", final_summary["pipe_level_shape"])
+    print("Pipe master dataset shape:", final_summary["pipe_master_shape"])
+    print("Model-ready dataset shape:", final_summary["model_ready_shape"])
+
+    print("\nTarget distribution")
+    print(final_summary["target_distribution"])
+
+    print("\nTarget distribution (%)")
+    print(final_summary["target_distribution_pct"])
+
 
 def run_kitchener_preprocessing(
     mains_path,
     breaks_path,
     output_dir="data/processed",
-    verbose=True,
+    save_outputs=True,
+    verbose=False,
 ):
     """Run full Kitchener preprocessing pipeline."""
     mains, breaks = load_kitchener_data(mains_path, breaks_path)
@@ -319,14 +335,16 @@ def run_kitchener_preprocessing(
         breaks_main_matched,
     )
 
-    output_paths = save_processed_outputs(
-        output_dir=output_dir,
-        breaks_clean=breaks_clean,
-        mains_clean=mains_clean,
-        pipe_df=pipe_df,
-        pipe_master_df=pipe_master_df,
-        model_ready_df=model_ready_df,
-    )
+    output_paths = {}
+    if save_outputs:
+        output_paths = save_processed_outputs(
+            output_dir=output_dir,
+            breaks_clean=breaks_clean,
+            mains_clean=mains_clean,
+            pipe_df=pipe_df,
+            pipe_master_df=pipe_master_df,
+            model_ready_df=model_ready_df,
+        )
 
     final_summary = {
         "cleaned_mains_shape": mains_clean.shape,
@@ -342,29 +360,11 @@ def run_kitchener_preprocessing(
         "target_distribution_pct": (
             model_ready_df["has_break"].value_counts(normalize=True) * 100
         ).round(2),
-        "model_ready_missing_pct": (
-            model_ready_df.isna().mean() * 100
-        ).sort_values(ascending=False),
+        "model_ready_missing_pct": missing_summary(model_ready_df),
         "reference_date": reference_date,
     }
 
-    if verbose:
-        print("Raw mains shape:", raw_summary["raw_mains_shape"])
-        print("Raw breaks shape:", raw_summary["raw_breaks_shape"])
-        print("Cleaned mains shape:", final_summary["cleaned_mains_shape"])
-        print("Cleaned breaks shape:", final_summary["cleaned_breaks_shape"])
-        print("Asset match summary:", match_summary)
-        print("MAIN breaks shape:", final_summary["main_breaks_shape"])
-        print("Matched MAIN breaks shape:", final_summary["matched_main_breaks_shape"])
-        print("Pipe-level dataset shape:", final_summary["pipe_level_shape"])
-        print("Model-ready dataset shape:", final_summary["model_ready_shape"])
-        print("\nTarget distribution:")
-        print(final_summary["target_distribution"])
-        print("\nSaved outputs:")
-        for name, path in output_paths.items():
-            print(f"- {name}: {path}")
-
-    return {
+    results = {
         "raw_mains": mains,
         "raw_breaks": breaks,
         "mains_clean": mains_clean,
@@ -381,3 +381,8 @@ def run_kitchener_preprocessing(
         "final_summary": final_summary,
         "output_paths": output_paths,
     }
+
+    if verbose:
+        display_kitchener_preprocessing_summary(results)
+
+    return results
