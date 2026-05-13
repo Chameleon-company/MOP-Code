@@ -1,6 +1,6 @@
-# Melbourne Water Pipe Failure Prediction Analysis
+# Water Pipe Failure Prediction Analysis
 
-The interactive web application dashboard for visualizing and analyzing water pipe failure Prediction analysis in Melbourne. The dashboard helps maintenance teams to prioritize pipes using risk scores, rich visualizations with the AI-powered recommendations. 
+The interactive web application dashboard for visualizing and analyzing water pipe failure Prediction analysis for a city such as melbourne. The dashboard helps maintenance teams to prioritize pipes using risk scores, rich visualizations with the AI-powered recommendations. 
 
 ## Features
 
@@ -12,11 +12,13 @@ The interactive web application dashboard for visualizing and analyzing water pi
 
 ## Project Structure
 
+```text
 Melbourne-Water-Pipe-Risk
-├── webapp.py                    # Main Streamlit application
-├── predict_wpf.py               # Data loading and preprocessing
-├── melbourne_risk_llm_ready.csv   # Main dataset with risk scores
+├── webapp.py                     # Streamlit application
+├── predict_wpf.py                # Data loading and preprocessing
+├── melbourne_risk_llm_ready.csv  # Main dataset with risk scores
 └── README.md
+```
 
 ## Installation & Setup
 - After cloing the project, navigate to the project directory 
