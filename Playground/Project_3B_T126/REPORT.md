@@ -19,7 +19,7 @@ Beyond prediction, the project further developed an interactive web-based decisi
 
 - The actionable recommendations to guide maintenance prioritisation
 
-Overall, this project demonstrates how combining machine learning with LLM‑based reasoning can help Melbourne Water move away from reactive to proactive repairs approach, risk informed asset management, reducing failures, costs, and service disruptions.
+Overall, this project demonstrates how combining machine learning with LLM‑based reasoning can help the maintenance team move away from reactive to proactive repairs approach, risk informed asset management, reducing failures, costs, and service disruptions.
 
 ---
 
@@ -230,6 +230,18 @@ The most transferable risk drivers were pipe age, pipe length, material and pipe
 The main limitation was condition score. It was the strongest Kitchener predictor, but it was not available in the Melbourne dataset. Therefore, condition-related risk was approximated using proxy fields such as pipe age and relining status.
 
 Network and operational fields were not exact matches between Kitchener and Melbourne, but they remained useful for grouping, explanation and later LLM-based maintenance recommendations.
+
+---
+
+# 6. Pipe Failure Predictive Analysis Results 
+
+The web application dashboard system provides a comprehensive visual and analytical view of pipe failure risk across which was adapted for Melbourne’s water network using the `melbourne_risk_llm_ready.csv` dataset. The analysis was based on 12,677 pipes with pre-computed risk scores which were derived from `RISK_SCORE`, `RISK_LEVEL`, `RISK_REASONS`, `RECOMMENDED_ACTION` other asset attributes.
+
+Based on the structure and content of the file, the important features that were used primarily to derive the risk scores are `PIPE_AGE`, `MATERIAL`, `PIPE_LENGTH`, `MAIN_NAME` (Location), `DATE_OF_CONSTRUCTION`, `HAS_RELINED`, `MAIN_LINE_TYPE` and `MAIN_CLASS`. The `RISK_LEVEL` has the types of risk levels for HIGH, MEDIUM and LOW which categorizes the material types acccording to their risks level.
+
+The results displayed on the dashboard system helps the pipe engineering and operational maintenance team to better access all the pipes in all categories of risks. The below overview of the pipes age at 60 and above shows that out of the total number of pipes which is 3106, those that are at higher risk are 472 which is 15.2%, 2630 are at the medium risk of 84.7% whilst only 4 are at low risk of 0.129%.
+
+![alt text](image.png)
 
 ---
 
