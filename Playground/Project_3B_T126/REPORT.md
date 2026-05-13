@@ -5,7 +5,19 @@
 
 # Executive Summary
 
-> *To be completed.*
+This project developed an interactive web-based system support system for Melbourne Water Pipe Failure Prediction Analysis to predict and prioritize water main pipe failures. Using historical data from Kitchener (Canada) and rich asset data from Melbourne, we built a risk scoring framework and a user-friendly Streamlit dashboard. 
+
+The final solution provides: 
+
+- An accurate risk classification of High, Medium and Low 
+
+- The interactive visualizations for maintenance planning 
+
+- AI-powered (LLM) maintenance recommendations 
+
+- A clean, scalable dashboard ready for operational use 
+
+The system helps maintenance teams move from reactive to proactive asset management strategy, potentially reducing unplanned outages and optimizing replacement budgets.  
 
 ---
 
