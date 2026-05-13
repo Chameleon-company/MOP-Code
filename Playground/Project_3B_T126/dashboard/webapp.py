@@ -4,7 +4,7 @@ import plotly.express as px
 from predict_wpf import pipes
 from groq import Groq
 
-st.set_page_config(page_title="Melbourne Water Pipe Risk", layout="wide")
+st.set_page_config(page_title="Water Pipe Risk", layout="wide")
 # Groq client setup
 def get_groq_client():
     try:
@@ -14,7 +14,7 @@ def get_groq_client():
         return None
 
 client = get_groq_client()
-st.title("Melbourne Water Pipe Failure Prediction Analysis")
+st.title("Water Pipe Failure Prediction Analysis")
 
 # Debug info - confirm data loaded correctly
 st.sidebar.write(f"Total pipes loaded: **{len(pipes)}**")
