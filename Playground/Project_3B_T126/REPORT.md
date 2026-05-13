@@ -237,7 +237,7 @@ Network and operational fields were not exact matches between Kitchener and Melb
 
 The web application dashboard system provides a comprehensive visual and analytical view of pipe failure risk across which was adapted for Melbourne’s water network using the `melbourne_risk_llm_ready.csv` dataset. The analysis was based on 12,677 pipes with pre-computed risk scores which were derived from `RISK_SCORE`, `RISK_LEVEL`, `RISK_REASONS`, `RECOMMENDED_ACTION` other asset attributes.
 
-Based on the structure and content of the file, the important features that were used primarily to derive the risk scores are `PIPE_AGE`, `MATERIAL`, `PIPE_LENGTH`, `MAIN_NAME` (Location), `DATE_OF_CONSTRUCTION`, `HAS_RELINED`, `MAIN_LINE_TYPE` and `MAIN_CLASS`. The `RISK_LEVEL` has the types of risk levels for HIGH, MEDIUM and LOW which categorizes the material types acccording to their risks level.
+Based on the structure and content of the file, the important features that were used primarily to derive the risk scores are `PIPE_AGE`, `MATERIAL`, `PIPE_LENGTH`, `MAIN_NAME` (Location), `DATE_OF_CONSTRUCTION`, `HAS_RELINED`, `MAIN_LINE_TYPE` and `MAIN_CLASS`. The `RISK_LEVEL` has the types of risk levels for HIGH, MEDIUM and LOW which categorizes the material types acccording to their risks level. The XGBoost model with the highest PR-AUC results was chosen to for the prediction analysis for the web app application dashboard support system out of the three models. 
 
 The results displayed on the dashboard system helps the pipe engineering and operational maintenance team to better access all the pipes in all categories of risks. The below overview prediction analysis of the pipes age at 60 and above shows that out of the total number of pipes which is 3106, those that are at higher risk are 472 which is 15.2% which are needed to be replaced, 2630 are at the medium risk of 84.7% which are the next to consider replacing them, whilst only 4 are at low risk of 0.129%.
 
@@ -255,6 +255,9 @@ By close observation, the analysis from the charts show the consistency of the m
 
 ![Charts](outputs/dbm4.png)
 ![Bar chart](outputs/dbm5.png)
+
+The web app dashboard support system has successfully transforms raw pipe asset data into clear, visual, and actionable intelligence prediction analysis. It does provides a solid foundation for proactive asset management which demonstrates the value of combining traditional risk scoring with modern interactive visualization with LLM reasoning.
+The system is ready for operational use which can be further enhanced with real Melbourne failure history data with live model predictions in the future.
 ---
 
 # 7. LLM-Based Maintenance Recommendation Framework
@@ -338,7 +341,19 @@ The Melbourne Water adaptation stage also introduced limitations because no hist
 
 The external GIS soil datasets additionally showed limited feature variation and low discriminatory value after spatial joining, reducing their usefulness for final modelling. 
 
-The LLM recommendation system also has practical limitations. Generated outputs depend heavily on prompt qualkity and available infrastructure attributes. While the generated explanations were generally useful and consistent, they may ocassionally produce broad or simplified maintenance recommendations. For this reason, the system should be viewed as a decision-support tool rather than a replacement for engineering expertise.
+For the web application dashboard system, the key recommendations covers data quality improvement with medium and long term strategic improvements. The recommendations are as follows.
+- improve the data quality to incorporate `SOIL_TYPE`, `DATE_OF_CONSTRUCTION` relining records, pressure zones and traffice load as features
+- standardize data collection process for future pipe installation and repairs
+- collect historical pipe failure or break records specifically for Melbourne
+- Retrain the XGBoost model using Melbourne data only with all features available.
+- For real-time data integration, connect dashboard to live systems for live prediction analysis.
+- For advance visualization, it needs the implementation of an interactive GIS map showing risk levels by location.
+- For predictive maintenace scoring, move from risk scoring to true failure probability prediction
+- integration with enterprise asset management (EAM) systems
+
+As far as the current predictive analysis results are concerned, the current developed Minimum Viable Product (MVP) is the starting point that can be deployed for doing predictive analysis work. Having truly accomplished what it intends to achieve for displaying the results. 
+
+The LLM recommendation system also has practical limitations. Generated outputs depend heavily on prompt quality and available infrastructure attributes. While the generated explanations were generally useful and consistent, they may ocassionally produce broad or simplified maintenance recommendations. For this reason, the system should be viewed as a decision-support tool rather than a replacement for engineering expertise.
 
 Future improvements could include:
 
