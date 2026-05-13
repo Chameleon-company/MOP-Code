@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 import os
 
+# Load the pipe data from the CSV file
 def load_pipes():
     base_dir = Path(__file__).resolve().parent  # dashboard/
     project_root = base_dir.parent              # Project_3B_T126/

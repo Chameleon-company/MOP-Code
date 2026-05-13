@@ -12,13 +12,20 @@ The interactive web application dashboard for visualizing and analyzing water pi
 
 ## Project Structure
 
-```text
-Melbourne-Water-Pipe-Risk
-├── webapp.py                     # Streamlit application
-├── predict_wpf.py                # Data loading and preprocessing
-├── melbourne_risk_llm_ready.csv  # Main dataset with risk scores
-└── README.md
-```
+    ```text
+    MOP-Code
+    └── Playground
+        └── Project_3B_T126
+            ├── dashboard
+            │   ├── webapp.py
+            │   ├── predict_wpf.py
+            │   └── README.md
+            └── data
+                └── processed
+                    └── melbourne_risk_llm_ready.csv
+    ```
+
+
 
 ## Installation & Setup
 - After cloing the project, navigate to the project directory 
