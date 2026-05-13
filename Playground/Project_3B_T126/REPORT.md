@@ -236,29 +236,115 @@ Network and operational fields were not exact matches between Kitchener and Melb
 # 6. LLM-Based Maintenance Recommendation Framework
 
 ## 6.1 Purpose of LLM Integration
+The machine learning models developed in this project produce numerical risk outputs such as failure probability, classification labels, and feature importance values. While these outputs are useful for tefchnical analysis, they are not always easily interpretable for operational maintenance planning. 
+
+To improve interpretability and usability, A Large Language Model (LLM) recommendation layer was integrated into the final dashboard workflow. The purpose of this stage was to translate model outputs into concise maintenance reasoning that can support asset prioritisation and infrastructure decision-making.
+
+The LLM component was implemented through a Streamlit dashboard interface and connected using the Groq API [1], [2]. The workflow allows users to select individual pipes and generate AI-assisted maintenance explanations based on predicted risk conditions and key infrastructure attributes. 
+
+The generated output is intended to support engineering judgement rather than replace professional maintenance assessment.
 
 ## 6.2 LLM Input Features
+The LLM recommendation workflow uses selected pipe-level fields from the Melbourne adaptation dataset together with the generated risk scoring outputs. 
+
+The final LLM-ready dataset contains:
+- pipe identifier
+- material
+- pipe age
+- pipe length
+- relining indicators
+- predicted failure probability
+- predicted risk level
+
+The recommendation system uses structured prompt engineering to generate consistent maintenance reasoning outputs. The prompts instruct the LLM to:
+- explain the predicted risk level
+- identify contributing infrastructure characteristics
+- recommend practical maintenance actions
+- explain maintenance prioritisation reasoning
+
+The workflow also includes a fallback rule-based explanation system to ensure the dashboard remains operational if the API becomes unavailable or fails during deployment.
 
 ## 6.3 Example High-Risk Pipe Outputs
+For high-risk pipes, the generated outputs typically identified ageing infrastructure, pipe material and physical dimensions as contributiing factors to elevated failure risk.
+
+Example recommendation themes included 
+- prioritised inspection scheduling
+- preventative maintenance planning
+- CCTV or condition assessment investigation
+- replacement consideration for ageing assets
+- monitoring of long pipe segments or higher-risk materials
+
+The generated explanations consistently referenced the predicted risk probability together with important infrastructure attributes such as pipe age and material type.
+
+The recommendation outputs were then formatted into three sections:
+- Risk Explanation
+- Maintenance Recommendations
+- Priority Reasoning
+The structure imporved readability and provided a clearer operation interpretation of the machine learning outputs.
 
 ## 6.4 Practical Use Case
 
-> *To be completed.*
+The final workflow demonstrates how machine learning and LLM-assisted reasoning can support proactive infrastructure maintenance planning.
+
+A practical deployment scenario would involve Melbourne Water pperators using the dashboard to"
+1. Filter water main assets based on risk level
+2. inspect predicted high-risk pipes
+3. review AI-generated maintenance explanations
+4. Prioritise inspection/maintenance activities
+
+The dashboard was deployed using Streamlit Community Cloud without requiring local installation or API configuration[1]. to allow reviewers and team members to access the system without requiring local installation or API configuration.
+
+API credentials were securely managed within the repository[2] using Streamlit Secrets rather than storing keys directly within the repository.
+
+Overall, the integrated workflow demonstrates how predictive analytics and AI-assisted explanation systems can improve operational visibility and suport more proactive water infrastructure management.
 
 ---
 
 # 7. Discussion and Limitations
 
-> *To be completed.*
+The project successfully demonstrated that machine learning models can identify meaningful patterns associated with historical water pipe failures. Across all three models, pipe condition, age, material, and physical dimensions consistently appeared as the strongest indicators of break risk. 
+
+The comparison results showed that tree-based models performaed better than Logistic Regression for this problem. Random FOrest achieved the strongest balanced performance overall, while XGBoost achieved the highest recall and lowest false negative rate, making it more effective for identifying high-risk pipes.
+
+Several limitations were identified throughout the project.
+
+The Kitchener dataset was highly imbalanced, with only 7.63% of pipes representing observed break cases. Although evaluation metrics such as recall, PR-AUC and F1-score were prioritised to address imbalance effects, the minority class remains difficult to model perfectly.
+
+The Melbourne Water adaptation stage also introduced limitations because no historical break labels were available for suprevised training. As a result, the Melbourne workflow relied on transferring risk drivers identified from Kitchener models rather than directly training a Melbourne-specific prediction model.
+
+The external GIS soil datasets additionally showed limited feature variation and low discriminatory value after spatial joining, reducing their usefulness for final modelling. 
+
+The LLM recommendation system also has practical limitations. Generated outputs depend heavily on prompt qualkity and available infrastructure attributes. While the generated explanations were generally useful and consistent, they may ocassionally produce broad or simplified maintenance recommendations. For this reason, the system should be viewed as a decision-support tool rather than a replacement for engineering expertise.
+
+Future improvements could include:
+
+- integration of AUstralian historical break datasets
+- inclusion of live operational sensor data
+- GIS-based spatial visualisation
+- fine-tuned infrastructure specific language models
+- integration with maintenance scheduling systems
 
 ---
 
 # 8. Conclusion
 
-> *To be completed.*
+This project developed an end-to-end workflow for ater pipe failure prediction, risk identification and AI-assisted maintenance recommendation.
+
+The Kitchener Water Mains and Breaks datasets were selected as the primary supervised modelling source due to their historical break records and compatible pipe-level structure. Three machine learning models were developed and evaluated: Logistic Regression, Random Forest and XGBoost.
+
+All models achieved strong predictive performance. Random Forest demonstrated the strongest balanced classification performance, while XGBoost achieved the strongest operational failure detection capability through high recall and low false negatives.
+
+The modelling process consistently identified pipe condition, pipe age, material and pipe length as the most important drivers of historical break risk. These findings were then adapted to Melbourne Water infrastructure data to support an interpretable risk identification workflow despite the absence of historical Australian break labels.
+
+To improve operational usability, the final system integrated a Streamlit dashboard and an LLM-based recommendation framework capable of generating maintenance explanations and prioritisation reasoning for selected assets.
+
 
 ---
 
 # References
 
-> *To be completed.*
+[1] Streamlit Inc., “Streamlit Documentation,” 2026. [Online]. Available: https://streamlit.io/
+. [Accessed: 13-May-2026].
+
+[2] Groq Inc., “Groq API Documentation,” 2026. [Online]. Available: https://console.groq.com/docs
+. [Accessed: 13-May-2026].
