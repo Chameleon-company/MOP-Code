@@ -1,20 +1,16 @@
+from pathlib import Path
+
 import pandas as pd
 import os
 
 def load_pipes():
-    # Loading the rich pre-computed file you have
+    base_dir = Path(__file__).resolve().parent  # dashboard/
+    project_root = base_dir.parent              # Project_3B_T126/
 
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-    DATA_PATH = os.path.join(
-        BASE_DIR,
-        "data",
-        "processed",
-        "melbourne_risk_llm_ready.csv"
-    )
+    DATA_PATH = project_root / "data" / "processed" / "melbourne_risk_llm_ready.csv"
 
     df = pd.read_csv(DATA_PATH)
-    
+
     # Standardizing column names 
     df = df.rename(columns={
         'PIPE_AGE': 'pipe_age',
