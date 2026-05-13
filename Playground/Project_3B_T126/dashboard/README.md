@@ -12,7 +12,7 @@ The interactive web application dashboard for visualizing and analyzing water pi
 
 ## Project Structure
 
-    ```text
+    ```bash
     MOP-Code
     └── Playground
         └── Project_3B_T126
@@ -24,8 +24,6 @@ The interactive web application dashboard for visualizing and analyzing water pi
                 └── processed
                     └── melbourne_risk_llm_ready.csv
     ```
-
-
 
 ## Installation & Setup
 - After cloing the project, navigate to the project directory 
