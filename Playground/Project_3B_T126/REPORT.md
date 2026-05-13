@@ -40,48 +40,34 @@ The main objectives of the project are:
 
 ## 2.1 Candidate Dataset Review
 
-Several candidate datasets were reviewed during the early stage of the project to determine their suitability for supervised water pipe failure modelling. The review focused on dataset structure, data completeness, historical failure availability, scalability, and compatibility with the planned machine learning workflow.
+Several candidate datasets were reviewed during the early stage of the project to assess their suitability for supervised water pipe failure modelling. The review focused on dataset scale, data structure, historical failure availability, feature completeness, and compatibility with the planned machine learning workflow.
 
-The Melbourne Water Mains and Soil datasets were useful for the later Melbourne adaptation stage because they contained operational and infrastructure-related information relevant to local water assets. However, these datasets did not contain historical failure labels or break history records, making them unsuitable for direct supervised model training.
+The Melbourne Water Mains and Soil datasets contained 12,680 water main records and more than 900,000 soil monitoring records. These datasets were considered useful for the later Melbourne adaptation and risk identification stages because they contained operational and infrastructure-related attributes relevant to local water assets. However, the datasets did not include historical break labels or failure records required for supervised model training.
 
-The Bozeman dataset provided useful examples of water main break records, but the dataset size was relatively small, containing only 158 records. This limited its suitability for reliable model development and evaluation.
+The Bozeman dataset provided historical water main break records but contained only 158 records in total. Due to its limited size, it was not considered suitable for reliable model development or comparison across multiple machine learning approaches.
 
-The Netherlands dataset contained relatively clean and structured water main profile data together with historical break information. However, the break history was stored in a sequence-based 3D array format with shape `(10203, 6, 2)`, making it less practical for the current flat machine learning workflow using models such as Random Forest, XGBoost and Logistic Regression. Additional preprocessing and restructuring would have been required to convert the sequence data into usable tabular features.
+The Netherlands dataset contained 10,203 water main records together with environmental-related features. However, the historical break data was stored in a sequence-based 3D array format with shape `(10203, 6, 2)` rather than a conventional tabular structure. While the dataset was relatively complete, the sequence-based format was less compatible with the current flat machine learning workflow using models such as Random Forest, XGBoost and Logistic Regression.
 
-The Kitchener Water Mains and Breaks datasets provided the strongest overall balance between dataset size, structure and modelling suitability. The datasets included 16,163 pipe asset records and 2,994 break records, with compatible identifiers (`WATMAINID` and `Related Asset ID`) that allowed historical break events to be linked directly to individual pipe assets. This structure made it possible to create a supervised pipe-level modelling dataset suitable for classification-based machine learning workflows.
+The Kitchener Water Mains and Breaks datasets provided the strongest balance between dataset scale, structure and modelling suitability. The datasets contained 16,163 water main asset records and 2,994 break records, with compatible identifiers (`WATMAINID` and `Related Asset ID`) that allowed historical break events to be linked directly to individual pipe assets. This structure supported the creation of a supervised pipe-level modelling dataset suitable for classification-based machine learning workflows.
 
-One limitation of the Kitchener dataset was the lack of environmental or soil-related attributes. To address this, additional Canadian soil datasets were explored separately using GIS spatial joins to test whether environmental enrichment could improve the modelling dataset.
-
----
-
-## 2.2 Final Dataset Selection
-
-Based on the dataset review, the Kitchener Water Mains and Breaks datasets were selected as the primary datasets for historical pipe failure modelling.
-
-The selection was primarily driven by:
-
-- availability of both pipe asset data and historical break records
-- compatible identifiers for asset-level linking
-- sufficient dataset size for machine learning
-- structured tabular format suitable for flat ML workflows
-- strong compatibility with supervised classification approaches
-
-The Kitchener datasets provided the most practical foundation for developing and evaluating predictive pipe failure models within the scope and timeline of the project.
+Based on the overall review, the Kitchener datasets were selected as the primary datasets for historical pipe failure modelling.
 
 ---
 
-## 2.3 External Soil Dataset Testing
+## 2.2 External Soil Dataset Testing
 
 To address the absence of environmental attributes in the Kitchener datasets, two external Canadian soil datasets were tested using GIS spatial joins:
 
-1. Ontario Soil Survey Complex  
-2. CANSIS / Soil Landscapes of Canada  
+1. Ontario Soil Survey Complex (polygon-based soil survey data)  
+2. CANSIS / Soil Landscapes of Canada (national soil landscape polygons and soil component tables)
 
-The objective was to enrich pipe asset locations with surrounding soil and environmental characteristics that may potentially influence water main deterioration or failure behaviour.
+The objective was to enrich Kitchener break locations with surrounding soil characteristics that may potentially influence water main deterioration or failure behaviour.
 
-The spatial joins were technically successful, and soil attributes could be linked to pipe coordinates. However, most resulting classifications were relatively broad and dominated by general urban or regional categories rather than detailed pipe-level environmental characteristics. As a result, the additional soil features did not provide strong discriminatory value for the modelling stage and were not included as final modelling features.
+Both spatial joins achieved complete geographic coverage, with all 2,994 break records successfully matched to soil polygons. However, the Ontario Soil Survey Complex results were heavily dominated by broad urban classifications, with 2,943 records labelled as `URBAN` and 98.53% of texture values recorded as `NA`. This provided limited useful soil variation for modelling.
 
-Despite not being included in the final models, the testing process demonstrated the feasibility of future GIS-based environmental enrichment approaches for water infrastructure risk modelling.
+The CANSIS dataset produced cleaner and more complete soil attributes, but the results still showed limited diversity. Most break locations were concentrated in only three soil classes (`FOX`, `BURFORD`, and `WATERLOO`), while drainage and texture values were nearly constant across the dataset.
+
+As a result, the external soil datasets did not provide sufficient pipe-level discriminatory value and were not included as final modelling features. Nevertheless, the testing process demonstrated the feasibility of future GIS-based environmental enrichment workflows for water infrastructure risk modelling.
 
 ---
 
