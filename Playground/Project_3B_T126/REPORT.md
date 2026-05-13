@@ -19,7 +19,7 @@ Beyond prediction, the project further developed an interactive web-based decisi
 
 - The actionable recommendations to guide maintenance prioritisation
 
-Overall, this project demonstrates how combining machine learning with LLM‑based reasoning can help Melbourne Water move away from reactive repairs to proactive, risk informed asset management, reducing failures, costs, and service disruptions.
+Overall, this project demonstrates how combining machine learning with LLM‑based reasoning can help Melbourne Water move away from reactive to proactive repairs approach, risk informed asset management, reducing failures, costs, and service disruptions.
 
 ---
 
