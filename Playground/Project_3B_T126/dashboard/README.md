@@ -11,19 +11,18 @@ The interactive web application dashboard for visualizing and analyzing water pi
 - AI-powered maintenance reasoning - LLM integration 
 
 ## Project Structure
-
-    ```bash
-    MOP-Code
-    └── Playground
-        └── Project_3B_T126
-            ├── dashboard
-            │   ├── webapp.py
-            │   ├── predict_wpf.py
-            │   └── README.md
-            └── data
-                └── processed
-                    └── melbourne_risk_llm_ready.csv
-    ```
+```bash
+MOP-Code
+└── Playground
+    └── Project_3B_T126
+        ├── dashboard
+        │   ├── webapp.py
+        │   ├── predict_wpf.py
+        │   └── README.md
+        └── data
+            └── processed
+                └── melbourne_risk_llm_ready.csv
+```
 
 ## Installation & Setup
 - After cloing the project, navigate to the project directory 
