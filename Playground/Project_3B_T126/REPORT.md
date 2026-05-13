@@ -5,7 +5,7 @@
 
 # Executive Summary
 
-This project developed an interactive web-based system support system for Melbourne Water Pipe Failure Prediction Analysis to predict and prioritize water main pipe failures. Using historical data from Kitchener (Canada) and rich asset data from Melbourne, we built a risk scoring framework and a user-friendly Streamlit dashboard. 
+This project developed an interactive web-based system support system for Water Pipe Failure Prediction Analysis to predict and prioritize water main pipe failures. Using historical data from Kitchener (Canada) and rich asset data from Melbourne, we built a risk scoring framework and a user-friendly Streamlit dashboard. 
 
 The final solution provides: 
 
