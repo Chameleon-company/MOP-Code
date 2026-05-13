@@ -5,7 +5,21 @@
 
 # Executive Summary
 
-> *To be completed.*
+Water main failures create significant operational, financial, and public safety challenges for water utilities. For a city like Melbourne water infrastructure continues to age, there is an increasing need for data‑driven maintenance approaches that can anticipate failures before they occur. This project addresses that need by developing a machine learning based workflow to predict water pipe failure risk and support a proactive asset management.
+
+By using historical water main break datasets, the project evaluates three supervised machine learning model which are Logistic Regression, Random Forest, and Gradient Boosting to identify patterns and key risk drivers associated with pipe failures. These insights are then adapted to Melbourne Water’s network, which consists of thousands of kilometres of pipes varying in material, age, soil conditions, and environmental exposure.
+
+Beyond prediction, the project further developed an interactive web-based decision support systemthe project that explores how Large Language Models can translate model outputs into practical maintenance recommendations. The capstone delivers four major outcomes:
+
+- A reliable pipe failure prediction model
+
+- Adapted risk insights tailored to Melbourne’s asset conditions
+
+- Interactive dashboard integrating AI‑assisted decision support
+
+- The actionable recommendations to guide maintenance prioritisation
+
+Overall, this project demonstrates how combining machine learning with LLM‑based reasoning can help Melbourne Water move away from reactive repairs to proactive, risk informed asset management, reducing failures, costs, and service disruptions.
 
 ---
 
