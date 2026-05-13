@@ -79,7 +79,9 @@ As a result, the external soil datasets did not provide sufficient pipe-level di
 
 ---
 
-# 3. Kitchener Data Preprocessing
+# 3. Data Preprocessing
+
+## 3.1 Kitchener Data Preprocessing
 
 The Kitchener preprocessing stage converted the raw water mains and water main break datasets into a clean pipe-level dataset for supervised modelling.
 
@@ -93,6 +95,16 @@ The final pipe-level dataset contained 16,163 records and 26 columns. A separate
 
 The final target distribution was highly imbalanced. A total of 14,929 pipes, or 92.37%, had no observed historical break, while 1,234 pipes, or 7.63%, had at least one observed break. This class imbalance was considered during model development through stratified splitting and evaluation metrics such as precision, recall, F1-score, ROC-AUC and PR-AUC.
 
+## 3.2 Melbourne Water Main Preprocessing
+
+The Melbourne Water main dataset was prepared for the later finding adaptation and risk identification stage. Unlike the Kitchener dataset, it did not include historical break labels, so it was not used for supervised model training.
+
+The preprocessing workflow selected relevant asset-level fields from the raw Melbourne dataset, including pipe identifiers, material, pipe length, pipe width, construction date, relining date, field team, service status and comments. Text fields were standardised, date fields were converted to datetime format, and invalid physical values such as non-positive pipe length or width were flagged and replaced.
+
+Several derived features were created to support adaptation from the Kitchener model findings. These included `PIPE_AGE`, `HAS_RELINED` and `YEARS_SINCE_RELINED`. Additional data quality flags were also created, including `MISSING_CONSTRUCTION_DATE`, `MISSING_RELINED_DATE`, `INVALID_PIPE_LENGTH`, `INVALID_PIPE_WIDTH` and `FUTURE_RELINED_DATE`.
+
+This file provides a structured pipe-level dataset for applying risk factors identified from the Kitchener modelling stage to Melbourne water main assets.
+
 ---
 
 # 4. Model Development
@@ -103,7 +115,11 @@ The Random Forest model was trained using the processed Kitchener model-ready da
 
 The model performed strongly across both validation and test sets. On the validation set, it achieved ROC-AUC of 0.9910, PR-AUC of 0.9678, precision of 0.9713, recall of 0.9135 and F1-score of 0.9415. On the held-out test set, the model achieved ROC-AUC of 0.9906, PR-AUC of 0.9596, precision of 0.9508, recall of 0.9405 and F1-score of 0.9457.
 
+![Random Forest Confusion Matrix](outputs/rf_confusion_matrix.png)
+
 The test confusion matrix showed 2,231 true negatives and 174 true positives, with only 9 false positives and 11 false negatives. This indicates that the model performed well in identifying pipes with observed historical breaks while maintaining a low number of incorrect high-risk predictions.
+
+![Random Forest Feature Importance](outputs/rf_feature_importance.png)
 
 The feature importance results showed that `condition_score` was the most influential predictor, with an importance score of 0.4660. This was followed by `shape__length` at 0.1642 and `pipe_age` at 0.1013. Material-related features also contributed to prediction, particularly cast iron (`material_CI`) and PVC (`material_PVC`). Other contributing variables included pipe size, cleaning area, criticality and pressure zone.
 
@@ -115,13 +131,35 @@ The XGBoost model was trained using the same processed Kitchener model-ready dat
 
 The model used the best hyperparameters identified during earlier tuning, rather than rerunning Optuna in the final demonstration notebook. This kept the final workflow lightweight and reproducible. Class imbalance was handled using `scale_pos_weight`, calculated from the training set as 12.09.
 
+![XGBoost Confusion Matrix](outputs/xgb_confusion_matrix.png)
+
 On the held-out test set, XGBoost achieved ROC-AUC of 0.9899, PR-AUC of 0.9614, precision of 0.9133, recall of 0.9676 and F1-score of 0.9396. The confusion matrix showed 2,223 true negatives, 179 true positives, 17 false positives and 6 false negatives.
 
 These results show that XGBoost performed very strongly, particularly in recall. It missed only 6 of the 185 break cases in the test set, making it effective for identifying high-risk pipes. However, it produced more false positives than Random Forest, meaning it was slightly more aggressive in classifying pipes as break-risk.
 
+![XGBoost Feature Importance](outputs/xgb_feature_importance.png)
+
 The feature importance results showed that `condition_score` was the most influential predictor, followed by `material`, `shape__length`, `pipe_age`, `rel_cleaning_subarea`, `pressure_zone` and `rel_cleaning_area`. This aligns well with the Random Forest findings and reinforces that pipe condition, material, length, age and operational network context are important drivers of predicted failure risk.
 
 Overall, XGBoost provided strong predictive performance and high break-case detection. It is useful for model comparison because it offers a different modelling approach from Random Forest while still identifying similar key risk drivers.
+
+## 4.3 Logistic Regression Model
+
+Logistic Regression was included as a simpler and more interpretable baseline model for the Kitchener pipe failure prediction task. It used the same processed model-ready dataset and the same 70/15/15 train, validation and test split as the other models. The split produced 11,314 training records, 2,424 validation records and 2,425 test records.
+
+Categorical variables were one-hot encoded after the data split to avoid leakage, and the encoded feature space contained 95 features. The features were then standardised using `StandardScaler`, fitted only on the training set and applied to the validation and test sets. Because the target variable was highly imbalanced, the model used `class_weight="balanced"` to improve detection of the minority break class.
+
+On the validation set, Logistic Regression achieved ROC-AUC of 0.9896, PR-AUC of 0.9544, precision of 0.8529, recall of 0.9405 and F1-score of 0.8946. On the held-out test set, it achieved ROC-AUC of 0.9840, PR-AUC of 0.9404, precision of 0.7964, recall of 0.9514 and F1-score of 0.8670.
+
+![Logistic Regression Confusion Matrix](outputs/lr_confusion_matrix.png)
+
+The test confusion matrix showed 2,195 true negatives, 176 true positives, 45 false positives and 9 false negatives. This indicates that Logistic Regression was effective at detecting most break cases, but it produced more false positives than the tree-based models. In practical terms, this means the model was more likely to flag safe pipes as risky, which could lead to unnecessary inspection or maintenance actions.
+
+![Logistic Regression Feature Importance](outputs/lr_feature_importance.png)
+
+The coefficient analysis showed that `condition_score` had the strongest influence on predictions, followed by material-related variables, `shape__length`, `pipe_age`, pressure zone and pipe size. Since Logistic Regression is coefficient-based, the results should be interpreted as associations rather than direct causal effects.
+
+Overall, Logistic Regression provided a useful interpretable baseline. It achieved strong class separation and high recall, but its lower precision and F1-score compared with Random Forest and XGBoost suggest that the more flexible tree-based models were better suited to capturing complex pipe failure patterns in the Kitchener dataset.
 
 ---
 
