@@ -240,7 +240,7 @@ The machine learning models developed in this project produce numerical risk out
 
 To improve interpretability and usability, A Large Language Model (LLM) recommendation layer was integrated into the final dashboard workflow. The purpose of this stage was to translate model outputs into concise maintenance reasoning that can support asset prioritisation and infrastructure decision-making.
 
-The LLM component was implemented through a Streamlit dashboard interface and connected using the Groq API [1], [2]. The workflow allows users to select individual pipes and generate AI-assisted maintenance explanations based on predicted risk conditions and key infrastructure attributes. 
+The LLM component was implemented through a Streamlit dashboard interface and connected using the Groq API [5], [6]. The workflow allows users to select individual pipes and generate AI-assisted maintenance explanations based on predicted risk conditions and key infrastructure attributes. 
 
 The generated output is intended to support engineering judgement rather than replace professional maintenance assessment.
 
@@ -292,9 +292,9 @@ A practical deployment scenario would involve Melbourne Water pperators using th
 3. review AI-generated maintenance explanations
 4. Prioritise inspection/maintenance activities
 
-The dashboard was deployed using Streamlit Community Cloud without requiring local installation or API configuration[1]. to allow reviewers and team members to access the system without requiring local installation or API configuration.
+The dashboard was deployed using Streamlit Community Cloud without requiring local installation or API configuration[5]. to allow reviewers and team members to access the system without requiring local installation or API configuration.
 
-API credentials were securely managed within the repository[2] using Streamlit Secrets rather than storing keys directly within the repository.
+API credentials were securely managed within the repository[6] using Streamlit Secrets rather than storing keys directly within the repository.
 
 Overall, the integrated workflow demonstrates how predictive analytics and AI-assisted explanation systems can improve operational visibility and suport more proactive water infrastructure management.
 
@@ -342,9 +342,22 @@ To improve operational usability, the final system integrated a Streamlit dashbo
 ---
 
 # References
+[1] Y. Zhang, “water-pipes-failure-prediction,” GitHub repository, 2020. [Online]. Available: [GitHub Repository](https://github.com/yingqianzhang/water-pipes-failure-prediction). [Accessed: 14-May-2026].
 
-[1] Streamlit Inc., “Streamlit Documentation,” 2026. [Online]. Available: https://streamlit.io/
+[2] J. Verheugd, P. R. de Oliveira da Costa, R. Refaei Afshar, Y. Zhang, and S. Boersma, “Predicting Water Pipe Failures with a Recurrent Neural Hawkes Process Model,” in *Proc. IEEE Int. Conf. Systems, Man, and Cybernetics (SMC)*, 2020. :contentReference[oaicite:1]{index=1}
+
+[3] City of Kitchener, “Water Main Breaks,” Kitchener GeoHub Open Data Portal, 2018. [Online]. Available: [Kitchener Water Main Breaks Dataset](https://open-kitchenergis.opendata.arcgis.com/datasets/KitchenerGIS%3A%3Awater-main-breaks/about). [Accessed: 14-May-2026].
+
+[4] City of Kitchener, “Water Main Breaks - Overview,” ArcGIS Online, 2018. [Online]. Available: [ArcGIS Dataset Overview](https://www.arcgis.com/home/item.html?id=34627cd277084a47ab8558c97fa63a27&). [Accessed: 14-May-2026].
+
+[5] Streamlit Inc., “Streamlit Documentation,” 2026. [Online]. Available: https://streamlit.io/
 . [Accessed: 13-May-2026].
 
-[2] Groq Inc., “Groq API Documentation,” 2026. [Online]. Available: https://console.groq.com/docs
+[6] Groq Inc., “Groq API Documentation,” 2026. [Online]. Available: https://console.groq.com/docs
 . [Accessed: 13-May-2026].
+
+[7] Internal project dataset shared via Microsoft Teams communication, “Bozeman Water Main Break Dataset,” 2026.
+
+[8] Melbourne Water, “Melbourne Water Main Asset Dataset,” internal operational dataset provided for Deakin University SIT374 Capstone Project, 2026.
+
+[9] Melbourne Water, “Melbourne Soil Monitoring Dataset,” internal operational dataset provided for Deakin University SIT374 Capstone Project, 2026.
