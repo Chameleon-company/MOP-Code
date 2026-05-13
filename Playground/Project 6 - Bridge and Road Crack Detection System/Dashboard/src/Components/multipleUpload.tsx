@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { TextField } from '@mui/material'
-import SeverityBadge from './severityBadge'
+import {SeverityBadge} from './severityBadge'
 
 const MultipleFileUploader = () => {
     const [files, setFiles] = useState<File[]>([]);

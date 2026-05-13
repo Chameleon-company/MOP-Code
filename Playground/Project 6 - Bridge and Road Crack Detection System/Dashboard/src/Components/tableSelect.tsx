@@ -7,9 +7,11 @@ type crackReport = {
     id: number
     crackarearatio: number
     estimatedcracklength: number
+    damagelevel: number
     numcracks: number
-    severity: number
+    severity: string
     imageid: string
+    reportstatus: string
     riskassessment: string
     repairactions: string
     inspectionschedule: string
@@ -79,7 +81,7 @@ export default function TableSelect({ onRowSelect }: tableProps) {
   }
 
   return (
-    <Paper sx={{ height: 750, width: '100%' }}>
+    <Paper sx={{ height: 650, width: '100%' }}>
       <DataGrid
         rows={crackReport}
         columns={columns}

@@ -48,7 +48,7 @@ export default function TheDrawer() {
             to="/Uploadmultiplefiles"
             onClick={() => setOpen(false)}
           >
-            <ListItemText primary="Upload Multiple Files" />
+            <ListItemText primary="Upload Files" />
           </ListItemButton>
         </ListItem>
 
