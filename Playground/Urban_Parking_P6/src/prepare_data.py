@@ -3,7 +3,12 @@ from graph import G
 from features import map_nodes, prepare_features, create_edge_index
 
 # Load cleaned dataset
-df = pd.read_csv("../data/cleaned_parking.csv")
+df = pd.read_csv("../data/cleaned_parking_with_area.csv")
+print("Columns in dataset:")
+print(df.columns.tolist())
+
+print("\nAvailable areas:")
+print(df["area"].unique())
 
 # Create node mapping
 node_map = map_nodes(G)
