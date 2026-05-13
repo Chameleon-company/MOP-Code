@@ -5,19 +5,7 @@
 
 # Executive Summary
 
-This project developed an interactive web-based system support system for Melbourne Water Pipe Failure Prediction Analysis to predict and prioritize water main pipe failures. Using historical data from Kitchener (Canada) and rich asset data from Melbourne, we built a risk scoring framework and a user-friendly Streamlit dashboard. 
-
-The final solution provides: 
-
-- An accurate risk classification of High, Medium and Low 
-
-- The interactive visualizations for maintenance planning 
-
-- AI-powered (LLM) maintenance recommendations 
-
-- A clean, scalable dashboard ready for operational use 
-
-The system helps maintenance teams move from reactive to proactive asset management strategy, potentially reducing unplanned outages and optimizing replacement budgets.  
+> *To be completed.*
 
 ---
 
@@ -175,31 +163,83 @@ Overall, Logistic Regression provided a useful interpretable baseline. It achiev
 
 ---
 
-# 5. Model Comparison and Evaluation
+# 5. Model Comparison and Melbourne Water Data Adaptation
+
+## Model Results
+
+| Model | ROC-AUC | PR-AUC | Precision | Recall | F1-score | True Negatives | False Positives | False Negatives | True Positives |
+|---|---|---|---|---|---|---|---|---|---|
+| Logistic Regression | 0.9840 | 0.9404 | 0.7964 | 0.9514 | 0.8670 | 2195 | 45 | 9 | 176 |
+| Random Forest | 0.9906 | 0.9596 | 0.9508 | 0.9405 | 0.9457 | 2231 | 9 | 11 | 174 |
+| XGBoost | 0.9899 | 0.9614 | 0.9133 | 0.9676 | 0.9396 | 2223 | 17 | 6 | 179 |
+
+The results show that all three models performed strongly on the Kitchener dataset. Logistic Regression achieved strong recall but produced the highest number of false positives, incorrectly flagging 45 non-break pipes as high-risk. This indicates that while the model was effective at detecting break cases, it would likely trigger more unnecessary maintenance actions in practice.
+
+Random Forest achieved the highest ROC-AUC, precision and F1-score while also producing only 9 false positives. This demonstrates strong overall balance between identifying break-risk pipes and minimising false alarms.
+
+XGBoost achieved the highest PR-AUC and recall while also producing the fewest false negatives, missing only 6 actual break cases. This makes XGBoost the strongest model for operational risk screening, where failing to identify high-risk pipes is more critical than generating additional inspections.
+
+Overall, Random Forest demonstrated the strongest overall balanced performance, while XGBoost demonstrated the strongest failure detection capability.
+
+## Model Ranking
+
+| Model | ROC-AUC | PR-AUC | Precision | Recall | F1-score | ROC-AUC Rank | PR-AUC Rank | Precision Rank | Recall Rank | F1-score Rank |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Logistic Regression | 0.9840 | 0.9404 | 0.7964 | 0.9514 | 0.8670 | 3 | 3 | 3 | 2 | 3 |
+| Random Forest | 0.9906 | 0.9596 | 0.9508 | 0.9405 | 0.9457 | 1 | 2 | 1 | 3 | 1 |
+| XGBoost | 0.9899 | 0.9614 | 0.9133 | 0.9676 | 0.9396 | 2 | 1 | 2 | 1 | 2 |
+
+The ranking comparison confirms that the tree-based models substantially outperformed Logistic Regression across nearly all evaluation metrics. Random Forest ranked highest overall due to its superior ROC-AUC, precision and F1-score, indicating the strongest balanced classification performance.
+
+XGBoost ranked highest for PR-AUC and recall, showing that it was most effective at identifying actual break-risk pipes. Although it produced slightly more false positives than Random Forest, it also missed fewer actual break cases.
+
+These findings suggest that Random Forest is the strongest balanced model overall, while XGBoost is the preferred operational model when prioritising maximum break detection and minimising missed failures.
+
+## Consolidated Risk Drivers for Melbourne Adaptation
+
+After comparing the three Kitchener models, the next step was to identify which risk drivers were consistent across models and transferable to the Melbourne Water dataset.
+
+The trained Kitchener models were not directly applied to Melbourne because Melbourne does not contain confirmed historical break labels. Instead, the model findings were used to build an interpretable risk identification framework based on asset characteristics available in Melbourne.
+
+| Risk Driver | Evidence from Kitchener Models | Melbourne Field | Transferability | Use in Melbourne Risk System |
+|---|---|---|---|---|
+| Pipe Age | Important in tree-based models and linked to deterioration over time | `PIPE_AGE` | High | Older pipes receive higher risk weight |
+| Pipe Length | Strong driver in Random Forest and Logistic Regression | `PIPE_LENGTH` | High | Longer pipe segments receive higher risk weight |
+| Material | Material-related features contributed to prediction | `MATERIAL` | High | Higher-risk materials receive higher risk weight |
+| Pipe Size / Width | Moderate contribution in Random Forest and XGBoost | `PIPE_WIDTH` | Medium | Used as a supporting physical risk factor |
+| Condition / Asset Health | Strongest Kitchener driver through `condition_score` | Not directly available | Limited | Approximated using pipe age and relining status |
+| Relining / Maintenance History | Lining-related features had lower importance but remain relevant | `HAS_RELINED`, `YEARS_SINCE_RELINED` | Medium | No relining or old relining increases risk |
+| Network / Operational Context | Pressure zone and cleaning area contributed to prediction | `MAIN_LINE_TYPE`, `MAIN_CLASS`, `FIELD_TEAM` | Medium | Used for grouping and explanation |
+
+The most transferable risk drivers were pipe age, pipe length, material and pipe width because these fields are available in the Melbourne dataset or can be directly derived.
+
+The main limitation was condition score. It was the strongest Kitchener predictor, but it was not available in the Melbourne dataset. Therefore, condition-related risk was approximated using proxy fields such as pipe age and relining status.
+
+Network and operational fields were not exact matches between Kitchener and Melbourne, but they remained useful for grouping, explanation and later LLM-based maintenance recommendations.
+
+---
+
+# 6. LLM-Based Maintenance Recommendation Framework
+
+## 6.1 Purpose of LLM Integration
+
+## 6.2 LLM Input Features
+
+## 6.3 Example High-Risk Pipe Outputs
+
+## 6.4 Practical Use Case
 
 > *To be completed.*
 
 ---
 
-# 6. Melbourne Water Data Adaptation
+# 7. Discussion and Limitations
 
 > *To be completed.*
 
 ---
 
-# 7. LLM Recommendation Workflow
-
-> *To be completed.*
-
----
-
-# 8. Discussion and Limitations
-
-> *To be completed.*
-
----
-
-# 9. Conclusion
+# 8. Conclusion
 
 > *To be completed.*
 
