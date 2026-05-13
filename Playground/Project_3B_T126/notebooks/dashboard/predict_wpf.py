@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 def load_pipes():
-    # Load the rich pre-computed file you have
+    # Loading the rich pre-computed file you have
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
