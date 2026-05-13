@@ -233,7 +233,7 @@ Network and operational fields were not exact matches between Kitchener and Melb
 
 ---
 
-# 6. Pipe Failure Predictive Analysis Results 
+# 6. Predictive Analysis Results 
 
 The web application dashboard system provides a comprehensive visual and analytical view of pipe failure risk across which was adapted for Melbourne’s water network using the `melbourne_risk_llm_ready.csv` dataset. The analysis was based on 12,677 pipes with pre-computed risk scores which were derived from `RISK_SCORE`, `RISK_LEVEL`, `RISK_REASONS`, `RECOMMENDED_ACTION` other asset attributes.
 
@@ -243,10 +243,18 @@ The results displayed on the dashboard system helps the pipe engineering and ope
 
 ![Pie chart](outputs/dbm1.png)
 
-For the prediction analysis overview of the Pipe age by distribution by risk leve, the below bar chart shows the number of pipes with their age in years for the pipe are above 73 which are at medium and high risk levels. 
+For the prediction analysis overview of the Pipe age by distribution by risk leve, the below bar chart shows the number of pipes with their age in years for the pipe are above 73 which are at medium and high risk levels. The maintenance team can further analyse the the two category levels - MEDIUM and HIGH easily for planning and carry out maintenance works
 
 ![Bar chart](outputs/dbm2.png)
 
+A further detailed insights and analysis can be done for comparisons of pipe age distribution by risk level versus the risk level by material types which are shown below. Shifting the pipe age slider shows real-time analysis of the different risks levels associated with the pipes. A more further reasoning when doing the analysis down to details, obtaining the exact number of prioritized pipes for maintenance work.
+
+![Bar charts](outputs/dbm3.png)
+
+By close observation, the analysis from the charts show the consistency of the material types at the different risk levels that stood out for urgent consideration for maintenance planning works. For the comparision analysis for the average risks scores by material types, RC has the highest score, followed by BSTONE, CONC and down to MSLB which comes last for medium and high risk levels. The percentage by risk levels further elaborate on the proportion of the materials types. That provides most of the required information for proper careful planning maintenance works. 
+
+![Charts](outputs/dbm4.png)
+![Bar chart](outputs/dbm5.png)
 ---
 
 # 7. LLM-Based Maintenance Recommendation Framework
