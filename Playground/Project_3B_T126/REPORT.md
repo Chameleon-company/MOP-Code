@@ -239,9 +239,13 @@ The web application dashboard system provides a comprehensive visual and analyti
 
 Based on the structure and content of the file, the important features that were used primarily to derive the risk scores are `PIPE_AGE`, `MATERIAL`, `PIPE_LENGTH`, `MAIN_NAME` (Location), `DATE_OF_CONSTRUCTION`, `HAS_RELINED`, `MAIN_LINE_TYPE` and `MAIN_CLASS`. The `RISK_LEVEL` has the types of risk levels for HIGH, MEDIUM and LOW which categorizes the material types acccording to their risks level.
 
-The results displayed on the dashboard system helps the pipe engineering and operational maintenance team to better access all the pipes in all categories of risks. The below overview of the pipes age at 60 and above shows that out of the total number of pipes which is 3106, those that are at higher risk are 472 which is 15.2%, 2630 are at the medium risk of 84.7% whilst only 4 are at low risk of 0.129%.
+The results displayed on the dashboard system helps the pipe engineering and operational maintenance team to better access all the pipes in all categories of risks. The below overview prediction analysis of the pipes age at 60 and above shows that out of the total number of pipes which is 3106, those that are at higher risk are 472 which is 15.2% which are needed to be replaced, 2630 are at the medium risk of 84.7% which are the next to consider replacing them, whilst only 4 are at low risk of 0.129%.
 
-![alt text](wpf1.png)
+![Pie chart](outputs/dbm1.png)
+
+For the prediction analysis overview of the Pipe age by distribution by risk leve, the below bar chart shows the number of pipes with their age in years for the pipe are above 73 which are at medium and high risk levels. 
+
+![Bar chart](outputs/dbm2.png)
 
 ---
 
