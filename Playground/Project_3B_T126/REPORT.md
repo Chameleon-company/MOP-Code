@@ -258,6 +258,7 @@ By close observation, the analysis from the charts show the consistency of the m
 
 The web app dashboard support system has successfully transforms raw pipe asset data into clear, visual and intelligent prediction analysis for action. It does provides a solid foundation for proactive asset management which demonstrates the value of combining traditional risk scoring with modern interactive visualization with LLM reasoning.
 The system is ready for operational use which can be further enhanced with real Melbourne failure history data with live model predictions in the future.
+
 ---
 
 # 7. LLM-Based Maintenance Recommendation Framework
