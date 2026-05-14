@@ -1,4 +1,4 @@
-# Urban Parking Demand Forecasting using Graph Neural Networks (GNN)
+Urban Parking Demand Forecasting Using Graph Neural Networks
 
 ## Project Overview
 This project focuses on predicting parking availability in urban areas using data-driven techniques. The aim is to analyse parking patterns across different locations and time periods and develop a model that can forecast future parking demand.
