@@ -1,14 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# -----------------------------
+
 # Load dataset
-# -----------------------------
 df = pd.read_csv("../data/cleaned_parking_with_area.csv")
 
-# -----------------------------
+
 # Select Area
-# -----------------------------
 areas = sorted(df["area"].dropna().unique())
 
 print("Available Areas:")
@@ -23,14 +21,12 @@ if choice < 1 or choice > len(areas):
 
 selected_area = areas[choice - 1]
 
-# -----------------------------
+
 # Filter area
-# -----------------------------
 area_df = df[df["area"] == selected_area]
 
-# -----------------------------
+
 # Plot
-# -----------------------------
 plt.figure(figsize=(10, 8))
 
 plt.scatter(

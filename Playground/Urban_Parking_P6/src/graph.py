@@ -3,9 +3,8 @@ import networkx as nx
 from math import radians, sin, cos, sqrt, atan2
 import os
 
-# -------------------------------------------------
+
 # Load dataset
-# -------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 file_path = os.path.join(BASE_DIR, "data", "cleaned_parking_with_area.csv")
 
@@ -26,9 +25,8 @@ print(f"Unique parking bays: {len(bays)}")
 # print(f"Using first {len(bays)} bays for graph construction")
 
 
-# -------------------------------------------------
+
 # Create graph
-# -------------------------------------------------
 print("Creating graph...")
 G = nx.Graph()
 
@@ -39,9 +37,8 @@ for bay in bays["bay_id"]:
 print(f"Added {G.number_of_nodes()} nodes")
 
 
-# -------------------------------------------------
+
 # Haversine distance function
-# -------------------------------------------------
 def calculate_distance(lat1, lon1, lat2, lon2):
     R = 6371  # Earth radius in km
 
@@ -60,9 +57,8 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return R * c
 
 
-# -------------------------------------------------
+
 # Create edges between nearby bays
-# -------------------------------------------------
 threshold = 0.5  # km = 500 meters
 
 print("Creating edges...")
@@ -91,9 +87,8 @@ print("Nodes:", G.number_of_nodes())
 print("Edges:", G.number_of_edges())
 
 
-# -------------------------------------------------
+
 # Add occupancy attribute to nodes
-# -------------------------------------------------
 print("Adding occupancy attributes...")
 
 latest_data = df.sort_values("timestamp").groupby("bay_id").last()

@@ -8,9 +8,8 @@ from prepare_data import X, y, edge_index
 from model import GCN
 
 
-# -----------------------------
+
 # Load model
-# -----------------------------
 model = GCN(X.shape[1], 16, 2)
 model.load_state_dict(torch.load("model.pth"))
 model.eval()
@@ -23,9 +22,8 @@ nodes_list = list(G.nodes())
 node_map = {node: i for i, node in enumerate(nodes_list)}
 
 
-# -----------------------------
+
 # REAL GEO POSITION
-# -----------------------------
 pos = {}
 
 for node in G.nodes():
@@ -35,9 +33,8 @@ for node in G.nodes():
     pos[node] = (lon, lat)
 
 
-# -----------------------------
-# COLOR LOGIC (UPDATED)
-# -----------------------------
+
+# COLOR LOGIC
 node_colors = []
 edge_colors = []
 
@@ -47,27 +44,25 @@ for node in G.nodes():
     pred_val = pred[idx].item()
     actual_val = y[idx].item()
 
-    # ✅ Fill color = ACTUAL VALUE
+    # Fill color = ACTUAL VALUE
     if actual_val == 1:
         node_colors.append("red")     # Occupied
     else:
         node_colors.append("green")   # Free
 
-    # ✅ Border = CORRECT / WRONG
+    # Border = CORRECT / WRONG
     if pred_val == actual_val:
         edge_colors.append("black")   # correct
     else:
         edge_colors.append("yellow")  # wrong
 
-# -----------------------------
+
 # FIGURE SETUP
-# -----------------------------
 fig, ax = plt.subplots(figsize=(14, 10))
 
 
-# -----------------------------
+
 # DRAW FUNCTION
-# -----------------------------
 def draw_graph(selected_node=None):
 
     ax.clear()
@@ -114,9 +109,8 @@ def draw_graph(selected_node=None):
             ax=ax
         )
 
-    # -----------------------------
-    # TITLE (UPDATED)
-    # -----------------------------
+
+    # TITLE
     ax.set_title(
         "Urban Parking Prediction (Melbourne)\n"
         "Given: Time (Hour, Day) + Location + Neighbors → Predict: Next Time-Step Occupancy\n"
@@ -128,9 +122,8 @@ def draw_graph(selected_node=None):
     ax.set_ylabel("Latitude")
     ax.grid(True)
 
-    # -----------------------------
-    # LEGEND (UPDATED)
-    # -----------------------------
+
+    # LEGEND
     red_patch = mpatches.Patch(color='red', label='Actual Occupied')
     green_patch = mpatches.Patch(color='green', label='Actual Free')
     yellow_patch = mpatches.Patch(edgecolor='yellow', facecolor='white', label='Incorrect Prediction', linewidth=2)
@@ -141,9 +134,8 @@ def draw_graph(selected_node=None):
         loc='upper right'
     )
 
-    # -----------------------------
+
     # INFO PANEL
-    # -----------------------------
     if selected_node is not None:
 
         idx = node_map[selected_node]
@@ -201,9 +193,8 @@ def draw_graph(selected_node=None):
     plt.draw()
 
 
-# -----------------------------
+
 # CLICK HANDLER
-# -----------------------------
 def on_click(event):
 
     if event.inaxes != ax:
@@ -225,9 +216,8 @@ def on_click(event):
     draw_graph(closest_node)
 
 
-# -----------------------------
+
 # INITIAL DRAW
-# -----------------------------
 draw_graph()
 
 fig.canvas.mpl_connect('button_press_event', on_click)

@@ -11,31 +11,27 @@ def map_nodes(G):
 def prepare_features(df, node_map):
     df = df.copy()
 
-    # -----------------------------
+
     # Basic cleaning
-    # -----------------------------
     df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
     df = df.dropna(subset=['bay_id', 'timestamp', 'occupancy'])
     df = df[df['bay_id'].isin(node_map.keys())]
 
-    # -----------------------------
+
     # Time features
-    # -----------------------------
     df['hour'] = df['timestamp'].dt.hour
     df['day'] = df['timestamp'].dt.dayofweek
 
-    # -----------------------------
+    
     # Forecasting logic (t → t+1)
-    # -----------------------------
     df = df.sort_values(['bay_id', 'timestamp'])
     df['future_occupancy'] = df.groupby('bay_id')['occupancy'].shift(-1)
 
     # fill last missing with current occupancy (safe fallback)
     df['future_occupancy'] = df['future_occupancy'].fillna(df['occupancy'])
 
-    # -----------------------------
+    
     # Latest snapshot per node
-    # -----------------------------
     latest = df.groupby('bay_id').last()
 
     ordered_nodes = list(node_map.keys())
@@ -48,14 +44,12 @@ def prepare_features(df, node_map):
     latest['latitude'] = latest['latitude'].fillna(0)
     latest['longitude'] = latest['longitude'].fillna(0)
 
-    # -----------------------------
+  
     # Feature matrix
-    # -----------------------------
     X = latest[['hour', 'day', 'latitude', 'longitude']].values
 
-    # -----------------------------
-    # 🔥 NORMALIZATION (CRITICAL FIX)
-    # -----------------------------
+   
+    # NORMALIZATION
     mean = X.mean(axis=0)
     std = X.std(axis=0)
 
@@ -64,14 +58,12 @@ def prepare_features(df, node_map):
 
     X = (X - mean) / std
 
-    # -----------------------------
+    
     # Labels (future occupancy)
-    # -----------------------------
     y = latest['future_occupancy'].values
 
-    # -----------------------------
+    
     # Convert to tensors
-    # -----------------------------
     X = torch.tensor(X, dtype=torch.float)
     y = torch.tensor(y, dtype=torch.long)
 

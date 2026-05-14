@@ -3,9 +3,8 @@ import torch.nn.functional as F
 from model import GCN
 from prepare_data import X, y, edge_index
 
-# -----------------------------
+
 # 1. Train/Test Split
-# -----------------------------
 num_nodes = X.shape[0]
 train_size = int(0.8 * num_nodes)
 
@@ -14,16 +13,14 @@ indices = torch.randperm(num_nodes)
 train_idx = indices[:train_size]
 test_idx = indices[train_size:]
 
-# -----------------------------
+
 # 2. Model Setup
-# -----------------------------
 model = GCN(X.shape[1], 16, 2)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-# -----------------------------
-# 3. Class Weights (improved)
-# -----------------------------
+
+# 3. Class Weights
 class_counts = torch.bincount(y).float()
 
 # avoid division by zero
@@ -33,16 +30,13 @@ total = class_counts.sum()
 
 # Strong balancing
 class_weights = total / (2 * class_counts)
-
-# IMPORTANT: move to device (if using GPU later)
 class_weights = class_weights.to(X.device)
 
 print("Class counts:", class_counts)
 print("Class weights:", class_weights)
 
-# -----------------------------
+
 # 4. Training Loop
-# -----------------------------
 epochs = 80
 best_test_acc = 0
 best_model_state = None
@@ -58,9 +52,7 @@ for epoch in range(epochs):
     loss.backward()
     optimizer.step()
 
-    # -----------------------------
-    # Evaluation (recompute output)
-    # -----------------------------
+    # Evaluation
     model.eval()
 with torch.no_grad():
     out_eval = model(X, edge_index)
@@ -86,15 +78,13 @@ with torch.no_grad():
     if epoch % 10 == 0:
         print(f"Epoch {epoch} | Loss: {loss.item():.4f} | Train Acc: {train_acc:.4f} | Test Acc: {test_acc:.4f}")
 
-# -----------------------------
+
 # 5. Save best model
-# -----------------------------
 if best_model_state:
     torch.save(best_model_state, "model.pth")
 
-# -----------------------------
+
 # 6. Final Output
-# -----------------------------
 print("\nFinal Results:")
 print("Train Accuracy:", train_acc)
 print("Test Accuracy:", test_acc)
@@ -103,9 +93,8 @@ print("Best Test Accuracy:", best_test_acc)
 print("\nSample Predictions:", pred[:10])
 print("Actual Labels:", y[:10])
 
-# -----------------------------
+
 # 7. Debug: Probabilities
-# -----------------------------
 probs = torch.softmax(out_eval, dim=1)
 print("\nPrediction probabilities (first 5):")
 print(probs[:5])

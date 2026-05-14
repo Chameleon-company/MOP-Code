@@ -10,18 +10,16 @@ from graph import G as full_graph
 from features import map_nodes, create_edge_index
 
 
-# =====================================================
+
 # 1. LOAD DATASET
-# =====================================================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 file_path = os.path.join(BASE_DIR, "data", "cleaned_parking_with_area.csv")
 
 df = pd.read_csv(file_path)
 
 
-# =====================================================
+
 # 2. USER INPUT: AREA
-# =====================================================
 areas = sorted(df["area"].dropna().unique())
 
 print("Available Areas:")
@@ -37,9 +35,8 @@ if choice < 1 or choice > len(areas):
 selected_area = areas[choice - 1]
 
 
-# =====================================================
+
 # 3. USER INPUT: HOUR
-# =====================================================
 hour = int(input("Enter hour (0-23): "))
 
 if hour < 0 or hour > 23:
@@ -47,9 +44,8 @@ if hour < 0 or hour > 23:
     exit()
 
 
-# =====================================================
+
 # 4. USER INPUT: DAY
-# =====================================================
 print("\nDay Mapping:")
 print("0 = Monday")
 print("1 = Tuesday")
@@ -66,9 +62,8 @@ if day < 0 or day > 6:
     exit()
 
 
-# =====================================================
+
 # 5. FILTER DATA TO SELECTED AREA
-# =====================================================
 area_df = df[df["area"] == selected_area].copy()
 
 print(f"\nSelected Area: {selected_area}")
@@ -76,9 +71,8 @@ print(f"Rows: {len(area_df)}")
 print(f"Unique Parking Bays: {area_df['bay_id'].nunique()}")
 
 
-# =====================================================
+
 # 6. CREATE SUBGRAPH
-# =====================================================
 selected_bays = area_df["bay_id"].unique()
 selected_bays = [bay for bay in selected_bays if bay in full_graph.nodes()]
 
@@ -91,16 +85,14 @@ if G.number_of_nodes() == 0:
     exit()
 
 
-# =====================================================
+
 # 7. NODE MAPPING
-# =====================================================
 node_map = map_nodes(G)
 edge_index = create_edge_index(G, node_map)
 
 
-# =====================================================
+
 # 8. PREPARE LATEST DATA
-# =====================================================
 area_df["timestamp"] = pd.to_datetime(area_df["timestamp"], errors="coerce")
 latest = area_df.sort_values("timestamp").groupby("bay_id").last()
 
@@ -112,9 +104,8 @@ latest["hour"] = hour
 latest["day"] = day
 
 
-# =====================================================
+
 # 9. CREATE FEATURES
-# =====================================================
 X = latest[["hour", "day", "latitude", "longitude"]].fillna(0)
 
 # Normalize features
@@ -129,17 +120,15 @@ y = torch.tensor(
 )
 
 
-# =====================================================
+
 # 10. LOAD TRAINED MODEL
-# =====================================================
 model = GCN(X.shape[1], 16, 2)
 model.load_state_dict(torch.load("model.pth", map_location="cpu"))
 model.eval()
 
 
-# =====================================================
+
 # 11. PREDICT
-# =====================================================
 with torch.no_grad():
     out = model(X, edge_index)
     probs = torch.softmax(out, dim=1)
@@ -149,9 +138,8 @@ with torch.no_grad():
     pred = (occupied_probs > threshold).long()
 
 
-# =====================================================
+
 # 12. POSITIONS
-# =====================================================
 pos = {}
 
 for node in G.nodes():
@@ -162,15 +150,13 @@ for node in G.nodes():
 nodes_list = list(G.nodes())
 
 
-# =====================================================
+
 # 13. FIGURE SETUP
-# =====================================================
 fig, ax = plt.subplots(figsize=(18, 10))
 
 
-# =====================================================
+
 # 14. DRAW FUNCTION
-# =====================================================
 def draw_graph(selected_node=None):
     ax.clear()
 
@@ -331,9 +317,8 @@ def draw_graph(selected_node=None):
     plt.draw()
 
 
-# =====================================================
+
 # 15. CLICK HANDLER
-# =====================================================
 def on_click(event):
     if event.inaxes != ax:
         return
@@ -357,9 +342,8 @@ def on_click(event):
     draw_graph(closest_node)
 
 
-# =====================================================
+
 # 16. RUN
-# =====================================================
 draw_graph()
 fig.canvas.mpl_connect("button_press_event", on_click)
 plt.show()
