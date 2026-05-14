@@ -5,7 +5,9 @@ from datetime import datetime
 from fastapi import FastAPI, UploadFile, File
 from typing import List
 from fastapi.staticfiles import StaticFiles
-from models.cv_model import analyse_image
+from backend_api.models.cv_model import analyse_image
+from LLM.llm_reporting import llm_reporting
+import base64
 
 #start API app
 app = FastAPI()
@@ -26,7 +28,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             report_id TEXT,
             timestamp TEXT,
-            images TEXT
+            results TEXT
         )
     """)
 
@@ -64,41 +66,72 @@ async def detect_lights(files: List[UploadFile] = File(...)):
 
         results.append({
             "image": file.filename,
-            "analysis": analysis
+            "analysis": analysis, 
+            "uploaded_img": base64.b64encode(contents).decode("utf-8")
         })
 
         saved_files.append(file.filename)
-    
-    #save to SQLite db file
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    
-    cursor.execute("""
-        INSERT INTO reports (report_id, timestamp, images)
-        VALUES (?, ?, ?)
-    """, (
-        report_id,
-        datetime.now().isoformat(),
-        json.dumps(results)
-    ))
-
-    conn.commit()
-    conn.close()
     
     return {        
         "report_id": report_id, 
         "results": results
     }
+    
+#REPORT ENDPOINT FOR LLM 
+@app.post("/report")
+async def generate_report(data: dict): 
+    report_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
+    final_results = []
+
+    for item in data["results"]:
+
+        analysis = item["analysis"]
+
+        llm_result = await llm_reporting({
+            "analysis": analysis,
+            "uploaded_img": item.get("uploaded_img")
+        })
+
+        final_results.append({
+            "image": item["image"],
+            "analysis": analysis,
+            "report": llm_result["output"]
+        })
+        
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO reports (report_id, timestamp, results)
+        VALUES (?, ?, ?)
+    """, (
+        report_id,
+        datetime.now().isoformat(),
+        json.dumps(final_results)
+    ))
+
+    conn.commit()
+    conn.close()
+        
+    return {
+        "report_id": report_id,
+        "results": final_results
+    }
+    
 @app.get("/reports")
 def get_reports(): 
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     #query all reports 
-    cursor.execute("SELECT report_id, timestamp, images FROM reports ORDER BY id DESC")
-    rows = cursor.fetchall()
+    cursor.execute("""
+        SELECT report_id, timestamp, results
+        FROM reports
+        ORDER BY id DESC
+    """)
     
+    rows = cursor.fetchall()
     conn.close()
     
     reports = []
@@ -110,11 +143,3 @@ def get_reports():
         })
     
     return {"reports": reports}
-
-#REPORT ENDPOINT FOR LLM 
-@app.post("/report")
-async def generate_report(): 
-    return { 
-        #placeholder results
-        "report": "placeholder report"
-    }

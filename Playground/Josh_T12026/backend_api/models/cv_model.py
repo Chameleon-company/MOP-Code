@@ -1,10 +1,15 @@
+import os
 from ultralytics import YOLO
 import cv2
 import numpy as np
 import base64
 
+BASE_DIR = os.path.dirname(__file__)
+
+MODEL_PATH = os.path.join(BASE_DIR, "best.pt")
+
 # load YOLO model ONCE
-model = YOLO("models/best.pt")
+model = YOLO(MODEL_PATH)
 
 # -----------------------------
 # preprocessing functions
@@ -145,7 +150,7 @@ def analyse_image(image_path):
         ).decode("utf-8")
 
     return {
-        "uploaded_image": encoded_image,
+        "uploaded_img": encoded_image,
         "streetlight_count": len(boxes),
         "on": on_count,
         "dim": dim_count,

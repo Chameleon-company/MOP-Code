@@ -16,7 +16,7 @@ def backend_detect(files):
         response = requests.post(url, files = files)
         return response.json()
     except: 
-        return {"Backend unavailable"}
+        return {"error": "Backend unavailable"}
 
 #send detection results to FastAPI
 def backend_report(detection_data):
@@ -25,7 +25,7 @@ def backend_report(detection_data):
         response = requests.post(url, json = detection_data)
         return response.json()
     except: 
-        return {"error: Backend unavailable"}
+        return {"error": "Backend unavailable"}
 
 def backend_get_reports():
     try:
@@ -37,10 +37,6 @@ def backend_get_reports():
 #SIDEBAR
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Homepage", "Detection", "Reports", "Report History", "About"])
-
-if page!= "Detection": 
-    if "analysis_result" in st.session_state: 
-        del st.session_state["analysis_result"]
 
 #HOMEPAGE 
 if page == "Homepage": 
@@ -73,7 +69,7 @@ elif page == "Detection":
         if uploaded_files: 
             st.header("Preview uploaded images")
             for file in uploaded_files: 
-                st.image(file, width = "content")
+                st.image(file, width="stretch")
                 st.markdown("---")
             
             #button for analysis 
@@ -86,9 +82,13 @@ elif page == "Detection":
                     ]
                     
                     #send to backend
-                    st.session_state["analysis_result"] = backend_detect(file_data)
-                    
-                st.success("Analysis complete!")
+                    result = backend_detect(file_data)
+                    if isinstance(result, dict) and "results" in result:
+                        st.session_state["analysis_result"] = result
+                        st.success("Analysis complete!")
+                    else:
+                        st.error("Backend returned invalid response")
+                        st.json(result)
         else:
             st.info("No uploaded images.")
 
@@ -100,27 +100,27 @@ elif page == "Detection":
     if "analysis_result" in st.session_state:
         result_data = st.session_state["analysis_result"]
 
-        for result in result_data["results"]:
+        if isinstance(result_data, dict) and "results" in result_data:
+            for result in result_data["results"]:
 
-            analysis = result["analysis"]
+                analysis = result["analysis"]
+                st.subheader(result["image"])
 
-            st.subheader(result["image"])
+                #if an image exists 
+                if "uploaded_img" in analysis:
+                    image_bytes = base64.b64decode(
+                        analysis["uploaded_img"]
+                    )
+                    st.image(image_bytes)
 
-            #if an image exists 
-            if "uploaded_img" in analysis:
-                image_bytes = base64.b64decode(
-                    analysis["uploaded_img"]
-                )
-                st.image(image_bytes)
+                st.write(f"Streetlights: {analysis['streetlight_count']}")
+                st.write(f"On: {analysis['on']}")
+                st.write(f"Dim: {analysis['dim']}")
+                st.write(f"Off: {analysis['off']}")
 
-            st.write(f"Streetlights: {analysis['streetlight_count']}")
-            st.write(f"On: {analysis['on']}")
-            st.write(f"Dim: {analysis['dim']}")
-            st.write(f"Off: {analysis['off']}")
+                st.json(analysis["details"])
 
-            st.json(analysis["details"])
-
-            st.markdown("---")
+                st.markdown("---")
     else:
         st.info("No analysis results")
 
@@ -138,11 +138,19 @@ elif page == "Reports":
                 #send to backend 
                 report = backend_report(detection_data)
                 
-            st.success("Report generated!")
-            st.json(report)
+            if isinstance(report, dict) and "results" in report:
+                st.success("Report generated!")
+
+                for item in report["results"]: 
+                    st.subheader(item["image"])
+                    st.write(item["report"])
+                    st.markdown("---")
+            else:
+                st.error("Report failed or invalid response from backend")
+                st.json(report)
     
 #REPORTHISTORY
-elif page == ("Report History"): 
+elif page == "Report History": 
     st.title("Report History")
     data = backend_get_reports() 
     reports = data.get("reports", [])
@@ -150,18 +158,23 @@ elif page == ("Report History"):
     if not reports: 
         st.warning("No reports found. ")
     else: 
-        for report in reports: 
+        for report in reports:
             st.subheader(f"Report: {report['report_id']}")
-            
-            for item in report["results"]: 
-                image_name = item["image"]
 
-                image_url = f"http://localhost:8000/uploads/{report['report_id']}/{image_name}"
+            for item in report["results"]:
+
+                image_url = f"http://localhost:8000/uploads/{report['report_id']}/{item['image']}"
 
                 st.image(image_url)
+
                 st.json(item["analysis"])
-        
-        st.markdown("---")
+
+                if "report" in item:
+                    st.success(item["report"])
+                else:
+                    st.warning("No LLM report available")
+
+
     
 #ABOUTPAGE
 elif page == "About": 
