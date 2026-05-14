@@ -1,28 +1,46 @@
 import streamlit as st 
 import requests
+import base64
 
 #PAGECONFIG
 st.set_page_config(
-    page_title="Smart Streetlight Fault Detection",
-    layout="centered",
-    initial_sidebar_state="expanded"
+    page_title = "Smart Streetlight Fault Detection",
+    layout = "centered",
+    initial_sidebar_state = "expanded"
 )
 
 #send images to FastAPI
 def backend_detect(files):
-    url = "http://localhost:8000/detect"
-    response = requests.post(url, files = files)
-    return response.json()
+    try: 
+        url = "http://localhost:8000/detect"
+        response = requests.post(url, files = files)
+        return response.json()
+    except: 
+        return {"Backend unavailable"}
 
 #send detection results to FastAPI
 def backend_report(detection_data):
-    url = "http://localhost:8000/report"
-    response = requests.post(url, json = detection_data)
-    return response.json()
+    try: 
+        url = "http://localhost:8000/report"
+        response = requests.post(url, json = detection_data)
+        return response.json()
+    except: 
+        return {"error: Backend unavailable"}
+
+def backend_get_reports():
+    try:
+        response = requests.get("http://localhost:8000/reports")
+        return response.json()
+    except:
+        return {"reports": []}
 
 #SIDEBAR
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Homepage", "Detection", "Reports"])
+page = st.sidebar.radio("Go to", ["Homepage", "Detection", "Reports", "Report History", "About"])
+
+if page!= "Detection": 
+    if "analysis_result" in st.session_state: 
+        del st.session_state["analysis_result"]
 
 #HOMEPAGE 
 if page == "Homepage": 
@@ -42,9 +60,6 @@ if page == "Homepage":
 #DETECTIONPAGE
 elif page == "Detection": 
     st.title("Streetlight Analysis")
-    
-    #hold the result for backend use 
-    stored_result = None
     
     #COLUMNS
     col1, col2 = st.columns([1, 2])
@@ -67,13 +82,11 @@ elif page == "Detection":
                     #prep files 
                     file_data = [
                         ("files", (file.name, file.getvalue(), file.type))
-                        for f in uploaded_files
+                        for file in uploaded_files
                     ]
                     
                     #send to backend
-                    stored_result = backend_detect(file_data)
-                    
-                    st.session_state["analysis_result"] = stored_result 
+                    st.session_state["analysis_result"] = backend_detect(file_data)
                     
                 st.success("Analysis complete!")
         else:
@@ -82,9 +95,32 @@ elif page == "Detection":
     #DIVIDE PAGE 
     st.markdown("---")
 
+    #analysis results section 
     st.header("Analysis Results")
     if "analysis_result" in st.session_state:
-        st.json(st.session_state["analysis_result"])
+        result_data = st.session_state["analysis_result"]
+
+        for result in result_data["results"]:
+
+            analysis = result["analysis"]
+
+            st.subheader(result["image"])
+
+            #if an image exists 
+            if "uploaded_img" in analysis:
+                image_bytes = base64.b64decode(
+                    analysis["uploaded_img"]
+                )
+                st.image(image_bytes)
+
+            st.write(f"Streetlights: {analysis['streetlight_count']}")
+            st.write(f"On: {analysis['on']}")
+            st.write(f"Dim: {analysis['dim']}")
+            st.write(f"Off: {analysis['off']}")
+
+            st.json(analysis["details"])
+
+            st.markdown("---")
     else:
         st.info("No analysis results")
 
@@ -97,10 +133,60 @@ elif page == "Reports":
             st.warning("No results available. Please run detection analysis first")
         else: 
             with st.spinner("Generating report..."):
-                detection_data = st.session_state["analysis_result"]
+                detection_data = st.session_state['analysis_result']
                 
                 #send to backend 
                 report = backend_report(detection_data)
                 
             st.success("Report generated!")
             st.json(report)
+    
+#REPORTHISTORY
+elif page == ("Report History"): 
+    st.title("Report History")
+    data = backend_get_reports() 
+    reports = data.get("reports", [])
+    
+    if not reports: 
+        st.warning("No reports found. ")
+    else: 
+        for report in reports: 
+            st.subheader(f"Report: {report['report_id']}")
+            
+            for item in report["results"]: 
+                image_name = item["image"]
+
+                image_url = f"http://localhost:8000/uploads/{report['report_id']}/{image_name}"
+
+                st.image(image_url)
+                st.json(item["analysis"])
+        
+        st.markdown("---")
+    
+#ABOUTPAGE
+elif page == "About": 
+    st.title(":blue[About Us]", text_alignment = "center")
+    
+    st.markdown("""
+            Our project team is composed of the following members: 
+            
+            **Syed Hamiz Hassan** 
+            - Computer Vision Modelling 
+            
+                
+            **Savith Mundukotuwa** 
+            - Data Preparation 
+            
+            
+            **Josh Wong** 
+            - User Interface and System Integration
+            
+            
+            **Luke Kankannamge Don** 
+            - LLM Reporting System 
+            
+            
+            **Rahul Sheoran** 
+            - Model Analysis
+             
+            """)
