@@ -7,7 +7,6 @@ This project develops a machine learning workflow to identify high-risk water pi
 The project uses the Kitchener water network dataset (Ontario, Canada) as the primary modelling dataset, with later adaptation work using Melbourne water infrastructure data.
 
 Main models:
-
 - Logistic Regression
 - Random Forest
 - XGBoost
@@ -42,6 +41,8 @@ Project_3B_T126/
 └── archive/
 ```
 
+---
+
 ## Folder Guide
 
 - `README.md`: project overview and repository structure
@@ -55,6 +56,53 @@ Project_3B_T126/
 
 ---
 
+## Environment Setup
+
+Recommended Python version:
+- Python 3.10+
+
+Install required packages before running the notebook:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost geopandas shapely streamlit
+```
+
+Optional packages for dashboard and LLM workflow:
+
+```bash
+pip install groq python-dotenv
+```
+
+---
+
+## Running the Project
+
+1. Clone the repository
+
+```bash
+git clone <repository-link>
+```
+
+2. Open the project folder
+
+```bash
+cd Project_3B_T126
+```
+
+3. Launch Jupyter Notebook
+
+```bash
+jupyter notebook
+```
+
+4. Open and run:
+
+```text
+Project_3B_T126.ipynb
+```
+
+---
+
 ## Main Notebook
 
 The main project workflow is demonstrated through:
@@ -62,7 +110,6 @@ The main project workflow is demonstrated through:
 - `Project_3B_T126.ipynb`
 
 The notebook is intentionally kept concise and is mainly used to:
-
 - load processed datasets
 - import reusable functions from `src/`
 - demonstrate the end-to-end modelling workflow
