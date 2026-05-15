@@ -85,11 +85,11 @@ Prompt engineering and LLM reasoning are used to translate model outputs into ac
 
 | Model | Accuracy | F1 Score | AUC |
 |---|---|---|---|
-| XGBoost | 0.6890 | 0.5801 | 0.7539 |
-| Random Forest | 0.6838 | 0.5680 | 0.7464 |
-| Gradient Boosting | 0.6960 | 0.5923 | 0.7734 |
+| XGBoost | 0.7951 | 0.7255 | 0.8773 |
+| Random Forest | 0.7943 | 0.7293 | 0.8741 |
+| Gradient Boosting | 0.8038 | 0.7413 | 0.8816 |
 
-**Best Model:** Gradient Boosting (AUC: 0.7734)
+**Best Model:** Gradient Boosting (AUC: 0.8816)
 
 ### Key Findings
 
