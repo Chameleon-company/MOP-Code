@@ -1,4 +1,4 @@
-```
+
 # Project 3B - Water Pipe Failure Prediction
 
 ## Authors
@@ -149,4 +149,3 @@ The target variable was constructed using domain knowledge and probabilistic met
 1. Melbourne Water Corporation (2024) Water Supply Main Pipelines, Available at: https://data.vic.gov.au
 
 2. Melbourne Water Corporation (2024) Water Supply Daily Rainfall at the 4 Major Harvesting Storage Dams, Available at: https://data.vic.gov.au
-```
