@@ -3,7 +3,7 @@
 
 ---
 
-# Executive Summary
+## Executive Summary
 
 Water main failures create significant operational, financial, and public safety challenges for water utilities. As Melbourne’s water infrastructure continues to age, there is an increasing need for data-driven maintenance approaches that can anticipate failures before they occur. This project addresses that need by developing a machine learning-based workflow to identify water pipe failure risk and support proactive asset management.
 
@@ -20,9 +20,9 @@ Overall, the project demonstrates how combining machine learning with LLM-based 
 
 ---
 
-# 1. Project Overview
+## 1. Project Overview
 
-## 1.1 Introduction
+### 1.1 Introduction
 
 Water main failures can cause significant operational disruption, repair costs, water loss, and public safety risks. As water infrastructure continues to age, there is increasing interest in using data-driven approaches to support proactive maintenance and risk identification.
 
@@ -32,7 +32,7 @@ Three supervised machine learning models were developed and compared using histo
 
 ---
 
-## 1.2 Project Objectives
+### 1.2 Project Objectives
 
 The main objectives of the project are to:
 
@@ -47,9 +47,9 @@ The main objectives of the project are to:
 
 ---
 
-# 2. Dataset Review and Selection
+## 2. Dataset Review and Selection
 
-## 2.1 Candidate Dataset Review
+### 2.1 Candidate Dataset Review
 
 Several candidate datasets were reviewed during the early stage of the project to assess their suitability for supervised water pipe failure modelling. The review focused on dataset scale, data structure, historical failure availability, feature completeness, and compatibility with the planned machine learning workflow.
 
@@ -73,7 +73,7 @@ Based on the overall review, the Kitchener datasets were selected as the primary
 
 ---
 
-## 2.2 External Soil Dataset Testing
+### 2.2 External Soil Dataset Testing
 
 To address the absence of environmental attributes in the Kitchener datasets, two external Canadian soil datasets were tested using GIS spatial joins:
 
@@ -90,9 +90,9 @@ As a result, the external soil datasets did not provide sufficient pipe-level di
 
 ---
 
-# 3. Data Preprocessing
+## 3. Data Preprocessing
 
-## 3.1 Kitchener Data Preprocessing
+### 3.1 Kitchener Data Preprocessing
 
 The Kitchener preprocessing stage converted the raw water mains and water main break datasets into a clean pipe-level dataset for supervised modelling.
 
@@ -106,7 +106,7 @@ The final pipe-level dataset contained 16,163 records and 26 columns. A separate
 
 The final target distribution was highly imbalanced. A total of 14,929 pipes, or 92.37%, had no observed historical break, while 1,234 pipes, or 7.63%, had at least one observed break. This class imbalance was addressed during model development through stratified splitting and evaluation metrics such as precision, recall, F1-score, ROC-AUC, and PR-AUC.
 
-## 3.2 Melbourne Water Main Preprocessing
+### 3.2 Melbourne Water Main Preprocessing
 
 The Melbourne Water mains dataset was prepared for the later adaptation and risk identification stage. Unlike the Kitchener dataset, it did not include historical break labels and therefore could not be used for supervised model training.
 
@@ -118,9 +118,9 @@ The final processed Melbourne dataset provides a structured pipe-level dataset f
 
 ---
 
-# 4. Model Development
+## 4. Model Development
 
-## 4.1 Random Forest Model
+### 4.1 Random Forest Model
 
 The Random Forest model was trained using the processed Kitchener model-ready dataset with a consistent 70/15/15 train, validation, and test split. The split produced 11,314 training records, 2,424 validation records, and 2,425 test records.
 
@@ -136,7 +136,7 @@ The feature importance results showed that `condition_score` was the most influe
 
 Overall, the Random Forest model provided strong predictive performance and useful interpretability. The results suggest that pipe condition, pipe length, pipe age, and material were key indicators of historical break risk in the Kitchener dataset. These findings were later used to support the Melbourne adaptation stage, where similar asset-level features were available for risk identification.
 
-## 4.2 XGBoost Model
+### 4.2 XGBoost Model
 
 The XGBoost model was trained using the same processed Kitchener model-ready dataset and the same 70/15/15 train, validation, and test split used for the other models. The split produced 11,314 training records, 2,424 validation records, and 2,425 test records.
 
@@ -154,7 +154,7 @@ The feature importance results showed that `condition_score` was the most influe
 
 Overall, XGBoost provided strong predictive performance and high break-case detection capability. It was valuable for model comparison because it offered a different modelling approach from Random Forest while still identifying similar key risk drivers.
 
-## 4.3 Logistic Regression Model
+### 4.3 Logistic Regression Model
 
 Logistic Regression was included as a simpler and more interpretable baseline model for the Kitchener pipe failure prediction task. It used the same processed model-ready dataset and the same 70/15/15 train, validation, and test split as the other models. The split produced 11,314 training records, 2,424 validation records, and 2,425 test records.
 
@@ -174,9 +174,9 @@ Overall, Logistic Regression provided a useful interpretable baseline. It achiev
 
 ---
 
-# 5. Model Comparison and Melbourne Water Data Adaptation
+## 5. Model Comparison and Melbourne Water Data Adaptation
 
-## 5.1 Model Results
+### 5.1 Model Results
 
 | Model | ROC-AUC | PR-AUC | Precision | Recall | F1-score | True Negatives | False Positives | False Negatives | True Positives |
 |---|---|---|---|---|---|---|---|---|---|
@@ -192,7 +192,7 @@ XGBoost achieved the highest PR-AUC and recall while also producing the fewest f
 
 Overall, Random Forest demonstrated the strongest balanced performance, while XGBoost demonstrated the strongest break detection capability.
 
-## 5.2 Model Ranking
+### 5.2 Model Ranking
 
 | Model | ROC-AUC | PR-AUC | Precision | Recall | F1-score | ROC-AUC Rank | PR-AUC Rank | Precision Rank | Recall Rank | F1-score Rank |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -206,7 +206,7 @@ XGBoost ranked highest for PR-AUC and recall, showing that it was most effective
 
 These findings suggest that Random Forest was the strongest balanced model overall, while XGBoost was the preferred operational model when prioritising maximum break detection and minimising missed failures.
 
-## 5.3 Consolidated Risk Drivers for Melbourne Adaptation
+### 5.3 Consolidated Risk Drivers for Melbourne Adaptation
 
 After comparing the three Kitchener models, the next step was to identify which risk drivers were consistent across models and transferable to the Melbourne Water dataset.
 
@@ -230,7 +230,7 @@ Network and operational fields were not exact matches between Kitchener and Melb
 
 ---
 
-# 6. Melbourne Risk Scoring and Dashboard Analysis
+## 6. Melbourne Risk Scoring and Dashboard Analysis
 
 The web-based dashboard system provides an interactive visual analysis of pipe failure risk across Melbourne’s water network using the `melbourne_risk_llm_ready.csv` dataset. The analysis was based on 12,677 pipe records with pre-computed risk scores derived from fields such as `RISK_SCORE`, `RISK_LEVEL`, `RISK_REASONS`, `RECOMMENDED_ACTION`, and other asset attributes.
 
@@ -267,9 +267,9 @@ Although the current system uses adapted risk scoring rather than Melbourne-spec
 
 ---
 
-# 7. LLM-Based Maintenance Recommendation Framework
+## 7. LLM-Based Maintenance Recommendation Framework
 
-## 7.1 Purpose of LLM Integration
+### 7.1 Purpose of LLM Integration
 
 The machine learning models developed in this project produce numerical risk outputs such as risk scores, classification labels, and feature importance values. While these outputs are useful for technical analysis, they are not always easily interpretable for operational maintenance planning.
 
@@ -279,7 +279,7 @@ The LLM component was implemented through a Streamlit dashboard interface and co
 
 The generated output is intended to support engineering judgement rather than replace professional maintenance assessment.
 
-## 7.2 LLM Input Features
+### 7.2 LLM Input Features
 
 The LLM recommendation workflow uses selected pipe-level fields from the Melbourne adaptation dataset together with generated risk scoring outputs.
 
@@ -300,7 +300,7 @@ The recommendation system uses structured prompt engineering to generate consist
 
 The workflow also includes a fallback rule-based explanation system to ensure the dashboard remains operational if the API becomes unavailable or fails during deployment.
 
-## 7.3 Example High-Risk Pipe Outputs
+### 7.3 Example High-Risk Pipe Outputs
 
 For high-risk pipes, the generated outputs typically identified ageing infrastructure, pipe material, and physical dimensions as contributing factors to elevated risk levels.
 
@@ -320,7 +320,7 @@ The recommendation outputs were formatted into three sections:
 
 This structure improved readability and provided a clearer operational interpretation of the machine learning outputs.
 
-## 7.4 Practical Use Case
+### 7.4 Practical Use Case
 
 The final workflow demonstrates how machine learning and LLM-assisted reasoning can support proactive infrastructure maintenance planning.
 
@@ -338,7 +338,7 @@ Overall, the integrated workflow demonstrates how risk scoring, interactive dash
 
 ---
 
-# 8. Discussion and Limitations
+## 8. Discussion and Limitations
 
 The project successfully demonstrated that machine learning models can identify meaningful patterns associated with historical water pipe failures. Across all three models, pipe condition, age, material, and physical dimensions consistently appeared as the strongest indicators of break risk.
 
@@ -356,7 +356,7 @@ The dashboard and risk scoring workflow should also be viewed as a supporting de
 
 The LLM recommendation system also has practical limitations. Generated outputs depend heavily on prompt quality and available infrastructure attributes. While the generated explanations were generally useful and consistent, they may occasionally produce broad or simplified maintenance recommendations. For this reason, the system should be viewed as a decision-support tool rather than a replacement for engineering expertise.
 
-## Future Improvements
+### Future Improvements
 
 Several future improvements could strengthen the workflow and improve practical deployment capability:
 
@@ -374,7 +374,7 @@ Despite these limitations, the current Minimum Viable Product (MVP) demonstrates
 
 ---
 
-# 9. Conclusion
+## 9. Conclusion
 
 This project developed an end-to-end workflow for water pipe failure risk identification and AI-assisted maintenance recommendation.
 
@@ -390,7 +390,7 @@ Overall, the project demonstrates how machine learning, interactive dashboard sy
 
 ---
 
-# References
+## References
 [1] Y. Zhang, “water-pipes-failure-prediction,” GitHub repository, 2020. [Online]. Available: [GitHub Repository](https://github.com/yingqianzhang/water-pipes-failure-prediction). [Accessed: 14-May-2026].
 
 [2] J. Verheugd, P. R. de Oliveira da Costa, R. Refaei Afshar, Y. Zhang, and S. Boersma, “Predicting Water Pipe Failures with a Recurrent Neural Hawkes Process Model,” in *Proc. IEEE Int. Conf. Systems, Man, and Cybernetics (SMC)*, 2020. :contentReference[oaicite:1]{index=1}
