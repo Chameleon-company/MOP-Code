@@ -391,22 +391,27 @@ Overall, the project demonstrates how machine learning, interactive dashboard sy
 ---
 
 ## References
-[1] Y. Zhang, “water-pipes-failure-prediction,” GitHub repository, 2020. [Online]. Available: [GitHub Repository](https://github.com/yingqianzhang/water-pipes-failure-prediction). [Accessed: 14-May-2026].
 
-[2] J. Verheugd, P. R. de Oliveira da Costa, R. Refaei Afshar, Y. Zhang, and S. Boersma, “Predicting Water Pipe Failures with a Recurrent Neural Hawkes Process Model,” in *Proc. IEEE Int. Conf. Systems, Man, and Cybernetics (SMC)*, 2020. :contentReference[oaicite:1]{index=1}
+[1] Y. Zhang, “water-pipes-failure-prediction,” GitHub repository, 2020. [Online]. Available: https://github.com/yingqianzhang/water-pipes-failure-prediction. [Accessed: 14-May-2026].
 
-[3] City of Kitchener, “Water Main Breaks,” Kitchener GeoHub Open Data Portal, 2018. [Online]. Available: [Kitchener Water Main Breaks Dataset](https://open-kitchenergis.opendata.arcgis.com/datasets/KitchenerGIS%3A%3Awater-main-breaks/about). [Accessed: 14-May-2026].
+[2] J. Verheugd, P. R. de Oliveira da Costa, R. Refaei Afshar, Y. Zhang, and S. Boersma, “Predicting Water Pipe Failures with a Recurrent Neural Hawkes Process Model,” in *Proceedings of the IEEE International Conference on Systems, Man, and Cybernetics (SMC)*, 2020.
 
-[4] City of Kitchener, “Water Main Breaks - Overview,” ArcGIS Online, 2018. [Online]. Available: [ArcGIS Dataset Overview](https://www.arcgis.com/home/item.html?id=34627cd277084a47ab8558c97fa63a27&). [Accessed: 14-May-2026].
+[3] City of Kitchener, “Water Main Breaks,” Kitchener Open Data Portal, 2018. [Online]. Available: https://open-kitchenergis.opendata.arcgis.com/datasets/KitchenerGIS::water-main-breaks/about. [Accessed: 14-May-2026].
 
-[5] Streamlit Inc., “Streamlit Documentation,” 2026. [Online]. Available: https://streamlit.io/
-. [Accessed: 13-May-2026].
+[4] City of Kitchener, “Water Mains,” Kitchener Open Data Portal, 2018. [Online]. Available: https://open-kitchenergis.opendata.arcgis.com/datasets/KitchenerGIS::water-mains/about. [Accessed: 14-May-2026].
 
-[6] Groq Inc., “Groq API Documentation,” 2026. [Online]. Available: https://console.groq.com/docs
-. [Accessed: 13-May-2026].
+[5] Streamlit Inc., “Streamlit Documentation,” 2026. [Online]. Available: https://streamlit.io/. [Accessed: 13-May-2026].
 
-[7] Internal project dataset shared via Microsoft Teams communication, “Bozeman Water Main Break Dataset,” 2026.
+[6] Groq Inc., “Groq API Documentation,” 2026. [Online]. Available: https://console.groq.com/docs. [Accessed: 13-May-2026].
+
+[7] City of Bozeman, “Water Main Breaks,” Bozeman Open Data Portal, 2026. [Online]. Available: https://public-bozeman.opendata.arcgis.com/datasets/water-main-breaks/explore. [Accessed: 14-May-2026].
 
 [8] Melbourne Water, “Melbourne Water Main Asset Dataset,” internal operational dataset provided for Deakin University SIT374 Capstone Project, 2026.
 
 [9] Melbourne Water, “Melbourne Soil Monitoring Dataset,” internal operational dataset provided for Deakin University SIT374 Capstone Project, 2026.
+
+[10] Ontario GeoHub, “Soil Survey Complex,” Ontario GeoHub Open Data Portal, 2026. [Online]. Available: https://geohub.lio.gov.on.ca/datasets/ontarioca11::soil-survey-complex/about. [Accessed: 14-May-2026].
+
+[11] Agriculture and Agri-Food Canada, “Canadian Soil Information Service (CanSIS),” Government of Canada, 2026. [Online]. Available: https://sis.agr.gc.ca/cansis/nsdb/soil/v2/download.html. [Accessed: 14-May-2026].
+
+[12] Victorian Government, “Water Supply Main Pipelines,” DataVic Open Data Portal, 2026. [Online]. Available: https://discover.data.vic.gov.au/dataset/water-supply-main-pipelines. [Accessed: 14-May-2026].
