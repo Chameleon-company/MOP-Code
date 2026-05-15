@@ -7,7 +7,7 @@
 
 Water main failures create significant operational, financial, and public safety challenges for water utilities. As Melbourne’s water infrastructure continues to age, there is an increasing need for data-driven maintenance approaches that can anticipate failures before they occur. This project addresses that need by developing a machine learning-based workflow to identify water pipe failure risk and support proactive asset management.
 
-Using historical water main break datasets, the project evaluates three supervised machine learning models: Logistic Regression, Random Forest, and XGBoost. The objective was to identify patterns and key risk drivers associated with pipe failures. These findings were then adapted to Melbourne Water’s network, which consists of thousands of kilometres of pipes with varying material, age, soil conditions, and environmental exposure.
+Using historical water main break datasets, the project evaluates three supervised machine learning models: Logistic Regression, Random Forest, and XGBoost. The objective was to identify patterns and key risk drivers associated with pipe failures. These findings were then adapted to Melbourne Water’s network, which consists of thousands of kilometres of pipes with varying materials, age, soil conditions, and environmental exposure.
 
 Beyond machine learning modelling, the project also developed an interactive web-based decision support system that explores how Large Language Models (LLMs) can translate model outputs into practical maintenance recommendations. The capstone delivers four major outcomes:
 
@@ -236,7 +236,7 @@ The web-based dashboard system provides an interactive visual analysis of pipe f
 
 The main asset features used in the Melbourne risk scoring workflow included `PIPE_AGE`, `MATERIAL`, `PIPE_LENGTH`, `MAIN_NAME` (location), `DATE_OF_CONSTRUCTION`, `HAS_RELINED`, `MAIN_LINE_TYPE`, and `MAIN_CLASS`. Risk levels were categorised into HIGH, MEDIUM, and LOW to support prioritisation and maintenance planning.
 
-The XGBoost model, which achieved the highest PR-AUC during the Kitchener modelling stage, was selected as the primary reference model for the Melbourne risk scoring workflow due to its strong break detection capability.
+The XGBoost model, which achieved the highest PR-AUC and recall during the Kitchener modelling stage, was selected as the primary reference model for the Melbourne risk scoring workflow due to its strong break detection capability.
 
 The dashboard helps engineering and operational maintenance teams analyse pipes across different risk categories. For example, the analysis of pipes aged 60 years and above showed that out of 3,106 pipes:
 - 472 pipes (15.2%) were classified as HIGH risk
