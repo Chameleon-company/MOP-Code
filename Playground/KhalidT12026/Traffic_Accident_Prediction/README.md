@@ -171,7 +171,7 @@ The final dashboard-style project summary notebook is intended as the main hando
 
 It consolidates key outputs from the earlier technical notebooks and presents them in a more readable format.
 
-Notebook name: 19_TARP_Final_Project_Summary_NotebookP.ipynb
+Notebook name: 19_TARP_Final_Project_Summary_Notebook.ipynb
 
 
 
