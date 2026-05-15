@@ -16,7 +16,7 @@ import tempfile
 load_dotenv(Path(__file__).parent.parent / '.env.local')
 
 # ── Supabase Setup ────────────────────────────────────────────────────────────
-SUPABASE_URL     = "https://lpazsslmpirwtfywndou.supabase.co"
+SUPABASE_URL     = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY     = os.environ.get("SUPABASE_PUBLISHABLE_DEFAULT_KEY") or os.environ.get("SUPABASE_KEY")
 BUCKET_ORIGINALS = "original-images"
 BUCKET_MASKS     = "crack-masks"
