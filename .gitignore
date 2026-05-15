@@ -1,48 +1,22 @@
-Playground/Priyanshu/data/
-# macOS
+# Ignore mac system files
 .DS_Store
-**/.DS_Store
 
-# Jupyter
-**/.ipynb_checkpoints/
+# Ignore zip files everywhere
+*.zip
 
-# Python
+# BUT allow zip files in DEPENDENCIES folder
+!datascience/usecases/DEPENDENCIES/**/*.zip
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache files
 __pycache__/
 *.py[cod]
-*.egg-info/
-.venv/
-venv/
+
+# Environment variables
 .env
-.env.*
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
 
-# Node / Frontend
-node_modules/
-dist/
-build/
-coverage/
-*.log
-
-# IDE / Editor
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pkl
-*.h5
-
-# Envs
-.env
 .venv/
 venv/
 
