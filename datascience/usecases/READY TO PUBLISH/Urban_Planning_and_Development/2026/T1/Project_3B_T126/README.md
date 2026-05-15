@@ -20,7 +20,9 @@ Project_3B_T126/
 │
 ├── README.md
 ├── REPORT.md
+├── metadata.json
 ├── Project_3B_T126.ipynb
+├── Project_3B_T126.html
 │
 ├── data/
 │   ├── raw/
@@ -47,7 +49,9 @@ Project_3B_T126/
 
 - `README.md`: project overview and repository structure
 - `REPORT.md`: final project report and key findings
+- `metadata.json`: publishing metadata for the use case
 - `Project_3B_T126.ipynb`: main notebook demonstrating the end-to-end workflow
+- `Project_3B_T126.html`: exported HTML version of the notebook for review
 - `data/`: raw and processed datasets used throughout the project
 - `src/`: reusable preprocessing, modelling, and risk scoring scripts
 - `outputs/`: exported figures, predictions, and generated results
