@@ -6,467 +6,172 @@
 
 
 
-\# Melbourne Traffic Accident Risk Prediction
+# Melbourne Traffic Accident Risk Prediction
 
+## Project Overview
 
+This project aims to analyse and predict traffic accident risk in Melbourne using historical crash data, weather data, and mobility-related indicators.
 
-\## Project Overview
+By combining crash records with environmental and active transport features, the project identifies patterns associated with accident severity and road safety risk. The work supports evidence-based decision-making for local government and road safety stakeholders.
 
-This project aims to predict traffic accident risk at urban intersections in Melbourne using machine learning techniques.  
+The final project output includes cleaned and integrated datasets, exploratory analysis, machine learning models, model evaluation, feature importance analysis, and a final dashboard-style project summary notebook.
 
-By analysing historical crash data together with environmental and mobility indicators, the project identifies patterns associated with higher accident probability.
+---
 
-
-
-The system integrates multiple datasets including traffic crash records, weather conditions, pedestrian activity, and bicycle traffic.
-
-
-
-The final output includes predictive models, data visualisations, and a conceptual dashboard designed to support urban traffic safety analysis.
-
-
-
-\---
-
-
-
-\## Project Objectives
-
-
+## Project Objectives
 
 The primary objectives of this project are:
 
+- Analyse historical crash patterns across time, severity, speed zones, and environmental conditions
+- Examine the relationship between rainfall, weather-related variables, and crash records
+- Incorporate pedestrian and bicycle density features into crash severity modelling
+- Develop and compare machine learning models for crash severity prediction
+- Evaluate model performance using accuracy, macro/weighted metrics, and class-wise results
+- Identify important predictive features using Random Forest feature importance
+- Create a dashboard-style summary notebook to communicate insights to non-technical stakeholders
 
+---
 
-\- Identify high-risk intersections using historical crash data
+## Team Members
 
-\- Analyse accident patterns across time and environmental conditions
+- Suba Thinakaran
+- Khalid Ameen
+- Burhanuddin Ujjainwala
 
-\- Examine the relationship between weather conditions and accident frequency
+---
 
-\- Incorporate pedestrian and bicycle activity data into accident risk modelling
+## Datasets Used
 
-\- Develop machine learning models to predict accident risk
-
-\- Create visualisations and a dashboard to communicate insights
-
-
-
-\---
-
-
-
-\## Team Members
-
-
-
-Suba Thinakaran
-
-Khalid Ameen
-
-Burhanuddin Ujjainwala
-
-
-
-\---
-
-
-
-\## Datasets Used
-
-
-
-\### 1. Victorian Road Crash Data
+### 1. Victorian Road Crash Data
 
 Source: Victoria Government Open Data
 
+Contains historical traffic crash records including:
 
+- crash date and time
+- location information
+- crash severity
+- road characteristics
+- speed zones
 
-Contains detailed records of traffic accidents including:
+---
 
-\- crash date and time
+### 2. Melbourne Weather Data
 
-\- location coordinates
-
-\- crash severity
-
-\- road characteristics
-
-\- speed zones
-
-
-
-\---
-
-
-
-\### 2. Melbourne Weather Data
-
-Source: Bureau of Meteorology / Melbourne Government
-
-
+Source: Bureau of Meteorology / Melbourne weather data sources
 
 Weather variables include:
 
-\- rainfall
+- rainfall
+- minimum and maximum temperature
+- humidity
+- wind speed
 
-\- temperature
+Weather data was integrated to understand how environmental conditions may contribute to crash patterns and severity.
 
-\- wind speed
+---
 
-\- weather conditions
+### 3. Melbourne Pedestrian Counts
 
+Source: City of Melbourne Open Data Portal / MOP data
 
+The pedestrian dataset contains:
 
-Weather conditions are integrated to analyse environmental effects on accident risk.
+- pedestrian activity measurements
+- sensor-based observations
+- timestamped movement data
 
+Pedestrian activity was used to create mobility-related indicators for crash risk modelling.
 
+---
 
-\---
+### 4. Melbourne Bicycle Counts
 
+Source: City of Melbourne Open Data Portal / MOP data
 
+The bicycle dataset includes:
 
-\### 3. Melbourne Pedestrian Counts (MOP)
+- cyclist activity measurements
+- timestamps
+- location or sensor-based movement data
 
-Source: City of Melbourne Open Data Portal
+Bicycle activity was used together with pedestrian data to create mobility density features.
 
+---
 
+## Project Workflow
 
-Dataset contains:
+The project follows a complete data science workflow:
 
-\- hourly pedestrian counts
+1. Data collection and source review
+2. Data cleaning and preprocessing
+3. Exploratory data analysis
+4. Feature engineering
+5. Dataset integration
+6. Machine learning modelling
+7. Model comparison and evaluation
+8. Class-wise crash severity performance review
+9. Feature importance analysis
+10. Dashboard-style project summary and stakeholder recommendations
 
-\- sensor locations
+---
 
-\- timestamped observations
+## Key Analysis Areas
 
+The project summary notebook includes the following analysis sections:
 
+- KPI summary of the final integrated dataset
+- Crash severity distribution
+- Crash trend over time
+- Crash pattern by hour of day
+- Speed zone and severity analysis
+- Rainfall and crash severity insights
+- Pedestrian and bicycle mobility density analysis
+- Machine learning model comparison
+- Class-wise crash severity model performance
+- Random Forest feature importance
+- Final model summary
+- Stakeholder findings, recommendations, limitations, and conclusion
 
-\---
+---
 
+## Modelling Summary
 
+Several machine learning models were compared, including:
 
-\### 4. Melbourne Bicycle Counts (MOP)
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
 
-Source: City of Melbourne Open Data Portal
+Based on the final model comparison, **Random Forest** achieved the strongest overall performance across the available metrics, including accuracy, macro F1-score, and weighted F1-score.
 
+However, class-wise results showed that fatal crash prediction remains challenging due to class imbalance. Therefore, the model should be treated as a **decision-support tool** rather than a fully operational crash prediction system.
 
+---
 
-Dataset includes:
+## Key Findings
 
-\- cyclist activity measurements
+The final analysis found that:
 
-\- timestamps
+- Crash records are not evenly distributed across time, severity, speed zones, and environmental conditions.
+- Crash activity increases during daytime and commuting periods, especially around the afternoon peak.
+- The dataset is dominated by injury-related crashes, while fatal crashes are rare but highly important.
+- 50–60 km/h speed zones contain a high number of crash records, likely reflecting urban and suburban road environments.
+- Higher-speed zones such as 80–100 km/h remain important for serious and fatal crash risk review.
+- Rainfall analysis must be interpreted with exposure in mind, because most crashes occurred during no-rain conditions.
+- Pedestrian and bicycle density features provide useful context for understanding crash severity patterns.
+- Speed zone, weather variables, mobility density, and time-based features were important contributors to the Random Forest model.
 
-\- sensor locations
+---
 
+## Final Project Summary Notebook
 
+The final dashboard-style project summary notebook is intended as the main handover notebook for stakeholders.
 
-\---
+It consolidates key outputs from the earlier technical notebooks and presents them in a more readable format.
 
-
-
-\## Project Workflow
-
-
-
-The project follows a typical data science workflow:
-
-
-
-1\. Data Collection  
-
-2\. Data Cleaning  
-
-3\. Exploratory Data Analysis  
-
-4\. Feature Engineering  
-
-5\. Machine Learning Modelling  
-
-6\. Model Evaluation  
-
-7\. Visualisation and Dashboard Design
-
-
-
-\---
-
-
-
-\## Repository Structure
-
-
-
-```
-
-
-
-Traffic\_Accident\_Prediction
-
-│
-
-├── 01\_data\_collection\_mop.ipynb
-
-├── 02\_crash\_data\_import.ipynb
-
-├── 03\_weather\_data\_import.ipynb
-
-├── 04\_mop\_data\_cleaning.ipynb
-
-├── 05\_crash\_data\_cleaning.ipynb
-
-├── 06\_weather\_data\_cleaning.ipynb
-
-├── 07\_mobility\_analysis.ipynb
-
-├── 08\_crash\_analysis.ipynb
-
-├── 09\_weather\_crash\_analysis.ipynb
-
-├── 10\_mobility\_features.ipynb
-
-├── 11\_crash\_features.ipynb
-
-├── 12\_weather\_features.ipynb
-
-├── 13\_dataset\_merge.ipynb
-
-├── 16\_baseline\_models.ipynb
-
-├── 17\_advanced\_models.ipynb
-
-└── README.md
-
-
-
-```
-
-
-
-Each notebook focuses on a specific stage of the analysis to ensure collaboration efficiency and avoid editing conflicts.
-
-
-
-\---
-
-
-
-\## Machine Learning Models
-
-
-
-The following models will be explored:
-
-
-
-\- Logistic Regression
-
-\- Decision Tree
-
-\- Random Forest
-
-\- Gradient Boosting / XGBoost
-
-
-
-Model performance will be evaluated using:
-
-
-
-\- Accuracy
-
-\- Precision
-
-\- Recall
-
-\- F1 Score
-
-\- Confusion Matrix
-
-
-
-\---
-
-
-
-\## Expected Outcomes
-
-
-
-The project aims to produce:
-
-
-
-\- insights into accident patterns in Melbourne
-
-\- identification of high-risk intersections
-
-\- a predictive model for accident risk
-
-\- visual dashboards for communicating findings
-
-
-
-Example prediction output:
-
-
-
-```
-
-
-
-Location: Swanston Street
-
-Time: 17:00
-
-Weather: Rain
-
-Pedestrian Activity: High
-
-
-
-Predicted Accident Risk: High
-
-
-
-```
-
-
-
-\---
-
-
-
-\## Dashboard Concept
-
-
-
-The final dashboard will present:
-
-
-
-\- accident hotspots across Melbourne
-
-\- accident trends by time and weather
-
-\- feature importance from the machine learning model
-
-\- an interactive accident risk prediction tool
-
-
-
-\---
-
-
-
-\## Technologies Used
-
-
-
-\- Python
-
-\- Pandas
-
-\- NumPy
-
-\- Scikit-learn
-
-\- Matplotlib / Seaborn
-
-\- Jupyter Notebook
-
-\- Figma (for dashboard design)
-
-
-
-\---
-
-
-
-\## Project Timeline
-
-
-
-The project follows an 8-week development plan including:
-
-
-
-\- data acquisition
-
-\- data processing
-
-\- model development
-
-\- visualisation
-
-\- final reporting
-
-
-
-\---
-
-
-
-\## Repository Usage
-
-
-
-Team members should follow this workflow:
-
-
-
-1\. Pull latest changes from GitHub
-
-2\. Work on assigned notebook files
-
-3\. Commit changes locally
-
-4\. Push updates to the project branch
-
-
-
-This ensures smooth collaboration and avoids merge conflicts.
-
-
-
-\---
-
-
-
-\## Future Improvements
-
-
-
-Possible extensions include:
-
-
-
-\- incorporating traffic volume datasets
-
-\- using geospatial modelling techniques
-
-\- developing a real-time accident risk prediction system
-
-
-
-\---
-
-
-
-\## License
-
-
-
-This project is developed for academic purposes as part of a university data science project in collaboration with the City of Melbourne.
-
-```
-
-
-
-\---
-
-
+Notebook name: 19_TARP_Final_Project_Summary_NotebookP.ipynb
 
 
 
