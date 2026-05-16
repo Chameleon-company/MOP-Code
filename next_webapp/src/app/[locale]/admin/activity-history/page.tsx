@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { ArrowUpDown } from "lucide-react";
 import Pagination from "@/components/Pagination";
 
 interface ActivityEntry {
@@ -33,6 +34,7 @@ export default function ActivityHistoryPage() {
 
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -42,11 +44,20 @@ export default function ActivityHistoryPage() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  const fetchActivity = useCallback(async (currentPage: number, searchTerm: string) => {
+  const fetchActivity = useCallback(async (
+    currentPage: number,
+    searchTerm: string,
+    order: "desc" | "asc",
+  ) => {
     setLoading(true);
     setError(null);
     try {
-      const params = new URLSearchParams({ page: String(currentPage), pageSize: String(PAGE_SIZE) });
+      const params = new URLSearchParams({
+        page: String(currentPage),
+        pageSize: String(PAGE_SIZE),
+        sortBy: "timestamp",
+        sortOrder: order,
+      });
       if (searchTerm) params.set("search", searchTerm);
 
       const res = await fetch(`/api/admin/activity-history?${params}`, { headers: authHeaders() });
@@ -63,8 +74,13 @@ export default function ActivityHistoryPage() {
   }, []);
 
   useEffect(() => {
-    fetchActivity(page, search);
-  }, [page, search, fetchActivity]);
+    fetchActivity(page, search, sortOrder);
+  }, [page, search, sortOrder, fetchActivity]);
+
+  function toggleSort() {
+    setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
+    setPage(1);
+  }
 
   const formatTime = (iso: string) =>
     new Date(iso).toLocaleString("en-AU", {
@@ -82,7 +98,7 @@ export default function ActivityHistoryPage() {
         </p>
       </div>
 
-      {/* Search */}
+      {/* Search + Sort */}
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <input
           type="text"
@@ -91,6 +107,16 @@ export default function ActivityHistoryPage() {
           onChange={(e) => setSearchInput(e.target.value)}
           className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
+
+        <button
+          onClick={toggleSort}
+          className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm text-[#687280] hover:border-green-400 hover:text-[#2DBE6C] transition-colors"
+          title={sortOrder === "desc" ? "Showing newest first" : "Showing oldest first"}
+        >
+          <ArrowUpDown size={15} />
+          {sortOrder === "desc" ? "Newest first" : "Oldest first"}
+        </button>
+
         {!loading && total > 0 && (
           <span className="text-sm text-[#687280]">{total} activit{total !== 1 ? "ies" : "y"}</span>
         )}

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
 import { uploadImageToStorage } from "../../library/uploadImageToStorage";
+import logger from "@/utils/logger";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -207,7 +208,7 @@ export async function DELETE(
   try {
     const { data: existing, error: fetchError } = await supabase
       .from("gallery_images")
-      .select("id")
+      .select("id, img_url")
       .eq("id", galleryImageId)
       .single();
 
@@ -221,6 +222,28 @@ export async function DELETE(
     if (error) {
       console.error("[DELETE /api/gallery/[id]] delete error:", error);
       return serverError("Failed to delete gallery image");
+    }
+
+    // Best-effort: remove image file from storage and log the deletion
+    if (existing?.img_url) {
+      try {
+        const imgUrl = new URL(existing.img_url);
+        const storagePath = imgUrl.pathname.split("/gallery-images/")[1];
+        if (storagePath) {
+          await supabase.storage.from("gallery-images").remove([storagePath]);
+          logger.info(`Storage file deleted: gallery-images/${storagePath}`, {
+            source: "api",
+            url: `/api/gallery/${galleryImageId}`,
+            user_id: userId,
+          });
+        }
+      } catch {
+        logger.warn(`Failed to remove storage file for gallery image #${galleryImageId}`, {
+          source: "api",
+          url: `/api/gallery/${galleryImageId}`,
+          user_id: userId,
+        });
+      }
     }
 
     return NextResponse.json({

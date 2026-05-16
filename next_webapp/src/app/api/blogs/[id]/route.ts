@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
+import logger from "@/utils/logger";
 
 // ─── Auth helpers ─────────────────────────────────────────────────────────────
 
@@ -237,13 +238,25 @@ export async function DELETE(
       return serverError(`Failed to delete blog: ${error.message}`);
     }
 
-    // Best-effort: remove cover image from storage
+    // Best-effort: remove cover image from storage and log the deletion
     if (existing?.cover_img) {
-      const url = new URL(existing.cover_img);
-      // path after /object/public/blog-images/
-      const storagePath = url.pathname.split("/blog-images/")[1];
-      if (storagePath) {
-        await supabase.storage.from("blog-images").remove([storagePath]);
+      try {
+        const imgUrl = new URL(existing.cover_img);
+        const storagePath = imgUrl.pathname.split("/blog-images/")[1];
+        if (storagePath) {
+          await supabase.storage.from("blog-images").remove([storagePath]);
+          logger.info(`Storage file deleted: blog-images/${storagePath}`, {
+            source: "api",
+            url: `/api/blogs/${blogId}`,
+            user_id: userId,
+          });
+        }
+      } catch {
+        logger.warn(`Failed to remove storage file for blog #${blogId}`, {
+          source: "api",
+          url: `/api/blogs/${blogId}`,
+          user_id: userId,
+        });
       }
     }
 

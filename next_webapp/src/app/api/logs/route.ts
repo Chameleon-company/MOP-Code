@@ -43,6 +43,12 @@ export async function GET(request: NextRequest) {
     const search = url.searchParams.get('search'); // Search in message
     const userId = parseInt(url.searchParams.get('user_id') ?? '');
 
+    const ALLOWED_SORT = new Set(['timestamp', 'level', 'source', 'method', 'status_code', 'response_time']);
+    const rawSortBy = url.searchParams.get('sortBy') ?? 'timestamp';
+    const rawSortOrder = url.searchParams.get('sortOrder') ?? 'desc';
+    const sortBy = ALLOWED_SORT.has(rawSortBy) ? rawSortBy : 'timestamp';
+    const ascending = rawSortOrder.toLowerCase() === 'asc';
+
     // Calculate offset
     const offset = (page - 1) * pageSize;
 
@@ -50,7 +56,7 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('logs')
       .select('*', { count: 'exact' })
-      .order('timestamp', { ascending: false })
+      .order(sortBy, { ascending })
       .range(offset, offset + pageSize - 1);
 
     // Apply filters
@@ -125,5 +131,58 @@ export async function GET(request: NextRequest) {
       { success: false, message: 'Internal Server Error' },
       { status: 500 }
     );
+  }
+}
+
+// DELETE /api/logs?olderThanDays=N  — log retention purge (admin only)
+export async function DELETE(request: NextRequest) {
+  try {
+    const { isAuthenticated, isAdmin } = getAuthUser(request);
+
+    if (!isAuthenticated) {
+      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdmin) {
+      return NextResponse.json({ success: false, message: 'Forbidden - Admin only' }, { status: 403 });
+    }
+
+    const url = new URL(request.url);
+    const rawDays = parseInt(url.searchParams.get('olderThanDays') || '');
+    if (isNaN(rawDays) || rawDays < 1) {
+      return NextResponse.json(
+        { success: false, message: 'olderThanDays must be a positive integer' },
+        { status: 400 }
+      );
+    }
+
+    const cutoff = new Date(Date.now() - rawDays * 86_400_000).toISOString();
+
+    const { error, count } = await supabase
+      .from('logs')
+      .delete({ count: 'exact' })
+      .lt('timestamp', cutoff);
+
+    if (error) {
+      logger.error(`Log retention purge failed: ${error.message}`, { source: 'api', url: '/api/logs' });
+      return NextResponse.json({ success: false, message: 'Failed to purge logs' }, { status: 500 });
+    }
+
+    logger.info(`Log retention: purged ${count ?? 0} rows older than ${rawDays} days`, {
+      source: 'api',
+      url: '/api/logs',
+      user_id: getAuthUser(request).userId,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: `Deleted ${count ?? 0} log entries older than ${rawDays} days`,
+      deleted: count ?? 0,
+    });
+  } catch (error) {
+    logger.error(`Unexpected error in log purge: ${error instanceof Error ? error.message : String(error)}`, {
+      source: 'api',
+      url: '/api/logs',
+    });
+    return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
   }
 }
