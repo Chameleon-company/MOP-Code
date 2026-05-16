@@ -1,5 +1,5 @@
 :root {
-  --bg: #0f1117;
+  --bg: #4d4d4d;
   --surface: #3d3632;
   --border: #4a4c5a;
   --text: #ffffff;
@@ -56,7 +56,7 @@ h1 {
 
 .submit {
   margin-top: 1rem;
-  background-color: #3d6b01;
+  background-color: #4f8c00;
 }
 
 .submit:hover {

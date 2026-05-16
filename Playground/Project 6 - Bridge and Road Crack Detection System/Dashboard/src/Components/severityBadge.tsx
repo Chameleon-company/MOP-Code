@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 
-
-export function SeverityBadge({ severity }: { severity: string }) {
+export default function SeverityBadge({ severity }: { severity: string }) {
   const s = String(severity).toLowerCase();
   const map: Record<string, { bg: string; border: string; text: string }> = {
     low:      { bg: 'rgba(99,153,34,0.15)',  border: 'rgba(99,153,34,0.35)',  text: '#a8d870' },
@@ -26,7 +25,6 @@ export function SeverityBadge({ severity }: { severity: string }) {
     </Box>
   );
 }
-
 
 export function SeverityBadgeLarge({ severity }: { severity: string }) {
   const s = String(severity).toLowerCase();

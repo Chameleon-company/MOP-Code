@@ -51,7 +51,6 @@ def get_data():
         return jsonify({"error": f"Connection timed out: {e}"}), 500
     except Exception as e:
         return jsonify({"error": f"Undefined Error: {e}"}), 500
-    
 
 # ── Get all rows without an AI report ──────────────    
 @app.route("/api/getNoReportData")
@@ -67,8 +66,7 @@ def get_no_report_data():
         return jsonify({"error": f"Connection timed out: {e}"}), 500
     except Exception as e:
         return jsonify({"error": f"Undefined Error: {e}"}), 500
-    
-    
+
 # ── Generate AI report in the background ──────────────    
 @app.patch("/api/generateAiReport")
 def generateAiReports():

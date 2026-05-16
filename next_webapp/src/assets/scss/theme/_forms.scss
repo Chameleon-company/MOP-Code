@@ -1,0 +1,175 @@
+//----------------------------------------------------------//
+//	FORMS
+//----------------------------------------------------------//
+input,
+textarea,
+select {
+  -webkit-appearance: none !important;
+}
+.form-floating {
+  > label {
+    color: $form-label-color;
+    @include font-size($input-font-size);
+  }
+  &.input-group label {
+    margin-left: 0.05rem !important;
+  }
+  > textarea.form-control {
+    &:focus,
+    &:not(:placeholder-shown) {
+      padding-top: $form-floating-input-padding-t + 0.3rem;
+    }
+    &:-webkit-autofill {
+      padding-top: $form-floating-input-padding-t + 0.3rem;
+    }
+  }
+}
+.search-form {
+  position: relative;
+  .form-control {
+    margin: 0;
+    padding-right: 2.25rem !important;
+  }
+  &:before {
+    content: $icon-search;
+    font-family: $font-family-unicons;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.75rem;
+    @include font-size(0.9rem);
+    color: $input-placeholder-color;
+    z-index: 1;
+  }
+}
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.75rem;
+  cursor: pointer;
+  @include font-size(0.9rem);
+  color: $input-placeholder-color;
+}
+.form-check-input {
+  box-shadow: $box-shadow;
+  margin-top: 0.2rem;
+}
+.form-select {
+  background-clip: padding-box;
+  &.form-select-sm {
+    width: auto;
+    min-width: 2.5rem;
+    padding: 0.2rem 0.5rem;
+    background-position: right 0.4rem center;
+  }
+}
+.mc-field-group {
+  text-align: left !important;
+}
+.input-group > .form-control:focus,
+.input-group > .form-select:focus {
+  z-index: 0;
+}
+.input-group > .btn {
+  max-height: 2.6rem;
+}
+form.dark-fields .form-control {
+  background: rgba($white, 0.03);
+  border-color: rgba($white, 0.1);
+  color: $gray-300;
+  &:focus {
+    border-color: rgba($main-color, 0.5);
+  }
+}
+
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  label {
+    position: relative;
+    inline-size: 2rem;
+    block-size: 2rem;
+    margin-right: 0.5rem;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    > {
+      span {
+        position: absolute;
+        inset: 0;
+        block-size: 100%;
+        inline-size: 100%;
+      }
+    }
+    &[for*='size'] > {
+      span {
+        @include font-size(0.7rem);
+        line-height: 1;
+        display: grid;
+        place-items: center;
+        padding: 0.5rem;
+        background: $border-light;
+        border-radius: $border-radius;
+      }
+      input:checked ~ span {
+        background-color: $main-color;
+        color: $white;
+      }
+    }
+    &[for*='color'] {
+      inline-size: 1.5rem;
+      block-size: 1.5rem;
+      > {
+        span {
+          font-size: 1px;
+          display: grid;
+          place-items: center;
+          background: currentColor;
+          border-radius: 100%;
+          color: transparent;
+        }
+
+        input:checked ~ span {
+          box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
+        }
+      }
+    }
+  }
+}
+
+//----------------------------------------------------------//
+// CUSTOM MIXIN
+//----------------------------------------------------------//
+@mixin switch-image {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+//----------------------------------------------------------//
+// BOOTSTRAP SWITCH OVERRIDE
+//----------------------------------------------------------//
+.form-switch .form-check-input {
+  background-position: left center;
+  border-color: $primary;
+  background-color: $primary;
+  @include switch-image();
+  height: 1.2rem !important;
+  width: 2rem !important;
+  cursor: pointer;
+
+  &:checked {
+    @include switch-image();
+    background-position: right center;
+  }
+
+  &:focus {
+    @include switch-image();
+  }
+
+  &:active {
+    filter: brightness(100%);
+  }
+}

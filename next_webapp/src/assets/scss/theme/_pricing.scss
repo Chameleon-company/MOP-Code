@@ -1,0 +1,140 @@
+//----------------------------------------------------------//
+//	PRICING
+//----------------------------------------------------------//
+.pricing-wrapper [class*="col-"] {
+  z-index: 1;
+  &.popular {
+    z-index: 3 !important;
+  }
+  .pricing.card {
+    .card-body {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+      .icon {
+        margin-bottom: 0.75rem;
+      }
+      .card-title {
+        margin: 0 0 0.5rem 0;
+        padding: 0;
+      }
+    }
+    .prices {
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+      background: none;
+      font-weight: 500;
+      position: relative;
+      height: 2.3rem;
+      .price-value {
+        @include font-size(2.4rem);
+      }
+      .price-currency {
+        display: inline-block;
+        @include font-size(1rem);
+        font-weight: 500;
+        padding-right: 0.2rem;
+        padding-top: 0.4rem;
+      }
+      .price-duration {
+        @include font-size(0.8rem);
+        font-weight: 500;
+        color: $body-color;
+        margin-top: auto;
+        margin-bottom: 0.25rem;
+        &:before {
+          content: "/";
+          padding: 0;
+        }
+      }
+      .price {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .price-hidden {
+        display: none;
+      }
+      .price-show {
+        animation: priceShow 0.6s forwards;
+      }
+      .price-hide {
+        animation: priceFade 0.6s forwards;
+      }
+    }
+  }
+}
+.pricing-switcher-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  p:last-child {
+    position: relative;
+    .badge {
+      position: absolute;
+      top: -1rem;
+      right: -2rem;
+    }
+  }
+}
+.pricing-switchers {
+  width: 2rem;
+  height: 1rem;
+  clear: both;
+  text-align: center;
+  position: relative;
+  background-color: rgba($gray-900, 0.07);
+  border-radius: 1.5rem;
+  border: 0.2rem solid transparent;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  .pricing-switcher {
+    cursor: pointer;
+    width: 100%;
+    float: left;
+    height: 1rem;
+    line-height: 1rem;
+    position: relative;
+    z-index: 888;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    &:nth-child(1).pricing-switcher-active ~ .switcher-button {
+      left: 0;
+    }
+    &:nth-child(2).pricing-switcher-active ~ .switcher-button {
+      left: 50%;
+    }
+  }
+  .switcher-button {
+    height: 1rem;
+    width: 1rem;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 555;
+    margin: 0;
+    border: none;
+    transition: 0.3s ease-in-out;
+    border-radius: 100%;
+  }
+  .pricing-switcher.pricing-switcher-active {
+    color: $white;
+  }
+}
+.switcher-dark .pricing-switchers {
+  background-color: rgba($white, 0.06);
+}
+@media (min-width: 992px) {
+  .pricing-wrapper .popular .pricing.card {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: -1rem;
+  }
+}

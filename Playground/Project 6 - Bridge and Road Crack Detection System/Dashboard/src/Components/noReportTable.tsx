@@ -88,7 +88,7 @@ export default function NoReportTable({ onRowSelect }: tableProps) {
 
 
   return (
-    <Paper sx={{ height: 650, width: '100%' }}>
+    <Paper sx={{ height: 750, width: '100%' }}>
       <DataGrid
         rows={crackReport}
         columns={columns}

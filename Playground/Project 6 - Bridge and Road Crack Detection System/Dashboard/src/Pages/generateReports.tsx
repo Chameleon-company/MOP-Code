@@ -45,7 +45,6 @@ export function GenerateReports() {
 
   return (
     <>
-    <Box sx={{ minHeight: '100vh', bgcolor: '#0f1117', color: '#e8eaf0' }}>
       <div><TheDrawer></TheDrawer></div>
       <h1>Cracks without AI generated reports:</h1>
       <div style={{ marginTop: '20px', width: '90%', margin: '20px auto 0' }}><NoReportTable key={refreshKey} onRowSelect={handleRowSelect} /></div>
@@ -54,11 +53,10 @@ export function GenerateReports() {
             onClick={handleButton}
             className="submit"
             disabled={selectedRows.length === 0 || loading}
-            style={{ fontSize: '1.2rem', padding: '12px 20px', borderRadius: '12px' }}
+            style={{ fontSize: '1.2rem', padding: '12px 20px' }}
         >Generate AI reports for selected entries
         </button>
       </Box>
-    </Box>
     </>
   )
   }
