@@ -1,44 +1,20 @@
-.input-area {
-    display: flex;
-    align-items: center;
-    padding: 5px;
+﻿@keyframes chatSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
-.input {
-    flex: 1;
-    border: 2px solid #ccc;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.send-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(76, 175, 80); 
-}
-
-.textarea1 {
-    font-family: inherit; 
-    font-feature-settings: inherit;
-    font-variation-settings: inherit; 
-    font-size: 100%;
-    font-weight: inherit; 
-    line-height: inherit; 
-    letter-spacing: inherit; 
-    color: rgb(0, 128, 0); 
-    margin: 0; 
-    padding: 8px; 
-    width: 100%; 
-    border: 1px solid #ccc; 
-    border-radius: 8px; 
+.chat-window {
+  animation: chatSlideIn 0.2s ease-out both;
+  transform-origin: bottom right;
 }
 
 .message {
-  overflow-wrap: anywhere; 
-  word-break: break-word;    
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
-

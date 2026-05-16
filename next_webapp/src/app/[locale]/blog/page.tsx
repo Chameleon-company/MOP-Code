@@ -266,7 +266,20 @@ export default function BlogListingPage() {
 
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-200 border-t-green-600" />
+            </div>
+          ) : blogs.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {blogs.map((blog) => (
+                <BlogCard
+                  key={blog.id}
+                  id={String(blog.id)}
+                  title={blog.title ?? ""}
+                  description={blog.description ?? ""}
+                  image={blog.cover_img ?? ""}
+                  category={blog.published_date ?? ""}
+                />
+              ))}
             </div>
           ) : blogs.length > 0 ? (
             <>

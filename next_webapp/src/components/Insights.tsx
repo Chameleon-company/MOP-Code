@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
 
@@ -51,6 +51,12 @@ const Insights: React.FC = () => {
       {loading ? (
         <div className="flex justify-center py-10">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+        </div>
+      ) : categories.length === 0 ? (
+        <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-[#37474F]">
+          <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+            No insights available at the moment.
+          </p>
         </div>
       ) : (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

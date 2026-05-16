@@ -1,10 +1,10 @@
-'use client'
+﻿"use client"
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { Link } from "@/i18n-navigation";
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from "lucide-react";
 
 function LoginForm() {
     const t = useTranslations("login");
@@ -14,6 +14,7 @@ function LoginForm() {
     const [password, setPassword] = useState<string>("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -33,61 +34,52 @@ function LoginForm() {
         }
 
         try {
+            setIsSubmitting(true);
+            setError("");
+
             const response = await fetch("/api/auth/login", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             });
 
             const result = await response.json();
-            console.log("Login API response:", result);
 
             if (!response.ok) {
                 setError(result.message || "Login failed");
                 return;
             }
 
-            setError("");
-
-            // Store user data in localStorage
             localStorage.setItem("userId", result.data.userId.toString());
             localStorage.setItem("user", JSON.stringify(result.data));
             localStorage.setItem("token", result.data.token);
 
-            // Redirect based on role
             if (result.data.roleId === 1) {
                 router.push(`/${locale}/admin/dashboard`);
             } else {
                 router.push(`/${locale}/profile`);
             }
-
         } catch (err) {
             console.error("Login error:", err);
             setError("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <div
             className="min-h-screen flex items-center justify-center relative"
-            style={{ backgroundImage: "url('/img/mainImage.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+            style={{ backgroundImage: "url('/img/mainImage.png')", backgroundSize: "cover", backgroundPosition: "center" }}
         >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
             <div className="relative z-10 w-full max-w-lg mx-4">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 sm:p-12">
-                    {/* Logo */}
                     <div className="flex justify-center mb-6">
-                        <img
-                            src="/img/new-logo-green.png"
-                            alt="Melbourne Open Data logo"
-                            className="h-16 w-auto"
-                        />
+                        <img src="/img/new-logo-green.png" alt="Melbourne Open Data logo" className="h-16 w-auto" />
                     </div>
 
-                    {/* Heading */}
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-1">
                         Welcome Back
                     </h1>
@@ -102,12 +94,8 @@ function LoginForm() {
                     )}
 
                     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                        {/* Email */}
                         <div>
-                            <label
-                                htmlFor="emailInput"
-                                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
-                            >
+                            <label htmlFor="emailInput" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                                 {t("Email")}
                             </label>
                             <input
@@ -117,16 +105,12 @@ function LoginForm() {
                                 placeholder="you@example.com"
                                 value={email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                className="w-full px-4 py-3.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             />
                         </div>
 
-                        {/* Password */}
                         <div>
-                            <label
-                                htmlFor="passwordInput"
-                                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
-                            >
+                            <label htmlFor="passwordInput" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                                 {t("Password")}
                             </label>
                             <div className="relative">
@@ -137,7 +121,7 @@ function LoginForm() {
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3.5 pr-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                    className="w-full px-4 py-3.5 pr-12 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                 />
                                 <button
                                     type="button"
@@ -145,37 +129,36 @@ function LoginForm() {
                                     aria-label={passwordVisible ? "Hide password" : "Show password"}
                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                                 >
-                                    {passwordVisible
-                                        ? <EyeOff className="h-5 w-5" />
-                                        : <Eye className="h-5 w-5" />
-                                    }
+                                    {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                 </button>
                             </div>
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3.5 rounded-lg transition mt-6"
+                            disabled={isSubmitting}
+                            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold py-3.5 transition mt-6 disabled:cursor-not-allowed disabled:opacity-70"
                         >
-                            Sign In
+                            {isSubmitting ? (
+                                <>
+                                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                                    Signing in...
+                                </>
+                            ) : (
+                                "Sign In"
+                            )}
                         </button>
                     </form>
 
                     <div className="mt-6 text-center space-y-2">
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                             Don&apos;t have an account?{" "}
-                            <Link
-                                href="/signup"
-                                className="text-green-600 hover:text-green-700 font-medium"
-                            >
+                            <Link href="/signup" className="text-green-600 hover:text-green-700 font-medium">
                                 Sign Up
                             </Link>
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                            <Link
-                                href="/forgot-password"
-                                className="text-green-600 hover:text-green-700 font-medium"
-                            >
+                            <Link href="/forgot-password" className="text-green-600 hover:text-green-700 font-medium">
                                 Forgot your password?
                             </Link>
                         </p>

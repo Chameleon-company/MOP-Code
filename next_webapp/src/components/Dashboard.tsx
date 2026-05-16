@@ -8,7 +8,7 @@ import { Link, useRouter } from "@/i18n-navigation";
 import Image from "next/image";
 import secondimage from "../../public/img/second_image.png";
 import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
 import { useEffect, useState, useRef } from "react";
 import {
@@ -861,7 +861,6 @@ const Dashboard = () => {
 
   //edits for use case studies
   const router = useRouter();
-  const locale = useLocale();
 
 	const t = useTranslations("common");
 	const t_hero = useTranslations("hero");
@@ -907,10 +906,6 @@ const Dashboard = () => {
 
 	// Hero search: Title / Content / Tag (see HERO_SEARCH_MODES)
 	const searchContainerRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
-	}, []);
 
 	// Live hero search: debounce 350ms, fetch top 5 matching usecases for dropdown
 	useEffect(() => {
@@ -1080,7 +1075,7 @@ const Dashboard = () => {
 
 	const handleCaseStudyClick = (study: CaseStudy) => {
 		setShowSearchResults(false);
-		router.push(`/${locale}/usecases?search=${encodeURIComponent(study.title)}&search_by=title`);
+		router.push(`/usecases?search=${encodeURIComponent(study.title)}&search_by=title`);
 	};
 
 	const scrollToContent = () => {
@@ -1099,13 +1094,13 @@ const Dashboard = () => {
 			params.set("search", searchTerm.trim());
 			params.set("search_by", searchMode);
 		}
-		router.push(`/${locale}/usecases?${params.toString()}`);
+		router.push(`/usecases?${params.toString()}`);
 	};
 
 	const clearSearch = () => {
 		setSearchTerm("");
 		setShowSearchResults(false);
-		handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
+		setFilteredCaseStudies([]);
 	};
 
 	return (

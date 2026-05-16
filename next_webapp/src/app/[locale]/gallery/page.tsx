@@ -6,6 +6,13 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+type Category =
+  | "Landmarks"
+  | "Environment"
+  | "Technology"
+  | "Sustainability"
+  | "Society";
+
 const GLOW_COLORS = [
   "#22c55e",
   "#3b82f6",
@@ -27,6 +34,14 @@ type ApiImage = {
 
 export default function GalleryPage() {
   const t = useTranslations("common");
+
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lightbox =
+    lightboxIndex !== null ? IMAGES[lightboxIndex] : null;
+
+  const totalPages = Math.ceil(IMAGES.length / ITEMS_PER_PAGE);
 
   const [images, setImages] = useState<ApiImage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,17 +76,45 @@ export default function GalleryPage() {
     fetchImages(currentPage);
   }, [currentPage, fetchImages]);
 
-  // ── Lightbox keyboard / scroll lock ───────────────────────────────────────
-  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+  }, []);
+
+  const goToPreviousImage = useCallback(() => {
+    setLightboxIndex((prev) => {
+      if (prev === null) return prev;
+      return prev === 0 ? IMAGES.length - 1 : prev - 1;
+    });
+  }, []);
+
+  const goToNextImage = useCallback(() => {
+    setLightboxIndex((prev) => {
+      if (prev === null) return prev;
+      return prev === IMAGES.length - 1 ? 0 : prev + 1;
+    });
+  }, []);
 
   useEffect(() => {
     if (!lightbox) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeLightbox();
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+
+      if (e.key === "ArrowLeft") {
+        goToPreviousImage();
+      }
+
+      if (e.key === "ArrowRight") {
+        goToNextImage();
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox, closeLightbox]);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox, closeLightbox, goToPreviousImage, goToNextImage]);
 
   useEffect(() => {
     document.body.style.overflow = lightbox ? "hidden" : "";
@@ -163,35 +206,36 @@ export default function GalleryPage() {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {images.map((img, idx) => {
-                  const glowColor = GLOW_COLORS[idx % GLOW_COLORS.length];
-                  return (
-                    <button
-                      key={img.id}
-                      onClick={() => setLightbox(img)}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.boxShadow = `0 0 0 2px ${glowColor}, 0 0 14px 4px ${glowColor}44`)
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.boxShadow = "")
-                      }
-                      className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 shadow-md transition-transform duration-200 hover:-translate-y-0.5 text-left w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                    >
-                      <div className="relative h-64 overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={img.img_url}
-                          alt={img.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
+                {paginatedImages.map((img, idx) => (
+                  <button
+                    key={`${img.src}-${idx}`}
+                    onClick={() =>
+                      setLightboxIndex(
+                        (currentPage - 1) * ITEMS_PER_PAGE + idx
+                      )
+                    }
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.boxShadow = `0 0 0 2px ${img.glowColor}, 0 0 14px 4px ${img.glowColor}44`)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.boxShadow = "")
+                    }
+                    className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 shadow-md transition-transform duration-200 hover:-translate-y-0.5 text-left w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  >
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={img.src}
+                        alt={t(img.titleKey)}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
 
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                          <h3 className="text-white font-bold text-lg leading-tight">
-                            {img.title}
-                          </h3>
-                        </div>
-                      </div>
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                        <span className="text-xs font-bold uppercase tracking-widest text-green-400 mb-1.5">
+                          {t(`cat_${img.category.toLowerCase()}`)}
+                        </span>
 
                       <div className="px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
                         <h3 className="text-gray-800 dark:text-white font-semibold text-sm truncate">
@@ -213,7 +257,7 @@ export default function GalleryPage() {
               {totalPages > 1 && (
                 <div className="mt-12 flex items-center justify-center gap-3">
                   <button
-                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                    onClick={goToPreviousPage}
                     disabled={currentPage === 1}
                     className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -225,7 +269,7 @@ export default function GalleryPage() {
                   </span>
 
                   <button
-                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                    onClick={goToNextPage}
                     disabled={currentPage === totalPages}
                     className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -234,6 +278,12 @@ export default function GalleryPage() {
                 </div>
               )}
             </>
+          ) : (
+            <div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-[#242424]">
+              <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+                No images available at the moment.
+              </p>
+            </div>
           )}
         </main>
 
@@ -250,7 +300,7 @@ export default function GalleryPage() {
           >
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute top-4 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Close"
             >
               <svg
@@ -266,6 +316,28 @@ export default function GalleryPage() {
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPreviousImage();
+              }}
+              className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNextImage();
+              }}
+              className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+              aria-label="Next image"
+            >
+              <ChevronRight size={24} />
             </button>
 
             <div
@@ -292,6 +364,16 @@ export default function GalleryPage() {
                     year: "numeric",
                   })}
                 </p>
+
+                <span className="inline-block mt-2 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-green-400 bg-green-900/40 rounded-full">
+                  {t(`cat_${lightbox.category.toLowerCase()}`)}
+                </span>
+
+                {lightboxIndex !== null && (
+                  <p className="mt-2 text-xs text-gray-400">
+                    {lightboxIndex + 1} / {IMAGES.length}
+                  </p>
+                )}
               </div>
             </div>
           </div>

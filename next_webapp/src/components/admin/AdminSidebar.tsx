@@ -9,6 +9,7 @@ import {
   Briefcase,
   Image as ImageIcon,
   FileText,
+  History,
 } from "lucide-react";
 
 const menuItems = [
@@ -16,6 +17,8 @@ const menuItems = [
   { label: "Categories", path: "/admin/categories", icon: FolderOpen },
   { label: "Use Cases", path: "/admin/use-cases", icon: Briefcase },
   { label: "Gallery", path: "/admin/gallery", icon: ImageIcon },
+  // { label: "Blogs", path: "/admin/blogs", icon: FileText },
+  { label: "Activity History", path: "/admin/activity-history", icon: History },
   { label: "Blogs", path: "/admin/blogs", icon: FileText },
 ];
 

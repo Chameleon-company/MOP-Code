@@ -315,7 +315,13 @@ const UseCases: React.FC = () => {
 
 					{loading ? (
 						<div className="flex justify-center py-20">
-							<div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+							<div className="h-10 w-10 animate-spin rounded-full border-4 border-green-200 border-t-green-600" />
+						</div>
+					) : usecases.length === 0 ? (
+						<div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-gray-800">
+							<p className="text-base font-medium text-gray-500 dark:text-gray-400">
+								No use cases available at the moment.
+							</p>
 						</div>
 					) : (
 						<PreviewComponent

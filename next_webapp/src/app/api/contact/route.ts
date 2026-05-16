@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { supabase } from '@/library/supabaseClient';
 import { errorResponse } from '@/app/api/library/errorResponse';
+
+const CONTACT_RECIPIENT = 'mopchameleon@gmail.com';
 
 const REQUIRED_SMTP_VARS = [
     'SMTP_HOST',
@@ -59,59 +60,24 @@ export async function POST(request: Request) {
             return errorResponse('Message too long', 400, 'INVALID_MESSAGE');
         }
 
-        // Resolve the admin role_id from the roles table
-        const { data: roleData, error: roleError } = await supabase
-            .from('roles')
-            .select('id')
-            .eq('role_name', 'admin')
-            .single();
-
-        let adminEmails: string[] = [];
-
-        if (roleError || !roleData) {
-            console.warn('[contact] Could not resolve admin role:', roleError?.message);
-        } else {
-            // Fetch all users with the admin role_id
-            const { data: adminUsers, error: usersError } = await supabase
-                .from('user')
-                .select('email')
-                .eq('role_id', roleData.id);
-
-            if (usersError || !adminUsers || adminUsers.length === 0) {
-                console.warn('[contact] No admin users found:', usersError?.message);
-            } else {
-                adminEmails = adminUsers.map((u: { email: string }) => u.email);
-                console.log('[contact] Admin emails to notify:', adminEmails);
-            }
-        }
-
         const emailBody =
             `New Contact Form Submission\n\n` +
             `From: ${fullName} <${email}>\n` +
             `Subject: ${subject}\n\n` +
             `Message:\n${message}`;
 
-        let emailFailures = 0;
-
-        for (const adminEmail of adminEmails) {
-            try {
-                await transporter.sendMail({
-                    from: process.env.SMTP_FROM,
-                    to: adminEmail,
-                    subject: `Contact Form: ${subject}`,
-                    text: emailBody,
-                });
-                console.log(`[contact] Notification sent to ${adminEmail}`);
-            } catch (mailError) {
-                emailFailures++;
-                console.error(`[contact] Failed to send email to ${adminEmail}:`, mailError);
-            }
-        }
-
-        // If all emails failed
-        if (emailFailures === adminEmails.length && adminEmails.length > 0) {
+        try {
+            await transporter.sendMail({
+                from: process.env.SMTP_FROM,
+                to: CONTACT_RECIPIENT,
+                subject: `Contact Form: ${subject}`,
+                text: emailBody,
+            });
+            console.log(`[contact] Notification sent to ${CONTACT_RECIPIENT}`);
+        } catch (mailError) {
+            console.error(`[contact] Failed to send email to ${CONTACT_RECIPIENT}:`, mailError);
             return errorResponse(
-                'Failed to send notification emails',
+                'Failed to send notification email',
                 500,
                 'EMAIL_FAILED'
             );

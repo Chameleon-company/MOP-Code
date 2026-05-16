@@ -153,6 +153,9 @@ const Header = () => {
 				? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
 				: "text-gray-700 hover:bg-green-50 hover:text-green-700 dark:text-gray-200 dark:hover:bg-green-900/25 dark:hover:text-green-300"
 		}`;
+		const visibleNavItems = navItems.filter(
+	(item) => item.name !== "Profile" || isLoggedIn
+);
 
 	return (
 		<>
@@ -237,7 +240,7 @@ const Header = () => {
 							className="ml-8 hidden lg:flex lg:items-center gap-2"
 							aria-label="Main navigation"
 						>
-							{navItems.map((item) =>
+							{visibleNavItems.map((item) =>
 								item.type === "link" ? (
 									<Link
 										key={item.name}
@@ -367,7 +370,7 @@ const Header = () => {
 							{/* Top green accent */}
 							<div className="h-0.5 w-full rounded-full bg-gradient-to-r from-green-500 to-emerald-500 mb-2" />
 
-							{navItems.map((item) =>
+							{visibleNavItems.map((item) =>
 								item.type === "link" ? (
 									<Link
 										key={item.name}
