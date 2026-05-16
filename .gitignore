@@ -45,7 +45,7 @@ logs/
 artificial-intelligence/chatbot/mpt_data/
 artificial-intelligence/chatbot/code/mpt_bot/story_graph.dot
 
-Playground/KhalidT12026/Traffic_Accident_Prediction/data/final/
+Playground/KhalidT12026/Traffic_Accident_Prediction/data/final/final_model_dataset.csv
 
 # If you don't want trained models in git, uncomment:
 # models/
