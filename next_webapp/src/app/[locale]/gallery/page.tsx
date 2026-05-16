@@ -3,16 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Pagination from "@/components/Pagination";
-
-type Category =
-  | "Landmarks"
-  | "Environment"
-  | "Technology"
-  | "Sustainability"
-  | "Society";
 
 const GLOW_COLORS = [
   "#22c55e",
@@ -26,253 +20,79 @@ const GLOW_COLORS = [
 
 const ITEMS_PER_PAGE = 21;
 
-interface GalleryImage {
-  src: string;
-  titleKey: string;
-  caption: string;
-  category: Category;
-  glowColor: string;
-}
-
-const IMAGES: GalleryImage[] = [
-  {
-    src: "/img/mel.jpg",
-    titleKey: "img_federation_square_title",
-    caption:
-      "Princes Bridge and the Yarra River frame Melbourne's iconic civic precinct at the heart of the city",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[0],
-  },
-  {
-    src: "/img/aboutpic2.jpg",
-    titleKey: "img_melbourne_central_title",
-    caption:
-      "Melbourne's modern CBD skyline towers above the vibrant shopping and cultural precincts of the city centre",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[1],
-  },
-  {
-    src: "/img/queenVictoria.avif",
-    titleKey: "img_queen_victoria_market_title",
-    caption: "Australia's largest open-air market, operating since 1878",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[2],
-  },
-  {
-    src: "/img/melbourne-city.jpg",
-    titleKey: "img_docklands_precinct_title",
-    caption:
-      "Melbourne's illuminated waterfront at dusk, where the Yarra River meets the Docklands entertainment precinct",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[3],
-  },
-  {
-    src: "/img/sliderimg2.jpg",
-    titleKey: "img_melbourne_city_skyline_title",
-    caption:
-      "The Shrine of Remembrance stands before Melbourne's gleaming CBD skyline in a sweeping aerial panorama",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[4],
-  },
-  {
-    src: "/img/sliderimg1.jpg",
-    titleKey: "img_flinders_street_station_title",
-    caption:
-      "Melbourne's iconic heritage railway station, a beloved city landmark since 1905",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[5],
-  },
-  {
-    src: "/img/melbourne-city1.jpg",
-    titleKey: "img_melbourne_after_dark_title",
-    caption:
-      "The city's lights illuminate Melbourne's vibrant nighttime landscape",
-    category: "Landmarks",
-    glowColor: GLOW_COLORS[2],
-  },
-  {
-    src: "/img/royalBotanic.jpg",
-    titleKey: "img_guilfoyles_volcano_title",
-    caption:
-      "The restored Victorian-era reservoir at the Royal Botanic Gardens, featuring concentric red-ochre earthen terraces and Indigenous plantings",
-    category: "Environment",
-    glowColor: GLOW_COLORS[6],
-  },
-  {
-    src: "/img/bio_corridor.jpg",
-    titleKey: "img_biodiversity_corridor_title",
-    caption: "Ecological connectivity networks supporting urban wildlife",
-    category: "Environment",
-    glowColor: GLOW_COLORS[0],
-  },
-  {
-    src: "/img/climate_change.jpg",
-    titleKey: "img_climate_change_impact_title",
-    caption: "Visualising Melbourne's changing climate patterns over time",
-    category: "Environment",
-    glowColor: GLOW_COLORS[1],
-  },
-  {
-    src: "/img/tree_planting.jpeg",
-    titleKey: "img_urban_tree_planting_title",
-    caption: "Greening programs expanding the city's tree canopy cover",
-    category: "Environment",
-    glowColor: GLOW_COLORS[2],
-  },
-  {
-    src: "/img/unique_insects.jpg",
-    titleKey: "img_urban_insect_life_title",
-    caption: "Documenting Melbourne's unique urban insect populations",
-    category: "Environment",
-    glowColor: GLOW_COLORS[3],
-  },
-  {
-    src: "/img/urban_climate.jpg",
-    titleKey: "img_urban_microclimate_title",
-    caption: "Monitoring microclimates across Melbourne's neighbourhoods",
-    category: "Environment",
-    glowColor: GLOW_COLORS[4],
-  },
-  {
-    src: "/img/smart-city.jpg",
-    titleKey: "img_smart_city_infrastructure_title",
-    caption: "Sensor networks powering Melbourne's data-driven decisions",
-    category: "Technology",
-    glowColor: GLOW_COLORS[5],
-  },
-  {
-    src: "/img/AI_fire.jpg",
-    titleKey: "img_fire_risk_detection_title",
-    caption: "AI-assisted fire risk monitoring using open environmental data",
-    category: "Technology",
-    glowColor: GLOW_COLORS[6],
-  },
-  {
-    src: "/img/heat_island.png",
-    titleKey: "img_urban_heat_island_title",
-    caption: "Mapping heat islands across the city to guide cooling strategies",
-    category: "Technology",
-    glowColor: GLOW_COLORS[0],
-  },
-  {
-    src: "/img/heat_map.png",
-    titleKey: "img_geospatial_heat_map_title",
-    caption: "Heat map visualisations derived from Melbourne's open datasets",
-    category: "Technology",
-    glowColor: GLOW_COLORS[1],
-  },
-  {
-    src: "/img/Oil-Supply.jpg",
-    titleKey: "img_oil_gas_supply_chain_title",
-    caption: "Analysing energy supply chain data through Melbourne's open datasets",
-    category: "Technology",
-    glowColor: GLOW_COLORS[2],
-  },
-  {
-    src: "/img/sustainable_mobility.jpg",
-    titleKey: "img_sustainable_mobility_title",
-    caption: "Open data insights driving cleaner transport alternatives",
-    category: "Sustainability",
-    glowColor: GLOW_COLORS[3],
-  },
-  {
-    src: "/img/waste_efficiency.jpg",
-    titleKey: "img_waste_management_efficiency_title",
-    caption: "Optimising Melbourne's waste systems through open data",
-    category: "Sustainability",
-    glowColor: GLOW_COLORS[4],
-  },
-  {
-    src: "/img/ev-banner.png",
-    titleKey: "img_electric_vehicle_rollout_title",
-    caption: "Tracking EV charging infrastructure growth across Melbourne",
-    category: "Sustainability",
-    glowColor: GLOW_COLORS[5],
-  },
-  {
-    src: "/img/education.jpg",
-    titleKey: "img_education_open_data_title",
-    caption: "Open data insights improving educational outcomes across the city",
-    category: "Society",
-    glowColor: GLOW_COLORS[6],
-  },
-  {
-    src: "/img/social_indicator.jpg",
-    titleKey: "img_social_wellbeing_indicators_title",
-    caption: "Measuring community wellbeing through Melbourne's open data",
-    category: "Society",
-    glowColor: GLOW_COLORS[0],
-  },
-  {
-    src: "/img/biotech.jpeg",
-    titleKey: "img_biotechnology_research_title",
-    caption: "Cutting-edge biotech research enabled by open data access",
-    category: "Society",
-    glowColor: GLOW_COLORS[1],
-  },
-];
+type ApiImage = {
+  id: number;
+  title: string;
+  img_url: string;
+  created_at: string;
+};
 
 export default function GalleryPage() {
   const t = useTranslations("common");
 
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [images, setImages] = useState<ApiImage[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const lightbox =
-    lightboxIndex !== null ? IMAGES[lightboxIndex] : null;
+  const lightbox = lightboxIndex !== null ? images[lightboxIndex] : null;
 
-  const totalPages = Math.ceil(IMAGES.length / ITEMS_PER_PAGE);
-
-  const paginatedImages = IMAGES.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
-
-  const closeLightbox = useCallback(() => {
-    setLightboxIndex(null);
+  const fetchImages = useCallback(async (page: number) => {
+    setLoading(true);
+    try {
+      const qs = new URLSearchParams({
+        page: String(page),
+        pageSize: String(ITEMS_PER_PAGE),
+      });
+      const res = await fetch(`/api/home/gallery?${qs}`);
+      const json = await res.json();
+      if (json.success) {
+        setImages(json.data ?? []);
+        setTotal(json.pagination?.total ?? 0);
+        setTotalPages(json.pagination?.totalPages ?? 1);
+      }
+    } catch (e) {
+      console.error("Failed to fetch gallery:", e);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchImages(currentPage);
+  }, [currentPage, fetchImages]);
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 
   const goToPreviousImage = useCallback(() => {
     setLightboxIndex((prev) => {
       if (prev === null) return prev;
-      return prev === 0 ? IMAGES.length - 1 : prev - 1;
+      return prev === 0 ? images.length - 1 : prev - 1;
     });
-  }, []);
+  }, [images.length]);
 
   const goToNextImage = useCallback(() => {
     setLightboxIndex((prev) => {
       if (prev === null) return prev;
-      return prev === IMAGES.length - 1 ? 0 : prev + 1;
+      return prev === images.length - 1 ? 0 : prev + 1;
     });
-  }, []);
+  }, [images.length]);
 
   useEffect(() => {
     if (!lightbox) return;
-
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeLightbox();
-      }
-
-      if (e.key === "ArrowLeft") {
-        goToPreviousImage();
-      }
-
-      if (e.key === "ArrowRight") {
-        goToNextImage();
-      }
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goToPreviousImage();
+      if (e.key === "ArrowRight") goToNextImage();
     };
-
     window.addEventListener("keydown", onKey);
-
-    return () => {
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [lightbox, closeLightbox, goToPreviousImage, goToNextImage]);
 
   useEffect(() => {
     document.body.style.overflow = lightbox ? "hidden" : "";
-
     return () => {
       document.body.style.overflow = "";
     };
@@ -285,15 +105,13 @@ export default function GalleryPage() {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-
-        .anim-fade-up {
-          animation: fadeUp 0.5s ease-out both;
-        }
+        .anim-fade-up { animation: fadeUp 0.5s ease-out both; }
       `}</style>
 
       <div className="min-h-screen flex flex-col bg-white dark:bg-[#0f1117]">
         <Header />
 
+        {/* ── Hero ────────────────────────────────────────────── */}
         <section className="relative pt-20 pb-20 px-4 text-center overflow-hidden bg-gradient-to-br from-green-700 via-green-600 to-green-500 dark:from-green-900 dark:via-green-800 dark:to-green-700">
           <div className="absolute -top-16 -left-16 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -bottom-12 -right-12 w-80 h-80 bg-white/10 rounded-full blur-2xl pointer-events-none" />
@@ -311,7 +129,6 @@ export default function GalleryPage() {
               style={{
                 animationDelay: "0.2s",
                 fontWeight: 900,
-                fontStyle: "normal",
                 fontFamily: "'Barlow Condensed', sans-serif",
                 letterSpacing: "-0.02em",
                 textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
@@ -339,67 +156,72 @@ export default function GalleryPage() {
           </div>
         </section>
 
+        {/* ── Main grid ───────────────────────────────────────── */}
         <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-10">
-          <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">
-            {t("showing_images", { count: paginatedImages.length })} of{" "}
-            {IMAGES.length}
-          </p>
+          {!loading && (
+            <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">
+              {t("showing_images", { count: images.length })} of {total}
+            </p>
+          )}
 
-          {IMAGES.length > 0 ? (
+          {loading ? (
+            <div className="flex justify-center py-32">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+            </div>
+          ) : images.length === 0 ? (
+            <div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-[#242424]">
+              <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+                No images available at the moment.
+              </p>
+            </div>
+          ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {paginatedImages.map((img, idx) => (
-                  <button
-                    key={`${img.src}-${idx}`}
-                    onClick={() =>
-                      setLightboxIndex(
-                        (currentPage - 1) * ITEMS_PER_PAGE + idx
-                      )
-                    }
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.boxShadow = `0 0 0 2px ${img.glowColor}, 0 0 14px 4px ${img.glowColor}44`)
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.boxShadow = "")
-                    }
-                    className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 shadow-md transition-transform duration-200 hover:-translate-y-0.5 text-left w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                  >
-                    <div className="relative h-64 overflow-hidden">
-                      <Image
-                        src={img.src}
-                        alt={t(img.titleKey)}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        loading="lazy"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
+                {images.map((img, idx) => {
+                  const glowColor = GLOW_COLORS[idx % GLOW_COLORS.length];
+                  return (
+                    <button
+                      key={img.id}
+                      onClick={() => setLightboxIndex(idx)}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = `0 0 0 2px ${glowColor}, 0 0 14px 4px ${glowColor}44`)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "")
+                      }
+                      className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 shadow-md transition-transform duration-200 hover:-translate-y-0.5 text-left w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                      <div className="relative h-64 overflow-hidden">
+                        <Image
+                          src={img.img_url}
+                          alt={img.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                          <h3 className="text-white font-bold text-lg leading-tight">
+                            {img.title}
+                          </h3>
+                        </div>
+                      </div>
 
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                        <span className="text-xs font-bold uppercase tracking-widest text-green-400 mb-1.5">
-                          {t(`cat_${img.category.toLowerCase()}`)}
-                        </span>
-
-                        <h3 className="text-white font-bold text-lg leading-tight mb-1">
-                          {t(img.titleKey)}
+                      <div className="px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
+                        <h3 className="text-gray-800 dark:text-white font-semibold text-sm truncate">
+                          {img.title}
                         </h3>
-
-                        <p className="text-gray-200 text-sm leading-snug line-clamp-2">
-                          {img.caption}
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                          {new Date(img.created_at).toLocaleDateString("en-AU", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          })}
                         </p>
                       </div>
-                    </div>
-
-                    <div className="px-4 py-3 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
-                      <h3 className="text-gray-800 dark:text-white font-semibold text-sm truncate">
-                        {t(img.titleKey)}
-                      </h3>
-
-                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">
-                        {t(`cat_${img.category.toLowerCase()}`)}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
 
               <Pagination
@@ -408,28 +230,23 @@ export default function GalleryPage() {
                 onPageChange={setCurrentPage}
               />
             </>
-          ) : (
-            <div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center dark:border-gray-700 dark:bg-[#242424]">
-              <p className="text-base font-medium text-gray-500 dark:text-gray-400">
-                No images available at the moment.
-              </p>
-            </div>
           )}
         </main>
 
         <Footer />
 
+        {/* ── Lightbox ────────────────────────────────────────── */}
         {lightbox && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
             onClick={closeLightbox}
             role="dialog"
             aria-modal="true"
-            aria-label={t(lightbox.titleKey)}
+            aria-label={lightbox.title}
           >
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute top-4 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Close"
             >
               <svg
@@ -448,22 +265,16 @@ export default function GalleryPage() {
             </button>
 
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPreviousImage();
-              }}
-              className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+              onClick={(e) => { e.stopPropagation(); goToPreviousImage(); }}
+              className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Previous image"
             >
               <ChevronLeft size={24} />
             </button>
 
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNextImage();
-              }}
-              className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+              onClick={(e) => { e.stopPropagation(); goToNextImage(); }}
+              className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Next image"
             >
               <ChevronRight size={24} />
@@ -474,32 +285,28 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative w-full max-h-[75vh] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src={lightbox.src}
-                  alt={t(lightbox.titleKey)}
-                  width={1200}
-                  height={800}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={lightbox.img_url}
+                  alt={lightbox.title}
                   className="w-full h-auto max-h-[75vh] object-contain bg-black"
-                  priority
                 />
               </div>
 
               <div className="mt-4 text-center px-4">
                 <h2 className="text-white font-bold text-xl mb-1">
-                  {t(lightbox.titleKey)}
+                  {lightbox.title}
                 </h2>
-
-                <p className="text-gray-300 text-sm">
-                  {lightbox.caption}
+                <p className="text-gray-400 text-sm">
+                  {new Date(lightbox.created_at).toLocaleDateString("en-AU", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
-
-                <span className="inline-block mt-2 px-3 py-0.5 text-xs font-semibold uppercase tracking-wider text-green-400 bg-green-900/40 rounded-full">
-                  {t(`cat_${lightbox.category.toLowerCase()}`)}
-                </span>
-
                 {lightboxIndex !== null && (
                   <p className="mt-2 text-xs text-gray-400">
-                    {lightboxIndex + 1} / {IMAGES.length}
+                    {lightboxIndex + 1} / {images.length}
                   </p>
                 )}
               </div>
