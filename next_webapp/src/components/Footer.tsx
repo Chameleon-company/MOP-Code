@@ -66,6 +66,13 @@ const Footer = () => {
                 aria-label="LinkedIn"
                 className="hover:text-gray-300 dark:hover:text-gray-400"
               >
+              <a href="https://www.facebook.com/cityofmelbourne" aria-label="Facebook" className="hover:text-gray-300">
+                <FaFacebook size={24} />
+              </a>
+              <a href="https://x.com/cityofmelbourne?t=E9gTTEtyOYO455TbVFwiJA&s=09" aria-label="Twitter" className="hover:text-gray-300">
+                <FaSquareXTwitter size={24} />
+              </a>
+              <a href="https://www.linkedin.com/company/city-of-melbourne/" aria-label="LinkedIn" className="hover:text-gray-300">
                 <FaLinkedin size={24} />
               </a>
             </div>
