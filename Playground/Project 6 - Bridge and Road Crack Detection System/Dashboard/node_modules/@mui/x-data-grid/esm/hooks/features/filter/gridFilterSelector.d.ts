@@ -1,0 +1,153 @@
+import type { GridStateCommunity } from "../../../models/gridStateCommunity.js";
+import type { GridRowEntry, GridRowId, GridValidRowModel } from "../../../models/gridRows.js";
+import type { GridFilterItem } from "../../../models/gridFilterItem.js";
+/**
+ * Get the current filter model.
+ * @category Filtering
+ */
+export declare const gridFilterModelSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => import("@mui/x-data-grid").GridFilterModel;
+/**
+ * Get the current quick filter values.
+ * @category Filtering
+ */
+export declare const gridQuickFilterValuesSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => any[] | undefined;
+/**
+ * @category Visible rows
+ * @ignore - do not document.
+ */
+export declare const gridVisibleRowsLookupSelector: import("@mui/x-data-grid").OutputSelector<GridStateCommunity, unknown, import("./gridFilterState.js").GridVisibleRowsLookupState>;
+/**
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridFilteredRowsLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => Record<GridRowId, false>;
+/**
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridFilteredChildrenCountLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => Record<GridRowId, number>;
+/**
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridFilteredDescendantCountLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => Record<GridRowId, number>;
+/**
+ * Get the id and the model of the rows accessible after the filtering process.
+ * Does not contain the collapsed children.
+ * @category Filtering
+ */
+export declare const gridExpandedSortedRowEntriesSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowEntry<GridValidRowModel>[];
+/**
+ * Get the id of the rows accessible after the filtering process.
+ * Does not contain the collapsed children.
+ * @category Filtering
+ */
+export declare const gridExpandedSortedRowIdsSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowId[];
+/**
+ * Get the id and the model of the rows accessible after the filtering process.
+ * Contains the collapsed children.
+ * @category Filtering
+ */
+export declare const gridFilteredSortedRowEntriesSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowEntry<GridValidRowModel>[];
+/**
+ * Get the id of the rows accessible after the filtering process.
+ * Contains the collapsed children.
+ * @category Filtering
+ */
+export declare const gridFilteredSortedRowIdsSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowId[];
+/**
+ * Get the ids to position in the current tree level lookup of the rows accessible after the filtering process.
+ * Does not contain the collapsed children.
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridExpandedSortedRowTreeLevelPositionLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => Record<GridRowId, number>;
+/**
+ * Get the id and the model of the rows per depth level, accessible after the filtering process.
+ * Returns an array of arrays, where each array index contains the rows for the depth level equal to the index.
+ * @category Filtering
+ */
+export declare const gridFilteredSortedDepthRowEntriesSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowEntry<GridValidRowModel>[][];
+/**
+ * Get the id and the model of the top level rows accessible after the filtering process.
+ * @category Filtering
+ */
+export declare const gridFilteredSortedTopLevelRowEntriesSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridRowEntry<GridValidRowModel>[];
+/**
+ * Get the amount of rows accessible after the filtering process.
+ * @category Filtering
+ */
+export declare const gridExpandedRowCountSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => number;
+/**
+ * Get the amount of top level rows accessible after the filtering process.
+ * @category Filtering
+ */
+export declare const gridFilteredTopLevelRowCountSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => number;
+/**
+ * Get the amount of rows accessible after the filtering process.
+ * Includes top level and descendant rows.
+ * @category Filtering
+ */
+export declare const gridFilteredRowCountSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => number;
+/**
+ * Get the amount of descendant rows accessible after the filtering process.
+ * @category Filtering
+ */
+export declare const gridFilteredDescendantRowCountSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => number;
+/**
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridFilterActiveItemsSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridFilterItem[];
+export type GridFilterActiveItemsLookup = {
+  [field: string]: GridFilterItem[];
+};
+/**
+ * @category Filtering
+ * @ignore - do not document.
+ */
+export declare const gridFilterActiveItemsLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => GridFilterActiveItemsLookup;
+/**
+ * Get the index lookup for expanded (visible) rows only.
+ * Does not include collapsed children.
+ * @ignore - do not document.
+ */
+export declare const gridExpandedSortedRowIndexLookupSelector: (args_0: import("react").RefObject<{
+  state: GridStateCommunity;
+} | null>) => Record<GridRowId, number>;
