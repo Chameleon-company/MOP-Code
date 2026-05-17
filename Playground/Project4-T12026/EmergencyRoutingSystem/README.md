@@ -1,83 +1,205 @@
 # Project 4 - Emergency Routing Notebook
+Author: Basil Behanan(Routing Optimization Engineer) Project: Project 4 — Multi-Agent Emergency Response System
 
-## Notebook Documentation
+# Emergency Routing System
 
+## Overview
 
-The notebook builds a road-network routing pipeline for Geelong and compares Dijkstra and A* for emergency route analysis.
+This project is part of the **Multi-Agent Emergency Response System** developed under the Chameleon company project. The goal of this module is to build a routing and optimization system that can calculate efficient routes between emergency incidents and nearby emergency facilities such as hospitals, fire stations, and police stations.
 
-## 1. Notebook Purpose
+The routing system uses real-world road network data from **OpenStreetMap (OSM)** through the **OSMnx** library and applies graph-based routing algorithms to compute optimal paths.
 
-Purpose: Build, test, and benchmark shortest-path routing on a real road network.
+---
 
-Use in project: Baseline routing and performance comparison for emergency response scenarios.
+# Project Structure
 
-## 2. Input Configuration Used In Code
+```text
+EmergencyRoutingSystem/
+│
+├── README.md
+├── benchmark_routing.py
+├── melbourne_algorithm_benchmark.csv
+├── osmnx_test.ipynb
+├── routing_engine.py
+````
 
-Place: Geelong, Victoria, Australia
+---
 
-Network type: drive
+# Files Description
 
-Start point: latitude -38.1499, longitude 144.3617
+## `osmnx_test.ipynb`
 
-End point: latitude -38.1350, longitude 144.3550
+Main development notebook used for:
 
-Primary edge weight: length
+* Downloading Melbourne road network data
+* Graph generation using OSMnx
+* Graph visualisation
+* Node and edge exploration
+* Testing routing algorithms
+* Route plotting and experimentation
 
-## 3. Processing Steps In The Notebook
+This notebook was used during the research and prototype stage of the routing system.
 
-1. Import libraries and enable OSMnx cache/logging.
-2. Download drivable road graph from OpenStreetMap.
-3. Plot full graph and save visualization.
-4. Save graph to GraphML and reload from disk.
-5. Convert graph to node and edge GeoDataFrames.
-6. Inspect node coordinates and edge length attributes.
-7. Map start and end coordinates to nearest graph nodes.
-8. Plot start and end nodes on the network.
-9. Compute shortest route using Dijkstra.
-10. Compute shortest route using A*.
-11. Calculate route distance using multiedge-safe helper logic.
-12. Benchmark runtime for both algorithms.
-13. Export algorithm comparison table.
+---
 
-## 4. Routing Methods Implemented
+## `routing_engine.py`
 
-Dijkstra
+Core routing module containing:
 
-Purpose: Find shortest path by total road length.
+* Route computation functions
+* Dijkstra implementation
+* A* implementation
+* Coordinate-to-node mapping
+* Route summary generation
 
-Implementation: NetworkX shortest_path with method set to dijkstra and weight set to length.
+This file is intended to support integration with the dispatch system and future multi-agent coordination modules.
 
-A*
+---
 
-Purpose: Find shortest path using a heuristic-guided search.
+## `benchmark_routing.py`
 
-Implementation: NetworkX astar_path with Euclidean coordinate heuristic and weight set to length.
+Script used to benchmark routing algorithms on the Melbourne graph.
 
-## 5. Output Files Generated
+Current comparisons include:
 
-Graph output:
+* Runtime performance
+* Route distance
+* Route node count
 
-- [outputs/graphs/geelong.graphml](outputs/graphs/geelong.graphml)
+between:
 
-Map outputs:
+* Dijkstra
+* A*
 
-- [outputs/maps/graph_visualization.png](outputs/maps/graph_visualization.png)
-- [outputs/maps/start_end_nodes.png](outputs/maps/start_end_nodes.png)
-- [outputs/maps/dijkstra_route.png](outputs/maps/dijkstra_route.png)
-- [outputs/maps/astar_route.png](outputs/maps/astar_route.png)
+---
 
-Table output:
+## `melbourne_algorithm_benchmark.csv`
 
-- [outputs/tables/algorithm_comparison.csv](outputs/tables/algorithm_comparison.csv)
+Generated benchmark results comparing routing algorithms on the Melbourne road network.
 
-## 6. Result Summary
+The file stores:
 
-The notebook produces:
+* Algorithm name
+* Route distance
+* Runtime performance
+* Route metrics
 
-- A complete drivable road graph for the target area
-- Start and destination node mapping on the network
-- Dijkstra and A* route visualizations
-- Route length values in meters and kilometers
-- Runtime comparison in CSV format
+Used for analysis and evaluation.
 
+---
+
+# Current Progress
+
+## Melbourne Road Network Integration
+
+The routing system was initially developed using the Geelong road network and later expanded to the Melbourne road network to align with the datasets used in the overall project.
+
+The graph currently includes:
+
+* Real-world road structures
+* Nodes and edges
+* Distance attributes
+* Speed attributes
+* Travel-time weights
+
+---
+
+# Routing Features Implemented
+
+## Graph Construction
+
+Implemented using:
+
+* OSMnx
+* NetworkX
+
+Features include:
+
+* Road network download
+* Graph conversion
+* Graph saving/loading
+* Travel-time edge weighting
+
+---
+
+## Routing Algorithms
+
+Implemented and tested:
+
+### Dijkstra Algorithm
+
+Used as the baseline shortest-path routing method.
+
+### A* Algorithm
+
+Used as an optimized routing approach with heuristic-based search.
+
+---
+
+# Route Output
+
+The routing system currently returns:
+
+* Distance (km)
+* Estimated travel time
+* Route node count
+* Algorithm used
+* Route status
+
+The output structure is designed for future integration with the dispatch module.
+
+---
+
+# Integration Work
+
+The routing module has been structured to support integration with:
+
+* Dispatch agents
+* Facility datasets
+* Incident datasets
+* Future traffic-based routing
+* Multi-agent emergency coordination
+
+The routing implementation and outputs were shared with teammates through GitHub to support ongoing integration work.
+
+---
+
+# Shared Outputs
+
+The following outputs and resources have been uploaded and shared:
+
+* Routing implementation scripts
+* Graph visualisations
+* Route maps
+* Benchmark comparison outputs
+* CSV benchmark results
+* Routing experiment notebook
+
+---
+
+# Important Note About Graph Files
+
+The generated Melbourne `.graphml` graph file is large and therefore is not directly stored in the repository.
+
+Instead:
+
+* The graph can be regenerated directly through code
+* Graph generation scripts are included
+* Pre-generated graph files can be shared externally when required
+
+This keeps the repository lightweight and reproducible.
+
+---
+
+# Technologies Used
+
+* Python
+* OSMnx
+* NetworkX
+* OpenStreetMap
+* Pandas
+* Matplotlib
+* Jupyter Notebook
+
+---
 
