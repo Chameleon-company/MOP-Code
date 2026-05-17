@@ -1,0 +1,180 @@
+{
+    "greet": {
+      "response": "Hello! How can I help you today?"
+    },
+    "greet_morning": {
+      "response": "Good morning! How can I assist you today?"
+    },
+    "greet_afternoon": {
+      "response": "Good afternoon! What can I do for you?"
+    },
+    "greet_evening": {
+      "response": "Good evening! How may I help you?"
+    },
+    "about": {
+      "p1": "MOP (Melbourne Open Data Project) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making.",
+      "p2": "This project aligns with strategic documents from the Melbourne City Council and aims to provide insightful data solutions."
+    },
+    "mop_full_form": {
+      "response": "Melbourne Open Data Project (MOP) is a capstone project sponsored by Deakin University. Since COVID, there has been an increased demand for data by the business community to support their decision-making. This project is meant to align with two strategic documents from the Melbourne City Council."
+    },
+    "project_overview": {
+      "response": "This project provides access to open data about Melbourne, enabling analysis of urban challenges and opportunities."
+    },
+    "contact": {
+      "response": "You can contact us via our Contact Us page or email us at info@melbourneopendata.org."
+    },
+    "help": {
+      "response": "How can I assist you? You can ask about the project, use cases, navigation, or any other information you need."
+    },
+    "bye": {
+      "response": "Goodbye! Have a nice day 😊"
+    },
+    "thank_you": {
+      "response": "You're welcome!"
+    },
+    "fallback": {
+      "response": "Sorry, I didn’t understand that. Can you try rephrasing?"
+    },
+    "no_results": {
+      "response": "No matching case studies found. Please try a different search term."
+    },
+    "use_cases": {
+      "intro": "Here are some relevant case studies:"
+    },
+    "use_case_prompt": {
+      "response": "We didn't find that use case. Could you please provide more details: Title, Description, and Tags?"
+    },
+    "validation": {
+      "empty_input": "Please enter a valid message."
+    },
+    "navigation": {
+      "home": "Navigating to Home page.",
+      "about": "Navigating to About Us page.",
+      "use_cases": "Displaying Use Cases.",
+      "statistics": "Navigating to Statistics page.",
+      "upload": "Navigating to Upload page.",
+      "language": "Opening language selection.",
+      "sign_up": "Navigating to Sign Up page.",
+      "log_in": "Navigating to Log In page.",
+      "contact": "Navigating to Contact Us page.",
+      "licensing": "Navigating to Licensing information.",
+      "privacy": "Navigating to Privacy Policy page."
+    },
+    "initial": {
+      "welcome": "Hi, How can I help you? Check out our ",
+      "faq_link_text": "FAQ page",
+      "faq_url": "/en/faq",
+      "more_info": " for more information."
+    },
+    "language_prompt": {
+      "response": "We currently support these languages.",
+      "languages": [
+        "English",
+        "中文",
+        "Español",
+        "Ελληνικά"
+      ]
+    },
+    "use_case_details": {
+      "disability_services": {
+        "title": "Disability Services and Public Transport Analysis within CBD",
+        "description": "This use case provides an analysis and visualization into public transport and footpaths for disabled users.",
+        "tags": [
+          "public transport",
+          "footpath gradient",
+          "disability features",
+          "train stations",
+          "tram stops"
+        ]
+      },
+      "return_to_office": {
+        "title": "Flexible Return To Office Options",
+        "description": "The City Of Melbourne Council is looking for ideas to bring people back into the city post COVID.",
+        "tags": [
+          "folium",
+          "coworking spaces",
+          "colleagues",
+          "maps"
+        ]
+      },
+      "urban_heat_island": {
+        "title": "Urban Heat Island Effect Reduction",
+        "description": "This use case aims to deliver a tool for Melbourne city planners to explore possible areas of greening.",
+        "tags": [
+          "maps",
+          "well-being",
+          "environmental"
+        ]
+      },
+      "live_events": {
+        "title": "Live Events and the Effect on Foot Traffic and Business",
+        "description": "Tracking how live events affect foot traffic and the resulting impact on local business.",
+        "tags": [
+          "folium",
+          "maps",
+          "foot traffic",
+          "api",
+          "business",
+          "live events"
+        ]
+      },
+      "tourist_activity": {
+        "title": "Business & Activity – Supporting Local Businesses Surrounding Tourist Attractions",
+        "description": "In Melbourne, our strategic approach to enhancing the tourist experience involves utilizing curated data.",
+        "tags": [
+          "folium",
+          "maps",
+          "business",
+          "tourism",
+          "landmarks",
+          "melbourne",
+          "food outlets"
+        ]
+      },
+      "population_growth": {
+        "title": "Small Area Population Growth Active Transport",
+        "description": "Identify key areas where active transportation routes could experience higher demand.",
+        "tags": [
+          "folium",
+          "bikes",
+          "population growth",
+          "active transport",
+          "transport"
+        ]
+      },
+      "green_roof": {
+        "title": "Ideal Green Roof Locations",
+        "description": "Create a visual map incorporating GIS to assess which areas of Melbourne are suitable for green roof retrofits.",
+        "tags": [
+          "building management",
+          "climate",
+          "energy",
+          "energy performance",
+          "property management",
+          "data processing"
+        ]
+      },
+      "smart_bin": {
+        "title": "Smart Bin Waste Collection AI Application T2 2023",
+        "description": "Examined the benefit of introducing smart bins around the City of Melbourne and investigated their use.",
+        "tags": [
+          "maps",
+          "environment & wellbeing",
+          "ai/ml application"
+        ]
+      },
+      "tree_canopy": {
+        "title": "Tree Canopy Changes",
+        "description": "Study the effect on development activity on nearby trees.",
+        "tags": [
+          "heat island effect",
+          "climate",
+          "environment",
+          "development planning",
+          "data processing"
+        ]
+      }
+    }
+  }
+  

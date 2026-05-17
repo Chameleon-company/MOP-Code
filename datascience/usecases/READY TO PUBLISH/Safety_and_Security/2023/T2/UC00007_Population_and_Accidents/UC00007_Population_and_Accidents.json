@@ -1,0 +1,47 @@
+{
+    "title": "usecase-population-&-accidents",
+    "name": "usecase-Population & Accidents",
+    "description": "In this use case we analyse pedestrian incidents and traffic signals data to enhance road safety",
+    "tags": [
+        "folium",
+        "maps",
+        "safety",
+        "pedestrians",
+        "accidents",
+        "traffic signals",
+        "traffic volume"
+    ],
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "geojson",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "\"pedestrian-counting-system-(counts per hour)\"",
+        "\"vicroads-accident-data\"",
+        "\"vicroads-traffic-signal-data\"",
+        "\"vicroads-traffic-volume-data\""
+    ]
+}
