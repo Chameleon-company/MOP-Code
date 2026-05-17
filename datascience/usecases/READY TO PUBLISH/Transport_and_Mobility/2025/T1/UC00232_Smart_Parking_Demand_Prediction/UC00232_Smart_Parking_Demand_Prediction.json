@@ -1,0 +1,45 @@
+{
+    "title": "UC00SP_Smart_Parking_Demand_Prediction",
+    "name": "UC00SP_Smart_Parking_Demand_Prediction",
+    "description": "Predict hourly parking demand levels (Low/Medium/High) for Melbourne on-street parking zones using sensor and restriction data.",
+    "tags": [
+        "parking",
+        "parking-demand",
+        "classification",
+        "melbourne",
+        "visualisation"
+    ],
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "requests",
+            "code": "python"
+        },
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "scikit-learn",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "folium",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "On-street Car Parking Sensor Data",
+        "Parking Bay Arrivals and Departures",
+        "On-Street Parking Bay Sensors (live)",
+        "Sign plates / restriction metadata"
+    ]
+}
