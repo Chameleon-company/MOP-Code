@@ -45,6 +45,10 @@ At the end of this use case, you can:
 - **Baseline vs selected comparison:** supports model-selection justification for reporting.
 - **Hotspot score v2 + communication labels:** improves prioritisation readability and presentation clarity.
 
+## Tutorial Structure Note
+Each numbered notebook section now includes short tutorial notes under the heading.  
+These notes explain what the next code block does, why the step is needed, and how it supports the UC00219 workflow from data preparation to final handover.
+
 ## Data Sources
 - **Thermal Image 2012** (City of Melbourne)
 - **Tree Canopies 2021 (Urban Forest)** (City of Melbourne)
