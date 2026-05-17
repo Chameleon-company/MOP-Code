@@ -14,7 +14,6 @@ class GCN(torch.nn.Module):
         x = self.conv1(x, edge_index)
         x = F.relu(x)
 
-        # ADD THIS LINE
         x = F.dropout(x, p=0.5, training=self.training)
 
         x = self.conv2(x, edge_index)
