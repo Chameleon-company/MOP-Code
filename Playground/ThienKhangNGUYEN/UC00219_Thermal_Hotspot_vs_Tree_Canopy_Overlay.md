@@ -1,9 +1,19 @@
-# UC00219 - Thermal Hotspot vs Tree Canopy Overlay
+<div class="usecase-title">
+  UC00219 - Thermal Hotspot vs Tree Canopy Overlay
+</div>
 
-**Authored by:** Thien Khang Nguyen  
-**Duration:** 90 mins  
-**Level:** Intermediate  
-**Pre-requisite Skills:** Python, Data Cleaning, Data Visualisation, Geospatial Analysis, Raster/Vector Data Handling, Spatial Overlay, Feature Interpretation
+<div class="usecase-authors">
+  <b>Authored by:</b> Thien Khang Nguyen
+</div>
+
+<div class="usecase-duration">
+  <b>Duration:</b> 90 mins
+</div>
+
+<div class="usecase-level-skill">
+  <b>Level:</b> Intermediate<br>
+  <b>Pre-requisite Skills:</b> Python, Data Cleaning, Data Visualisation, Geospatial Analysis, Raster/Vector Data Handling, Spatial Overlay, Feature Interpretation
+</div>
 
 ## Scenario
 Melbourne does not experience urban heat evenly. Some areas show high thermal intensity while others remain relatively cooler, and canopy coverage is one factor that may influence this difference.
@@ -49,6 +59,16 @@ Both datasets are accessed through public sources/API endpoints without embeddin
 - Added lightweight threshold tuning table and hotspot score v2 ranking aid.
 - Added presentation-friendly cluster labels (communication layer).
 - Added evidence exports to `outputs/` and a final PASS/FAIL quality checklist.
+
+## Key Result Interpretations
+**Hotspot identification interpretation:**  
+The identified priority cells represent locations where relative thermal intensity is high and canopy cover is very low. From an urban planning perspective, these cells can be treated as candidate areas for further investigation, especially where greening or shading interventions may help reduce local heat exposure.
+
+**Cluster profiling interpretation:**  
+The cluster profiles show that grid cells can be grouped into different thermal-canopy patterns. Clusters with higher thermal intensity and lower canopy cover are more relevant for greening prioritisation, while lower-thermal or higher-canopy clusters provide a useful comparison baseline.
+
+**Model comparison interpretation:**  
+The selected model produced similar evaluation scores to the baseline model, which suggests that the candidate search did not create a major performance gain. However, it still supports the modelling process by validating that the selected configuration is stable and reasonable across multiple scaler, cluster-count, and random-seed settings.
 
 ## Final Interpretation
 Hotspot cells represent **relative priority areas** where thermal intensity is high and canopy cover is very low.  
