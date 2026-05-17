@@ -25,6 +25,12 @@ const Header = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Updated navigation items to match wireframe
+  const navItems = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Organisations", link: "/organisations" },
+    { name: "About", link: "/about" },
+    { name: "Home", link: "/" },
   const navItems = [
     { name: "HOME", link: "/" },
     { name: "ABOUT US", link: "/about" },
@@ -73,6 +79,9 @@ const Header = () => {
       ></link>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            {/* Hamburger Menu Icon - Moved to left */}
+            <div className="flex lg:hidden mr-4">
           <div className="flex items-center w-full">
             <Link href="/" className="flex-shrink-0">
               <img
@@ -116,6 +125,22 @@ const Header = () => {
                 )}
               </button>
             </div>
+            
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <img
+                className="h-20 w-auto"
+                src="/img/new-logo-green.png"
+                alt="Logo"
+              />
+              <span className="hidden lg:block ml-2 text-xl font-bold text-green-600 dark:text-green-300">
+                Chameleon
+              </span>
+            </Link>
+          </div>
+          
+          <div className="flex items-center">
+            {/* Desktop Menu Items */}
+            <nav className="hidden lg:flex ml-10 space-x-4">
 
             <nav
               className={`ml-10 space-x-4 hidden lg:flex ${
@@ -128,7 +153,7 @@ const Header = () => {
                   href={item.link}
                   className="text-black dark:text-gray-200 hover:text-green-900 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
               {/* Sign Up and Log In in the navigation bar */}
@@ -145,6 +170,11 @@ const Header = () => {
                 {t("Log In")}
               </Link>
             </nav>
+
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle Dark Mode"
+              className="p-1 rounded focus:outline-none ml-4"
           </div>
 
           <div className="flex items-center">
@@ -164,6 +194,15 @@ const Header = () => {
               )}
             </button>
 
+            <Link
+              href="/signup"
+              className="hidden lg:block ml-4 text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+            >
+              {t("Sign Up")}
+            </Link>
+          </div>
+        </div>
+        
             <LanguageDropdown />
           </div>
         </div>
@@ -235,7 +274,7 @@ const Header = () => {
                   href={item.link}
                   className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:text-green-800 transition-colors duration-300"
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
               <Link
