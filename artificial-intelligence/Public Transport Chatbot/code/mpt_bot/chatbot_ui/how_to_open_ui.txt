@@ -1,0 +1,12 @@
+
+conda activate rasa_env
+rasa run -m models --enable-api --cors "*" --debug
+
+separate terminal:
+rasa run actions
+
+new terminal:
+cd chatbot_ui
+python -m http.server
+
+http://localhost:8000\
