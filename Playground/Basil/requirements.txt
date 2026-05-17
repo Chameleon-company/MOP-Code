@@ -7,3 +7,6 @@ jupyter
 streamlit
 sentence-transformers
 PyPDF2
+requests
+fastapi
+uvicorn
