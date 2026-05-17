@@ -17,11 +17,11 @@ const style = `
   display: flex;
   flex-direction: column;
   margin-bottom: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .dark .main-container {
   background: #263238;
   color: white;
-  flex: 1;
 }
 .hero-section {
   width: 100%;
@@ -46,6 +46,7 @@ const style = `
   width: 90%;
   max-width: 1200px;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .dark .our-vision-section {
   background: #263238;
@@ -79,6 +80,7 @@ const style = `
 .case-studies-wrapper {
   background-color: #F6F9FC;
   padding: 2rem;
+  transition: background-color 0.3s ease;
 }
 .dark .case-studies-wrapper {
   background-color: rgb(46, 38, 38);
@@ -118,7 +120,7 @@ const style = `
   background: white;
   color: #263238;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, background-color 0.3s;
   margin: 0 0.5rem;
   height: 80%;
   border-radius: 0.5rem;
@@ -149,8 +151,12 @@ const responsive = {
 
 const Dashboard = () => {
   const t = useTranslations("common");
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | undefined>(undefined);
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>(
+    []
+  );
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<
+    CaseStudy | undefined
+  >(undefined);
 
   useEffect(() => {
     handleSearch("", SEARCH_MODE.TITLE, CATEGORY.ALL);
@@ -170,7 +176,11 @@ const Dashboard = () => {
     return await response.json();
   };
 
-  const handleSearch = async (searchTerm: string, searchMode: SEARCH_MODE, category: CATEGORY) => {
+  const handleSearch = async (
+    searchTerm: string,
+    searchMode: SEARCH_MODE,
+    category: CATEGORY
+  ) => {
     const res = await searchUseCases({ searchTerm, searchMode, category });
     setFilteredCaseStudies(res?.filteredStudies);
   };
@@ -194,7 +204,9 @@ const Dashboard = () => {
           Back
         </button>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md flex-grow overflow-hidden flex flex-col">
-          <h1 className="text-3xl font-bold mb-4 px-6 pt-6">{selectedCaseStudy.name}</h1>
+          <h1 className="text-3xl font-bold mb-4 px-6 pt-6">
+            {selectedCaseStudy.name}
+          </h1>
           <iframe
             src={`/api?filename=${selectedCaseStudy.filename}`}
             title={selectedCaseStudy.name}
@@ -214,7 +226,7 @@ const Dashboard = () => {
             <Image src={mainimage} alt="main image1" />
           </section>
 
-          <section className="our-vision-section">
+          <section className="our-vision-section dark:bg-[#263238] dark:text-white">
             <div className="img-div">
               <Image src={secondimage} alt="Second Image" />
             </div>
@@ -235,22 +247,32 @@ const Dashboard = () => {
                 {filteredCaseStudies.slice(0, 6).map((study) => (
                   <div
                     key={study.id}
-                    className="case-study p-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+                    className="case-study p-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105"
                     onClick={() => handleCaseStudyClick(study)}
                   >
                     <div className="flex items-center justify-center mb-4">
                       <FileText size={48} className="text-green-500" />
                       <FileText size={48} className="text-teal-400 -ml-6" />
-                      <FileText size={48} className="text-green-700 -ml-6 rotate-6" />
+                      <FileText
+                        size={48}
+                        className="text-green-700 -ml-6 rotate-6"
+                      />
                     </div>
-                    <h3 className="font-bold text-lg text-center mb-2">{study.name}</h3>
+                    <h3 className="font-bold text-lg text-center mb-2">
+                      {study.name}
+                    </h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm text-center mb-2">
                       {study.description.split(" ").length > 50
-                        ? `${study.description.split(" ").slice(0, 50).join(" ")}...`
+                        ? `${study.description
+                            .split(" ")
+                            .slice(0, 50)
+                            .join(" ")}...`
                         : study.description}
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Tags:</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Tags:
+                      </p>
                       {study.tags.map((tag, index) => (
                         <span
                           key={index}
