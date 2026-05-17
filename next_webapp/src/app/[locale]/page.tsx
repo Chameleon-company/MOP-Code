@@ -1,16 +1,25 @@
-// Home.js
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Dashboard from "../../components/Dashboard";
 import Chatbot from "../chatbot/chatbot";
-import SocialMediaFeed from "@/components/SocialMediaFeed";
+import ContactUsSection from "@/components/ContactUsSection";
+import BackToTopButton from "@/components/BackToTopButton";
+import PartnersSection from "@/components/PartnersSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import Insights from "@/components/Insights";
+import FAQSection from "@/components/FAQSection";
 
 const Home = () => {
   return (
     <div>
       <Header />
       <Dashboard />
-      <SocialMediaFeed />
+      <Insights />
+      <TestimonialsSection />
+      <FAQSection />
+      <ContactUsSection />
+      <PartnersSection />
+      <BackToTopButton />
       <Chatbot />
       <Footer />
     </div>

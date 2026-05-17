@@ -37,3 +37,62 @@ body {
     text-wrap: balance;
   }
 }
+
+/* ── CKEditor blog content renderer ── */
+.prose-blog {
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.dark .prose-blog { color: #d1d5db; }
+
+.prose-blog h1, .prose-blog h2, .prose-blog h3,
+.prose-blog h4, .prose-blog h5, .prose-blog h6 {
+  color: #111827;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.dark .prose-blog h1, .dark .prose-blog h2, .dark .prose-blog h3,
+.dark .prose-blog h4, .dark .prose-blog h5, .dark .prose-blog h6 { color: #f9fafb; }
+.prose-blog h1 { font-size: 1.875rem; }
+.prose-blog h2 { font-size: 1.5rem; }
+.prose-blog h3 { font-size: 1.25rem; }
+
+.prose-blog p  { margin-bottom: 1.25rem; }
+
+.prose-blog a  { color: #2DBE6C; text-decoration: underline; }
+.prose-blog a:hover { color: #1F8F50; }
+
+.prose-blog ul { list-style: disc;    padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.prose-blog ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.prose-blog li { margin-bottom: 0.4rem; }
+
+.prose-blog blockquote {
+  border-left: 4px solid #2DBE6C;
+  padding-left: 1rem;
+  color: #6b7280;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+.dark .prose-blog blockquote { color: #9ca3af; }
+
+.prose-blog img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  display: block;
+}
+
+.prose-blog table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-size: 0.9rem; }
+.prose-blog th, .prose-blog td { border: 1px solid #e5e7eb; padding: 0.5rem 0.75rem; text-align: left; }
+.dark .prose-blog th, .dark .prose-blog td { border-color: #374151; }
+.prose-blog th { background: #f9fafb; font-weight: 600; }
+.dark .prose-blog th { background: #1f2937; }
+
+.prose-blog pre, .prose-blog code { background: #f3f4f6; border-radius: 0.375rem; font-family: monospace; font-size: 0.875rem; }
+.dark .prose-blog pre, .dark .prose-blog code { background: #1f2937; color: #d1d5db; }
+.prose-blog pre  { padding: 1rem; overflow-x: auto; margin-bottom: 1.25rem; }
+.prose-blog code { padding: 0.15rem 0.4rem; }

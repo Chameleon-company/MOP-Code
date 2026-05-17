@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { usePathname, useRouter } from "@/i18n-navigation";
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -25,6 +25,7 @@ const LanguageDropdown: React.FC = () => {
   }, []);
 
   const selectLanguage = (locale: string) => {
+    setIsOpen(false);
     router.push(pathname, { locale });
     router.refresh();
   };
@@ -34,9 +35,11 @@ const LanguageDropdown: React.FC = () => {
   return (
     <div ref={ref} className="relative">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="mr-2 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium dark:bg-gray-900 dark:hover:bg-green-600 dark:hover:text-gray-900 hover:bg-green-700 hover:text-white"
-      >
+  aria-expanded={isOpen}
+  className="mr-2 inline-flex h-10 min-w-[96px] items-center justify-center rounded-lg border border-green-600 bg-white px-4 text-sm font-medium text-green-600 transition-all duration-200 transform hover:scale-105 hover:bg-green-50 hover:text-green-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:border-green-400 dark:bg-black dark:text-green-300 dark:hover:bg-gray-800"
+>
         {t("Language")}
       </button>
       {isOpen && (
