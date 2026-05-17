@@ -2,7 +2,7 @@
 
 **Authored by:** Phuong Linh Tran (Lily)
 
-**Duration:** 90 mins
+**Duration:** 120 mins
 
 **Level:** Intermediate
 
