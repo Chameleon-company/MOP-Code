@@ -1,0 +1,3 @@
+import type { RefObject } from '@mui/x-internals/types';
+import type { GridPrivateApiCommon } from "../../models/api/gridApiCommon.js";
+export declare const useGridNativeEventListener: <PrivateApi extends GridPrivateApiCommon, K extends keyof HTMLElementEventMap>(apiRef: RefObject<PrivateApi>, ref: () => HTMLElement | undefined | null, eventName: K, handler: (event: HTMLElementEventMap[K]) => any, options?: AddEventListenerOptions) => void;
