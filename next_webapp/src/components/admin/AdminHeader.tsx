@@ -3,15 +3,15 @@
 import { Bell, Search, UserCircle2, Settings, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 
 export default function AdminHeader() {
   const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const params = useParams();
   const router = useRouter();
-  const locale = params?.locale as string;
+  const locale = useLocale();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -31,7 +31,10 @@ export default function AdminHeader() {
 
   const handleLogout = () => {
     setProfileOpen(false);
-    router.push(`/${locale}/login`);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+    router.push(`/${locale}`);
   };
 
   return (
