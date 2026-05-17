@@ -12,3 +12,6 @@ __pycache__/
 
 # archive folder
 **/archive/
+
+# text clipping
+*.textClipping
