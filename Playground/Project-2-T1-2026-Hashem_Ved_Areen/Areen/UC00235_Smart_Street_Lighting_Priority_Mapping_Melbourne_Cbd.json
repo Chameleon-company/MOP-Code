@@ -1,0 +1,68 @@
+{
+  "use_case_id": "UC00235",
+  "title": "Smart Street Lighting Priority Mapping for Melbourne CBD",
+  "short_description": "Combines Melbourne pedestrian foot traffic and Victorian crime statistics into a transparent Lighting Priority Score, then proposes complete smart lighting layouts (light count, spacing, fixture and annual cost) for the highest-priority Melbourne CBD locations.",
+  "long_description": "This use case shows the City of Melbourne how to combine two of its own open datasets (pedestrian foot traffic and lighting-relevant crime statistics) into a complete smart lighting design assistant. It produces three outputs that a council planner can use directly: a transparent priority score for every pedestrian sensor in the CBD, an interactive map showing where lighting should be prioritised, and a proposed lighting layout for each high-priority location including recommended number of lights, spacing, fixture type, and annual energy cost.",
+  "domain": "Urban Planning and Development",
+  "topic": "Smart Cities, Public Safety, Energy Efficiency",
+  "author": "Areen Yapa",
+  "student_id": "s224153857",
+  "team": "Project 2 - Smart Street Lighting Design System",
+  "trimester": "T1 2026",
+  "level": "Intermediate",
+  "duration_minutes": 60,
+  "prerequisite_skills": ["Python", "pandas", "folium", "Jupyter Notebook"],
+  "tags": [
+    "smart cities",
+    "street lighting",
+    "pedestrian counting",
+    "crime statistics",
+    "priority scoring",
+    "folium map",
+    "melbourne CBD",
+    "city of melbourne",
+    "urban planning",
+    "energy efficiency",
+    "public safety"
+  ],
+  "datasets": [
+    {
+      "name": "Pedestrian Counting System (counts per hour)",
+      "provider": "City of Melbourne Open Data Portal",
+      "url": "https://data.melbourne.vic.gov.au/explore/dataset/pedestrian-counting-system-monthly-counts-per-hour",
+      "access_method": "REST API",
+      "licence": "Creative Commons Attribution"
+    },
+    {
+      "name": "Criminal Incidents Visualisation, Year Ending December 2025",
+      "provider": "Crime Statistics Agency Victoria",
+      "url": "https://www.crimestatistics.vic.gov.au/crime-statistics/latest-victorian-crime-data/download-data",
+      "access_method": "Direct URL (XLSX)",
+      "licence": "Creative Commons Attribution 4.0"
+    }
+  ],
+  "technologies": [
+    "Python 3",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "folium",
+    "requests",
+    "openpyxl"
+  ],
+  "outputs": [
+    "Interactive Folium map of Melbourne CBD with colour-coded priority markers",
+    "Ranked CSV of priority locations across all sensors",
+    "CSV of proposed lighting layouts (light count, spacing, fixture, annual cost)"
+  ],
+  "scenario": "The City of Melbourne is planning the next rollout of smart street lighting. Smart lighting is expensive to install, so council needs an evidence-based way to decide which CBD locations should be prioritised first, and once a location is chosen, how many lights to install, what spacing to use, and what the running cost will be.",
+  "key_question": "Where should the City of Melbourne deploy smart street lighting next, and what should each installation look like?",
+  "approach": "Rule-based priority scoring combined with a transparent lighting design module. The Lighting Priority Score combines normalised pedestrian foot traffic and normalised lighting-relevant crime using documented weights. The layout module applies AS/NZS 1158 spacing guidance and standard commercial smart lighting parameters to propose a complete layout per priority location.",
+  "files": [
+    "UC00235_Smart_Street_Lighting_Priority_Mapping_Melbourne_Cbd.ipynb",
+    "UC00235_Smart_Street_Lighting_Priority_Mapping_Melbourne_Cbd.html",
+    "UC00235_Smart_Street_Lighting_Priority_Mapping_Melbourne_Cbd.json"
+  ],
+  "publication_status": "playground",
+  "created_date": "2026-05-17"
+}

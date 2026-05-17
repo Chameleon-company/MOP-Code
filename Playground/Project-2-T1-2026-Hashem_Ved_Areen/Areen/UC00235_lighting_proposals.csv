@@ -1,0 +1,5 @@
+Sensor Name,Suburb,Latitude,Longitude,Priority Score,Priority Tier,Recommended Lights,Spacing (m),Fixture,Annual Energy (kWh),Annual Cost (AUD)
+Swa123_T,Melbourne,-37.81487988,144.9660878,50.0,Medium,9,25,80W LED smart luminaire with motion-adaptive dimming,1892.0,530.0
+VAC_T,Melbourne,-37.82129925,144.96879309,45.1,Medium,9,25,80W LED smart luminaire with motion-adaptive dimming,1892.0,530.0
+SouthB_T,Melbourne,-37.82018685,144.96508508,42.3,Medium,9,25,80W LED smart luminaire with motion-adaptive dimming,1892.0,530.0
+QVN_T,Melbourne,-37.81057846,144.96444294,42.0,Medium,9,25,80W LED smart luminaire with motion-adaptive dimming,1892.0,530.0
