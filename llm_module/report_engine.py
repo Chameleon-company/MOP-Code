@@ -3,6 +3,7 @@ from llm_module.config import API_KEY
 from llm_module.severity import classify_severity
 from llm_module.rag_engine import load_rules
 
+# ✅ FIXED CLIENT
 client = OpenAI(api_key=API_KEY)
 
 def generate_report(data):
@@ -26,7 +27,7 @@ def generate_report(data):
 
     res = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role":"user","content":prompt}]
+        messages=[{"role": "user", "content": prompt}]
     )
 
     return f"Severity: {severity}\n" + res.choices[0].message.content
