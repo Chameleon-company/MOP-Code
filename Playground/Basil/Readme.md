@@ -126,7 +126,9 @@ resume_job_matcher/
 │   └── resume.txt
 │
 ├── notebooks/
-│   └── resume_job_matching.ipynb
+│   ├── resume_job_matching.ipynb
+│   ├── resume_job_matching.json
+│   └── resume_job_matching.html
 │
 ├── outputs/
 │   ├── final_prototype_results.csv
