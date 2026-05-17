@@ -1,240 +1,140 @@
-
 # **Resume Job Matcher**
 
-An NLP-based Resume-to-Job Matching Assistant that evaluates how well a candidate’s resume aligns with a job description using a combination of keyword matching, semantic similarity, and skill analysis.
+An NLP-based Resume-to-Job Matching Assistant that evaluates how well a candidate’s resume aligns with job descriptions using a combination of keyword matching, semantic similarity, skill analysis, and API-based data retrieval.
 
 ---
 
-## **Overview**
+# **Overview**
 
-This project started as a notebook-based prototype and was extended into a full system that combines multiple matching techniques to produce a more accurate and interpretable **job-fit score**.
+This project started as a notebook-based prototype and evolved into a more complete decision-support system that combines multiple NLP techniques to generate a more balanced and interpretable **Job Fit Score (%)**.
 
 The system helps users:
 
-* Identify strong-fit roles
-* Understand skill gaps
-* Avoid applying to poorly matched jobs
+- Identify strong-fit roles
+- Understand missing skills
+- Compare multiple job opportunities
+- Avoid applying to poorly matched positions
+
+The project was later upgraded to include:
+
+- A Streamlit-based interactive UI
+- API-based data access using FastAPI
+- Modular backend architecture
+- Hybrid NLP scoring pipeline
 
 ---
 
-## **Key Features**
+# **Key Features**
 
-### **1. Multi-Method Matching**
+## **1. Multi-Method Matching System**
 
-The system uses three complementary approaches:
+The system combines multiple NLP approaches:
 
-* **TF-IDF + Cosine Similarity**
-  Captures keyword-level relevance between resume and job description.
+### **TF-IDF + Cosine Similarity**
 
-* **Semantic Similarity (Embeddings)**
-  Uses `sentence-transformers` to understand contextual meaning and related concepts.
+Captures keyword-level similarity between the resume and job description.
 
-* **Skill Extraction & Gap Analysis**
-  Identifies:
-
-  * Matched skills
-  * Missing skills
-    based on a curated technical skill list.
+Used as the baseline retrieval model.
 
 ---
 
-### **2. Hybrid Scoring Model**
+### **Semantic Similarity (Sentence Embeddings)**
 
-A final **Job Fit Score (%)** is computed using:
+Uses `sentence-transformers` to capture contextual meaning and semantic relationships between skills, roles, and descriptions.
 
-* 50% Semantic similarity
-* 30% Skill overlap
-* 20% TF-IDF similarity
+This improves matching beyond exact keyword overlap.
+
+---
+
+### **Skill Extraction & Gap Analysis**
+
+The system extracts technical skills from both the resume and job descriptions using a curated skill list.
+
+It identifies:
+
+- Matched skills
+- Missing skills
+- Skill overlap score
+
+This improves explainability and interpretability.
+
+---
+
+## **2. Hybrid Scoring Model**
+
+The final **Job Fit Score (%)** combines:
+
+- 50% Semantic similarity
+- 30% Skill overlap
+- 20% TF-IDF similarity
 
 This balances:
 
-* contextual understanding
-* explicit skill requirements
-* keyword precision
+- contextual understanding
+- explicit skill matching
+- keyword precision
 
 ---
 
-### **3. Interactive UI (Streamlit App)**
+## **3. Interactive Streamlit UI**
 
-A lightweight web interface allows users to:
+The project includes a lightweight Streamlit web application where users can:
 
-* Upload a resume (`.txt` or `.pdf`)
-* Or paste resume text
-* Paste a job description
-* Generate:
+- Upload resumes (`.txt` or `.pdf`)
+- Paste resume text
+- Paste job descriptions
+- Generate:
 
-  * Job Fit Score (%)
-  * TF-IDF match score
-  * Semantic match score
-  * Skill overlap score
-  * Matched & missing skills
+  - Job Fit Score (%)
+  - TF-IDF similarity
+  - Semantic similarity
+  - Skill overlap score
+  - Matched skills
+  - Missing skills
+
+The UI transforms the notebook prototype into a practical demo-ready application.
 
 ---
 
-## **Project Structure**
+## **4. API-Based Data Access**
+
+The system was upgraded from direct local file loading to an API-based architecture using **FastAPI**.
+
+Instead of loading data directly inside the notebook, the notebook and frontend can retrieve resume and job data through REST API endpoints.
+
+Available endpoints include:
+
+- `/resume/default`
+- `/jobs`
+
+This improves:
+
+- modularity
+- reproducibility
+- maintainability
+- real-world system design
+
+---
+
+# **Project Structure**
 
 ```text
 resume_job_matcher/
+│
 ├── data/
 │   ├── jobs.csv
 │   └── resume.txt
+│
 ├── notebooks/
 │   └── resume_job_matching.ipynb
+│
 ├── outputs/
 │   ├── final_prototype_results.csv
 │   ├── ranked_jobs.csv
 │   ├── prototype_results_chart.png
 │   └── tfidf_vs_semantic_comparison.csv
+│
+├── api_server.py
 ├── app.py
 ├── requirements.txt
 └── README.md
-```
-
----
-
-## **Notebook Workflow**
-
-The notebook follows a structured pipeline:
-
-1. Imports and setup
-2. Load input data
-3. Text preprocessing
-4. TF-IDF similarity (baseline model)
-5. Skill extraction and gap analysis
-6. Prototype scoring and ranking
-7. Semantic similarity (advanced model)
-8. TF-IDF vs semantic comparison
-9. Final hybrid scoring model
-10. Evaluation and reflection
-
----
-
-## **Requirements**
-
-Install dependencies using:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Main libraries:
-
-* pandas
-* nltk
-* scikit-learn
-* matplotlib
-* sentence-transformers
-* streamlit
-* PyPDF2
-
----
-
-## **How to Run**
-
-### **Notebook (Analysis & Development)**
-
-1. Open:
-
-   ```
-   notebooks/resume_job_matching.ipynb
-   ```
-2. Run all cells from top to bottom.
-3. Ensure data files exist in `data/`.
-4. Outputs will be saved in `outputs/`.
-
----
-
-### **Streamlit App (UI)**
-
-Run:
-
-```bash
-streamlit run app.py
-```
-
-Then open the browser link (usually `http://localhost:8501`).
-
----
-
-## **Inputs**
-
-* `data/resume.txt`: Resume used for matching (plain text)
-* `data/jobs.csv`: Job dataset with:
-
-  * title
-  * company
-  * description
-
-### UI Inputs:
-
-* Resume upload (`.txt` or `.pdf`) or pasted text
-* Single job description (pasted)
-
----
-
-## **Outputs**
-
-### Notebook outputs:
-
-* `ranked_jobs.csv`: TF-IDF ranking results
-* `final_prototype_results.csv`: Combined prototype scores
-* `tfidf_vs_semantic_comparison.csv`: Method comparison
-* `prototype_results_chart.png`: Visualization
-
-### UI outputs:
-
-* Job Fit Score (%)
-* TF-IDF match
-* Semantic match
-* Skill overlap
-* Matched skills
-* Missing skills
-
----
-
-## **Core Insights**
-
-* **TF-IDF** is precise but limited to exact keywords
-* **Semantic similarity** captures meaning but can overgeneralize
-* **Skill overlap** improves interpretability but may introduce bias
-
-A **hybrid approach** produces the most balanced results.
-
----
-
-## **Limitations**
-
-* Scoring weights are manually defined (not learned from real data)
-* Skill extraction depends on a predefined list
-* Does not account for:
-
-  * experience level
-  * years of experience
-  * project depth
-* Does not predict actual hiring outcomes (only job-fit estimation)
-
----
-
-## **Future Improvements**
-
-* Learn scoring weights from real hiring data
-* Improve skill extraction using NLP (e.g., NER)
-* Add resume parsing for structured formats (PDF/DOCX)
-* Integrate LLM-based explanations or recommendations
-* Expand UI into a full application
-
----
-
-## **Summary**
-
-This project demonstrates how combining multiple NLP techniques can improve resume-to-job matching by balancing:
-
-* keyword precision
-* contextual understanding
-* skill-based reasoning
-
-It evolves from a simple prototype into a **hybrid decision-support system** with both analytical and practical applications.
-
----
-
-
