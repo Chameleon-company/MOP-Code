@@ -240,6 +240,60 @@ const Statistics = () => {
           </main>
         </>
       )}
+          <div className="overflow-x-auto px-4 py-2 bg-green-500 rounded-lg">  
+            <form className="flex items-center w-full" style={{color: 'black'}}>
+              <input
+                type="search"
+                placeholder={t("Enter Tag name")}
+                className="w-2/5 p-4 mr-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </form>
+            <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white">
+              <thead className="bg-green-600">
+                <tr>
+                  <th className="px-4 py-3 border-b-2 border-gray-200 bg-[#3EB470] text-center text-xl font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-100">{t("No")}</th>
+                  <th className="px-4 py-3 border-b-2 border-gray-200 bg-[#3EB470] text-center text-xl font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-100">{t("Tag")}</th>
+                  <th className="px-4 py-3 border-b-2 border-gray-200 bg-[#3EB470] text-center text-xl font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-100">{t("number")}</th>
+                  <th className="px-4 py-3 border-b-2 border-gray-200 bg-[#3EB470] text-center text-xl font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-100">{t("Popularity")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {records.filter((item) => search === "" || item.tag.toLowerCase().includes(search.toLowerCase())).map((study, index) => (
+                  <tr key={study.id} className={index % 2 !== 0 ? "bg-[#3EB470]" : "bg-white dark:bg-gray-800"}>
+                    <td className="px-5 py-5 border-b border-gray-200 text-lg text-center">{study.id}</td>
+                    <td className="px-5 py-5 border-b border-gray-200 text-lg text-center">{study.tag}</td>
+                    <td className="px-5 py-5 border-b border-gray-200 text-lg text-center">{study.publishNumber}</td>
+                    <td className="px-5 py-5 border-b border-gray-200 text-lg text-center">{study.popularity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <nav className="p-3 mt-5 flex justify-evenly items-center bg-[#3EB470] text-black dark:text-white">
+            <p>{firstIndex + 1} - {lastIndex} of {filteredStudies.length}</p>
+            <div className="flex gap-2 justify-center">
+              <button onClick={prePage} disabled={currentPage === 1} className={`font-bold py-1 px-2 ${currentPage === 1 ? "opacity-50" : "hover:underline"}`}>{"<"}</button>
+              <span>Page {currentPage}</span>
+              <button onClick={nextPage} disabled={currentPage === npage} className={`font-bold py-1 px-2 ${currentPage === npage ? "opacity-50" : "hover:underline"}`}>{">"}</button>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>{t("Rows per page")}</span>
+              <select
+                value={pagefilter}
+                onChange={(e) => setPageFilter(e.target.value)}
+                className="p-2 border shadow-lg" style={{color: 'black'}}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+          </nav>
+        </section>
+      </main>
       <Footer />
     </div>
   );

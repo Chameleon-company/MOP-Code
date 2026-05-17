@@ -8,6 +8,9 @@ import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Insights from "@/components/Insights";
 import FAQSection from "@/components/FAQSection";
+import SocialMediaFeed from "@/components/SocialMediaFeed";
+import UseCaseInsights from "@/components/UseCaseInsights";
+
 
 const Home = () => {
   return (
@@ -20,6 +23,8 @@ const Home = () => {
       <ContactUsSection />
       <PartnersSection />
       <BackToTopButton />
+      <UseCaseInsights />
+      <SocialMediaFeed />
       <Chatbot />
       <Footer />
     </div>
