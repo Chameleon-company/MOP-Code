@@ -1,0 +1,23 @@
+{
+    "title": "Tracking Unique Insect Species in City of Melbourne",
+    "description": "Analysis of insect species using biodiversity datasets and clustering to identify unique species zones in Melbourne.",
+    "author": "Rohang Shah",
+    "duration": "90 minutes",
+    "skill_level": "Intermediate",
+    "technologies": [
+        "Python",
+        "Pandas",
+        "GeoPandas",
+        "Folium",
+        "DBSCAN",
+        "Seaborn"
+    ],
+    "tags": [
+        "Biodiversity",
+        "Melbourne",
+        "Geospatial Analysis",
+        "Clustering",
+        "Sustainability"
+    ],
+    "use_case_id": "UC00042"
+}

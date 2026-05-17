@@ -1,0 +1,255 @@
+//----------------------------------------------------------//
+//	PROJECT TILES
+//----------------------------------------------------------//
+.projects-tiles .project:first-child {
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .projects-tiles .project {
+    margin-top: 10rem;
+  }
+  .projects-tiles .project-details {
+    padding: 2rem;
+    padding-bottom: 1rem;
+  }
+}
+@media (max-width: 767px) {
+  .projects-tiles .project {
+    margin-top: 5rem;
+  }
+}
+//----------------------------------------------------------//
+//	PROJECTS OVERFLOW
+//----------------------------------------------------------//
+.projects-overflow .project-details {
+  width: 100%;
+}
+.projects-overflow .item {
+  position: relative;
+  margin-top: 2.5rem;
+}
+.projects-overflow .item:first-child {
+  margin-top: 0;
+}
+@media (min-width: 1200px) {
+  .projects-overflow .project-details {
+    max-width: 24rem;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .projects-overflow .project-details {
+    max-width: 20rem;
+  }
+}
+@media (min-width: 992px) {
+  .projects-overflow .project-details {
+    position: absolute;
+  }
+  .projects-overflow .item {
+    margin-top: 10rem;
+  }
+}
+@media (max-width: 991.98px) {
+  .projects-overflow .project {
+    box-shadow: $box-shadow !important;
+    border-radius: $border-radius !important;
+  }
+  .projects-overflow .project figure img {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .projects-overflow .project-details .card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+//----------------------------------------------------------//
+//	PROJECTS OVERFLOW 2
+//----------------------------------------------------------//
+.projects-overflow2 .project-image {
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.projects-overflow2 .item {
+  position: relative;
+  margin-top: 2.5rem;
+}
+.projects-overflow2 .item .card {
+  z-index: 1;
+}
+.projects-overflow2 .item .card .card-body {
+  padding: 4rem;
+}
+.projects-overflow2 .item:first-child {
+  margin-top: 0;
+}
+@media (min-width: 1400px) {
+  .projects-overflow2 .project-image {
+    max-width: 30rem;
+  }
+}
+@media (min-width: 1200px) {
+  .projects-overflow2 .project-image {
+    max-width: 30rem;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .projects-overflow2 .project-image {
+    max-width: 25rem;
+  }
+}
+//----------------------------------------------------------//
+//	OVERLAP GRID
+//----------------------------------------------------------//
+.overlap-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .overlap-grid-2 .item:nth-child(1) {
+    width: 70%;
+    margin-top: 0;
+    margin-left: 30%;
+    z-index: 3;
+  }
+  .overlap-grid-2 .item:nth-child(2) {
+    width: 55%;
+    margin-top: -45%;
+    margin-left: 0;
+    z-index: 4;
+  }
+  .overlap-grid-2 .item:nth-child(3) {
+    width: 60%;
+    margin-top: -35%;
+    margin-left: 40%;
+    z-index: 2;
+  }
+}
+@media (max-width: 767px) {
+  .overlap-grid-2 .item {
+    width: 100%;
+  }
+  .overlap-grid-2 .item+.item {
+    margin-top: 1.5rem;
+  }
+}
+//----------------------------------------------------------//
+//	ITEM LINK
+//----------------------------------------------------------//
+.item,
+.swiper-slide {
+  figure {
+    position: relative;
+  }
+  figure .item-link,
+  figure .item-like,
+  figure .item-view {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    bottom: 1rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    z-index: 1;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    color: $main-dark;
+    background: rgba($white, 0.7);
+    box-shadow: $box-shadow-sm;
+    @include font-size(1rem);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    &:hover {
+      background: rgba($white, 0.9);
+    }
+  }
+  &:hover figure .item-link,
+  &:hover figure .item-like,
+  &:hover figure .item-view {
+    opacity: 1;
+    right: 1rem;
+  }
+  figure .item-like,
+  figure .item-view {
+    background: $white;
+  }
+  figure .item-like {
+    bottom: auto;
+    top: 1rem;
+  }
+  figure .item-view {
+    bottom: auto;
+    top: 3.7rem;
+  }
+  figure .item-cart {
+    opacity: 0;
+    position: absolute;
+    bottom: -2.0rem;
+    padding: 0.8rem;
+    margin: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    color: $white;
+    background: rgba($dark, 0.8);
+    backface-visibility: hidden;
+    text-align: center;
+    transition: all .3s ease-in-out;
+    @include font-size(0.85rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $headings-font-weight;
+    i {
+      font-weight: normal;
+      margin-right: 0.25rem;
+      margin-top: -0.05rem;
+    }
+    &:hover {
+      background: rgba($dark, 0.9);
+    }
+  }
+  &:hover figure .item-cart {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+//----------------------------------------------------------//
+//	SHOP
+//----------------------------------------------------------//
+.shop figure {
+  overflow: hidden;
+  transform: translate3d(0px, 0px, 0px);
+}
+.price {
+  margin: 0;
+  del {
+    color: $ash;
+  }
+  ins {
+    text-decoration: none;
+    color: $red;
+  }
+}
+.shopping-cart .shopping-cart-item {
+  .price {
+    margin-bottom: 0.4rem;
+  }
+}
+table.shopping-cart {
+  td {
+    vertical-align: middle;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+}
