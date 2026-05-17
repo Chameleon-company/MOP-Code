@@ -1,3 +1,0 @@
-model_version,silhouette,davies_bouldin,calinski_harabasz,selected_config
-baseline,0.7820582127852952,0.7067867007116734,3300.3955623295547,"scaler=standard, k=4, random_state=42"
-improved,0.7820582127852952,0.7067867007116734,3300.3955623295547,"scaler=standard, k=4, random_state=42"
