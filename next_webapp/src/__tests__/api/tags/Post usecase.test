@@ -1,0 +1,391 @@
+/**
+ * @jest-environment node
+ */
+ 
+import { testApiHandler } from 'next-test-api-route-handler';
+import * as handler from '@/app/api/usecases/route';
+ 
+// ─── Supabase mock ────────────────────────────────────────────────────────────
+// Chains used in the POST route:
+//   usecases:     .from('usecases').insert().select().single()
+//   tags insert:  .from('tags').insert().select('id,name,slug').single()
+//   tags fetch:   .from('tags').select('id,name,slug').eq().single()
+//   usecase_tags: .from('usecase_tags').insert()
+ 
+const mockUsecaseSingle   = jest.fn();
+const mockTagInsertSingle = jest.fn();
+const mockTagFetchSingle  = jest.fn();
+const mockLinkInsert      = jest.fn();
+ 
+// Tracks whether we're on a tags insert call or tags fetch call
+let tagCallCount = 0;
+ 
+jest.mock('@/library/supabaseClient', () => ({
+  supabase: {
+    from: jest.fn((table: string) => {
+      if (table === 'usecases') {
+        return {
+          insert: jest.fn().mockReturnValue({
+            select: jest.fn().mockReturnValue({
+              single: mockUsecaseSingle,
+            }),
+          }),
+        };
+      }
+ 
+      if (table === 'tags') {
+        tagCallCount++;
+        if (tagCallCount % 2 === 1) {
+          // Odd calls = insert attempt
+          return {
+            insert: jest.fn().mockReturnValue({
+              select: jest.fn().mockReturnValue({ single: mockTagInsertSingle }),
+            }),
+          };
+        } else {
+          // Even calls = fetch existing (23505 conflict path)
+          return {
+            select: jest.fn().mockReturnValue({
+              eq: jest.fn().mockReturnValue({ single: mockTagFetchSingle }),
+            }),
+          };
+        }
+      }
+ 
+      if (table === 'usecase_tags') {
+        return { insert: mockLinkInsert };
+      }
+    }),
+  },
+}));
+ 
+// ─── errorResponse mock ───────────────────────────────────────────────────────
+jest.mock('@/app/api/library/errorResponse', () => ({
+  errorResponse: (message: string, status: number, code: string) =>
+    new Response(JSON.stringify({ error: message, code }), {
+      status,
+      headers: { 'Content-Type': 'application/json' },
+    }),
+}));
+ 
+// ─── Helper ───────────────────────────────────────────────────────────────────
+async function callPost(body: unknown) {
+  let status = 0;
+  let responseBody: Record<string, unknown> = {};
+ 
+  await testApiHandler({
+    appHandler: handler,
+    async test({ fetch }) {
+      const res = await fetch({
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      status = res.status;
+      responseBody = await res.json();
+    },
+  });
+ 
+  return { status, body: responseBody };
+}
+ 
+// Minimal usecase row returned by Supabase after insert
+const mockUsecaseRow = {
+  id: 1,
+  title: 'Test Case',
+  description: 'A description',
+  cover_img: null,
+  category_id: null,
+  created_by: 'user-uuid-123',
+};
+ 
+// ─── Tests ────────────────────────────────────────────────────────────────────
+beforeEach(() => {
+  jest.clearAllMocks();
+  tagCallCount = 0;
+});
+ 
+// ── 1. Invalid JSON ───────────────────────────────────────────────────────────
+describe('invalid JSON body', () => {
+  test('returns 400 INVALID_JSON for malformed body', async () => {
+    let status = 0;
+    let responseBody: Record<string, unknown> = {};
+ 
+    await testApiHandler({
+      appHandler: handler,
+      async test({ fetch }) {
+        const res = await fetch({
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: 'NOT_JSON{{{',
+        });
+        status = res.status;
+        responseBody = await res.json();
+      },
+    });
+ 
+    expect(status).toBe(400);
+    expect(responseBody.code).toBe('INVALID_JSON');
+  });
+});
+ 
+// ── 2 & 3. Field validation ───────────────────────────────────────────────────
+describe('required field validation', () => {
+  test('returns 400 MISSING_FIELDS when title is absent', async () => {
+    const { status, body } = await callPost({ created_by: 'user-1' });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+ 
+  test('returns 400 MISSING_FIELDS when title is whitespace only', async () => {
+    const { status, body } = await callPost({ title: '   ', created_by: 'user-1' });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+ 
+  test('returns 400 MISSING_FIELDS when title is not a string', async () => {
+    const { status, body } = await callPost({ title: 99, created_by: 'user-1' });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+ 
+  test('returns 400 MISSING_FIELDS when created_by is absent', async () => {
+    const { status, body } = await callPost({ title: 'Hello' });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+ 
+  test('returns 400 MISSING_FIELDS when created_by is empty string', async () => {
+    const { status, body } = await callPost({ title: 'Hello', created_by: '' });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+ 
+  test('returns 400 MISSING_FIELDS when created_by is null', async () => {
+    const { status, body } = await callPost({ title: 'Hello', created_by: null });
+    expect(status).toBe(400);
+    expect(body.code).toBe('MISSING_FIELDS');
+  });
+});
+ 
+// ── 4. usecases insert DB error ───────────────────────────────────────────────
+describe('usecases insert failure', () => {
+  test('returns 500 INTERNAL_ERROR when DB insert fails', async () => {
+    mockUsecaseSingle.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'DB error', code: 'PGRST000' },
+    });
+ 
+    const { status, body } = await callPost({ title: 'My Case', created_by: 'user-1' });
+    expect(status).toBe(500);
+    expect(body.code).toBe('INTERNAL_ERROR');
+  });
+});
+ 
+// ── 5. No tags provided ───────────────────────────────────────────────────────
+describe('no tags in payload', () => {
+  beforeEach(() => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+  });
+ 
+  test('succeeds without tags field', async () => {
+    const { status, body } = await callPost({ title: 'Case A', created_by: 'user-1' });
+    expect(status).toBe(201);
+    expect(body.data.tags).toEqual([]);
+    expect(mockTagInsertSingle).not.toHaveBeenCalled();
+  });
+ 
+  test('succeeds with tags: null', async () => {
+    const { status, body } = await callPost({ title: 'Case B', created_by: 'user-1', tags: null });
+    expect(status).toBe(201);
+    expect(body.data.tags).toEqual([]);
+  });
+ 
+  test('succeeds with tags: []', async () => {
+    const { status, body } = await callPost({ title: 'Case C', created_by: 'user-1', tags: [] });
+    expect(status).toBe(201);
+    expect(body.data.tags).toEqual([]);
+  });
+});
+ 
+// ── 6. Blank / non-string tag entries silently skipped ────────────────────────
+describe('invalid tag entries are skipped', () => {
+  test('skips blank strings and non-strings', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+ 
+    const { status, body } = await callPost({
+      title: 'Case D',
+      created_by: 'user-1',
+      tags: ['', '   ', 123, null, true],
+    });
+ 
+    expect(status).toBe(201);
+    expect(body.data.tags).toEqual([]);
+    expect(mockTagInsertSingle).not.toHaveBeenCalled();
+  });
+});
+ 
+// ── 7. New tag inserted successfully ─────────────────────────────────────────
+describe('new tag creation', () => {
+  test('inserts tag and links it to use case', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle.mockResolvedValueOnce({
+      data: { id: 20, name: 'Artificial Intelligence', slug: 'artificial-intelligence' },
+      error: null,
+    });
+    mockLinkInsert.mockResolvedValueOnce({ error: null });
+ 
+    const { status, body } = await callPost({
+      title: 'Case E',
+      created_by: 'user-1',
+      tags: ['Artificial Intelligence'],
+    });
+ 
+    expect(status).toBe(201);
+    expect(body.data.tags).toHaveLength(1);
+    expect(body.data.tags[0].slug).toBe('artificial-intelligence');
+    expect(mockLinkInsert).toHaveBeenCalledTimes(1);
+  });
+});
+ 
+// ── 8. Tag conflict (23505) → fetch existing ─────────────────────────────────
+describe('tag already exists (23505 conflict)', () => {
+  test('fetches existing tag and links it', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle.mockResolvedValueOnce({
+      data: null,
+      error: { code: '23505', message: 'duplicate key value' },
+    });
+    mockTagFetchSingle.mockResolvedValueOnce({
+      data: { id: 5, name: 'healthcare', slug: 'healthcare' },
+      error: null,
+    });
+    mockLinkInsert.mockResolvedValueOnce({ error: null });
+ 
+    const { status, body } = await callPost({
+      title: 'Case G',
+      created_by: 'user-1',
+      tags: ['healthcare'],
+    });
+ 
+    expect(status).toBe(201);
+    expect(body.data.tags[0]).toEqual({ id: 5, name: 'healthcare', slug: 'healthcare' });
+  });
+});
+ 
+// ── 9. Tag conflict + fetch fails ────────────────────────────────────────────
+describe('tag conflict fetch failure', () => {
+  test('returns 500 when existing tag cannot be fetched after conflict', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle.mockResolvedValueOnce({
+      data: null,
+      error: { code: '23505', message: 'duplicate key' },
+    });
+    mockTagFetchSingle.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'row not found', code: 'PGRST116' },
+    });
+ 
+    const { status, body } = await callPost({
+      title: 'Case H',
+      created_by: 'user-1',
+      tags: ['healthcare'],
+    });
+ 
+    expect(status).toBe(500);
+    expect(body.code).toBe('INTERNAL_ERROR');
+  });
+});
+ 
+// ── 10. usecase_tags non-23505 insert error ───────────────────────────────────
+describe('usecase_tags link failure', () => {
+  test('returns 500 for non-duplicate link error', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle.mockResolvedValueOnce({
+      data: { id: 20, name: 'ai', slug: 'ai' },
+      error: null,
+    });
+    mockLinkInsert.mockResolvedValueOnce({
+      error: { code: '23503', message: 'foreign key violation' },
+    });
+ 
+    const { status, body } = await callPost({
+      title: 'Case I',
+      created_by: 'user-1',
+      tags: ['ai'],
+    });
+ 
+    expect(status).toBe(500);
+    expect(body.code).toBe('INTERNAL_ERROR');
+  });
+});
+ 
+// ── 11. usecase_tags duplicate link is idempotent ─────────────────────────────
+describe('usecase_tags duplicate link', () => {
+  test('silently ignores 23505 on link insert and still returns 201', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle.mockResolvedValueOnce({
+      data: { id: 20, name: 'ai', slug: 'ai' },
+      error: null,
+    });
+    mockLinkInsert.mockResolvedValueOnce({
+      error: { code: '23505', message: 'duplicate key' },
+    });
+ 
+    const { status, body } = await callPost({
+      title: 'Case J',
+      created_by: 'user-1',
+      tags: ['ai'],
+    });
+ 
+    expect(status).toBe(201);
+    expect(body.data.tags[0].slug).toBe('ai');
+  });
+});
+ 
+// ── 12. Duplicate tags deduplicated ──────────────────────────────────────────
+describe('duplicate tag deduplication', () => {
+  test('same tag ID appearing twice is returned only once', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle
+      .mockResolvedValueOnce({ data: { id: 5, name: 'ai', slug: 'ai' }, error: null })
+      .mockResolvedValueOnce({ data: { id: 5, name: 'ai', slug: 'ai' }, error: null });
+    mockLinkInsert.mockResolvedValue({ error: null });
+ 
+    const { status, body } = await callPost({
+      title: 'Case K',
+      created_by: 'user-1',
+      tags: ['ai', 'ai'],
+    });
+ 
+    expect(status).toBe(201);
+    const aiTags = body.data.tags.filter((t: { id: number }) => t.id === 5);
+    expect(aiTags).toHaveLength(1);
+  });
+});
+ 
+// ── 13. Full happy path ───────────────────────────────────────────────────────
+describe('full happy path', () => {
+  test('creates use case with multiple tags and returns 201 with all data', async () => {
+    mockUsecaseSingle.mockResolvedValue({ data: mockUsecaseRow, error: null });
+    mockTagInsertSingle
+      .mockResolvedValueOnce({ data: { id: 10, name: 'fintech',    slug: 'fintech'    }, error: null })
+      .mockResolvedValueOnce({ data: { id: 11, name: 'blockchain', slug: 'blockchain' }, error: null });
+    mockLinkInsert.mockResolvedValue({ error: null });
+ 
+    const { status, body } = await callPost({
+      title: 'Blockchain Finance',
+      description: 'A fintech use case',
+      cover_img: 'https://example.com/img.png',
+      category_id: 3,
+      created_by: 'user-abc',
+      tags: ['fintech', 'blockchain'],
+    });
+ 
+    expect(status).toBe(201);
+    expect(body.success).toBe(true);
+    expect(body.data.tags).toHaveLength(2);
+    expect(body.data.tags.map((t: { slug: string }) => t.slug)).toEqual(['fintech', 'blockchain']);
+    expect(mockLinkInsert).toHaveBeenCalledTimes(2);
+  });
+});

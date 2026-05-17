@@ -96,14 +96,14 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
 
   return (
     <div
-      className={`rounded-xl p-5 shadow-md transition-all duration-300 hover:shadow-lg bg-white dark:bg-gray-800 overflow-hidden relative ${className}`}
+      className={`group rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-blue-100 dark:hover:ring-white/10 bg-white dark:bg-gray-800 overflow-hidden relative ${className}`}
     >
       {/* Background pattern */}
       <div
         className={`absolute -right-4 -top-4 w-24 h-24 rounded-full opacity-10 ${colors.bg} ${colors.darkBg}`}
       ></div>
 
-      <div className="flex justify-between items-start mb-4 relative z-10">
+      <div className="flex justify-between items-start mb-5 relative z-10">
         <div>
           <h3 className="font-semibold text-gray-600 dark:text-gray-300 text-sm uppercase tracking-wide">
             {metric.title}
@@ -112,7 +112,7 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
             {metric.value}
           </p>
         </div>
-        <div className={`p-3 rounded-lg ${colors.bg} ${colors.darkBg}`}>
+        <div className={`p-3 rounded-xl ${colors.bg} ${colors.darkBg} transition-transform duration-300 group-hover:scale-110`}>
           {metric.icon}
         </div>
       </div>
@@ -144,7 +144,7 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
       <div className="mt-3">
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
           <div
-            className={`h-1.5 rounded-full ${
+            className={`h-1.5 rounded-full transition-all duration-700 ease-out ${
               isPositive
                 ? "bg-green-500 dark:bg-green-400"
                 : "bg-red-500 dark:bg-red-400"
@@ -216,7 +216,7 @@ export const CityMetricsDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {sampleMetrics.map((metric) => (
         <CityMetricCard key={metric.id} metric={metric} />
       ))}

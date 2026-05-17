@@ -1,16 +1,19 @@
 import BlogSinglePage from "@/components/BLogSInglePage";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import React from "react";
 
-function page() {
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
   return (
     <div>
       <Header />
-      <BlogSinglePage />
+      <BlogSinglePage id={id} />
       <Footer />
     </div>
   );
 }
-
-export default page;

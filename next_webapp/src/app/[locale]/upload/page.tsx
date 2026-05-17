@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -23,6 +23,7 @@ const Upload = () => {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const [trimester, setTrimester] = useState("Trimester 1");
+	const [uploadError, setUploadError] = useState<string>("");
 
 	// NEW: highlight state when dragging files over the dropzone
 	const [isDragging, setIsDragging] = useState(false);
@@ -112,6 +113,7 @@ const Upload = () => {
 
 		try {
 			setUploadStatus("uploading");
+			setUploadError("");
 
 			const formData = new FormData();
 			formData.append("file", selectedFile);
@@ -130,6 +132,7 @@ const Upload = () => {
 			setUploadStatus("done");
 		} catch (err) {
 			console.error("Upload failed", err);
+			setUploadError("Upload failed. Please try again.");
 			setUploadStatus("select");
 		}
 	};
@@ -152,7 +155,7 @@ const Upload = () => {
 								value={name}
 								onChange={(e) => setName(e.target.value)}
 								placeholder="Enter name"
-								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+								className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
 							/>
 
 							<label className="block mt-6 mb-2">{t("Tags")}</label>
@@ -176,14 +179,14 @@ const Upload = () => {
 								value={description}
 								onChange={(e) => setDescription(e.target.value)}
 								placeholder="Enter description"
-								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+								className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
 							/>
 
 							<label className="block mt-6 mb-2">{t("Trimester")}</label>
 							<select
 								value={trimester}
 								onChange={(e) => setTrimester(e.target.value)}
-								className="w-full p-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white"
+								className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-[#1d1d1d] dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
 							>
 								<option>{t("Trimester 1")}</option>
 								<option>{t("Trimester 2")}</option>
@@ -192,8 +195,14 @@ const Upload = () => {
 						</div>
 					</form>
 
-					<div
-						role="button"
+					{uploadError && (
+					<div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
+						{uploadError}
+					</div>
+				)}
+
+				<div
+					role="button"
 						tabIndex={0}
 						onKeyDown={handleKeyDown}
 						onClick={onChooseFile}
@@ -260,7 +269,10 @@ const Upload = () => {
 									className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
 									onClick={handleUpload}
 								>
-									{uploadStatus === "done" ? t("Clear") : t("Upload File")}
+									{uploadStatus === "done" ? t("Clear") : t("Upload File")}}
+							{uploadStatus === "uploading" && (
+								<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Uploading... {progress}%</p>
+							)}
 								</button>
 							</div>
 						</div>

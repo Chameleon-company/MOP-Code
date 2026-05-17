@@ -1,59 +1,75 @@
-"use client";
-import React from "react";
+﻿"use client";
+import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
-import { blogs } from "@/utils/data";
+
+interface Blog {
+  id: number;
+  title: string;
+  description: string | null;
+  cover_img: string | null;
+  published_date: string | null;
+}
 
 const BlogPage: React.FC = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/home/blogs?page=1&pageSize=3")
+      .then((r) => r.json())
+      .then((json) => { if (json.success) setBlogs(json.data ?? []); })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <section className="w-full bg-white dark:bg-[#1C1C1C] py-12 px-6 text-black dark:text-white">
-      {/* Header */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-3">
           Latest Blog Posts
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
-          Insights, updates, and expert tips to help you stay ahead in the
-          digital world.
+          Insights, updates, and expert tips to help you stay ahead in the digital world.
         </p>
       </div>
 
-      {/* Blog Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {blogs.map((blog) => (
-          <div
-            key={blog.id}
-            className="bg-gray-50 dark:bg-[#2A2A2A] rounded-2xl shadow-md hover:shadow-xl transition flex flex-col group overflow-hidden"
-          >
-            {/* Blog Image */}
-            <div className="relative w-full h-48">
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform"
-              />
-            </div>
-
-            {/* Blog Content */}
-            <div className="p-5 flex flex-col flex-grow">
-              <span className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                {blog.date} • {blog.author}
-              </span>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-green-500 transition-colors">
-                {blog.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm flex-grow">
-                {blog.description}
-              </p>
-              <Link
-                href={`/blog/${blog.id}`}
-                className="mt-4 inline-block bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-xl text-sm font-medium text-center self-start"
-              >
-                Read More →
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center py-10">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+        </div>
+      ) : blogs.length === 0 ? (
+        <div className="flex min-h-[160px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center dark:border-gray-700 dark:bg-[#242424]">
+          <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+            No blog posts available at the moment.
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+          {blogs.map((blog) => (
+            <Link
+              key={blog.id}
+              href={`/blog/${blog.id}`}
+              className="group block overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+            >
+              {blog.cover_img && (
+                <div className="h-44 overflow-hidden">
+                  <img
+                    src={blog.cover_img}
+                    alt={blog.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <div className="p-5">
+                <h3 className="mb-2 font-bold text-gray-900 dark:text-white line-clamp-2">{blog.title}</h3>
+                {blog.description && (
+                  <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{blog.description}</p>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
