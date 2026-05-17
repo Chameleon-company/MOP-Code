@@ -1,0 +1,103 @@
+{
+    "title": "UC00229_Smart_Streetlight_Fault_Detection",
+    "name": "UC00229_Smart_Streetlight_Fault_Detection",
+    "description": "Detect faulty streetlights in low-light urban environments using computer vision, YOLO object detection, image preprocessing, RGB brightness analysis, and AI-generated maintenance reporting.",
+    "tags": [
+        "streetlight detection",
+        "computer vision",
+        "YOLO",
+        "OpenCV",
+        "deep learning",
+        "low light image analysis",
+        "smart city",
+        "RGB analysis",
+        "CLAHE",
+        "brightness enhancement",
+        "fault detection",
+        "LLM reporting",
+        "FastAPI",
+        "Streamlit",
+        "object detection",
+        "image preprocessing",
+        "urban infrastructure",
+        "AI maintenance system",
+        "data analysis",
+        "visualisation"
+    ],
+    "difficulty": "Intermediate",
+    "technology": [
+        {
+            "name": "Python",
+            "code": "python"
+        },
+        {
+            "name": "Ultralytics YOLO",
+            "code": "python"
+        },
+        {
+            "name": "OpenCV",
+            "code": "python"
+        },
+        {
+            "name": "NumPy",
+            "code": "python"
+        },
+        {
+            "name": "Pandas",
+            "code": "python"
+        },
+        {
+            "name": "Matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "PyTorch",
+            "code": "python"
+        },
+        {
+            "name": "FastAPI",
+            "code": "python"
+        },
+        {
+            "name": "Streamlit",
+            "code": "python"
+        },
+        {
+            "name": "SQLite",
+            "code": "python"
+        },
+        {
+            "name": "OpenAI API",
+            "code": "python"
+        },
+        {
+            "name": "Google Gemini",
+            "code": "python"
+        },
+        {
+            "name": "Pillow",
+            "code": "python"
+        },
+        {
+            "name": "CSV",
+            "code": "python"
+        },
+        {
+            "name": "Base64",
+            "code": "python"
+        },
+        {
+            "name": "Requests",
+            "code": "python"
+        },
+        {
+            "name": "AsyncOpenAI",
+            "code": "python"
+        }
+    ],
+    "datasets": [
+        "ExDark Dataset",
+        "Custom Streetlight YOLO Dataset",
+        "Savith ExDark Training Dataset"
+    ]
+}
