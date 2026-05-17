@@ -1,0 +1,22 @@
+{
+  "title": "NightWatch - Rough Sleeper Survival Risk Intelligence System",
+  "author": "Manya Mahajan",
+  "description": "Combines pedestrian counts, microclimate sensors, street furniture, and business data from the City of Melbourne Open Data portal to identify which CBD precincts pose the greatest overnight survival risk to rough sleepers and prioritise welfare checks.",
+  "tags": ["Rough Sleeping", "Welfare Planning", "Pedestrian Analysis", "Microclimate Sensors", "Composite Risk Index", "Geospatial Analysis", "Urban Planning", "Social Impact"],
+  "difficulty": "Advanced",
+  "duration": "120 mins",
+  "technology": [
+    {"name": "pandas", "icon": "python"},
+    {"name": "numpy", "icon": "python"},
+    {"name": "matplotlib", "icon": "python"},
+    {"name": "seaborn", "icon": "python"},
+    {"name": "requests", "icon": "python"}
+  ],
+  "datasets": [
+    {"name": "pedestrian-counting-system-monthly-counts-per-hour", "icon": "dataset"},
+    {"name": "microclimate-sensor-readings", "icon": "dataset"},
+    {"name": "street-furniture-including-seats", "icon": "dataset"},
+    {"name": "business-establishments-with-address-and-industry-classification", "icon": "dataset"}
+  ],
+  "date": "2026-05-17"
+}
