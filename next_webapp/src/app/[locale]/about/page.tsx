@@ -10,10 +10,22 @@ const About = () => {
   const t = useTranslations("about");
   const [darkMode, setDarkMode] = useState(false);
 
+  // useEffect(() => {
+  //   const root = document.documentElement;
+  //   darkMode ? root.classList.add("dark") : root.classList.remove("dark");
+  // }, [darkMode]);
+
+  useEffect(() => {
+  const saved = localStorage.getItem("darkMode");
+  if (saved) setDarkMode(JSON.parse(saved));
+}, []);
+
   useEffect(() => {
     const root = document.documentElement;
     darkMode ? root.classList.add("dark") : root.classList.remove("dark");
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [darkMode]);
+
 
   const Section = ({
     imageSrc,

@@ -1,31 +1,78 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n-navigation";
 import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
+import Calendar from "react-calendar"; // Importing the calendar component
+import "react-calendar/dist/Calendar.css"; // Import the calendar styles
+import { usePathname } from "next/navigation";
 
 const Header = () => {
-  const t = useTranslations("common");
+  const t = useTranslations("");
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState([]);
+  const [isClient, setIsClient] = useState(false); // Client-side check
   const { theme, toggleTheme } = useTheme();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // To fix hydration issue, check if we're on the client side
+  useEffect(() => {
+    setIsClient(true); // Set to true once the component is mounted on the client
+  }, []);
 
-  // Object array for navigation items
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Updated navigation items to match wireframe
   const navItems = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Organisations", link: "/organisations" },
+    { name: "About", link: "/about" },
     { name: "Home", link: "/" },
-    { name: "About Us", link: "/about" },
-    { name: "Use Cases", link: "/usecases" },
-    { name: "Statistics", link: "/statistics" },
-    { name: "Upload", link: "/upload" },
+  const navItems = [
+    { name: "HOME", link: "/" },
+    { name: "ABOUT US", link: "/about" },
+    { name: "USE CASES", link: "/usecases" },
+    { name: "STATISTICS", link: "/statistics" },
+    { name: "UPLOAD", link: "/upload" },
   ];
 
+  // Mock Events
+  const mockEvents = {
+    "2025-08-03": [
+      {
+        id: 1,
+        title: "Local Music Fest",
+        time: "3:00 PM",
+        description: "Live bands at Federation Square.",
+      },
+      {
+        id: 2,
+        title: "Art Walk",
+        time: "6:00 PM",
+        description: "Walking tour of city murals.",
+      },
+    ],
+    "2025-08-05": [
+      {
+        id: 3,
+        title: "Sustainability Forum",
+        time: "10:00 AM",
+        description: "Panel talk on smart cities.",
+      },
+    ],
+  };
+
+  useEffect(() => {
+    const key = selectedDate.toISOString().split("T")[0];
+    setEvents(mockEvents[key] || []);
+  }, [selectedDate]);
+
   return (
-    <header className="bg-white shadow-sm dark:bg-black">
+    <header className="bg-white dark:bg-black shadow-sm">
+    <header className="bg-white dark:bg-black transition-colors duration-300 shadow-sm font-[Montserrat]">
       <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
         rel="stylesheet"
@@ -33,6 +80,9 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
+            {/* Hamburger Menu Icon - Moved to left */}
+            <div className="flex lg:hidden mr-4">
+          <div className="flex items-center w-full">
             <Link href="/" className="flex-shrink-0">
               <img
                 className="h-20 w-auto"
@@ -40,11 +90,33 @@ const Header = () => {
                 alt="Logo"
               />
             </Link>
-            {/* Hamburger Menu Icon */}
+
             <div className="flex lg:hidden ml-auto">
               <button
                 onClick={toggleMenu}
-                className="text-green-600 hover:text-green-900 focus:outline-none focus:text-green-900"
+                className="text-green-600 hover:text-green-900"
+            {/* Desktop Menu */}
+            <nav className="ml-10 gap-x-6 hidden lg:flex">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.link}
+                  className={`px-3 py-2 rounded-md text-sm font-bold transition-colors duration-300 ${
+                    pathname === item.link
+                      ? "text-green-700 dark:text-green-400 font-semibold"
+                      : "text-gray-800 hover:text-green-900 dark:text-gray-200 dark:hover:text-green-700"
+                  }`}
+                >
+                  {t(item.name)}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Hamburger Icon */}
+            <div className="flex lg:hidden ml-auto">
+              <button
+                onClick={toggleMenu}
+                className="text-green-600 hover:text-green-900 focus:outline-none"
               >
                 {isMenuOpen ? (
                   <HiX className="h-6 w-6" />
@@ -53,7 +125,23 @@ const Header = () => {
                 )}
               </button>
             </div>
-            {/* Menu Items */}
+            
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <img
+                className="h-20 w-auto"
+                src="/img/new-logo-green.png"
+                alt="Logo"
+              />
+              <span className="hidden lg:block ml-2 text-xl font-bold text-green-600 dark:text-green-300">
+                Chameleon
+              </span>
+            </Link>
+          </div>
+          
+          <div className="flex items-center">
+            {/* Desktop Menu Items */}
+            <nav className="hidden lg:flex ml-10 space-x-4">
+
             <nav
               className={`ml-10 space-x-4 hidden lg:flex ${
                 isMenuOpen ? "block" : "hidden"
@@ -63,66 +151,141 @@ const Header = () => {
                 <Link
                   key={item.name}
                   href={item.link}
-                  className="text-black-600 hover:text-green-900 dark:text-gray-200 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-black dark:text-gray-200 hover:text-green-900 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
-            </nav>
-          </div>
-          <div className="flex items-center">
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle Dark Mode"
-              className="p-1 rounded focus:outline-none"
-            >
-              {theme === "dark" ? (
-                <HiSun className="mr-4 h-5 w-5 text-white" />
-              ) : (
-                <HiMoon className="mr-4 h-5 w-5 text-black" />
-              )}
-            </button>
-
-            <LanguageDropdown />
-            <div className="hidden lg:flex">
+              {/* Sign Up and Log In in the navigation bar */}
               <Link
                 href="/signup"
-                className=" bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-xl text-sm font-medium"
+                className="text-black dark:text-gray-200 hover:text-green-900 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 {t("Sign Up")}
               </Link>
               <Link
                 href="/login"
-                className="ml-4 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-xl text-sm font-medium"
+                className="text-black dark:text-gray-200 hover:text-green-900 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 {t("Log In")}
+              </Link>
+            </nav>
+
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle Dark Mode"
+              className="p-1 rounded focus:outline-none ml-4"
+          </div>
+
+          <div className="flex items-center">
+          </div>
+
+          {/* Right Side Controls */}
+          <div className="flex items-center space-x-3 ml-4">
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle Dark Mode"
+              className="p-1 rounded transition-colors duration-300 focus:outline-none"
+            >
+              {theme === "dark" ? (
+                <HiSun className="h-5 w-5 text-white" />
+              ) : (
+                <HiMoon className="h-5 w-5 text-black" />
+              )}
+            </button>
+
+            <Link
+              href="/signup"
+              className="hidden lg:block ml-4 text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+            >
+              {t("Sign Up")}
+            </Link>
+          </div>
+        </div>
+        
+            <LanguageDropdown />
+          </div>
+        </div>
+      </div>
+
+      {/* Event Calendar */}
+      <div className="calendar-container mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex">
+        {/* Calendar Component */}
+        <div className="calendar w-full lg:w-2/3">
+          <h3 className="text-xl font-bold mb-2 text-black dark:text-white">
+            Upcoming Events
+          </h3>
+          <Calendar onChange={setSelectedDate} value={selectedDate} />
+        </div>
+
+        {/* Event Details */}
+        {isClient && ( // Ensure event display happens only on the client side
+          <div className="events-list w-full lg:w-1/3 mt-4 lg:mt-0 lg:pl-8">
+            <h4 className="text-lg font-semibold mb-2 text-black dark:text-white">
+              Events on {selectedDate.toLocaleDateString()}
+            </h4>
+            {events.length > 0 ? (
+              events.map((event) => (
+                <div
+                  key={event.id}
+                  className="event-item mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md"
+                >
+                  <p className="text-sm font-semibold text-black dark:text-white">
+                    {event.title}
+                  </p>
+                  <p className="text-xs text-gray-800 dark:text-gray-300">
+                    {event.time}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {event.description}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-600 dark:text-gray-400">
+                No events for this date.
+              </p>
+            )}
+
+            <div className="hidden lg:flex">
+              <Link
+                href="/signup"
+                className="bg-green-600 text-white hover:bg-green-700 px-8 py-2 rounded-xl text-sm font-semibold shadow whitespace-nowrap"
+              >
+                {t("SIGN UP")}
+              </Link>
+              <Link
+                href="/login"
+                className="ml-4 bg-white text-green-600 hover:bg-gray-100 border border-green-600 px-10 py-2 rounded-xl text-sm font-semibold"
+              >
+                {t("LOGIN")}
               </Link>
             </div>
           </div>
         </div>
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden">
-            <nav className="px-2 pt-2 pb-3 space-y-1">
+            <nav className="px-4 pt-4 pb-6 space-y-2 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-md rounded-md">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.link}
-                  className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:text-green-800 transition-colors duration-300"
                 >
-                  {t(item.name)}
+                  {item.name}
                 </Link>
               ))}
-              {/* Add Sign Up and Log In buttons to mobile menu */}
               <Link
                 href="/signup"
-                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+                className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:text-green-800"
               >
                 {t("Sign Up")}
               </Link>
               <Link
                 href="/login"
-                className="block text-green-600 hover:text-green-900 px-3 py-2 rounded-md text-base font-medium"
+                className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:text-green-800"
               >
                 {t("Log In")}
               </Link>

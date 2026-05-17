@@ -17,6 +17,7 @@ const Home = () => {
       <UseCaseInsights />
       <Features />
       
+      <UseCaseInsights />
       <SocialMediaFeed />
       <Chatbot />
       <Footer />
