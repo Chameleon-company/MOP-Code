@@ -1,23 +1,41 @@
-# macOS system files
+# macOS
+.DS_Store
 **/.DS_Store
 
-# Jupyter Notebook checkpoints
+# Jupyter
 **/.ipynb_checkpoints/
 
-# Specific ignored files from master
-Playground/Vamshi/.ipynb_checkpoints/UC00149_Enhancing_Urban_Tree_Planting_through_Air_Quality_Analysis-checkpoint.ipynb
-Playground/.DS_Store
-datascience/.DS_Store
-.DS_Store
-Playground/.DS_Store
-.DS_Store
-Playground/.DS_Store
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# macOS
-.DS_Store
+# Node / Frontend
+node_modules/
+dist/
+build/
+coverage/
+*.log
 
+# IDE / Editor
+.vscode/
+.idea/
 
-# macOS
-.DS_Store
+# Rasa (adjust if you want models committed)
+.rasa/
+results/
+logs/
+# If you don't want trained models in git, uncomment:
+# models/
 
-.DS_Store
+# Project-specific (covers master’s very specific paths)
+Playground/**/.ipynb_checkpoints/
+Playground/**/.DS_Store
+datascience/**/.DS_Store
