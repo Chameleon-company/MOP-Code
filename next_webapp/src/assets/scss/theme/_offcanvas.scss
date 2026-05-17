@@ -1,0 +1,71 @@
+//----------------------------------------------------------//
+//	OFFCANVAS
+//----------------------------------------------------------//
+#offcanvas-cart {
+  width: 20rem;
+}
+#offcanvas-search {
+  bottom: auto;
+  height: auto;
+  .search-form {
+    &:before {
+      @include font-size(1rem);
+      color: $main-dark;
+      left: 0;
+      right: auto;
+    }
+    .form-control {
+      @include font-size(0.8rem);
+      border: 0;
+      background: none;
+      box-shadow: none;
+      padding-left: 1.75rem;
+      padding-right: 0.75rem !important;
+    }
+  } 
+}
+.offcanvas {
+  @extend .scrollbar-hidden;
+  &.bg-light {
+    background: $light;
+    color: $body-color;
+  }
+}
+.offcanvas-header {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  .btn-close {
+    margin: 0;
+    padding: 0;
+    margin-right: -0.5rem;
+  }
+  a:focus {
+    outline: 0;
+  }
+}
+.offcanvas-body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.offcanvas-nav {
+  .offcanvas-header .btn-close {
+    margin-right: -0.75rem;
+  }
+  .offcanvas-body {
+    flex-grow: 0;
+  }
+}
+.offcanvas:not(.offcanvas-nav) {
+  overflow-y: auto;
+  .offcanvas-body {
+    overflow-y: unset;
+  }
+}
+.offcanvas-footer {
+  display: flex;
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: $offcanvas-padding-y 0;
+}
