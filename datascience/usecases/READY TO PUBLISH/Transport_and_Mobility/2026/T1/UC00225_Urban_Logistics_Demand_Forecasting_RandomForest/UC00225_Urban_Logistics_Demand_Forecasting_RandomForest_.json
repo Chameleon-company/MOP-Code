@@ -388,7 +388,7 @@
             "cell_type": "markdown",
             "source": [
                 "**Aggregating by Location and Year:**\n",
-                "This section groups the dataset by year, location ID, and location name. It then calculates total vehicle counts for each location. This helps identify busy logistics areas and compare demand across different years."
+                "This section  groups the dataset by year, location ID, and location name. It then calculates total vehicle counts for each location. This helps identify busy logistics areas and compare demand across different years."
             ],
             "metadata": {
                 "id": "E5R9fmLJmObH"
