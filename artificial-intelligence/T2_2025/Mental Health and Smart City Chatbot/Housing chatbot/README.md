@@ -6,15 +6,28 @@ The housing chatbot aims to recommend the most suitable properties for the users
 
 **Flowchat**:
 
-![Flow chart of the chatbot](./Housing%20chatbot%20flowchart.png)
+![Flow chart of the chatbot](./docs/Housing%20chatbot%20flowchart.png)
 
 ## Code structure
-- `graph.py`: Core components of the chatbot compiled with LangGraph.
-- `json_schema.py`: Pre-defined housing schema to help the LLM extract housing entities from user's query.
-- `prompts.py`: System prompt for the LLM to extract housing entities.
-- `utils.py`: Core functions for the components, including data processing, house ranking, and distance calculation.
-- `runner.py`: Simple runner for the chatbot in the local terminal for testing.
-- `app.py`: UI for the chatbot using Chainlit.
+
+```
+. Housing chatbot/
+├── chatbot/
+│   └── graph.py # Core components of the chatbot (compiled in LangGraph)
+├── configs/
+│   ├── json_schema.py # Pre-defined housing schema to help the LLM extract housing entities from user's query.
+│   └── prompts.py # System prompt for the LLM to extract housing entities.
+├── data
+├── docs
+├── public # Logo files for chainlit
+├── tests # Some test cases
+├── utils/
+│   └── utils # Data processing pipelines
+├── .env
+├── app.py # Chainlit app
+├── get_data.py # To download GTFS data
+└── runner.py # To run the chatbot on terminal
+```
 
 ## How to run the code
 
@@ -23,10 +36,13 @@ The housing chatbot aims to recommend the most suitable properties for the users
 - `pip install langgraph langchain-google-genai dotenv chainlit geopy scipy openrouteservice pandas folium geopandas`.
 - Add your Gemini API key and GTFS API key in the `.env` file.
 
-### 2. Run the code on terminal (for testing purposes)
+### 2. Download GTFS data (for the first time only)
+`python get_data.py`
+
+### 3. Run the code on terminal (for testing purposes)
 `python runner.py`
 
-### 3. Run on UI
+### 4. Run on UI
 `chainlit run app.py -w`
 
 ## Future development
