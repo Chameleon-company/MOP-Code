@@ -1,5 +1,5 @@
 
-# Project 3B - Water Pipe Failure Prediction
+# Water Pipe Failure Prediction
 
 ## Authors
 - Rupanshi
