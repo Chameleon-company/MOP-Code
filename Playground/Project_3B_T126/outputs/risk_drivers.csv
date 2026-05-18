@@ -1,8 +1,0 @@
-Risk Driver,Evidence from Kitchener Models,Melbourne Field,Transferability,Use in Melbourne Risk System
-Pipe Age,Important in tree-based models and linked to deterioration over time,PIPE_AGE,High,Older pipes receive higher risk weight
-Pipe Length,Strong driver in Random Forest and Logistic Regression,PIPE_LENGTH,High,Longer pipe segments receive higher risk weight
-Material,Material-related features contributed to prediction,MATERIAL,High,Materials associated with higher failure risk receive higher weight
-Pipe Size / Width,Moderate contribution in Random Forest and XGBoost,PIPE_WIDTH,Medium,Used as a supporting physical risk factor
-Condition / Asset Health,Strongest driver through condition_score,Not directly available,Limited,Use proxy features such as age and relining status
-Relining / Maintenance History,Lining-related features had lower importance but remain relevant,"HAS_RELINED, YEARS_SINCE_RELINED",Medium,No relining or older relining may increase risk
-Network / Operational Context,Pressure zone and cleaning area contributed to prediction,"MAIN_LINE_TYPE, MAIN_CLASS, FIELD_TEAM",Medium,Used as context for explanation and grouping
