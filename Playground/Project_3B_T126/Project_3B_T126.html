@@ -7291,7 +7291,7 @@ a.anchor-link {
   }
 }
 </style>
-<!-- MathJax loader removed: notebook contains no LaTeX math content; external CDN reference dropped to satisfy CodeQL rule js/functionality-from-untrusted-source (CWE-830). --><!-- Mermaid renderer removed: notebook contains no mermaid diagrams; dynamic import from external CDN dropped to satisfy CodeQL rule js/functionality-from-untrusted-source (CWE-830). -->
+
 <style>
   .jp-Mermaid:not(.jp-RenderedMermaid) {
     display: none;
@@ -7351,7 +7351,27 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Project-3B-T126---Water-Pipe-Failure-Prediction">Project 3B T126 - Water Pipe Failure Prediction<a class="anchor-link" href="#Project-3B-T126---Water-Pipe-Failure-Prediction">¶</a></h1><p>This notebook provides a short end-to-end demonstration of the final project workflow.</p>
-<p>Detailed exploratory work, preprocessing logic, modelling functions, and evaluation utilities are stored in separate <code>.py</code> files under <code>src/</code> folder.</p>
+<p><strong>Authored by</strong>:</p>
+<p>ANH TRINH: Project coordination, dataset review and preprocessing, Random Forest, evaluation</p>
+<p>JOE: XGBoost modelling and LLM workflow</p>
+<p>SHIVAL: Logistic Regression, Melbourne preprocessing and LLM workflow</p>
+<p><strong>Duration</strong>:</p>
+<p>Approximately 120 minutes</p>
+<p><strong>Level</strong>:</p>
+<p>Intermediate</p>
+<p><strong>Pre-requisite Skills</strong>:</p>
+<p>Python, Data Cleaning, Machine Learning, Data Visualisation, Classification Modelling, Feature Engineering</p>
+<h2 id="Scenario">Scenario<a class="anchor-link" href="#Scenario">¶</a></h2><p>Water main failures can cause major infrastructure disruption, water loss, repair costs, and service interruptions.
+This project develops a machine learning workflow to identify high-risk water pipes using historical water main failure data and pipe asset information.</p>
+<p>The project uses the Kitchener water network dataset (Ontario, Canada) as the primary modelling dataset, with later adaptation work using Melbourne water infrastructure data.</p>
+<p><strong>The workflow includes</strong>:</p>
+<ul>
+<li>dataset review and selection</li>
+<li>preprocessing and pipe-level feature engineering</li>
+<li>supervised machine learning modelling</li>
+<li>model comparison and risk analysis</li>
+<li>Melbourne adaptation and LLM-based maintenance recommendation concepts</li>
+</ul>
 <h2 id="1.-Dataset-Review-and-Final-Selection">1. Dataset Review and Final Selection<a class="anchor-link" href="#1.-Dataset-Review-and-Final-Selection">¶</a></h2><p>Several candidate datasets were reviewed to determine which dataset was most suitable for supervised pipe failure modelling.</p>
 <p>The review focused on:</p>
 <ul>
@@ -8319,36 +8339,6 @@ Top 10 feature importance
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="3.2-XGBoost-Modelling">3.2 XGBoost Modelling<a class="anchor-link" href="#3.2-XGBoost-Modelling">¶</a></h3><p>This section runs the XGBoost model using the same processed Kitchener model-ready dataset and the same 70/15/15 train, validation and test split.</p>
 <p>XGBoost was included because it is a strong gradient boosting model that can capture non-linear patterns and feature interactions. It also supports class weighting and native categorical handling, which is useful for the imbalanced pipe failure dataset.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0afe6518-b59c-4b3f-b817-24e2a85ff0fa">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">xgboost</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Requirement already satisfied: xgboost in /opt/anaconda3/lib/python3.12/site-packages (3.2.0)
-Requirement already satisfied: numpy in /opt/anaconda3/lib/python3.12/site-packages (from xgboost) (1.26.4)
-Requirement already satisfied: scipy in /opt/anaconda3/lib/python3.12/site-packages (from xgboost) (1.13.1)
-Note: you may need to restart the kernel to use updated packages.
-</pre>
-</div>
 </div>
 </div>
 </div>
