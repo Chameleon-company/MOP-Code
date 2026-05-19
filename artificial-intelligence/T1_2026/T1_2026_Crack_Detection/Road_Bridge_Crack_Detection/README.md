@@ -3,8 +3,21 @@
 ## Project Overview
 Video demo: https://www.youtube.com/watch?v=3JxI6ukVHXk  
 
+Project made by: Long (s223128143@deakin.edu.au), Madhav (s223305696@deakin.edu.au), Callum (s224583534@deakin.edu.au) 
+
+
 Infrastructure such as bridges, roads, and concrete structures develop cracks overtime due to environmental stress, aging materials, and heavy usage. Traditional inspection methods rely on manual visual assessment which can be time consuming, expensive, and prone to human error.
-This project aims to develop an AI-powered infrastructure inspection assistant that automatically detects cracks in infrastructure images and generates maintenance recommendations. The system combines CV and LLM to produce engineering-style reports based on infrastructure maintenance guidelines. 
+This project aims to develop an AI-powered infrastructure inspection assistant that automatically detects cracks in infrastructure images and generates maintenance recommendations. 
+
+The system combines CV and LLM to produce engineering-style reports based on infrastructure maintenance guidelines. The system does the following:
+1.	Accept infrastructure images with cracks (bridges, roads).
+2.	Detect crack regions using segmentation models.
+3.	Extract crack severity metrics from predicted crack masks.
+4.	Retrieve relevant infrastructure maintenance guidelines using RAG.
+5.	Generate an automated maintenance report using LLM.
+
+In short, image -> crack detection -> crack metrics -> RAG -> LLM report. 
+
 
 
 There are 4 main components:
