@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Mental Health Chatbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.4s ease;
+        }
+
+
+
+        .export-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #42a5f5, #478ed1);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .export-btn:hover {
+            background: linear-gradient(45deg, #1e88e5, #1565c0);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 750px;
+            margin: 20px;
+            background: #ffffff;
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #333;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        .subheading {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .top-bar a,
+        .theme-toggle {
+            font-size: 14px;
+            background: none;
+            border: 1px solid #aaa;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover,
+        .top-bar a:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f9faff;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .message {
+            padding: 12px 18px;
+            margin: 8px 0;
+            border-radius: 15px;
+            max-width: 75%;
+            animation: fadeIn 0.3s ease-in;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .message.bot.happy {
+            background: #d0f9b1;
+            color: #1b5e20;
+            border-left: 6px solid #66bb6a;
+        }
+
+        .message.bot.sad {
+            background: #a0c4ff;
+            color: #0d47a1;
+            border-left: 6px solid #2196f3;
+        }
+
+        .message.bot.anxious {
+            background: #ffd6a5;
+            color: #e65100;
+            border-left: 6px solid #fb8c00;
+        }
+
+        .user {
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            align-self: flex-end;
+            color: #333;
+        }
+
+        .bot {
+            background: linear-gradient(120deg, #d4fc79, #96e6a1);
+            align-self: flex-start;
+            color: #333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing {
+            margin-top: 10px;
+            color: #666;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+        }
+
+        .typing::before {
+            content: "• • •";
+            animation: typingDots 1.5s infinite;
+            margin-right: 5px;
+        }
+
+        @keyframes typingDots {
+            0% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        form {
+            display: flex;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            background: #f0f4ff;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+            background: #fff;
+        }
+
+        input[type="submit"] {
+            padding: 14px 25px;
+            border: none;
+            background: linear-gradient(45deg, #4CAF50, #66bb6a);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .reset {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .reset a {
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .reset a:hover {
+            color: #4CAF50;
+        }
+
+        /* Scrollbar Styling */
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #a1c4fd;
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #f0f4ff;
+        }
+
+        body.happy {
+            background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+        }
+
+        body.sad {
+            background: linear-gradient(to bottom right, #eceff1, #cfd8dc);
+        }
+
+        body.anxious {
+            background: linear-gradient(to bottom right, #fff8e1, #ffe57f);
+        }
+
+        .summary-box {
+            background: #fef9e7;
+            border-left: 6px solid #f4d03f;
+            padding: 12px 18px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+
+        .dark-mode .summary-box {
+            background: #2a2c2e;
+            border-left: 6px solid #f4d03f;
+            color: #f0f0f0;
+        }
+
+
+        /* DARK MODE */
+        body.dark-mode {
+            background: linear-gradient(135deg, #181a1b, #2a2c2e);
+            color: #f0f0f0;
+        }
+
+        .dark-mode .container {
+            background: #252829;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .dark-mode .chat-box {
+            background: #1e1f20;
+        }
+
+        .dark-mode .message.user {
+            background: linear-gradient(120deg, #5c6bc0, #8e99f3);
+            color: #fefefe;
+        }
+
+        .dark-mode .message.bot {
+            background: linear-gradient(120deg, #66bb6a, #a5d6a7);
+            color: #fff;
+        }
+
+        .dark-mode input[type="text"] {
+            background: #333;
+            color: #eee;
+            border: 1px solid #555;
+        }
+
+        .dark-mode input[type="text"]:focus {
+            background: #2c2c2c;
+            border-color: #66bb6a;
+            box-shadow: 0 0 8px rgba(102, 187, 106, 0.3);
+        }
+
+        .dark-mode input[type="submit"] {
+            background: linear-gradient(45deg, #66bb6a, #81c784);
+            color: #fff;
+        }
+
+        .dark-mode input[type="submit"]:hover {
+            box-shadow: 0 4px 12px rgba(102, 187, 106, 0.4);
+        }
+
+        .dark-mode h2 {
+            color: #a0f0d0;
+            text-shadow: 0 1px 6px rgba(160, 240, 208, 0.2);
+        }
+
+        .dark-mode .top-bar a,
+        .dark-mode .theme-toggle {
+            color: #ddd;
+            border-color: #666;
+        }
+
+        .dark-mode .top-bar a:hover,
+        .dark-mode .theme-toggle:hover {
+            background-color: #66bb6a;
+            color: #fff;
+        }
+
+        .dark-mode .reset a {
+            color: #aaa;
+        }
+
+        .dark-mode .reset a:hover {
+            color: #66bb6a;
+        }
+
+
+
+        .mood-popup {
+            animation: fadeSlideIn 0.5s ease;
+            padding: 14px 20px;
+            border-radius: 14px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .mood-popup:hover {
+            transform: scale(1.02);
+        }
+
+
+        body.happy .mood-popup {
+            background: #e6ffe6;
+            color: #2e7d32;
+            border-left: 5px solid #66bb6a;
+        }
+
+        body.sad .mood-popup {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-left: 5px solid #42a5f5;
+        }
+
+        body.anxious .mood-popup {
+            background: #fff9c4;
+            color: #f57f17;
+            border-left: 5px solid #fbc02d;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 25px;
+            }
+
+            .chat-box {
+                max-height: 320px;
+            }
+
+            input[type="text"],
+            input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+
+        .status-highlight {
+            background: #fef9e7;
+            border-left: 6px solid #f4d03f;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            transition: background 0.3s ease;
+        }
+
+        .greeting-text {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .mood-status {
+            font-size: 15px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .mood-label {
+            font-weight: 600;
+            color: #8a6d00;
+        }
+
+        .mood-highlight {
+            font-weight: 700;
+            color: #f39c12;
+        }
+
+        .dark-mode .status-highlight {
+            background: #2a2c2e;
+            border-left: 6px solid #f4d03f;
+            color: #eee;
+        }
+
+        .dark-mode .mood-label {
+            color: #f7dc6f;
+        }
+
+        .dark-mode .mood-highlight {
+            color: #ffe082;
+        }
+
+        .dark-mode .greeting-text {
+            color: #f0f0b0;
+        }
+
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            padding: 12px 18px;
+            margin: 8px 0;
+            border-radius: 15px;
+            max-width: 75%;
+            animation: fadeSlideIn 0.6s ease-in-out;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation-fill-mode: forwards;
+        }
+
+
+        @keyframes fadeSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Mental Health Chatbot 🤖</h2>
+        <div class="status-highlight">
+            <div id="greeting" class="greeting-text">Hi {{ session.username }} 👋</div>
+
+            <div class="mood-status">
+                🧠 <span class="mood-label">Mood detected:</span>
+                <strong class="mood-highlight">
+                    {% if mood %}
+                    {{ mood | capitalize }}
+                    {% else %}
+                    No mood detected
+                    {% endif %}
+                </strong>
+            </div>
+        </div>
+
+
+
+        <div class="top-bar">
+            <a href="/login">🔁 Switch User</a>
+            <button onclick="toggleTheme()" class="theme-toggle">🌓 Toggle Theme</button>
+            <button onclick="toggleMusic()" class="theme-toggle">🎵 Toggle Music</button>
+        </div>
+
+
+        {% if summary %}
+        <div class="summary-box">
+            <strong>📝 Summary:</strong> {{ summary }}
+        </div>
+        {% endif %}
+
+
+        {% if history|length >= 6 %}
+        <form method="POST" action="/summarize">
+            <button type="submit"
+                style="margin-bottom: 15px; background-color: #f4d03f; color: #333; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                📝 Summarize Now
+            </button>
+        </form>
+        {% endif %}
+
+
+        <div class="mood-popup">
+            {% if mood == "sad" %}
+            😔 <strong>Feeling sad?</strong><br>
+            💡 Try writing down 3 things you're grateful for.<br>
+            🧠 Consider doing something comforting — like watching your favorite show or taking a short nap.<br>
+            📓 Journaling or talking to a friend can also help release built-up emotions.
+            {% elif mood == "anxious" %}
+            😟 <strong>Feeling anxious?</strong><br>
+            🧘 Try this: Inhale for 4s, hold for 4s, exhale slowly for 6s.<br>
+            🎧 Put on your favorite relaxing music or try our Bubble Burster</a> game to release tension.<br>
+            🌿 Ground yourself: Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.
+            {% elif mood == "happy" %}
+            😊 <strong>Feeling happy? That’s amazing!</strong><br>
+            🎉 Celebrate your progress — you’ve earned it.<br>
+            📈 Try writing down what made you happy today so you can revisit it later.<br>
+            💌 Spread the joy — maybe check in on someone else too?
+            {% else %}
+            🤖 <strong>Hello!</strong><br>
+            I'm here to support you as you navigate your day. How are you feeling?<br>
+            💬 Start a conversation with me and I’ll offer tailored support.<br>
+            💡 Tip: You can also play a game below or click "Summarize Now" after a few messages to see a mood-based
+            insight.
+            {% endif %}
+        </div>
+
+
+        <div class="chat-box">
+            {% if history|length == 0 %}
+            <div class="message bot">
+                <strong>Bot:</strong> Hello! I’m your mental health chatbot. I’m here to support you. How are you
+                feeling today?
+            </div>
+            {% else %}
+            {% for msg in history %}
+            <div class="message {{ msg.role }} {% if msg.role == 'bot' and mood %}{{ mood }}{% endif %}">
+                <strong>{{ 'You' if msg.role == 'user' else 'Bot' }}:</strong> {{ msg.content }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+
+        <form method="post" onsubmit="showTyping()">
+            <input type="text" name="message" id="userInput" placeholder="How are you feeling today?" required>
+            <input type="submit" value="Send">
+        </form>
+
+        <div class="typing" id="loading" style="display: none;">
+            <em>Bot is typing...</em>
+        </div>
+        <div class="reset">
+            <a href="/reset">🗑️ Reset Conversation</a><br>
+            <a href="/download" class="export-btn">📥 Export Chat</a>
+        </div>
+
+        <p style="text-align: center; font-size: 16px; color: #555; margin-top: 10px;">
+            Feeling overwhelmed? Take a break with the relaxing slime game below ⬇️
+        </p>
+
+        <div style="text-align: center; margin-top: 25px;">
+            <a href="/bubbles" class="export-btn">🫧 Play Bubble Burster</a>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById("relaxingAudio");
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    localStorage.setItem("musicOn", "true");
+                }).catch(() => {
+                    console.warn("Autoplay blocked, will resume on interaction.");
+                });
+            } else {
+                audio.pause();
+                localStorage.setItem("musicOn", "false");
+            }
+        }
+
+        window.onload = function () {
+            const chatBox = document.querySelector(".chat-box");
+            if (chatBox) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+
+            const mood = "{{ mood }}";
+            if (["happy", "sad", "anxious"].includes(mood)) {
+                document.body.classList.add(mood);
+            }
+
+            const hour = new Date().getHours();
+            let greetingText = "Hi {{ session.username }} 👋";
+            if (hour >= 5 && hour < 12)
+                greetingText = "Good Morning ☀️ {{ session.username }}";
+            else if (hour >= 12 && hour < 18)
+                greetingText = "Good Afternoon 🌤️ {{ session.username }}";
+            else
+                greetingText = "Good Evening 🌙 {{ session.username }}";
+
+            const greetingEl = document.getElementById("greeting");
+            if (greetingEl) {
+                greetingEl.innerText = greetingText;
+            }
+
+            // Restore music state
+            const shouldPlay = localStorage.getItem("musicOn") === "true";
+            const audio = document.getElementById("relaxingAudio");
+            if (shouldPlay) {
+                // Wait for user interaction to resume music
+                window.addEventListener("click", function once() {
+                    audio.play().catch(() => {
+                        console.warn("Still blocked");
+                    });
+                    window.removeEventListener("click", once);
+                });
+            }
+        };
+    </script>
+
+    <audio id="relaxingAudio" src="/static/relaxing.mp3" loop></audio>
+
+</body>
+
+</html>

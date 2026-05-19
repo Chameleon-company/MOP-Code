@@ -1,0 +1,147 @@
+//----------------------------------------------------------//
+//	NAV
+//----------------------------------------------------------//
+.nav-link {
+  --#{$prefix}nav-link-font-weight: #{$nav-link-font-weight};
+  letter-spacing: $letter-spacing;
+  p {
+    @include font-size($font-size-base);
+  }
+}
+.sidebar .nav-link {
+  letter-spacing: normal;
+}
+.navbar-other .nav-link {
+  cursor: pointer;
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar .navbar-collapse .nav-link {
+    padding-right: 0.6rem;
+    padding-left: 0.6rem;
+  }
+}
+@if $primary == $navy {
+  .navbar-light .navbar-nav .nav-link:hover,
+  .dropdown-item:hover {
+    color: rgba($navy, 0.7);
+  }
+}
+//----------------------------------------------------------//
+//	TABS
+//----------------------------------------------------------//
+.nav-tabs .nav-link {
+  background: $nav-tabs-link-active-bg;
+  transition: $link-transition;
+  @include font-size(0.85rem);
+  padding: 0.6rem 1.3rem;
+  i {
+    @include font-size(1rem);
+  }
+}
+.nav-tabs.nav-tabs-basic {
+  border-color: transparent;
+  .nav-link {
+    border: 0;
+    border-radius: 0;
+    border-color: transparent;
+    background: transparent;
+    @include font-size(0.85rem);
+    padding: 0.6rem 0;
+    margin-right: 1rem;
+    border-bottom: 2px solid rgba($border, 0.25);
+    &:hover,
+    &:focus {
+      border-color: $nav-tabs-link-active-color;
+    }
+  }
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    color: $nav-tabs-link-active-color;
+    border-color: $nav-tabs-link-active-color;
+  }
+}
+.nav-tabs.nav-pills {
+  border-color: transparent;
+  .nav-link {
+    border-color: $nav-tabs-link-hover-border-color;
+    box-shadow: $box-shadow-with-border;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+}
+@media (max-width: 991.98px) {
+  .nav-tabs.d-flex:not(.nav-pills) {
+    justify-content: flex-start !important;
+  }
+}
+@media (max-width: 767px) {
+  .nav-tabs.nav-tabs-basic,
+  .nav-tabs.nav-pills {
+    flex-direction: column;
+    .nav-item {
+      margin-bottom: 1rem;
+    }
+    .nav-link {
+      margin-right: 0;
+    }
+  }
+}
+.nav-tabs.nav-tabs-bg {
+  border-color: transparent;
+  .nav-link {
+    padding: 1.4rem 1.2rem;
+    border-radius: $border-radius;
+    border: 1px solid transparent;
+    line-height: 1.25rem;
+    box-shadow: none;
+    background: transparent;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover,
+    &.active {
+      color: $nav-link-color;
+      border-color: $nav-tabs-link-hover-border-color;
+      background: $nav-tabs-link-active-bg;
+      box-shadow: $box-shadow-with-border;
+    }
+    p {
+      margin: 0;
+      font-weight: 500;
+      color: $gray-600;
+    }
+  }
+}
+.nav-tabs.nav-tabs-bg.nav-tabs-shadow-lg {
+  .nav-link {
+    &:hover,
+    &.active {
+      box-shadow: $box-shadow-lg;
+    }
+  }
+}
+.nav-tabs.flex-column.nav-tabs-bg .nav-item {
+  margin-bottom: 1rem;
+}
+.nav-tabs.nav-justified .nav-item {
+  text-align: left;
+}
+@media (min-width: 992px) {
+  .nav-tabs.nav-justified .nav-item {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.tab-content {
+  margin-top: 1.25rem;
+}

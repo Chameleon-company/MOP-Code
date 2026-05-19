@@ -1,0 +1,10 @@
+import type { RefObject } from '@mui/x-internals/types';
+import { type Virtualization, type LayoutDataGridLegacy } from '@mui/x-virtualizer';
+import type { GridPrivateApiCommunity } from "../../../models/api/gridApiCommunity.js";
+import type { GridStateInitializer } from "../../utils/useGridInitializeState.js";
+import type { DataGridProcessedProps } from "../../../models/props/DataGridProps.js";
+type RootProps = DataGridProcessedProps;
+export type GridVirtualizationState = { [K in keyof Virtualization.State<LayoutDataGridLegacy>['virtualization']]: Virtualization.State<LayoutDataGridLegacy>['virtualization'][K] };
+export declare const virtualizationStateInitializer: GridStateInitializer<RootProps>;
+export declare function useGridVirtualization(apiRef: RefObject<GridPrivateApiCommunity>, rootProps: RootProps): void;
+export {};

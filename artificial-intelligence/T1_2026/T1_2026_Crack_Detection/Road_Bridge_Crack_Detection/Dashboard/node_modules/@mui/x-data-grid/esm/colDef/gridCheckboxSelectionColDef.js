@@ -1,0 +1,30 @@
+import _extends from "@babel/runtime/helpers/esm/extends";
+import { GridCellCheckboxRenderer } from "../components/columnSelection/GridCellCheckboxRenderer.js";
+import { GridHeaderCheckbox } from "../components/columnSelection/GridHeaderCheckbox.js";
+import { GRID_BOOLEAN_COL_DEF } from "./gridBooleanColDef.js";
+import { gridRowIdSelector } from "../hooks/core/gridPropsSelectors.js";
+import { jsx as _jsx } from "react/jsx-runtime";
+export const GRID_CHECKBOX_SELECTION_FIELD = '__check__';
+export const GRID_CHECKBOX_SELECTION_COL_DEF = _extends({}, GRID_BOOLEAN_COL_DEF, {
+  type: 'custom',
+  field: GRID_CHECKBOX_SELECTION_FIELD,
+  width: 50,
+  resizable: false,
+  sortable: false,
+  filterable: false,
+  // @ts-ignore
+  aggregable: false,
+  chartable: false,
+  disableColumnMenu: true,
+  disableReorder: true,
+  disableExport: true,
+  getApplyQuickFilterFn: () => null,
+  display: 'flex',
+  valueGetter: (value, row, column, apiRef) => {
+    const rowId = gridRowIdSelector(apiRef, row);
+    return apiRef.current.isRowSelected(rowId);
+  },
+  rowSpanValueGetter: (_, row, column, apiRef) => gridRowIdSelector(apiRef, row),
+  renderHeader: params => /*#__PURE__*/_jsx(GridHeaderCheckbox, _extends({}, params)),
+  renderCell: params => /*#__PURE__*/_jsx(GridCellCheckboxRenderer, _extends({}, params))
+});

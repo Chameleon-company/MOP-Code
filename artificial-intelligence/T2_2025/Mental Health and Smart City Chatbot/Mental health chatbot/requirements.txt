@@ -1,0 +1,8 @@
+flask
+google-generativeai
+gunicorn
+numpy
+scikit-learn
+pandas
+psycopg2-binary==2.9.9
+reportlab==3.6.13

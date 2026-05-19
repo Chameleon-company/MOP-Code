@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Continue Previous Chat?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fffde7, #fff9c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .resume-box {
+            background: #fffef5;
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid #f4d03f;
+            animation: fadeIn 0.8s ease-in-out;
+            max-width: 420px;
+            width: 90%;
+            z-index: 2;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .icon {
+            font-size: 46px;
+            margin-bottom: 15px;
+            color: #f4d03f;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            background: linear-gradient(45deg, #f4d03f, #f9e79f);
+            color: #333;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #f9e79f, #f4d03f);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        .background-bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bubble1 {
+            width: 200px;
+            height: 200px;
+            background: #f4d03f;
+            top: 10%;
+            left: 5%;
+        }
+
+        .bubble2 {
+            width: 150px;
+            height: 150px;
+            background: #fceabb;
+            bottom: 8%;
+            right: 8%;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .resume-box {
+                padding: 30px 25px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-bubble bubble1"></div>
+    <div class="background-bubble bubble2"></div>
+
+    <div class="resume-box">
+        <div class="icon">💬</div>
+        <h2>Welcome back, {{ session.username }}!</h2>
+        <p>Would you like to continue your previous conversation?</p>
+        <div class="buttons">
+            <a href="/?resume=yes"><button>✅ Yes, continue</button></a>
+            <a href="/?resume=no"><button>🗑️ No, start fresh</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

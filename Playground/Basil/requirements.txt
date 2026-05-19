@@ -1,0 +1,12 @@
+pandas
+numpy
+matplotlib
+scikit-learn
+nltk
+jupyter
+streamlit
+sentence-transformers
+PyPDF2
+requests
+fastapi
+uvicorn

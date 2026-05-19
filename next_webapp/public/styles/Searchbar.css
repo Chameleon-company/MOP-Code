@@ -1,0 +1,26 @@
+form.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45%;
+}
+
+input[type="text"].search-input{
+    padding: 0.4rem;
+    border-radius: 0.25rem;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 250px;
+    margin-right: 0.4rem;
+}
+
+button[type="submit"].search-button {
+    padding: 0.3rem;
+    background-color: #33B98E;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
