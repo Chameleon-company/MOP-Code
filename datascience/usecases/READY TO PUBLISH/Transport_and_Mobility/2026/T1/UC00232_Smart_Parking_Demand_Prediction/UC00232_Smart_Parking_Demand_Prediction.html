@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>smart-parking-demand-prediction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>UC00232_Smart_Parking_Demand_Prediction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -8752,7 +8752,7 @@ dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [259]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Group occupancy by zone, day, hour, and weekend status</span>
@@ -10485,34 +10485,36 @@ average_occupancy    -0.006406    -0.056190    0.069418           1.000000
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [271]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"average_occupancy"</span><span class="p">,</span>
     <span class="s2">"dayofweek_num"</span><span class="p">,</span>
     <span class="s2">"is_weekend"</span><span class="p">,</span>
     <span class="s2">"hour_sin"</span><span class="p">,</span>
     <span class="s2">"hour_cos"</span><span class="p">,</span>
-    <span class="s2">"zone_occ_mean"</span><span class="p">,</span>
-    <span class="s2">"zone_occ_std"</span><span class="p">,</span>
-    <span class="s2">"zone_volatility"</span><span class="p">,</span>
 <span class="p">]</span>
-<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"status_day"</span><span class="p">,</span> <span class="s2">"restriction_display"</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"status_day"</span><span class="p">,</span> <span class="s2">"restriction_display"</span><span class="p">,</span> <span class="s2">"zone_number"</span><span class="p">]</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[[</span>
-    <span class="s2">"average_occupancy"</span><span class="p">,</span>
-    <span class="s2">"hour_sin"</span><span class="p">,</span>
-    <span class="s2">"hour_cos"</span><span class="p">,</span>
-    <span class="s2">"status_day"</span><span class="p">,</span>
-    <span class="s2">"dayofweek_num"</span><span class="p">,</span>
-    <span class="s2">"is_weekend"</span><span class="p">,</span>
-    <span class="s2">"restriction_display"</span><span class="p">,</span>
-    <span class="s2">"zone_occ_mean"</span><span class="p">,</span>
-    <span class="s2">"zone_occ_std"</span><span class="p">,</span>
-    <span class="s2">"zone_volatility"</span><span class="p">,</span>
-<span class="p">]]</span>
+<span class="c1"># IMPORTANT: removed target-leaking features such as `average_occupancy`,</span>
+<span class="c1"># `zone_occ_mean`, `zone_occ_std`, and `zone_volatility` from the feature set.</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s2">"hour_sin"</span><span class="p">,</span>
+        <span class="s2">"hour_cos"</span><span class="p">,</span>
+        <span class="s2">"status_day"</span><span class="p">,</span>
+        <span class="s2">"dayofweek_num"</span><span class="p">,</span>
+        <span class="s2">"is_weekend"</span><span class="p">,</span>
+        <span class="s2">"restriction_display"</span><span class="p">,</span>
+        <span class="s2">"zone_number"</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span><span class="s2">"demand_level"</span><span class="p">]</span>
+
+<span class="c1"># Ensure categorical zone id is treated as a category/string before encoding</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">if</span> <span class="s1">'zone_number'</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">X</span><span class="p">[</span><span class="s1">'zone_number'</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">'zone_number'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span>
@@ -10712,20 +10714,24 @@ Testing set size: (315, 10)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [272]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"average_occupancy"</span><span class="p">,</span> <span class="s2">"hour_sin"</span><span class="p">,</span> <span class="s2">"hour_cos"</span><span class="p">,</span> <span class="s2">"dayofweek_num"</span><span class="p">,</span> 
-                     <span class="s2">"zone_occ_mean"</span><span class="p">,</span> <span class="s2">"zone_occ_std"</span><span class="p">,</span> <span class="s2">"zone_volatility"</span><span class="p">]</span>
-<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"status_day"</span><span class="p">,</span> <span class="s2">"restriction_display"</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"hour_sin"</span><span class="p">,</span> <span class="s2">"hour_cos"</span><span class="p">,</span> <span class="s2">"dayofweek_num"</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"status_day"</span><span class="p">,</span> <span class="s2">"restriction_display"</span><span class="p">,</span> <span class="s2">"zone_number"</span><span class="p">]</span>
 
 <span class="n">numeric_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s2">"imputer"</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)),</span>
     <span class="p">(</span><span class="s2">"scaler"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
 <span class="p">])</span>
 
+<span class="c1"># Create OneHotEncoder compatible with multiple sklearn versions</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s2">"onehot"</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"onehot"</span><span class="p">,</span> <span class="n">ohe</span><span class="p">),</span>
 <span class="p">])</span>
 
 <span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
@@ -10755,10 +10761,19 @@ Testing set size: (315, 10)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [273]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logistic_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyClassifier</span>
+<span class="c1"># Baseline: Dummy classifier (most frequent) — useful sanity check against inflated scores</span>
+<span class="n">dummy_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[(</span><span class="s2">"preprocessor"</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span> <span class="p">(</span><span class="s2">"classifier"</span><span class="p">,</span> <span class="n">DummyClassifier</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"most_frequent"</span><span class="p">))])</span>
+<span class="n">dummy_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_dummy</span> <span class="o">=</span> <span class="n">dummy_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"DummyClassifier (most_frequent) classification report:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dummy</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Logistic Regression (non-leaky feature set)</span>
+<span class="n">logistic_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s2">"preprocessor"</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"classifier"</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)),</span>
 <span class="p">])</span>
@@ -10826,7 +10841,7 @@ weighted avg       0.99      0.98      0.98       315
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [274]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">random_forest_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
@@ -10855,23 +10870,28 @@ weighted avg       0.99      0.98      0.98       315
 <span class="c1"># Feature importance</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">importances</span> <span class="o">=</span> <span class="n">random_forest_model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s2">"classifier"</span><span class="p">]</span><span class="o">.</span><span class="n">feature_importances_</span>
-    <span class="c1"># Get feature names from preprocessor</span>
-    <span class="n">cat_features_ohe</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">random_forest_model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s2">"preprocessor"</span><span class="p">]</span>
-                            <span class="o">.</span><span class="n">named_transformers_</span><span class="p">[</span><span class="s1">'cat'</span><span class="p">]</span>
-                            <span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">'onehot'</span><span class="p">]</span>
-                            <span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">categorical_features</span><span class="p">))</span>
+    <span class="c1"># Get feature names from preprocessor (robust to sklearn versions)</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">random_forest_model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s2">"preprocessor"</span><span class="p">]</span><span class="o">.</span><span class="n">named_transformers_</span><span class="p">[</span><span class="s1">'cat'</span><span class="p">]</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">'onehot'</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cat_features_ohe</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">categorical_features</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cat_features_ohe</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Fallback: create placeholder names for categorical outputs</span>
+            <span class="n">n_cat</span> <span class="o">=</span> <span class="n">importances</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">numeric_features</span><span class="p">)</span>
+            <span class="n">cat_features_ohe</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"cat_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cat</span><span class="p">)]</span>
     <span class="n">all_feature_names</span> <span class="o">=</span> <span class="n">numeric_features</span> <span class="o">+</span> <span class="n">cat_features_ohe</span>
-    
     <span class="n">top_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">importances</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_indices</span><span class="p">)),</span> <span class="n">importances</span><span class="p">[</span><span class="n">top_indices</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_indices</span><span class="p">)),</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">all_feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">])[:</span><span class="mi">30</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_indices</span><span class="p">])</span>
+    <span class="c1"># Protect against name/length mismatches</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">all_feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">])[:</span><span class="mi">30</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_feature_names</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_indices</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_indices</span><span class="p">)),</span> <span class="n">labels</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Importance"</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Top 10 Feature Importances - Random Forest"</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Note: Could not extract feature importance: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Get probability predictions for threshold tuning</span>
 <span class="n">y_pred_proba_rf</span> <span class="o">=</span> <span class="n">random_forest_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -10931,14 +10951,14 @@ weighted avg       1.00      1.00      1.00       315
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [275]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">comparison_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"Model"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Logistic Regression"</span><span class="p">,</span> <span class="s2">"Random Forest"</span><span class="p">],</span>
-    <span class="s2">"Accuracy"</span><span class="p">:</span> <span class="p">[</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">),</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)],</span>
-    <span class="s2">"Balanced Accuracy"</span><span class="p">:</span> <span class="p">[</span><span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">),</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)],</span>
-    <span class="s2">"Macro F1"</span><span class="p">:</span> <span class="p">[</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">),</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">)],</span>
+    <span class="s2">"Model"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Dummy (most_frequent)"</span><span class="p">,</span> <span class="s2">"Logistic Regression"</span><span class="p">,</span> <span class="s2">"Random Forest"</span><span class="p">],</span>
+    <span class="s2">"Accuracy"</span><span class="p">:</span> <span class="p">[</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dummy</span><span class="p">),</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">),</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)],</span>
+    <span class="s2">"Balanced Accuracy"</span><span class="p">:</span> <span class="p">[</span><span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dummy</span><span class="p">),</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">),</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)],</span>
+    <span class="s2">"Macro F1"</span><span class="p">:</span> <span class="p">[</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dummy</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">),</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_logistic</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">),</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">)],</span>
 <span class="p">})</span>
 
 <span class="n">display</span><span class="p">(</span><span class="n">comparison_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -11136,7 +11156,7 @@ weighted avg       1.00      1.00      1.00       315
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [276]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Build daily demand per zone (requires `merged_bay_df` with `status_timestamp` and `zone_number`)</span>
@@ -11185,7 +11205,12 @@ weighted avg       1.00      1.00      1.00       315
 <span class="n">cat_feats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dayofweek"</span><span class="p">,</span> <span class="s2">"restriction_display"</span><span class="p">]</span>
 
 <span class="n">num_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"imputer"</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)),</span> <span class="p">(</span><span class="s2">"scaler"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">())])</span>
-<span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"onehot"</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">))])</span>
+<span class="c1"># Create OneHotEncoder compatible with multiple sklearn versions for daily preproc</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ohe_daily</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="n">ohe_daily</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"onehot"</span><span class="p">,</span> <span class="n">ohe_daily</span><span class="p">)])</span>
 
 <span class="n">preproc_daily</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([(</span><span class="s2">"num"</span><span class="p">,</span> <span class="n">num_transformer</span><span class="p">,</span> <span class="n">num_feats</span><span class="p">),</span> <span class="p">(</span><span class="s2">"cat"</span><span class="p">,</span> <span class="n">cat_transformer</span><span class="p">,</span> <span class="n">cat_feats</span><span class="p">)])</span>
 
@@ -11946,35 +11971,19 @@ weighted avg       0.42      0.50      0.46       413
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [278]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Look up zone features from the training data</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example input using the non-leaky feature set</span>
 <span class="n">zone_num</span> <span class="o">=</span> <span class="mi">7303</span>
-<span class="n">zone_data</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span><span class="n">demand_df</span><span class="p">[</span><span class="s2">"zone_number"</span><span class="p">]</span> <span class="o">==</span> <span class="n">zone_num</span><span class="p">]</span>
-
-<span class="c1"># Use zone-specific stats if available, otherwise use dataset mean</span>
-<span class="k">if</span> <span class="n">zone_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="n">zone_occ_mean</span> <span class="o">=</span> <span class="n">zone_data</span><span class="p">[</span><span class="s2">"zone_occ_mean"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">zone_occ_std</span> <span class="o">=</span> <span class="n">zone_data</span><span class="p">[</span><span class="s2">"zone_occ_std"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">zone_volatility</span> <span class="o">=</span> <span class="n">zone_data</span><span class="p">[</span><span class="s2">"zone_volatility"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="c1"># Fallback to dataset means if zone not in training data</span>
-    <span class="n">zone_occ_mean</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span><span class="s2">"zone_occ_mean"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">zone_occ_std</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span><span class="s2">"zone_occ_std"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">zone_volatility</span> <span class="o">=</span> <span class="n">demand_df</span><span class="p">[</span><span class="s2">"zone_volatility"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
 <span class="n">sample_input</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"average_occupancy"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.45</span><span class="p">],</span>
     <span class="s2">"hour_sin"</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)],</span>
     <span class="s2">"hour_cos"</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)],</span>
     <span class="s2">"status_day"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Monday"</span><span class="p">],</span>
     <span class="s2">"dayofweek_num"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="s2">"is_weekend"</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
     <span class="s2">"restriction_display"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"2P"</span><span class="p">],</span>
-    <span class="s2">"zone_occ_mean"</span><span class="p">:</span> <span class="p">[</span><span class="n">zone_occ_mean</span><span class="p">],</span>
-    <span class="s2">"zone_occ_std"</span><span class="p">:</span> <span class="p">[</span><span class="n">zone_occ_std</span><span class="p">],</span>
-    <span class="s2">"zone_volatility"</span><span class="p">:</span> <span class="p">[</span><span class="n">zone_volatility</span><span class="p">],</span>
+    <span class="s2">"zone_number"</span><span class="p">:</span> <span class="p">[</span><span class="n">zone_num</span><span class="p">],</span>
 <span class="p">})</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Example prediction:"</span><span class="p">)</span>
