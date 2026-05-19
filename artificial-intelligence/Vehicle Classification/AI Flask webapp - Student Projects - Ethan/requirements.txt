@@ -1,5 +1,0 @@
-Flask==2.3.3
-torch==2.4.1  # Adjust this version according to your PyTorch setup and GPU compatibility
-Pillow==9.2.0  # For handling images
-werkzeug~=3.0.4
-ultralytics~=8.2.88
