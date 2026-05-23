@@ -1,0 +1,92 @@
+{
+  "title": "Smart Parking Availability Prediction and Compliance Risk Mapping for Melbourne CBD",
+  "author": "Srihari Chandran, Abhey Sharma",
+  "description": "This analysis investigates parking efficiency and congestion reduction across Melbourne's CBD by analysing parking sensor data, restriction rules, and spatial off-street capacity data. The project builds a compliance risk scoring framework that classifies parking bays into Low, Medium, and High risk categories based on restriction complexity, enforcement hours, and rule count. A Random Forest classifier achieves 99% accuracy in predicting compliance risk. An interactive folium map visualises risk levels across all 3,209 on-street bays, and a geospatial supply gap analysis reveals that every CBD bay has over 7,600 off-street spaces within 400 metres, reframing the parking problem as an information issue rather than a supply shortage. Recommendations are provided around dynamic pricing, improved signage, and off-street wayfinding.",
+  "tags": [
+    "Parking Management",
+    "Compliance Risk",
+    "Urban Mobility",
+    "Geospatial Analysis",
+    "Machine Learning",
+    "Random Forest",
+    "Classification",
+    "Interactive Mapping",
+    "Supply Gap Analysis",
+    "Feature Engineering",
+    "Occupancy Prediction",
+    "Smart City",
+    "Melbourne CBD",
+    "Dynamic Pricing",
+    "Transport Analytics",
+    "Folium",
+    "Risk Scoring",
+    "Data Pipeline"
+  ],
+  "difficulty": "Intermediate",
+  "duration": "150 mins",
+  "technology": [
+    {
+      "name": "pandas",
+      "icon": "python"
+    },
+    {
+      "name": "numpy",
+      "icon": "python"
+    },
+    {
+      "name": "scikit-learn",
+      "icon": "python"
+    },
+    {
+      "name": "geopandas",
+      "icon": "python"
+    },
+    {
+      "name": "folium",
+      "icon": "python"
+    },
+    {
+      "name": "matplotlib",
+      "icon": "python"
+    },
+    {
+      "name": "seaborn",
+      "icon": "python"
+    },
+    {
+      "name": "shapely",
+      "icon": "python"
+    },
+    {
+      "name": "holidays",
+      "icon": "python"
+    },
+    {
+      "name": "jupyter",
+      "icon": "python"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "on-street-parking-bay-sensors",
+      "icon": "dataset"
+    },
+    {
+      "name": "on-street-parking-bays",
+      "icon": "dataset"
+    },
+    {
+      "name": "on-street-car-park-bay-restrictions",
+      "icon": "dataset"
+    },
+    {
+      "name": "sign-plates-located-in-each-parking-zone",
+      "icon": "dataset"
+    },
+    {
+      "name": "off-street-car-parks-with-capacity-and-type",
+      "icon": "dataset"
+    }
+  ],
+  "date": "2026-05-19"
+}
