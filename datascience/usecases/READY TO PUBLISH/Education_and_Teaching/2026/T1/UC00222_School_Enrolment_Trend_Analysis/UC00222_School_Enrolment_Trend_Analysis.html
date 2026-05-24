@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>UC00222_Project_35_School_Enrollment_Trend_Analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>UC00222_School_Enrolment_Trend_Analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7516,8 +7516,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="usecase-title">UC00222: Project 35 - School Enrolment Trend Analysis</div>
-<div class="usecase-authors"><b>Authored by: </b>Dennis Jojo Kuriakose (S224727875), Hans Devu Sunil (S224072841)</div>
+<div class="usecase-title">UC00222: School Enrolment Trend Analysis</div>
+<div class="usecase-authors"><b>Authored by: </b>Dennis Jojo Kuriakose, Hans Devu Sunil</div>
 </div>
 </div>
 </div>
@@ -7609,7 +7609,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This analysis uses the enrolment CSV files from the project source data folder: <a href="https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/DEPENDENCIES/UC00206_Project%2035_Source%20Data">UC00206 Project 35 Source Data</a>.</p>
+<p>This analysis uses the enrolment CSV files from the project source data folder: <a href="https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/DEPENDENCIES/UC00206_Project%2035_Source%20Data">UC00206 Source Data</a>.</p>
 <p>The notebook uses the 2022, 2023, 2024, and 2025 enrolment files from that folder and joins them to Victorian school location/profile data from the Victorian Government open data API. The main trend comparison focuses on schools that are open and present in all four years, which makes the charts more consistent and avoids comparing schools that enter or leave the dataset partway through the period.</p>
 <p>The notebook also includes a baseline modelling section that uses the historical 2022–2025 enrolment patterns to estimate/predict 2026 enrolment values. These 2026 predictions are treated as indicative forecasts, not confirmed future enrolment figures, because they are based only on recent historical trends and available school profile features.</p>
 </div>
@@ -7620,7 +7620,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [59]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -7678,7 +7678,9 @@ a.anchor-link {
 <span class="s2">}</span>
 <span class="s2">.usecase-section-header {</span>
 <span class="s2">    font-weight: bold;</span>
-<span class="s2">    font-size: 1.5em;</span>
+<span class="s2">    font-size: 1.9em;</span>
+<span class="s2">    margin-top: 24px;</span>
+<span class="s2">    border-radius: 4px;</span>
 <span class="s2">}</span>
 <span class="s2">&lt;/style&gt;</span>
 <span class="s2">"""</span><span class="p">)</span>
@@ -7692,7 +7694,7 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[59]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <style>
 .usecase-title, .usecase-duration, .usecase-section-header {
@@ -7729,7 +7731,9 @@ a.anchor-link {
 }
 .usecase-section-header {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.9em;
+    margin-top: 24px;
+    border-radius: 4px;
 }
 </style>
 </div>
@@ -7752,7 +7756,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [60]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">workflow_steps</span> <span class="o">=</span> <span class="p">[</span>
@@ -7832,7 +7836,7 @@ This includes details such as school name, sector, school type, and regional inf
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [61]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Import school locations dataset from the Victorian Government open data API.</span>
@@ -7869,7 +7873,7 @@ This includes details such as school name, sector, school type, and regional inf
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-8419018a-1d85-45a3-b661-5ee1529443a8">
+<div class="colab-df-container" id="df-dcaaaaee-9744-488f-91df-38b313231193">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8038,7 +8042,7 @@ This includes details such as school name, sector, school type, and regional inf
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-8419018a-1d85-45a3-b661-5ee1529443a8')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-dcaaaaee-9744-488f-91df-38b313231193')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8085,12 +8089,12 @@ This includes details such as school name, sector, school type, and regional inf
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-8419018a-1d85-45a3-b661-5ee1529443a8 button.colab-df-convert');
+        document.querySelector('#df-dcaaaaee-9744-488f-91df-38b313231193 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-8419018a-1d85-45a3-b661-5ee1529443a8');
+        const element = document.querySelector('#df-dcaaaaee-9744-488f-91df-38b313231193');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8132,7 +8136,7 @@ This includes details such as school name, sector, school type, and regional inf
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [62]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Enrolment datasets for multiple years.</span>
@@ -8171,7 +8175,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [63]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">clean_column_names</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -8241,7 +8245,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-2f24efcf-8326-4e0a-8d9d-e83ffbc242e4">
+<div class="colab-df-container" id="df-138abbda-75d5-439a-a725-d3a91652da79">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8300,7 +8304,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-2f24efcf-8326-4e0a-8d9d-e83ffbc242e4')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-138abbda-75d5-439a-a725-d3a91652da79')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8347,12 +8351,12 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-2f24efcf-8326-4e0a-8d9d-e83ffbc242e4 button.colab-df-convert');
+        document.querySelector('#df-138abbda-75d5-439a-a725-d3a91652da79 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-2f24efcf-8326-4e0a-8d9d-e83ffbc242e4');
+        const element = document.querySelector('#df-138abbda-75d5-439a-a725-d3a91652da79');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8370,7 +8374,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
       }
     </script>
 </div>
-<div id="id_d2e5fc84-fd27-4096-a307-adcabd8aa0d2">
+<div id="id_a9d4b5a2-32f8-4720-b310-cd8d23276e69">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -8410,7 +8414,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_d2e5fc84-fd27-4096-a307-adcabd8aa0d2 button.colab-df-generate');
+        document.querySelector('#id_a9d4b5a2-32f8-4720-b310-cd8d23276e69 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -8427,7 +8431,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-97121ce0-0ecf-41dc-abb8-310f535bd011">
+<div class="colab-df-container" id="df-0d47e7af-f68d-4109-b649-396d5dfbc135">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8596,7 +8600,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-97121ce0-0ecf-41dc-abb8-310f535bd011')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-0d47e7af-f68d-4109-b649-396d5dfbc135')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8643,12 +8647,12 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-97121ce0-0ecf-41dc-abb8-310f535bd011 button.colab-df-convert');
+        document.querySelector('#df-0d47e7af-f68d-4109-b649-396d5dfbc135 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-97121ce0-0ecf-41dc-abb8-310f535bd011');
+        const element = document.querySelector('#df-0d47e7af-f68d-4109-b649-396d5dfbc135');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8702,7 +8706,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [64]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Find common columns across all year datasets</span>
@@ -8735,7 +8739,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [65]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Keep only common columns</span>
@@ -8764,7 +8768,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-a4b98579-f1eb-4b33-a592-780718b130e4">
+<div class="colab-df-container" id="df-c8f846c5-97d7-472a-a1d0-e3108aadfe8f">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8933,7 +8937,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-a4b98579-f1eb-4b33-a592-780718b130e4')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-c8f846c5-97d7-472a-a1d0-e3108aadfe8f')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8980,12 +8984,12 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-a4b98579-f1eb-4b33-a592-780718b130e4 button.colab-df-convert');
+        document.querySelector('#df-c8f846c5-97d7-472a-a1d0-e3108aadfe8f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a4b98579-f1eb-4b33-a592-780718b130e4');
+        const element = document.querySelector('#df-c8f846c5-97d7-472a-a1d0-e3108aadfe8f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -9038,7 +9042,7 @@ https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/D
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [66]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Check counts by year</span>
@@ -9074,7 +9078,7 @@ Year 2025: Total rows = 2301, Unique School_No = 2162
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [67]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Show duplicate School_No examples</span>
@@ -9106,7 +9110,7 @@ Year 2022 - Example duplicate School_No: 250
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-c4f8b8ce-725f-404c-994e-7e60aa2099c7">
+<div class="colab-df-container" id="df-ed472c91-7895-432b-8845-1bf69d17bb4c">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -9203,7 +9207,7 @@ Year 2022 - Example duplicate School_No: 250
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-c4f8b8ce-725f-404c-994e-7e60aa2099c7')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-ed472c91-7895-432b-8845-1bf69d17bb4c')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -9250,12 +9254,12 @@ Year 2022 - Example duplicate School_No: 250
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-c4f8b8ce-725f-404c-994e-7e60aa2099c7 button.colab-df-convert');
+        document.querySelector('#df-ed472c91-7895-432b-8845-1bf69d17bb4c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-c4f8b8ce-725f-404c-994e-7e60aa2099c7');
+        const element = document.querySelector('#df-ed472c91-7895-432b-8845-1bf69d17bb4c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -9288,7 +9292,7 @@ Year 2023 - Example duplicate School_No: 26
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-eed2f43b-674a-4b02-acf1-d88e9c7281c1">
+<div class="colab-df-container" id="df-7315f8fc-4854-495f-bc4b-b894dd3ad79a">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -9385,7 +9389,7 @@ Year 2023 - Example duplicate School_No: 26
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-eed2f43b-674a-4b02-acf1-d88e9c7281c1')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-7315f8fc-4854-495f-bc4b-b894dd3ad79a')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -9432,12 +9436,12 @@ Year 2023 - Example duplicate School_No: 26
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-eed2f43b-674a-4b02-acf1-d88e9c7281c1 button.colab-df-convert');
+        document.querySelector('#df-7315f8fc-4854-495f-bc4b-b894dd3ad79a button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-eed2f43b-674a-4b02-acf1-d88e9c7281c1');
+        const element = document.querySelector('#df-7315f8fc-4854-495f-bc4b-b894dd3ad79a');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -9470,7 +9474,7 @@ Year 2024 - Example duplicate School_No: 26
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-5050d67b-136e-4d85-97a2-c050d4ca30ad">
+<div class="colab-df-container" id="df-82d898f1-d6ad-4d5e-8e76-427d92421711">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -9567,7 +9571,7 @@ Year 2024 - Example duplicate School_No: 26
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-5050d67b-136e-4d85-97a2-c050d4ca30ad')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-82d898f1-d6ad-4d5e-8e76-427d92421711')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -9614,12 +9618,12 @@ Year 2024 - Example duplicate School_No: 26
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-5050d67b-136e-4d85-97a2-c050d4ca30ad button.colab-df-convert');
+        document.querySelector('#df-82d898f1-d6ad-4d5e-8e76-427d92421711 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-5050d67b-136e-4d85-97a2-c050d4ca30ad');
+        const element = document.querySelector('#df-82d898f1-d6ad-4d5e-8e76-427d92421711');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -9652,7 +9656,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-72036054-2a16-4bd1-a4c8-6dcdd4f64860">
+<div class="colab-df-container" id="df-0cd99391-e2dc-4fb8-b959-b3f2b45a5ef2">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -9749,7 +9753,7 @@ Year 2025 - Example duplicate School_No: 1527
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-72036054-2a16-4bd1-a4c8-6dcdd4f64860')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-0cd99391-e2dc-4fb8-b959-b3f2b45a5ef2')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -9796,12 +9800,12 @@ Year 2025 - Example duplicate School_No: 1527
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-72036054-2a16-4bd1-a4c8-6dcdd4f64860 button.colab-df-convert');
+        document.querySelector('#df-0cd99391-e2dc-4fb8-b959-b3f2b45a5ef2 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-72036054-2a16-4bd1-a4c8-6dcdd4f64860');
+        const element = document.querySelector('#df-0cd99391-e2dc-4fb8-b959-b3f2b45a5ef2');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -9855,7 +9859,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [68]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_unique_id</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -9885,7 +9889,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-3a1f7cf8-591a-48c9-80cb-aaed3ce3ec7e">
+<div class="colab-df-container" id="df-d8e3e954-c9aa-4809-a8c5-95028eac5e8d">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -9975,7 +9979,7 @@ Year 2025 - Example duplicate School_No: 1527
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-3a1f7cf8-591a-48c9-80cb-aaed3ce3ec7e')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-d8e3e954-c9aa-4809-a8c5-95028eac5e8d')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -10022,12 +10026,12 @@ Year 2025 - Example duplicate School_No: 1527
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-3a1f7cf8-591a-48c9-80cb-aaed3ce3ec7e button.colab-df-convert');
+        document.querySelector('#df-d8e3e954-c9aa-4809-a8c5-95028eac5e8d button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-3a1f7cf8-591a-48c9-80cb-aaed3ce3ec7e');
+        const element = document.querySelector('#df-d8e3e954-c9aa-4809-a8c5-95028eac5e8d');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -10080,7 +10084,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [69]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Review school status counts</span>
@@ -10103,7 +10107,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-fc1de93e-1fca-4921-9431-efa8a8afeb96">
+<div class="colab-df-container" id="df-7822570b-dcaa-41e6-9f2c-922050bdc367">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -10193,7 +10197,7 @@ Year 2025 - Example duplicate School_No: 1527
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-fc1de93e-1fca-4921-9431-efa8a8afeb96')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-7822570b-dcaa-41e6-9f2c-922050bdc367')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -10240,12 +10244,12 @@ Year 2025 - Example duplicate School_No: 1527
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-fc1de93e-1fca-4921-9431-efa8a8afeb96 button.colab-df-convert');
+        document.querySelector('#df-7822570b-dcaa-41e6-9f2c-922050bdc367 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-fc1de93e-1fca-4921-9431-efa8a8afeb96');
+        const element = document.querySelector('#df-7822570b-dcaa-41e6-9f2c-922050bdc367');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -10263,7 +10267,7 @@ Year 2025 - Example duplicate School_No: 1527
       }
     </script>
 </div>
-<div id="id_cdc3444b-680e-4dfd-98e1-2856c9ba9df1">
+<div id="id_e8b963e4-057a-471e-8109-27bda5d9bf80">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -10303,7 +10307,7 @@ Year 2025 - Example duplicate School_No: 1527
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_cdc3444b-680e-4dfd-98e1-2856c9ba9df1 button.colab-df-generate');
+        document.querySelector('#id_e8b963e4-057a-471e-8109-27bda5d9bf80 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -10324,7 +10328,7 @@ Year 2025 - Example duplicate School_No: 1527
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [70]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Limit the dataset to schools that are active in the comparison period</span>
@@ -10398,7 +10402,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [71]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">school_locations_df</span> <span class="o">=</span> <span class="n">clean_column_names</span><span class="p">(</span><span class="n">school_locations_df</span><span class="p">)</span>
@@ -10431,7 +10435,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-dfec35dd-4616-4a23-9828-f10a648f46b7">
+<div class="colab-df-container" id="df-b99cf880-70fb-42a7-93a9-5a0742734916">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -10565,7 +10569,7 @@ Name: Unique_School_ID, dtype: int64
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-dfec35dd-4616-4a23-9828-f10a648f46b7')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-b99cf880-70fb-42a7-93a9-5a0742734916')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -10612,12 +10616,12 @@ Name: Unique_School_ID, dtype: int64
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-dfec35dd-4616-4a23-9828-f10a648f46b7 button.colab-df-convert');
+        document.querySelector('#df-b99cf880-70fb-42a7-93a9-5a0742734916 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-dfec35dd-4616-4a23-9828-f10a648f46b7');
+        const element = document.querySelector('#df-b99cf880-70fb-42a7-93a9-5a0742734916');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -10659,7 +10663,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [72]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
@@ -10715,7 +10719,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-7e9f0f37-7973-4477-92fb-7bea24604393">
+<div class="colab-df-container" id="df-922752d7-de61-4ec7-886b-e85f5f528dd4">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -10805,7 +10809,7 @@ Name: Unique_School_ID, dtype: int64
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-7e9f0f37-7973-4477-92fb-7bea24604393')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-922752d7-de61-4ec7-886b-e85f5f528dd4')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -10852,12 +10856,12 @@ Name: Unique_School_ID, dtype: int64
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-7e9f0f37-7973-4477-92fb-7bea24604393 button.colab-df-convert');
+        document.querySelector('#df-922752d7-de61-4ec7-886b-e85f5f528dd4 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-7e9f0f37-7973-4477-92fb-7bea24604393');
+        const element = document.querySelector('#df-922752d7-de61-4ec7-886b-e85f5f528dd4');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -10910,7 +10914,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [73]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Missing values in final dataset:"</span><span class="p">)</span>
@@ -11028,7 +11032,7 @@ Name: Unique_School_ID, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [74]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">years_included</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">final_df</span><span class="p">[</span><span class="s2">"Census_Year"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())]</span>
@@ -11076,7 +11080,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [75]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">grade_columns</span> <span class="o">=</span> <span class="p">[</span>
@@ -11197,7 +11201,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-8bc56517-3d51-4a5b-b7bc-c8f49bc84fa5">
+<div class="colab-df-container" id="df-5283f88f-b884-4cff-b325-9d53c27489b0">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -11281,7 +11285,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-8bc56517-3d51-4a5b-b7bc-c8f49bc84fa5')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-5283f88f-b884-4cff-b325-9d53c27489b0')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -11328,12 +11332,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-8bc56517-3d51-4a5b-b7bc-c8f49bc84fa5 button.colab-df-convert');
+        document.querySelector('#df-5283f88f-b884-4cff-b325-9d53c27489b0 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-8bc56517-3d51-4a5b-b7bc-c8f49bc84fa5');
+        const element = document.querySelector('#df-5283f88f-b884-4cff-b325-9d53c27489b0');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -11373,7 +11377,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [76]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -11444,7 +11448,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [77]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">sector_year</span> <span class="o">=</span> <span class="p">(</span>
@@ -11514,7 +11518,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-7313d01f-a292-4890-9c80-5d2460c19af2">
+<div class="colab-df-container" id="df-90f93b35-c9a7-4ba0-a946-e15e72846917">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -11642,7 +11646,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-7313d01f-a292-4890-9c80-5d2460c19af2')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-90f93b35-c9a7-4ba0-a946-e15e72846917')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -11689,12 +11693,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-7313d01f-a292-4890-9c80-5d2460c19af2 button.colab-df-convert');
+        document.querySelector('#df-90f93b35-c9a7-4ba0-a946-e15e72846917 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-7313d01f-a292-4890-9c80-5d2460c19af2');
+        const element = document.querySelector('#df-90f93b35-c9a7-4ba0-a946-e15e72846917');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -11734,7 +11738,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [78]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">grade_totals</span> <span class="o">=</span> <span class="n">final_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Census_Year"</span><span class="p">)[</span><span class="n">grade_columns</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -11783,7 +11787,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-b5fa6d15-43f3-4e60-bff9-54991558fa52">
+<div class="colab-df-container" id="df-e56eea97-a9f0-42bf-b4d1-95890471baf3">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -11877,7 +11881,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-b5fa6d15-43f3-4e60-bff9-54991558fa52')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-e56eea97-a9f0-42bf-b4d1-95890471baf3')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -11924,12 +11928,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-b5fa6d15-43f3-4e60-bff9-54991558fa52 button.colab-df-convert');
+        document.querySelector('#df-e56eea97-a9f0-42bf-b4d1-95890471baf3 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-b5fa6d15-43f3-4e60-bff9-54991558fa52');
+        const element = document.querySelector('#df-e56eea97-a9f0-42bf-b4d1-95890471baf3');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -11969,7 +11973,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [79]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">region_year</span> <span class="o">=</span> <span class="p">(</span>
@@ -12037,7 +12041,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-b739f591-3993-4cf0-b2ce-0ba0930367ee">
+<div class="colab-df-container" id="df-abb5191e-784f-4735-80aa-ca9a9985a6b1">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -12115,7 +12119,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-b739f591-3993-4cf0-b2ce-0ba0930367ee')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-abb5191e-784f-4735-80aa-ca9a9985a6b1')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -12162,12 +12166,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-b739f591-3993-4cf0-b2ce-0ba0930367ee button.colab-df-convert');
+        document.querySelector('#df-abb5191e-784f-4735-80aa-ca9a9985a6b1 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-b739f591-3993-4cf0-b2ce-0ba0930367ee');
+        const element = document.querySelector('#df-abb5191e-784f-4735-80aa-ca9a9985a6b1');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -12207,7 +12211,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [80]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">lga_pivot</span> <span class="o">=</span> <span class="n">final_df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"LGA_Name"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"Census_Year"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"Grand_Total"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">)</span>
@@ -12285,7 +12289,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-30735b2f-2aa4-458b-96bf-6f076aa4c0f8">
+<div class="colab-df-container" id="df-93f702d5-0884-4465-9a17-1b7ca67e7f23">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -12441,7 +12445,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-30735b2f-2aa4-458b-96bf-6f076aa4c0f8')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-93f702d5-0884-4465-9a17-1b7ca67e7f23')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -12488,12 +12492,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-30735b2f-2aa4-458b-96bf-6f076aa4c0f8 button.colab-df-convert');
+        document.querySelector('#df-93f702d5-0884-4465-9a17-1b7ca67e7f23 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-30735b2f-2aa4-458b-96bf-6f076aa4c0f8');
+        const element = document.querySelector('#df-93f702d5-0884-4465-9a17-1b7ca67e7f23');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -12525,7 +12529,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-25a53cfc-b31d-4836-8425-119b773ebc17">
+<div class="colab-df-container" id="df-59586898-07f5-4455-b107-1f89b1a635fe">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -12681,7 +12685,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-25a53cfc-b31d-4836-8425-119b773ebc17')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-59586898-07f5-4455-b107-1f89b1a635fe')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -12728,12 +12732,12 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-25a53cfc-b31d-4836-8425-119b773ebc17 button.colab-df-convert');
+        document.querySelector('#df-59586898-07f5-4455-b107-1f89b1a635fe button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-25a53cfc-b31d-4836-8425-119b773ebc17');
+        const element = document.querySelector('#df-59586898-07f5-4455-b107-1f89b1a635fe');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -12773,7 +12777,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [81]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -12873,7 +12877,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [82]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">correlation_columns</span> <span class="o">=</span> <span class="n">grade_columns</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"Primary_Total"</span><span class="p">,</span> <span class="s2">"Secondary_Total"</span><span class="p">,</span> <span class="s2">"Grand_Total"</span><span class="p">]</span>
@@ -12932,7 +12936,7 @@ Regions: ['NORTH-EASTERN VICTORIA', 'NORTH-WESTERN VICTORIA', 'SOUTH-EASTERN VIC
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [83]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
@@ -13014,7 +13018,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-2fa4e4de-2073-42b6-b4c9-1e72d15a76b5">
+<div class="colab-df-container" id="df-4d6835a4-f19b-4dc8-9202-c47ff70ebd15">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -13128,7 +13132,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-2fa4e4de-2073-42b6-b4c9-1e72d15a76b5')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-4d6835a4-f19b-4dc8-9202-c47ff70ebd15')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -13175,12 +13179,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-2fa4e4de-2073-42b6-b4c9-1e72d15a76b5 button.colab-df-convert');
+        document.querySelector('#df-4d6835a4-f19b-4dc8-9202-c47ff70ebd15 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-2fa4e4de-2073-42b6-b4c9-1e72d15a76b5');
+        const element = document.querySelector('#df-4d6835a4-f19b-4dc8-9202-c47ff70ebd15');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -13209,7 +13213,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [84]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Build a reproducible modelling pipeline.</span>
@@ -13318,7 +13322,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-89f01d52-71ba-4c3c-ba9a-67fab70e669b">
+<div class="colab-df-container" id="df-2e23d21a-f4e4-403f-abf0-5d099e644ace">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -13366,7 +13370,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-89f01d52-71ba-4c3c-ba9a-67fab70e669b')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-2e23d21a-f4e4-403f-abf0-5d099e644ace')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -13413,12 +13417,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-89f01d52-71ba-4c3c-ba9a-67fab70e669b button.colab-df-convert');
+        document.querySelector('#df-2e23d21a-f4e4-403f-abf0-5d099e644ace button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-89f01d52-71ba-4c3c-ba9a-67fab70e669b');
+        const element = document.querySelector('#df-2e23d21a-f4e4-403f-abf0-5d099e644ace');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -13450,7 +13454,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-08749270-a072-45a6-aca8-62f6e6442c37">
+<div class="colab-df-container" id="df-f9d07d85-d94c-4c33-83f7-054cfaae6f09">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -13617,7 +13621,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-08749270-a072-45a6-aca8-62f6e6442c37')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-f9d07d85-d94c-4c33-83f7-054cfaae6f09')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -13664,12 +13668,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-08749270-a072-45a6-aca8-62f6e6442c37 button.colab-df-convert');
+        document.querySelector('#df-f9d07d85-d94c-4c33-83f7-054cfaae6f09 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-08749270-a072-45a6-aca8-62f6e6442c37');
+        const element = document.querySelector('#df-f9d07d85-d94c-4c33-83f7-054cfaae6f09');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -13698,7 +13702,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [85]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -13748,7 +13752,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [86]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Produce a cautious one-year-ahead forecast for 2026.</span>
@@ -13866,7 +13870,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-fa3cb651-d34e-44ad-92fe-eb18e07c350a">
+<div class="colab-df-container" id="df-edbacd7b-a257-47e3-bd33-263427408fd8">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -14044,7 +14048,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-fa3cb651-d34e-44ad-92fe-eb18e07c350a')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-edbacd7b-a257-47e3-bd33-263427408fd8')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -14091,12 +14095,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-fa3cb651-d34e-44ad-92fe-eb18e07c350a button.colab-df-convert');
+        document.querySelector('#df-edbacd7b-a257-47e3-bd33-263427408fd8 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-fa3cb651-d34e-44ad-92fe-eb18e07c350a');
+        const element = document.querySelector('#df-edbacd7b-a257-47e3-bd33-263427408fd8');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -14128,7 +14132,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-4f6419ea-d6bc-4553-9e42-e46b17ae7697">
+<div class="colab-df-container" id="df-730067c0-18cb-4ce5-9d00-032dc837baf6">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -14306,7 +14310,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-4f6419ea-d6bc-4553-9e42-e46b17ae7697')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-730067c0-18cb-4ce5-9d00-032dc837baf6')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -14353,12 +14357,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-4f6419ea-d6bc-4553-9e42-e46b17ae7697 button.colab-df-convert');
+        document.querySelector('#df-730067c0-18cb-4ce5-9d00-032dc837baf6 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-4f6419ea-d6bc-4553-9e42-e46b17ae7697');
+        const element = document.querySelector('#df-730067c0-18cb-4ce5-9d00-032dc837baf6');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -14390,7 +14394,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-d6f0b10e-86ca-4a73-b52e-a5b18e6eaea1">
+<div class="colab-df-container" id="df-418a2f96-833e-4a6f-b4ed-aa926f977089">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -14446,7 +14450,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-d6f0b10e-86ca-4a73-b52e-a5b18e6eaea1')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-418a2f96-833e-4a6f-b4ed-aa926f977089')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -14493,12 +14497,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-d6f0b10e-86ca-4a73-b52e-a5b18e6eaea1 button.colab-df-convert');
+        document.querySelector('#df-418a2f96-833e-4a6f-b4ed-aa926f977089 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-d6f0b10e-86ca-4a73-b52e-a5b18e6eaea1');
+        const element = document.querySelector('#df-418a2f96-833e-4a6f-b4ed-aa926f977089');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -14545,7 +14549,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [87]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">overall_start</span> <span class="o">=</span> <span class="n">year_summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">year_summary</span><span class="p">[</span><span class="s2">"Census_Year"</span><span class="p">]</span> <span class="o">==</span> <span class="n">start_year</span><span class="p">,</span> <span class="s2">"Total_enrolment"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -14616,7 +14620,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-2fd814ea-c334-4476-b462-a1ffa471503f">
+<div class="colab-df-container" id="df-5e8d39cf-31dd-41db-8138-a7b78239ec96">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -14690,7 +14694,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-2fd814ea-c334-4476-b462-a1ffa471503f')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-5e8d39cf-31dd-41db-8138-a7b78239ec96')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -14737,12 +14741,12 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-2fd814ea-c334-4476-b462-a1ffa471503f button.colab-df-convert');
+        document.querySelector('#df-5e8d39cf-31dd-41db-8138-a7b78239ec96 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-2fd814ea-c334-4476-b462-a1ffa471503f');
+        const element = document.querySelector('#df-5e8d39cf-31dd-41db-8138-a7b78239ec96');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -14760,7 +14764,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
       }
     </script>
 </div>
-<div id="id_f4853427-d580-4d40-84e0-9954401e1407">
+<div id="id_d3e96be6-7421-411d-8fab-0dca33778f59">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -14800,7 +14804,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_f4853427-d580-4d40-84e0-9954401e1407 button.colab-df-generate');
+        document.querySelector('#id_d3e96be6-7421-411d-8fab-0dca33778f59 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -14842,7 +14846,7 @@ Feature columns: ['Year_Index', 'Previous_Year_enrolment', 'Previous_Year_Change
 </ul>
 <p>References:</p>
 <ul>
-<li>Enrolment CSV files: <a href="https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/DEPENDENCIES/UC00206_Project%2035_Source%20Data">Chameleon-company/MOP-Code UC00206 Project 35 Source Data</a></li>
+<li>Enrolment CSV files: <a href="https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/DEPENDENCIES/UC00206_Project%2035_Source%20Data">Chameleon-company/MOP-Code UC00206 Source Data</a></li>
 <li>School location/profile data: Victorian Government open data API accessed through <a href="https://discover.data.vic.gov.au/dataset/school-locations-2024">https://discover.data.vic.gov.au/dataset/school-locations-2024</a></li>
 </ul>
 </div>
