@@ -26,6 +26,7 @@ coverage/
 
 # IDE / Editor
 .vscode/
+.vscode_backup/
 .idea/
 
 # OS
