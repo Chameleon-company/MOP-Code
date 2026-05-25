@@ -1,1 +1,0 @@
-Project 8 validation testing and accuracy results added.
