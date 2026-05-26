@@ -7802,7 +7802,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Urban-Flood-Risk-Prediction">Urban Flood Risk Prediction<a class="anchor-link" href="#Urban-Flood-Risk-Prediction">¶</a></h1><p><strong>Authored by:</strong> Hoang Hiep Pham (224115222)</p>
+<h1 id="Urban-Flood-Risk-Prediction">Urban Flood Risk Prediction<a class="anchor-link" href="#Urban-Flood-Risk-Prediction">¶</a></h1><p><strong>Authored by:</strong> Hoang Hiep Pham</p>
 <p><strong>Duration:</strong> 90 mins</p>
 <p><strong>Level:</strong> Intermediate</p>
 <p><strong>Pre-requisite skills:</strong> Python, Data Manipulation, Data Visualisation</p>
@@ -7857,7 +7857,7 @@ Understanding how urban infrastructure and environmental factors influence flood
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Section-1:-General-setting-&amp;-Data-preparation">Section 1: General setting &amp; Data preparation<a class="anchor-link" href="#Section-1:-General-setting-&amp;-Data-preparation">¶</a></h2><p>Importing necessary libraries</p>
+<h2 id="Section-1:-General-setting-&amp;-Data-preparation">Section 1: General setting &amp; Data preparation<a class="anchor-link" href="#Section-1:-General-setting-&amp;-Data-preparation">¶</a></h2><p>We start with importing the required libraries. Optional installation commands are included for any packages not previously installed on your machine.</p>
 </div>
 </div>
 </div>
@@ -7901,8 +7901,11 @@ Understanding how urban infrastructure and environmental factors influence flood
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Collecting-data">Collecting data<a class="anchor-link" href="#Collecting-data">¶</a></h3><p>5 spatial datasets with specific features are downloaded from the City of Melbourne Open Data.<br/>
-1 Daily Rainfall dataset is downloaded from the Australian Government Bureau of Meteorology, measuring daily rainfall over the years at Olympic Park station.</p>
+<h3 id="Collecting-data">Collecting data<a class="anchor-link" href="#Collecting-data">¶</a></h3><ul>
+<li>5 spatial datasets with specific features are downloaded from the City of Melbourne Open Data (CoM).<br/></li>
+<li>1 Daily Rainfall dataset is downloaded from the Australian Government Bureau of Meteorology (BoM), measuring daily rainfall over the years at Olympic Park station.<br/></li>
+</ul>
+<p>A custom function downloads five datasets directly from the City of Melbourne's (CoM) public API portal. The Bureau of Meteorology (BoM) dataset is pre-downloaded and retrieved from Google Cloud Storage during execution.</p>
 </div>
 </div>
 </div>
@@ -7979,7 +7982,7 @@ Successfully loaded rainfall data, 4843 rows and 8 columns.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Section-2:-Data-preprocessing">Section 2: Data preprocessing<a class="anchor-link" href="#Section-2:-Data-preprocessing">¶</a></h2><h3 id="2.1-Spatial-data-preprocessing">2.1 Spatial data preprocessing<a class="anchor-link" href="#2.1-Spatial-data-preprocessing">¶</a></h3><h4 id="2.1.1-Exploring-raw-datasets">2.1.1 Exploring raw datasets<a class="anchor-link" href="#2.1.1-Exploring-raw-datasets">¶</a></h4><p>The raw datasets are inspected to understand their structure, attributes, and potential data quality issues.</p>
+<h2 id="Section-2:-Data-preprocessing">Section 2: Data preprocessing<a class="anchor-link" href="#Section-2:-Data-preprocessing">¶</a></h2><h3 id="2.1-Spatial-data-preprocessing">2.1 Spatial data preprocessing<a class="anchor-link" href="#2.1-Spatial-data-preprocessing">¶</a></h3><h4 id="2.1.1-Exploring-raw-datasets">2.1.1 Exploring raw datasets<a class="anchor-link" href="#2.1.1-Exploring-raw-datasets">¶</a></h4><p>The raw datasets are inspected with displaying the first few rows and missing values of each raw spatial dataset. This is used to understand the structure of the data, identify useful columns, and check data quality before cleaning and feature creation.</p>
 </div>
 </div>
 </div>
@@ -8310,7 +8313,7 @@ dtype: int64
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="2.1.2-Visualising-raw-datasets">2.1.2 Visualising raw datasets<a class="anchor-link" href="#2.1.2-Visualising-raw-datasets">¶</a></h4><p>The spatial datasets are visualised on maps to provides an intuitive understanding geographic distribution.</p>
+<h4 id="2.1.2-Visualising-raw-datasets">2.1.2 Visualising raw datasets<a class="anchor-link" href="#2.1.2-Visualising-raw-datasets">¶</a></h4><p>A good way to understand geographical and spatial data is by plotting them on a map. The purpose is to visually inspect the geographic distribution of stormwater pits, drainpipes, buildings, roads, and trees across the study area before further processing.</p>
 </div>
 </div>
 </div>
@@ -8369,8 +8372,7 @@ dtype: int64
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="2.1.3-Spatial-data-handling">2.1.3 Spatial data handling<a class="anchor-link" href="#2.1.3-Spatial-data-handling">¶</a></h4><p>At this primary cleaning step, a few useful features are selected from each raw dataset, and duplicate and missing values are removed.
-The Road dataset is applied an additional transformation to convert each surface type to a score based on the pervious ability of its material.</p>
+<h4 id="2.1.3-Spatial-data-handling">2.1.3 Spatial data handling<a class="anchor-link" href="#2.1.3-Spatial-data-handling">¶</a></h4><p>This step prepares the raw spatial datasets for feature extraction. The original files contain many columns that are not needed for the flood risk model, so I keep only the useful attributes and geometry columns. I also remove missing or duplicated records to reduce data errors. For the road dataset, I convert road surface types into a pervious score, because different surfaces allow different levels of water absorption.</p>
 </div>
 </div>
 </div>
@@ -8489,7 +8491,7 @@ Roads dataset with pervious score:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.2-Temporal-data-preprocessing">2.2 Temporal data preprocessing<a class="anchor-link" href="#2.2-Temporal-data-preprocessing">¶</a></h3><h4 id="2.2.1-Exploring-&amp;-Cleaning-Rainfall-dataset">2.2.1 Exploring &amp; Cleaning Rainfall dataset<a class="anchor-link" href="#2.2.1-Exploring-&amp;-Cleaning-Rainfall-dataset">¶</a></h4><p>The Daily Rainfall dataset is initially cleaned and selected for a range in most recent 10 years from 2016 to 2025</p>
+<h3 id="2.2-Temporal-data-preprocessing">2.2 Temporal data preprocessing<a class="anchor-link" href="#2.2-Temporal-data-preprocessing">¶</a></h3><h4 id="2.2.1-Exploring-&amp;-Cleaning-Rainfall-dataset">2.2.1 Exploring &amp; Cleaning Rainfall dataset<a class="anchor-link" href="#2.2.1-Exploring-&amp;-Cleaning-Rainfall-dataset">¶</a></h4><p>I clean the rainfall dataset so it can be used together with the spatial data. I keep only the useful columns, rename them into clearer names, and filter the records to the study period from 2016 to 2025. I also check for missing, duplicated, or invalid rainfall values. This is important because the prediction needs consistent rainfall information before it can be linked with the flood risk analysis.</p>
 </div>
 </div>
 </div>
@@ -8657,7 +8659,7 @@ Rainfall first and last 5 rows:
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Section-3:-Features-creating">Section 3: Features creating<a class="anchor-link" href="#Section-3:-Features-creating">¶</a></h2><h3 id="3.1-Creating-geometry-grid-data-frame-&amp;-extracting-spatial-features">3.1 Creating geometry grid data frame &amp; extracting spatial features<a class="anchor-link" href="#3.1-Creating-geometry-grid-data-frame-&amp;-extracting-spatial-features">¶</a></h3><p>To prepare for model training, selected spatial features are converted into a score-based dataframe.<br/>
-The City of Melbourne is partitioned into grids, calculating scores for each cell based on density and specific attributes known to impact flood risk</p>
+I divide the study area into regular 1 km grid cells. This is necessary because the raw spatial datasets have different geometry types, such as points, lines, and polygons. By using grid cells, all datasets can be summarised into the same spatial unit. Each grid cell will become one row in the final machine learning dataset.</p>
 <p><strong>Features creating justification:</strong></p>
 <ul>
 <li>pit_count: Higher numbers of drainage pits indicate greater stormwater collection capacity and potentially lower surface water accumulation.</li>
@@ -8805,6 +8807,17 @@ dtype: int64
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Each spatial dataset are joined to the grid cells. I use spatial joins to count or summarise features inside each grid, such as the number of stormwater pits, drainage pipe length, tree canopy coverage, building elevation, and road surface condition. This changes raw map layers into numerical features that can be used by the machine learning models.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="3.2-Visualising-cleaned-spartial-datasets-on-grid-areas">3.2 Visualising cleaned spartial datasets on grid areas<a class="anchor-link" href="#3.2-Visualising-cleaned-spartial-datasets-on-grid-areas">¶</a></h3><p>The cleaned and processed datasets are visualised within the grid structure to better understand spatial patterns.</p>
 </div>
 </div>
@@ -8875,10 +8888,10 @@ dtype: int64
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This section applies unsupervised machine learning models to classify urban flood risk levels across Melbourne. They are used to group areas with similar environmental and infrastructure characteristics. The resulting clusters help identify regions that may be more vulnerable to flooding.</p>
 <p><strong>Model selection:</strong></p>
 <p>K-Means clustering &amp; Gaussian Mixture Models are chosen for this use case.</p>
-<p>Both clustering approaches are used to classify grid cells into different flood risk categories. K-Means separates locations based on similarity in engineered features, while Gaussian Mixture Models estimate the probability of belonging to high-risk groups. Comparing both methods improves the robustness of the flood vulnerability analysis.</p>
+<p>This step applies unsupervised learning to group areas with similar flood-related characteristics. Since there is no labelled flood risk dataset, clustering is used to identify patterns in the grid features. K-Means creates clear risk groups, while GMM provides a probability-based view of high-risk areas. These results are then mapped to support flood risk interpretation.</p>
+<p>Both clustering approaches are used to classify grid cells into different flood risk categories. Comparing both methods improves the robustness of the flood vulnerability analysis.</p>
 </div>
 </div>
 </div>
@@ -9044,7 +9057,7 @@ gmm_cluster
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Section-5:-Results-Visualisation-&amp;-Interpretation">Section 5: Results Visualisation &amp; Interpretation<a class="anchor-link" href="#Section-5:-Results-Visualisation-&amp;-Interpretation">¶</a></h2><h3 id="5.1-Results-Visualisation">5.1 Results Visualisation<a class="anchor-link" href="#5.1-Results-Visualisation">¶</a></h3>
+<h2 id="Section-5:-Results-Visualisation-&amp;-Interpretation">Section 5: Results Visualisation &amp; Interpretation<a class="anchor-link" href="#Section-5:-Results-Visualisation-&amp;-Interpretation">¶</a></h2><h3 id="5.1-Results-Visualisation">5.1 Results Visualisation<a class="anchor-link" href="#5.1-Results-Visualisation">¶</a></h3><p>To evaluate the model predictions, I visualised the results from both clustering algorithms. The K-Means predictions are plotted using three distinct colors to represent fixed risk levels. In contrast, the GMM predictions are plotted as a continuous gradient based on high-risk probabilities, where darker shades signify higher risk.</p>
 </div>
 </div>
 </div>
@@ -9222,15 +9235,13 @@ The rainfall analysis from 2016–2025 shows clear seasonal variation.</p>
 <li>Prioritise flood mitigation in high risk areas: Melbourne planners should focus on western and south-western high risk areas by improving drainage systems, adding stormwater pits, and increasing maintenance to reduce flooding.</li>
 <li>Increase green infrastructure: Areas with low tree coverage should add more trees, rain gardens, green roofs, and permeable landscaping to improve water absorption and reduce runoff.</li>
 <li>Improve road surface permeability: High risk areas should use permeable pavements, WSUD, and better roadside drainage to reduce water build-up during heavy rain.</li>
-<li>Use seasonal rainfall for early warning: As rainfall is highest in April, October, and November, authorities should inspect drainage systems, monitor flooding, and prepare emergency responses before wet seasons.
-<br/><br/></li>
+<li>Use seasonal rainfall for early warning: As rainfall is highest in April, October, and November, authorities should inspect drainage systems, monitor flooding, and prepare emergency responses before wet seasons.</li>
 </ul>
 <p><strong>Use Case Limitations</strong></p>
 <ul>
 <li>This project has some limitations due to data availability. The rainfall analysis uses data from only one rainfall station (Olympic Park station). Although the City of Melbourne is a relatively small area, rainfall may still vary between locations during heavy storms. Therefore, the rainfall data may not fully represent local rainfall conditions across all grids.</li>
 <li>In addition, the project uses unsupervised learning methods because there is no labelled historical flood dataset available. As a result, the identified flood risk levels represent estimated vulnerability patterns rather than actual flood events.</li>
-<li>The analysis also focuses mainly on spatial and environmental features, such as drainage infrastructure, elevation, vegetation, and impervious surfaces. Other factors, including detailed water flow and underground drainage conditions, were not included.
-<br/><br/></li>
+<li>The analysis also focuses mainly on spatial and environmental features, such as drainage infrastructure, elevation, vegetation, and impervious surfaces. Other factors, including detailed water flow and underground drainage conditions, were not included.</li>
 </ul>
 <p><strong>Conclusion</strong></p>
 <p>This use case developed a grid based urban flood vulnerability prediction framework for the City of Melbourne using spatial infrastructure and environmental data. Machine learning models were used to identify areas with different levels of flood vulnerability. Seasonal rainfall trend analysis were also conducted using historical rainfall data to support the interpretation of flood vulnerability during wetter periods.</p>
