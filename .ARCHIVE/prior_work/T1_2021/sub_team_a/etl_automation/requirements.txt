@@ -1,6 +1,0 @@
-sodapy
-pandas
-keras
-numpy
-scikit-learn
-paramiko
