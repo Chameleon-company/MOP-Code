@@ -1,0 +1,147 @@
+{
+    "title": "UC00236_Concrete_Crack_Detection_mcp_server",
+    "name": "UC00236_Concrete_Crack_Detection_mcp_server",
+    "description": "Detect concrete cracks from SDNET2018-style images or video frames, estimate crack measurements, expose the workflow through a FastAPI MCP-style server, and generate inspection-support reports.",
+    "tags": [
+        "concrete crack detection",
+        "sdnet2018",
+        "computer vision",
+        "yolo",
+        "object detection",
+        "fastapi",
+        "mcp server",
+        "image inference",
+        "video inference",
+        "report generation",
+        "plotly visualisation",
+        "docker compose",
+        "uv",
+        "python 3.13"
+    ],
+    "difficulty": "Intermediate",
+    "difficultly": "Intermediate",
+    "technology": [
+        {
+            "name": "Python 3.13",
+            "code": "python"
+        },
+        {
+            "name": "uv",
+            "code": "environment"
+        },
+        {
+            "name": "Docker Compose",
+            "code": "deployment"
+        },
+        {
+            "name": "FastAPI",
+            "code": "python"
+        },
+        {
+            "name": "Pydantic",
+            "code": "python"
+        },
+        {
+            "name": "Uvicorn",
+            "code": "python"
+        },
+        {
+            "name": "Ultralytics YOLO",
+            "code": "python"
+        },
+        {
+            "name": "PyTorch",
+            "code": "python"
+        },
+        {
+            "name": "OpenCV",
+            "code": "python"
+        },
+        {
+            "name": "pandas",
+            "code": "python"
+        },
+        {
+            "name": "NumPy",
+            "code": "python"
+        },
+        {
+            "name": "scikit-learn train_test_split",
+            "code": "python"
+        },
+        {
+            "name": "tqdm",
+            "code": "python"
+        },
+        {
+            "name": "MLflow",
+            "code": "python"
+        },
+        {
+            "name": "Plotly",
+            "code": "python"
+        },
+        {
+            "name": "tabulate",
+            "code": "python"
+        },
+        {
+            "name": "Albumentations",
+            "code": "python"
+        },
+        {
+            "name": "Matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "Seaborn",
+            "code": "python"
+        },
+        {
+            "name": "Jupyter Notebook",
+            "code": "notebook"
+        },
+        {
+            "name": "IPython widgets",
+            "code": "notebook"
+        },
+        {
+            "name": "pathlib",
+            "code": "python standard library"
+        },
+        {
+            "name": "json",
+            "code": "python standard library"
+        },
+        {
+            "name": "argparse",
+            "code": "python standard library"
+        },
+        {
+            "name": "dataclasses",
+            "code": "python standard library"
+        }
+    ],
+    "datasets": [
+        "SDNET2018 concrete crack image dataset in the local dataset/ folder",
+        "Generated YOLO detection dataset and labels under artifacts/yolo11_sdnet2018_bbox/dataset",
+        "YOLO model weights yolo11n.pt and trained best.pt weights when available",
+        "Optional user-supplied inspection images or videos submitted through the API"
+    ],
+    "entrypoints": [
+        "main.py FastAPI application",
+        "/predict image path endpoint",
+        "/predict/upload image upload endpoint",
+        "/predict/video video endpoint",
+        "/mcp/predict MCP-style text-and-artifact endpoint",
+        "/report/as2870 inspection-support report endpoint",
+        "scripts/yolo_crack_bbox_pipeline.py",
+        "scripts/yolo_crack_video_pipeline.py",
+        "scripts/as2870_report_generator.py"
+    ],
+    "authors": {
+        "application_and_notebook": "Ishika",
+        "pipeline_scripts_and_docker_compose": "Kavita",
+        "report_generation_and_report_content": "Tanvi"
+    }
+}
