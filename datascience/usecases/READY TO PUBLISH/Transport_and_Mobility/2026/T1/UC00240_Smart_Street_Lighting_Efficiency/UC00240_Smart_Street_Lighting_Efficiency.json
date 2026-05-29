@@ -1,0 +1,64 @@
+{
+  "title": "Smart Street Lighting Efficiency",
+  "author": "Binul Bijo and Kliona Kennet",
+  "description": "This use case combines streetlight infrastructure, traffic flow, and pedestrian activity datasets from the City of Melbourne Open Data portal to analyse urban lighting efficiency patterns and generate smart lighting recommendations based on hourly activity demand.",
+  "tags": [
+    "Smart Lighting",
+    "Streetlight Analysis",
+    "Traffic Analysis",
+    "Pedestrian Analysis",
+    "Urban Analytics",
+    "Demand Score",
+    "Lighting Efficiency",
+    "Smart City",
+    "Data Integration",
+    "Urban Planning"
+  ],
+  "difficulty": "Beginner",
+  "duration": "60 mins",
+  "technology": [
+    {
+      "name": "pandas",
+      "icon": "python"
+    },
+    {
+      "name": "numpy",
+      "icon": "python"
+    },
+    {
+      "name": "matplotlib",
+      "icon": "python"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "streetlight.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "traffic.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "pedestrian_part_aa.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "pedestrian_part_ab.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "pedestrian_part_ac.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "pedestrian_part_ad.csv",
+      "icon": "dataset"
+    },
+    {
+      "name": "pedestrian_part_ae.csv",
+      "icon": "dataset"
+    }
+  ],
+  "date": "2026-05-29"
+}
