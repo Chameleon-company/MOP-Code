@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Smart_Street_Lighting_Capstone</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>UC00141_Smart_Street_Lighting_Design_For_Melbourne_Park_Pathways</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7511,48 +7511,94 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a829c7f0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc9652d2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Smart-Street-Lighting-for-Melbourne-Park-Pathways">Smart Street Lighting for Melbourne Park Pathways<a class="anchor-link" href="#Smart-Street-Lighting-for-Melbourne-Park-Pathways">¶</a></h1><h2 id="SIT764-Capstone-Team-Project-(A)----Deakin-University">SIT764 Capstone Team Project (A) -- Deakin University<a class="anchor-link" href="#SIT764-Capstone-Team-Project-(A)----Deakin-University">¶</a></h2><p><strong>Author:</strong> Hashem Ramadan -- s225048421@deakin.edu.au</p>
-<hr/>
-<h3 id="Abstract">Abstract<a class="anchor-link" href="#Abstract">¶</a></h3><p>This notebook is the SIT764 capstone deliverable. It builds an
-AS/NZS 1158-compliant LED lighting design system for Melbourne
-park pathways. The notebook is organised in six parts:</p>
+<div class="usecase-title">Smart Street Lighting Design For Melbourne Park Pathways</div>
+<div class="usecase-authors"><b>Authored by: </b> Hashem Ramadan</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=875a4cfb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="usecase-duration"><b>Duration:</b> 120 mins</div>
+<div class="usecase-level-skill">
+<div class="usecase-level"><b>Level: </b> Advanced</div>
+<div class="usecase-skill"><b>Pre-requisite Skills: </b> Python, Pandas, REST APIs, basic familiarity with LLMs and RAG concepts, GeoJSON</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59492b6f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 class="usecase-section-header">Scenario</h2>
+<p>Council planners designing or upgrading street lighting on Melbourne park pathways need designs that are compliant with the Australian / New Zealand Standard AS/NZS 1158.3.1:2020, anchored to the real environment of the site (path width, surrounding land use, pedestrian volumes, local crime patterns), and able to justify the numbers they produce. Off-the-shelf large language models can sketch a design, but they hallucinate clause numbers and invent fixture wattages. This use case builds a retrieval-augmented (RAG) lighting design assistant that combines a deterministic calculation engine with Melbourne open data, so every figure in the final report — pole spacing, light count, lux level, annual energy, payback period — is traceable to the standard and to local data, not invented by the model.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0fe06a2d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 class="usecase-section-header">User Story</h2>
+<p>As a council lighting planner, I want to type a plain-language request such as <em>"design lighting for the main pathway through Fitzroy Gardens"</em> and receive an AS/NZS 1158-compliant design — pole height, spacing, LED wattage, energy use, payback against the existing HPS baseline — anchored to the actual park geometry and local pedestrian / safety data, so that I can produce a defensible design without having to manually look up clauses, compute photometric formulae, or chase open-data feeds for every site.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7a905a22">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 class="usecase-section-header">What this use case will teach you</h2>
 <ul>
-<li><strong>Setup / methodology</strong> -- environment, configuration, AS/NZS
-1158 P-category background, energy and emissions formulae.</li>
-<li><strong>Part A -- Data + EDA.</strong> Loads Melbourne Open Data and
-Victoria crime statistics, explores each feed, and leaves
-behind three lookup helpers the pipeline can call.</li>
-<li><strong>Part B -- RAG pipeline, built incrementally.</strong> One
-capability per step (bare LLM → retrieval → intent parsing →
-site resolution → engine grounding → orchestrator). Each
-step has a small demo so the <em>gap</em> it closes is visible.</li>
-<li><strong>Part C -- Final demo.</strong> A single natural-language query is
-run end-to-end and rendered as a web-style dashboard: LLM
-report (left), design card (top right), interactive map
-(bottom right).</li>
-<li><strong>Part D -- Engine extras.</strong> Lumen-method photometric
-verification and an off-grid solar PV sizing for the same
-fixture set.</li>
-<li><strong>Part E -- Evaluation.</strong> Retriever Recall@5 against a hand-
-built test set and a RAG-vs-no-RAG citation count.</li>
-<li><strong>Part F -- Discussion / reflection.</strong></li>
+<li>How to build a Retrieval-Augmented Generation (RAG) pipeline incrementally — one capability per step (bare LLM → retrieval → intent parsing → site resolution → engine grounding → orchestration), so each addition has a visible effect.</li>
+<li>How to separate <em>numbers</em> from <em>narrative</em> by combining a deterministic calculation engine with an LLM: the engine computes, the LLM only explains.</li>
+<li>How to consume Melbourne open data feeds (pedestrian sensors, council streetlight inventory) and Victorian crime statistics, and turn them into lookup helpers that ground a design in real local context.</li>
+<li>How to resolve a free-text site name (e.g. a park) to geometry via OpenStreetMap (Overpass / Nominatim).</li>
+<li>How to evaluate a RAG system end-to-end: Recall@5 against a hand-built test set and a RAG-vs-no-RAG citation count.</li>
+<li>How AS/NZS 1158.3.1:2020 P-category subcategory selection works (PP / PR / PA / PC / PE families) and how the lumen method verifies photometric sufficiency.</li>
 </ul>
-<h3 id="Plumbing-vs-methodology-split">Plumbing vs methodology split<a class="anchor-link" href="#Plumbing-vs-methodology-split">¶</a></h3><p>The deterministic calculation engine, OSM resolver, geometric
-helpers, LM Studio client, and ChromaDB/LlamaIndex ingestion
-are factored into a pip-installable library:</p>
-<blockquote>
-<p><strong><a href="https://github.com/hashem59/smart_street_lighting_plugin">https://github.com/hashem59/smart_street_lighting_plugin</a></strong></p>
-</blockquote>
-<p>The library is installed in cell 1. Everything that should be
-<em>read directly</em> by the marker -- formulae, prompts, the system's
-incremental construction, evaluation methodology -- is inlined
-in this notebook as markdown or executable code.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8bc62cf4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 class="usecase-section-header">Introduction</h2>
+<p>This notebook builds an AS/NZS 1158-compliant LED lighting design system for Melbourne park pathways. The work is organised in six parts:</p>
+<ul>
+<li><strong>Setup / methodology</strong> — environment, configuration, AS/NZS 1158 P-category background, energy and emissions formulae.</li>
+<li><strong>Part A — Data + EDA.</strong> Loads Melbourne Open Data and Victoria crime statistics, explores each feed, and leaves behind three lookup helpers the pipeline can call.</li>
+<li><strong>Part B — RAG pipeline, built incrementally.</strong> One capability per step (bare LLM → retrieval → intent parsing → site resolution → engine grounding → orchestrator). Each step has a small demo so the gap it closes is visible.</li>
+<li><strong>Part C — Final demo.</strong> A single natural-language query is run end-to-end and rendered as a web-style dashboard: LLM report (left), design card (top right), interactive map (bottom right).</li>
+<li><strong>Part D — Engine extras.</strong> Lumen-method photometric verification and an off-grid solar PV sizing for the same fixture set.</li>
+<li><strong>Part E — Evaluation.</strong> Retriever Recall@5 against a hand-built test set and a RAG-vs-no-RAG citation count.</li>
+<li><strong>Part F — Discussion.</strong></li>
+</ul>
+<p>The deterministic calculation engine, OpenStreetMap resolver, geometric helpers, LM Studio client, and ChromaDB/LlamaIndex ingestion are factored into a small open-source Python library installed in the next cell. Everything that should be <em>read directly</em> — formulae, prompts, the system's incremental construction, evaluation methodology — is inlined in this notebook as markdown or executable code.</p>
 </div>
 </div>
 </div>
@@ -7616,7 +7662,7 @@ is safe -- pip detects existing installs.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="c1"># Pin versions for the marker.</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Print the exact installed versions for reproducibility.</span>
 <span class="kn">import</span> <span class="nn">smart_street_lighting</span><span class="o">,</span> <span class="nn">llama_index.core</span><span class="o">,</span> <span class="nn">chromadb</span><span class="o">,</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">folium</span><span class="o">,</span> <span class="nn">matplotlib</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'smart_street_lighting :'</span><span class="p">,</span> <span class="n">smart_street_lighting</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'llama_index           :'</span><span class="p">,</span> <span class="n">llama_index</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -7656,8 +7702,8 @@ matplotlib            : 3.10.9
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h2 id="2.-Configuration-(inline,-editable)">2. Configuration (inline, editable)<a class="anchor-link" href="#2.-Configuration-(inline,-editable)">¶</a></h2><p>All runtime configuration lives in this single cell so the
-marker can see and change the provider selection without
-hunting through the library. The library takes these values as
+provider selection can be inspected and changed in one place,
+without hunting through the library. The library takes these values as
 function arguments -- it does <strong>not</strong> read environment variables.</p>
 <p>Both the <strong>chat LLM</strong> and the <strong>embedding model</strong> run via either
 of two OpenAI-compatible providers, switched by the
@@ -7904,7 +7950,7 @@ $\text{UE2} = E_{\max}/E_{\text{avg}}$ (lower = more uniform). The
 older 2005 metric was $E_{\min}/E_{\text{avg}}$ (higher = more
 uniform). The numbers below are the 2020 form.</p>
 <p>The deterministic calculation engine in
-<a href="https://github.com/hashem59/smart_street_lighting_plugin/blob/main/src/smart_street_lighting/engine/calc.py"><code>smart_street_lighting.engine</code></a>
+<code>smart_street_lighting.engine</code>
 selects the subcategory from <code>(location_type, activity_level)</code>,
 then computes pole height, spacing, light count, and LED band.</p>
 </div>
@@ -8830,8 +8876,9 @@ costs).</p>
 <h3 id="A.5-Lookup-helpers-exposed-to-the-pipeline">A.5 Lookup helpers exposed to the pipeline<a class="anchor-link" href="#A.5-Lookup-helpers-exposed-to-the-pipeline">¶</a></h3><p>These three helpers close over the dataframes / tables defined
 above. The RAG pipeline (Part B.4) calls them once it knows
 <em>which</em> location the user asked about. Keeping the analysis
-logic here means a marker reads the <em>what-it-does</em> in Part A and
-the <em>how-it-is-used</em> in Part B without re-reading pandas plumbing.</p>
+logic here means the <em>what-it-does</em> is in Part A and the
+<em>how-it-is-used</em> is in Part B -- the pandas plumbing only needs
+to be read once.</p>
 </div>
 </div>
 </div>
@@ -9108,7 +9155,7 @@ Embedding   : openai/text-embedding-3-small @ https://openrouter.ai/api/v1
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>System prompt (inline so the marker can audit it).</strong></p>
+<p><strong>System prompt (inlined so the exact instructions to the LLM are visible and auditable).</strong></p>
 <p>Enforces a fixed 7-section report structure, instructs the LLM
 to use the engine's numbers verbatim (in B.5+), and requires
 citation of specific AS/NZS clauses from the retrieved context.</p>
@@ -9617,7 +9664,7 @@ LGA / safety adj  : Melbourne (C) / -1
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="B.5-%C2%A0-+-Engine-grounding----deterministic-numbers">B.5   + Engine grounding -- deterministic numbers<a class="anchor-link" href="#B.5-%C2%A0-+-Engine-grounding----deterministic-numbers">¶</a></h3><p>We now have parsed intent and a resolved site. The deterministic
 calculation engine in
-<a href="https://github.com/hashem59/smart_street_lighting_plugin/blob/main/src/smart_street_lighting/engine/calc.py"><code>smart_street_lighting.engine</code></a>
+<code>smart_street_lighting.engine</code>
 produces the design: P-category, pole height, spacing, light
 count, geometry-aware placements, energy / cost / CO₂ / payback.</p>
 <p><strong>What this adds:</strong> every number the report quotes is now
@@ -67925,7 +67972,7 @@ Word count RAG / bare : 626 / 821
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
-<h1 id="Part-F-%E2%80%94-Discussion-and-reflection">Part F — Discussion and reflection<a class="anchor-link" href="#Part-F-%E2%80%94-Discussion-and-reflection">¶</a></h1><h3 id="What-evaluation-surfaced">What evaluation surfaced<a class="anchor-link" href="#What-evaluation-surfaced">¶</a></h3><p>Reviewing the RAG output during the citation-count comparison
+<h1 id="Part-F-%E2%80%94-Discussion">Part F — Discussion<a class="anchor-link" href="#Part-F-%E2%80%94-Discussion">¶</a></h1><h3 id="What-evaluation-surfaced">What evaluation surfaced<a class="anchor-link" href="#What-evaluation-surfaced">¶</a></h3><p>Reviewing the RAG output during the citation-count comparison
 exposed that the engine's lookup table reflected the <em>2005
 edition</em> of AS/NZS 1158.3.1 (the old <code>P1</code>-<code>P12</code> labels) -- which
 had been superseded by the 2020 third edition. The 2020 standard
@@ -67946,8 +67993,8 @@ boundaries (the old <code>P9 -&gt; P8</code> quirk that made park paths
 engine produces every figure in the report; the LLM only
 decides <em>how to say it</em>. Engine grounding (B.5) made the
 reports auditable.</li>
-<li><strong>Building the pipeline bottom-up.</strong> B.1 → B.6 lets a marker
-read the system as a sequence of capabilities, with the gap
+<li><strong>Building the pipeline bottom-up.</strong> B.1 → B.6 presents the
+system as a sequence of capabilities, with the gap
 each one closes visible in the demo immediately above it.</li>
 <li><strong>Data-driven inputs.</strong> Pedestrian sensor diurnal profiles, the
 council streetlight inventory, and Victoria LGA crime rates
@@ -67973,10 +68020,6 @@ signed integer derived from one offence-rate threshold. A
 production deployment would tune the mapping per LGA with
 Victoria Police and council input.</li>
 </ul>
-<hr/>
-<p><em>Capstone deliverable for SIT764, Deakin University. The
-supporting library lives at
-</em><em><a href="https://github.com/hashem59/smart_street_lighting_plugin">https://github.com/hashem59/smart_street_lighting_plugin</a></em><em>.</em></p>
 </div>
 </div>
 </div>
