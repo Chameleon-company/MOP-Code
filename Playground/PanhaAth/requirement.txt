@@ -1,7 +1,0 @@
-numpy
-pandas
-scipy
-matplotlib
-python-dotenv
-scikit-learn
-tensorflow
