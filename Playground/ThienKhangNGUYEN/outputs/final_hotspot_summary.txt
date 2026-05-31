@@ -1,0 +1,19 @@
+UC00219 Final Hotspot Summary
+================================
+Total grid cells: 1944
+Priority cells: 486
+Priority cell percentage: 25.00%
+Mean thermal intensity (priority cells): 255.000
+Mean canopy cover % (priority cells): 0.000
+Selected clustering configuration: scaler=standard, k=4, random_state=42
+
+Baseline vs selected model summary:
+- Baseline silhouette: 0.7821
+- Selected silhouette: 0.7821
+- Baseline Davies-Bouldin: 0.7068
+- Selected Davies-Bouldin: 0.7068
+- Note: candidate search is used as validation/stability evidence; not a claim of dramatic model gain.
+
+Limitation note:
+- Thermal values are relative intensity indicators (not direct Celsius).
+- Thermal (2012) and canopy (2021) datasets are from different years; interpretation is exploratory, not causal.

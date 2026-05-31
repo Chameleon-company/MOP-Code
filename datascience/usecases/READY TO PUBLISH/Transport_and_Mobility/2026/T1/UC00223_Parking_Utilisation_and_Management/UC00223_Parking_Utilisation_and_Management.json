@@ -1,0 +1,56 @@
+{
+    "title": "Project 22: Parking Utilisation and Management",
+    "name": "UC00223_Parking_Utilisation_and_Management",
+    "description": "As an urban planner for the City of Melbourne, I want to predict parking bay occupancy  so that I can reduce traffic congestion, lower fuel consumption, and improve the  overall mobility of drivers in the CBD.",
+    "tags": [
+        "management",
+        "melbourne",
+        "mobility",
+        "parking",
+        "urban",
+        "utilisation"
+    ],
+    "difficulty": "Intermediate",
+    "technology": [
+        {
+            "name": "Python",
+            "code": "python"
+        },
+        {
+            "name": "Pandas",
+            "code": "python"
+        },
+        {
+            "name": "Scikit-Learn",
+            "code": "python"
+        },
+        {
+            "name": "Random Forest",
+            "code": "python"
+        },
+        {
+            "name": "matplotlib",
+            "code": "python"
+        },
+        {
+            "name": "numpy",
+            "code": "python"
+        },
+        {
+            "name": "pathlib",
+            "code": "python"
+        },
+        {
+            "name": "re",
+            "code": "python"
+        },
+        {
+            "name": "seaborn",
+            "code": "python"
+        },
+        {
+            "name": "sklearn",
+            "code": "python"
+        }
+    ]
+}

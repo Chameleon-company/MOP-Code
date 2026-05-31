@@ -1,0 +1,1 @@
+export declare function GridPreferencesPanel(): import("react/jsx-runtime").JSX.Element;
