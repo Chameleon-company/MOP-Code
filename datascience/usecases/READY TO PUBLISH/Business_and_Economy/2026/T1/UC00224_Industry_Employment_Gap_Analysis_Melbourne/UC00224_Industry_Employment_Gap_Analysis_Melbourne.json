@@ -1,0 +1,48 @@
+{
+  "title": "UC00224 Industry Employment Gap Analysis Melbourne",
+  "description": "This use case analyses relationships between business establishments and employment distribution across Melbourne using CLUE datasets from the Melbourne Open Data Portal. The analysis explores industry-level employment patterns, business density trends, employment-to-business ratios, and geographic business hotspots through exploratory data analysis, comparative visualisations, and interactive mapping.",
+  "authors": [
+    "Shinto Ayyamkulangara Shaji"
+  ],
+  "date_created": "2026-05-20",
+  "last_updated": "2026-05-21",
+  "domain": "Business and Economy",
+  "use_case_code": "UC00224",
+  "difficulty": "Intermediate",
+  "estimated_duration": "90 minutes",
+  "prerequisites": [
+    "Basic Python knowledge",
+    "Pandas",
+    "Data visualisation",
+    "Jupyter Notebook"
+  ],
+  "tags": [
+    "Melbourne Open Data",
+    "Business Analytics",
+    "Employment Analysis",
+    "CLUE Dataset",
+    "Economic Analysis",
+    "Industry Trends",
+    "Geographic Analysis",
+    "Interactive Mapping",
+    "Data Visualisation",
+    "Business and Economy"
+  ],
+  "technology": [
+    "Python",
+    "Pandas",
+    "NumPy",
+    "Matplotlib",
+    "Seaborn",
+    "Plotly",
+    "Folium",
+    "Jupyter Notebook"
+  ],
+  "datasets": [
+    "CLUE Small Area",
+    "Business Establishments Dataset",
+    "Employment Dataset"
+  ],
+  "notebook_file": "UC00224_Industry_Employment_Gap_Analysis_Melbourne.ipynb",
+  "html_file": "UC00224_Industry_Employment_Gap_Analysis_Melbourne.html"
+}
