@@ -1,0 +1,7 @@
+RGB Original Results
+====================
+
+Total streetlights detected: 3349
+ON streetlights: 1744
+DIM streetlights: 1192
+OFF streetlights: 413

@@ -1,0 +1,4 @@
+rate_type,rate_aud,description
+consumption,0.2934,Average consumption rate (VDO)
+feed_in_tariff,0.053,Minimum feed-in tariff
+daily_supply,1.0472,Daily supply charge
