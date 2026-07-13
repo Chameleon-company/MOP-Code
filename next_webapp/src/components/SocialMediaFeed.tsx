@@ -2,10 +2,6 @@
 import React from "react";
 import { InstagramEmbed } from "react-social-media-embed";
 
-'use client';
-import React from 'react';
-import { InstagramEmbed } from 'react-social-media-embed';
- 
 const SocialMediaFeed: React.FC = () => {
   return (
     <section
