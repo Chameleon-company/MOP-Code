@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { usePathname, useRouter } from "@/i18n-navigation";
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -9,6 +9,17 @@ const LanguageDropdown: React.FC = () => {
 
   const router = useRouter();
   const pathname = usePathname();
+
+  const languages = [
+    { locale: "en", label: "English" },
+    { locale: "cn", label: "Chinese (中文)" },
+    { locale: "es", label: "Spanish (Español)" },
+    { locale: "el", label: "Greek (Ελληνικά)" },
+    { locale: "ar", label: "Arabic (العربية)" },
+    { locale: "it", label: "Italian (Italiano)" },
+    { locale: "hi", label: "Hindi (हिन्दी)" },
+    { locale: "vi", label: "Vietnamese (Tiếng Việt)" },
+  ];
 
   // Custom hook to handle clicks outside the dropdown
   useEffect(() => {
@@ -25,7 +36,6 @@ const LanguageDropdown: React.FC = () => {
   }, []);
 
   const selectLanguage = (locale: string) => {
-    setIsOpen(false);
     router.push(pathname, { locale });
     router.refresh();
   };
@@ -35,96 +45,31 @@ const LanguageDropdown: React.FC = () => {
   return (
     <div ref={ref} className="relative">
       <button
-        type="button"
         onClick={() => setIsOpen(!isOpen)}
-  aria-expanded={isOpen}
-  className="mr-2 inline-flex h-10 min-w-[96px] items-center justify-center rounded-lg border border-green-600 bg-white px-4 text-sm font-medium text-green-600 transition-all duration-200 transform hover:scale-105 hover:bg-green-50 hover:text-green-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:border-green-400 dark:bg-black dark:text-green-300 dark:hover:bg-gray-800"
->
+        aria-expanded={isOpen ? "true" : "false"}
+        aria-controls="language-dropdown"
+        className="mr-2 bg-white text-green-600 hover:bg-gray-50 border border-green-600 px-4 py-2 rounded-md text-sm font-medium dark:bg-gray-900 dark:hover:bg-green-600 dark:hover:text-gray-900 hover:bg-green-700 hover:text-white"
+      >
         {t("Language")}
       </button>
       {isOpen && (
-        <div className="absolute z-10 bg-white rounded shadow-lg mt-1 w-48">
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              selectLanguage("en");
-            }}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            English
-          </a>
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              selectLanguage("cn");
-            }}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Chinese (中文)
-          </a>
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              selectLanguage("es");
-            }}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Spanish (Español)
-          </a>
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              selectLanguage("el");
-            }}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Greek (Ελληνικά)
-          </a>
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              selectLanguage("ar");
-            }}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Arabic (العربية)
-        </a>
-        <a
-          href="#"
-          onClick={(event) => {
-            event.preventDefault();
-            selectLanguage("it");
-          }}
-          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+        <div
+          id="language-dropdown"
+          className="absolute z-10 bg-white rounded shadow-lg mt-1 w-48 dark:bg-gray-800"
         >
-          Italian (Italiano)
-        </a>
-        <a
-          href="#"
-          onClick={(event) => {
-            event.preventDefault();
-            selectLanguage("hi");
-          }}
-          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-        >
-          Hindi (हिन्दी)
-        </a>
-        <a
-          href="#"
-          onClick={(event) => {
-            event.preventDefault();
-            selectLanguage("vi");
-          }}
-          className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-        >
-          Vietnamese (Tiếng Việt)
-        </a>
-
+          {languages.map((language) => (
+            <a
+              key={language.locale}
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                selectLanguage(language.locale);
+              }}
+              className="block font-serif px-4 py-2 text-lg rounded text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+            >
+              {language.label}
+            </a>
+          ))}
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 // app/api/statistics/trimester/route.ts
 import { NextResponse } from 'next/server';
-import dbConnect from '../../../../../lib/postgresql';
+import dbConnect from '../../../../../lib/mongodb';
 
 export async function GET() {
   try {

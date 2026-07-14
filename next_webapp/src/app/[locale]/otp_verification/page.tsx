@@ -71,13 +71,13 @@ const OTPVerificationPage = () => {
       </p>
       <div className="password-reset-form ">
         <div className='mb-4'>
-          <input type="text" placeholder="Four Digit Code" className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500" />
+          <input type="text" placeholder="Four Digit Code" className="reset-input" />
         </div>
         <div className='mb-4'>
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="New Password"
-            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
+            className="reset-input eye-placeholder"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
@@ -87,7 +87,7 @@ const OTPVerificationPage = () => {
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="Confirm Password"
-            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
+            className="reset-input eye-placeholder"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />

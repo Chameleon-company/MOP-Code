@@ -8,7 +8,6 @@ export enum CATEGORY {
 export enum SEARCH_MODE {
   TITLE = "title",
   CONTENT = "content",
-  TAG = "tag"
 }
 
 export type SearchParams = {
@@ -17,13 +16,10 @@ export type SearchParams = {
   category: CATEGORY;
 };
 
-
-export interface CaseStudy {
+export type CaseStudy = {
   id: number;
-  title: string;
+  name: string;
   description: string;
   tags: string[];
-  htmlFile: string;
-  category?: CATEGORY | string;
-  image?: string;
-}
+  filename?: string;
+};
