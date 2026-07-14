@@ -1,0 +1,163 @@
+import type * as React from 'react';
+import type { GridCellIndexCoordinates, GridScrollParams, GridColDef, GridCellCoordinates, GridCellParams, GridEditMode } from "../../../models/index.js";
+import type { GridInitialStateCommunity } from "../../../models/gridStateCommunity.js";
+import type { GridExportStateParams, GridRestoreStatePreProcessingContext, GridRestoreStatePreProcessingValue } from "../../features/statePersistence/gridStatePersistenceInterface.js";
+import type { GridHydrateColumnsValue, GridPinnedColumnPosition } from "../../features/columns/gridColumnsInterfaces.js";
+import type { GridRowEntry, GridRowId } from "../../../models/gridRows.js";
+import type { GridHydrateRowsValue } from "../../features/rows/gridRowsInterfaces.js";
+import type { GridPreferencePanelsValue } from "../../features/preferencesPanel/index.js";
+import type { GridGetRowsParams, GridGetRowsResponse } from "../../../models/gridDataSource.js";
+import type { HeightEntry } from "../../features/rows/gridRowsMetaInterfaces.js";
+import type { RowReorderDropPosition } from "../../../models/api/gridRowApi.js";
+export type GridPipeProcessorGroup = keyof GridPipeProcessingLookup;
+export interface GridPipeProcessingLookup {
+  columnMenu: {
+    value: Array<string>;
+    context: GridColDef;
+  };
+  exportState: {
+    value: GridInitialStateCommunity;
+    context: GridExportStateParams;
+  };
+  getRowsParams: {
+    value: Partial<GridGetRowsParams>;
+  };
+  hydrateColumns: {
+    value: GridHydrateColumnsValue;
+  };
+  hydrateRows: {
+    value: GridHydrateRowsValue;
+  };
+  exportMenu: {
+    value: {
+      component: React.ReactElement<any>;
+      componentName: string;
+    }[];
+    context: any;
+  };
+  preferencePanel: {
+    value: React.ReactNode;
+    context: GridPreferencePanelsValue;
+  };
+  restoreState: {
+    value: GridRestoreStatePreProcessingValue;
+    context: GridRestoreStatePreProcessingContext<GridInitialStateCommunity>;
+  };
+  rowHeight: {
+    value: HeightEntry;
+    context: GridRowEntry;
+  };
+  scrollToIndexes: {
+    value: Partial<GridScrollParams>;
+    context: Partial<GridCellIndexCoordinates>;
+  };
+  rowClassName: {
+    value: string[];
+    context: GridRowId;
+  };
+  cellClassName: {
+    value: string[];
+    context: GridCellCoordinates;
+  };
+  isCellSelected: {
+    value: boolean;
+    context: GridCellCoordinates;
+  };
+  canUpdateFocus: {
+    value: boolean;
+    context: {
+      event: MouseEvent | React.KeyboardEvent;
+      cell: GridCellParams | null;
+    };
+  };
+  clipboardCopy: {
+    value: string;
+  };
+  canStartEditing: {
+    value: boolean;
+    context: {
+      event: React.KeyboardEvent;
+      cellParams: GridCellParams;
+      editMode: GridEditMode;
+    };
+  };
+  isColumnPinned: {
+    value: GridPinnedColumnPosition | false;
+    context: string;
+  };
+  processDataSourceRows: {
+    value: {
+      params: GridGetRowsParams;
+      response: GridGetRowsResponse;
+    };
+    context: boolean;
+  };
+  /**
+   * Does validation of the current reorder operation.
+   * If the reorder is valid, it returns the position index of the drop indicator.
+   *   - For example before first row is `0` and after the last row is `rows.length`.
+   * If the reorder is invalid, it returns `-1`.
+   */
+  isRowReorderValid: {
+    value: boolean;
+    context: {
+      sourceRowId: GridRowId;
+      targetRowId: GridRowId;
+      dropPosition: RowReorderDropPosition;
+      dragDirection: 'up' | 'down';
+    };
+  };
+}
+export type GridPipeProcessor<P extends GridPipeProcessorGroup> = (value: GridPipeProcessingLookup[P]['value'], context: GridPipeProcessingLookup[P] extends {
+  context: any;
+} ? GridPipeProcessingLookup[P]['context'] : undefined) => GridPipeProcessingLookup[P]['value'];
+type GridPipeProcessorsApplierArgs<P extends GridPipeProcessorGroup, T extends {
+  value: any;
+}> = T extends {
+  context: any;
+} ? [P, T['value'], T['context']] : [P, T['value']];
+type GridPipeProcessorsApplier = <P extends GridPipeProcessorGroup>(...params: GridPipeProcessorsApplierArgs<P, GridPipeProcessingLookup[P]>) => GridPipeProcessingLookup[P]['value'];
+export interface GridPipeProcessingApi {
+  /**
+   * Run all the processors registered for the given group.
+   * @template T
+   * @param {GridPipeProcessorGroup} group The group from which we want to apply the processors.
+   * @param {T['value']} value The initial value to pass to the first processor.
+   * @param {T['context]} context Context object that will be passed to each processor.
+   * @returns {T['value]} The value after passing through all pre-processors.
+   * @ignore - do not document.
+   */
+  unstable_applyPipeProcessors: GridPipeProcessorsApplier;
+}
+export interface GridPipeProcessingPrivateApi {
+  /**
+   * Register a processor and run all the appliers of the group.
+   * @param {GridPipeProcessorGroup} group The group on which this processor should be applied.
+   * @param {string} id An unique and static identifier of the processor.
+   * @param {GridPipeProcessor} processor The processor to register.
+   * @returns {() => void} A function to unregister the processor.
+   */
+  registerPipeProcessor: <G extends GridPipeProcessorGroup>(group: GridPipeProcessorGroup, id: string, processor: GridPipeProcessor<G>) => () => void;
+  /**
+   * Register an applier.
+   * @param {GridPipeProcessorGroup} group The group of this applier
+   * @param {string} id An unique and static identifier of the applier.
+   * @param {() => void} applier The applier to register.
+   * @returns {() => void} A function to unregister the applier.
+   */
+  registerPipeApplier: (group: GridPipeProcessorGroup, id: string, applier: () => void) => () => void;
+  /**
+   * Imperatively run all the appliers of a group.
+   * Most of the time, the applier should run because a processor is re-registered,
+   * but sometimes we want to re-apply the processing even if the processor deps have not changed.
+   * This may occur when the change requires a `isDeepEqual` check.
+   * @param {GridPipeProcessorGroup} group The group to apply.
+   */
+  requestPipeProcessorsApplication: (group: GridPipeProcessorGroup) => void;
+  /**
+   * Checks of there are any processors that have been updated and runs appliers for them.
+   * It is intended to be called in a useEffect in the top-level data grid hook (`useDataGridComponent`).
+   */
+  runAppliersForPendingProcessors: () => void;
+}
+export {};

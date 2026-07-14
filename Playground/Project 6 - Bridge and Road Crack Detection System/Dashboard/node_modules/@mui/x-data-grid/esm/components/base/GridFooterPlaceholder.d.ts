@@ -1,0 +1,1 @@
+export declare function GridFooterPlaceholder(): import("react/jsx-runtime").JSX.Element | null;

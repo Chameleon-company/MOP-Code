@@ -1,0 +1,1 @@
+export declare function GridHeader(): import("react/jsx-runtime").JSX.Element;

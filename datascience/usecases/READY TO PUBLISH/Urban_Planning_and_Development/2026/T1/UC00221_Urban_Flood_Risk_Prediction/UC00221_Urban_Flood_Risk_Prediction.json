@@ -1,0 +1,77 @@
+{
+  "title": "Urban Flood Risk Prediction",
+  "author": "Hoang Hiep Pham",
+  "description": "This project uses spatial data and unsupervised machine learning to analyse urban flood vulnerability through geospatial preprocessing, clustering, rainfall analysis, and spatial visualisation of infrastructure and environmental flood-risk factors.",
+  "tags": [
+    "Flood Risk Prediction",
+    "Geospatial Analysis",
+    "Urban Resilience",
+    "Climate Adaptation",
+    "Feature Engineering",
+    "Grid-Based Modelling",
+    "Rainfall Analysis",
+    "K-Means Clustering",
+    "Gaussian Mixture Model Clustering",
+    "Risk Mapping",
+    "Smart City Analytics"
+  ],
+  "difficulty": "Intermediate",
+  "duration": "90 mins",
+  "technology": [
+    {
+      "name": "pandas",
+      "icon": "python"
+    },
+    {
+      "name": "numpy",
+      "icon": "python"
+    },
+    {
+      "name": "geopandas",
+      "icon": "python"
+    },
+    {
+      "name": "matplotlib",
+      "icon": "python"
+    },
+    {
+      "name": "contextily",
+      "icon": "python"
+    },
+    {
+      "name": "shapely",
+      "icon": "python"
+    },
+    {
+      "name": "scikit-learn",
+      "icon": "python"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "stormwater-pits",
+      "icon": "dataset"
+    },
+    {
+      "name": "drainpipes",
+      "icon": "dataset"
+    },
+    {
+      "name": "2023-building-footprints",
+      "icon": "dataset"
+    },
+    {
+      "name": "road-segments-with-surface-type",
+      "icon": "dataset"
+    },
+    {
+      "name": "tree-canopies-2021-urban-forest",
+      "icon": "dataset"
+    },
+    {
+      "name": "bom-daily-rainfall-melbourne-olympic-park",
+      "icon": "dataset"
+    }
+  ],
+  "date": "2026-05-23"
+}

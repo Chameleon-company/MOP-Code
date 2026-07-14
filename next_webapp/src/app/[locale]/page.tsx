@@ -8,6 +8,9 @@ import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Insights from "@/components/Insights";
 import FAQSection from "@/components/FAQSection";
+import SocialMediaFeed from "@/components/SocialMediaFeed";
+import UseCaseInsights from "@/components/UseCaseInsights";
+import Features from "@/components/Feature";
 
 const Home = () => {
   return (
@@ -15,8 +18,11 @@ const Home = () => {
       <Header />
       <Dashboard />
       <Insights />
+      <UseCaseInsights />
+      <Features />
       <TestimonialsSection />
       <FAQSection />
+      <SocialMediaFeed />
       <ContactUsSection />
       <PartnersSection />
       <BackToTopButton />
