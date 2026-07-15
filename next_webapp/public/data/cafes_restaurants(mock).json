@@ -1,0 +1,5 @@
+[
+  { "name": "Cafe A", "type": "cafe", "lat": -37.8136, "lng": 144.9631, "rating": 4.5 },
+  { "name": "Restaurant B", "type": "restaurant", "lat": -37.815, "lng": 144.97, "rating": 4.2 },
+  { "name": "Cafe C", "type": "cafe", "lat": -37.81, "lng": 144.95, "rating": 4.8 }
+]

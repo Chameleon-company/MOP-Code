@@ -16,6 +16,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "ignoreDeprecations": "6.0",
     "downlevelIteration": true,
     "plugins": [
       {
@@ -27,13 +28,15 @@
         "./src/*"
       ]
     },
-    "target": "ES2017"
+    "target": "ES2017",
+    "types": ["jest", "node"]    // ← added
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/__tests__/**/*"         // ← added
   ],
   "exclude": [
     "node_modules"

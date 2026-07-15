@@ -2,14 +2,10 @@
 import React from "react";
 import { InstagramEmbed } from "react-social-media-embed";
 
-'use client';
-import React from 'react';
-import { InstagramEmbed } from 'react-social-media-embed';
- 
 const SocialMediaFeed: React.FC = () => {
   return (
     <section
-      className="w-full bg-white dark:bg-[#263238] py-8 px-4 text-black dark:text-white"
+      className="w-full bg-gray-50 dark:bg-[#263238] py-8 px-4 mt-8 text-black dark:text-white"
       aria-labelledby="instagram-heading"
     >
       <div className="text-center mb-6">

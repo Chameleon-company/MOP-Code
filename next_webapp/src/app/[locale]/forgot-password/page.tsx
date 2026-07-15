@@ -1,53 +1,127 @@
-// ForgotPasswordPage.js
+"use client";
 
-import React from "react";
-import Link from "next/link"; // Import Link from Next.js
+import React, { useState } from "react";
+import { Link } from "@/i18n-navigation";
+
+const ERROR_MESSAGES: Record<string, string> = {
+  MISSING_FIELDS: "Please enter your email address.",
+  INVALID_EMAIL: "Please enter a valid email address.",
+};
 
 const ForgotPasswordPage = () => {
+  const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email) {
+      setError("Please enter your email address.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setSuccess(true);
+      } else {
+        setError(
+          ERROR_MESSAGES[data.code] ||
+            data.message ||
+            "Something went wrong. Please try again.",
+        );
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="bg-white text-black flex flex-col items-center justify-center min-h-screen">
-      {/* No Account Yet */}
-      <div className="absolute top-20 right-20 m-4 flex items-center text-gray-600">
-        <p className="text-sm mr-2">No Account Yet?</p>
-        {/* Use Link from Next.js for navigation */}
-        <Link href="/en/signup">
-          <p className="border border-black p-2 text-base text-black">Sign up</p>
-        </Link>
-      </div>
+    <div
+      className="min-h-screen flex items-center justify-center relative"
+      style={{ backgroundImage: "url('/img/mainImage.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
-      {/* Logo */}
-      <div className="absolute top-20 left-20 m-4">
-        {/* Add your logo here */}
-        <img src="/img/new-logo-green.png" alt="Logo" class=" h-40"/>
-      </div>
+      <div className="relative z-10 w-full max-w-lg mx-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 sm:p-12">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <img
+              src="/img/new-logo-green.png"
+              alt="Melbourne Open Data logo"
+              className="h-16 w-auto"
+            />
+          </div>
 
-      {/* Forgot password form */}
-      <div className="p-8 rounded-lg mt-12">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mt-4 pb-4">Forgot Password</h2>
+          {/* Heading */}
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-1">
+            Forgot Password
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-8">
+            Enter your email and we&apos;ll send you a temporary password
+          </p>
+
+          {error && (
+            <div className="rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 p-3 text-sm mb-5">
+              {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="rounded-lg bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 p-3 text-sm mb-5">
+              If this email exists, a temporary password has been sent. Please check your inbox and follow the link in the email to reset your password.
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || success}
+              className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-3.5 rounded-lg transition mt-6"
+            >
+              {loading ? "Sending..." : "Send Reset Link"}
+            </button>
+          </form>
+
+          <p className="mt-6 text-sm text-gray-600 dark:text-gray-400 text-center">
+            <Link
+              href="/login"
+              className="text-green-600 hover:text-green-700 font-medium"
+            >
+              Back to Sign In
+            </Link>
+          </p>
         </div>
-        {/* Message for OTP */}
-        <p className="mb-14 text-sm text-gray-600 font-bold whitespace-nowrap text-center">
-          <span className="block">ONE-TIME PASSWORD (OTP) WILL BE SENT TO YOUR</span>
-          <span className="block">EMAIL ADDRESS FOR VERIFICATION</span>
-        </p>
-        <div className="mb-0">
-          {/* Use htmlFor to associate label with input for screen readers */}
-          <label htmlFor="email" className="sr-only">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            className="w-full p-2 rounded border border-gray-300 mb-4 bg-gray-200"
-          />
-        </div>
-        {/* Use Link from Next.js for navigation */}
-        <Link href="/en/otp_verification">
-            <button className="w-full bg-green-500 text-white p-2 rounded cursor-pointer hover:bg-green-600">Continue</button>
-        </Link>
       </div>
     </div>
   );
