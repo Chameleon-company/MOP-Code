@@ -28,10 +28,11 @@ export async function POST(request: Request) {
         const { email } = await request.json();
 
         // 1. Validate input
-        if (!email) {
+        if (!email || typeof email !== 'string') {
             return errorResponse('Email is required', 400, 'MISSING_FIELDS');
         }
-        if (!EMAIL_REGEX.test(email)) {
+        // Cap length before regex evaluation to prevent polynomial backtracking (ReDoS) on long input.
+        if (email.length > 254 || !EMAIL_REGEX.test(email)) {
             return errorResponse('A valid email address is required', 400, 'INVALID_EMAIL');
         }
 

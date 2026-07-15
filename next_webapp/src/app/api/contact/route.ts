@@ -36,7 +36,7 @@ export async function POST(request: Request) {
             return errorResponse('Full name is required', 400, 'MISSING_FULL_NAME');
         }
 
-        if (!email || typeof email !== 'string' || !/^\S+@\S+\.\S+$/.test(email)) {
+        if (!email || typeof email !== 'string' || email.length > 254 || !/^\S+@\S+\.\S+$/.test(email)) {
             return errorResponse('A valid email address is required', 400, 'INVALID_EMAIL');
         }
 

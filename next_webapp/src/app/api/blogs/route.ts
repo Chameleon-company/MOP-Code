@@ -38,7 +38,15 @@ const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+  // Loop until no more tags are stripped so nested/overlapping markup
+  // (e.g. "<scr<script>ipt>") can't survive a single pass and reconstitute a tag.
+  let previous: string;
+  let current = html;
+  do {
+    previous = current;
+    current = previous.replace(/<[^>]*>/g, "");
+  } while (current !== previous);
+  return current.replace(/&nbsp;/g, " ").trim();
 }
 
 interface BlogFields {

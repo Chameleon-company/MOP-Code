@@ -30,8 +30,13 @@ export function validateEmail(email: unknown): ValidationError | null {
   if (typeof email !== "string") {
     return { field: "email", message: "Email must be a string" };
   }
+  const trimmed = email.trim();
+  // Cap length before regex evaluation to prevent polynomial backtracking (ReDoS) on long input.
+  if (trimmed.length === 0 || trimmed.length > 254) {
+    return { field: "email", message: "Email format is invalid" };
+  }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.trim())) {
+  if (!emailRegex.test(trimmed)) {
     return { field: "email", message: "Email format is invalid" };
   }
   return null;
