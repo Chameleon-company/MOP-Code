@@ -4,14 +4,14 @@ This repository houses the code for MOP website.
 
 ## Getting Started
 
-**Requires Node 18** (matching the version pinned in `next_webapp/Dockerfile`).
+**Requires Node 18 or later** (matching the version pinned in `next_webapp/Dockerfile`).
 
 1. Clone the repository.
 2. `cd next_webapp`
 3. Install Packages: `npm install`
 4. Create a `.env` file in `next_webapp/` — the app will not run without it. Ask a team lead/mentor for the required values.
 5. Start the local server: `npm run dev`
-6. View the website: Open [http://localhost:3000] (http://localhost:3000) with your browser to see the result. You can also just click on the link provided in the terminal when starting the dev server.
+6. View the website: Open http://localhost:3000 with your browser to see the result. You can also just click on the link provided in the terminal when starting the dev server.
 
 > **Note:** `next_webapp/my-app/` is a leftover duplicate scaffold from an earlier setup, not the real app. Do not run commands from there — all of the above applies to `next_webapp/` itself.
 
