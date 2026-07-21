@@ -269,7 +269,7 @@ const Upload = () => {
 									className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
 									onClick={handleUpload}
 								>
-									{uploadStatus === "done" ? t("Clear") : t("Upload File")}}
+									{uploadStatus === "done" ? t("Clear") : t("Upload File")}
 							{uploadStatus === "uploading" && (
 								<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Uploading... {progress}%</p>
 							)}
