@@ -19,8 +19,7 @@
     background: var(--color-light);
   }
 }
-*/
- /* Uncomment above when dark mode is implemented */
+/* Uncomment above when dark mode is implemented */
 
 body {
   color: rgb(var(--foreground-rgb));
