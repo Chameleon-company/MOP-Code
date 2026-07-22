@@ -1,0 +1,81 @@
+{
+  "title": "Multi Modal Transport Demand Forecasting",
+  "author": "Siddhi Krishna Dabhade",
+  "description": "This use case develops a multi-modal public transport demand forecasting system using real-world public transport datasets from London, Melbourne, NYC and NSW. The project standardises multiple transport datasets into a common time-series structure, engineers temporal and lag-based features, and applies machine learning and deep learning models to forecast passenger demand across transport modes such as buses, trains, trams and regional services. The analysis supports transport planning by identifying demand trends, comparing actual and predicted values, and generating high-demand indicators for dynamic scheduling decisions.",
+  "tags": [
+    "Transport Demand Forecasting",
+    "Public Transport Analytics",
+    "Multi Modal Transport",
+    "Time Series Forecasting",
+    "Urban Mobility Analytics",
+    "Machine Learning",
+    "Deep Learning",
+    "LSTM",
+    "Random Forest",
+    "Feature Engineering",
+    "Passenger Demand",
+    "Dynamic Scheduling",
+    "Transport Planning",
+    "Forecast Visualisation",
+    "Data Science"
+  ],
+  "difficulty": "Intermediate",
+  "duration": "110 mins",
+  "technology": [
+    {
+      "name": "pandas",
+      "icon": "python"
+    },
+    {
+      "name": "numpy",
+      "icon": "python"
+    },
+    {
+      "name": "matplotlib",
+      "icon": "python"
+    },
+    {
+      "name": "scikit-learn",
+      "icon": "python"
+    },
+    {
+      "name": "tensorflow",
+      "icon": "python"
+    },
+    {
+      "name": "keras",
+      "icon": "python"
+    },
+    {
+      "name": "requests",
+      "icon": "python"
+    },
+    {
+      "name": "jupyter notebook",
+      "icon": "python"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "Transport for London Journeys by Type",
+      "icon": "dataset"
+    },
+    {
+      "name": "NYC MTA Ridership Dataset",
+      "icon": "dataset"
+    },
+    {
+      "name": "Melbourne Monthly Public Transport Patronage by Mode",
+      "icon": "dataset"
+    },
+    {
+      "name": "Victorian Monthly Average Patronage by Day Type and Mode",
+      "icon": "dataset"
+    },
+    {
+      "name": "NSW All Modes Public Transport Patronage",
+      "icon": "dataset"
+    }
+  ],
+  "date": "2026-05-20"
+}

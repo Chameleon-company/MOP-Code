@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect, useRef } from "react";
-import { IoChatbubbleEllipsesSharp, IoSend } from "react-icons/io5";
+import { IoChatbubbleEllipsesSharp, IoSend, IoClose } from "react-icons/io5";
 import { BsMicFill, BsMicMuteFill, BsVolumeUp, BsVolumeMute } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import enMessages from "./en.json";
@@ -17,14 +17,6 @@ type Message = {
 interface UseCase {
   title: string;
   description: string;
-  tags: string[];
-}
-
-interface LiveUseCase {
-  id: number;
-  name: string;
-  description: string;
-  filename: string;
   tags: string[];
 }
 
@@ -47,9 +39,7 @@ const searchLocalUseCases = (query: string): UseCase[] => {
     const tagMatch = useCase.tags.some((tag: string) =>
       new RegExp(`\\b${escapeRegExp(tag.toLowerCase())}\\b`).test(lowerQuery)
     );
-    if (titleMatch || descMatch || tagMatch) {
-      results.push(useCase);
-    }
+    if (titleMatch || descMatch || tagMatch) results.push(useCase);
   });
 
   return results;
@@ -72,7 +62,7 @@ const Chatbot = () => {
       content: (
         <>
           {enMessages.initial.welcome}
-          <a href={enMessages.initial.faq_url} style={{ color: "blue", textDecoration: "underline" }}>
+          <a href={enMessages.initial.faq_url} className="text-green-300 underline">
             {enMessages.initial.faq_link_text}
           </a>
           {enMessages.initial.more_info}
@@ -185,10 +175,12 @@ const Chatbot = () => {
       if (localResults.length > 0) {
         setMessages(prev => [...prev, {
           content: (
-            <>
-              <div>{enMessages.use_cases.intro}</div>
-              <ul>{localResults.map((cs, i) => <li key={i}><strong>{cs.title}</strong>: {cs.description}</li>)}</ul>
-            </>
+            <div>
+              <p className="mb-1">{enMessages.use_cases.intro}</p>
+              <ul className="list-disc list-inside space-y-1">
+                {localResults.map((cs, i) => <li key={i}><strong>{cs.title}</strong>: {cs.description}</li>)}
+              </ul>
+            </div>
           ),
           sender: "bot",
           text: localResults.map(cs => cs.title).join(", "),
@@ -200,10 +192,12 @@ const Chatbot = () => {
       if (apiResults.length > 0) {
         setMessages(prev => [...prev, {
           content: (
-            <>
-              <div>{enMessages.use_cases.intro}</div>
-              <ul>{apiResults.slice(0, 5).map((cs: any) => <li key={cs.id}><strong>{cs.name}</strong>: {cs.description}</li>)}</ul>
-            </>
+            <div>
+              <p className="mb-1">{enMessages.use_cases.intro}</p>
+              <ul className="list-disc list-inside space-y-1">
+                {apiResults.slice(0, 5).map((cs: any) => <li key={cs.id}><strong>{cs.name}</strong>: {cs.description}</li>)}
+              </ul>
+            </div>
           ),
           sender: "bot",
           text: apiResults.map((cs: any) => cs.name).join(", "),
@@ -244,7 +238,6 @@ const Chatbot = () => {
     if (!userInput.trim()) {
       const msg = enMessages.validation.empty_input;
       setMessages(prev => [...prev, { content: <>{msg}</>, sender: "bot", text: msg }]);
-      if (isSpeaking) speakMessage(msg);
       return;
     }
     const input = userInput.trim();
@@ -272,51 +265,117 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot fixed bottom-4 right-4 flex flex-col items-end z-[9999]">
+    <div className="fixed bottom-5 right-5 z-[9999] flex flex-col items-end">
       {isOpen && (
-        <div className="chat-window p-4 bg-white shadow-lg rounded-lg max-w-xs w-full">
-          <div className="flex justify-between items-center mb-2 border-b pb-2">
-            <h3 className="text-md font-semibold text-green-600">Melbourne Open Data Assistant</h3>
-            <div className="flex space-x-2">
+        <div className="chat-window mb-3 flex h-[500px] w-[360px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+          {/* Header */}
+          <div className="flex flex-shrink-0 items-center justify-between bg-green-600 px-4 py-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
+                <IoChatbubbleEllipsesSharp className="text-white" size={17} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold leading-tight text-white">Melbourne Open Data</p>
+                <p className="text-xs text-green-100">AI Assistant • Online</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
               {speechSupported && (
-                <button onClick={toggleSpeech} title="Toggle speech">
-                  {isSpeaking ? <BsVolumeUp className="text-green-600" /> : <BsVolumeMute className="text-gray-500" />}
+                <button
+                  onClick={toggleSpeech}
+                  title="Toggle speech"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 hover:bg-white/15 hover:text-white transition-colors"
+                >
+                  {isSpeaking ? <BsVolumeUp size={15} /> : <BsVolumeMute size={15} />}
                 </button>
               )}
               {recognitionSupported && (
-                <button onClick={toggleListening} title="Toggle voice input" className={isListening ? "animate-pulse bg-green-100" : ""}>
-                  {isListening ? <BsMicFill className="text-green-600" /> : <BsMicMuteFill className="text-gray-500" />}
+                <button
+                  onClick={toggleListening}
+                  title="Toggle voice input"
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg text-white/80 hover:bg-white/15 hover:text-white transition-colors ${isListening ? "bg-white/20 animate-pulse" : ""}`}
+                >
+                  {isListening ? <BsMicFill size={15} /> : <BsMicMuteFill size={15} />}
                 </button>
               )}
+              <button
+                onClick={toggleChat}
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-white/80 hover:bg-white/15 hover:text-white transition-colors"
+                aria-label="Close chat"
+              >
+                <IoClose size={18} />
+              </button>
             </div>
           </div>
-          <div className="messages overflow-auto h-60">
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
             {messages.map((msg, i) => (
-              <div key={i} className={`p-2 my-1 rounded-lg ${msg.sender === "bot" ? "bg-green-50 border-l-4 border-green-500 text-green-800" : "bg-gray-100 text-gray-800 text-right"}`}>
-                {msg.content}
+              <div key={i} className={`flex items-end gap-2 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                {msg.sender === "bot" && (
+                  <div className="mb-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-400">
+                    <IoChatbubbleEllipsesSharp size={13} />
+                  </div>
+                )}
+                <div
+                  className={`message max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                    msg.sender === "user"
+                      ? "rounded-br-sm bg-green-600 text-white"
+                      : "rounded-bl-sm bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
+                  }`}
+                >
+                  {msg.content}
+                </div>
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <div className="input-area flex items-center mt-3 border-t pt-3">
-            <input
-              type="text"
-              className="flex-1 p-2 border rounded-l outline-none focus:ring-2 focus:ring-green-300"
-              value={userInput}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder={isListening ? "Listening..." : "Type a message..."}
-              disabled={isListening}
-            />
-            <button onClick={handleSend} className="bg-green-500 text-white p-2 rounded-r hover:bg-green-600">
-              <IoSend size={20} />
-            </button>
+
+          {/* Input */}
+          <div className="flex-shrink-0 border-t border-gray-100 px-3 py-3 dark:border-gray-700">
+            {isListening && (
+              <p className="mb-2 text-center text-xs font-medium text-green-600 dark:text-green-400 animate-pulse">
+                Listening... Speak now!
+              </p>
+            )}
+            <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 focus-within:border-green-400 focus-within:ring-1 focus-within:ring-green-300 transition-all dark:border-gray-700 dark:bg-gray-800">
+              {recognitionSupported && (
+                <button
+                  onClick={toggleListening}
+                  title="Voice input"
+                  className={`flex-shrink-0 text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors ${isListening ? "text-green-600 dark:text-green-400 animate-pulse" : ""}`}
+                >
+                  {isListening ? <BsMicFill size={16} /> : <BsMicMuteFill size={16} />}
+                </button>
+              )}
+              <input
+                type="text"
+                className="flex-1 bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-400 dark:text-gray-100"
+                value={userInput}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder={isListening ? "Listening..." : "Type a message..."}
+                disabled={isListening}
+              />
+              <button
+                onClick={handleSend}
+                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors"
+                aria-label="Send message"
+              >
+                <IoSend size={14} />
+              </button>
+            </div>
           </div>
-          {isListening && <div className="text-xs text-center mt-1 text-green-600">Listening... Speak now!</div>}
         </div>
       )}
-      <button onClick={toggleChat} className="text-3xl text-white bg-green-600 rounded-full p-3 hover:bg-green-700 shadow-lg">
-        <IoChatbubbleEllipsesSharp />
+
+      {/* Toggle Button */}
+      <button
+        onClick={toggleChat}
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white shadow-xl hover:bg-green-700 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+      >
+        {isOpen ? <IoClose size={22} /> : <IoChatbubbleEllipsesSharp size={22} />}
       </button>
     </div>
   );

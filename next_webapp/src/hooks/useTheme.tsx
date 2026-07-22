@@ -5,23 +5,21 @@ type Theme = 'light' | 'dark';
 
 /**
  * Custom hook to manage light/dark theme.
- * - Reads initial value from localStorage or system preference.
+ * - Reads initial value synchronously from localStorage (lazy initializer) to
+ *   avoid the flash caused by defaulting to 'light' then correcting after mount.
  * - Toggles the 'dark' class on <html>.
  * - Persists choice to localStorage.
  */
 export function useTheme(): { theme: Theme; toggleTheme: () => void } {
-  const [theme, setTheme] = useState<Theme>('light');
-
-  // On mount, load saved theme or system preference
-  useEffect(() => {
+  // Lazy initializer: reads localStorage synchronously on the client so the
+  // very first render already has the correct theme — no effect-based correction
+  // needed, which previously caused the dark class to be removed momentarily.
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return 'light';
     const saved = localStorage.getItem('theme') as Theme | null;
-    if (saved) {
-      setTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
-    }
-  }, []);
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
 
   // Whenever theme changes, update <html> class and persist
   useEffect(() => {
@@ -34,7 +32,6 @@ export function useTheme(): { theme: Theme; toggleTheme: () => void } {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Toggle between light and dark
   const toggleTheme = useCallback(() => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   }, []);

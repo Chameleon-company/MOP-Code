@@ -1,0 +1,10 @@
+import type { RefObject } from '@mui/x-internals/types';
+import type { GridPrivateApiCommunity } from "../../../models/api/gridApiCommunity.js";
+import type { DataGridProcessedProps } from "../../../models/props/DataGridProps.js";
+import type { GridDimensions } from "./gridDimensionsApi.js";
+import type { GridStateInitializer } from "../../utils/useGridInitializeState.js";
+type RootProps = Pick<DataGridProcessedProps, 'onResize' | 'scrollbarSize' | 'pagination' | 'paginationMode' | 'autoHeight' | 'getRowHeight' | 'rowHeight' | 'resizeThrottleMs' | 'columnHeaderHeight' | 'columnGroupHeaderHeight' | 'headerFilterHeight'>;
+export type GridDimensionsState = GridDimensions;
+export declare const dimensionsStateInitializer: GridStateInitializer<RootProps>;
+export declare function useGridDimensions(apiRef: RefObject<GridPrivateApiCommunity>, props: RootProps): void;
+export {};
