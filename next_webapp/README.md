@@ -45,6 +45,40 @@ Until we can get the mongodb database up and running we will be replacing it wit
 
 We will be using a noSQL database. The schema is just a represenation of how the database works. We will be creating collections based on trimester. Each document will hold the information stated as below with a link to the file stored in firebase storage.
 
+## Demo entries:
+\'\'\' json
+{
+    id: 1,
+    title: "Smart Parking System",
+    description:
+      "An AI-powered parking solution that helps users find available parking spots in real time using IoT sensors.",
+    tags: ["AI", "IoT", "Smart City"],
+    htmlFile: "/usecases/use-case-1.html",
+    category:  "Smart City",
+    image: "/usecases/parking.jpg",
+  },
+  {
+    id: 2,
+    title: "Intelligent Waste Management",
+    description:
+      "A smart waste collection system that optimizes garbage pickup routes using sensor data and analytics.",
+    tags: ["Sustainability", "IoT", "Analytics"],
+    htmlFile: "/usecases/use-case-2.html",
+    category: "Waste Management",
+    image: "/usecases/waste.jpg",
+  },
+  {
+    id: 3,
+    title: "Real-Time Traffic Monitoring",
+    description:
+      "A system that analyzes live traffic conditions and suggests optimal routes using machine learning.",
+    tags: ["Machine Learning", "Transport", "Real-Time"],
+    htmlFile: "/usecases/use-case-3.html",
+    category: "Traffic Development",
+    image: "/usecases/traffic.jpg",
+  }
+  \'\'\'
+
 ## Render Casestudies
 
 ![Render](/markdownAssets/Render.png)
