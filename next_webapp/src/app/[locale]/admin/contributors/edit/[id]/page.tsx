@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ContributorForm, {
   ContributorFormData,
-} from "../../components/Contributorform";
+} from "../../components/ContributorForm";
 import AdminToast from "@/components/admin/AdminToast";
 
 type ApiContributor = {
@@ -12,7 +12,7 @@ type ApiContributor = {
   name: string;
   year: number;
   trimester: number;
-  contributor_type: "student" | "mentor";
+  contributor_type: "student" | "mentor" | "company_director";
   team: string | null;
   position: string | null;
   level: "Senior" | "Junior" | null;
@@ -58,8 +58,8 @@ export default function EditContributorPage() {
         user.roleName ?? user.role_name ?? "",
       ...(token
         ? {
-            Authorization: `Bearer ${token}`,
-          }
+          Authorization: `Bearer ${token}`,
+        }
         : {}),
     };
   };
@@ -172,7 +172,7 @@ export default function EditContributorPage() {
         const message = json.errors
           ? Object.values(json.errors).flat().join(", ")
           : json.message ||
-            "Failed to update contributor";
+          "Failed to update contributor";
 
         setError(message);
         return;

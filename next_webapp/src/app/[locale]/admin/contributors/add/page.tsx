@@ -44,6 +44,10 @@ export default function AddContributorPage() {
             ? data.team.trim()
             : null,
         position: data.position.trim() || null,
+        level:
+          data.contributorType === "student"
+            ? data.level || null
+            : null,
         display_order: Number(data.displayOrder) || 0,
         is_active: data.isActive,
       };

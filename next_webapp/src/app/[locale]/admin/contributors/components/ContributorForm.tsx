@@ -98,6 +98,7 @@ export type ContributorFormData = {
   contributorType: "student" | "mentor" | "company_director";
   team: string;
   position: string;
+  level: "Senior" | "Junior" | "";
   displayOrder: string;
   isActive: boolean;
 };
@@ -118,6 +119,7 @@ const defaultFormData: ContributorFormData = {
   contributorType: "student",
   team: "",
   position: "",
+  level: "",
   displayOrder: "0",
   isActive: true,
 };
@@ -311,7 +313,7 @@ export default function ContributorForm({
         )}
 
         {isStudent && (
-          <div className={isStudent ? "" : "md:col-span-2"}>
+          <div>
             <label className={labelClassName}>
               Position or Role
             </label>
@@ -328,6 +330,28 @@ export default function ContributorForm({
                 { value: "Team Member", label: "Team Member" },
               ]}
               placeholder="Select position"
+              disabled={submitting}
+            />
+          </div>
+        )}
+
+        {isStudent && (
+          <div>
+            <label className={labelClassName}>
+              Level
+            </label>
+
+            <CustomSelect
+              value={formData.level}
+              onChange={(value) =>
+                updateField("level", value as "Senior" | "Junior" | "")
+              }
+              options={[
+                { value: "", label: "Select level" },
+                { value: "Senior", label: "Senior" },
+                { value: "Junior", label: "Junior" },
+              ]}
+              placeholder="Select level"
               disabled={submitting}
             />
           </div>
