@@ -1,0 +1,2954 @@
+[
+  {
+    "year": 2026,
+    "trimesters": [
+      {
+        "trimester": 1,
+        "companyDirector": "Dr Seng Loke",
+        "mentors": [
+          "Mollie Fernandez",
+          "Veena Suresh",
+          "Sami Ullah"
+        ],
+        "teams": [
+          {
+            "teamName": "MOP Web Development Team",
+            "members": [
+              {
+                "name": "Ishika Mandal",
+                "role": "Project Lead",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Binara Lokuliyanage",
+                "role": "Backend Lead",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Niroshan Sugumar",
+                "role": "Frontend Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Tharindu Liyanage",
+                "role": "Frontend Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Ramin Kumarasinghe",
+                "role": "Frontend Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Abdullah Sher",
+                "role": "Frontend lead",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Lakindu Bandara Dissanayake",
+                "role": "Backend Team member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Kofi Nguyen",
+                "role": "Backend Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Kebedduwe Vidanagamage",
+                "role": "Front end Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Himesh Dithsura  Samarawickrama",
+                "role": null,
+                "seniority": null
+              },
+              {
+                "name": "Sachin Kumarasinghe",
+                "role": "Front end Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Gihansi Nathulima Hikkaduwa Liyanage",
+                "role": "Design Lead",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Bivin Joseph",
+                "role": "Frontend Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Junayed Alam",
+                "role": "Design Team Member",
+                "seniority": "Junior"
+              },
+              {
+                "name": "Sandali Udara Rajapaksha",
+                "role": "Design Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Nikulansooriya Mudiyanselage",
+                "role": null,
+                "seniority": null
+              },
+              {
+                "name": "Johanz Anthony Lungay Te",
+                "role": "Design Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Sadeepa Bandara Marasinghe Mudiyanselage",
+                "role": "Backend Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Krisha Haresh Makwana",
+                "role": "Design Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Tharindu Damith Pitigala Liyanage",
+                "role": "Frontend Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Yuyang Yang",
+                "role": "Frontend Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Salila Upasara Herath Herath Mudiyanselage",
+                "role": "Design Team Member",
+                "seniority": "Senior"
+              },
+              {
+                "name": "Huisi Tao",
+                "role": "Frontend Team Member",
+                "seniority": "Senior"
+              }
+            ]
+          },
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "Abhey Sharma",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Aditya Aditya",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Aidan Page",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Aishwarya",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Ravichandran",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Anupa Dihan",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Hansaja",
+                "seniority": null,
+                "project": "Data Science"
+              },
+              {
+                "name": "Batagoda",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Gamage",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Areen Yapa",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Arvind Sharma",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Ashley Mathew",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Atishay Jain",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Basil Behanan",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Binul Bijo",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Bramuel Korofia Bukhuni",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Burhanuddin Ujjainwala",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Chiranjeevi Veluri",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Dennis Jojo Kuriakose",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Diyona Robert",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Don Thivain",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Adrian",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Vithanage",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Hans Devu Sunil",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Hanwen Dun",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Hariprasath Mahalingam",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Harshana Fernando",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Hashem",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Ramadan",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Mustafa",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Mahmoud",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Kabsh",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Ishika Anand",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Jason Peter Fallon",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Jawaharsriraam",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Sathya",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Rajendran",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "John",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Mulampallil",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Shaji",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Joshua Wong",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Kamlesh Thrivin Gopal",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Kavita Kavita",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Khalid Ameen",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Kliona Kennet",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Luke Lakshan",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Kankanamge",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Don",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Mani Kalra",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Manoj",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Chowdary",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Kolindala",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Manya Mahajan",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Maverick Nguyen",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Michelle Halls",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Nithin Kumar Garmidi",
+                "seniority": "Senior",
+                "project": "Data science"
+              },
+              {
+                "name": "Onyewuchi",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Kennedy",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Ebegbulem",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Paarthipa",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Harish",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Palaniappan",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Panha Ath",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Lily Tran",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Prashant Thapa",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Priyanshu",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Cauleechurn",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Qizhe Yew",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Quang An Quoc Tran",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Rahul Sheoran",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Rishav Chopra",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Rukshan",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Anthony Dias",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Rupanshi",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Sahithi Pinnam",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Savith",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Mudunotuwa",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Shinto",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Ayyamkulangara",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Shaji",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Shivani",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Dattatray Satav",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Shivya Dahiya",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Shrikrishna Rai",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Siddhi Krishna Dabhade",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Sohail Shavez Khan",
+                "seniority": "Data Science",
+                "project": "Data Science"
+              },
+              {
+                "name": "Srihari",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Chandran",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Subathira Thinakaran",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Sujay Narayana",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Supriya Gautam",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Tanvi Tanvi",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Thien Khang Nguyen",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Tien Dat Hoang",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Vansh Sharma",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Ved Sharma",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Venkata Rama",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Kartikeya",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Bulusu",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Vyshnavi Dinesh",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Yoginder Syal",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Yuvarani",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Dharmasivam",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Hoang Hiep Pham",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Sanaullah",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Syed Hamiz Hassan",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Viswa Sai Mandava",
+                "seniority": "Senior",
+                "project": "Data science"
+              },
+              {
+                "name": "Nadun Hasara",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Senevirathne",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Henaka",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Ralalage",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Callum Ritchie",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Anh Nguyen Trinh",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Blessy Paul",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Joe Tambeana",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Keyur Pipaliya",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Lia Annie John",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Long Tran",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Madhav Grover",
+                "seniority": "Senior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Roseline",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Adesola",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Adekunle",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Sanjai Raj",
+                "seniority": "Data Science",
+                "project": "Data Science"
+              },
+              {
+                "name": "Bandari",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Kannada",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Shival Chatiar",
+                "seniority": "Junior",
+                "project": "Data Science"
+              },
+              {
+                "name": "Snimle Nims",
+                "seniority": "Junior",
+                "project": "Data"
+              },
+              {
+                "name": "Wimansa",
+                "seniority": "Senior",
+                "project": "Data"
+              },
+              {
+                "name": "Deshani",
+                "seniority": null,
+                "project": "Science"
+              },
+              {
+                "name": "Rajakaruna",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Rajakaruna",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Wasala",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Mudiyanselage",
+                "seniority": null,
+                "project": null
+              },
+              {
+                "name": "Ziqi Jia",
+                "seniority": "Senior",
+                "project": "Data"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "trimester": 2,
+        "companyDirector": "Dr Seng Loke",
+        "mentors": [
+          "Mollie Fernandez"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "Aayush Amitbhai Patel",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Aidan Page",
+                "seniority": "Senior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Angodavidanelage Rukshan Anthony Dias",
+                "seniority": "Senior",
+                "role": "Data Science Team Lead"
+              },
+              {
+                "name": "Ashley Mathew",
+                "seniority": "Senior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Atishay Jain",
+                "seniority": "Senior",
+                "role": "Data Science Team Lead"
+              },
+              {
+                "name": "Hariharan Narayanan",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Hiruni Pabasara Kasthuriarachchi",
+                "seniority": "Junior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Jack Rochford",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Jaclyn Leckie",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Kush Patel",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Lia Annie John",
+                "seniority": "Senior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Maanak Gadia",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Maverick Nguyen",
+                "seniority": "Senior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Rishav Chopra",
+                "seniority": "Senior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Rupanshi Rupanshi",
+                "seniority": "Senior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Snimle Nims",
+                "seniority": "Senior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Soham Dinesh Chodanekar",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Soorya Ravi Kumar",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Sumit Adhikari",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Supriya Gautam",
+                "seniority": "Senior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Tsz Fung Yuen",
+                "seniority": "Junior",
+                "role": "Data Scientist"
+              },
+              {
+                "name": "Ved Sharma",
+                "seniority": "Senior",
+                "role": "Data Science Quality Manager"
+              },
+              {
+                "name": "Xiaolin Situ",
+                "seniority": "Junior",
+                "role": "Data Science Quality Manager"
+              }
+            ]
+          },
+          {
+            "teamName": "Website Development Team",
+            "members": [
+              {
+                "name": "Abdullah Sher",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Chhay Hout Lay",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Emylin Poorvikah Pragash",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Himanshu Pyakurel",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Joseph Gitau Ngatia",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Joshua Chun Yat Wong",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Joshua Newnham",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Kachchakaduge Damitha Harshana Fernando",
+                "seniority": "Senior",
+                "role": "Web Dev  Team Lead"
+              },
+              {
+                "name": "Kebedduwe Vidanagamage Himesh Dithsura Samarawickrama",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Lakindu Bandara Dissanayake",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Milan Kavindu Liyanaarachchi",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Muhib Ur Rahman",
+                "seniority": "Junior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Ramin Rajakaruna",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Sachin Rasmitha Perera Rajakaruna Kumarasinghe",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Sahansa Dinethmi Mareena Amarathunga",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Subathira Thinakaran",
+                "seniority": "Senior",
+                "role": "Web Dev  Team Lead"
+              },
+              {
+                "name": "Syed Hamiz Hassan",
+                "seniority": "Senior",
+                "role": "Web Development Quality Manager"
+              },
+              {
+                "name": "Thien Khang Nguyen",
+                "seniority": "Senior",
+                "role": "Web Developer"
+              },
+              {
+                "name": "Tran Gia Khuong Nguyen",
+                "seniority": "Senior",
+                "role": "Web Development Quality Manager"
+              },
+              {
+                "name": "Yuen Yi Cheng",
+                "seniority": "Junior",
+                "role": "Web Development Quality Manager"
+              }
+            ]
+          },
+          {
+            "teamName": "Unassigned",
+            "members": [
+              {
+                "name": "Ashhab Bari",
+                "seniority": "Junior",
+                "role": "Unassigned"
+              }
+            ]
+          },
+          {
+            "teamName": "Project Team",
+            "members": [
+              {
+                "name": "Chandana Aji",
+                "seniority": "Junior",
+                "role": "Documentation Manager"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "trimesters": [
+      {
+        "trimester": 1,
+        "companyDirector": "Dr Aaron Spence",
+        "mentors": [
+          "Mollie Fernandez",
+          "Nehanjali Chowdary Makineni"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "Peregrin John Ryan",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Adithya Sentil",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Saneli Indumini Wijesinghe",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Harsh Dwivedi",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Venkata Mahesh Kumar Chirra",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Madhurima Nidhi Sree Kanchepalle",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Harshith Maddila",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Nelkin Eldho",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Linh Huong Nguyen",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Vivek Olladapu",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Nattakan Owatwansakul",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Deepthi Reddy Thatipally",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Yerragudi Ramachandra Vamshi Krishna",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Emmanuel Clement Anthony",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Jnaneshwari Beerappa",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Stefan Cucos",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Sri Tharaka Sandamal Dadigalage",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Supratim Dobhal",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Poojith Girish",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Nishant Umesh Khamkar",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Ananya Krishnan",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sai Priyamvada Kuntamukkala",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sahan Chamod Jayalath",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Pamunuwe Mahavithanage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Chathumini Rashmika Satharasinghe",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Rohang Rashesh Shah",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Samarth Dipakkumar Shah",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Wanni Achchige Chathurika Deshani Siriwardena",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Soham Niket Tamhane",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Wijesinghe Arachchige Uvini Chamathka Wijesinghe",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Naga Nikhil Woopalanchi",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              }
+            ]
+          },
+          {
+            "teamName": "Web Development Team",
+            "members": [
+              {
+                "name": "Abhishek Acharya",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Dave Nair",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Dilanka Perera",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Lokusuriyage Lakmal",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Wijewardene",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Pratik Khadka",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sushma Singh",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Thoufiya Shaik",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Bhupendra Pandey",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Chandrakanth Kunapareddy",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Danish Kumar",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Divyanga Chathurangi",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Samarawickrama Lokuhetti",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Farit Zafar",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Haritha Denuwan De Silva",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Asuramuni",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Harshitha Shashidhara",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Hashini Madushani Nanayakkara",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Geeganage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Hemaksh Katal",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Hridhya Thuruthippillil Shibu",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Joshen Shevin",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Mihindukulasuriya Patabedige F",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Kema Sanka Srinath Dissanayake",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Garusinghe Arachchige",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Manoj Kumar Bogineni",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Nipun Udara Yahathugoda",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Badalge",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Niwanthi Edirisinghe",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Yahathugoda Badalge",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Edirisinghe Arachchilage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Panadura Acharige Hashini",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Shashikala Gunathilaka",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Radha Krishna Gampa",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Saiteja Ravella",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Stephen Hoang Long Le",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Syed Saif Ali Abidi",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Upeksha Dilshan Karapitiya",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Pathiranage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Varun Kumar",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Venkata Raghava Naveen",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Veedhula",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "trimester": 2,
+        "companyDirector": "Dr Anuroop Gaddam",
+        "mentors": [
+          "Mollie Fernandez",
+          "Ereena Bagga"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "VYSHNAVI DINESH",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "EKANAYAKE MUDIYANSELAGE RUVINYA YASASMEE",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "JAMES  JONES",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "MANYA MAHAJAN",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "VINOJ PRASATH NAVARAJAH",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "DIYONA ROBERT",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "SUHANA TUNIO",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "AREEB ASHRAF BANA",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": null
+              },
+              {
+                "name": "MOHAMMAD MUZAMIL",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "RAFIQUE",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "ADITHYA SENTIL",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "SANELI INDUMINI WIJESINGHE",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "VENKATA RAMA KARTIKEYA BULUSU",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "YUVARANI DHARMASIVAM",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "HANWEN DUN",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "THAI HA NGUYEN",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "HOANG HIEP PHAM",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "SAHITHI PINNAM",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "SHIVANI DATTATRAY SATAV",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "VENKATA MAHESH KUMAR CHIRRA",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "POOYA FORGHANI ARANI",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "MADHURIMA NIDHI SREE KANCHEPALLE",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "BENARD KIMUTAI KIRWA",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "HARSHITH MADDILA",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "NELKIN ELDHO",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "LINH HUONG NGUYEN",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "NGOC BAO SON NGUYEN",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "VIVEK OLLADAPU",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "ANEESH SAMEER PEDRAM",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "DEEPTHI REDDY THATIPALLY",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "PEREGRIN JOHN RYAN",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "YERRAGUDI RAMACHANDRA VAMSHI KRISHNA",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              }
+            ]
+          }
+        ],
+        "note": "Web Dev team data in source sheet was malformed/merged across rows and could not be reliably parsed - needs manual review of source spreadsheet"
+      }
+    ]
+  },
+  {
+    "year": 2024,
+    "trimesters": [
+      {
+        "trimester": 1,
+        "companyDirector": "Prof. Chathu Ranaweera",
+        "mentors": [
+          "Barry Chen",
+          "Ella Zarandi"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Sci",
+            "members": [
+              {
+                "name": "Mollie Fernandez",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Project Lead"
+              },
+              {
+                "name": "Alison (Ali) Collins",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Project Lead"
+              },
+              {
+                "name": "Te' Claire",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Project Lead"
+              },
+              {
+                "name": "Ha Trang (Harley) Ngo",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Data Sci Lead"
+              },
+              {
+                "name": "Rhutuvaruni Kharade",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Data Sci Lead"
+              },
+              {
+                "name": "Madhuvaishali(Vaishali) Thakoor",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Dan Blair",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Thomas Alexander Rostov",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sachitha Sadeep Kasthuriarachchi",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Samiha Haque",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Akintomiwa James Aremu",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Dinuk Nadishan",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Kariyawasam Senadheerage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Katrine Kit-Ying Chan",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Venuka Hirusha Wijenayake",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Adrien Auguste",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Sheng Tha (Tharusha) Cao",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Wing Sum (Carissa) Wong",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Daljeet Kaur",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Mai Chi (Jamie) Hoang",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Manasa Nagaraja",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Prathibha Nishadini Kandawala",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Quoc Bao Phan",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Sinan Kilci",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Yash Krupanand Daware",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Arjun Jamwal",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Bao NGO",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Francis Albert",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Ramandeep Singh (Ghuman)",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Ruofeng QIU",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Thomas Warren",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              }
+            ]
+          },
+          {
+            "teamName": "Web Dev",
+            "members": [
+              {
+                "name": "Sakif Hasan",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Web Dev Lead"
+              },
+              {
+                "name": "You (Kasey) Wu",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Web Dev Lead"
+              },
+              {
+                "name": "Ashok Bishowkarma",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Kashish Bansal",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Abanob Mikhael",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Allen Gao",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Pema Lhagyal",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Simranjit Singh",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Thisu Nanayakkara",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Suraj Kuwar",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Chaya Shiv",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Linda Li",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Thamasha Galahahena Mudiyanselage",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Arman Ajimali Dhamani",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              }
+            ]
+          },
+          {
+            "teamName": "Web",
+            "members": [
+              {
+                "name": "Mukul Singh",
+                "degree": "PG`",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Hoang Duy Vu",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "trimester": 2,
+        "companyDirector": "Dr Azadeh Ghari Neiat",
+        "mentors": [
+          "Mollie Fernandez",
+          "Barry Chen"
+        ],
+        "teams": [
+          {
+            "teamName": "Web Development Team",
+            "members": [
+              {
+                "name": "Tyler Sheaf",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Minh Khoi Pham",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Muhammad Ahmad",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Rahman",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Chaya Shiv",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Pranjal Singh",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Hoang Duy Vu",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Mihir Arvindhbai",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Dobariya",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Rahda Krishna Gampa",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Sachintha Chanuka",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Shanthadewa Janguge",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Muhammad Subktageen Ahmad Janjua",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Upeksha Dilshan",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Karapitiya Pathiranage",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Danish Kumar",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Joshen Shevin",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Mihindukulasuriya Patabedige F",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Saiteja Ravella",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Venkata Raghava Naveen Veedhula",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Nipun Udara",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Yahathugoda Badalge",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Abhishek Chiluka",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Thamasha Galahena",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Galahahena",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Mudiyanselage",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Suraj Kuwar",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Jiaqi Li",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Usman Tariq",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Adrian Thilina Weerasinghe",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Arman Ajimali Dhamani",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "No"
+              }
+            ]
+          },
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "Awaze Ur Rahaman",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Mohommed",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Alireza Montazeri",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Chathumini Rashmika Satharasinghe",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Rohang Rashesh Shah",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Adersh Antony",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Thekkekuttu Michael",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Taylor Wallis Garlick",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Sabih Ul Hassan",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": "No"
+              },
+              {
+                "name": "Emmanuel Clement Anthony",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Jnaneshwari Beerappa",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Sabri Serkan Gulluoglu",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Taehwan Jung",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Sahan Chamod Jayalath",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Pamunuwe Mahavithanage",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Daljeet Kaur",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Mengqian Gong",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Sinan Kilci",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "No"
+              },
+              {
+                "name": "Harsh Dwivedi",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Thomas Alexander Rostov",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sri Tharaka Sandamal Dadigalage",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sai Priyamvada Kuntamukkala",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Samarth Dipakkumar Shah",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Wanni Achchige Chathurika Deshani Siriwardena",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Wijesinghe Arachchige",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Uvini Chamathka Wijesinghe",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Naga Nikhil Woopalanchi",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Akintomiwa James Aremu",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Katrine Kit-ying Chan",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Samiha Haque",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Liny Jose Alias",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Dinuk Nadishan",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Kariyawasam",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Senadheerage",
+                "seniority": null,
+                "degree": null,
+                "leader": null
+              },
+              {
+                "name": "Sachitha Sadeepa Kasthuriarachchi",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Aishwarya Mahajan",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Manasa Nagaraja",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Quoc Bao Ngo",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Madhuvaishali Thakoor",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Francis Albert Rusli",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              },
+              {
+                "name": "Venuka Hirushan Wijenayake",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": "Yes"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "trimester": 3,
+        "companyDirector": "Dr Farah Farizi",
+        "mentors": [
+          "Mollie Fernandez",
+          "Nehanjali Chowdary Makineni"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "Supratim Dobhal",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Cjay Basa",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Poojith Girish",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Dhruvil Jayesh Mehta",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Soham Niket Tamhane",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Nishant Umesh Khamkar",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Ananya Krishnan",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Sabih Ul Hassan",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Sabri Serkan Gulluoglu",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Taehwan Jung",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Ahmed Awad A Aldhaheri",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Mengkheang Neak",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Ratanakmoni Slot (Ryan)",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Kushani Imanthi Ranasinghe",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Randi Tamasha Gunasekara Henadeerage Dona",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "Yes"
+              }
+            ]
+          },
+          {
+            "teamName": "Web Development Team",
+            "members": [
+              {
+                "name": "Johnny Vo",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Arman Bakhtiariasl",
+                "degree": "UG",
+                "seniority": "Junior",
+                "leader": "Yes"
+              },
+              {
+                "name": "Tyler Sheaf",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Phuc Dat Tran",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Syed Saif Ali Abidi",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Manoj Kumar Bogineni",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Niwanthi Edirisinghe",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Arachchilage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Kema Sanka Srinath",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Dissanayake Garusinghe",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Arachchige",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Hashini Gunathilaka",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Gloria Chemutai Kiplagat",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Muhammad Jahanzaib Khan",
+                "degree": "PG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Ben Tran",
+                "degree": "UG",
+                "seniority": "Senior",
+                "leader": "No"
+              },
+              {
+                "name": "Hashini Madushani",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              },
+              {
+                "name": "Nanayakkara Geeganage",
+                "degree": null,
+                "seniority": null,
+                "leader": null
+              },
+              {
+                "name": "Rahul Sehrawat",
+                "degree": "PG",
+                "seniority": "Junior",
+                "leader": "No"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2023,
+    "trimesters": [
+      {
+        "trimester": 3,
+        "companyDirector": null,
+        "mentors": [
+          "Nehanjali Chowdary"
+        ],
+        "teams": [
+          {
+            "teamName": "Data Science Team",
+            "members": [
+              {
+                "name": "ADRIEN AUGUSTE",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "ALISON COLLINS",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": true
+              },
+              {
+                "name": "ARJUN JAMWAL",
+                "degree": "Postgrad",
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "DANIEL D'AMORE",
+                "degree": "Undergrad",
+                "seniority": "Senior",
+                "leader": true
+              },
+              {
+                "name": "HARLEY NGO",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": true
+              },
+              {
+                "name": "JENNIFER YAU",
+                "degree": null,
+                "seniority": "Senior",
+                "leader": false
+              },
+              {
+                "name": "RHUTUVARUNI VINAYAK KHARADE",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": true
+              },
+              {
+                "name": "RUOFENG QIU",
+                "degree": "Postgrad",
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "SHAUN RATCLIFF",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "SHILPA SHARMA",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "SIJU DENG",
+                "degree": "Postgrad",
+                "seniority": "Senior",
+                "leader": true
+              },
+              {
+                "name": "SIM SIMRANJIT SINGH",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "TE CLAIRE",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": true
+              },
+              {
+                "name": "THARUSHA CAO",
+                "degree": "Undergrad",
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "THOMAS WARREN",
+                "degree": "Postgrad",
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "WING SUM WONG",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "JASHANPREET SINGH KAMBOJ",
+                "degree": "Undergraduate",
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "YASH KRUPANAND DAWARE",
+                "degree": null,
+                "seniority": "Junior",
+                "leader": false
+              },
+              {
+                "name": "Melbourne Open Data (Project Lead: Amby Sarrazin)",
+                "degree": null,
+                "seniority": null,
+                "leader": false
+              },
+              {
+                "name": "Data Science (Team Lead: Daniel D'Amore and Siju Deng)",
+                "degree": null,
+                "seniority": null,
+                "leader": false
+              },
+              {
+                "name": "Web Development (Team Lead: Jasdeep Singh and Sakif Hasan)",
+                "degree": null,
+                "seniority": null,
+                "leader": false
+              }
+            ]
+          },
+          {
+            "teamName": "Web Dev Team",
+            "members": [
+              {
+                "name": "Sakif Hasan",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": true
+              },
+              {
+                "name": "Jasdeep Singh",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": true
+              },
+              {
+                "name": "Kasey WU",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": true
+              },
+              {
+                "name": "Pranjal Singh",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": false
+              },
+              {
+                "name": "Abanob Mikhael",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": false
+              },
+              {
+                "name": "Allen Gao",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": false
+              },
+              {
+                "name": "Pema Lhagyal",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": false
+              },
+              {
+                "name": "Ashok Bishowkarma",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": true
+              },
+              {
+                "name": "Kashish Bansal",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": true
+              },
+              {
+                "name": "Simranjit Singh",
+                "seniority": "Junior",
+                "degree": "PG",
+                "leader": false
+              },
+              {
+                "name": "Aditya Gahlot",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": false
+              },
+              {
+                "name": "Tao Pan",
+                "seniority": "Senior",
+                "degree": "PG",
+                "leader": false
+              },
+              {
+                "name": "Akshit Singh",
+                "seniority": "Junior",
+                "degree": "UG",
+                "leader": true
+              },
+              {
+                "name": "Amulya Gyawali",
+                "seniority": "Senior",
+                "degree": "UG",
+                "leader": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
