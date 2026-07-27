@@ -2,13 +2,99 @@
 
 import { useId, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Users, GraduationCap, Info } from "lucide-react";
+import { ChevronDown, Users, GraduationCap } from "lucide-react";
 import contributorsData from "@/data/contributors_by_year.json";
-import type { ContributorTeam, ContributorTrimester, ContributorYear } from "@/types/contributor";
+import type { ContributorRecord } from "@/types/contributor";
 
-const contributors = contributorsData as unknown as ContributorYear[];
+const contributors = contributorsData as unknown as ContributorRecord[];
 
-function TeamAccordion({ team }: { team: ContributorTeam }) {
+interface GroupedMember {
+  name: string;
+  role?: string;
+  seniority?: string;
+}
+
+interface GroupedTeam {
+  teamName: string;
+  members: GroupedMember[];
+}
+
+interface GroupedTrimester {
+  trimester: number;
+  companyDirector?: string;
+  mentors: string[];
+  teams: GroupedTeam[];
+}
+
+interface GroupedYear {
+  year: number;
+  trimesters: GroupedTrimester[];
+}
+
+function groupContributors(records: ContributorRecord[]): GroupedYear[] {
+  const visible = records.filter((record) => record.status);
+
+  const byYear = new Map<number, Map<number, ContributorRecord[]>>();
+  for (const record of visible) {
+    if (!byYear.has(record.year)) byYear.set(record.year, new Map());
+    const byTrimester = byYear.get(record.year)!;
+    if (!byTrimester.has(record.trimester)) byTrimester.set(record.trimester, []);
+    byTrimester.get(record.trimester)!.push(record);
+  }
+
+  const years: GroupedYear[] = [];
+
+  for (const [year, byTrimester] of byYear) {
+    const trimesters: GroupedTrimester[] = [];
+
+    for (const [trimester, recordsInTrimester] of byTrimester) {
+      const sorted = [...recordsInTrimester].sort(
+        (a, b) => a.displayOrder - b.displayOrder
+      );
+
+      const companyDirector = sorted.find(
+        (record) => record.contributorType === "Company Director"
+      )?.fullName;
+
+      const mentors = sorted
+        .filter((record) => record.contributorType === "Mentor")
+        .map((record) => record.fullName);
+
+      const students = sorted.filter(
+        (record) => record.contributorType === "Student"
+      );
+
+      const teamsByName = new Map<string, GroupedMember[]>();
+      for (const student of students) {
+        const teamName = student.team ?? "Unassigned";
+        if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
+        teamsByName.get(teamName)!.push({
+          name: student.fullName,
+          role: student.positionOrRole,
+          seniority: student.level,
+        });
+      }
+
+      trimesters.push({
+        trimester,
+        companyDirector,
+        mentors,
+        teams: Array.from(teamsByName, ([teamName, members]) => ({
+          teamName,
+          members,
+        })),
+      });
+    }
+
+    trimesters.sort((a, b) => a.trimester - b.trimester);
+    years.push({ year, trimesters });
+  }
+
+  years.sort((a, b) => b.year - a.year);
+  return years;
+}
+
+function TeamAccordion({ team }: { team: GroupedTeam }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
 
@@ -72,9 +158,9 @@ function TeamAccordion({ team }: { team: ContributorTeam }) {
             className="overflow-hidden"
           >
             <ul className="flex flex-col gap-1.5 px-4 pb-3 pt-1 border-t border-gray-100 dark:border-gray-700">
-              {team.members.map((member) => (
+              {team.members.map((member, index) => (
                 <li
-                  key={member.name}
+                  key={`${member.name}-${index}`}
                   className="flex items-center justify-between gap-3 text-xs sm:text-sm pt-1.5"
                 >
                   <span className="text-gray-700 dark:text-gray-200">{member.name}</span>
@@ -91,21 +177,13 @@ function TeamAccordion({ team }: { team: ContributorTeam }) {
   );
 }
 
-function TrimesterCard({ trimester }: { trimester: ContributorTrimester }) {
+function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
   return (
     <div className="flex-1 min-w-[280px] rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f2a30] p-5 sm:p-6 shadow-md">
       <div className="flex items-center gap-2 mb-1">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           Trimester {trimester.trimester}
         </h3>
-        {trimester.note && (
-          <span
-            title={trimester.note}
-            className="inline-flex items-center text-amber-500 dark:text-amber-400 cursor-help"
-          >
-            <Info size={14} aria-hidden="true" />
-          </span>
-        )}
       </div>
 
       {trimester.companyDirector && (
@@ -114,10 +192,12 @@ function TrimesterCard({ trimester }: { trimester: ContributorTrimester }) {
         </p>
       )}
 
-      <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <GraduationCap size={14} aria-hidden="true" />
-        Mentored by {trimester.mentors.join(", ")}
-      </p>
+      {trimester.mentors.length > 0 && (
+        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <GraduationCap size={14} aria-hidden="true" />
+          Mentored by {trimester.mentors.join(", ")}
+        </p>
+      )}
 
       <div className="flex flex-col gap-3">
         {trimester.teams.map((team) => (
@@ -129,10 +209,7 @@ function TrimesterCard({ trimester }: { trimester: ContributorTrimester }) {
 }
 
 export default function ContributorsSection() {
-  const years = useMemo(
-    () => [...contributors].sort((a, b) => b.year - a.year),
-    []
-  );
+  const years = useMemo(() => groupContributors(contributors), []);
   const [selectedYear, setSelectedYear] = useState<number | undefined>(
     years[0]?.year
   );

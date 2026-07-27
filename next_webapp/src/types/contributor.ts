@@ -1,24 +1,15 @@
-export interface ContributorMember {
-  name: string;
-  role?: string | null;
-  seniority?: string | null;
-  [key: string]: unknown;
-}
+export type ContributorType = "Student" | "Mentor" | "Company Director";
 
-export interface ContributorTeam {
-  teamName: string;
-  members: ContributorMember[];
-}
+export type ContributorLevel = "Senior" | "Junior";
 
-export interface ContributorTrimester {
-  trimester: number;
-  companyDirector?: string | null;
-  mentors: string[];
-  teams: ContributorTeam[];
-  note?: string;
-}
-
-export interface ContributorYear {
+export interface ContributorRecord {
+  fullName: string;
   year: number;
-  trimesters: ContributorTrimester[];
+  trimester: number;
+  contributorType: ContributorType;
+  team?: string;
+  positionOrRole?: string;
+  level?: ContributorLevel;
+  displayOrder: number;
+  status: boolean;
 }
