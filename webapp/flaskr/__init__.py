@@ -3,38 +3,57 @@ import os
 from flask import Flask
 from flask_talisman import Talisman
 
+
 def create_app(test_config=None):
-    # create and configure the app
+    # Create and configure the Flask application.
     app = Flask(__name__, instance_relative_config=True)
-    # Talisman is a small Flask extension that handles setting HTTP headers that can help protect
-    # against a few common web application security issues (https://github.com/GoogleCloudPlatform/flask-talisman).
-    # In particular, this sets the 'x-frame-options=SAMEORIGIN' flag in the HTTP response header to prevent clickjacking.
-    # The 'content_security_policy' argument is set to allow content from anywhere or it is too restrictive.
-    Talisman(app,
-             content_security_policy = {'default-src': '*'},
-             content_security_policy_report_only = True,
-             content_security_policy_report_uri = '/tools/csp-report')
-    app.config.from_mapping(
-        SECRET_KEY='dev'
+
+    # Add security-related HTTP headers.
+    # HTTPS is disabled for the local Flask development server.
+    Talisman(
+        app,
+        content_security_policy={"default-src": "*"},
+        content_security_policy_report_only=True,
+        content_security_policy_report_uri="/tools/csp-report",
+        force_https=False,
     )
 
-    from .controllers import use_cases, tools, parking_availability, home
-    app.register_blueprint(use_cases.bp)
-    app.register_blueprint(tools.bp)
-    app.register_blueprint(parking_availability.bp)
-    app.register_blueprint(home.bp)
+    # Default application configuration.
+    app.config.from_mapping(
+        SECRET_KEY="dev",
+        DATABASE=os.path.join(app.instance_path, "mop.sqlite"),
+    )
 
+    # Load instance configuration if it exists.
     if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile("config.py", silent=True)
     else:
-        # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
+    # Ensure the instance folder exists.
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
 
+    # Initialise database commands and connection cleanup.
+    from . import database
+
+    database.init_app(app)
+
+    # Import application controllers.
+    from .controllers import auth
+    from .controllers import home
+    from .controllers import parking_availability
+    from .controllers import tools
+    from .controllers import use_cases
+
+    # Register application blueprints.
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(use_cases.bp)
+    app.register_blueprint(tools.bp)
+    app.register_blueprint(parking_availability.bp)
+    app.register_blueprint(home.bp)
+
     return app
+

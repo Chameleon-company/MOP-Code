@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title">Create an account</h1>
+
+                    <form method="post">
+                        <div class="field">
+                            <label class="label" for="username">Username</label>
+                            <div class="control">
+                                <input
+                                    class="input"
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    value="{{ request.form.get('username', '') }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="email">Email</label>
+                            <div class="control">
+                                <input
+                                    class="input"
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    value="{{ request.form.get('email', '') }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="password">Password</label>
+                            <div class="control">
+                                <input
+                                    class="input"
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    minlength="8"
+                                    required
+                                >
+                            </div>
+                            <p class="help">Use at least 8 characters.</p>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary is-fullwidth" type="submit">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p class="has-text-centered">
+                        Already have an account?
+                        <a href="{{ url_for('auth.login') }}">Log in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

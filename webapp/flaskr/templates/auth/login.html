@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title">Log in</h1>
+
+                    <form method="post">
+                        <div class="field">
+                            <label class="label" for="email">Email</label>
+                            <div class="control">
+                                <input
+                                    class="input"
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    value="{{ request.form.get('email', '') }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="password">Password</label>
+                            <div class="control">
+                                <input
+                                    class="input"
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary is-fullwidth" type="submit">
+                                    Log in
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p class="has-text-centered">
+                        Do not have an account?
+                        <a href="{{ url_for('auth.register') }}">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
