@@ -1,3 +1,5 @@
+//The template for creating use cases:
+
 // import { CATEGORY, CaseStudy } from "../../types";
 
 // export const caseStudies: CaseStudy[] = [
@@ -138,3 +140,5 @@
 //   },
 //   // ...and so on until you reach the desired number of case studies
 // ];
+
+
