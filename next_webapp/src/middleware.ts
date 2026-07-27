@@ -1,8 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales } from "./i18n";
-import logger from "./utils/logger";
-
 
 // next-intl middleware instance (handles locale detection + redirects)
 const intlMiddleware = createMiddleware({
@@ -16,8 +14,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload"];
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -94,7 +91,7 @@ async function verifyJWT(
     const isValid = await crypto.subtle.verify(
       "HMAC",
       cryptoKey,
-      signature,
+      signature as unknown as BufferSource,
       signingInput,
     );
     if (!isValid) return null;
@@ -127,7 +124,9 @@ export default async function middleware(request: NextRequest) {
   const userRole = request.headers.get('x-user-role');
 
   // Log incoming request
-  logger.info(`Request: ${method} ${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`, {
+  console.info(JSON.stringify({
+    level: 'info',
+    message: `Request: ${method} ${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
     source: 'middleware',
     method,
     url: `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
@@ -135,7 +134,7 @@ export default async function middleware(request: NextRequest) {
     user_agent: userAgent,
     user_id: userId ? parseInt(userId) : undefined,
     user_role: userRole,
-  });
+  }));
 
   // 1. Always-public paths: skip auth and delegate locale routing to intl
   if (isPublicPath(pathname)) {
@@ -212,27 +211,32 @@ export const config = {
     "/admin/:path*",
     "/upload/:path*",
     "/statistics/:path*",
-    
+
     // Protected API routes — profile
     "/api/profile",
     "/api/profile/:path*",
 
     // Protected API routes — category
-    "/api/categories",          
+    "/api/categories",
     "/api/categories/:path*",
 
     // Protected API routes — blogs
-    "/api/blogs",          
+    "/api/blogs",
     "/api/blogs/:path*",
 
     // Protected API routes — gallery
-    "/api/gallery",          
+    "/api/gallery",
     "/api/gallery/:path*",
     // Protected API routes — logs (admin only)
     "/api/logs",
 
+    // Protected API routes — admin
+    "/api/admin/:path*",
+
+    // Protected API routes — upload
+    "/api/upload",
+
     // Public auth API routes (handled by isPublicPath — pass straight through)
     "/api/auth/:path*",
   ],
-  runtime: 'nodejs',
 };
