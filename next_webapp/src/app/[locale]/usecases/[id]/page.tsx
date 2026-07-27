@@ -123,12 +123,12 @@ const UseCasePage: React.FC = () => {
                 const parsed = JSON.parse(useCase.content);
                 if (Array.isArray(parsed.cells)) {
                   return (
-                    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+                    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 [&_*]:dark:text-gray-200">
                       <NotebookRenderer content={useCase.content} />
                     </div>
                   );
                 }
-              } catch {}
+              } catch { }
               // fallback for old HTML content already in DB
               return (
                 <iframe
