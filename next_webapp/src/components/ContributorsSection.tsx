@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Users, GraduationCap } from "lucide-react";
+import { useTranslations } from "next-intl";
 import contributorsData from "@/data/contributors_by_year.json";
 import type { ContributorRecord } from "@/types/contributor";
 
@@ -97,6 +98,7 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
 function TeamAccordion({ team }: { team: GroupedTeam }) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
+  const triggerId = useId();
 
   return (
     <div
@@ -109,6 +111,7 @@ function TeamAccordion({ team }: { team: GroupedTeam }) {
       ].join(" ")}
     >
       <button
+        id={triggerId}
         aria-controls={panelId}
         aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
@@ -150,6 +153,7 @@ function TeamAccordion({ team }: { team: GroupedTeam }) {
           <motion.div
             id={panelId}
             role="region"
+            aria-labelledby={triggerId}
             key="members"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -178,24 +182,26 @@ function TeamAccordion({ team }: { team: GroupedTeam }) {
 }
 
 function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
+  const t = useTranslations("about");
+
   return (
     <div className="flex-1 min-w-[280px] rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f2a30] p-5 sm:p-6 shadow-md">
       <div className="flex items-center gap-2 mb-1">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-          Trimester {trimester.trimester}
+          {t("contributors.trimester", { number: trimester.trimester })}
         </h3>
       </div>
 
       {trimester.companyDirector && (
         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1">
-          Company Director: {trimester.companyDirector}
+          {t("contributors.companyDirector", { name: trimester.companyDirector })}
         </p>
       )}
 
       {trimester.mentors.length > 0 && (
         <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
           <GraduationCap size={14} aria-hidden="true" />
-          Mentored by {trimester.mentors.join(", ")}
+          {t("contributors.mentoredBy", { names: trimester.mentors.join(", ") })}
         </p>
       )}
 
@@ -209,6 +215,7 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
 }
 
 export default function ContributorsSection() {
+  const t = useTranslations("about");
   const years = useMemo(() => groupContributors(contributors), []);
   const [selectedYear, setSelectedYear] = useState<number | undefined>(
     years[0]?.year
@@ -221,20 +228,20 @@ export default function ContributorsSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <span className="inline-block mb-4 px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400">
-            Contributors
+            {t("contributors.badge")}
           </span>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-3">
-            Meet the Teams Behind MOP
+            {t("contributors.title")}
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Every trimester, student teams and mentors contribute new features and use cases to the platform.
+            {t("contributors.subtitle")}
           </p>
         </div>
 
         {years.length === 0 ? (
           <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center dark:border-gray-700 dark:bg-[#263238]">
             <p className="text-base font-medium text-gray-500 dark:text-gray-400">
-              No contributors available at the moment.
+              {t("contributors.empty")}
             </p>
           </div>
         ) : (

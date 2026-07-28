@@ -80,7 +80,16 @@
     "Our": "Nuestros",
     "Goals": "Objetivos",
     "Our Goals": "Nuestros Objetivos",
-    "p4": "Este proyecto tiene como objetivo entregar ejemplos de prueba de concepto sobre cómo se pueden realizar llamadas a las APIs de Datos Abiertos."
+    "p4": "Este proyecto tiene como objetivo entregar ejemplos de prueba de concepto sobre cómo se pueden realizar llamadas a las APIs de Datos Abiertos.",
+    "contributors": {
+      "badge": "Colaboradores",
+      "title": "Conoce a los Equipos Detrás de MOP",
+      "subtitle": "Cada trimestre, los equipos de estudiantes y mentores aportan nuevas funciones y casos de uso a la plataforma.",
+      "empty": "No hay colaboradores disponibles por el momento.",
+      "trimester": "Trimestre {number}",
+      "companyDirector": "Director de la Empresa: {name}",
+      "mentoredBy": "Con la mentoría de {names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "Política de Privacidad",
