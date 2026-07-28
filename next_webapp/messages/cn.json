@@ -80,7 +80,16 @@
     "Our": "我们的",
     "Goals": "目标",
     "Our Goals": "我们的目标",
-    "p4": "该项目旨在提供关于如何调用开放数据API的概念验证示例。"
+    "p4": "该项目旨在提供关于如何调用开放数据API的概念验证示例。",
+    "contributors": {
+      "badge": "贡献者",
+      "title": "认识 MOP 背后的团队",
+      "subtitle": "每个学期，学生团队和导师都会为平台贡献新功能和应用案例。",
+      "empty": "暂无贡献者信息。",
+      "trimester": "第 {number} 学期",
+      "companyDirector": "公司总监：{name}",
+      "mentoredBy": "指导导师：{names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "隐私政策",
