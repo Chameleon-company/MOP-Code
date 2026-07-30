@@ -14,7 +14,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors"];
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -40,6 +40,17 @@ function getBarePath(pathname: string): string {
 function isProtectedPath(pathname: string): boolean {
   const bare = getBarePath(pathname);
   return PROTECTED_PATHS.some((p) => bare === p || bare.startsWith(`${p}/`));
+}
+
+/**
+ * GET requests on /api/contributors (list) or /api/contributors/:id (single)
+ * are public the display page reads them with no login. Only the write
+ * methods on this same path family require the JWT check below.
+ */
+function isPublicContributorsRead(pathname: string, method: string): boolean {
+  if (method !== "GET") return false;
+  const bare = getBarePath(pathname);
+  return bare === "/api/contributors" || /^\/api\/contributors\/[^/]+$/.test(bare);
 }
 
 // Return true when the request should bypass auth entirely.
@@ -159,6 +170,12 @@ export default async function middleware(request: NextRequest) {
     return intlMiddleware(request);
   }
 
+  // 3.5 Public reads within an otherwise-protected path family (contributors
+  //     GET) bypass the JWT check, no user headers get attached.
+  if (isPublicContributorsRead(pathname, method)) {
+    return NextResponse.next();
+  }
+
   // 4. Protected API route: verify the JWT
   const JWT_SECRET = process.env.JWT_SECRET;
   if (!JWT_SECRET) {
@@ -232,6 +249,11 @@ export const config = {
 
     // Protected API routes — admin
     "/api/admin/:path*",
+
+    // Contributors GET is public (see isPublicContributorsRead), but the
+    // path still needs to be matched so POST/PUT/DELETE get JWT-verified.
+    "/api/contributors",
+    "/api/contributors/:path*",
 
     // Protected API routes — upload
     "/api/upload",
