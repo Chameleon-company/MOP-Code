@@ -25,6 +25,7 @@
     "jspdf": "^4.2.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.438.0",
+    "mongodb": "^7.5.0",
     "mongoose": "^8.6.2",
     "next": "^15.5.0",
     "next_webapp": "file:",
