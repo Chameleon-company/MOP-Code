@@ -1,0 +1,40 @@
+{% extends "layout.html" %} 
+{% block content %}
+   <h2>Predestrian Prediction</h2>
+      <!-- Main Input For Receiving Query to our ML -->
+      
+  <body>
+    <section>
+      <div class="container">  
+        <form name="Pedestrian_prediction" action=" " method="POST">
+          {{ form.hidden_tag() }}
+            <p> {{form.date.label}} <br>
+                {{form.date(class = 'datepicker')}} </p>
+            <p> {{form.rainfall.label}} <br>
+                {{form.rainfall(size=10)}} </p>
+            <p> {{form.solar_exposure.label}} <br>
+                {{form.solar_exposure(size=10)}} </p>
+            <p> {{form.minimum_temperature.label}} <br>
+                {{form.minimum_temperature(size=10)}} </p>
+            <p> {{form.maximum_temperature.label}} <br>
+                {{form.maximum_temperature(size=10)}} </p>
+            <p> {{form.public_holiday.label}} <br>
+                {{form.public_holiday()}} </p>
+            <p> {{form.restriction.label}} <br>
+                {{form.restriction()}}</p>
+            <p> {{ form.submit() }} <br>
+            </p>
+            <br>
+            {{ day_of_year }}
+        </form>
+      </div>
+  
+  <article>
+    <h1>Total Pedestrian Count predicted for :&nbsp;&nbsp;</h1>
+    <p>{{ day_of_year }}</p>
+   
+  </article>
+</section>
+</body>
+
+{% endblock %}
