@@ -59,8 +59,11 @@ export async function PUT(
     let body;
     try {
       body = await request.json();
-    } catch {
-      return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request);
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request);
+      }
+      throw error;
     }
 
     await dbConnect();
