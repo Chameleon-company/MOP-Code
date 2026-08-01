@@ -3,19 +3,13 @@ import dbConnect from "@/lib/dbConnect";
 import Contributor from "@/models/mongoose/Contributor";
 import { getAuthUser } from "@/app/api/library/auth";
 import { errorResponse } from "@/app/api/library/errorResponse";
-
-// Map a Mongo document (or .lean() object) to the flat, snake_case shape the
-// frontend expects plain string `id`, never a raw `_id`/`__v`.
-function toContributorDTO(doc: any) {
-  const { _id, __v, ...rest } = doc;
-  return { id: _id.toString(), ...rest };
-}
+import { toContributorDTO } from "@/app/api/library/contributorDto";
 
 // ==============================
 // GET /api/contributors
 // List all contributors (PUBLIC the display page reads this unauthenticated)
 // ==============================
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await dbConnect();
 
@@ -29,7 +23,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("List Contributors Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR");
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request);
   }
 }
 
@@ -41,13 +35,18 @@ export async function POST(request: NextRequest) {
   try {
     const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED");
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
     }
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN");
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
     }
 
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request);
+    }
 
     await dbConnect();
 
@@ -69,9 +68,9 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     if (error instanceof Error && error.name === "ValidationError") {
-      return errorResponse(error.message, 400, "VALIDATION_ERROR");
+      return errorResponse(error.message, 400, "VALIDATION_ERROR", request);
     }
     console.error("Create Contributor Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR");
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request);
   }
 }

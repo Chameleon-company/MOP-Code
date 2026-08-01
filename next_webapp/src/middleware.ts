@@ -86,6 +86,13 @@ async function verifyJWT(
 
     const [headerB64, payloadB64, signatureB64] = parts;
 
+    // Reject any token whose header doesn't declare exactly HS256/JWT this
+    // blocks algorithm-confusion attacks (e.g. "alg": "none" or RS256 with a
+    // public key used as the HMAC secret).
+    const headerJson = new TextDecoder().decode(base64urlDecode(headerB64));
+    const header = JSON.parse(headerJson) as Record<string, unknown>;
+    if (header.alg !== "HS256" || header.typ !== "JWT") return null;
+
     // Import the HMAC-SHA256 secret key
     const keyData = new TextEncoder().encode(secret);
     const cryptoKey = await crypto.subtle.importKey(
