@@ -2,12 +2,16 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import UseCase from "@/models/mongoose/UseCase";
-import Category from "@/models/mongoose/Category";
-import Tag from "@/models/mongoose/Tag";
-import User from "@/models/mongoose/User";
-import { getGridFSBucket } from "@/lib/gridfs";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { toUseCaseDTO } from "@/app/api/library/useCaseDto";
+import {
+  resolveCategoryRef,
+  resolveCreatedBy,
+  resolveTagRefs,
+  validateNotebookContent,
+  uploadNotebookToGridFS,
+  tryDeleteGridFSFile,
+} from "./_shared";
 
 // GridFS/streaming needs the Node runtime (mongoose, node:stream) — not edge.
 export const runtime = "nodejs";
@@ -16,107 +20,6 @@ export const runtime = "nodejs";
 // can't inject regex metacharacters or degrade into catastrophic backtracking.
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-// Server-side cap on notebook JSON size, enforced BEFORE any GridFS write —
-// measured on the actual byte length (Buffer.byteLength), not .length,
-// since .length counts UTF-16 code units and would under-count for any
-// multi-byte characters in the notebook (cell text, unicode in outputs, etc).
-const MAX_NOTEBOOK_BYTES = 60 * 1024 * 1024; // 60 MB
-
-// Resolve an embedded category ref from an incoming category_id. The admin
-// add-form still sources category_id from /api/categories, which is still
-// Supabase-backed (a Postgres numeric id) — there is no live Mongo Category
-// collection being written to yet. Try a real Mongo ObjectId first (forward
-// -compatible with a future Mongo-backed category picker), then fall back
-// to Category.legacy_id (the string field this migration already carries
-// the same numeric id under — see Category.ts). If neither resolves, still
-// keep the id as a legacy-only reference rather than dropping it — same
-// "carry the id even without a live match" pattern used elsewhere in this
-// migration (UseCase.legacy_id, TagRefSchema).
-async function resolveCategoryRef(categoryId) {
-  if (categoryId === undefined || categoryId === null || categoryId === "") {
-    return null;
-  }
-  const idStr = String(categoryId);
-
-  let category = null;
-  if (mongoose.Types.ObjectId.isValid(idStr)) {
-    category = await Category.findById(idStr).lean();
-  }
-  if (!category) {
-    category = await Category.findOne({ legacy_id: idStr }).lean();
-  }
-
-  if (category) {
-    return {
-      id: category._id,
-      legacy_id: category.legacy_id ?? idStr,
-      category_name: category.category_name ?? null,
-    };
-  }
-
-  return { id: null, legacy_id: idStr, category_name: null };
-}
-
-// Resolve created_by (a legacy Postgres numeric user id, read out of the
-// client's localStorage session) to a Mongo User ObjectId, same
-// legacy-id-fallback approach as resolveCategoryRef. Unlike category/tags,
-// this field has no legacy_id sibling on the UseCase schema itself (it's a
-// bare `Schema.Types.ObjectId, ref: "User"`), so an id that resolves to
-// nothing is simply dropped (stored as null) rather than blocking creation
-// — there's nowhere on this field to keep the raw legacy id if it doesn't
-// resolve.
-async function resolveCreatedBy(createdBy) {
-  if (createdBy === undefined || createdBy === null || createdBy === "") {
-    return null;
-  }
-  const idStr = String(createdBy);
-
-  if (mongoose.Types.ObjectId.isValid(idStr)) {
-    const user = await User.findById(idStr).select("_id").lean();
-    if (user) return user._id;
-  }
-
-  const user = await User.findOne({ legacy_id: idStr }).select("_id").lean();
-  return user ? user._id : null;
-}
-
-// Find-or-create a Tag document for each incoming tag name, then embed a
-// denormalized ref on the doc — the Mongo equivalent of the old
-// find-or-create-then-link-via-usecase_tags logic, minus the join table
-// (tags live directly on the doc now, see TagRefSchema in UseCase.ts).
-async function resolveTagRefs(tagNames) {
-  if (!Array.isArray(tagNames) || tagNames.length === 0) return [];
-
-  const refs = [];
-  const seenSlugs = new Set();
-
-  for (const raw of tagNames) {
-    if (typeof raw !== "string" || raw.trim().length === 0) continue;
-
-    const name = raw.trim();
-    const slug = name.toLowerCase().replace(/\s+/g, "-");
-    if (seenSlugs.has(slug)) continue;
-    seenSlugs.add(slug);
-
-    // Atomic find-or-create — replaces the old insert-then-catch-23505-
-    // then-refetch dance, which Mongo's upsert makes unnecessary.
-    const tag = await Tag.findOneAndUpdate(
-      { slug },
-      { $setOnInsert: { name, slug } },
-      { upsert: true, new: true },
-    ).lean();
-
-    refs.push({
-      id: tag._id,
-      legacy_id: tag.legacy_id ?? null,
-      name: tag.name,
-      slug: tag.slug,
-    });
-  }
-
-  return refs;
 }
 
 // POST /api/usecases
@@ -158,50 +61,12 @@ export async function POST(request) {
     let notebookBuffer = null;
 
     if (content !== undefined && content !== null && content !== "") {
-      if (typeof content !== "string") {
-        return errorResponse("content must be a JSON string", 400, "INVALID_CONTENT", request);
+      const validation = validateNotebookContent(content);
+      if (!validation.valid) {
+        return errorResponse(validation.message, validation.status, validation.code, request);
       }
-
-      const contentBytes = Buffer.byteLength(content, "utf8");
-      if (contentBytes > MAX_NOTEBOOK_BYTES) {
-        return errorResponse(
-          `Notebook content exceeds the ${MAX_NOTEBOOK_BYTES / (1024 * 1024)} MB limit`,
-          413,
-          "CONTENT_TOO_LARGE",
-          request,
-        );
-      }
-
-      let parsedNotebook;
-      try {
-        parsedNotebook = JSON.parse(content);
-      } catch (error) {
-        if (error instanceof SyntaxError) {
-          return errorResponse(
-            "content is not valid notebook JSON",
-            400,
-            "INVALID_NOTEBOOK_JSON",
-            request,
-          );
-        }
-        throw error;
-      }
-
-      if (
-        !parsedNotebook ||
-        typeof parsedNotebook !== "object" ||
-        !Array.isArray(parsedNotebook.cells)
-      ) {
-        return errorResponse(
-          "content must be a notebook JSON object with a cells array",
-          400,
-          "INVALID_NOTEBOOK_FORMAT",
-          request,
-        );
-      }
-
-      contentType = "notebook";
-      notebookBuffer = Buffer.from(content, "utf8");
+      contentType = validation.contentType;
+      notebookBuffer = validation.notebookBuffer;
     }
 
     await dbConnect();
@@ -218,17 +83,7 @@ export async function POST(request) {
     // Upload to GridFS last, right before the doc write — the smallest
     // possible window between "file exists" and "doc references it".
     if (notebookBuffer) {
-      const bucket = await getGridFSBucket();
-      const uploadStream = bucket.openUploadStream(`usecase-${Date.now()}.ipynb`, {
-        metadata: { content_type: "notebook" },
-      });
-      uploadedFileId = uploadStream.id;
-
-      await new Promise((resolve, reject) => {
-        uploadStream.on("finish", resolve);
-        uploadStream.on("error", reject);
-        uploadStream.end(notebookBuffer);
-      });
+      uploadedFileId = await uploadNotebookToGridFS(notebookBuffer);
     }
 
     let created;
@@ -245,19 +100,8 @@ export async function POST(request) {
       });
     } catch (saveError) {
       // Doc save failed after the file was already uploaded — clean up the
-      // orphan rather than leaving it dangling forever. Best-effort: log if
-      // the cleanup delete itself fails, don't let that mask saveError.
-      if (uploadedFileId) {
-        try {
-          const bucket = await getGridFSBucket();
-          await bucket.delete(uploadedFileId);
-        } catch (cleanupError) {
-          console.error(
-            `[POST /api/usecases] failed to clean up orphaned GridFS file ${uploadedFileId} after doc save failure:`,
-            cleanupError,
-          );
-        }
-      }
+      // orphan rather than leaving it dangling forever.
+      await tryDeleteGridFSFile(uploadedFileId, "orphaned upload after failed create");
       throw saveError;
     }
 
