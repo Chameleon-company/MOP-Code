@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import UseCase from "@/models/mongoose/UseCase";
+import { getAuthUser } from "@/app/api/library/auth";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { toUseCaseDTO } from "@/app/api/library/useCaseDto";
 import {
@@ -23,10 +24,10 @@ function escapeRegex(value) {
 }
 
 // POST /api/usecases
-// Create a use case (Mongo + GridFS, ADMIN — auth enforcement is commit 6,
-// unchanged here). Notebook JSON still arrives as a `content` string field
-// in the body, same shape the admin add-form has always sent — it's
-// written to GridFS here instead of an inline Postgres column.
+// Create a use case (Mongo + GridFS, ADMIN ONLY). Notebook JSON still
+// arrives as a `content` string field in the body, same shape the admin
+// add-form has always sent — it's written to GridFS here instead of an
+// inline Postgres column.
 export async function POST(request) {
   // Tracks a GridFS file uploaded in this request so it can be cleaned up
   // if the UseCase doc save fails afterward — never leave a doc pointing at
@@ -35,6 +36,14 @@ export async function POST(request) {
   let uploadedFileId = null;
 
   try {
+    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    if (!isAuthenticated) {
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
+    }
+    if (!isAdmin) {
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
+    }
+
     let body;
     try {
       body = await request.json();

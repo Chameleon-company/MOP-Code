@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import dbConnect from '@/lib/dbConnect';
 import UseCase from '@/models/mongoose/UseCase';
+import { getAuthUser } from '@/app/api/library/auth';
 import { errorResponse } from '@/app/api/library/errorResponse';
 import { toUseCaseDTO } from '@/app/api/library/useCaseDto';
 import {
@@ -73,10 +74,10 @@ export async function GET(request, { params }) {
 }
 
 // PUT /api/usecases/[id]
-// Mongo-backed edit (mint-new for content — see ../_shared for the size cap,
-// validation, ref-resolution, and GridFS upload/cleanup helpers shared with
-// POST). Partial update: only fields present in the body are touched;
-// omitted fields keep their current value.
+// Mongo-backed edit (ADMIN ONLY; mint-new for content — see ../_shared for
+// the size cap, validation, ref-resolution, and GridFS upload/cleanup
+// helpers shared with POST). Partial update: only fields present in the
+// body are touched; omitted fields keep their current value.
 export async function PUT(request, { params }) {
   // Tracks a newly-uploaded GridFS file (case b: content replaced) so it can
   // be cleaned up if the doc save fails afterward — same mint-then-cleanup
@@ -84,6 +85,14 @@ export async function PUT(request, { params }) {
   let newFileId = null;
 
   try {
+    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    if (!isAuthenticated) {
+      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request);
+    }
+    if (!isAdmin) {
+      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request);
+    }
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -234,11 +243,19 @@ export async function PUT(request, { params }) {
 }
 
 // DELETE /api/usecases/[id]
-// Mongo-backed (ADMIN — auth enforcement is commit 6, unchanged here).
-// Deletes the document FIRST, then best-effort retires its GridFS notebook
-// file (if any) — see the ordering rationale in the comment below.
+// Mongo-backed (ADMIN ONLY). Deletes the document FIRST, then best-effort
+// retires its GridFS notebook file (if any) — see the ordering rationale in
+// the comment below.
 export async function DELETE(request, { params }) {
   try {
+    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    if (!isAuthenticated) {
+      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request);
+    }
+    if (!isAdmin) {
+      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request);
+    }
+
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
