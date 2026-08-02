@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import dbConnect from '@/lib/dbConnect';
@@ -7,7 +6,6 @@ import { errorResponse } from '@/app/api/library/errorResponse';
 import { toUseCaseDTO } from '@/app/api/library/useCaseDto';
 import {
   resolveCategoryRef,
-  resolveCreatedBy,
   resolveTagRefs,
   validateNotebookContent,
   uploadNotebookToGridFS,
@@ -16,11 +14,6 @@ import {
 
 // GridFS/streaming needs the Node runtime (mongoose, node:stream) — not edge.
 export const runtime = 'nodejs';
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_API_KEY
-);
 
 // Basic field validation for PUT — mirrors the old Supabase-backed PUT's
 // validateUseCaseUpdate, minus the category_id integer check (category_id
@@ -117,7 +110,7 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const { title, description, cover_img, category_id, created_by, tags, content } = body;
+    const { title, description, cover_img, category_id, tags, content } = body;
 
     // Distinguish the three content cases via presence of the key itself,
     // not just its value — JSON.stringify drops `undefined` properties, so
@@ -138,7 +131,6 @@ export async function PUT(request, { params }) {
       description !== undefined ||
       cover_img !== undefined ||
       category_id !== undefined ||
-      created_by !== undefined ||
       tags !== undefined ||
       contentProvided;
 
@@ -168,13 +160,13 @@ export async function PUT(request, { params }) {
     // what gets retired (or left alone) depending on how the save goes.
     const oldFileId = existing.content_file_id ?? null;
 
-    // Step 2: resolve category/tags/created_by (pure Mongo reads + tag
-    // upserts) BEFORE touching GridFS — only for fields actually provided,
-    // preserving partial-update semantics. Nothing uploaded yet, so a
-    // failure here has nothing to clean up.
-    const [categoryRef, createdByRef, tagRefs] = await Promise.all([
+    // Step 2: resolve category/tags (pure Mongo reads + tag upserts) BEFORE
+    // touching GridFS — only for fields actually provided, preserving
+    // partial-update semantics. Nothing uploaded yet, so a failure here has
+    // nothing to clean up. created_by is NOT resolved or editable here —
+    // authorship is immutable after creation (see PUT's comment below).
+    const [categoryRef, tagRefs] = await Promise.all([
       category_id !== undefined ? resolveCategoryRef(category_id) : undefined,
-      created_by !== undefined ? resolveCreatedBy(created_by) : undefined,
       tags !== undefined ? resolveTagRefs(tags) : undefined,
     ]);
 
@@ -195,7 +187,8 @@ export async function PUT(request, { params }) {
     // plain array of ref objects into one, same pattern the contributors
     // routes already use for partial updates.
     if (tags !== undefined) existing.set({ tags: tagRefs });
-    if (created_by !== undefined) existing.created_by = createdByRef;
+    // created_by is intentionally never touched here — authorship is
+    // immutable after creation; only POST (create) sets it.
 
     if (isReplacingContent) {
       existing.content_file_id = newFileId;
@@ -241,59 +234,53 @@ export async function PUT(request, { params }) {
 }
 
 // DELETE /api/usecases/[id]
+// Mongo-backed (ADMIN — auth enforcement is commit 6, unchanged here).
+// Deletes the document FIRST, then best-effort retires its GridFS notebook
+// file (if any) — see the ordering rationale in the comment below.
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
 
-    if (isNaN(id)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid use case ID' },
-        { status: 400 }
-      );
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request);
     }
 
-    // Check if use case exists first
-    const { data: existing, error: fetchError } = await supabase
-      .from('usecases')
-      .select('id')
-      .eq('id', parseInt(id))
-      .single();
+    await dbConnect();
 
-    if (fetchError || !existing) {
-      return NextResponse.json(
-        { success: false, error: 'Use case not found' },
-        { status: 404 }
-      );
+    const existing = await UseCase.findById(id);
+    if (!existing) {
+      return errorResponse('Use case not found', 404, 'NOT_FOUND', request);
     }
 
-    // Remove associated tags first to avoid FK violation
-    await supabase
-      .from('usecase_tags')
-      .delete()
-      .eq('usecase_id', parseInt(id));
+    // Capture before deleting the doc — nothing left to retire once it's gone.
+    const fileId = existing.content_file_id ?? null;
 
-    const { error } = await supabase
-      .from('usecases')
-      .delete()
-      .eq('id', parseInt(id));
+    // Doc-first, then file: with no transaction available, this ordering
+    // means a failed file cleanup only ever leaves a harmless orphaned
+    // GridFS file (cleanable later) — never a doc pointing at a file that
+    // no longer exists. Deleting the file first and having the doc delete
+    // fail afterward would have been the broken-reference case instead.
+    await existing.deleteOne();
 
-    if (error) {
-      console.error('[DELETE /api/usecases] delete error:', error);
-      return NextResponse.json(
-        { success: false, error: 'Failed to delete use case' },
-        { status: 500 }
-      );
-    }
+    // The old Supabase DELETE also removed `usecase_tags` join rows before
+    // deleting the usecases row (to avoid an FK violation) — there is no
+    // join table here: tags are embedded directly on the doc (see
+    // TagRefSchema in UseCase.ts) and are deleted along with it automatically.
+    // That step has no Mongo equivalent and isn't needed.
+
+    // Best-effort clean up the notebook file. A cleanup failure is logged
+    // and swallowed (see tryDeleteGridFSFile) — the doc is already gone
+    // either way, so a failure here never leaves anything broken, only a
+    // harmless orphan.
+    await tryDeleteGridFSFile(fileId, `orphaned content after deleting use case ${id}`);
 
     return NextResponse.json({
       success: true,
+      data: { id },
       message: 'Use case deleted successfully',
     });
   } catch (error) {
-    console.error('[DELETE /api/usecases] unexpected error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error('[DELETE /api/usecases/[id]] unexpected error:', error);
+    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request);
   }
 }
