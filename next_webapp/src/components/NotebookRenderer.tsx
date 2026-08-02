@@ -83,7 +83,7 @@ function CellOutput({ output }: { output: NotebookOutput }) {
       );
       return (
         <div
-          className="overflow-x-auto"
+          className="overflow-x-auto text-gray-800 dark:text-gray-200 [&_*]:dark:!text-gray-200 [&_h1]:dark:!text-white [&_h2]:dark:!text-white [&_h3]:dark:!text-white [&_h4]:dark:!text-white [&_strong]:dark:!text-white"
           dangerouslySetInnerHTML={{ __html: safeHtml }}
         />
       );
@@ -179,7 +179,7 @@ export default function NotebookRenderer({ content }: { content: string }) {
             return (
               <div
                 key={i}
-                className="prose prose-gray max-w-none dark:prose-invert"
+                className="prose prose-gray max-w-none text-gray-800 dark:text-gray-200 dark:prose-invert [&_*]:dark:!text-gray-200 [&_h1]:dark:!text-white [&_h2]:dark:!text-white [&_h3]:dark:!text-white [&_h4]:dark:!text-white [&_h5]:dark:!text-white [&_h6]:dark:!text-white [&_strong]:dark:!text-white [&_a]:dark:!text-green-400"
               >
                 <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                   {join(cell.source)}
