@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
+// Matches the Mongoose Category schema (src/models/mongoose/Category.ts).
+// No slug, color, or icon fields exist on the schema.
 interface Category {
-    id: number;
-    name: string;
-    slug: string;
-    color: string;
-    icon?: string;
-    description?: string;
+    _id: string;
+    legacy_id: string | null;
+    category_name: string;
+    description?: string | null;
+    cover_img?: string | null;
 }
 
 interface FilterState {
@@ -76,11 +77,12 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
         }
     };
 
-    const handleCategoryToggle = (categorySlug: string) => {
+    const handleCategoryToggle = (categoryId: string) => {
         // Only update local draft — not pushed to URL yet.
-        const updated = draft.selectedCategories.includes(categorySlug)
-            ? draft.selectedCategories.filter(cat => cat !== categorySlug)
-            : [...draft.selectedCategories, categorySlug];
+        // Use legacy_id (falling back to _id) as the stable identifier.
+        const updated = draft.selectedCategories.includes(categoryId)
+            ? draft.selectedCategories.filter(cat => cat !== categoryId)
+            : [...draft.selectedCategories, categoryId];
 
         setDraft(prev => ({ ...prev, selectedCategories: updated }));
     };
@@ -123,21 +125,22 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
             <div className="mb-6">
                 <label className="block text-sm font-medium mb-3">Categories</label>
                 <div className="space-y-2">
-                    {categories.map((category) => (
-                        <label key={category.id} className="flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={draft.selectedCategories.includes(category.slug)}
-                                onChange={() => handleCategoryToggle(category.slug)}
-                                className="mr-2"
-                            />
-                            <span
-                                className="inline-block w-3 h-3 rounded-full mr-2"
-                                style={{ backgroundColor: category.color }}
-                            ></span>
-                            <span>{category.name}</span>
-                        </label>
-                    ))}
+                    {categories.map((category) => {
+                        // Use legacy_id when available (stable Postgres-era ID),
+                        // fall back to _id (MongoDB ObjectId string).
+                        const categoryId = category.legacy_id ?? category._id;
+                        return (
+                            <label key={category._id} className="flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={draft.selectedCategories.includes(categoryId)}
+                                    onChange={() => handleCategoryToggle(categoryId)}
+                                    className="mr-2"
+                                />
+                                <span>{category.category_name}</span>
+                            </label>
+                        );
+                    })}
                 </div>
             </div>
 
