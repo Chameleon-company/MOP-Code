@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 const galleryImageSchema = new Schema(
   {
@@ -22,7 +22,7 @@ galleryImageSchema.index({ created_by: 1 });
 export type GalleryImageDocument = InferSchemaType<typeof galleryImageSchema>;
 
 export const GalleryImage =
-  mongoose.models.GalleryImage ||
-  mongoose.model("GalleryImage", galleryImageSchema);
+  (mongoose.models.GalleryImage as Model<GalleryImageDocument>) ||
+  mongoose.model<GalleryImageDocument>("GalleryImage", galleryImageSchema);
 
 export default GalleryImage;
