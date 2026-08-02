@@ -1,5 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import mongoose from 'mongoose';
+import dbConnect from '@/lib/dbConnect';
+import UseCase from '@/models/mongoose/UseCase';
+import { errorResponse } from '@/app/api/library/errorResponse';
+import { toUseCaseDTO } from '@/app/api/library/useCaseDto';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -40,75 +45,28 @@ function validateUseCaseUpdate(body) {
 }
 
 // GET /api/usecases/[id]
+// Mongo-backed (PUBLIC). Metadata only — content_type and content_file_id
+// are returned as plain doc fields (never the notebook bytes themselves);
+// fetch those from GET /api/usecases/[id]/content instead.
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
 
-    // Validate id is a number
-    if (isNaN(id)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid use case ID' },
-        { status: 400 }
-      );
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request);
     }
 
-    const url = new URL(request.url);
-    const includeContent = url.searchParams.get('include_content') === 'true';
-    const fields = includeContent
-      ? '*'
-      : 'id, title, description, cover_img, category_id, created_by, created_at, updated_at';
+    await dbConnect();
 
-    const { data, error } = await supabase
-      .from('usecases')
-      .select(fields)
-      .eq('id', parseInt(id))
-      .single();
-
-    if (error) {
-      if (error.code === 'PGRST116') {
-        return NextResponse.json(
-          { success: false, error: 'Use case not found' },
-          { status: 404 }
-        );
-      }
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { success: false, error: 'Failed to fetch use case' },
-        { status: 500 }
-      );
+    const useCase = await UseCase.findById(id).lean();
+    if (!useCase) {
+      return errorResponse('Use case not found', 404, 'NOT_FOUND', request);
     }
 
-    let createdBy = null;
-    if (data.created_by) {
-      const { data: userDetails } = await supabase
-        .from('user_details')
-        .select('first_name, last_name')
-        .eq('user_id', data.created_by)
-        .single();
-
-      if (userDetails?.first_name || userDetails?.last_name) {
-        createdBy = `${userDetails.first_name ?? ''} ${userDetails.last_name ?? ''}`.trim();
-      } else {
-        // fallback to email from user table
-        const { data: userData } = await supabase
-          .from('user')
-          .select('email')
-          .eq('id', data.created_by)
-          .single();
-        if (userData?.email) createdBy = userData.email;
-      }
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: { ...data, created_by_name: createdBy },
-    });
+    return NextResponse.json({ success: true, data: toUseCaseDTO(useCase) });
   } catch (error) {
-    console.error('Error fetching use case:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch use case' },
-      { status: 500 }
-    );
+    console.error('[GET /api/usecases/[id]] unexpected error:', error);
+    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request);
   }
 }
 

@@ -1,7 +1,19 @@
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 import { supabase } from "@/library/supabaseClient";
+import dbConnect from "@/lib/dbConnect";
+import UseCase from "@/models/mongoose/UseCase";
 import { errorResponse } from "@/app/api/library/errorResponse";
+import { toUseCaseDTO } from "@/app/api/library/useCaseDto";
 
+// Escape user input before it's used to build a RegExp, so keyword search
+// can't inject regex metacharacters or degrade into catastrophic backtracking.
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// POST is unchanged from the pre-GridFS version — still Supabase-backed.
+// Migrating create to Mongo/GridFS is a later commit.
 export async function POST(request) {
   try {
     let body;
@@ -117,13 +129,17 @@ export async function POST(request) {
   }
 }
 
+// GET /api/usecases
+// Paginated/filterable list of use cases (PUBLIC). Mongo-backed — notebook
+// bytes live in GridFS (see /api/usecases/[id]/content), never on this doc,
+// so keyword search only covers title/description now, not notebook content.
 export async function GET(request) {
   try {
     const url = new URL(request.url);
 
     const q = url.searchParams.get("q")?.trim() || "";
     const search = url.searchParams.get("search")?.trim() || "";
-    const keyword = q || search;
+    const keyword = (q || search).slice(0, 200);
 
     const categoryId = url.searchParams.get("category_id");
     const tagId = url.searchParams.get("tag_id");
@@ -139,6 +155,7 @@ export async function GET(request) {
         "page must be a positive number",
         400,
         "INVALID_PAGE",
+        request,
       );
     }
     const page = Math.max(1, parseInt(rawPage ?? "1", 10) || 1);
@@ -153,6 +170,7 @@ export async function GET(request) {
         "pageSize must be a positive number",
         400,
         "INVALID_PAGE_SIZE",
+        request,
       );
     }
     if (rawPageSize !== null && Number(rawPageSize) > 100) {
@@ -160,219 +178,113 @@ export async function GET(request) {
         "pageSize cannot exceed 100",
         400,
         "INVALID_PAGE_SIZE",
+        request,
       );
     }
     const pageSize = Math.max(1, parseInt(rawPageSize ?? "10", 10) || 10);
 
-    // Validate search_by
+    // Validate search_by — "content" was a valid value under the old
+    // Supabase-backed route (it ilike-searched the inline `content` column).
+    // Notebook content now lives in GridFS, not on this document, so it's no
+    // longer searchable here.
     const searchBy = url.searchParams.get("search_by")?.trim() || "all";
-    const validSearchBy = ["title", "description", "content", "all"];
+    const validSearchBy = ["title", "description", "all"];
     if (!validSearchBy.includes(searchBy)) {
       return errorResponse(
-        "search_by must be one of: title, description, content, all",
+        "search_by must be one of: title, description, all",
         400,
         "INVALID_SEARCH_BY",
+        request,
       );
     }
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
 
-    // Step 1: query use cases with count (no relational select — keeps count reliable)
-    let query = supabase
-      .from("usecases")
-      .select("id, title, description, cover_img, category_id, created_at", {
-        count: "exact",
-      })
-      .order("created_at", { ascending: false });
+    await dbConnect();
 
-    // Keyword search
+    const filter = {};
+
     if (keyword) {
+      const regex = new RegExp(escapeRegex(keyword), "i");
       if (searchBy === "title") {
-        query = query.ilike("title", `%${keyword}%`);
+        filter.title = regex;
       } else if (searchBy === "description") {
-        query = query.ilike("description", `%${keyword}%`);
-      } else if (searchBy === "content") {
-        // search description + notebook content (ipynb JSON contains raw cell text)
-        query = query.or(
-          `description.ilike.%${keyword}%,content.ilike.%${keyword}%`,
-        );
+        filter.description = regex;
       } else {
-        // "all" — search title, description, and notebook content
-        query = query.or(
-          `title.ilike.%${keyword}%,description.ilike.%${keyword}%,content.ilike.%${keyword}%`,
-        );
+        filter.$or = [{ title: regex }, { description: regex }];
       }
     }
 
+    // category_id carried a numeric Postgres id under the old contract. The
+    // Mongo doc embeds both the new ObjectId (category.id) and the old
+    // numeric id as a string (category.legacy_id) — match whichever shape
+    // the caller sent.
     if (categoryId) {
-      const parsedCategoryId = Number(categoryId);
-
-      if (Number.isNaN(parsedCategoryId)) {
-        return errorResponse(
-          "category_id must be a valid number",
-          400,
-          "INVALID_CATEGORY_ID",
-        );
+      if (mongoose.Types.ObjectId.isValid(categoryId)) {
+        filter["category.id"] = categoryId;
+      } else {
+        filter["category.legacy_id"] = categoryId;
       }
-
-      query = query.eq("category_id", parsedCategoryId);
-    }
-
-    const tagFilterIds = [];
-
-    if (tagId) {
-      const parsedTagId = Number(tagId);
-
-      if (Number.isNaN(parsedTagId)) {
-        return errorResponse(
-          "tag_id must be a valid number",
-          400,
-          "INVALID_TAG_ID",
-        );
-      }
-
-      tagFilterIds.push(parsedTagId);
-    }
-
-    if (tagIds) {
-      const parsedTagIds = tagIds
-        .split(",")
-        .map((id) => Number(id.trim()))
-        .filter((id) => !Number.isNaN(id));
-
-      if (parsedTagIds.length === 0) {
-        return errorResponse(
-          "tag_ids must contain valid numbers",
-          400,
-          "INVALID_TAG_IDS",
-        );
-      }
-
-      tagFilterIds.push(...parsedTagIds);
     }
 
     if (tagSlug) {
-      const { data: tagData, error: tagError } = await supabase
-        .from("tags")
-        .select("id")
-        .eq("slug", tagSlug)
-        .single();
-
-      if (tagError || !tagData) {
-        return NextResponse.json({
-          success: true,
-          data: [],
-          count: 0,
-          pagination: { page, pageSize, total: 0, totalPages: 0 },
-        });
-      }
-
-      tagFilterIds.push(tagData.id);
+      filter["tags.slug"] = tagSlug;
     }
 
-    // tag_name: look up all tags whose name matches (partial, case-insensitive)
     if (tagName) {
-      const { data: matchingTags, error: tagNameError } = await supabase
-        .from("tags")
-        .select("id")
-        .ilike("name", `%${tagName}%`);
-
-      if (tagNameError) {
-        console.error(
-          "[GET /api/usecases] tag_name lookup error:",
-          tagNameError,
-        );
-        return errorResponse("Failed to search tags", 500, "TAG_SEARCH_ERROR");
-      }
-
-      if (!matchingTags || matchingTags.length === 0) {
-        return NextResponse.json({
-          success: true,
-          data: [],
-          count: 0,
-          pagination: { page, pageSize, total: 0, totalPages: 0 },
-        });
-      }
-
-      tagFilterIds.push(...matchingTags.map((t) => t.id));
+      filter["tags.name"] = new RegExp(escapeRegex(tagName), "i");
     }
 
-    const uniqueTagFilterIds = [...new Set(tagFilterIds)];
-
-    if (uniqueTagFilterIds.length > 0) {
-      const { data: usecaseTags, error: tagFilterError } = await supabase
-        .from("usecase_tags")
-        .select("usecase_id")
-        .in("tag_id", uniqueTagFilterIds);
-
-      if (tagFilterError) {
-        console.error("[GET /api/usecases] tag filter error:", tagFilterError);
-        return errorResponse(
-          "Failed to filter use cases by tags",
-          500,
-          "TAG_FILTER_ERROR",
-        );
-      }
-
-      const usecaseIds = [
-        ...new Set((usecaseTags || []).map((item) => item.usecase_id)),
-      ];
-
-      if (usecaseIds.length === 0) {
-        return NextResponse.json({
-          success: true,
-          data: [],
-          count: 0,
-          pagination: { page, pageSize, total: 0, totalPages: 0 },
-        });
-      }
-
-      query = query.in("id", usecaseIds);
-    }
-
-    // Step 1: fetch use cases with count
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("[GET /api/usecases] fetch error:", error);
-      return NextResponse.json(
-        { success: false, error: "Failed to fetch use cases" },
-        { status: 500 },
+    // tag_id / tag_ids: same legacy-numeric-vs-ObjectId split as category_id.
+    const tagFilterValues = [];
+    if (tagId) tagFilterValues.push(tagId);
+    if (tagIds) {
+      tagFilterValues.push(
+        ...tagIds
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
       );
     }
 
-    const total = count ?? 0;
-    const rows = data || [];
+    if (tagFilterValues.length > 0) {
+      const objectIdValues = tagFilterValues.filter((v) =>
+        mongoose.Types.ObjectId.isValid(v),
+      );
+      const legacyValues = tagFilterValues.filter(
+        (v) => !mongoose.Types.ObjectId.isValid(v),
+      );
 
-    // Step 2: fetch tags for the returned use case IDs in a separate query
-    let tagsByUsecaseId = {};
+      const tagOr = [];
+      if (objectIdValues.length > 0) {
+        tagOr.push({ "tags.id": { $in: objectIdValues } });
+      }
+      if (legacyValues.length > 0) {
+        tagOr.push({ "tags.legacy_id": { $in: legacyValues } });
+      }
 
-    if (rows.length > 0) {
-      const ids = rows.map((u) => u.id);
-
-      const { data: ucTags, error: tagsError } = await supabase
-        .from("usecase_tags")
-        .select("usecase_id, tags(id, name, slug)")
-        .in("usecase_id", ids);
-
-      if (!tagsError && ucTags) {
-        for (const row of ucTags) {
-          if (!tagsByUsecaseId[row.usecase_id])
-            tagsByUsecaseId[row.usecase_id] = [];
-          if (row.tags) tagsByUsecaseId[row.usecase_id].push(row.tags);
-        }
+      if (filter.$or) {
+        // Keyword search already claimed $or — combine both conditions with $and.
+        filter.$and = [{ $or: filter.$or }, { $or: tagOr }];
+        delete filter.$or;
+      } else {
+        filter.$or = tagOr;
       }
     }
 
-    const usecases = rows.map((u) => ({
-      ...u,
-      tags: tagsByUsecaseId[u.id] || [],
-    }));
+    const from = (page - 1) * pageSize;
+
+    const [total, docs] = await Promise.all([
+      UseCase.countDocuments(filter),
+      UseCase.find(filter)
+        .sort({ created_at: -1 })
+        .skip(from)
+        .limit(pageSize)
+        .lean(),
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: usecases,
-      count: usecases.length,
+      data: docs.map(toUseCaseDTO),
+      count: docs.length,
       pagination: {
         page,
         pageSize,
@@ -381,10 +293,7 @@ export async function GET(request) {
       },
     });
   } catch (error) {
-    console.error("Error fetching use cases:", error);
-    return NextResponse.json(
-      { success: false, error: "Failed to fetch use cases" },
-      { status: 500 },
-    );
+    console.error("[GET /api/usecases] unexpected error:", error);
+    return errorResponse("Internal server error", 500, "INTERNAL_ERROR", request);
   }
 }
