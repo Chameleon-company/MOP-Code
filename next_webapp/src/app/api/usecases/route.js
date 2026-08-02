@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { supabase } from "@/library/supabaseClient";
 import dbConnect from "@/lib/dbConnect";
 import UseCase from "@/models/mongoose/UseCase";
+import Category from "@/models/mongoose/Category";
+import Tag from "@/models/mongoose/Tag";
+import User from "@/models/mongoose/User";
+import { getGridFSBucket } from "@/lib/gridfs";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { toUseCaseDTO } from "@/app/api/library/useCaseDto";
+
+// GridFS/streaming needs the Node runtime (mongoose, node:stream) — not edge.
+export const runtime = "nodejs";
 
 // Escape user input before it's used to build a RegExp, so keyword search
 // can't inject regex metacharacters or degrade into catastrophic backtracking.
@@ -12,120 +18,259 @@ function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-// POST is unchanged from the pre-GridFS version — still Supabase-backed.
-// Migrating create to Mongo/GridFS is a later commit.
+// Server-side cap on notebook JSON size, enforced BEFORE any GridFS write —
+// measured on the actual byte length (Buffer.byteLength), not .length,
+// since .length counts UTF-16 code units and would under-count for any
+// multi-byte characters in the notebook (cell text, unicode in outputs, etc).
+const MAX_NOTEBOOK_BYTES = 60 * 1024 * 1024; // 60 MB
+
+// Resolve an embedded category ref from an incoming category_id. The admin
+// add-form still sources category_id from /api/categories, which is still
+// Supabase-backed (a Postgres numeric id) — there is no live Mongo Category
+// collection being written to yet. Try a real Mongo ObjectId first (forward
+// -compatible with a future Mongo-backed category picker), then fall back
+// to Category.legacy_id (the string field this migration already carries
+// the same numeric id under — see Category.ts). If neither resolves, still
+// keep the id as a legacy-only reference rather than dropping it — same
+// "carry the id even without a live match" pattern used elsewhere in this
+// migration (UseCase.legacy_id, TagRefSchema).
+async function resolveCategoryRef(categoryId) {
+  if (categoryId === undefined || categoryId === null || categoryId === "") {
+    return null;
+  }
+  const idStr = String(categoryId);
+
+  let category = null;
+  if (mongoose.Types.ObjectId.isValid(idStr)) {
+    category = await Category.findById(idStr).lean();
+  }
+  if (!category) {
+    category = await Category.findOne({ legacy_id: idStr }).lean();
+  }
+
+  if (category) {
+    return {
+      id: category._id,
+      legacy_id: category.legacy_id ?? idStr,
+      category_name: category.category_name ?? null,
+    };
+  }
+
+  return { id: null, legacy_id: idStr, category_name: null };
+}
+
+// Resolve created_by (a legacy Postgres numeric user id, read out of the
+// client's localStorage session) to a Mongo User ObjectId, same
+// legacy-id-fallback approach as resolveCategoryRef. Unlike category/tags,
+// this field has no legacy_id sibling on the UseCase schema itself (it's a
+// bare `Schema.Types.ObjectId, ref: "User"`), so an id that resolves to
+// nothing is simply dropped (stored as null) rather than blocking creation
+// — there's nowhere on this field to keep the raw legacy id if it doesn't
+// resolve.
+async function resolveCreatedBy(createdBy) {
+  if (createdBy === undefined || createdBy === null || createdBy === "") {
+    return null;
+  }
+  const idStr = String(createdBy);
+
+  if (mongoose.Types.ObjectId.isValid(idStr)) {
+    const user = await User.findById(idStr).select("_id").lean();
+    if (user) return user._id;
+  }
+
+  const user = await User.findOne({ legacy_id: idStr }).select("_id").lean();
+  return user ? user._id : null;
+}
+
+// Find-or-create a Tag document for each incoming tag name, then embed a
+// denormalized ref on the doc — the Mongo equivalent of the old
+// find-or-create-then-link-via-usecase_tags logic, minus the join table
+// (tags live directly on the doc now, see TagRefSchema in UseCase.ts).
+async function resolveTagRefs(tagNames) {
+  if (!Array.isArray(tagNames) || tagNames.length === 0) return [];
+
+  const refs = [];
+  const seenSlugs = new Set();
+
+  for (const raw of tagNames) {
+    if (typeof raw !== "string" || raw.trim().length === 0) continue;
+
+    const name = raw.trim();
+    const slug = name.toLowerCase().replace(/\s+/g, "-");
+    if (seenSlugs.has(slug)) continue;
+    seenSlugs.add(slug);
+
+    // Atomic find-or-create — replaces the old insert-then-catch-23505-
+    // then-refetch dance, which Mongo's upsert makes unnecessary.
+    const tag = await Tag.findOneAndUpdate(
+      { slug },
+      { $setOnInsert: { name, slug } },
+      { upsert: true, new: true },
+    ).lean();
+
+    refs.push({
+      id: tag._id,
+      legacy_id: tag.legacy_id ?? null,
+      name: tag.name,
+      slug: tag.slug,
+    });
+  }
+
+  return refs;
+}
+
+// POST /api/usecases
+// Create a use case (Mongo + GridFS, ADMIN — auth enforcement is commit 6,
+// unchanged here). Notebook JSON still arrives as a `content` string field
+// in the body, same shape the admin add-form has always sent — it's
+// written to GridFS here instead of an inline Postgres column.
 export async function POST(request) {
+  // Tracks a GridFS file uploaded in this request so it can be cleaned up
+  // if the UseCase doc save fails afterward — never leave a doc pointing at
+  // a missing file, but a harmless orphaned file (if cleanup itself fails)
+  // is an acceptable worst case.
+  let uploadedFileId = null;
+
   try {
     let body;
     try {
       body = await request.json();
-    } catch {
-      return errorResponse("Invalid JSON body", 400, "INVALID_JSON");
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        return errorResponse("Invalid JSON body", 400, "INVALID_JSON", request);
+      }
+      throw error;
     }
 
     const { title, description, cover_img, category_id, created_by, tags, content } =
       body;
 
     if (typeof title !== "string" || title.trim().length === 0) {
-      return errorResponse("title is required", 400, "MISSING_FIELDS");
+      return errorResponse("title is required", 400, "MISSING_FIELDS", request);
     }
     if (created_by === undefined || created_by === null || created_by === "") {
-      return errorResponse("created_by is required", 400, "MISSING_FIELDS");
+      return errorResponse("created_by is required", 400, "MISSING_FIELDS", request);
     }
 
-    const { data: usecaseRow, error: usecaseError } = await supabase
-      .from("usecases")
-      .insert({
+    // content is optional — a use case can be created without a notebook,
+    // same as before (content_file_id/content_type just stay null).
+    let contentType = null;
+    let notebookBuffer = null;
+
+    if (content !== undefined && content !== null && content !== "") {
+      if (typeof content !== "string") {
+        return errorResponse("content must be a JSON string", 400, "INVALID_CONTENT", request);
+      }
+
+      const contentBytes = Buffer.byteLength(content, "utf8");
+      if (contentBytes > MAX_NOTEBOOK_BYTES) {
+        return errorResponse(
+          `Notebook content exceeds the ${MAX_NOTEBOOK_BYTES / (1024 * 1024)} MB limit`,
+          413,
+          "CONTENT_TOO_LARGE",
+          request,
+        );
+      }
+
+      let parsedNotebook;
+      try {
+        parsedNotebook = JSON.parse(content);
+      } catch (error) {
+        if (error instanceof SyntaxError) {
+          return errorResponse(
+            "content is not valid notebook JSON",
+            400,
+            "INVALID_NOTEBOOK_JSON",
+            request,
+          );
+        }
+        throw error;
+      }
+
+      if (
+        !parsedNotebook ||
+        typeof parsedNotebook !== "object" ||
+        !Array.isArray(parsedNotebook.cells)
+      ) {
+        return errorResponse(
+          "content must be a notebook JSON object with a cells array",
+          400,
+          "INVALID_NOTEBOOK_FORMAT",
+          request,
+        );
+      }
+
+      contentType = "notebook";
+      notebookBuffer = Buffer.from(content, "utf8");
+    }
+
+    await dbConnect();
+
+    // Resolve category/tags/created_by (pure Mongo reads + tag upserts)
+    // before touching GridFS — if any of these throw, nothing has been
+    // uploaded yet, so there's nothing to clean up.
+    const [categoryRef, createdByRef, tagRefs] = await Promise.all([
+      resolveCategoryRef(category_id),
+      resolveCreatedBy(created_by),
+      resolveTagRefs(tags),
+    ]);
+
+    // Upload to GridFS last, right before the doc write — the smallest
+    // possible window between "file exists" and "doc references it".
+    if (notebookBuffer) {
+      const bucket = await getGridFSBucket();
+      const uploadStream = bucket.openUploadStream(`usecase-${Date.now()}.ipynb`, {
+        metadata: { content_type: "notebook" },
+      });
+      uploadedFileId = uploadStream.id;
+
+      await new Promise((resolve, reject) => {
+        uploadStream.on("finish", resolve);
+        uploadStream.on("error", reject);
+        uploadStream.end(notebookBuffer);
+      });
+    }
+
+    let created;
+    try {
+      created = await UseCase.create({
         title: title.trim(),
         description: description ?? null,
         cover_img: cover_img ?? null,
-        category_id: category_id ?? null,
-        created_by,
-        content: content ?? null,
-      })
-      .select()
-      .single();
-
-    if (usecaseError) {
-      console.error("[POST /api/usecases] insert error:", usecaseError);
-      throw usecaseError;
-    }
-
-    const resolvedTags = [];
-
-    if (Array.isArray(tags) && tags.length > 0) {
-      for (const raw of tags) {
-        if (typeof raw !== "string" || raw.trim().length === 0) continue;
-
-        const name = raw.trim();
-        const slug = name.toLowerCase().replace(/\s+/g, "-");
-
-        const { data: insertedTag, error: tagInsertError } = await supabase
-          .from("tags")
-          .insert({ name, slug })
-          .select("id, name, slug")
-          .single();
-
-        let tag;
-
-        if (tagInsertError) {
-          if (tagInsertError.code === "23505") {
-            const { data: existingTag, error: fetchError } = await supabase
-              .from("tags")
-              .select("id, name, slug")
-              .eq("slug", slug)
-              .single();
-
-            if (fetchError || !existingTag) {
-              console.error(
-                "[POST /api/usecases] fetch existing tag error:",
-                fetchError,
-              );
-              throw fetchError ?? new Error(`Tag not found for slug: ${slug}`);
-            }
-            tag = existingTag;
-          } else {
-            console.error(
-              "[POST /api/usecases] tag insert error:",
-              tagInsertError,
-            );
-            throw tagInsertError;
-          }
-        } else {
-          tag = insertedTag;
+        content_file_id: uploadedFileId,
+        content_type: contentType,
+        category: categoryRef,
+        tags: tagRefs,
+        created_by: createdByRef,
+      });
+    } catch (saveError) {
+      // Doc save failed after the file was already uploaded — clean up the
+      // orphan rather than leaving it dangling forever. Best-effort: log if
+      // the cleanup delete itself fails, don't let that mask saveError.
+      if (uploadedFileId) {
+        try {
+          const bucket = await getGridFSBucket();
+          await bucket.delete(uploadedFileId);
+        } catch (cleanupError) {
+          console.error(
+            `[POST /api/usecases] failed to clean up orphaned GridFS file ${uploadedFileId} after doc save failure:`,
+            cleanupError,
+          );
         }
-
-        const { error: linkError } = await supabase
-          .from("usecase_tags")
-          .insert({ usecase_id: usecaseRow.id, tag_id: tag.id });
-
-        if (linkError) {
-          if (linkError.code === "23505") {
-            // Link already exists — idempotent, skip silently
-          } else {
-            console.error(
-              "[POST /api/usecases] usecase_tags insert error:",
-              linkError,
-            );
-            throw linkError;
-          }
-        }
-
-        resolvedTags.push(tag);
       }
+      throw saveError;
     }
-
-    const uniqueTags = resolvedTags.filter(
-      (tag, index, arr) => arr.findIndex((t) => t.id === tag.id) === index,
-    );
 
     return NextResponse.json(
-      { success: true, data: { ...usecaseRow, tags: uniqueTags } },
+      { success: true, data: toUseCaseDTO(created.toObject()) },
       { status: 201 },
     );
   } catch (error) {
+    if (error instanceof Error && error.name === "ValidationError") {
+      return errorResponse(error.message, 400, "VALIDATION_ERROR", request);
+    }
     console.error("[POST /api/usecases] unexpected error:", error);
-    return errorResponse("Internal server error", 500, "INTERNAL_ERROR");
+    return errorResponse("Internal server error", 500, "INTERNAL_ERROR", request);
   }
 }
 
