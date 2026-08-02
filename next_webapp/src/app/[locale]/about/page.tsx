@@ -2,6 +2,7 @@
 
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import ContributorsSection from "../../../components/ContributorsSection";
 import "../../../../public/styles/about.css";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n-navigation";
@@ -117,6 +118,9 @@ const About = () => {
 					</div>
 				</div>
 			</section>
+
+			{/* CONTRIBUTORS */}
+			<ContributorsSection />
 
 			{/* CTA SECTION */}
 			<section className="section text-center">

@@ -27,7 +27,6 @@
     "lucide-react": "^0.438.0",
     "mongoose": "^8.6.2",
     "next": "^15.5.0",
-    "next_webapp": "file:",
     "next-intl": "^3.19.1",
     "nodemailer": "^8.0.4",
     "react": "^18.3.1",

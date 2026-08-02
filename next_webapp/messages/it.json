@@ -80,7 +80,16 @@
     "Our Goals": "I nostri obiettivi",
     "Our": "I nostri",
     "Goals": "Obiettivi",
-    "p4": "Questo progetto mira a fornire esempi di proof-of-concept su come possono essere effettuate le chiamate alle API Open Data."
+    "p4": "Questo progetto mira a fornire esempi di proof-of-concept su come possono essere effettuate le chiamate alle API Open Data.",
+    "contributors": {
+      "badge": "Collaboratori",
+      "title": "Scopri i Team Dietro MOP",
+      "subtitle": "Ogni trimestre, i team di studenti e i mentori contribuiscono con nuove funzionalità e casi d'uso alla piattaforma.",
+      "empty": "Nessun collaboratore disponibile al momento.",
+      "trimester": "Trimestre {number}",
+      "companyDirector": "Direttore Aziendale: {name}",
+      "mentoredBy": "Guidati da {names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "Informativa sulla privacy",
