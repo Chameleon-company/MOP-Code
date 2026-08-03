@@ -5,7 +5,6 @@ import logger from '@/utils/logger';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/models/mongoose/User';
 import Role from '@/models/mongoose/Role';
-import { normalize } from 'path';
 
 export async function POST(request: Request) {
     try {
