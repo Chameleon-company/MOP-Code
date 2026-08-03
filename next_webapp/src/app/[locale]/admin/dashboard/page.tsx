@@ -6,7 +6,12 @@ import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
 
 function getAuthHeaders(): HeadersInit {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  let user: Record<string, any> = {};
+  try {
+    user = JSON.parse(localStorage.getItem("user") || "{}");
+  } catch {
+    user = {};
+  }
   const userId = user.userId ?? user.id ?? "";
   const roleId = user.roleId ?? user.role_id ?? "";
   const token = user.token ?? "";

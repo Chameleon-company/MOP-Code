@@ -166,6 +166,8 @@ export default function ContributorForm({
       ...previous,
       contributorType: type,
       team: "",
+      position: "",
+      level: "",
     }));
   };
 
