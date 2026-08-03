@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         }
         const normalizeEmail = email.toLowerCase().trim();
         // 2. Find user by email
-        const userData = await User.findOne({ normalizeEmail }).exec();
+        const userData = await User.findOne({ email:normalizeEmail }).exec();
 
         if (!userData) {
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
