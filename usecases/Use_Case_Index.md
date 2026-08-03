@@ -2,6 +2,13 @@
 
 Index of all MOP data science use cases, including domain, trimester, GitHub location, data collection method, author, and notes.
 
+### Finalised
+
+#### T2 2026
+| Use Case Name | Use Case Location | Domain | Data Collection Method | Author | Updated | Notes |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| UC00163_ParkingAvailabilityMelbourneCBD_API | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/usecases/FINALISED/UC00163_ParkingAvailabilityMelbourneCBD_API) | Transport and Mobility | `requests.get()` + archived 2019 sensor data | Stefan Cucos (updated: Aidan Page) | 2026-08-03 | ML reframed on historical archive; live merge fixed on bay-id key |
+
 ### Ready To Publish 
 
 #### T1 2023
