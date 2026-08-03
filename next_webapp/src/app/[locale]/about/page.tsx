@@ -1,15 +1,14 @@
-"use client";
-
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ContributorsSection from "../../../components/ContributorsSection";
 import "../../../../public/styles/about.css";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n-navigation";
+import contributorsData from "@/data/contributors_by_year.json";
+import type { ContributorRecord } from "@/types/contributor";
+
+const contributors = contributorsData as unknown as ContributorRecord[];
 
 const About = () => {
-	const t = useTranslations("about");
-
 	return (
 		<div className="bg-white dark:bg-[#1d1919] text-black dark:text-white min-h-screen">
 			<Header />
@@ -120,7 +119,7 @@ const About = () => {
 			</section>
 
 			{/* CONTRIBUTORS */}
-			<ContributorsSection />
+			<ContributorsSection contributors={contributors} />
 
 			{/* CTA SECTION */}
 			<section className="section text-center">

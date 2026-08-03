@@ -4,10 +4,7 @@ import { useId, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Users, GraduationCap } from "lucide-react";
 import { useTranslations } from "next-intl";
-import contributorsData from "@/data/contributors_by_year.json";
 import type { ContributorRecord } from "@/types/contributor";
-
-const contributors = contributorsData as unknown as ContributorRecord[];
 
 interface GroupedMember {
   name: string;
@@ -214,9 +211,13 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
   );
 }
 
-export default function ContributorsSection() {
+interface ContributorsSectionProps {
+  contributors: ContributorRecord[];
+}
+
+export default function ContributorsSection({ contributors }: ContributorsSectionProps) {
   const t = useTranslations("about");
-  const years = useMemo(() => groupContributors(contributors), []);
+  const years = useMemo(() => groupContributors(contributors), [contributors]);
   const [selectedYear, setSelectedYear] = useState<number | undefined>(
     years[0]?.year
   );
