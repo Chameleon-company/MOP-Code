@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         if (!firstName || !lastName || !email || !password) {
             return errorResponse('All fields are required', 400, 'MISSING_FIELDS');
         }
-        const normalizeEmail = email.trim().lowercase().trim();
+        const normalizeEmail = email.toLowerCase().trim();
         // Check if user already exists
         const existingUser = await User.findOne({ normalizeEmail }).exec();
 
