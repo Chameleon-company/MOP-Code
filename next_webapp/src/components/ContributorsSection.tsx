@@ -1,13 +1,45 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Users, GraduationCap } from "lucide-react";
 import { useTranslations } from "next-intl";
-import contributorsData from "@/data/contributors_by_year.json";
-import type { ContributorRecord } from "@/types/contributor";
+import type { ContributorRecord, ContributorType, ContributorLevel } from "@/types/contributor";
 
-const contributors = contributorsData as unknown as ContributorRecord[];
+interface RawContributor {
+  id: string;
+  name: string;
+  year: number;
+  trimester: number;
+  contributor_type: "student" | "mentor" | "company_director";
+  team: string | null;
+  position: string | null;
+  level: "Junior" | "Senior" | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+const CONTRIBUTOR_TYPE_MAP: Record<RawContributor["contributor_type"], ContributorType> = {
+  student: "Student",
+  mentor: "Mentor",
+  company_director: "Company Director",
+};
+
+function mapToContributorRecord(raw: RawContributor): ContributorRecord {
+  return {
+    fullName: raw.name,
+    year: raw.year,
+    trimester: raw.trimester,
+    contributorType: CONTRIBUTOR_TYPE_MAP[raw.contributor_type],
+    team: raw.team ?? undefined,
+    positionOrRole: raw.position ?? undefined,
+    level: (raw.level ?? undefined) as ContributorLevel | undefined,
+    displayOrder: raw.display_order,
+    status: raw.is_active,
+  };
+}
 
 interface GroupedMember {
   name: string;
@@ -216,10 +248,31 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
 
 export default function ContributorsSection() {
   const t = useTranslations("about");
-  const years = useMemo(() => groupContributors(contributors), []);
-  const [selectedYear, setSelectedYear] = useState<number | undefined>(
-    years[0]?.year
-  );
+  const [contributors, setContributors] = useState<ContributorRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/contributors")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.success) {
+          setContributors((json.data ?? []).map(mapToContributorRecord));
+        } else {
+          setContributors([]);
+        }
+      })
+      .catch(() => setContributors([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const years = useMemo(() => groupContributors(contributors), [contributors]);
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (selectedYear === undefined && years.length > 0) {
+      setSelectedYear(years[0].year);
+    }
+  }, [years, selectedYear]);
 
   const activeYear = years.find((entry) => entry.year === selectedYear);
 
@@ -238,7 +291,11 @@ export default function ContributorsSection() {
           </p>
         </div>
 
-        {years.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+          </div>
+        ) : years.length === 0 ? (
           <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center dark:border-gray-700 dark:bg-[#263238]">
             <p className="text-base font-medium text-gray-500 dark:text-gray-400">
               {t("contributors.empty")}
