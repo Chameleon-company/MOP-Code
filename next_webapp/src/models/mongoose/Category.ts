@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 const categorySchema = new Schema(
   {
@@ -23,6 +23,7 @@ categorySchema.index({ created_by: 1 });
 export type CategoryDocument = InferSchemaType<typeof categorySchema>;
 
 export const Category =
-  mongoose.models.Category || mongoose.model("Category", categorySchema);
+  (mongoose.models.Category as Model<CategoryDocument>) ||
+  mongoose.model<CategoryDocument>("Category", categorySchema);
 
 export default Category;
