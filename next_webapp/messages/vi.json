@@ -80,7 +80,16 @@
     "Our Goals": "Mục tiêu của chúng tôi",
     "Our": "Của chúng tôi",
     "Goals": "Mục tiêu",
-    "p4": "Dự án này nhằm mục đích cung cấp các ví dụ về bằng chứng về khái niệm về cách có thể thực hiện các cuộc gọi đến API Dữ liệu Mở."
+    "p4": "Dự án này nhằm mục đích cung cấp các ví dụ về bằng chứng về khái niệm về cách có thể thực hiện các cuộc gọi đến API Dữ liệu Mở.",
+    "contributors": {
+      "badge": "Người đóng góp",
+      "title": "Gặp gỡ Các Nhóm Đứng Sau MOP",
+      "subtitle": "Mỗi học kỳ, các nhóm sinh viên và người hướng dẫn đóng góp các tính năng mới và các trường hợp sử dụng cho nền tảng.",
+      "empty": "Hiện chưa có người đóng góp nào.",
+      "trimester": "Học kỳ {number}",
+      "companyDirector": "Giám đốc Công ty: {name}",
+      "mentoredBy": "Được hướng dẫn bởi {names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "Chính sách bảo mật",

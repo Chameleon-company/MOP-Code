@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -69,10 +69,13 @@ export default function SearchPage() {
         doSearch();
     }, [searchParams]);
 
+    // SearchFilter already calls router.push with the updated params.
+    // This callback exists only to reset the page number on filter changes;
+    // it must NOT push again or it will overwrite SearchFilter's URL update
+    // with stale searchParams.
     const handleFilterChange = () => {
-        const newParams = new URLSearchParams(searchParams.toString());
-        newParams.delete("page");
-        router.push(`?${newParams.toString()}`, { scroll: false });
+        // no-op: SearchFilter manages URL updates; the useEffect above
+        // re-fires automatically when searchParams changes.
     };
 
     const goToPage = (newPage: number) => {

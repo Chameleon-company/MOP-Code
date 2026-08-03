@@ -91,6 +91,17 @@ const Header = () => {
 		return () => document.removeEventListener("keydown", onKey);
 	}, [showLogoutConfirm]);
 
+	useEffect(() => {
+		if (!openDropdown) return;
+		const handleClickOutside = (event: MouseEvent) => {
+			if (exploreRef.current && !exploreRef.current.contains(event.target as Node)) {
+				setOpenDropdown(null);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, [openDropdown]);
+
 	const performLogout = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
@@ -382,9 +393,7 @@ const Header = () => {
 												: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 										}`}
 									>
-										{item.name === "Home" || item.name === "About Us"
-											? t(item.name)
-											: item.name}
+										{t(item.name)}
 									</Link>
 								) : (
 									<div key={item.name}>
@@ -419,7 +428,7 @@ const Header = () => {
 																: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 														}`}
 													>
-														{sub.name}
+														{t(sub.name)}
 													</Link>
 												))}
 											</div>

@@ -17,28 +17,42 @@ const UseCasePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
+  // Notebook/HTML body — fetched separately from GridFS via the dedicated
+  // content route once metadata confirms content_file_id is actually set,
+  // never inlined in the GET /api/usecases/[id] envelope.
+  const [notebookText, setNotebookText] = useState<string | null>(null);
+  const [contentLoading, setContentLoading] = useState(false);
+
   useEffect(() => {
     if (!id) return;
 
-    Promise.all([
-      fetch(`/api/usecases/${id}?include_content=true`).then((r) => r.json()),
-      fetch(`/api/usecases/${id}/tags`).then((r) => r.json()),
-    ])
-      .then(([ucJson, tagsJson]) => {
+    fetch(`/api/usecases/${id}`)
+      .then((r) => r.json())
+      .then((ucJson) => {
         if (!ucJson.success) {
           setNotFound(true);
           return;
         }
 
         setUseCase(ucJson.data);
-
-        if (tagsJson.success && Array.isArray(tagsJson.data)) {
-          setTags(tagsJson.data.map((t: any) => t.name));
-        }
+        // Tags are embedded directly on the Mongo doc now (denormalized),
+        // so there's no separate join/lookup call needed here any more.
+        setTags((ucJson.data.tags ?? []).map((t: any) => t.name));
       })
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!id || !useCase?.content_file_id) return;
+
+    setContentLoading(true);
+    fetch(`/api/usecases/${id}/content`)
+      .then((r) => (r.ok ? r.text() : null))
+      .then(setNotebookText)
+      .catch(() => setNotebookText(null))
+      .finally(() => setContentLoading(false));
+  }, [id, useCase?.content_file_id]);
 
   if (loading) {
     return (
@@ -117,28 +131,35 @@ const UseCasePage: React.FC = () => {
             />
           )}
 
-          {useCase.content ? (
-            (() => {
-              try {
-                const parsed = JSON.parse(useCase.content);
-                if (Array.isArray(parsed.cells)) {
-                  return (
-                    <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900">
-                      <NotebookRenderer content={useCase.content} />
-                    </div>
-                  );
-                }
-              } catch {}
-              // fallback for old HTML content already in DB
-              return (
+          {useCase.content_file_id ? (
+            contentLoading ? (
+              <div className="mb-8 flex items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 p-10 dark:border-gray-700 dark:bg-gray-900">
+                <div className="h-6 w-6 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+              </div>
+            ) : notebookText !== null ? (
+              // content_type drives rendering directly now — no more
+              // JSON.parse-and-see-if-it-throws sniffing.
+              useCase.content_type === "html" ? (
+                // legacy HTML fallback, unchanged from before — the string is
+                // fetched from GridFS now instead of arriving inline, but the
+                // srcDoc rendering mechanism (and its opaque-origin semantics)
+                // is left exactly as-is.
                 <iframe
-                  srcDoc={useCase.content}
+                  srcDoc={notebookText}
                   className="mb-8 w-full rounded-2xl border border-gray-200 dark:border-gray-700"
                   style={{ height: "80vh", minHeight: "400px" }}
                   title={useCase.title}
                 />
-              );
-            })()
+              ) : (
+                <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 [&_*]:dark:text-gray-200">
+                  <NotebookRenderer content={notebookText} />
+                </div>
+              )
+            ) : (
+              <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 text-gray-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                Failed to load notebook content.
+              </div>
+            )
           ) : (
             <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 text-gray-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
               No notebook content available for this use case.
