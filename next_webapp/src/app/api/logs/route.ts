@@ -1,117 +1,245 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import { Types } from 'mongoose';
+import dbConnect from '@/lib/dbConnect';
+import Log from '@/models/mongoose/Log';
+import User from '@/models/mongoose/User';
 import { getAuthUser } from '@/app/api/library/auth';
 import logger from '@/utils/logger';
 
+const ALLOWED_SORT = new Set([
+  'timestamp',
+  'level',
+  'source',
+  'method',
+  'status_code',
+  'response_time',
+]);
+
+function parsePositiveInteger(
+  value: string | null,
+  fallback: number,
+): number {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function normalizeLegacyId(value: unknown): string | number | null {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  const text = String(value);
+  const numberValue = Number(text);
+
+  return Number.isSafeInteger(numberValue) && String(numberValue) === text
+    ? numberValue
+    : text;
+}
+
+function getResponseUserId(user: any): string | number | null {
+  if (!user) {
+    return null;
+  }
+
+  if (typeof user === 'object' && user.legacy_id) {
+    return normalizeLegacyId(user.legacy_id);
+  }
+
+  if (typeof user === 'object' && user._id) {
+    return String(user._id);
+  }
+
+  return String(user);
+}
+
+function toLogDTO(log: any) {
+  const {
+    _id,
+    __v,
+    legacy_id: legacyId,
+    user_id: userId,
+    ...logData
+  } = log;
+
+  return {
+    id: normalizeLegacyId(legacyId) ?? String(_id),
+    ...logData,
+    user_id: getResponseUserId(userId),
+  };
+}
+
+// GET /api/logs
+// Returns paginated logs for admin users.
 export async function GET(request: NextRequest) {
   try {
-    // Check admin authorization
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    const authUser = getAuthUser(request);
 
-    if (!isAuthenticated) {
+    if (!authUser.isAuthenticated) {
       logger.warn('Unauthorized access attempt to logs API', {
         source: 'api',
         url: '/api/logs',
-        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',
+        ip_address:
+          request.headers.get('x-forwarded-for') ||
+          request.headers.get('x-real-ip') ||
+          'unknown',
       });
+
       return NextResponse.json(
         { success: false, message: 'Unauthorized' },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
-    if (!isAdmin) {
+    if (!authUser.isAdmin) {
       logger.warn('Non-admin access attempt to logs API', {
         source: 'api',
         url: '/api/logs',
-        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',
+        ip_address:
+          request.headers.get('x-forwarded-for') ||
+          request.headers.get('x-real-ip') ||
+          'unknown',
       });
+
       return NextResponse.json(
         { success: false, message: 'Forbidden - Admin only' },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
-    // Parse query parameters
     const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get('page') || '1');
-    const pageSize = parseInt(url.searchParams.get('pageSize') || '50');
-    const level = url.searchParams.get('level'); // error, warn, info, etc.
-    const source = url.searchParams.get('source'); // middleware, api, etc.
+
+    const page = parsePositiveInteger(url.searchParams.get('page'), 1);
+    const pageSize = Math.min(
+      parsePositiveInteger(url.searchParams.get('pageSize'), 50),
+      200,
+    );
+
+    const level = url.searchParams.get('level');
+    const source = url.searchParams.get('source');
     const startDate = url.searchParams.get('startDate');
     const endDate = url.searchParams.get('endDate');
-    const search = url.searchParams.get('search'); // Search in message
-    const userId = parseInt(url.searchParams.get('user_id') ?? '');
+    const search = url.searchParams.get('search');
+    const rawUserId = url.searchParams.get('user_id');
 
-    const ALLOWED_SORT = new Set(['timestamp', 'level', 'source', 'method', 'status_code', 'response_time']);
     const rawSortBy = url.searchParams.get('sortBy') ?? 'timestamp';
     const rawSortOrder = url.searchParams.get('sortOrder') ?? 'desc';
-    const sortBy = ALLOWED_SORT.has(rawSortBy) ? rawSortBy : 'timestamp';
-    const ascending = rawSortOrder.toLowerCase() === 'asc';
 
-    // Calculate offset
-    const offset = (page - 1) * pageSize;
+    const sortBy = ALLOWED_SORT.has(rawSortBy)
+      ? rawSortBy
+      : 'timestamp';
 
-    // Build query
-    let query = supabase
-      .from('logs')
-      .select('*', { count: 'exact' })
-      .order(sortBy, { ascending })
-      .range(offset, offset + pageSize - 1);
+    const sortDirection: 1 | -1 =
+      rawSortOrder.toLowerCase() === 'asc' ? 1 : -1;
 
-    // Apply filters
+    const filter: Record<string, unknown> = {};
+
     if (level) {
-      query = query.eq('level', level);
+      filter.level = level;
     }
 
     if (source) {
-      query = query.eq('source', source);
-    }
-
-    if (!Number.isNaN(userId)) {
-      query = query.eq('user_id', userId);
-    }
-
-    if (startDate) {
-      query = query.gte('timestamp', startDate);
-    }
-
-    if (endDate) {
-      query = query.lte('timestamp', endDate);
+      filter.source = source;
     }
 
     if (search) {
-      query = query.ilike('message', `%${search}%`);
+      filter.message = {
+        $regex: escapeRegex(search),
+        $options: 'i',
+      };
     }
 
-    // Execute query
-    const { data, error, count } = await query;
+    const timestampFilter: {
+      $gte?: Date;
+      $lte?: Date;
+    } = {};
 
-    if (error) {
-      logger.error(`Database error fetching logs: ${error.message}`, {
-        source: 'api',
-        url: '/api/logs',
-        error: error.message,
-      });
-      return NextResponse.json(
-        { success: false, message: 'Failed to fetch logs' },
-        { status: 500 }
-      );
+    if (startDate) {
+      const parsedStartDate = new Date(startDate);
+
+      if (Number.isNaN(parsedStartDate.getTime())) {
+        return NextResponse.json(
+          { success: false, message: 'Invalid startDate' },
+          { status: 400 },
+        );
+      }
+
+      timestampFilter.$gte = parsedStartDate;
     }
 
-    const total = count || 0;
+    if (endDate) {
+      const parsedEndDate = new Date(endDate);
+
+      if (Number.isNaN(parsedEndDate.getTime())) {
+        return NextResponse.json(
+          { success: false, message: 'Invalid endDate' },
+          { status: 400 },
+        );
+      }
+
+      timestampFilter.$lte = parsedEndDate;
+    }
+
+    if (Object.keys(timestampFilter).length > 0) {
+      filter.timestamp = timestampFilter;
+    }
+
+    await dbConnect();
+
+    if (rawUserId) {
+      if (/^[0-9a-fA-F]{24}$/.test(rawUserId)) {
+        filter.user_id = new Types.ObjectId(rawUserId);
+      } else {
+        const user = await User.findOne({
+          legacy_id: rawUserId,
+        })
+          .select('_id')
+          .lean();
+
+        // An empty $in condition safely returns no matching logs.
+        filter.user_id = user?._id ?? { $in: [] };
+      }
+    }
+
+    const offset = (page - 1) * pageSize;
+
+    const [logs, total] = await Promise.all([
+      Log.find(filter)
+        .sort({ [sortBy]: sortDirection })
+        .skip(offset)
+        .limit(pageSize)
+        .populate({
+          path: 'user_id',
+          select: 'legacy_id',
+        })
+        .lean(),
+      Log.countDocuments(filter),
+    ]);
+
     const totalPages = Math.ceil(total / pageSize);
 
     logger.info('Admin accessed logs API', {
       source: 'api',
       url: '/api/logs',
-      user_id: getAuthUser(request).userId,
-      filters: { page, pageSize, level, source, startDate, endDate, search, user_id: !Number.isNaN(userId) ? userId : undefined },
+      user_id: authUser.userId,
+      filters: {
+        page,
+        pageSize,
+        level,
+        source,
+        startDate,
+        endDate,
+        search,
+        user_id: rawUserId ?? undefined,
+      },
     });
 
     return NextResponse.json({
       success: true,
-      data,
+      data: logs.map(toLogDTO),
       pagination: {
         page,
         pageSize,
@@ -121,68 +249,96 @@ export async function GET(request: NextRequest) {
         hasPrev: page > 1,
       },
     });
-
   } catch (error) {
-    logger.error(`Unexpected error in logs API: ${error instanceof Error ? error.message : String(error)}`, {
-      source: 'api',
-      url: '/api/logs',
-    });
+    logger.error(
+      `Unexpected error in logs API: ${error instanceof Error ? error.message : String(error)
+      }`,
+      {
+        source: 'api',
+        url: '/api/logs',
+      },
+    );
+
     return NextResponse.json(
       { success: false, message: 'Internal Server Error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-// DELETE /api/logs?olderThanDays=N  — log retention purge (admin only)
+// DELETE /api/logs?olderThanDays=N
+// Deletes logs older than the requested number of days.
 export async function DELETE(request: NextRequest) {
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    const authUser = getAuthUser(request);
 
-    if (!isAuthenticated) {
-      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
-    }
-    if (!isAdmin) {
-      return NextResponse.json({ success: false, message: 'Forbidden - Admin only' }, { status: 403 });
-    }
-
-    const url = new URL(request.url);
-    const rawDays = parseInt(url.searchParams.get('olderThanDays') || '');
-    if (isNaN(rawDays) || rawDays < 1) {
+    if (!authUser.isAuthenticated) {
       return NextResponse.json(
-        { success: false, message: 'olderThanDays must be a positive integer' },
-        { status: 400 }
+        { success: false, message: 'Unauthorized' },
+        { status: 401 },
       );
     }
 
-    const cutoff = new Date(Date.now() - rawDays * 86_400_000).toISOString();
-
-    const { error, count } = await supabase
-      .from('logs')
-      .delete({ count: 'exact' })
-      .lt('timestamp', cutoff);
-
-    if (error) {
-      logger.error(`Log retention purge failed: ${error.message}`, { source: 'api', url: '/api/logs' });
-      return NextResponse.json({ success: false, message: 'Failed to purge logs' }, { status: 500 });
+    if (!authUser.isAdmin) {
+      return NextResponse.json(
+        { success: false, message: 'Forbidden - Admin only' },
+        { status: 403 },
+      );
     }
 
-    logger.info(`Log retention: purged ${count ?? 0} rows older than ${rawDays} days`, {
-      source: 'api',
-      url: '/api/logs',
-      user_id: getAuthUser(request).userId,
+    const url = new URL(request.url);
+    const rawDays = Number.parseInt(
+      url.searchParams.get('olderThanDays') ?? '',
+      10,
+    );
+
+    if (!Number.isInteger(rawDays) || rawDays < 1) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'olderThanDays must be a positive integer',
+        },
+        { status: 400 },
+      );
+    }
+
+    const cutoff = new Date(Date.now() - rawDays * 86_400_000);
+
+    await dbConnect();
+
+    const result = await Log.deleteMany({
+      timestamp: { $lt: cutoff },
     });
+
+    const deletedCount = result.deletedCount ?? 0;
+
+    logger.info(
+      `Log retention: purged ${deletedCount} rows older than ${rawDays} days`,
+      {
+        source: 'api',
+        url: '/api/logs',
+        user_id: authUser.userId,
+      },
+    );
 
     return NextResponse.json({
       success: true,
-      message: `Deleted ${count ?? 0} log entries older than ${rawDays} days`,
-      deleted: count ?? 0,
+      message: `Deleted ${deletedCount} log entries older than ${rawDays} days`,
+      deleted: deletedCount,
     });
   } catch (error) {
-    logger.error(`Unexpected error in log purge: ${error instanceof Error ? error.message : String(error)}`, {
-      source: 'api',
-      url: '/api/logs',
-    });
-    return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
+    logger.error(
+      `Unexpected error in log purge: ${error instanceof Error ? error.message : String(error)
+      }`,
+      {
+        source: 'api',
+        url: '/api/logs',
+      },
+    );
+
+    return NextResponse.json(
+      { success: false, message: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 }
