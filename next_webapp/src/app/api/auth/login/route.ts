@@ -18,9 +18,9 @@ export async function POST(request: Request) {
         if (!email || !password) {
             return errorResponse('Email and password are required', 400, 'MISSING_FIELDS');
         }
-
+        const normalizeEmail = email.trim().lowercase().trim();
         // 2. Find user by email
-        const userData = await User.findOne({ email }).exec();
+        const userData = await User.findOne({ normalizeEmail }).exec();
 
         if (!userData) {
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');

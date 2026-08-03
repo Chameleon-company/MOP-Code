@@ -5,20 +5,20 @@ import logger from '@/utils/logger';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/models/mongoose/User';
 import Role from '@/models/mongoose/Role';
+import { normalize } from 'path';
 
 export async function POST(request: Request) {
     try {
         await dbConnect();
-
+        
         const { firstName, lastName, email, password } = await request.json();
-
         // Validate input
         if (!firstName || !lastName || !email || !password) {
             return errorResponse('All fields are required', 400, 'MISSING_FIELDS');
         }
-
+        const normalizeEmail = email.trim().lowercase().trim();
         // Check if user already exists
-        const existingUser = await User.findOne({ email }).exec();
+        const existingUser = await User.findOne({ normalizeEmail }).exec();
 
         if (existingUser) {
             return errorResponse('User already exists', 400, 'USER_EXISTS');
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
         // Insert user with embedded role and profile
         await User.create({
-            email: email,
+            email: normalizeEmail,
             password: hashedPassword,
             role: {
                 id: roleData._id,

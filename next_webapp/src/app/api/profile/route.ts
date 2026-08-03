@@ -121,6 +121,18 @@ interface ProfileUpdateBody {
   email?: string;
 }
 
+interface ProfileUpdateResult {
+  email: string | undefined;
+  id?: string;
+  user_id?: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  age?: number | null;
+  gender?: string | null;
+  profile_img?: string | null;
+  updated_at?: Date | null;
+}
+
 export async function PUT(request: NextRequest) {
   const userId = getUserId(request);
 
@@ -211,7 +223,7 @@ export async function PUT(request: NextRequest) {
 
     await user.save();
 
-    let result: any = { email };
+    let result: ProfileUpdateResult = { email };
 
     if (hasProfileUpdates) {
       result = {
