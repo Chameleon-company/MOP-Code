@@ -21,7 +21,9 @@ export async function GET() {
       {
         $project: {
           _id: 0,
-          category_name: '$_id',
+          category: {
+            $ifNull: ['$_id', 'Uncategorized']
+          },
           count: 1
         }
       }, 

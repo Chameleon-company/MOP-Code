@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^7.5.0",
     "mop-code": "file:",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
