@@ -2,6 +2,12 @@
 
 Index of all MOP data science use cases, including domain, trimester, GitHub location, data collection method, author, and notes.
 
+## Finalised
+
+| Use Case Name | Use Case Location | Domain | Data Collection Method | Author | Updated | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| UC00010_2023_Melbourne_Liveability_Assessment | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) | Urban Planning and Development | `requests.get()` | Siju Deng (updated: Rukshan Dias) | T2 2026 | Updated to the latest template and moved to the FINALISED folder. |
+
 ### Ready To Publish 
 
 #### T1 2023
