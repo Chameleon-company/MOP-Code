@@ -1,0 +1,27 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
+      - '.'
+    dir: 'next_webapp'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'next-webapp-staging'
+      - '--image=australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
+      - '--region=australia-southeast1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+
+images:
+  - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
