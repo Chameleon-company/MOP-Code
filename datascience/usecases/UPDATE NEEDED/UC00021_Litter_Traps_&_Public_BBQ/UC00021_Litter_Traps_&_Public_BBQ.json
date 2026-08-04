@@ -1,53 +1,40 @@
-{ 
-    "title": "Litter Traps & BBQ & Differing site typologies ",
-    "name": "Litter Traps & BBQ & Differing site typologies",
-    "description": "The use case will examine the spatial relationships between litter traps and public amenities (BBQ areas and cafes) to understand and optimize maintenance and asset distribution",
+{
+    "title": "Litter Traps & Public Amenities: A Spatial Proximity and Network Analysis",
+    "name": "Litter Traps & Public Amenities: A Spatial Proximity and Network Analysis",
+    "description": "This use case examines the spatial relationships between litter traps and public amenities (BBQ areas and cafes) to understand and optimise maintenance and asset distribution, using proximity analysis, network robustness analysis, correlation, clustering, and a proof-of-concept classification model.",
     "tags": [
-        "Enviroment", 
-        "Wellbeing", 
-        "enviroment", 
-        "liveability"
+        "Environment",
+        "Wellbeing",
+        "Liveability"
     ],
-    "difficultly": "intermediate", 
+    "difficultly": "intermediate",
     "technology": [{
-        "name": "os",
-        "code": "python"
-    },{
         "name": "requests",
         "code": "python"
     },{
-        "name": "pytz",
+        "name": "numpy",
         "code": "python"
     },{
         "name": "pandas",
         "code": "python"
     },{
-        "name": "datetime",
-        "code": "python"
-    },{
-        "name": "timezone",
-        "code": "python"
-    },{
         "name": "folium",
         "code": "python"
     },{
-        "name": "pyplot",
+        "name": "matplotlib",
+        "code": "python"
+    },{
+        "name": "seaborn",
         "code": "python"
     },{
         "name": "scikit-learn",
         "code": "python"
     },{
-		"name": "seaborn",
-        "code": "python"
-	},{
-		"name": "geopy",
-        "code": "python"
-	},{
-		"name": "StringIO",
-        "code": "python"
-    },{
         "name": "networkx",
         "code": "python"
+    },{
+        "name": "StringIO",
+        "code": "python"
     }],
-    "datasets":["litter-traps", "public-barbecues", "cafes-and-restaurants-with-seating-capacity"] 
+    "datasets": ["litter-traps", "public-barbecues", "cafes-and-restaurants-with-seating-capacity"]
 }
