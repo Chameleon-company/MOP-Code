@@ -29,6 +29,7 @@ const CONTRIBUTOR_TYPE_MAP: Record<RawContributor["contributor_type"], Contribut
 
 function mapToContributorRecord(raw: RawContributor): ContributorRecord {
   return {
+    id: raw.id,
     fullName: raw.name,
     year: raw.year,
     trimester: raw.trimester,
@@ -42,6 +43,7 @@ function mapToContributorRecord(raw: RawContributor): ContributorRecord {
 }
 
 interface GroupedMember {
+  id?: string;
   name: string;
   role?: string;
   seniority?: string;
@@ -102,6 +104,7 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
         const teamName = student.team ?? "Unassigned";
         if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
         teamsByName.get(teamName)!.push({
+          id: student.id,
           name: student.fullName,
           role: student.positionOrRole,
           seniority: student.level,
@@ -196,7 +199,7 @@ function TeamAccordion({ team }: { team: GroupedTeam }) {
             <ul className="flex flex-col gap-1.5 px-4 pb-3 pt-1 border-t border-gray-100 dark:border-gray-700">
               {team.members.map((member, index) => (
                 <li
-                  key={`${member.name}-${index}`}
+                  key={member.id ?? `${member.name}-${index}`}
                   className="flex items-center justify-between gap-3 text-xs sm:text-sm pt-1.5"
                 >
                   <span className="text-gray-700 dark:text-gray-200">{member.name}</span>
