@@ -1,14 +1,12 @@
-"use client";
-
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ContributorsSection from "../../../components/ContributorsSection";
 import "../../../../public/styles/about.css";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n-navigation";
+import { getContributors } from "@/lib/getContributors";
 
-const About = () => {
-	const t = useTranslations("about");
+const About = async () => {
+	const contributors = (await getContributors()) ?? [];
 
 	return (
 		<div className="bg-white dark:bg-[#1d1919] text-black dark:text-white min-h-screen">
@@ -120,7 +118,7 @@ const About = () => {
 			</section>
 
 			{/* CONTRIBUTORS */}
-			<ContributorsSection />
+			<ContributorsSection contributors={contributors} />
 
 			{/* CTA SECTION */}
 			<section className="section text-center">
