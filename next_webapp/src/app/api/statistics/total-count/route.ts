@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect'; 
 import UseCaseModel from '@/models/mongoose/UseCase';
 import { errorResponse } from '@/app/api/library/errorResponse';
+export const runtime = 'nodejs'
 
 // GET /api/statistics/total-count
 // Returns the total number of use cases.
