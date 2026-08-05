@@ -46,6 +46,11 @@ export default function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderP
       onTouchEnd={handleTouchEnd}
     >
       <AnimatePresence
+        // Keep the preloaded first slide fully visible on the server and at
+        // hydration. Fading it in delays its final paint and therefore LCP.
+        // Slides selected after the initial render still use the transition
+        // below.
+        initial={false}
         // "sync" = old image fades out while new one fades in (crossfade)
         mode="sync"
       >
