@@ -38,7 +38,9 @@ export default function EditUseCasePage() {
 
   const [hasExistingNotebook, setHasExistingNotebook] = useState(false);
   const [notebookFile, setNotebookFile] = useState<File | null>(null);
-  const [notebookContent, setNotebookContent] = useState<string | undefined>(undefined);
+  // undefined = untouched (no change on submit); null = explicitly cleared
+  // (removed) by the user; string = a new notebook to upload.
+  const [notebookContent, setNotebookContent] = useState<string | null | undefined>(undefined);
 
   const [fetchLoading, setFetchLoading] = useState(true);
   const [fetchError, setFetchError] = useState("");
@@ -55,10 +57,9 @@ export default function EditUseCasePage() {
 
     Promise.all([
       fetch(`/api/usecases/${id}`, { headers }).then((r) => r.json()),
-      fetch(`/api/usecases/${id}/tags`, { headers }).then((r) => r.json()),
       fetch("/api/categories", { headers }).then((r) => r.json()),
     ])
-      .then(([ucJson, tagsJson, catJson]) => {
+      .then(([ucJson, catJson]) => {
         if (!ucJson.success) {
           setFetchError(ucJson.message || ucJson.error || "Use case not found.");
           return;
@@ -73,10 +74,14 @@ export default function EditUseCasePage() {
         setExistingImgUrl(uc.cover_img || null);
         setImagePreview(uc.cover_img || null);
 
-        setHasExistingNotebook(!!uc.content);
+        // content lives in GridFS, not on the doc, content_file_id is the
+        // presence signal (the old `uc.content` check was always undefined).
+        setHasExistingNotebook(!!uc.content_file_id);
 
-        if (tagsJson.success && Array.isArray(tagsJson.data)) {
-          setTags(tagsJson.data.map((t: any) => t.name));
+        // Tags are embedded directly on the use case doc now (see
+        // TagRefSchema in UseCase.ts) — no separate /tags call needed.
+        if (Array.isArray(uc.tags)) {
+          setTags(uc.tags.map((t: any) => t.name).filter(Boolean));
         }
 
         if (catJson.success) {
@@ -477,7 +482,11 @@ export default function EditUseCasePage() {
                 type="button"
                 onClick={() => {
                   setNotebookFile(null);
-                  setNotebookContent(undefined);
+                  // null (not undefined) so the PUT body explicitly sends
+                  // content: null — the backend's "clear the notebook"
+                  // signal. undefined would omit the field entirely and the
+                  // route would treat it as "no change" (see PUT below).
+                  setNotebookContent(null);
                   setHasExistingNotebook(false);
                   if (notebookInputRef.current) {
                     notebookInputRef.current.value = "";
