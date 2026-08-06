@@ -3,12 +3,11 @@ import Footer from "../../../components/Footer";
 import ContributorsSection from "../../../components/ContributorsSection";
 import "../../../../public/styles/about.css";
 import { Link } from "@/i18n-navigation";
-import contributorsData from "@/data/contributors_by_year.json";
-import type { ContributorRecord } from "@/types/contributor";
+import { getContributors } from "@/lib/getContributors";
 
-const contributors = contributorsData as unknown as ContributorRecord[];
+const About = async () => {
+	const contributors = (await getContributors()) ?? [];
 
-const About = () => {
 	return (
 		<div className="bg-white dark:bg-[#1d1919] text-black dark:text-white min-h-screen">
 			<Header />
@@ -19,7 +18,7 @@ const About = () => {
 				<img
 					src="/img/melbourne-city1.jpg"
 					alt="Melbourne City"
-					className="hero-img w-3/4 md:w-2/5 h-auto"
+					className="hero-img w-full sm:w-3/4 md:w-2/5 lg:w-1/3 h-auto"
 				/>
 
 				{/* Text */}
@@ -52,7 +51,7 @@ const About = () => {
 				<img
 					src="/img/objectives.jpg"
 					alt="Objectives"
-					className="hero-img w-full h-[280px] md:h-[320px] object-cover"
+					className="hero-img w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[360px] object-cover"
 				/>
 
 				<div className="grid md:grid-cols-3 gap-8 mt-8">
