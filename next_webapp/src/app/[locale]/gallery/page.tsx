@@ -284,12 +284,13 @@ export default function GalleryPage() {
               className="relative flex flex-col items-center max-w-4xl w-full mx-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full max-h-[75vh] rounded-2xl overflow-hidden shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative h-[75vh] w-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image
                   src={lightbox.img_url}
                   alt={lightbox.title}
-                  className="w-full h-auto max-h-[75vh] object-contain bg-black"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  className="bg-black object-contain"
                 />
               </div>
 
