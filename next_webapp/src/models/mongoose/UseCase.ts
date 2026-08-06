@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // Embedded, denormalized reference to a category document — not populated
 // via a Mongoose `ref` walk by default, just carries the id + a display copy.
@@ -61,6 +61,7 @@ useCaseSchema.index({ legacy_id: 1 });
 export type UseCaseDocument = InferSchemaType<typeof useCaseSchema>;
 
 export const UseCase =
-  mongoose.models.UseCase || mongoose.model("UseCase", useCaseSchema);
+  (mongoose.models.UseCase as Model<UseCaseDocument>) ||
+  mongoose.model<UseCaseDocument>("UseCase", useCaseSchema);
 
 export default UseCase;

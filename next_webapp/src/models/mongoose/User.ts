@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // Embedded, denormalized reference to a role document — same pattern as
 // UseCase's CategoryRefSchema: carries the ObjectId ref plus a display copy,
@@ -47,6 +47,8 @@ userSchema.index({ legacy_id: 1 });
 
 export type UserDocument = InferSchemaType<typeof userSchema>;
 
-export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const User =
+  (mongoose.models.User as Model<UserDocument>) ||
+  mongoose.model<UserDocument>("User", userSchema);
 
 export default User;

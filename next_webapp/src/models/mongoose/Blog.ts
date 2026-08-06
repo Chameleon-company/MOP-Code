@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 const blogSchema = new Schema(
   {
@@ -29,6 +29,8 @@ blogSchema.index({ published_date: -1 });
 
 export type BlogDocument = InferSchemaType<typeof blogSchema>;
 
-export const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
+export const Blog =
+  (mongoose.models.Blog as Model<BlogDocument>) ||
+  mongoose.model<BlogDocument>("Blog", blogSchema);
 
 export default Blog;

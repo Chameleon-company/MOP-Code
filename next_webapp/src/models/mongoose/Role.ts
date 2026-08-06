@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 const roleSchema = new Schema(
   {
@@ -17,6 +17,8 @@ roleSchema.index({ role_name: 1 }, { unique: true });
 
 export type RoleDocument = InferSchemaType<typeof roleSchema>;
 
-export const Role = mongoose.models.Role || mongoose.model("Role", roleSchema);
+export const Role =
+  (mongoose.models.Role as Model<RoleDocument>) ||
+  mongoose.model<RoleDocument>("Role", roleSchema);
 
 export default Role;

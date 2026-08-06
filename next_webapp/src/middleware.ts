@@ -14,7 +14,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors", "/api/usecases", "/api/auth/session"];
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -51,6 +51,24 @@ function isPublicContributorsRead(pathname: string, method: string): boolean {
   if (method !== "GET") return false;
   const bare = getBarePath(pathname);
   return bare === "/api/contributors" || /^\/api\/contributors\/[^/]+$/.test(bare);
+}
+
+/**
+ * GET requests on /api/usecases (list), /api/usecases/:id (single), or
+ * /api/usecases/:id/content (streamed notebook/HTML body) are public — the
+ * display page reads all three with no login. Only the write methods
+ * (POST/PUT/DELETE) on this same path family require the JWT check below.
+ * Same shape as isPublicContributorsRead, plus the extra nested /content
+ * segment contributors doesn't have.
+ */
+function isPublicUsecasesRead(pathname: string, method: string): boolean {
+  if (method !== "GET") return false;
+  const bare = getBarePath(pathname);
+  return (
+    bare === "/api/usecases" ||
+    /^\/api\/usecases\/[^/]+$/.test(bare) ||
+    /^\/api\/usecases\/[^/]+\/content$/.test(bare)
+  );
 }
 
 // Return true when the request should bypass auth entirely.
@@ -150,7 +168,7 @@ export default async function middleware(request: NextRequest) {
     url: `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
     ip_address: ip,
     user_agent: userAgent,
-    user_id: userId ? parseInt(userId) : undefined,
+    user_id: userId || undefined,
     user_role: userRole,
   }));
 
@@ -180,6 +198,12 @@ export default async function middleware(request: NextRequest) {
   // 3.5 Public reads within an otherwise-protected path family (contributors
   //     GET) bypass the JWT check, no user headers get attached.
   if (isPublicContributorsRead(pathname, method)) {
+    return NextResponse.next();
+  }
+
+  // 3.6 Same carve-out for usecases GET (list/single/content) — public read,
+  //     admin-only write.
+  if (isPublicUsecasesRead(pathname, method)) {
     return NextResponse.next();
   }
 
@@ -261,6 +285,12 @@ export const config = {
     // path still needs to be matched so POST/PUT/DELETE get JWT-verified.
     "/api/contributors",
     "/api/contributors/:path*",
+
+    // Usecases GET (list/single/content) is public (see
+    // isPublicUsecasesRead), but the path still needs to be matched so
+    // POST/PUT/DELETE get JWT-verified.
+    "/api/usecases",
+    "/api/usecases/:path*",
 
     // Protected API routes — upload
     "/api/upload",

@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // Fixed vocabularies the team-agreed taxonomy (supersedes the earlier
 // placeholder values copied from the admin form's old dropdown).
@@ -79,6 +79,7 @@ contributorSchema.index({ team: 1 });
 export type ContributorDocument = InferSchemaType<typeof contributorSchema>;
 
 export const Contributor =
-  mongoose.models.Contributor || mongoose.model("Contributor", contributorSchema);
+  (mongoose.models.Contributor as Model<ContributorDocument>) ||
+  mongoose.model<ContributorDocument>("Contributor", contributorSchema);
 
 export default Contributor;

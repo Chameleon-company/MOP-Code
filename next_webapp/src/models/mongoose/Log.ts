@@ -1,4 +1,4 @@
-import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // No `timestamps` option: the live `logs` collection only has `created_at`,
 // not an `updated_at` counterpart (log entries are never updated), so the
@@ -47,6 +47,8 @@ logSchema.index({ legacy_id: 1 });
 
 export type LogDocument = InferSchemaType<typeof logSchema>;
 
-export const Log = mongoose.models.Log || mongoose.model("Log", logSchema);
+export const Log =
+  (mongoose.models.Log as Model<LogDocument>) ||
+  mongoose.model<LogDocument>("Log", logSchema);
 
 export default Log;
