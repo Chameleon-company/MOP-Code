@@ -6,7 +6,12 @@ import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
 
 function getAuthHeaders(): HeadersInit {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  let user: Record<string, any> = {};
+  try {
+    user = JSON.parse(localStorage.getItem("user") || "{}");
+  } catch {
+    user = {};
+  }
   const userId = user.userId ?? user.id ?? "";
   const roleId = user.roleId ?? user.role_id ?? "";
   const token = user.token ?? "";
@@ -76,7 +81,7 @@ export default function DashboardPage() {
       </h1>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <AdminStatCard
           title="Total Categories"
           value={displayValue(totalCategories)}
