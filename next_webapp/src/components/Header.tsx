@@ -10,6 +10,7 @@ import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun, HiChevronDown } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const languages = [
 	{ name: "English", locale: "en" },
@@ -239,10 +240,13 @@ const Header = () => {
 							className="flex-shrink-0 flex items-center"
 							aria-label="Go to homepage"
 						>
-							<img
-								className="h-16 w-auto transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
+							<Image
+								className="h-16 w-16 transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
 								src="/img/new-logo-green.png"
 								alt="Logo"
+								width={64}
+								height={64}
+								priority={true}
 							/>
 						</Link>
 

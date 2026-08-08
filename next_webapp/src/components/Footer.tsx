@@ -5,6 +5,7 @@ import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import Image from "next/image";
 
 const Footer = () => {
 	const t = useTranslations("common");
@@ -432,10 +433,12 @@ const Footer = () => {
 								className="logo-card max-w-full shrink-0"
 								aria-label="Go to home page"
 							>
-								<img
+								<Image
 									src="/img/new-logo-white.png"
 									alt="Melbourne Open Playground logo"
-									className="relative z-[1] h-16 w-auto md:h-[64px] lg:h-[72px] xl:h-[79px]"
+									width={79}
+									height={79}
+									className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
 								/>
 								<span className="shimmer-sweep" aria-hidden="true" />
 							</Link>

@@ -70,7 +70,7 @@ function LoginForm() {
     return (
         <div
             className="min-h-screen flex items-center justify-center relative"
-            style={{ backgroundImage: "url('/img/mainImage.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+            style={{ backgroundImage: "url('/img/mainImage.webp')", backgroundSize: "cover", backgroundPosition: "center" }}
         >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
