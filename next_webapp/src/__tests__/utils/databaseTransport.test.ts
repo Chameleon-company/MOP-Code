@@ -46,6 +46,8 @@ describe('DatabaseTransport', () => {
       callback,
     );
 
+    await (transport as any).flush();
+
     expect(supabase.from).toHaveBeenCalledWith('logs');
     expect(mockInsert).toHaveBeenCalledWith([
       expect.objectContaining({
@@ -76,6 +78,8 @@ describe('DatabaseTransport', () => {
       callback,
     );
 
+    await (transport as any).flush();
+
     expect(mockInsert).toHaveBeenCalledWith([
       expect.objectContaining({
         meta: { error_code: 'INVALID_CREDENTIALS' },
@@ -99,8 +103,10 @@ describe('DatabaseTransport', () => {
       callback,
     );
 
+    await (transport as any).flush();
+
     expect(mockInsert).toHaveBeenCalledWith([
-      expect.objectContaining({ meta: {} }),
+      expect.objectContaining({ meta: undefined })
     ]);
   });
 
@@ -111,8 +117,10 @@ describe('DatabaseTransport', () => {
 
     await transport.log({ level: 'error', message: 'something failed' }, callback);
 
+    await (transport as any).flush();
+
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      'Failed to insert log into database:',
+      'Failed to insert log batch into database:',
       expect.objectContaining({ message: 'Connection refused' }),
     );
     expect(callback).toHaveBeenCalled();

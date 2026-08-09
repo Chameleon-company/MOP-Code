@@ -74,7 +74,7 @@ describe('GET /api/search', () => {
     expect(res.status).toBe(200);
     expect(body.success).toBe(true);
     expect(body.data.results).toHaveLength(3);
-    expect(body.data.total).toBe(3);
+    expect(body.data.pagination.total).toBe(3);
     expect(body.data.filters).toEqual({ q: null, title: null, category: null, tag: null });
   });
 
@@ -90,7 +90,7 @@ describe('GET /api/search', () => {
     expect(res.status).toBe(200);
     expect(body.data.results).toHaveLength(2);
     expect(body.data.results.map((r: any) => r.id)).toEqual([1, 2]);
-    expect(body.data.total).toBe(2);
+    expect(body.data.pagination.total).toBe(2);
   });
 
   test('title search — returns results matching title only', async () => {
@@ -157,7 +157,7 @@ describe('GET /api/search', () => {
 
     expect(res.status).toBe(200);
     expect(body.data.results.map((r: any) => r.id)).toEqual([1, 3]);
-    expect(body.data.total).toBe(2);
+    expect(body.data.pagination.total).toBe(2);
   });
 
   test('unknown tag slug — returns empty results with total 0', async () => {
@@ -170,7 +170,7 @@ describe('GET /api/search', () => {
 
     expect(res.status).toBe(200);
     expect(body.data.results).toHaveLength(0);
-    expect(body.data.total).toBe(0);
+    expect(body.data.pagination.total).toBe(0);
   });
 
   test('keyword + category combined — applies both filters', async () => {
