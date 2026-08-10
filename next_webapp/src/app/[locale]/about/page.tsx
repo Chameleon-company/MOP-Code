@@ -4,6 +4,7 @@ import ContributorsSection from "../../../components/ContributorsSection";
 import "../../../../public/styles/about.css";
 import { Link } from "@/i18n-navigation";
 import { getContributors } from "@/lib/getContributors";
+import Image from "next/image";
 
 const About = async () => {
 	const contributors = (await getContributors()) ?? [];
@@ -15,9 +16,12 @@ const About = async () => {
 			{/* HERO SECTION */}
 			<section className="section max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
 				{/* Image */}
-				<img
+				<Image
 					src="/img/melbourne-city1.jpg"
 					alt="Melbourne City"
+					width={1080}
+					height={1350}
+					sizes="(max-width: 768px) 75vw, 40vw"
 					className="hero-img w-full sm:w-3/4 md:w-2/5 lg:w-1/3 h-auto"
 				/>
 
@@ -48,9 +52,12 @@ const About = async () => {
 			<section className="section max-w-6xl mx-auto">
 				<h2 className="section-title text-center">Our Objectives</h2>
 
-				<img
+				<Image
 					src="/img/objectives.jpg"
 					alt="Objectives"
+					width={5402}
+					height={3601}
+					sizes="(max-width: 768px) 100vw, 1152px"
 					className="hero-img w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[360px] object-cover"
 				/>
 

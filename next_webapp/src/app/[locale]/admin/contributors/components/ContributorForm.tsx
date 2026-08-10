@@ -166,6 +166,8 @@ export default function ContributorForm({
       ...previous,
       contributorType: type,
       team: "",
+      position: "",
+      level: "",
     }));
   };
 
@@ -190,12 +192,19 @@ export default function ContributorForm({
       return;
     }
 
-    if (
-      formData.contributorType === "student" &&
-      !formData.team.trim()
-    ) {
-      setValidationError("Team is required for students.");
-      return;
+    if (formData.contributorType === "student") {
+      if (!formData.team.trim()) {
+        setValidationError("Team is required for students.");
+        return;
+      }
+      if (!formData.position.trim()) {
+        setValidationError("Position or Role is required for students.");
+        return;
+      }
+      if (!formData.level) {
+        setValidationError("Level is required for students.");
+        return;
+      }
     }
 
     await onSubmit(formData);
@@ -304,7 +313,9 @@ export default function ContributorForm({
               options={[
                 { value: "", label: "Select team", icon: "" },
                 { value: "Data Science Team", label: "Data Science Team", icon: "📊" },
-                { value: "Development Team", label: "Development Team", icon: "💻" },
+                { value: "Website Development Team", label: "Website Development Team", icon: "💻" },
+                { value: "Design Team", label: "Design Team", icon: "🎨" },
+                { value: "Cyber Security Team", label: "Cyber Security Team", icon: "🛡️" },
               ]}
               placeholder="Select team"
               disabled={submitting}
@@ -315,7 +326,7 @@ export default function ContributorForm({
         {isStudent && (
           <div>
             <label className={labelClassName}>
-              Position or Role
+              Position or Role <span className="text-red-500">*</span>
             </label>
 
             <CustomSelect
@@ -325,9 +336,16 @@ export default function ContributorForm({
               }
               options={[
                 { value: "", label: "Select position" },
-                { value: "Project Leader", label: "Project Leader" },
-                { value: "Sub-Team Leader", label: "Sub-Team Leader" },
-                { value: "Team Member", label: "Team Member" },
+                { value: "Web Developer", label: "Web Developer" },
+                { value: "Data Scientist", label: "Data Scientist" },
+                { value: "Data Science Team Lead", label: "Data Science Team Lead" },
+                { value: "Data Science Quality Manager", label: "Data Science Quality Manager" },
+                { value: "Web Dev Team Lead", label: "Web Dev Team Lead" },
+                { value: "Web Dev Quality Manager", label: "Web Dev Quality Manager" },
+                { value: "Design Team Member", label: "Design Team Member" },
+                { value: "Design Team Lead", label: "Design Team Lead" },
+                { value: "Cyber Security Team Member", label: "Cyber Security Team Member" },
+                { value: "Cyber Security Team Lead", label: "Cyber Security Team Lead" },
               ]}
               placeholder="Select position"
               disabled={submitting}
@@ -338,7 +356,7 @@ export default function ContributorForm({
         {isStudent && (
           <div>
             <label className={labelClassName}>
-              Level
+              Level <span className="text-red-500">*</span>
             </label>
 
             <CustomSelect
