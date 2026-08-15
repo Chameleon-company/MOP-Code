@@ -234,12 +234,12 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
     <div className="-m-8">
       {/* ── Page header ─────────────────────────────────────── */}
       <div className="flex flex-col gap-4 px-8 py-6 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">Gallery</h1>
+        <h1 className="text-[40px] font-semibold leading-[48px] text-emerald-500">Gallery</h1>
 
         <div className="flex items-center gap-3">
           {/* Search */}
-          <div className="flex items-center gap-2 rounded-xl border border-[#CFEFD9] bg-[#F8FFFA] px-4 py-2.5">
-            <Search size={16} className="text-[#1F8F50]" />
+          <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-2.5">
+            <Search size={16} className="text-emerald-600" />
             <input
               placeholder="Search by title..."
               value={searchInput}
@@ -260,7 +260,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
           <button
             type="button"
             onClick={() => setUploadOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-3 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C]"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-emerald-500"
           >
             <Plus size={16} />
             Upload New Photo
@@ -334,7 +334,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
             <button
               type="button"
               onClick={() => setSelectedImage(null)}
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#1F8F50] text-white transition hover:bg-[#2DBE6C]"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white transition hover:bg-emerald-500"
             >
               <X size={18} strokeWidth={3} />
             </button>
@@ -359,7 +359,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               <button
                 type="button"
                 onClick={() => openEdit(selectedImage)}
-                className="inline-flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-2 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C]"
+                className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2 text-[14px] font-medium text-white transition hover:bg-emerald-500"
               >
                 <Pencil size={14} />
                 Edit
@@ -424,7 +424,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                 type="button"
                 onClick={handleUpload}
                 disabled={!uploadTitle.trim() || !uploadFile || uploading}
-                className="rounded-lg bg-[#1F8F50] px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C] disabled:opacity-40"
+                className="rounded-lg bg-emerald-600 px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-emerald-500 disabled:opacity-40"
               >
                 {uploading ? "Uploading…" : "Upload"}
               </button>
@@ -516,7 +516,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                 type="button"
                 onClick={handleSaveEdit}
                 disabled={!hasEditChanges || saving}
-                className="rounded-lg bg-[#1F8F50] px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C] disabled:opacity-40"
+                className="rounded-lg bg-emerald-600 px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-emerald-500 disabled:opacity-40"
               >
                 {saving ? "Saving…" : "Save Changes"}
               </button>

@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import type { ContributorRecord } from "@/types/contributor";
 
 interface GroupedMember {
+  id?: string;
   name: string;
   role?: string;
   seniority?: string;
@@ -30,7 +31,7 @@ interface GroupedYear {
 }
 
 function groupContributors(records: ContributorRecord[]): GroupedYear[] {
-  const visible = records.filter((record) => record.status);
+  const visible = (records ?? []).filter((record) => record.status);
 
   const byYear = new Map<number, Map<number, ContributorRecord[]>>();
   for (const record of visible) {
@@ -67,6 +68,7 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
         const teamName = student.team ?? "Unassigned";
         if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
         teamsByName.get(teamName)!.push({
+          id: student.id,
           name: student.fullName,
           role: student.positionOrRole,
           seniority: student.level,
@@ -161,7 +163,7 @@ function TeamAccordion({ team }: { team: GroupedTeam }) {
             <ul className="flex flex-col gap-1.5 px-4 pb-3 pt-1 border-t border-gray-100 dark:border-gray-700">
               {team.members.map((member, index) => (
                 <li
-                  key={`${member.name}-${index}`}
+                  key={member.id ?? `${member.name}-${index}`}
                   className="flex items-center justify-between gap-3 text-xs sm:text-sm pt-1.5"
                 >
                   <span className="text-gray-700 dark:text-gray-200">{member.name}</span>

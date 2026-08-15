@@ -136,14 +136,14 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-[40px] font-semibold text-[#2DBE6C]">Use Cases</h1>
+          <h1 className="text-[40px] font-semibold text-emerald-500">Use Cases</h1>
           <p className="mt-2 text-[16px] text-[#687280]">
             Manage and organize your use cases
           </p>
         </div>
         <Link
           href={`/${locale}/admin/use-cases/add`}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-3 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C]"
+          className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-emerald-500"
         >
           <Plus size={18} />
           Add New
