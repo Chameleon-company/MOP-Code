@@ -7,7 +7,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
-| UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Health_and_Wellbeing/2024/UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport) | Health and Wellbeing | `requests.get()` | Sai Priyamvada |
+| UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport_Accessibility | T3 2026 | Health and Wellbeing | Sai Priyamvada | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00076_Enhancing_Community_Wellbeing_Through_Public_Transport_Accessibility.ipynb) |
 
 ### Ready To Publish 
 
