@@ -4,6 +4,7 @@
     "lib": ["ES2017", "dom"],
     "types": ["cypress", "node"],
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "allowJs": true,
     "skipLibCheck": true
