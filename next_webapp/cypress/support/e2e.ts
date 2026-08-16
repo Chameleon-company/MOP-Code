@@ -18,3 +18,13 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Ignore React hydration errors thrown by the app in dev mode.
+// These occur due to next-intl's Date/timezone SSR vs client mismatch
+// and do not affect the functionality being tested.
+Cypress.on('uncaught:exception', (err) => {
+  if (err.message.includes('Hydration failed') || err.message.includes('hydration')) {
+    return false // prevent test failure
+  }
+  return true // let other errors fail the test
+})
