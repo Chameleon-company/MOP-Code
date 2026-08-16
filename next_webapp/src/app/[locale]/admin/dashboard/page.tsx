@@ -76,7 +76,7 @@ export default function DashboardPage() {
   return (
     <div className="p-6">
       {/* Title */}
-      <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">
+      <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-emerald-500">
         Dashboard
       </h1>
 
