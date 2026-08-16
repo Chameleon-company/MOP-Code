@@ -5,7 +5,7 @@ export function getAuthUser(request: NextRequest) {
   const roleIdRaw = request.headers.get("x-user-role-id");
   const roleName = request.headers.get("x-user-role");
 
-  const userId = userIdRaw ? Number(userIdRaw) : null;
+  const userId = userIdRaw && userIdRaw.trim() !== "" ? userIdRaw : null;
   const roleId = roleIdRaw ? Number(roleIdRaw) : null;
 
   return {
