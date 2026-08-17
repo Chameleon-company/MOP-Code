@@ -1,270 +1,345 @@
 /**
  * @jest-environment node
  *
- * Tests for GET /api/profile and PUT /api/profile
- * All Supabase calls are mocked — no real DB work happens here.
+ * Tests for GET and PUT /api/profile.
+ * MongoDB operations are mocked, so no real database work occurs.
  */
-
-// ─── Mocks ──────────────────────────────────────────────────────────────────
 
 jest.mock('next/server', () => ({
     NextResponse: {
-        json: jest
-            .fn()
-            .mockImplementation(
-                (body: unknown, init?: { status?: number }) => ({
-                    status: init?.status ?? 200,
-                    json: jest.fn().mockResolvedValue(body),
-                    _body: body,
-                }),
-            ),
+        json: jest.fn().mockImplementation(
+            (body: unknown, init?: { status?: number }) => ({
+                status: init?.status ?? 200,
+                json: jest.fn().mockResolvedValue(body),
+                _body: body,
+            }),
+        ),
     },
 }));
 
-jest.mock('@/library/supabaseClient', () => ({
-    supabase: { from: jest.fn() },
+jest.mock('@/lib/dbConnect', () => ({
+    __esModule: true,
+    default: jest.fn(),
 }));
 
-// ─── Imports ─────────────────────────────────────────────────────────────────
+jest.mock('@/models/mongoose/User', () => ({
+    __esModule: true,
+    default: {
+        findById: jest.fn(),
+    },
+}));
 
 import { GET, PUT } from '../../../app/api/profile/route';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from '@/lib/dbConnect';
+import User from '@/models/mongoose/User';
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+const USER_ID = '507f1f77bcf86cd799439011';
+const NEW_USER_ID = '507f1f77bcf86cd799439012';
 
-// Build a mock NextRequest with optional headers and body
-function makeRequest(body?: object, userId?: string) {
+function makeRequest(body?: unknown, userId?: string) {
     const headers = new Map<string, string>();
-    if (userId) headers.set('x-user-id', userId);
+
+    if (userId) {
+        headers.set('x-user-id', userId);
+    }
+
     return {
-        headers: { get: (key: string) => headers.get(key) ?? null },
+        headers: {
+            get: (key: string) => headers.get(key) ?? null,
+        },
         json: jest.fn().mockResolvedValue(body ?? {}),
     } as any;
 }
 
-// Fluent chain mock for Supabase queries that end with .single()
-function makeChain(result: { data: unknown; error: unknown }) {
-    const chain: Record<string, jest.Mock> = {};
+function makeUser(overrides: Record<string, unknown> = {}) {
+    const user: any = {
+        _id: USER_ID,
+        email: 'jason@gmail.com',
+        profile: {
+            first_name: 'Jason',
+            last_name: 'Holder',
+            age: null,
+            gender: null,
+            profile_img: null,
+            updated_at: null,
+        },
+        created_at: new Date('2026-03-22T11:09:32.253Z'),
+        updated_at: new Date('2026-03-22T11:09:32.253Z'),
+        ...overrides,
+    };
+
+    user.set = jest.fn((path: string, value: unknown) => {
+        if (path === 'profile') {
+            user.profile = value;
+            return;
+        }
+
+        if (path.startsWith('profile.')) {
+            if (!user.profile) {
+                user.profile = {};
+            }
+
+            const field = path.replace('profile.', '');
+            user.profile[field] = value;
+            return;
+        }
+
+        user[path] = value;
+    });
+
+    user.save = jest.fn().mockResolvedValue(user);
+
+    return user;
+}
+
+function mockFindByIdResult(result: unknown) {
+    const chain: any = {
+        exec: jest.fn().mockResolvedValue(result),
+    };
+
     chain.select = jest.fn().mockReturnValue(chain);
-    chain.eq = jest.fn().mockReturnValue(chain);
-    chain.update = jest.fn().mockReturnValue(chain);
-    chain.insert = jest.fn().mockReturnValue(chain);
-    chain.single = jest.fn().mockResolvedValue(result);
-    chain.maybeSingle = jest.fn().mockResolvedValue(result);
+
+    (User.findById as jest.Mock).mockReturnValue(chain);
+
     return chain;
 }
 
-// Mock data
-const MOCK_USER_DETAILS = {
-    id: 2,
-    user_id: 9,
-    first_name: 'Jason',
-    last_name: 'Holder',
-    age: null,
-    gender: null,
-    profile_img: null,
-    created_at: '2026-03-22T11:09:32.253182+00:00',
-    updated_at: '2026-03-22T11:09:32.253182+00:00',
-};
-const MOCK_USER = { email: 'jason@gmail.com' };
-
-// ─── Tests: GET /api/profile ──────────────────────────────────────────────────
+beforeEach(() => {
+    jest.clearAllMocks();
+    (dbConnect as jest.Mock).mockResolvedValue(undefined);
+    mockFindByIdResult(makeUser());
+});
 
 describe('GET /api/profile', () => {
-    beforeEach(() => jest.clearAllMocks());
+    test('valid user returns 200 with profile data and email', async () => {
+        const response = await GET(makeRequest(undefined, USER_ID));
+        const body = await response.json();
 
-    test('valid user → 200 with profile data and email', async () => {
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details')
-                return makeChain({ data: MOCK_USER_DETAILS, error: null });
-            if (table === 'user')
-                return makeChain({ data: MOCK_USER, error: null });
-            return makeChain({ data: null, error: null });
-        });
-
-        const res = await GET(makeRequest(undefined, '9'));
-        const body = await res.json();
-
-        expect(res.status).toBe(200);
+        expect(response.status).toBe(200);
         expect(body.success).toBe(true);
+        expect(body.data.user_id).toBe(USER_ID);
         expect(body.data.first_name).toBe('Jason');
+        expect(body.data.last_name).toBe('Holder');
+        expect(body.data.email).toBe('jason@gmail.com');
+
+        expect(dbConnect).toHaveBeenCalledTimes(1);
+        expect(User.findById).toHaveBeenCalledWith(USER_ID);
+    });
+
+    test('no x-user-id header returns 401', async () => {
+        const response = await GET(makeRequest());
+        const body = await response.json();
+
+        expect(response.status).toBe(401);
+        expect(body.success).toBe(false);
+        expect(dbConnect).not.toHaveBeenCalled();
+    });
+
+    test('invalid MongoDB user ID returns 401', async () => {
+        const response = await GET(makeRequest(undefined, '9'));
+        const body = await response.json();
+
+        expect(response.status).toBe(401);
+        expect(body.success).toBe(false);
+        expect(User.findById).not.toHaveBeenCalled();
+    });
+
+    test('user without a profile returns an empty profile shell', async () => {
+        mockFindByIdResult(
+            makeUser({
+                profile: null,
+            }),
+        );
+
+        const response = await GET(makeRequest(undefined, USER_ID));
+        const body = await response.json();
+
+        expect(response.status).toBe(200);
+        expect(body.success).toBe(true);
+        expect(body.data.first_name).toBeNull();
+        expect(body.data.last_name).toBeNull();
         expect(body.data.email).toBe('jason@gmail.com');
     });
 
-    test('no x-user-id header → 401 Unauthorised', async () => {
-        const res = await GET(makeRequest(undefined, undefined));
-        const body = await res.json();
+    test('user not found returns 401', async () => {
+        mockFindByIdResult(null);
 
-        expect(res.status).toBe(401);
+        const response = await GET(makeRequest(undefined, USER_ID));
+        const body = await response.json();
+
+        expect(response.status).toBe(401);
         expect(body.success).toBe(false);
     });
 
-    test('user has no profile row yet → 200 with empty shell', async () => {
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details')
-                return makeChain({ data: null, error: null });
-            if (table === 'user')
-                return makeChain({ data: MOCK_USER, error: null });
-            return makeChain({ data: null, error: null });
-        });
+    test('database failure returns 500', async () => {
+        (dbConnect as jest.Mock).mockRejectedValue(
+            new Error('Database unavailable'),
+        );
 
-        const res = await GET(makeRequest(undefined, '9'));
-        const body = await res.json();
+        const response = await GET(makeRequest(undefined, USER_ID));
+        const body = await response.json();
 
-        expect(res.status).toBe(200);
-        expect(body.success).toBe(true);
-        expect(body.data.first_name).toBeNull();
-        expect(body.data.email).toBe('jason@gmail.com');
-    });
-
-    test('DB error on user_details → 500', async () => {
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details')
-                return makeChain({
-                    data: null,
-                    error: { message: 'DB error' },
-                });
-            return makeChain({ data: null, error: null });
-        });
-
-        const res = await GET(makeRequest(undefined, '9'));
-        const body = await res.json();
-
-        expect(res.status).toBe(500);
+        expect(response.status).toBe(500);
         expect(body.success).toBe(false);
     });
 });
 
-// ─── Tests: PUT /api/profile ──────────────────────────────────────────────────
-
 describe('PUT /api/profile', () => {
-    beforeEach(() => jest.clearAllMocks());
+    test('updates first name and last name', async () => {
+        const user = makeUser();
+        mockFindByIdResult(user);
 
-    test('valid update of first_name and last_name → 200 success', async () => {
-        const updatedData = {
-            ...MOCK_USER_DETAILS,
-            first_name: 'Jason',
-            last_name: 'Smith',
-        };
-
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details') {
-                const chain = makeChain({ data: updatedData, error: null });
-                chain.maybeSingle = jest
-                    .fn()
-                    .mockResolvedValue({ data: { id: 2 }, error: null });
-                return chain;
-            }
-            return makeChain({ data: null, error: null });
-        });
-
-        const res = await PUT(
-            makeRequest({ first_name: 'Jason', last_name: 'Smith' }, '9'),
+        const response = await PUT(
+            makeRequest(
+                {
+                    first_name: 'Jason',
+                    last_name: 'Smith',
+                },
+                USER_ID,
+            ),
         );
-        const body = await res.json();
+        const body = await response.json();
 
-        expect(res.status).toBe(200);
+        expect(response.status).toBe(200);
         expect(body.success).toBe(true);
         expect(body.message).toBe('Profile updated successfully');
+        expect(body.data.first_name).toBe('Jason');
+        expect(body.data.last_name).toBe('Smith');
+        expect(user.save).toHaveBeenCalledTimes(1);
     });
 
-    test('valid update of email → 200 success', async () => {
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user') return makeChain({ data: null, error: null });
-            return makeChain({ data: null, error: null });
-        });
+    test('updates email', async () => {
+        const user = makeUser();
+        mockFindByIdResult(user);
 
-        const res = await PUT(
-            makeRequest({ email: 'newemail@gmail.com' }, '9'),
+        const response = await PUT(
+            makeRequest(
+                {
+                    email: 'newemail@gmail.com',
+                },
+                USER_ID,
+            ),
         );
-        const body = await res.json();
+        const body = await response.json();
 
-        expect(res.status).toBe(200);
+        expect(response.status).toBe(200);
         expect(body.success).toBe(true);
+        expect(user.set).toHaveBeenCalledWith(
+            'email',
+            'newemail@gmail.com',
+        );
+        expect(user.save).toHaveBeenCalledTimes(1);
     });
 
-    test('valid update of age and gender → 200 success', async () => {
-        const updatedData = { ...MOCK_USER_DETAILS, age: 25, gender: 'Male' };
+    test('updates age and gender', async () => {
+        const user = makeUser();
+        mockFindByIdResult(user);
 
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details') {
-                const chain = makeChain({ data: updatedData, error: null });
-                chain.maybeSingle = jest
-                    .fn()
-                    .mockResolvedValue({ data: { id: 2 }, error: null });
-                return chain;
-            }
-            return makeChain({ data: null, error: null });
-        });
+        const response = await PUT(
+            makeRequest(
+                {
+                    age: 25,
+                    gender: 'Male',
+                },
+                USER_ID,
+            ),
+        );
+        const body = await response.json();
 
-        const res = await PUT(makeRequest({ age: 25, gender: 'Male' }, '9'));
-        const body = await res.json();
-
-        expect(res.status).toBe(200);
+        expect(response.status).toBe(200);
         expect(body.success).toBe(true);
+        expect(body.data.age).toBe(25);
+        expect(body.data.gender).toBe('Male');
     });
 
-    test('invalid gender value → 400 validation error', async () => {
-        const res = await PUT(makeRequest({ gender: 'Batman' }, '9'));
-        const body = await res.json();
+    test('invalid gender returns 400 validation error', async () => {
+        const response = await PUT(
+            makeRequest(
+                {
+                    gender: 'Batman',
+                },
+                USER_ID,
+            ),
+        );
+        const body = await response.json();
 
-        expect(res.status).toBe(400);
+        expect(response.status).toBe(400);
         expect(body.success).toBe(false);
         expect(body.errors[0].field).toBe('gender');
+        expect(dbConnect).not.toHaveBeenCalled();
     });
 
-    test('age as string instead of number → 400 validation error', async () => {
-        const res = await PUT(makeRequest({ age: '23' }, '9'));
-        const body = await res.json();
+    test('age supplied as a string returns 400', async () => {
+        const response = await PUT(
+            makeRequest(
+                {
+                    age: '23',
+                },
+                USER_ID,
+            ),
+        );
+        const body = await response.json();
 
-        expect(res.status).toBe(400);
+        expect(response.status).toBe(400);
         expect(body.success).toBe(false);
         expect(body.errors[0].field).toBe('age');
     });
 
-    test('empty body → 400 no updatable fields', async () => {
-        const res = await PUT(makeRequest({}, '9'));
-        const body = await res.json();
+    test('empty body returns 400', async () => {
+        const response = await PUT(
+            makeRequest({}, USER_ID),
+        );
+        const body = await response.json();
 
-        expect(res.status).toBe(400);
+        expect(response.status).toBe(400);
         expect(body.success).toBe(false);
+        expect(User.findById).not.toHaveBeenCalled();
     });
 
-    test('no x-user-id header → 401 Unauthorised', async () => {
-        const res = await PUT(makeRequest({ first_name: 'Jason' }, undefined));
-        const body = await res.json();
+    test('no x-user-id header returns 401', async () => {
+        const response = await PUT(
+            makeRequest(
+                {
+                    first_name: 'Jason',
+                },
+                undefined,
+            ),
+        );
+        const body = await response.json();
 
-        expect(res.status).toBe(401);
+        expect(response.status).toBe(401);
         expect(body.success).toBe(false);
+        expect(dbConnect).not.toHaveBeenCalled();
     });
 
-    test('new user with no existing profile row → inserts and returns 200', async () => {
-        const newData = {
-            user_id: 99,
-            first_name: 'New',
-            last_name: 'User',
-            age: null,
-            gender: null,
-            profile_img: null,
-        };
-
-        (supabase.from as jest.Mock).mockImplementation((table: string) => {
-            if (table === 'user_details') {
-                const chain = makeChain({ data: newData, error: null });
-                chain.maybeSingle = jest
-                    .fn()
-                    .mockResolvedValue({ data: null, error: null }); // no existing row
-                return chain;
-            }
-            return makeChain({ data: null, error: null });
+    test('creates an embedded profile when one does not exist', async () => {
+        const user = makeUser({
+            _id: NEW_USER_ID,
+            profile: null,
         });
 
-        const res = await PUT(
-            makeRequest({ first_name: 'New', last_name: 'User' }, '99'),
-        );
-        const body = await res.json();
+        mockFindByIdResult(user);
 
-        expect(res.status).toBe(200);
+        const response = await PUT(
+            makeRequest(
+                {
+                    first_name: 'New',
+                    last_name: 'User',
+                },
+                NEW_USER_ID,
+            ),
+        );
+        const body = await response.json();
+
+        expect(response.status).toBe(200);
         expect(body.success).toBe(true);
+        expect(user.set).toHaveBeenNthCalledWith(
+            1,
+            'profile',
+            expect.any(Object),
+        );
+        expect(body.data.first_name).toBe('New');
+        expect(body.data.last_name).toBe('User');
+        expect(user.save).toHaveBeenCalledTimes(1);
     });
 });
