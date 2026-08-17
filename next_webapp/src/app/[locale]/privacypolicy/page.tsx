@@ -8,6 +8,7 @@ import { HiMoon, HiSun } from "react-icons/hi2";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { storage } from "@/utils/storage";
 
 const Privacypolicy: React.FC = () => {
   const t = useTranslations("privacypolicy");
@@ -25,7 +26,7 @@ const Privacypolicy: React.FC = () => {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
+    const stored = storage.getItem("theme");
     if (stored === "dark") setIsDarkMode(true);
   }, []);
 
@@ -33,10 +34,10 @@ const Privacypolicy: React.FC = () => {
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      storage.setItem("theme", "dark");
     } else {
       root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      storage.setItem("theme", "light");
     }
   }, [isDarkMode]);
 

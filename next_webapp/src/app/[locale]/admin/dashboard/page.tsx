@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { LayoutGrid, Folder, BookOpen, Images } from "lucide-react";
 import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
+import { storage } from "@/utils/storage";
 
 function getAuthHeaders(): HeadersInit {
   let user: Record<string, any> = {};
   try {
-    user = JSON.parse(localStorage.getItem("user") || "{}");
+    user = JSON.parse(storage.getItem("user") || "{}");
   } catch {
     user = {};
   }
