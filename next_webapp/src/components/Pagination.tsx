@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface PaginationProps {
   page: number;
@@ -21,22 +22,27 @@ export default function Pagination({
   variant = "public",
   className = "",
 }: PaginationProps) {
+  const t = useTranslations("common");
+
   if (totalPages <= 1) return null;
 
   if (variant === "admin") {
     const hasRange = total !== undefined && pageSize !== undefined;
     const rangeStart = hasRange ? (page - 1) * pageSize! + 1 : undefined;
-    const rangeEnd = hasRange ? Math.min(page * pageSize!, total!) : undefined;
+    const rangeEnd = hasRange
+      ? Math.min(page * pageSize!, total!)
+      : undefined;
 
     return (
       <div className={`mt-6 flex items-center justify-between ${className}`}>
         {hasRange ? (
           <p className="text-sm text-[#687280]">
-            Showing {rangeStart}–{rangeEnd} of {total}
+            {t("Showing")} {rangeStart}–{rangeEnd} {t("of")} {total}
           </p>
         ) : (
           <span />
         )}
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => onPageChange(page - 1)}
@@ -44,17 +50,19 @@ export default function Pagination({
             className="inline-flex items-center gap-1 rounded-lg border border-[#CFEFD9] bg-white px-3 py-2 text-sm text-[#1F8F50] transition hover:bg-[#DFF7E8] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronLeft size={16} />
-            Previous
+            {t("Previous")}
           </button>
+
           <span className="text-sm text-[#687280]">
-            Page {page} of {totalPages}
+            {t("Page")} {page} {t("of")} {totalPages}
           </span>
+
           <button
             onClick={() => onPageChange(page + 1)}
             disabled={page === totalPages}
             className="inline-flex items-center gap-1 rounded-lg border border-[#CFEFD9] bg-white px-3 py-2 text-sm text-[#1F8F50] transition hover:bg-[#DFF7E8] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Next
+            {t("Next")}
             <ChevronRight size={16} />
           </button>
         </div>
@@ -71,9 +79,11 @@ export default function Pagination({
       >
         <ChevronLeft size={18} />
       </button>
+
       <span className="rounded-full bg-green-50 px-4 py-2 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">
-        Page {page} of {totalPages}
+        {t("Page")} {page} {t("of")} {totalPages}
       </span>
+
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
