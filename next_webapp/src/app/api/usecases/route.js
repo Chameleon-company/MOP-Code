@@ -36,7 +36,7 @@ export async function POST(request) {
   let uploadedFileId = null;
 
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
+    const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
       return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
     }
@@ -54,14 +54,13 @@ export async function POST(request) {
       throw error;
     }
 
-    const { title, description, cover_img, category_id, created_by, tags, content } =
-      body;
+    // created_by is intentionally NOT read from the body it's stamped from
+    // the authenticated admin's own id below. A client-supplied creator id
+    // is never trusted (would let one admin attribute a use case to anyone).
+    const { title, description, cover_img, category_id, tags, content } = body;
 
     if (typeof title !== "string" || title.trim().length === 0) {
       return errorResponse("title is required", 400, "MISSING_FIELDS", request);
-    }
-    if (created_by === undefined || created_by === null || created_by === "") {
-      return errorResponse("created_by is required", 400, "MISSING_FIELDS", request);
     }
 
     // content is optional — a use case can be created without a notebook,
@@ -81,11 +80,11 @@ export async function POST(request) {
     await dbConnect();
 
     // Resolve category/tags/created_by (pure Mongo reads + tag upserts)
-    // before touching GridFS — if any of these throw, nothing has been
+    // before touching GridFS if any of these throw, nothing has been
     // uploaded yet, so there's nothing to clean up.
     const [categoryRef, createdByRef, tagRefs] = await Promise.all([
       resolveCategoryRef(category_id),
-      resolveCreatedBy(created_by),
+      resolveCreatedBy(userId),
       resolveTagRefs(tags),
     ]);
 
