@@ -17,6 +17,8 @@ const nextConfig = {
   serverExternalPackages: ["@prisma/instrumentation"],
   outputFileTracingRoot: process.cwd(),
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: "https",

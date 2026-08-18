@@ -79,7 +79,16 @@
     "Open Data Leadership": "Open Data Leadership",
     "p3": "The City of Melbourne has been an Australian leader in Open Data since 2014. Recent research and local user engagement have identified a gap where users would like to learn more about how to access Open Data and how to gain insights from the data to build apps and solve city problems.",
     "Our Goals": "Our Goals",
-    "p4": "This project aims to deliver proof-of-concept examples on how calls to Open Data APIs can be made."
+    "p4": "This project aims to deliver proof-of-concept examples on how calls to Open Data APIs can be made.",
+    "contributors": {
+      "badge": "Contributors",
+      "title": "Meet the Teams Behind MOP",
+      "subtitle": "Every trimester, student teams and mentors contribute new features and use cases to the platform.",
+      "empty": "No contributors available at the moment.",
+      "trimester": "Trimester {number}",
+      "companyDirector": "Company Director: {name}",
+      "mentoredBy": "Mentored by {names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "Privacy Policy",

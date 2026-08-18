@@ -1,6 +1,0 @@
-train: train/images
-val: valid/images
-
-names:
-  0: StreetLight
-  1: StreetLight (With Pole)

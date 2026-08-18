@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n-navigation";
+import Image from "next/image";
 
 interface Blog {
   id: number;
@@ -128,13 +129,13 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
 
         {/* ── Cover image ── */}
         {blog.cover_img && (
-          <figure className="mt-2 mb-10 w-full sm:mb-12 md:mb-14">
-            <img
+          <figure className="relative mt-2 mb-10 aspect-[16/10] w-full overflow-hidden sm:mb-12 md:mb-14">
+            <Image
               src={blog.cover_img}
               alt={blog.title}
-              loading="eager"
-              decoding="async"
-              className="mx-auto block h-auto w-full max-h-[520px] rounded-2xl object-cover shadow-[0_16px_40px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.4)] dark:ring-white/10 md:rounded-3xl"
+              fill
+              sizes="(max-width: 768px) 100vw, 1024px"
+              className="rounded-2xl object-cover shadow-[0_16px_40px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.4)] dark:ring-white/10 md:rounded-3xl"
             />
           </figure>
         )}
@@ -185,12 +186,12 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
                   >
                     <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                       {b.cover_img ? (
-                        <img
+                        <Image
                           src={b.cover_img}
                           alt={b.title}
-                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                          loading="lazy"
-                          decoding="async"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover transition duration-300 group-hover:scale-[1.02]"
                         />
                       ) : (
                         <div className="h-full w-full bg-gray-200 dark:bg-gray-700" />
