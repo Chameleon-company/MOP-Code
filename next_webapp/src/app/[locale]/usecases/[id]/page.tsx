@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Link } from "@/i18n-navigation";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NotebookRenderer from "@/components/NotebookRenderer";
@@ -124,11 +125,15 @@ const UseCasePage: React.FC = () => {
           )}
 
           {useCase.cover_img && (
-            <img
-              src={useCase.cover_img}
-              alt={useCase.title}
-              className="mb-8 w-full rounded-2xl object-cover shadow-md"
-            />
+            <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-md">
+              <Image
+                src={useCase.cover_img}
+                alt={useCase.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 1024px"
+                className="object-cover"
+              />
+            </div>
           )}
 
           {useCase.content_file_id ? (
@@ -167,7 +172,7 @@ const UseCasePage: React.FC = () => {
           )}
 
           <Link
-            href="/en/usecases"
+            href="/usecases"
             className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
           >
             <ArrowLeft size={16} />

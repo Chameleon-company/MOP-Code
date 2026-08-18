@@ -1,6 +1,7 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
+import Image from "next/image";
 
 interface Blog {
   id: number;
@@ -52,11 +53,13 @@ const BlogPage: React.FC = () => {
               className="group block overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
             >
               {blog.cover_img && (
-                <div className="h-44 overflow-hidden">
-                  <img
+                <div className="relative h-44 overflow-hidden">
+                  <Image
                     src={blog.cover_img}
                     alt={blog.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
               )}

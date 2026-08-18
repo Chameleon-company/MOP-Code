@@ -14,7 +14,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors", "/api/usecases"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors", "/api/usecases", "/api/auth/session"];
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -168,7 +168,7 @@ export default async function middleware(request: NextRequest) {
     url: `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
     ip_address: ip,
     user_agent: userAgent,
-    user_id: userId ? parseInt(userId) : undefined,
+    user_id: userId || undefined,
     user_role: userRole,
   }));
 

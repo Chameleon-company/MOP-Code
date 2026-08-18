@@ -10,6 +10,7 @@ import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun, HiChevronDown } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const languages = [
 	{ name: "English", locale: "en" },
@@ -156,7 +157,7 @@ const Header = () => {
 
 	// Dropdown panel – solid card so text is always readable on any hero image
 	const dropdownPanel =
-		"absolute left-0 top-full mt-2 z-[100] w-52 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900";
+		"absolute start-0 top-full mt-2 z-[100] w-52 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900";
 
 	const dropdownItem = (active: boolean) =>
 		`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-all duration-150 ${
@@ -239,16 +240,19 @@ const Header = () => {
 							className="flex-shrink-0 flex items-center"
 							aria-label="Go to homepage"
 						>
-							<img
-								className="h-16 w-auto transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
+							<Image
+								className="h-16 w-16 transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
 								src="/img/new-logo-green.png"
 								alt="Logo"
+								width={64}
+								height={64}
+								priority={true}
 							/>
 						</Link>
 
 						{/* Desktop nav links */}
 						<nav
-							className="ml-8 hidden lg:flex lg:items-center gap-2"
+							className="ms-8 hidden lg:flex lg:items-center gap-2"
 							aria-label="Main navigation"
 						>
 							{visibleNavItems.map((item) =>
@@ -416,7 +420,7 @@ const Header = () => {
 										</button>
 
 										{openMobileDropdown === item.name && (
-											<div className="mt-1 ml-3 space-y-0.5 border-l-2 border-green-200 pl-3 dark:border-green-800/60">
+											<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 												{item.items.map((sub) => (
 													<Link
 														key={sub.name}
@@ -453,12 +457,12 @@ const Header = () => {
 									/>
 								</button>
 								{isLangOpen && (
-									<div className="mt-1 ml-3 space-y-0.5 border-l-2 border-green-200 pl-3 dark:border-green-800/60">
+									<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 										{languages.map((lang) => (
 											<button
 												key={lang.locale}
 												onClick={() => selectLanguage(lang.locale)}
-												className="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
+												className="block w-full text-start px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 											>
 												{lang.name}
 											</button>
@@ -471,7 +475,7 @@ const Header = () => {
 								<button
 									type="button"
 									onClick={openLogoutConfirm}
-									className="block w-full text-left text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 px-3 py-2 rounded-md text-base font-medium"
+									className="block w-full text-start text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 px-3 py-2 rounded-md text-base font-medium"
 								>
 									{t("Log Out")}
 								</button>

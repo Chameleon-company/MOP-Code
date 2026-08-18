@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useFormatter } from "next-intl";
 import {
   TrendingUp,
   TrendingDown,
@@ -35,6 +36,7 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
   metric,
   className = "",
 }) => {
+  const format = useFormatter();
   const isPositive = metric?.change >= 0;
 
   // Define colors based on category
@@ -135,7 +137,7 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
           )}
           <span className="text-sm font-medium">
             {isPositive ? "+" : ""}
-            {metric.change}%
+            {format.number(metric.change)}%
           </span>
         </div>
         <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
