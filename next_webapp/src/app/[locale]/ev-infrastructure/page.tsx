@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { fixLeafletIcon } from '@/library/fixLeafletIcon';
+import { Link } from '@/i18n-navigation';
 fixLeafletIcon();
 
 import { stations as allStations } from '../../../data/stations';
@@ -40,8 +41,8 @@ const EVInfrastructurePage = () => {
       <h1 className="text-2xl font-semibold mb-2.5 text-gray-600 dark:text-gray-300">EV Infrastructure</h1>
 
       <div className="bg-gray-100 dark:bg-gray-900 py-2.5 px-5 flex items-center justify-between mb-5">
-        <button
-          onClick={() => (window.location.href = "/")}
+        <Link
+          href="/"
           className="bg-green-600 hover:bg-green-700 text-white rounded-md px-3.5 py-2 text-base font-medium flex items-center gap-2 cursor-pointer transition-colors"
         >
           {/* Back arrow icon */}
@@ -49,7 +50,7 @@ const EVInfrastructurePage = () => {
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
           </svg>
           Back
-        </button>
+        </Link>
 
         {/* Right: Search Bar */}
         <div className="flex items-center">
