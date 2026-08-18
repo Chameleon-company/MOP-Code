@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link } from "@/i18n-navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { storage } from "@/utils/storage";
 
 function LoginForm() {
     const t = useTranslations("login");
@@ -50,9 +51,9 @@ function LoginForm() {
                 return;
             }
 
-            localStorage.setItem("userId", result.data.userId.toString());
-            localStorage.setItem("user", JSON.stringify(result.data));
-            localStorage.setItem("token", result.data.token);
+            storage.setItem("userId", result.data.userId.toString());
+            storage.setItem("user", JSON.stringify(result.data));
+            storage.setItem("token", result.data.token);
 
             if (result.data.roleId === 1) {
                 router.push(`/${locale}/admin/dashboard`);
@@ -70,7 +71,7 @@ function LoginForm() {
     return (
         <div
             className="min-h-screen flex items-center justify-center relative"
-            style={{ backgroundImage: "url('/img/mainImage.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+            style={{ backgroundImage: "url('/img/mainImage.webp')", backgroundSize: "cover", backgroundPosition: "center" }}
         >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 

@@ -12,7 +12,7 @@ interface UseCase {
 
 const BASE = path.join(
   process.cwd(),
-  "datascience",
+  "..",
   "usecases",
   "READY TO PUBLISH"
 );

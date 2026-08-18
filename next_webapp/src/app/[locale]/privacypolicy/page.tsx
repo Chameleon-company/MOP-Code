@@ -5,9 +5,10 @@ import Footer from "../../../components/Footer";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { HiMoon, HiSun } from "react-icons/hi2";
-import "../../../../public/styles/privacy.css";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { storage } from "@/utils/storage";
 
 const Privacypolicy: React.FC = () => {
   const t = useTranslations("privacypolicy");
@@ -25,7 +26,7 @@ const Privacypolicy: React.FC = () => {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
+    const stored = storage.getItem("theme");
     if (stored === "dark") setIsDarkMode(true);
   }, []);
 
@@ -33,10 +34,10 @@ const Privacypolicy: React.FC = () => {
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      storage.setItem("theme", "dark");
     } else {
       root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      storage.setItem("theme", "light");
     }
   }, [isDarkMode]);
 
@@ -119,7 +120,11 @@ const Privacypolicy: React.FC = () => {
                     className="w-full flex justify-between items-center font-bold px-4 py-3 rounded-sm transition bg-[#2ECC71] text-black hover:bg-[#2abb67] dark:bg-[#2ECC71] dark:hover:bg-[#2abb67]"
                   >
                     <span>{title}</span>
-                    <span>{openSections[key] ? "▲" : "▼"}</span>
+                    {openSections[key] ? (
+                      <ChevronUp className="h-5 w-5" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5" />
+                    )}
                   </button>
                   {openSections[key] && (
                     <div className="p-4 text-sm rounded-b-sm bg-green-200 text-black dark:bg-[#acecc7]">

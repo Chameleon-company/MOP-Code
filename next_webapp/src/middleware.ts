@@ -1,8 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales } from "./i18n";
-import logger from "./utils/logger";
-
 
 // next-intl middleware instance (handles locale detection + redirects)
 const intlMiddleware = createMiddleware({
@@ -16,8 +14,7 @@ const intlMiddleware = createMiddleware({
  * Page paths that require a valid JWT.
  * Matched against the path with any locale prefix stripped.
  */
-
-const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin"];
+const PROTECTED_PATHS = ["/dashboard", "/admin", "/upload", "/statistics", "/api/profile", "/api/categories", "/api/blogs", "/api/gallery", "/api/logs", "/api/admin", "/api/upload", "/api/contributors", "/api/usecases", "/api/auth/session"];
 /**
  * Paths that are always publicly accessible and skip every auth check.
  * Matched against the bare path (locale prefix stripped).
@@ -43,6 +40,35 @@ function getBarePath(pathname: string): string {
 function isProtectedPath(pathname: string): boolean {
   const bare = getBarePath(pathname);
   return PROTECTED_PATHS.some((p) => bare === p || bare.startsWith(`${p}/`));
+}
+
+/**
+ * GET requests on /api/contributors (list) or /api/contributors/:id (single)
+ * are public the display page reads them with no login. Only the write
+ * methods on this same path family require the JWT check below.
+ */
+function isPublicContributorsRead(pathname: string, method: string): boolean {
+  if (method !== "GET") return false;
+  const bare = getBarePath(pathname);
+  return bare === "/api/contributors" || /^\/api\/contributors\/[^/]+$/.test(bare);
+}
+
+/**
+ * GET requests on /api/usecases (list), /api/usecases/:id (single), or
+ * /api/usecases/:id/content (streamed notebook/HTML body) are public — the
+ * display page reads all three with no login. Only the write methods
+ * (POST/PUT/DELETE) on this same path family require the JWT check below.
+ * Same shape as isPublicContributorsRead, plus the extra nested /content
+ * segment contributors doesn't have.
+ */
+function isPublicUsecasesRead(pathname: string, method: string): boolean {
+  if (method !== "GET") return false;
+  const bare = getBarePath(pathname);
+  return (
+    bare === "/api/usecases" ||
+    /^\/api\/usecases\/[^/]+$/.test(bare) ||
+    /^\/api\/usecases\/[^/]+\/content$/.test(bare)
+  );
 }
 
 // Return true when the request should bypass auth entirely.
@@ -78,6 +104,13 @@ async function verifyJWT(
 
     const [headerB64, payloadB64, signatureB64] = parts;
 
+    // Reject any token whose header doesn't declare exactly HS256/JWT this
+    // blocks algorithm-confusion attacks (e.g. "alg": "none" or RS256 with a
+    // public key used as the HMAC secret).
+    const headerJson = new TextDecoder().decode(base64urlDecode(headerB64));
+    const header = JSON.parse(headerJson) as Record<string, unknown>;
+    if (header.alg !== "HS256" || header.typ !== "JWT") return null;
+
     // Import the HMAC-SHA256 secret key
     const keyData = new TextEncoder().encode(secret);
     const cryptoKey = await crypto.subtle.importKey(
@@ -94,7 +127,7 @@ async function verifyJWT(
     const isValid = await crypto.subtle.verify(
       "HMAC",
       cryptoKey,
-      signature,
+      signature as unknown as BufferSource,
       signingInput,
     );
     if (!isValid) return null;
@@ -127,15 +160,17 @@ export default async function middleware(request: NextRequest) {
   const userRole = request.headers.get('x-user-role');
 
   // Log incoming request
-  logger.info(`Request: ${method} ${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`, {
+  console.info(JSON.stringify({
+    level: 'info',
+    message: `Request: ${method} ${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
     source: 'middleware',
     method,
     url: `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`,
     ip_address: ip,
     user_agent: userAgent,
-    user_id: userId ? parseInt(userId) : undefined,
+    user_id: userId || undefined,
     user_role: userRole,
-  });
+  }));
 
   // 1. Always-public paths: skip auth and delegate locale routing to intl
   if (isPublicPath(pathname)) {
@@ -158,6 +193,18 @@ export default async function middleware(request: NextRequest) {
   //    layout guard (checks localStorage for token + role).
   if (!pathname.startsWith("/api/")) {
     return intlMiddleware(request);
+  }
+
+  // 3.5 Public reads within an otherwise-protected path family (contributors
+  //     GET) bypass the JWT check, no user headers get attached.
+  if (isPublicContributorsRead(pathname, method)) {
+    return NextResponse.next();
+  }
+
+  // 3.6 Same carve-out for usecases GET (list/single/content) — public read,
+  //     admin-only write.
+  if (isPublicUsecasesRead(pathname, method)) {
+    return NextResponse.next();
   }
 
   // 4. Protected API route: verify the JWT
@@ -212,27 +259,43 @@ export const config = {
     "/admin/:path*",
     "/upload/:path*",
     "/statistics/:path*",
-    
+
     // Protected API routes — profile
     "/api/profile",
     "/api/profile/:path*",
 
     // Protected API routes — category
-    "/api/categories",          
+    "/api/categories",
     "/api/categories/:path*",
 
     // Protected API routes — blogs
-    "/api/blogs",          
+    "/api/blogs",
     "/api/blogs/:path*",
 
     // Protected API routes — gallery
-    "/api/gallery",          
+    "/api/gallery",
     "/api/gallery/:path*",
     // Protected API routes — logs (admin only)
     "/api/logs",
 
+    // Protected API routes — admin
+    "/api/admin/:path*",
+
+    // Contributors GET is public (see isPublicContributorsRead), but the
+    // path still needs to be matched so POST/PUT/DELETE get JWT-verified.
+    "/api/contributors",
+    "/api/contributors/:path*",
+
+    // Usecases GET (list/single/content) is public (see
+    // isPublicUsecasesRead), but the path still needs to be matched so
+    // POST/PUT/DELETE get JWT-verified.
+    "/api/usecases",
+    "/api/usecases/:path*",
+
+    // Protected API routes — upload
+    "/api/upload",
+
     // Public auth API routes (handled by isPublicPath — pass straight through)
     "/api/auth/:path*",
   ],
-  runtime: 'nodejs',
 };

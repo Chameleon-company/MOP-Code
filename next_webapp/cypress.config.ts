@@ -1,19 +1,17 @@
-import { defineConfig } from "cypress";
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  allowCypressEnv: false,
+
   e2e: {
-    // Set the baseUrl to the running Next.js application
-    baseUrl: 'http://localhost:3000',  // Ensure your app runs here during testing
-    
-    // Optional: specify the pattern to look for test files
-    specPattern: 'cypress/integration/**/*.cy.{js,jsx,ts,tsx}',
-    
-    // Optional: set the viewport size
+    baseUrl: 'http://localhost:3000',
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    supportFile: 'cypress/support/e2e.ts',
     viewportWidth: 1280,
     viewportHeight: 720,
-    
+
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      return config;
     },
   },
 });

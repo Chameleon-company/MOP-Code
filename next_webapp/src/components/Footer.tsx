@@ -5,6 +5,7 @@ import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import Image from "next/image";
 
 const Footer = () => {
 	const t = useTranslations("common");
@@ -243,7 +244,7 @@ const Footer = () => {
         .quick-link::after {
           content: '';
           position: absolute;
-          left: 0;
+          inset-inline-start: 0;
           bottom: -1px;
           width: 0;
           height: 1px;
@@ -255,6 +256,10 @@ const Footer = () => {
           color: #ffffff;
           transform: translateX(5px);
           text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        [dir="rtl"] .quick-link:hover {
+          transform: translateX(-5px);
         }
 
         .quick-link:hover::after {
@@ -269,6 +274,11 @@ const Footer = () => {
 
         .quick-link:hover .arrow {
           opacity: 1;
+        }
+
+        [dir="rtl"] .quick-link .arrow {
+          display: inline-block;
+          transform: scaleX(-1);
         }
 
         .section-heading {
@@ -306,27 +316,27 @@ const Footer = () => {
             border-radius: 10px;
           }
           .footer-col-links.footer-tight-pad {
-            padding-left: 12px !important;
-            padding-right: 12px !important;
+            padding-inline-start: 12px !important;
+            padding-inline-end: 12px !important;
           }
           .footer-col-connect.footer-tight-pad {
-            padding-right: 12px !important;
+            padding-inline-end: 12px !important;
           }
         }
 
         /* Phone only: single column + centered; from md (tablet) up = same as desktop */
         @media (max-width: 767px) {
           .footer-col-links {
-            border-left: none !important;
-            border-right: none !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            border-inline-start: none !important;
+            border-inline-end: none !important;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
           .footer-col-connect {
-            border-right: none !important;
-            padding-right: 0 !important;
+            border-inline-end: none !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
@@ -432,10 +442,12 @@ const Footer = () => {
 								className="logo-card max-w-full shrink-0"
 								aria-label="Go to home page"
 							>
-								<img
+								<Image
 									src="/img/new-logo-white.png"
 									alt="Melbourne Open Playground logo"
-									className="relative z-[1] h-16 w-auto md:h-[64px] lg:h-[72px] xl:h-[79px]"
+									width={79}
+									height={79}
+									className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
 								/>
 								<span className="shimmer-sweep" aria-hidden="true" />
 							</Link>
@@ -446,7 +458,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-left md:text-[0.85rem] lg:text-[0.9rem]"
+								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
 							>
 								Exploring Melbourne&#39;s open data to build smarter
 								communities.
@@ -456,13 +468,13 @@ const Footer = () => {
 						<div
 							className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderLeft: "1px solid rgba(255,255,255,0.3)",
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingLeft: "28px",
-								paddingRight: "28px",
+								borderInlineStart: "1px solid rgba(255,255,255,0.3)",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineStart: "28px",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">
+							<p className="section-heading text-center md:text-start">
 								Quick Links
 							</p>
 							<div className="heading-bar" />
@@ -482,18 +494,18 @@ const Footer = () => {
 						<div
 							className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingRight: "28px",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">Connect</p>
+							<p className="section-heading text-center md:text-start">Connect</p>
 							<div className="heading-bar" />
 
 							<a
 								href="https://data.melbourne.vic.gov.au/pages/home/"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
+								className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
 								style={{
 									color: "rgba(255,255,255,0.92)",
 									textDecoration: "none",
@@ -520,7 +532,7 @@ const Footer = () => {
 
 							<div className="flex flex-col items-center md:items-start">
 								<p
-									className="text-center md:text-left"
+									className="text-center md:text-start"
 									style={{
 										fontSize: "0.78rem",
 										color: "rgba(255,255,255,0.85)",
@@ -559,7 +571,7 @@ const Footer = () => {
 						</div>
 
 						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-							<p className="section-heading text-center md:text-left">
+							<p className="section-heading text-center md:text-start">
 								Newsletter
 							</p>
 							<div className="heading-bar" />
@@ -570,7 +582,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-left md:text-[0.85rem] lg:text-[0.95rem]"
+								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
 							>
 								Get Melbourne open-data updates first.
 							</p>
