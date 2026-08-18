@@ -23,7 +23,15 @@ const languages = [
 	{ name: "Vietnamese (Tiếng Việt)", locale: "vi" },
 ] as const;
 
-const navItems = [
+type NavItem =
+	| { type: "link"; name: string; link: string }
+	| {
+			type: "dropdown";
+			name: string;
+			items: readonly { name: string; link: string }[];
+	  };
+
+const navItems: readonly NavItem[] = [
 	{ type: "link", name: "Home", link: "/" },
 	{ type: "link", name: "About Us", link: "/about" },
 	{ type: "link", name: "Profile", link: "/profile" },
@@ -50,14 +58,17 @@ const Header = () => {
 	const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 	const [isLangOpen, setIsLangOpen] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 	const { theme, toggleTheme } = useTheme();
 	const exploreRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
+		const userStr = localStorage.getItem("user");
 		if (!token) {
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 			return;
 		}
 		try {
@@ -72,14 +83,24 @@ const Header = () => {
 				localStorage.removeItem("user");
 				localStorage.removeItem("userId");
 				setIsLoggedIn(false);
+				setIsAdmin(false);
 			} else {
 				setIsLoggedIn(true);
+				if (userStr) {
+					try {
+						const userData = JSON.parse(userStr);
+						setIsAdmin(userData.roleId === 1);
+					} catch {
+						setIsAdmin(false);
+					}
+				}
 			}
 		} catch {
 			localStorage.removeItem("token");
 			localStorage.removeItem("user");
 			localStorage.removeItem("userId");
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 		}
 	}, []);
 
@@ -108,6 +129,7 @@ const Header = () => {
 		localStorage.removeItem("user");
 		localStorage.removeItem("userId");
 		setIsLoggedIn(false);
+		setIsAdmin(false);
 		setShowLogoutConfirm(false);
 		i18nRouter.push("/");
 	};
@@ -165,9 +187,12 @@ const Header = () => {
 				? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
 				: "text-gray-700 hover:bg-green-50 hover:text-green-700 dark:text-gray-200 dark:hover:bg-green-900/25 dark:hover:text-green-300"
 		}`;
-		const visibleNavItems = navItems.filter(
-	(item) => item.name !== "Profile" || isLoggedIn
-);
+	const visibleNavItems: NavItem[] = [
+		...navItems.filter((item) => item.name !== "Profile" || isLoggedIn),
+		...(isAdmin
+			? [{ type: "link" as const, name: "Admin Portal", link: "/admin/dashboard" }]
+			: []),
+	];
 
 	return (
 		<>
