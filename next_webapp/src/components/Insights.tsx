@@ -1,5 +1,6 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n-navigation";
 
 
@@ -73,11 +74,13 @@ const Insights: React.FC = () => {
                 href={`/categories/${cat.id}`}
                 className={`bg-gray-50 dark:bg-[#37474F] hover:bg-gray-100 dark:hover:bg-[#455A64] rounded-2xl shadow-md hover:shadow-2xl border-2 border-transparent ${style.border} transition-all duration-300 flex flex-col group hover:-translate-y-1`}
               >
-                <div className="overflow-hidden rounded-t-2xl">
-                  <img
+                <div className="relative h-44 overflow-hidden rounded-t-2xl">
+                  <Image
                     src={cat.cover_img || "/img/insights/eco.webp"}
                     alt={cat.category_name}
-                    className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 

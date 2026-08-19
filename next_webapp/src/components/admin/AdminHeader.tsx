@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Search, UserCircle2, Settings, LogOut } from "lucide-react";
+import { Bell, Search, UserCircle2, Settings, LogOut, Home } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -40,14 +40,16 @@ export default function AdminHeader() {
   return (
     <header className="flex h-[72px] w-full items-center justify-between border-b border-[#D9D9D9] bg-[#F1EFEF] px-3 sm:px-4 md:px-6">
       <div className="flex shrink-0 items-center">
-        <Image
-          src="/img/new-logo-green.png"
-          alt="Chameleon Logo"
-          width={60}
-          height={24}
-          className="object-contain sm:w-[72px] md:w-[90px]"
-          priority
-        />
+        <Link href={`/${locale}`} aria-label="Go to Homepage">
+          <Image
+            src="/img/new-logo-green.png"
+            alt="Chameleon Logo"
+            width={60}
+            height={24}
+            className="cursor-pointer object-contain transition-transform duration-200 hover:scale-105 sm:w-[72px] md:w-[90px]"
+            priority
+          />
+        </Link>
       </div>
 
       <div className="mx-2 flex w-full min-w-0 max-w-[160px] items-center rounded-lg border border-[#D9D9D9] bg-white px-3 py-2 sm:mx-4 sm:max-w-[260px] md:max-w-[420px]">
@@ -77,7 +79,16 @@ export default function AdminHeader() {
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-10 z-50 w-44 rounded-xl border border-[#E5E7EB] bg-white p-2 shadow-lg">
+            <div className="absolute right-0 top-10 z-50 w-48 space-y-1 rounded-xl border border-[#E5E7EB] bg-white p-2 shadow-lg">
+              <Link
+                href={`/${locale}`}
+                onClick={() => setProfileOpen(false)}
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[#1A1A1A] transition hover:bg-[#F3F4F6]"
+              >
+                <Home size={16} />
+                Back to Homepage
+              </Link>
+
               <Link
                 href={`/${locale}/admin/settings`}
                 onClick={() => setProfileOpen(false)}
@@ -87,14 +98,14 @@ export default function AdminHeader() {
                 Settings
               </Link>
 
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="flex h-10 w-full min-w-[96px] items-center justify-center gap-2 rounded-lg border border-green-600 bg-white px-4 text-sm font-medium text-green-600 transition-all duration-200 transform hover:scale-105 hover:bg-green-50 hover:text-green-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-            >
-              <LogOut size={16} />
-            Logout
-            </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex h-10 w-full min-w-[96px] items-center justify-center gap-2 rounded-lg border border-green-600 bg-white px-4 text-sm font-medium text-green-600 transition-all duration-200 transform hover:scale-105 hover:bg-green-50 hover:text-green-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
             </div>
           )}
         </div>

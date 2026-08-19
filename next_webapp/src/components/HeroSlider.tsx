@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef } from "react";
 export const HERO_SLIDES = [
-  { src: "/img/mainImage.png",    alt: "Melbourne city overview" },
+  { src: "/img/mainImage.webp",   alt: "Melbourne city overview" },
   { src: "/img/mel.jpg",          alt: "Melbourne aerial view" },
   { src: "/img/sliderimg1.jpg",   alt: "Melbourne cityscape" },
   { src: "/img/sliderimg2.jpg",   alt: "Melbourne Central" },
@@ -46,6 +46,11 @@ export default function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderP
       onTouchEnd={handleTouchEnd}
     >
       <AnimatePresence
+        // Keep the preloaded first slide fully visible on the server and at
+        // hydration. Fading it in delays its final paint and therefore LCP.
+        // Slides selected after the initial render still use the transition
+        // below.
+        initial={false}
         // "sync" = old image fades out while new one fades in (crossfade)
         mode="sync"
       >
@@ -65,8 +70,9 @@ export default function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderP
             alt={slide.alt}
             // fill = image stretches to cover parent; parent must be positioned
             fill
-            // Only the first slide gets a <link rel="preload"> for performance
-            priority={currentIndex === 0}
+            // Only the active slide is mounted. On first render this is the
+            // homepage LCP image, so Next.js emits its preload immediately.
+            priority={true}
             // Responsive sizes hint: tells Next.js the image is always full-width
             // so it picks the smallest adequate srcset on mobile devices
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, 100vw"
