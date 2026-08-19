@@ -150,6 +150,7 @@ const style = `
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
+  min-height: 8.4rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   text-shadow:
@@ -550,6 +551,7 @@ button.search-result-item:focus-visible {
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
+    min-height: 9rem;
   }
   .hero-subtitle {
     font-size: 1.2rem;
@@ -880,24 +882,14 @@ const Dashboard = () => {
 	const [homeCategories, setHomeCategories] = useState<any[]>([]);
 
 	// ── Hero slider state ────────────────────────────────────────────────────────
-	// currentSlide: index of the visible background image
-	// sliderTimerKey: incrementing this value resets the auto-advance interval,
-	//   which gives a better UX when the user manually picks a slide via a dot.
+	// currentSlide: index of the visible background image.
 	const [currentSlide, setCurrentSlide] = useState(0);
-	const [sliderTimerKey, setSliderTimerKey] = useState(0);
 
-	// Auto-advance background every 5 s; restarts whenever sliderTimerKey changes
-	useEffect(() => {
-		const timer = setInterval(() => {
-			setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-		}, 5000);
-		return () => clearInterval(timer);
-	}, [sliderTimerKey]);
-
-	// Jump to a specific slide and reset the auto-advance countdown
+	// Keep the initial, preloaded slide stable for first paint. A full-viewport
+	// auto-rotating image becomes a new LCP candidate every five seconds.
+	// Visitors can still select a slide with the dots or swipe controls.
 	const goToSlide = (index: number) => {
 		setCurrentSlide(index);
-		setSliderTimerKey((k) => k + 1);
 	};
 
 	// Convenience helpers used by swipe gestures (HeroSlider) and dots
@@ -1314,7 +1306,11 @@ const Dashboard = () => {
 {/* Our vision section */}
 					<section className="our-vision-section">
 						<div className="img-div">
-							<Image src={secondimage} alt="Second Image" />
+							<Image
+								src={secondimage}
+								alt="Second Image"
+								sizes="(max-width: 768px) 100vw, 460px"
+							/>
 						</div>
 						<div className="text-container">
 							<h2 className="our-vision">{t("Our Vision")}</h2>
@@ -1343,11 +1339,15 @@ const Dashboard = () => {
                     key={item.id}
                     className="bg-white dark:bg-[#2f4048] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition flex flex-col group overflow-hidden"
                   >
-                    <img
-                      src={item.cover_img || "/img/biotech.jpeg"}
-                      alt={item.title}
-                      className="w-full h-40 object-cover group-hover:scale-[1.02] transition-transform"
-                    />
+                    <div className="relative h-40 w-full overflow-hidden">
+                      <Image
+                        src={item.cover_img || "/img/biotech.jpeg"}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                        className="object-cover transition-transform group-hover:scale-[1.02]"
+                      />
+                    </div>
                     <div className="p-5 flex flex-col flex-grow">
                       <h3 className="text-lg font-semibold mb-2 text-left">
                         {item.title}

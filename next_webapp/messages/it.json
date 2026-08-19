@@ -20,6 +20,7 @@
     "Use Cases": "Casi d'uso",
     "Statistics": "Statistiche",
     "Upload": "Carica",
+    "Admin Portal": "Portale di amministrazione",
     "Log In": "Accedi",
     "Log Out": "Esci",
     "logout_confirm_title": "Uscire?",
@@ -78,8 +79,6 @@
     "Open Data Leadership": "Leadership dei dati aperti",
     "p3": "La Città di Melbourne è leader australiano nei dati aperti dal 2014. Recenti ricerche e il coinvolgimento degli utenti locali hanno identificato una lacuna in cui gli utenti vorrebbero saperne di più su come accedere ai dati aperti e su come ottenere informazioni dai dati per creare app e risolvere i problemi della città.",
     "Our Goals": "I nostri obiettivi",
-    "Our": "I nostri",
-    "Goals": "Obiettivi",
     "p4": "Questo progetto mira a fornire esempi di proof-of-concept su come possono essere effettuate le chiamate alle API Open Data.",
     "contributors": {
       "badge": "Collaboratori",
@@ -211,6 +210,9 @@
     "hero-sub": "Scopri come le nostre soluzioni innovative guidano il successo delle imprese in tutto il mondo grazie alla tecnologia all'avanguardia e al pensiero strategico",
     "place_holder": "Cerca casi di studio...",
     "exploreCaseStudies": "Esplora Casi di Studio",
-    "watchVideo": "Guarda il Video"
+    "watchVideo": "Guarda il Video",
+    "Clear": "Cancella",
+    "ClickOrDrag": "Fai clic o trascina il file per caricarlo",
+    "SupportedTypes": "Supportati: PDF, DOCX, PNG…"
   }
 }

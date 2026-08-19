@@ -215,6 +215,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -404,8 +405,8 @@ const CategoryUseCasesPage = () => {
                       href={`/${locale}/usecases/${item.id}`}
                       className="group flex h-full min-h-[390px] flex-col overflow-hidden rounded-3xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:bg-[#37474F]"
                     >
-                      <div className="h-52 w-full shrink-0 overflow-hidden bg-gray-200 dark:bg-[#455A64]">
-                        <img
+                      <div className="relative h-52 w-full shrink-0 overflow-hidden bg-gray-200 dark:bg-[#455A64]">
+                        <Image
                           src={
                             item.cover_img ||
                             item.cover_image ||
@@ -413,7 +414,9 @@ const CategoryUseCasesPage = () => {
                             "/img/insights/eco.webp"
                           }
                           alt={item.title || item.name || "Use case"}
-                          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition duration-300 group-hover:scale-105"
                         />
                       </div>
 

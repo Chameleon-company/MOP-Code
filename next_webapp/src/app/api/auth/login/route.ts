@@ -1,28 +1,28 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorResponse } from '@/app/api/library/errorResponse';
+import dbConnect from '@/lib/dbConnect';
+import User from '@/models/mongoose/User';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 export async function POST(request: Request) {
     try {
+        // what changed on sprint 2 T2 2026
+        await dbConnect();
+
         const { email, password } = await request.json();
 
         // 1. Validate input
         if (!email || !password) {
             return errorResponse('Email and password are required', 400, 'MISSING_FIELDS');
         }
-
+        const normalizeEmail = email.toLowerCase().trim();
         // 2. Find user by email
-        const { data: userData, error: userError } = await supabase
-            .from('user')
-            .select('*')
-            .eq('email', email)
-            .single();
+        const userData = await User.findOne({ email:normalizeEmail }).exec();
 
-        if (userError || !userData) {
+        if (!userData) {
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
@@ -36,33 +36,31 @@ export async function POST(request: Request) {
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
-        // 4. Fetch role details from roles table
-        const { data: roleData, error: roleError } = await supabase
-            .from('roles')
-            .select('*')
-            .eq('id', userData.role_id)
-            .single();
+        // 4. Fetch role details from embedded role object
+        const roleData = userData.role;
 
-        if (roleError || !roleData) {
+        if (!roleData) {
             return errorResponse('Could not fetch user role', 500, 'ROLE_FETCH_ERROR');
         }
 
-        // 5. Fetch user details from user_details table
-        const { data: userDetails, error: detailsError } = await supabase
-            .from('user_details')
-            .select('*')
-            .eq('user_id', userData.id)
-            .single();
+        // 5. Fetch user details from embedded profile object
+        const userDetails = userData.profile;
 
-        if (detailsError || !userDetails) {
+        if (!userDetails) {
             return errorResponse('Could not fetch user details', 500, 'DETAILS_FETCH_ERROR');
         }
 
+        const userId = String(userData._id);
+
+        const roleId = roleData.legacy_id
+            ? Number(roleData.legacy_id)
+            : null;
+
         // 6. Generate JWT token
         const tokenPayload = {
-            userId: userData.id,
+            userId: userId,
             email: userData.email,
-            roleId: userData.role_id,
+            roleId: roleId,
             roleName: roleData.role_name,
         };
 
@@ -74,11 +72,11 @@ export async function POST(request: Request) {
                 success: true,
                 message: 'Login successful',
                 data: {
-                    userId: userData.id,
+                    userId: userId,
                     email: userData.email,
                     firstName: userDetails.first_name,
                     lastName: userDetails.last_name,
-                    roleId: userData.role_id,
+                    roleId: roleId,
                     roleName: roleData.role_name,
                     token: token,
                 },

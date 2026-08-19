@@ -3,6 +3,7 @@ export type ContributorType = "Student" | "Mentor" | "Company Director";
 export type ContributorLevel = "Senior" | "Junior";
 
 export interface ContributorRecord {
+  id?: string;
   fullName: string;
   year: number;
   trimester: number;
