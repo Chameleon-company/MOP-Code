@@ -42,6 +42,7 @@ describe("accessibility compliance", () => {
 
     expect(screen.getByRole("heading", { level: 2, name: "Quick Links" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "Connect" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Follow us" })).toBeInTheDocument();
     expect(screen.getAllByRole("navigation", { name: "Footer" })).toHaveLength(2);
   });
 

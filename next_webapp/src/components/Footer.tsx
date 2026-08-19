@@ -523,7 +523,7 @@ const Footer = () => {
 								</a>
 
 								<div className="flex flex-col items-center md:items-start">
-									<p
+									<h3
 										className="text-center md:text-left"
 										style={{
 											fontSize: "0.78rem",
@@ -536,7 +536,7 @@ const Footer = () => {
 										}}
 									>
 										Follow us
-									</p>
+									</h3>
 
 									<div
 										className="justify-center md:justify-start"
