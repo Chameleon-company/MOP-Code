@@ -1,7 +1,6 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Link } from "@/i18n-navigation";
 
 
 const categoryStyles: Record<string, { badge: string; border: string }> = {
@@ -69,9 +68,8 @@ const Insights: React.FC = () => {
             };
 
             return (
-              <Link
+              <div
                 key={cat.id}
-                href={`/categories/${cat.id}`}
                 className={`bg-gray-50 dark:bg-[#37474F] hover:bg-gray-100 dark:hover:bg-[#455A64] rounded-2xl shadow-md hover:shadow-2xl border-2 border-transparent ${style.border} transition-all duration-300 flex flex-col group hover:-translate-y-1`}
               >
                 <div className="relative h-44 overflow-hidden rounded-t-2xl">
@@ -102,7 +100,7 @@ const Insights: React.FC = () => {
                     <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                   </span>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>
