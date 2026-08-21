@@ -94,11 +94,6 @@ const Insights: React.FC = () => {
                   <p className="text-gray-600 dark:text-gray-300 text-sm flex-grow leading-relaxed">
                     {cat.description || ""}
                   </p>
-
-                  <span className="mt-5 bg-green-500 group-hover:bg-green-600 group-hover:shadow-lg text-white py-2 px-4 rounded-xl text-sm font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2">
-                    View Details
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </span>
                 </div>
               </div>
             );
