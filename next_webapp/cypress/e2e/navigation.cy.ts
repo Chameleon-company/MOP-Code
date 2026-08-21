@@ -25,6 +25,7 @@ describe('Global Navigation', () => {
     HOME_STUBS();
     cy.viewport(1280, 720);
     cy.visit('/');
+    cy.wait(1000);
   });
 
   it('should navigate to the About Us page', () => {

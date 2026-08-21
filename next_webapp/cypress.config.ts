@@ -1,7 +1,6 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  allowCypressEnv: false,
 
   // API routes do NOT use the locale prefix
   env: {
