@@ -21,11 +21,12 @@ import './commands'
 
 // Ignore React hydration errors thrown by the app in dev mode and Minified React errors.
 Cypress.on('uncaught:exception', (err) => {
-  if (
-    /hydrat/i.test(err.message) ||
-    /Minified React error #418/.test(err.message) ||
-    /Minified React error #423/.test(err.message)
-  ) {
-    return false
-  }
+    if (
+        /Hydrat/i.test(err.message) ||
+        /hydrat/i.test(err.message) ||
+        /Minified React error #418/.test(err.message) ||
+        /Minified React error #423/.test(err.message)
+    ) {
+        return false
+    }
 })
