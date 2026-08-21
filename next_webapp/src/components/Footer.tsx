@@ -462,12 +462,18 @@ const Footer = () => {
 								paddingRight: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">
+							<h2
+								id="footer-quick-links-heading"
+								className="section-heading text-center md:text-left"
+							>
 								Quick Links
-							</p>
+							</h2>
 							<div className="heading-bar" />
 
-							<div className="flex w-full flex-col items-center gap-3 md:items-start">
+							<nav
+								aria-labelledby="footer-quick-links-heading"
+								className="flex w-full flex-col items-center gap-3 md:items-start"
+							>
 								{links.map((item) => (
 									<Link key={item.name} href={item.path} className="quick-link">
 										<span className="arrow" aria-hidden="true">
@@ -476,7 +482,7 @@ const Footer = () => {
 										{t(item.name)}
 									</Link>
 								))}
-							</div>
+							</nav>
 						</div>
 
 						<div
@@ -486,76 +492,83 @@ const Footer = () => {
 								paddingRight: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">Connect</p>
+							<h3
+								id="footer-connect-heading"
+								className="section-heading text-center md:text-left"
+							>
+								Connect
+							</h3>
 							<div className="heading-bar" />
 
-							<a
-								href="https://data.melbourne.vic.gov.au/pages/home/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
-								style={{
-									color: "rgba(255,255,255,0.92)",
-									textDecoration: "none",
-									transition: "color 0.2s ease, text-shadow 0.2s ease",
-									display: "flex",
-									alignItems: "center",
-									gap: "4px",
-									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-								}}
-								onMouseEnter={(e) => {
-									e.currentTarget.style.color = "#ffffff";
-									e.currentTarget.style.textShadow =
-										"0 0 12px rgba(255,255,255,0.6)";
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-									e.currentTarget.style.textShadow =
-										"0 1px 4px rgba(0,0,0,0.25)";
-								}}
-							>
-								Melbourne Open Data
-								<span style={{ fontSize: "0.8rem" }}>↗</span>
-							</a>
-
-							<div className="flex flex-col items-center md:items-start">
-								<p
-									className="text-center md:text-left"
+							<nav aria-labelledby="footer-connect-heading">
+								<a
+									href="https://data.melbourne.vic.gov.au/pages/home/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
 									style={{
-										fontSize: "0.78rem",
-										color: "rgba(255,255,255,0.85)",
-										marginBottom: "12px",
-										letterSpacing: "0.12em",
-										textTransform: "uppercase",
+										color: "rgba(255,255,255,0.92)",
+										textDecoration: "none",
+										transition: "color 0.2s ease, text-shadow 0.2s ease",
+										display: "flex",
+										alignItems: "center",
+										gap: "4px",
 										textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-										fontWeight: 600,
+									}}
+									onMouseEnter={(e) => {
+										e.currentTarget.style.color = "#ffffff";
+										e.currentTarget.style.textShadow =
+											"0 0 12px rgba(255,255,255,0.6)";
+									}}
+									onMouseLeave={(e) => {
+										e.currentTarget.style.color = "rgba(255,255,255,0.92)";
+										e.currentTarget.style.textShadow =
+											"0 1px 4px rgba(0,0,0,0.25)";
 									}}
 								>
-									Follow us
-								</p>
+									Melbourne Open Data
+									<span style={{ fontSize: "0.8rem" }}>↗</span>
+								</a>
 
-								<div
-									className="justify-center md:justify-start"
-									style={{ display: "flex", gap: "12px" }}
-								>
-									{socialIcons.map(({ Icon, label, path }) => (
-										<a
-											key={label}
-											href={path}
-											target="_blank"
-											rel="noopener noreferrer"
-											aria-label={label}
-											className="social-btn"
-										>
-											<Icon
-												size={18}
-												style={{ position: "relative", zIndex: 1 }}
-											/>
-											<span className="shimmer-sweep" aria-hidden="true" />
-										</a>
-									))}
+								<div className="flex flex-col items-center md:items-start">
+									<p
+										className="text-center md:text-left"
+										style={{
+											fontSize: "0.78rem",
+											color: "rgba(255,255,255,0.85)",
+											marginBottom: "12px",
+											letterSpacing: "0.12em",
+											textTransform: "uppercase",
+											textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+											fontWeight: 600,
+										}}
+									>
+										Follow us
+									</p>
+
+									<div
+										className="justify-center md:justify-start"
+										style={{ display: "flex", gap: "12px" }}
+									>
+										{socialIcons.map(({ Icon, label, path }) => (
+											<a
+												key={label}
+												href={path}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label={label}
+												className="social-btn"
+											>
+												<Icon
+													size={18}
+													style={{ position: "relative", zIndex: 1 }}
+												/>
+												<span className="shimmer-sweep" aria-hidden="true" />
+											</a>
+										))}
+									</div>
 								</div>
-							</div>
+							</nav>
 						</div>
 
 						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
