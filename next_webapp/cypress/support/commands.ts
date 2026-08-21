@@ -41,7 +41,9 @@
 // which includes /en.  This keeps API tests working without needing
 // to modify individual test files.
 Cypress.Commands.overwrite('request', (originalFn, ...args) => {
-    const apiBase = Cypress.env('apiBaseUrl');
+    // Derive apiBase from baseUrl to avoid cy.env() nesting errors and Cypress.env() security warnings
+    const baseUrl = Cypress.config('baseUrl');
+    const apiBase = typeof baseUrl === 'string' ? baseUrl.replace(/\/en$/, '') : 'http://localhost:3000';
     if (!apiBase) return originalFn(...args);
 
     // cy.request(url), cy.request(method, url), or cy.request(options)

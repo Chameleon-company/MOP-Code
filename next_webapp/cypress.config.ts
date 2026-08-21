@@ -7,6 +7,8 @@ export default defineConfig({
     apiBaseUrl: 'http://localhost:3000',
   },
 
+  allowCypressEnv: false,
+
   e2e: {
     // Add locale /en for default testing
     // Set the baseUrl to the running Next.js application
