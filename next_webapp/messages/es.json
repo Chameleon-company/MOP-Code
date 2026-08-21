@@ -20,6 +20,7 @@
     "Use Cases": "Casos de Uso",
     "Statistics": "Estadísticas",
     "Upload": "Subir",
+    "Admin Portal": "Portal de administración",
     "Log In": "Iniciar Sesión",
     "Log Out": "Cerrar sesión",
     "logout_confirm_title": "¿Cerrar sesión?",
@@ -77,8 +78,6 @@
     "p2": "Este proyecto está destinado a alinearse con dos documentos estratégicos del Consejo de la Ciudad de Melbourne: la Estrategia de Desarrollo Económico, que tiene como objetivo ser una ciudad digitalmente conectada. El Plan del Consejo 2021-2025, que describe el objetivo específico de entregar programas que construirán habilidades y capacidades de alfabetización.",
     "Open Data Leadership": "Liderazgo en Datos Abiertos",
     "p3": "La Ciudad de Melbourne ha sido líder en Datos Abiertos en Australia desde 2014. Investigaciones recientes y la participación de usuarios locales han identificado un vacío donde los usuarios desearían aprender más sobre cómo acceder a Datos Abiertos y cómo obtener insights de los datos para construir aplicaciones y resolver problemas de la ciudad.",
-    "Our": "Nuestros",
-    "Goals": "Objetivos",
     "Our Goals": "Nuestros Objetivos",
     "p4": "Este proyecto tiene como objetivo entregar ejemplos de prueba de concepto sobre cómo se pueden realizar llamadas a las APIs de Datos Abiertos.",
     "contributors": {
@@ -219,6 +218,9 @@
     "hero-sub": "Descubre cómo nuestras soluciones innovadoras impulsan el éxito de las empresas en todo el mundo a través de tecnología de vanguardia y pensamiento estratégico",
     "place_holder": "Buscar estudios de caso...",
     "exploreCaseStudies": "Explorar Estudios de Caso",
-    "watchVideo": "Ver Video"
+    "watchVideo": "Ver Video",
+    "Clear": "Limpiar",
+    "ClickOrDrag": "Haz clic o arrastra el archivo para subir",
+    "SupportedTypes": "Soportados: PDF, DOCX, PNG…"
   }
 }

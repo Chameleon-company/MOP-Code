@@ -11,6 +11,10 @@ npm-debug.log*
 # Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
 
+# IDE
+.vs/
+.vscode/
+
 # secrets / environment variables
 .env
 .env.*
