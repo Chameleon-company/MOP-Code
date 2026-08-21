@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, use } from "react";
 import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
+import { storage } from "@/utils/storage";
 
 type GalleryImage = {
   id: number;
@@ -13,7 +14,12 @@ type GalleryImage = {
 };
 
 function authHeaders(): Record<string, string> {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  let user: Record<string, any> = {};
+  try {
+    user = JSON.parse(storage.getItem("user") || "{}");
+  } catch {
+    user = {};
+  }
   const userId = user.userId ?? user.id ?? "";
   const roleId = user.roleId ?? user.role_id ?? "";
   const token = user.token ?? "";

@@ -244,7 +244,7 @@ const Footer = () => {
         .quick-link::after {
           content: '';
           position: absolute;
-          left: 0;
+          inset-inline-start: 0;
           bottom: -1px;
           width: 0;
           height: 1px;
@@ -256,6 +256,10 @@ const Footer = () => {
           color: #ffffff;
           transform: translateX(5px);
           text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        [dir="rtl"] .quick-link:hover {
+          transform: translateX(-5px);
         }
 
         .quick-link:hover::after {
@@ -270,6 +274,11 @@ const Footer = () => {
 
         .quick-link:hover .arrow {
           opacity: 1;
+        }
+
+        [dir="rtl"] .quick-link .arrow {
+          display: inline-block;
+          transform: scaleX(-1);
         }
 
         .section-heading {
@@ -307,27 +316,27 @@ const Footer = () => {
             border-radius: 10px;
           }
           .footer-col-links.footer-tight-pad {
-            padding-left: 12px !important;
-            padding-right: 12px !important;
+            padding-inline-start: 12px !important;
+            padding-inline-end: 12px !important;
           }
           .footer-col-connect.footer-tight-pad {
-            padding-right: 12px !important;
+            padding-inline-end: 12px !important;
           }
         }
 
         /* Phone only: single column + centered; from md (tablet) up = same as desktop */
         @media (max-width: 767px) {
           .footer-col-links {
-            border-left: none !important;
-            border-right: none !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            border-inline-start: none !important;
+            border-inline-end: none !important;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
           .footer-col-connect {
-            border-right: none !important;
-            padding-right: 0 !important;
+            border-inline-end: none !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
@@ -449,7 +458,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-left md:text-[0.85rem] lg:text-[0.9rem]"
+								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
 							>
 								Exploring Melbourne&#39;s open data to build smarter
 								communities.
@@ -459,18 +468,24 @@ const Footer = () => {
 						<div
 							className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderLeft: "1px solid rgba(255,255,255,0.3)",
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingLeft: "28px",
-								paddingRight: "28px",
+								borderInlineStart: "1px solid rgba(255,255,255,0.3)",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineStart: "28px",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">
+							<h2
+								id="footer-quick-links-heading"
+								className="section-heading text-center md:text-left"
+							>
 								Quick Links
-							</p>
+							</h2>
 							<div className="heading-bar" />
 
-							<div className="flex w-full flex-col items-center gap-3 md:items-start">
+							<nav
+								aria-labelledby="footer-quick-links-heading"
+								className="flex w-full flex-col items-center gap-3 md:items-start"
+							>
 								{links.map((item) => (
 									<Link key={item.name} href={item.path} className="quick-link">
 										<span className="arrow" aria-hidden="true">
@@ -479,90 +494,97 @@ const Footer = () => {
 										{t(item.name)}
 									</Link>
 								))}
-							</div>
+							</nav>
 						</div>
 
 						<div
 							className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingRight: "28px",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">Connect</p>
+							<h3
+								id="footer-connect-heading"
+								className="section-heading text-center md:text-left"
+							>
+								Connect
+							</h3>
 							<div className="heading-bar" />
 
-							<a
-								href="https://data.melbourne.vic.gov.au/pages/home/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
-								style={{
-									color: "rgba(255,255,255,0.92)",
-									textDecoration: "none",
-									transition: "color 0.2s ease, text-shadow 0.2s ease",
-									display: "flex",
-									alignItems: "center",
-									gap: "4px",
-									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-								}}
-								onMouseEnter={(e) => {
-									e.currentTarget.style.color = "#ffffff";
-									e.currentTarget.style.textShadow =
-										"0 0 12px rgba(255,255,255,0.6)";
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-									e.currentTarget.style.textShadow =
-										"0 1px 4px rgba(0,0,0,0.25)";
-								}}
-							>
-								Melbourne Open Data
-								<span style={{ fontSize: "0.8rem" }}>↗</span>
-							</a>
-
-							<div className="flex flex-col items-center md:items-start">
-								<p
-									className="text-center md:text-left"
+							<nav aria-labelledby="footer-connect-heading">
+								<a
+									href="https://data.melbourne.vic.gov.au/pages/home/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
 									style={{
-										fontSize: "0.78rem",
-										color: "rgba(255,255,255,0.85)",
-										marginBottom: "12px",
-										letterSpacing: "0.12em",
-										textTransform: "uppercase",
+										color: "rgba(255,255,255,0.92)",
+										textDecoration: "none",
+										transition: "color 0.2s ease, text-shadow 0.2s ease",
+										display: "flex",
+										alignItems: "center",
+										gap: "4px",
 										textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-										fontWeight: 600,
+									}}
+									onMouseEnter={(e) => {
+										e.currentTarget.style.color = "#ffffff";
+										e.currentTarget.style.textShadow =
+											"0 0 12px rgba(255,255,255,0.6)";
+									}}
+									onMouseLeave={(e) => {
+										e.currentTarget.style.color = "rgba(255,255,255,0.92)";
+										e.currentTarget.style.textShadow =
+											"0 1px 4px rgba(0,0,0,0.25)";
 									}}
 								>
-									Follow us
-								</p>
+									Melbourne Open Data
+									<span style={{ fontSize: "0.8rem" }}>↗</span>
+								</a>
 
-								<div
-									className="justify-center md:justify-start"
-									style={{ display: "flex", gap: "12px" }}
-								>
-									{socialIcons.map(({ Icon, label, path }) => (
-										<a
-											key={label}
-											href={path}
-											target="_blank"
-											rel="noopener noreferrer"
-											aria-label={label}
-											className="social-btn"
-										>
-											<Icon
-												size={18}
-												style={{ position: "relative", zIndex: 1 }}
-											/>
-											<span className="shimmer-sweep" aria-hidden="true" />
-										</a>
-									))}
+								<div className="flex flex-col items-center md:items-start">
+									<h3
+										className="text-center md:text-left"
+										style={{
+											fontSize: "0.78rem",
+											color: "rgba(255,255,255,0.85)",
+											marginBottom: "12px",
+											letterSpacing: "0.12em",
+											textTransform: "uppercase",
+											textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+											fontWeight: 600,
+										}}
+									>
+										Follow us
+									</h3>
+
+									<div
+										className="justify-center md:justify-start"
+										style={{ display: "flex", gap: "12px" }}
+									>
+										{socialIcons.map(({ Icon, label, path }) => (
+											<a
+												key={label}
+												href={path}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label={label}
+												className="social-btn"
+											>
+												<Icon
+													size={18}
+													style={{ position: "relative", zIndex: 1 }}
+												/>
+												<span className="shimmer-sweep" aria-hidden="true" />
+											</a>
+										))}
+									</div>
 								</div>
-							</div>
+							</nav>
 						</div>
 
 						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-							<p className="section-heading text-center md:text-left">
+							<p className="section-heading text-center md:text-start">
 								Newsletter
 							</p>
 							<div className="heading-bar" />
@@ -573,7 +595,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-left md:text-[0.85rem] lg:text-[0.95rem]"
+								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
 							>
 								Get Melbourne open-data updates first.
 							</p>
