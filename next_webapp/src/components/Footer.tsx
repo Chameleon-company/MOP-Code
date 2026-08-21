@@ -474,13 +474,16 @@ const Footer = () => {
 								paddingInlineEnd: "28px",
 							}}
 						>
-							<h2 className="section-heading text-center md:text-left">
+							<h2
+								id="footer-quick-links-heading"
+								className="section-heading text-center md:text-left"
+							>
 								Quick Links
 							</h2>
 							<div className="heading-bar" />
 
 							<nav
-								aria-label="Footer"
+								aria-labelledby="footer-quick-links-heading"
 								className="flex w-full flex-col items-center gap-3 md:items-start"
 							>
 								{links.map((item) => (
@@ -501,10 +504,15 @@ const Footer = () => {
 								paddingInlineEnd: "28px",
 							}}
 						>
-							<h3 className="section-heading text-center md:text-left">Connect</h3>
+							<h3
+								id="footer-connect-heading"
+								className="section-heading text-center md:text-left"
+							>
+								Connect
+							</h3>
 							<div className="heading-bar" />
 
-							<nav aria-label="Footer">
+							<nav aria-labelledby="footer-connect-heading">
 								<a
 									href="https://data.melbourne.vic.gov.au/pages/home/"
 									target="_blank"

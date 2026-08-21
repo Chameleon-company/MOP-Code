@@ -12,6 +12,7 @@ const mockRefresh = jest.fn();
 
 jest.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
+  useFormatter: () => ({ number: (value: number) => String(value) }),
 }));
 
 jest.mock("@/i18n-navigation", () => ({
@@ -43,7 +44,8 @@ describe("accessibility compliance", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Quick Links" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "Connect" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "Follow us" })).toBeInTheDocument();
-    expect(screen.getAllByRole("navigation", { name: "Footer" })).toHaveLength(2);
+    expect(screen.getByRole("navigation", { name: "Quick Links" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Connect" })).toBeInTheDocument();
   });
 
   it("hides CityMetricCard's decorative icons from assistive technology", () => {
