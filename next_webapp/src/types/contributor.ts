@@ -12,7 +12,7 @@ export interface ContributorRecord {
   name: string;
   year: number;
   trimester: 1 | 2 | 3;
-  contributorType: contributor_type;
+  contributor_type: contributor_type;
   team: TeamName | null;
   position: string | null;
   level: ContributorLevel | null;

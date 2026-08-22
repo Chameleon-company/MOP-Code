@@ -5,7 +5,7 @@ export interface Log {
     legacy_id: string | null;
     level: string;
     message: string;
-    timestamp: Date;
+    timestamp: string;
     meta: Record<string, unknown> | null;
     source: string | null;
     user_id: string | null;
