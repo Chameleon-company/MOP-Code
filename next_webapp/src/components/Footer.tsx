@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
@@ -8,142 +13,214 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 
 const Footer = () => {
-	const t = useTranslations("common");
-	const [newsletterEmail, setNewsletterEmail] = useState("");
-	const [newsletterError, setNewsletterError] = useState<string | null>(null);
-	const [showNewsletterToast, setShowNewsletterToast] = useState(false);
-	const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
+  const t = useTranslations("common");
 
-	const footerRef = useRef<HTMLElement>(null);
-	const animFrameRef = useRef<number | null>(null);
-	const targetParallax = useRef({ x: 0, y: 0 });
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterError, setNewsletterError] = useState<string | null>(
+    null
+  );
+  const [showNewsletterToast, setShowNewsletterToast] =
+    useState(false);
+  const [parallaxOffset, setParallaxOffset] = useState({
+    x: 0,
+    y: 0,
+  });
 
-	const handleMouseMove = useCallback((e: MouseEvent) => {
-		if (!footerRef.current) return;
+  const footerRef = useRef<HTMLElement>(null);
+  const animFrameRef = useRef<number | null>(null);
+  const targetParallax = useRef({ x: 0, y: 0 });
 
-		const rect = footerRef.current.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		const cx = (x / rect.width - 0.5) * 2;
-		const cy = (y / rect.height - 0.5) * 2;
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!footerRef.current) return;
 
-		targetParallax.current = { x: cx * 8, y: cy * 5 };
-	}, []);
+    const rect = footerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-	useEffect(() => {
-		const animate = () => {
-			setParallaxOffset((prev) => ({
-				x: prev.x + (targetParallax.current.x - prev.x) * 0.06,
-				y: prev.y + (targetParallax.current.y - prev.y) * 0.06,
-			}));
+    const cx = (x / rect.width - 0.5) * 2;
+    const cy = (y / rect.height - 0.5) * 2;
 
-			animFrameRef.current = requestAnimationFrame(animate);
-		};
+    targetParallax.current = {
+      x: cx * 8,
+      y: cy * 5,
+    };
+  }, []);
 
-		animFrameRef.current = requestAnimationFrame(animate);
+  useEffect(() => {
+    const animate = () => {
+      setParallaxOffset((prev) => ({
+        x:
+          prev.x +
+          (targetParallax.current.x - prev.x) * 0.06,
+        y:
+          prev.y +
+          (targetParallax.current.y - prev.y) * 0.06,
+      }));
 
-		return () => {
-			if (animFrameRef.current) {
-				cancelAnimationFrame(animFrameRef.current);
-			}
-		};
-	}, []);
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
 
-	useEffect(() => {
-		const el = footerRef.current;
-		if (!el) return;
+    animFrameRef.current = requestAnimationFrame(animate);
 
-		el.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, []);
 
-		return () => {
-			el.removeEventListener("mousemove", handleMouseMove);
-		};
-	}, [handleMouseMove]);
+  useEffect(() => {
+    const el = footerRef.current;
 
-	useEffect(() => {
-		if (!showNewsletterToast) return;
+    if (!el) return;
 
-		const id = window.setTimeout(() => {
-			setShowNewsletterToast(false);
-		}, 4000);
+    el.addEventListener("mousemove", handleMouseMove);
 
-		return () => {
-			window.clearTimeout(id);
-		};
-	}, [showNewsletterToast]);
+    return () => {
+      el.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [handleMouseMove]);
 
-	const isValidNewsletterEmail = (raw: string): boolean => {
-		const v = raw.trim();
+  useEffect(() => {
+    if (!showNewsletterToast) return;
 
-		if (v.length < 5) return false;
-		if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return false;
+    const id = window.setTimeout(() => {
+      setShowNewsletterToast(false);
+    }, 4000);
 
-		const [local, domain] = v.split("@");
+    return () => {
+      window.clearTimeout(id);
+    };
+  }, [showNewsletterToast]);
 
-		if (!local || !domain || /^\d+$/.test(local)) return false;
-		if (
-			domain.startsWith(".") ||
-			domain.endsWith(".") ||
-			domain.includes("..")
-		) {
-			return false;
-		}
+  const isValidNewsletterEmail = (raw: string): boolean => {
+    const v = raw.trim();
 
-		return true;
-	};
+    if (v.length < 5) return false;
 
-	const links = [
-		{ name: "Licensing", path: "/licensing" },
-		{ name: "Privacy Policy", path: "/privacypolicy" },
-		{ name: "Contact Us", path: "/contact" },
-	];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+      return false;
+    }
 
-	const socialIcons = [
-		{
-			Icon: FaFacebook,
-			label: "Facebook",
-			path: "https://www.facebook.com/cityofmelbourne/",
-		},
-		{
-			Icon: FaSquareXTwitter,
-			label: "Twitter/X",
-			path: "https://twitter.com/MelbourneOpenPlayground",
-		},
-		{
-			Icon: FaLinkedin,
-			label: "LinkedIn",
-			path: "https://www.linkedin.com/company/melbourne-open-playground",
-		},
-	];
+    const [local, domain] = v.split("@");
 
-	return (
-		<>
-			<style>{`
+    if (!local || !domain || /^\d+$/.test(local)) {
+      return false;
+    }
+
+    if (
+      domain.startsWith(".") ||
+      domain.endsWith(".") ||
+      domain.includes("..")
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const links = [
+    {
+      name: "Licensing",
+      path: "/licensing",
+    },
+    {
+      name: "Privacy Policy",
+      path: "/privacypolicy",
+    },
+    {
+      name: "Contact Us",
+      path: "/contact",
+    },
+  ];
+
+  const socialIcons = [
+    {
+      Icon: FaFacebook,
+      label: "Facebook",
+      path: "https://www.facebook.com/cityofmelbourne/",
+    },
+    {
+      Icon: FaSquareXTwitter,
+      label: "Twitter/X",
+      path: "https://twitter.com/MelbourneOpenPlayground",
+    },
+    {
+      Icon: FaLinkedin,
+      label: "LinkedIn",
+      path: "https://www.linkedin.com/company/melbourne-open-playground",
+    },
+  ];
+
+  return (
+    <>
+      <style>{`
         @keyframes gradientShift {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+          0% {
+            background-position: 0% 50%;
+          }
+
+          50% {
+            background-position: 100% 50%;
+          }
+
+          100% {
+            background-position: 0% 50%;
+          }
         }
 
         @keyframes bgShimmer {
-          0%   { transform: translateX(-100%) skewX(-15deg); }
-          100% { transform: translateX(200%) skewX(-15deg); }
+          0% {
+            transform: translateX(-100%) skewX(-15deg);
+          }
+
+          100% {
+            transform: translateX(200%) skewX(-15deg);
+          }
         }
 
         @keyframes shimmerSweep {
-          0%   { transform: translateX(-150%) skewX(-12deg); }
-          100% { transform: translateX(250%) skewX(-12deg); }
+          0% {
+            transform: translateX(-150%) skewX(-12deg);
+          }
+
+          100% {
+            transform: translateX(250%) skewX(-12deg);
+          }
         }
 
         @keyframes floatGlass {
-          0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.12; }
-          33%       { transform: translateY(-18px) translateX(8px) scale(1.03); opacity: 0.18; }
-          66%       { transform: translateY(-8px) translateX(-6px) scale(0.98); opacity: 0.10; }
+          0%,
+          100% {
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.12;
+          }
+
+          33% {
+            transform: translateY(-18px) translateX(8px)
+              scale(1.03);
+            opacity: 0.18;
+          }
+
+          66% {
+            transform: translateY(-8px) translateX(-6px)
+              scale(0.98);
+            opacity: 0.1;
+          }
         }
 
         @keyframes floatGlass2 {
-          0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.08; }
-          50%       { transform: translateY(14px) translateX(-10px) scale(1.05); opacity: 0.15; }
+          0%,
+          100% {
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.08;
+          }
+
+          50% {
+            transform: translateY(14px) translateX(-10px)
+              scale(1.05);
+            opacity: 0.15;
+          }
         }
 
         .social-btn {
@@ -155,32 +232,41 @@ const Footer = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.08);
+          background: rgba(255, 255, 255, 0.08);
           box-shadow:
-            4px 4px 10px rgba(0,0,0,0.35),
-            -2px -2px 6px rgba(255,255,255,0.12),
-            inset 0 1px 0 rgba(255,255,255,0.15);
-          border: 1px solid rgba(255,255,255,0.18);
-          transition: box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+            4px 4px 10px rgba(0, 0, 0, 0.35),
+            -2px -2px 6px rgba(255, 255, 255, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          transition:
+            box-shadow 0.25s ease,
+            background 0.25s ease,
+            color 0.25s ease,
+            transform 0.2s ease;
           cursor: pointer;
-          color: rgba(255,255,255,0.85);
+          color: rgba(255, 255, 255, 0.85);
           text-decoration: none;
         }
 
         .social-btn:hover {
-          background: rgba(255,255,255,0.95);
+          background: rgba(255, 255, 255, 0.95);
           color: #166534;
           transform: translateY(-2px) scale(1.04);
           box-shadow:
-            0 10px 24px rgba(0,0,0,0.35),
-            0 0 16px rgba(255,255,255,0.25),
-            inset 0 1px 0 rgba(255,255,255,1);
+            0 10px 24px rgba(0, 0, 0, 0.35),
+            0 0 16px rgba(255, 255, 255, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .social-btn .shimmer-sweep {
           position: absolute;
           inset: 0;
-          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 100%
+          );
           transform: translateX(-150%) skewX(-12deg);
           pointer-events: none;
         }
@@ -193,16 +279,18 @@ const Footer = () => {
           position: relative;
           overflow: hidden;
           display: inline-block;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.22);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.22);
           border-radius: 20px;
           padding: 18px 26px;
           box-shadow:
-            6px 6px 16px rgba(0,0,0,0.4),
-            -2px -2px 8px rgba(255,255,255,0.1),
-            inset 0 1px 0 rgba(255,255,255,0.2);
+            6px 6px 16px rgba(0, 0, 0, 0.4),
+            -2px -2px 8px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
           backdrop-filter: blur(12px);
-          transition: box-shadow 0.3s ease, transform 0.25s ease;
+          transition:
+            box-shadow 0.3s ease,
+            transform 0.25s ease;
           cursor: pointer;
           text-decoration: none;
         }
@@ -210,16 +298,21 @@ const Footer = () => {
         .logo-card:hover {
           transform: translateY(-3px) scale(1.01);
           box-shadow:
-            0 18px 34px rgba(0,0,0,0.4),
-            0 0 24px rgba(255,255,255,0.14),
-            -2px -2px 8px rgba(255,255,255,0.15),
-            inset 0 1px 0 rgba(255,255,255,0.3);
+            0 18px 34px rgba(0, 0, 0, 0.4),
+            0 0 24px rgba(255, 255, 255, 0.14),
+            -2px -2px 8px rgba(255, 255, 255, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .logo-card .shimmer-sweep {
           position: absolute;
           inset: 0;
-          background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+          background: linear-gradient(
+            105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 100%
+          );
           transform: translateX(-150%) skewX(-12deg);
           pointer-events: none;
         }
@@ -234,28 +327,30 @@ const Footer = () => {
           align-items: center;
           gap: 8px;
           font-size: 0.95rem;
-          color: rgba(255,255,255,0.92);
+          color: rgba(255, 255, 255, 0.92);
           text-decoration: none;
-          transition: color 0.2s ease, transform 0.2s ease;
+          transition:
+            color 0.2s ease,
+            transform 0.2s ease;
           padding: 2px 0;
-          text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .quick-link::after {
-          content: '';
+          content: "";
           position: absolute;
           inset-inline-start: 0;
           bottom: -1px;
           width: 0;
           height: 1px;
-          background: rgba(255,255,255,0.8);
+          background: rgba(255, 255, 255, 0.8);
           transition: width 0.3s ease;
         }
 
         .quick-link:hover {
           color: #ffffff;
           transform: translateX(5px);
-          text-shadow: 0 0 12px rgba(255,255,255,0.6);
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
         }
 
         [dir="rtl"] .quick-link:hover {
@@ -287,44 +382,51 @@ const Footer = () => {
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: #ffffff;
-          text-shadow: 0 0 16px rgba(255,255,255,0.5), 0 1px 4px rgba(0,0,0,0.3);
+          text-shadow:
+            0 0 16px rgba(255, 255, 255, 0.5),
+            0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .heading-bar {
           height: 3px;
           width: 40px;
           border-radius: 9999px;
-          background: rgba(255,255,255,0.9);
-          box-shadow: 0 0 8px rgba(255,255,255,0.7), 0 0 16px rgba(255,255,255,0.3);
+          background: rgba(255, 255, 255, 0.9);
+          box-shadow:
+            0 0 8px rgba(255, 255, 255, 0.7),
+            0 0 16px rgba(255, 255, 255, 0.3);
         }
 
-        /* Tablet / small laptop: shrink chrome so four columns fit without clipping */
         @media (min-width: 768px) and (max-width: 1279px) {
           .footer-main-grid .logo-card {
             padding: 12px 16px;
           }
+
           .footer-main-grid .section-heading {
             font-size: 0.72rem;
             letter-spacing: 0.14em;
           }
+
           .footer-main-grid .quick-link {
             font-size: 0.82rem;
           }
+
           .footer-main-grid .social-btn {
             width: 38px;
             height: 38px;
             border-radius: 10px;
           }
+
           .footer-col-links.footer-tight-pad {
             padding-inline-start: 12px !important;
             padding-inline-end: 12px !important;
           }
+
           .footer-col-connect.footer-tight-pad {
             padding-inline-end: 12px !important;
           }
         }
 
-        /* Phone only: single column + centered; from md (tablet) up = same as desktop */
         @media (max-width: 767px) {
           .footer-col-links {
             border-inline-start: none !important;
@@ -348,412 +450,485 @@ const Footer = () => {
         }
       `}</style>
 
-			<footer
-				ref={footerRef}
-				className="relative overflow-hidden text-white"
-				style={{ minHeight: "380px" }}
-				onMouseLeave={() => {
-					targetParallax.current = { x: 0, y: 0 };
-				}}
-			>
-				<div
-					className="absolute inset-0 z-10"
-					style={{
-						background:
-							"linear-gradient(135deg, #16a34a 0%, #22c55e 25%, #22c55e 50%, #22c55e 75%, #16a34a 100%)",
-						backgroundSize: "400% 400%",
-						animation: "gradientShift 12s ease infinite",
-					}}
-				/>
+      <footer
+        ref={footerRef}
+        className="relative overflow-hidden text-white"
+        style={{ minHeight: "380px" }}
+        onMouseLeave={() => {
+          targetParallax.current = {
+            x: 0,
+            y: 0,
+          };
+        }}
+      >
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(135deg, #16a34a 0%, #22c55e 25%, #22c55e 50%, #22c55e 75%, #16a34a 100%)",
+            backgroundSize: "400% 400%",
+            animation: "gradientShift 12s ease infinite",
+          }}
+        />
 
-				<div
-					className="pointer-events-none absolute inset-0 z-10"
-					style={{
-						background:
-							"linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)",
-						animation: "bgShimmer 6s ease-in-out infinite",
-					}}
-				/>
+        <div
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)",
+            animation: "bgShimmer 6s ease-in-out infinite",
+          }}
+        />
 
-				<div
-					className="pointer-events-none absolute z-10 rounded-full"
-					style={{
-						width: 340,
-						height: 340,
-						top: "-80px",
-						right: "5%",
-						background:
-							"radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 70%)",
-						animation: "floatGlass 9s ease-in-out infinite",
-					}}
-				/>
+        <div
+          className="pointer-events-none absolute z-10 rounded-full"
+          style={{
+            width: 340,
+            height: 340,
+            top: "-80px",
+            right: "5%",
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 70%)",
+            animation: "floatGlass 9s ease-in-out infinite",
+          }}
+        />
 
-				<div
-					className="pointer-events-none absolute z-10 rounded-full"
-					style={{
-						width: 220,
-						height: 220,
-						bottom: "-40px",
-						left: "8%",
-						background:
-							"radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%)",
-						animation: "floatGlass2 11s ease-in-out infinite",
-					}}
-				/>
+        <div
+          className="pointer-events-none absolute z-10 rounded-full"
+          style={{
+            width: 220,
+            height: 220,
+            bottom: "-40px",
+            left: "8%",
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%)",
+            animation:
+              "floatGlass2 11s ease-in-out infinite",
+          }}
+        />
 
-				<div
-					className="pointer-events-none absolute z-10"
-					style={{
-						width: 180,
-						height: 180,
-						top: "30%",
-						left: "40%",
-						borderRadius: "60% 40% 55% 45% / 50% 60% 40% 50%",
-						background: "rgba(255,255,255,0.05)",
-						backdropFilter: "blur(2px)",
-						animation: "floatGlass 14s ease-in-out infinite reverse",
-					}}
-				/>
+        <div
+          className="pointer-events-none absolute z-10"
+          style={{
+            width: 180,
+            height: 180,
+            top: "30%",
+            left: "40%",
+            borderRadius:
+              "60% 40% 55% 45% / 50% 60% 40% 50%",
+            background: "rgba(255,255,255,0.05)",
+            backdropFilter: "blur(2px)",
+            animation:
+              "floatGlass 14s ease-in-out infinite reverse",
+          }}
+        />
 
-				<div
-					className="pointer-events-none absolute top-0 z-20 w-full"
-					style={{
-						height: "3px",
-						background: "rgba(255,255,255,0.9)",
-						boxShadow:
-							"0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.4)",
-					}}
-				/>
+        <div
+          className="pointer-events-none absolute top-0 z-20 w-full"
+          style={{
+            height: "3px",
+            background: "rgba(255,255,255,0.9)",
+            boxShadow:
+              "0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.4)",
+          }}
+        />
 
-				<div
-					className="relative z-20 mx-auto min-w-0 max-w-full px-4 pb-6 pt-14 sm:px-6 md:px-6 lg:px-12 xl:px-20"
-					style={{
-						maxWidth: "1200px",
-						transform: `translateX(${parallaxOffset.x * 0.3}px) translateY(${
-							parallaxOffset.y * 0.3
-						}px)`,
-						transition: "transform 0.1s linear",
-					}}
-				>
-					<div className="footer-main-grid grid min-w-0 grid-cols-1 items-center gap-10 md:grid-cols-4 md:items-start md:gap-4 lg:gap-8 xl:gap-10">
-						<div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
-							<Link
-								href="/"
-								className="logo-card max-w-full shrink-0"
-								aria-label="Go to home page"
-							>
-								<Image
-									src="/img/new-logo-white.png"
-									alt="Melbourne Open Playground logo"
-									width={79}
-									height={79}
-									className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
-								/>
-								<span className="shimmer-sweep" aria-hidden="true" />
-							</Link>
+        <div
+          className="relative z-20 mx-auto min-w-0 max-w-full px-4 pb-6 pt-14 sm:px-6 md:px-6 lg:px-12 xl:px-20"
+          style={{
+            maxWidth: "1200px",
+            transform: `translateX(${
+              parallaxOffset.x * 0.3
+            }px) translateY(${
+              parallaxOffset.y * 0.3
+            }px)`,
+            transition: "transform 0.1s linear",
+          }}
+        >
+          <div className="footer-main-grid grid min-w-0 grid-cols-1 items-center gap-10 md:grid-cols-4 md:items-start md:gap-4 lg:gap-8 xl:gap-10">
+            {/* LOGO */}
+            <div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
+              <Link
+                href="/"
+                className="logo-card max-w-full shrink-0"
+                aria-label="Go to home page"
+              >
+                <Image
+                  src="/img/new-logo-white.png"
+                  alt="Melbourne Open Playground logo"
+                  width={79}
+                  height={79}
+                  className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
+                />
 
-							<p
-								style={{
-									color: "rgba(255,255,255,0.92)",
-									lineHeight: "1.7",
-									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-								}}
-								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
-							>
-								Exploring Melbourne&#39;s open data to build smarter
-								communities.
-							</p>
-						</div>
+                <span
+                  className="shimmer-sweep"
+                  aria-hidden="true"
+                />
+              </Link>
 
-						<div
-							className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
-							style={{
-								borderInlineStart: "1px solid rgba(255,255,255,0.3)",
-								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
-								paddingInlineStart: "28px",
-								paddingInlineEnd: "28px",
-							}}
-						>
-							<h2
-								id="footer-quick-links-heading"
-								className="section-heading text-center md:text-left"
-							>
-								Quick Links
-							</h2>
-							<div className="heading-bar" />
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.92)",
+                  lineHeight: "1.7",
+                  textShadow:
+                    "0 1px 4px rgba(0,0,0,0.25)",
+                }}
+                className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-left md:text-[0.85rem] lg:text-[0.9rem]"
+              >
+                {t("Footer intro")}
+              </p>
+            </div>
 
-							<nav
-								aria-labelledby="footer-quick-links-heading"
-								className="flex w-full flex-col items-center gap-3 md:items-start"
-							>
-								{links.map((item) => (
-									<Link key={item.name} href={item.path} className="quick-link">
-										<span className="arrow" aria-hidden="true">
-											›
-										</span>
-										{t(item.name)}
-									</Link>
-								))}
-							</nav>
-						</div>
+            {/* QUICK LINKS */}
+            <div
+              className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
+              style={{
+                borderLeft:
+                  "1px solid rgba(255,255,255,0.3)",
+                borderRight:
+                  "1px solid rgba(255,255,255,0.3)",
+                paddingLeft: "28px",
+                paddingRight: "28px",
+              }}
+            >
+              <p className="section-heading text-center md:text-left">
+                {t("Quick Links")}
+              </p>
 
-						<div
-							className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
-							style={{
-								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
-								paddingInlineEnd: "28px",
-							}}
-						>
-							<h3
-								id="footer-connect-heading"
-								className="section-heading text-center md:text-left"
-							>
-								Connect
-							</h3>
-							<div className="heading-bar" />
+              <div className="heading-bar" />
 
-							<nav aria-labelledby="footer-connect-heading">
-								<a
-									href="https://data.melbourne.vic.gov.au/pages/home/"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
-									style={{
-										color: "rgba(255,255,255,0.92)",
-										textDecoration: "none",
-										transition: "color 0.2s ease, text-shadow 0.2s ease",
-										display: "flex",
-										alignItems: "center",
-										gap: "4px",
-										textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-									}}
-									onMouseEnter={(e) => {
-										e.currentTarget.style.color = "#ffffff";
-										e.currentTarget.style.textShadow =
-											"0 0 12px rgba(255,255,255,0.6)";
-									}}
-									onMouseLeave={(e) => {
-										e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-										e.currentTarget.style.textShadow =
-											"0 1px 4px rgba(0,0,0,0.25)";
-									}}
-								>
-									Melbourne Open Data
-									<span style={{ fontSize: "0.8rem" }}>↗</span>
-								</a>
+              <div className="flex w-full flex-col items-center gap-3 md:items-start">
+                {links.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.path}
+                    className="quick-link"
+                  >
+                    <span
+                      className="arrow"
+                      aria-hidden="true"
+                    >
+                      ›
+                    </span>
 
-								<div className="flex flex-col items-center md:items-start">
-									<h3
-										className="text-center md:text-left"
-										style={{
-											fontSize: "0.78rem",
-											color: "rgba(255,255,255,0.85)",
-											marginBottom: "12px",
-											letterSpacing: "0.12em",
-											textTransform: "uppercase",
-											textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-											fontWeight: 600,
-										}}
-									>
-										Follow us
-									</h3>
+                    {t(item.name)}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-									<div
-										className="justify-center md:justify-start"
-										style={{ display: "flex", gap: "12px" }}
-									>
-										{socialIcons.map(({ Icon, label, path }) => (
-											<a
-												key={label}
-												href={path}
-												target="_blank"
-												rel="noopener noreferrer"
-												aria-label={label}
-												className="social-btn"
-											>
-												<Icon
-													size={18}
-													style={{ position: "relative", zIndex: 1 }}
-												/>
-												<span className="shimmer-sweep" aria-hidden="true" />
-											</a>
-										))}
-									</div>
-								</div>
-							</nav>
-						</div>
+            {/* CONNECT */}
+            <div
+              className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
+              style={{
+                borderRight:
+                  "1px solid rgba(255,255,255,0.3)",
+                paddingRight: "28px",
+              }}
+            >
+              <p className="section-heading text-center md:text-left">
+                {t("Connect")}
+              </p>
 
-						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-							<p className="section-heading text-center md:text-start">
-								Newsletter
-							</p>
-							<div className="heading-bar" />
+              <div className="heading-bar" />
 
-							<p
-								style={{
-									color: "rgba(255,255,255,0.92)",
-									lineHeight: "1.7",
-									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-								}}
-								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
-							>
-								Get Melbourne open-data updates first.
-							</p>
+              <a
+                href="https://data.melbourne.vic.gov.au/pages/home/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
+                style={{
+                  color: "rgba(255,255,255,0.92)",
+                  textDecoration: "none",
+                  transition:
+                    "color 0.2s ease, text-shadow 0.2s ease",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  textShadow:
+                    "0 1px 4px rgba(0,0,0,0.25)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color =
+                    "#ffffff";
+                  e.currentTarget.style.textShadow =
+                    "0 0 12px rgba(255,255,255,0.6)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color =
+                    "rgba(255,255,255,0.92)";
+                  e.currentTarget.style.textShadow =
+                    "0 1px 4px rgba(0,0,0,0.25)";
+                }}
+              >
+                Melbourne Open Data
+                <span style={{ fontSize: "0.8rem" }}>
+                  ↗
+                </span>
+              </a>
 
-							<div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
-								<form
-									className="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2 md:gap-1.5"
-									onSubmit={(e) => {
-										e.preventDefault();
+              <div className="flex flex-col items-center md:items-start">
+                <p
+                  className="text-center md:text-left"
+                  style={{
+                    fontSize: "0.78rem",
+                    color:
+                      "rgba(255,255,255,0.85)",
+                    marginBottom: "12px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    textShadow:
+                      "0 1px 4px rgba(0,0,0,0.25)",
+                    fontWeight: 600,
+                  }}
+                >
+                  {t("Follow us")}
+                </p>
 
-										const trimmed = newsletterEmail.trim();
+                <div
+                  className="justify-center md:justify-start"
+                  style={{
+                    display: "flex",
+                    gap: "12px",
+                  }}
+                >
+                  {socialIcons.map(
+                    ({ Icon, label, path }) => (
+                      <a
+                        key={label}
+                        href={path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="social-btn"
+                      >
+                        <Icon
+                          size={18}
+                          style={{
+                            position: "relative",
+                            zIndex: 1,
+                          }}
+                        />
 
-										if (!trimmed) {
-											setNewsletterError("Please enter your email address.");
-											return;
-										}
+                        <span
+                          className="shimmer-sweep"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
 
-										if (!isValidNewsletterEmail(trimmed)) {
-											setNewsletterError(
-												"Please enter a valid email address (e.g. morgan.lee@gmail.com).",
-											);
-											return;
-										}
+            {/* NEWSLETTER */}
+            <div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
+              <p className="section-heading text-center md:text-left">
+                {t("Newsletter")}
+              </p>
 
-										setNewsletterError(null);
-										setNewsletterEmail("");
-										setShowNewsletterToast(true);
-									}}
-									noValidate
-								>
-									<label htmlFor="footer-newsletter-email" className="sr-only">
-										Email for newsletter
-									</label>
+              <div className="heading-bar" />
 
-									<input
-										id="footer-newsletter-email"
-										name="email"
-										type="email"
-										inputMode="email"
-										autoComplete="email"
-										required
-										placeholder="Enter your email"
-										value={newsletterEmail}
-										onChange={(e) => {
-											setNewsletterEmail(e.target.value);
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.92)",
+                  lineHeight: "1.7",
+                  textShadow:
+                    "0 1px 4px rgba(0,0,0,0.25)",
+                }}
+                className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-left md:text-[0.85rem] lg:text-[0.95rem]"
+              >
+                {t("Newsletter description")}
+              </p>
 
-											if (newsletterError) {
-												setNewsletterError(null);
-											}
-										}}
-										aria-invalid={newsletterError ? true : undefined}
-										aria-describedby={
-											newsletterError ? "footer-newsletter-error" : undefined
-										}
-										className="newsletter-email-input min-w-0 w-full max-w-full flex-1 rounded-lg px-2 py-1.5 text-[0.85rem] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] outline-none transition placeholder:text-white placeholder:opacity-100 sm:px-2.5 md:px-1.5 md:py-1 md:text-[0.78rem] lg:px-2.5 lg:py-1.5 lg:text-[0.85rem]"
-										style={{
-											background: "rgba(255,255,255,0.1)",
-											border: newsletterError
-												? "1px solid rgba(252, 165, 165, 0.95)"
-												: "1px solid rgba(255,255,255,0.25)",
-										}}
-									/>
+              <div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
+                <form
+                  className="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2 md:gap-1.5"
+                  onSubmit={(e) => {
+                    e.preventDefault();
 
-									<button
-										type="submit"
-										className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[0.85rem] font-semibold transition hover:opacity-95 active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
-										onMouseEnter={(e) => {
-											e.currentTarget.style.background =
-												"rgba(255,255,255,0.92)";
-											e.currentTarget.style.color = "#166534";
-											e.currentTarget.style.border =
-												"1px solid rgba(255,255,255,0.7)";
-										}}
-										onMouseLeave={(e) => {
-											e.currentTarget.style.background =
-												"rgba(110, 231, 183, 0.24)";
-											e.currentTarget.style.color = "#f0fdf4";
-											e.currentTarget.style.border =
-												"1px solid rgba(167, 243, 208, 0.5)";
-										}}
-										style={{
-											background: "rgba(110, 231, 183, 0.24)",
-											color: "#f0fdf4",
-											border: "1px solid rgba(167, 243, 208, 0.5)",
-											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
-										}}
-									>
-										Submit
-									</button>
-								</form>
+                    const trimmed =
+                      newsletterEmail.trim();
 
-								{newsletterError ? (
-									<p
-										id="footer-newsletter-error"
-										role="alert"
-										className="px-0.5 text-red-100"
-										style={{
-											fontSize: "0.9rem",
-											textShadow: "0 1px 2px rgba(0,0,0,0.35)",
-										}}
-									>
-										{newsletterError}
-									</p>
-								) : null}
-							</div>
-						</div>
-					</div>
+                    if (!trimmed) {
+                      setNewsletterError(
+                        t("Newsletter required")
+                      );
+                      return;
+                    }
 
-					<div
-						className="footer-bottom"
-						style={{
-							marginTop: "24px",
-							paddingTop: "18px",
-							borderTop: "1px solid rgba(255,255,255,0.3)",
-							textAlign: "center",
-							fontSize: "0.75rem",
-							color: "rgba(255,255,255,0.75)",
-							letterSpacing: "0.05em",
-							textShadow: "0 1px 3px rgba(0,0,0,0.2)",
-						}}
-					>
-						© {new Date().getFullYear()} Melbourne Open Playground. All rights
-						reserved.
-					</div>
-				</div>
-			</footer>
+                    if (
+                      !isValidNewsletterEmail(
+                        trimmed
+                      )
+                    ) {
+                      setNewsletterError(
+                        t("Newsletter invalid")
+                      );
+                      return;
+                    }
 
-			{showNewsletterToast ? (
-				<div
-					className="fixed bottom-6 left-1/2 z-[200] flex max-w-[min(calc(100vw-2rem),420px)] -translate-x-1/2 items-center gap-3 rounded-2xl px-5 py-3.5 shadow-lg"
-					style={{
-						background: "rgba(22, 101, 52, 0.97)",
-						border: "1px solid rgba(255,255,255,0.35)",
-						boxShadow:
-							"0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08) inset",
-					}}
-					role="status"
-					aria-live="polite"
-				>
-					<span
-						className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold"
-						style={{
-							background: "rgba(255,255,255,0.2)",
-							color: "#fff",
-						}}
-						aria-hidden
-					>
-						✓
-					</span>
+                    setNewsletterError(null);
+                    setNewsletterEmail("");
+                    setShowNewsletterToast(true);
+                  }}
+                  noValidate
+                >
+                  <label
+                    htmlFor="footer-newsletter-email"
+                    className="sr-only"
+                  >
+                    {t("Email for newsletter")}
+                  </label>
 
-					<p className="text-sm font-medium leading-snug text-white">
-						You&apos;re in — we&apos;ll only email when there&apos;s something
-						worth your time.
-					</p>
-				</div>
-			) : null}
-		</>
-	);
+                  <input
+                    id="footer-newsletter-email"
+                    name="email"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    required
+                    placeholder={t(
+                      "Enter your email"
+                    )}
+                    value={newsletterEmail}
+                    onChange={(e) => {
+                      setNewsletterEmail(
+                        e.target.value
+                      );
+
+                      if (newsletterError) {
+                        setNewsletterError(null);
+                      }
+                    }}
+                    aria-invalid={
+                      newsletterError
+                        ? true
+                        : undefined
+                    }
+                    aria-describedby={
+                      newsletterError
+                        ? "footer-newsletter-error"
+                        : undefined
+                    }
+                    className="newsletter-email-input min-w-0 w-full max-w-full flex-1 rounded-lg px-2 py-1.5 text-[0.85rem] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] outline-none transition placeholder:text-white placeholder:opacity-100 sm:px-2.5 md:px-1.5 md:py-1 md:text-[0.78rem] lg:px-2.5 lg:py-1.5 lg:text-[0.85rem]"
+                    style={{
+                      background:
+                        "rgba(255,255,255,0.1)",
+                      border: newsletterError
+                        ? "1px solid rgba(252, 165, 165, 0.95)"
+                        : "1px solid rgba(255,255,255,0.25)",
+                    }}
+                  />
+
+                  <button
+                    type="submit"
+                    className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[0.85rem] font-semibold transition hover:opacity-95 active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.92)";
+                      e.currentTarget.style.color =
+                        "#166534";
+                      e.currentTarget.style.border =
+                        "1px solid rgba(255,255,255,0.7)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(110, 231, 183, 0.24)";
+                      e.currentTarget.style.color =
+                        "#f0fdf4";
+                      e.currentTarget.style.border =
+                        "1px solid rgba(167, 243, 208, 0.5)";
+                    }}
+                    style={{
+                      background:
+                        "rgba(110, 231, 183, 0.24)",
+                      color: "#f0fdf4",
+                      border:
+                        "1px solid rgba(167, 243, 208, 0.5)",
+                      boxShadow:
+                        "0 3px 10px rgba(0,0,0,0.18)",
+                    }}
+                  >
+                    {t("Submit")}
+                  </button>
+                </form>
+
+                {newsletterError ? (
+                  <p
+                    id="footer-newsletter-error"
+                    role="alert"
+                    className="px-0.5 text-red-100"
+                    style={{
+                      fontSize: "0.9rem",
+                      textShadow:
+                        "0 1px 2px rgba(0,0,0,0.35)",
+                    }}
+                  >
+                    {newsletterError}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          {/* COPYRIGHT */}
+          <div
+            className="footer-bottom"
+            style={{
+              marginTop: "24px",
+              paddingTop: "18px",
+              borderTop:
+                "1px solid rgba(255,255,255,0.3)",
+              textAlign: "center",
+              fontSize: "0.75rem",
+              color: "rgba(255,255,255,0.75)",
+              letterSpacing: "0.05em",
+              textShadow:
+                "0 1px 3px rgba(0,0,0,0.2)",
+            }}
+          >
+            © {new Date().getFullYear()}{" "}
+            {t("Copyright")}
+          </div>
+        </div>
+      </footer>
+
+      {/* NEWSLETTER SUCCESS */}
+      {showNewsletterToast ? (
+        <div
+          className="fixed bottom-6 left-1/2 z-[200] flex max-w-[min(calc(100vw-2rem),420px)] -translate-x-1/2 items-center gap-3 rounded-2xl px-5 py-3.5 shadow-lg"
+          style={{
+            background:
+              "rgba(22, 101, 52, 0.97)",
+            border:
+              "1px solid rgba(255,255,255,0.35)",
+            boxShadow:
+              "0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08) inset",
+          }}
+          role="status"
+          aria-live="polite"
+        >
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold"
+            style={{
+              background:
+                "rgba(255,255,255,0.2)",
+              color: "#fff",
+            }}
+            aria-hidden
+          >
+            ✓
+          </span>
+
+          <p className="text-sm font-medium leading-snug text-white">
+            {t("Newsletter success")}
+          </p>
+        </div>
+      ) : null}
+    </>
+  );
 };
 
 export default Footer;

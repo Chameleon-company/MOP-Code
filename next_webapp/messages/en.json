@@ -33,8 +33,7 @@
     "Chinese": "Chinese",
     "Spanish": "Spanish",
     "Greek": "Greek",
-    "Blogs":"Blogs",
-    "Profile":"Profile",
+    "Profile": "Profile",
     "Gallery": "Gallery",
     "gallery_subtitle": "Explore Melbourne through the lens of open data. From iconic landmarks and green spaces to sustainability initiatives and smart city innovations.",
     "showing_images": "Showing {count} images",
@@ -68,7 +67,25 @@
     "img_electric_vehicle_rollout_title": "Electric Vehicle Rollout",
     "img_education_open_data_title": "Education & Open Data",
     "img_social_wellbeing_indicators_title": "Social Wellbeing Indicators",
-    "img_biotechnology_research_title": "Biotechnology Research"
+    "img_biotechnology_research_title": "Biotechnology Research",
+    "Page": "Page",
+    "of": "of",
+    "Previous": "Previous",
+    "Next": "Next",
+    "Showing": "Showing",
+    "Footer intro": "Exploring Melbourne's open data to build smarter communities.",
+    "Quick Links": "Quick Links",
+    "Connect": "Connect",
+    "Follow us": "Follow us",
+    "Newsletter": "Newsletter",
+    "Newsletter description": "Get Melbourne open-data updates first.",
+    "Enter your email": "Enter your email",
+    "Submit": "Submit",
+    "Email for newsletter": "Email for newsletter",
+    "Newsletter required": "Please enter your email address.",
+    "Newsletter invalid": "Please enter a valid email address (e.g. morgan.lee@gmail.com).",
+    "Newsletter success": "You're in — we'll only email when there's something worth your time.",
+    "Copyright": "Melbourne Open Playground. All rights reserved."
   },
   "about": {
     "About Us": "About Us",
@@ -89,7 +106,29 @@
       "trimester": "Trimester {number}",
       "companyDirector": "Company Director: {name}",
       "mentoredBy": "Mentored by {names}"
-    }
+    },
+    "heroDescription": "The Melbourne Open Data Project (MOP) is a capstone initiative aligned with the City of Melbourne’s strategic vision. It transforms open data into actionable insights using AI, data science, and modern web technologies.",
+    "Project Overview": "Project Overview",
+    "projectOverviewDescription": "MOP enables businesses, researchers, and government agencies to explore real time urban data, AI driven insights, and visualisations. The platform supports smarter decision making across sustainability, transport, healthcare, and economic development.",
+    "Our Objectives": "Our Objectives",
+    "Data Accessibility": "Data Accessibility",
+    "dataAccessibilityDescription": "Make open data easy to access and understandable for all users.",
+    "Smart Insights": "Smart Insights",
+    "smartInsightsDescription": "Use AI and analytics to generate meaningful insights from complex datasets.",
+    "Urban Innovation": "Urban Innovation",
+    "urbanInnovationDescription": "Support smart city initiatives and improve urban living experiences.",
+    "Key Features": "Key Features",
+    "Real-time Data": "Real-time Data",
+    "realTimeDataDescription": "Live updates from urban datasets.",
+    "AI Analytics": "AI Analytics",
+    "aiAnalyticsDescription": "Predictive and intelligent insights.",
+    "Interactive UI": "Interactive UI",
+    "interactiveUIDescription": "User-friendly dashboards and visualisations.",
+    "Open APIs": "Open APIs",
+    "openAPIsDescription": "Seamless integration with public data sources.",
+    "Explore Our Platform": "Explore Our Platform",
+    "exploreDescription": "Discover how data driven solutions can transform industries and improve city life.",
+    "View Use Cases": "View Use Cases"
   },
   "privacypolicy": {
     "Privacy Policy": "Privacy Policy",
@@ -133,7 +172,20 @@
     "EV": "EV",
     "Security": "Security",
     "Search": "Search",
-    "Case study name or category": "Case study name or category"
+    "Case study name or category": "Case study name or category",
+    "Search by tag": "Search by tag",
+    "Melbourne Open Data": "Melbourne Open Data",
+    "Page description": "Explore real examples of how Melbourne open data can be used to understand communities, improve services, and support smarter city decisions.",
+    "No use cases available": "No use cases available at the moment.",
+    "Search use cases": "Search use cases",
+    "Reset": "Reset",
+    "View overview": "View overview",
+    "No use cases found": "No use cases found",
+    "No results description": "Try another keyword or search mode. You can also reset the filters to explore all available use cases again.",
+    "Case Study Gallery": "Case Study Gallery",
+    "Tiled showcase": "Tiled showcase of use cases",
+    "Showing use cases": "Showing {shown} of {total} use cases",
+    "Page of": "Page {page} of {totalPages}"
   },
   "licensing": {
     "Licensing": "Licensing",
@@ -213,17 +265,16 @@
     "Trimester 3": "Trimester 3",
     "Click on logo to upload files": "Click on logo to upload files",
     "Upload File": "Upload File",
-
     "Clear": "Clear"
   },
-"hero": {
-  "hero-top": "Exploring Melbourne Through Open Data",
-  "hero-sub": "Discover how our innovative solutions drive success for businesses worldwide through cutting-edge technology and strategic thinking",
-  "place_holder": "Search case studies...",
-  "exploreCaseStudies": "Explore Case Studies",
-  "watchVideo": "Watch Video",
-  "Clear": "Clear",
-  "ClickOrDrag": "Click or drag file to upload",
-  "SupportedTypes": "Supported: PDF, DOCX, PNG…"
-}
+  "hero": {
+    "hero-top": "Exploring Melbourne Through Open Data",
+    "hero-sub": "Discover how our innovative solutions drive success for businesses worldwide through cutting-edge technology and strategic thinking",
+    "place_holder": "Search case studies...",
+    "exploreCaseStudies": "Explore Case Studies",
+    "watchVideo": "Watch Video",
+    "Clear": "Clear",
+    "ClickOrDrag": "Click or drag file to upload",
+    "SupportedTypes": "Supported: PDF, DOCX, PNG…"
+  }
 }

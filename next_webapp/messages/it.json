@@ -67,7 +67,25 @@
     "img_electric_vehicle_rollout_title": "Implementazione dei Veicoli Elettrici",
     "img_education_open_data_title": "Istruzione e Dati Aperti",
     "img_social_wellbeing_indicators_title": "Indicatori di Benessere Sociale",
-    "img_biotechnology_research_title": "Ricerca in Biotecnologia"
+    "img_biotechnology_research_title": "Ricerca in Biotecnologia",
+    "Page": "Pagina",
+    "of": "di",
+    "Previous": "Precedente",
+    "Next": "Successiva",
+    "Showing": "Visualizzazione",
+    "Footer intro": "Esplorando i dati aperti di Melbourne per costruire comunità più intelligenti.",
+    "Quick Links": "Link Rapidi",
+    "Connect": "Collegati",
+    "Follow us": "Seguici",
+    "Newsletter": "Newsletter",
+    "Newsletter description": "Ricevi per primo gli aggiornamenti sui dati aperti di Melbourne.",
+    "Enter your email": "Inserisci la tua email",
+    "Submit": "Invia",
+    "Email for newsletter": "Email per la newsletter",
+    "Newsletter required": "Inserisci il tuo indirizzo email.",
+    "Newsletter invalid": "Inserisci un indirizzo email valido.",
+    "Newsletter success": "Iscrizione completata; ti scriveremo solo quando ci sarà qualcosa che vale il tuo tempo.",
+    "Copyright": "Melbourne Open Playground. Tutti i diritti riservati."
   },
   "about": {
     "About Us": "Chi siamo",
@@ -88,7 +106,29 @@
       "trimester": "Trimestre {number}",
       "companyDirector": "Direttore Aziendale: {name}",
       "mentoredBy": "Guidati da {names}"
-    }
+    },
+    "heroDescription": "Il Melbourne Open Data Project (MOP) è un'iniziativa finale allineata con la visione strategica della Città di Melbourne. Trasforma i dati aperti in informazioni utilizzabili tramite intelligenza artificiale, data science e moderne tecnologie web.",
+    "Project Overview": "Panoramica del Progetto",
+    "projectOverviewDescription": "MOP consente ad aziende, ricercatori ed enti governativi di esplorare dati urbani in tempo reale, analisi basate sull'intelligenza artificiale e visualizzazioni. La piattaforma supporta decisioni più intelligenti in sostenibilità, trasporti, sanità e sviluppo economico.",
+    "Our Objectives": "I Nostri Obiettivi",
+    "Data Accessibility": "Accessibilità dei Dati",
+    "dataAccessibilityDescription": "Rendere i dati aperti facili da accedere e comprendere per tutti gli utenti.",
+    "Smart Insights": "Analisi Intelligenti",
+    "smartInsightsDescription": "Utilizzare intelligenza artificiale e analisi per generare informazioni significative da dataset complessi.",
+    "Urban Innovation": "Innovazione Urbana",
+    "urbanInnovationDescription": "Supportare iniziative di città intelligenti e migliorare l'esperienza della vita urbana.",
+    "Key Features": "Funzionalità Principali",
+    "Real-time Data": "Dati in Tempo Reale",
+    "realTimeDataDescription": "Aggiornamenti in tempo reale dai dataset urbani.",
+    "AI Analytics": "Analisi AI",
+    "aiAnalyticsDescription": "Informazioni predittive e intelligenti.",
+    "Interactive UI": "Interfaccia Interattiva",
+    "interactiveUIDescription": "Dashboard e visualizzazioni intuitive.",
+    "Open APIs": "API Aperte",
+    "openAPIsDescription": "Integrazione semplice con fonti di dati pubblici.",
+    "Explore Our Platform": "Esplora la Nostra Piattaforma",
+    "exploreDescription": "Scopri come le soluzioni basate sui dati possono trasformare i settori e migliorare la vita urbana.",
+    "View Use Cases": "Visualizza Casi d'Uso"
   },
   "privacypolicy": {
     "Privacy Policy": "Informativa sulla privacy",
@@ -132,7 +172,20 @@
     "EV": "VE",
     "Security": "Sicurezza",
     "Search": "Cerca",
-    "Case study name or category": "Nome o categoria del caso di studio"
+    "Case study name or category": "Nome o categoria del caso di studio",
+    "Search by tag": "Cerca per tag",
+    "Melbourne Open Data": "Dati Aperti di Melbourne",
+    "Page description": "Esplora esempi reali di come i dati aperti di Melbourne possono essere utilizzati per comprendere le comunità, migliorare i servizi e supportare decisioni urbane più intelligenti.",
+    "No use cases available": "Al momento non sono disponibili casi d'uso.",
+    "Search use cases": "Cerca casi d'uso",
+    "Reset": "Reimposta",
+    "View overview": "Visualizza panoramica",
+    "No use cases found": "Nessun caso d'uso trovato",
+    "No results description": "Prova un'altra parola chiave o modalità di ricerca. Puoi anche reimpostare i filtri per esplorare nuovamente tutti i casi d'uso disponibili.",
+    "Case Study Gallery": "Galleria dei casi di studio",
+    "Tiled showcase": "Raccolta di casi d'uso",
+    "Showing use cases": "Visualizzati {shown} di {total} casi d'uso",
+    "Page of": "Pagina {page} di {totalPages}"
   },
   "licensing": {
     "Licensing": "Licenza",
@@ -188,7 +241,6 @@
     "Moderate": "Moderata",
     "Strong": "Forte"
   },
-
   "upload": {
     "Upload Case Studies": "Carica casi di studio",
     "Upload Details": "Dettagli di caricamento",
