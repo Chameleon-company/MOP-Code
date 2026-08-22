@@ -1,6 +1,6 @@
-// ./types/role.ts
+// ./types/tag.ts
 
-export interface Role {
+export interface Tag {
     _id: string;
     name: string;
     slug: string;

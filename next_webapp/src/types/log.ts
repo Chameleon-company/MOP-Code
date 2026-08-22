@@ -15,5 +15,5 @@ export interface Log {
     url: string | null;
     status_code: number | null;
     response_time: number | null;
-    created_at: Date;
+    created_at: string;
 }

@@ -24,6 +24,6 @@ export interface UseCase {
     category: CategoryRef | null;
     tags: TagRef[];
     created_by: string | null;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
 }
