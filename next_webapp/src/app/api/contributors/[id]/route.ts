@@ -73,14 +73,20 @@ export async function PUT(
       return errorResponse("Contributor not found", 404, "NOT_FOUND", request);
     }
 
+    const isStudent = body.contributor_type === "student";
+    const nameVal = typeof body.name === "string" ? body.name.trim() : body.name;
+    const teamVal = isStudent && typeof body.team === "string" && body.team.trim() ? body.team.trim() : null;
+    const positionVal = isStudent && typeof body.position === "string" && body.position.trim() ? body.position.trim() : null;
+    const levelVal = isStudent && typeof body.level === "string" && body.level.trim() ? body.level.trim() : null;
+
     existing.set({
-      name: body.name,
+      name: nameVal,
       year: body.year,
       trimester: body.trimester,
       contributor_type: body.contributor_type,
-      team: body.team ?? null,
-      position: body.position ?? null,
-      level: body.level ?? null,
+      team: teamVal,
+      position: positionVal,
+      level: levelVal,
       display_order: body.display_order ?? 0,
       is_active: body.is_active ?? true,
     });
