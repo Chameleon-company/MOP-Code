@@ -1,22 +1,34 @@
-FROM node:18
-
-# Set working directory inside container
+# --- Dependencies stage ---
+FROM node:20-alpine AS deps
 WORKDIR /app
-
-# Copy package.json and package-lock.json
 COPY package*.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
+# --- Build stage ---
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Build the Next.js app
 RUN npm run build
 
-# Expose the default Next.js port
-EXPOSE 3000
+# --- Runtime stage ---
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Start the production server
-CMD ["npm", "start"]
+ENV NODE_ENV=production
+
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs \
+  && adduser --system --uid 1001 nextjs
+
+# Copy only what's needed to run (requires next.config.mjs: output: 'standalone')
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+ENV PORT=3000
+
+CMD ["node", "server.js"]
