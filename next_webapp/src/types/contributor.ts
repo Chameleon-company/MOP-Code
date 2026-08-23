@@ -1,6 +1,6 @@
 // ./types/contributor.ts
 
-export type contributor_type = "student" | "mentor" | "company_director";
+export type ContributorType = "student" | "mentor" | "company_director";
 
 export type TeamName = 
 "Data Science Team" | "Website Development Team" | "Design Team" | "Cyber Security Team";
@@ -12,7 +12,7 @@ export interface ContributorRecord {
   name: string;
   year: number;
   trimester: 1 | 2 | 3;
-  contributor_type: contributor_type;
+  contributor_type: ContributorType;
   team: TeamName | null;
   position: string | null;
   level: ContributorLevel | null;
