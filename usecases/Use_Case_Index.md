@@ -8,6 +8,8 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 
+| UC00023_New_Business_Location | T2 2026 | Business and Economy | Steven Tuften | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00023_New_Business_Location.ipynb) |
+
 ### Ready To Publish 
 
 #### T1 2023
