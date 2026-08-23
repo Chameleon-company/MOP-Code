@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Link } from "@/i18n-navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -171,13 +171,26 @@ const UseCasePage: React.FC = () => {
             </div>
           )}
 
-          <Link
-            href="/usecases"
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            <ArrowLeft size={16} />
-            Back to use cases
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/usecases"
+              className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+            >
+              <ArrowLeft size={16} />
+              Back to use cases
+            </Link>
+
+            {useCase.content_file_id && (
+              <a
+                href={`/api/usecases/${id}/content`}
+                download={`${useCase.title}.ipynb`}
+                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              >
+                <Download size={16} />
+                Download .ipynb
+              </a>
+            )}
+          </div>
         </div>
       </main>
       <Footer />
