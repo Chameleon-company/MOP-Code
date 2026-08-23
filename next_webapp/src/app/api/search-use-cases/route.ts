@@ -5,11 +5,10 @@ import fs from "fs";
 import path from "path";
 
 export async function POST(request: Request) {
-  // Path to datascience/usecases/READY TO PUBLISH
+  // Path to usecases/READY TO PUBLISH
   const baseDir = path.join(
     process.cwd(),
     "..",
-    "datascience",
     "usecases",
     "READY TO PUBLISH"
   );
