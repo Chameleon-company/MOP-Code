@@ -11,6 +11,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
+| UC00109_Green_Wall_Locations_Melbourne | T2 2026 | Environmental Sustainability | Alison Collins | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00109_Green_Wall_Locations_Melbourne.ipynb) |
 
 ### Ready To Publish 
 
