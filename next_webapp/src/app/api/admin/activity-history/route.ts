@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+// import { supabase } from '@/library/supabaseClient';
+import { getSupabase } from '@/library/supabaseClient';
 import { getAuthUser } from '@/app/api/library/auth';
 export const dynamic = 'force-dynamic'; // to block the static cache of the supabase,because it is deprecated and will be removed in the future, so we need to force dynamic to avoid caching issues
 function formatActivity(method: string | null, url: string | null): string {
@@ -46,6 +47,7 @@ export async function GET(request: NextRequest) {
   if (!isAdmin) {
     return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
   }
+  const supabase = getSupabase();
 
   const url   = new URL(request.url);
   const sp    = url.searchParams;
