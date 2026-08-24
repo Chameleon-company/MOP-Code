@@ -1,45 +1,24 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from '@/lib/dbConnect';
+import UseCase from '@/models/mongoose/UseCase';
 import { errorResponse } from '@/app/api/library/errorResponse';
+import { toUseCaseDTO } from '@/app/api/library/useCaseDto';
 
 // GET /api/usecases/recent
-// Returns the 4 most recently uploaded use cases with their tags.
+// Returns the 4 most recently created use cases (Mongo-backed — tags are
+// embedded on the doc already, see TagRefSchema in UseCase.ts, so no join
+// lookup is needed here).
 // Public — no auth required (used on the home page).
 export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('usecases')
-      .select(`
-        id,
-        title,
-        description,
-        cover_img,
-        created_at,
-        usecase_tags (
-          tags (
-            id,
-            name,
-            slug
-          )
-        )
-      `)
-      .order('created_at', { ascending: false })
-      .limit(4);
+    await dbConnect();
 
-    if (error) {
-      console.error('[GET /api/usecases/recent] fetch error:', error);
-      return errorResponse('Failed to fetch recent use cases', 500, 'DB_FETCH_ERROR');
-    }
+    const docs = await UseCase.find({})
+      .sort({ created_at: -1 })
+      .limit(4)
+      .lean();
 
-    // Flatten usecase_tags → tags for a cleaner response shape
-    const usecases = (data ?? []).map(({ usecase_tags, ...rest }) => ({
-      ...rest,
-      tags: usecase_tags
-        .map((row: { tags: { id: number; name: string; slug: string } | null }) => row.tags)
-        .filter(Boolean),
-    }));
-
-    return NextResponse.json({ success: true, data: usecases });
+    return NextResponse.json({ success: true, data: docs.map(toUseCaseDTO) });
   } catch (error) {
     console.error('[GET /api/usecases/recent] unexpected error:', error);
     return errorResponse('Internal server error', 500, 'INTERNAL_ERROR');

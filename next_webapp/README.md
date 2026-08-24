@@ -4,10 +4,16 @@ This repository houses the code for MOP website.
 
 ## Getting Started
 
-1. Clone the reposioty.
-2. Install Packages: `npm install`
-3. Start the local server: `npm run dev`
-4. View the website: Open [http://localhost:3000] (http://localhost:3000) with your browser to see the result. You can also just click on the link provided in the terminal when starting the dev server.
+**Requires Node 18 or later** (matching the version pinned in `next_webapp/Dockerfile`).
+
+1. Clone the repository.
+2. `cd next_webapp`
+3. Install Packages: `npm install`
+4. Create a `.env` file in `next_webapp/` — the app will not run without it. Ask a team lead/mentor for the required values.
+5. Start the local server: `npm run dev`
+6. View the website: Open http://localhost:3000 with your browser to see the result. You can also just click on the link provided in the terminal when starting the dev server.
+
+> **Note:** `next_webapp/my-app/` is a leftover duplicate scaffold from an earlier setup, not the real app. Do not run commands from there — all of the above applies to `next_webapp/` itself.
 
 ## Architecture
 
@@ -38,6 +44,40 @@ Until we can get the mongodb database up and running we will be replacing it wit
 ![Schema](/markdownAssets/Schema.png)
 
 We will be using a noSQL database. The schema is just a represenation of how the database works. We will be creating collections based on trimester. Each document will hold the information stated as below with a link to the file stored in firebase storage.
+
+## Demo entries:
+\'\'\' json
+{
+    id: 1,
+    title: "Smart Parking System",
+    description:
+      "An AI-powered parking solution that helps users find available parking spots in real time using IoT sensors.",
+    tags: ["AI", "IoT", "Smart City"],
+    htmlFile: "/usecases/use-case-1.html",
+    category:  "Smart City",
+    image: "/usecases/parking.jpg",
+  },
+  {
+    id: 2,
+    title: "Intelligent Waste Management",
+    description:
+      "A smart waste collection system that optimizes garbage pickup routes using sensor data and analytics.",
+    tags: ["Sustainability", "IoT", "Analytics"],
+    htmlFile: "/usecases/use-case-2.html",
+    category: "Waste Management",
+    image: "/usecases/waste.jpg",
+  },
+  {
+    id: 3,
+    title: "Real-Time Traffic Monitoring",
+    description:
+      "A system that analyzes live traffic conditions and suggests optimal routes using machine learning.",
+    tags: ["Machine Learning", "Transport", "Real-Time"],
+    htmlFile: "/usecases/use-case-3.html",
+    category: "Traffic Development",
+    image: "/usecases/traffic.jpg",
+  }
+  \'\'\'
 
 ## Render Casestudies
 

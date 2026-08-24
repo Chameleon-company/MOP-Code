@@ -20,6 +20,7 @@
     "Use Cases": "Trường hợp sử dụng",
     "Statistics": "Thống kê",
     "Upload": "Tải lên",
+    "Admin Portal": "Cổng quản trị",
     "Log In": "Đăng nhập",
     "Log Out": "Đăng xuất",
     "logout_confirm_title": "Đăng xuất?",
@@ -78,9 +79,16 @@
     "Open Data Leadership": "Khả năng lãnh đạo dữ liệu mở",
     "p3": "Thành phố Melbourne đã là một nhà lãnh đạo của Úc về Dữ liệu Mở kể từ năm 2014. Nghiên cứu gần đây và sự tham gia của người dùng địa phương đã xác định một khoảng trống, nơi người dùng muốn tìm hiểu thêm về cách truy cập Dữ liệu Mở và cách thu thập thông tin chi tiết từ dữ liệu để xây dựng ứng dụng và giải quyết các vấn đề của thành phố.",
     "Our Goals": "Mục tiêu của chúng tôi",
-    "Our": "Của chúng tôi",
-    "Goals": "Mục tiêu",
-    "p4": "Dự án này nhằm mục đích cung cấp các ví dụ về bằng chứng về khái niệm về cách có thể thực hiện các cuộc gọi đến API Dữ liệu Mở."
+    "p4": "Dự án này nhằm mục đích cung cấp các ví dụ về bằng chứng về khái niệm về cách có thể thực hiện các cuộc gọi đến API Dữ liệu Mở.",
+    "contributors": {
+      "badge": "Người đóng góp",
+      "title": "Gặp gỡ Các Nhóm Đứng Sau MOP",
+      "subtitle": "Mỗi học kỳ, các nhóm sinh viên và người hướng dẫn đóng góp các tính năng mới và các trường hợp sử dụng cho nền tảng.",
+      "empty": "Hiện chưa có người đóng góp nào.",
+      "trimester": "Học kỳ {number}",
+      "companyDirector": "Giám đốc Công ty: {name}",
+      "mentoredBy": "Được hướng dẫn bởi {names}"
+    }
   },
   "privacypolicy": {
     "Privacy Policy": "Chính sách bảo mật",
@@ -201,6 +209,9 @@
     "hero-sub": "Khám phá cách các giải pháp sáng tạo của chúng tôi thúc đẩy thành công cho các doanh nghiệp trên toàn thế giới thông qua công nghệ tiên tiến và tư duy chiến lược",
     "place_holder": "Tìm kiếm các nghiên cứu điển hình...",
     "exploreCaseStudies": "Khám Phá Nghiên Cứu Điển Hình",
-    "watchVideo": "Xem Video"
+    "watchVideo": "Xem Video",
+    "Clear": "Xóa",
+    "ClickOrDrag": "Nhấp hoặc kéo tệp để tải lên",
+    "SupportedTypes": "Được hỗ trợ: PDF, DOCX, PNG…"
   }
 }

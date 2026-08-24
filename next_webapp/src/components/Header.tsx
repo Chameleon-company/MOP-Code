@@ -10,6 +10,7 @@ import LanguageDropdown from "./LanguageDropdown";
 import { HiMenu, HiX, HiMoon, HiSun, HiChevronDown } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const languages = [
 	{ name: "English", locale: "en" },
@@ -22,7 +23,15 @@ const languages = [
 	{ name: "Vietnamese (Tiếng Việt)", locale: "vi" },
 ] as const;
 
-const navItems = [
+type NavItem =
+	| { type: "link"; name: string; link: string }
+	| {
+			type: "dropdown";
+			name: string;
+			items: readonly { name: string; link: string }[];
+	  };
+
+const navItems: readonly NavItem[] = [
 	{ type: "link", name: "Home", link: "/" },
 	{ type: "link", name: "About Us", link: "/about" },
 	{ type: "link", name: "Profile", link: "/profile" },
@@ -49,14 +58,17 @@ const Header = () => {
 	const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 	const [isLangOpen, setIsLangOpen] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 	const { theme, toggleTheme } = useTheme();
 	const exploreRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
+		const userStr = localStorage.getItem("user");
 		if (!token) {
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 			return;
 		}
 		try {
@@ -71,14 +83,24 @@ const Header = () => {
 				localStorage.removeItem("user");
 				localStorage.removeItem("userId");
 				setIsLoggedIn(false);
+				setIsAdmin(false);
 			} else {
 				setIsLoggedIn(true);
+				if (userStr) {
+					try {
+						const userData = JSON.parse(userStr);
+						setIsAdmin(userData.roleId === 1);
+					} catch {
+						setIsAdmin(false);
+					}
+				}
 			}
 		} catch {
 			localStorage.removeItem("token");
 			localStorage.removeItem("user");
 			localStorage.removeItem("userId");
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 		}
 	}, []);
 
@@ -91,11 +113,23 @@ const Header = () => {
 		return () => document.removeEventListener("keydown", onKey);
 	}, [showLogoutConfirm]);
 
+	useEffect(() => {
+		if (!openDropdown) return;
+		const handleClickOutside = (event: MouseEvent) => {
+			if (exploreRef.current && !exploreRef.current.contains(event.target as Node)) {
+				setOpenDropdown(null);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, [openDropdown]);
+
 	const performLogout = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
 		localStorage.removeItem("userId");
 		setIsLoggedIn(false);
+		setIsAdmin(false);
 		setShowLogoutConfirm(false);
 		i18nRouter.push("/");
 	};
@@ -145,7 +179,7 @@ const Header = () => {
 
 	// Dropdown panel – solid card so text is always readable on any hero image
 	const dropdownPanel =
-		"absolute left-0 top-full mt-2 z-[100] w-52 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900";
+		"absolute start-0 top-full mt-2 z-[100] w-52 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900";
 
 	const dropdownItem = (active: boolean) =>
 		`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-all duration-150 ${
@@ -153,9 +187,12 @@ const Header = () => {
 				? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
 				: "text-gray-700 hover:bg-green-50 hover:text-green-700 dark:text-gray-200 dark:hover:bg-green-900/25 dark:hover:text-green-300"
 		}`;
-		const visibleNavItems = navItems.filter(
-	(item) => item.name !== "Profile" || isLoggedIn
-);
+	const visibleNavItems: NavItem[] = [
+		...navItems.filter((item) => item.name !== "Profile" || isLoggedIn),
+		...(isAdmin
+			? [{ type: "link" as const, name: "Admin Portal", link: "/admin/dashboard" }]
+			: []),
+	];
 
 	return (
 		<>
@@ -228,16 +265,19 @@ const Header = () => {
 							className="flex-shrink-0 flex items-center"
 							aria-label="Go to homepage"
 						>
-							<img
-								className="h-16 w-auto transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
+							<Image
+								className="h-16 w-16 transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
 								src="/img/new-logo-green.png"
 								alt="Logo"
+								width={64}
+								height={64}
+								priority={true}
 							/>
 						</Link>
 
 						{/* Desktop nav links */}
 						<nav
-							className="ml-8 hidden lg:flex lg:items-center gap-2"
+							className="ms-8 hidden lg:flex lg:items-center gap-2"
 							aria-label="Main navigation"
 						>
 							{visibleNavItems.map((item) =>
@@ -382,9 +422,7 @@ const Header = () => {
 												: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 										}`}
 									>
-										{item.name === "Home" || item.name === "About Us"
-											? t(item.name)
-											: item.name}
+										{t(item.name)}
 									</Link>
 								) : (
 									<div key={item.name}>
@@ -407,7 +445,7 @@ const Header = () => {
 										</button>
 
 										{openMobileDropdown === item.name && (
-											<div className="mt-1 ml-3 space-y-0.5 border-l-2 border-green-200 pl-3 dark:border-green-800/60">
+											<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 												{item.items.map((sub) => (
 													<Link
 														key={sub.name}
@@ -419,7 +457,7 @@ const Header = () => {
 																: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 														}`}
 													>
-														{sub.name}
+														{t(sub.name)}
 													</Link>
 												))}
 											</div>
@@ -444,12 +482,12 @@ const Header = () => {
 									/>
 								</button>
 								{isLangOpen && (
-									<div className="mt-1 ml-3 space-y-0.5 border-l-2 border-green-200 pl-3 dark:border-green-800/60">
+									<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 										{languages.map((lang) => (
 											<button
 												key={lang.locale}
 												onClick={() => selectLanguage(lang.locale)}
-												className="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
+												className="block w-full text-start px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 											>
 												{lang.name}
 											</button>
@@ -462,7 +500,7 @@ const Header = () => {
 								<button
 									type="button"
 									onClick={openLogoutConfirm}
-									className="block w-full text-left text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 px-3 py-2 rounded-md text-base font-medium"
+									className="block w-full text-start text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 px-3 py-2 rounded-md text-base font-medium"
 								>
 									{t("Log Out")}
 								</button>

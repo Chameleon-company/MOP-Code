@@ -346,7 +346,7 @@ const UseCases: React.FC = () => {
 
 export default function UseCasesPage() {
 	return (
-		<Suspense>
+		<Suspense fallback={null}>
 			<UseCases />
 		</Suspense>
 	);

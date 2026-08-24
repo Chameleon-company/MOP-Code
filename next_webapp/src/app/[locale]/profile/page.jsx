@@ -10,7 +10,6 @@ const Profile = () => {
   const router = useRouter();
   const params = useParams();
   const locale = params?.locale || "en";
-  const [darkMode, setDarkMode] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -27,11 +26,6 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [fetchingProfile, setFetchingProfile] = useState(true);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    darkMode ? root.classList.add("dark") : root.classList.remove("dark");
-  }, [darkMode]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

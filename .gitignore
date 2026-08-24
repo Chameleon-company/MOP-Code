@@ -1,0 +1,21 @@
+# misc
+**/.DS_Store
+Playground/.DS_Store
+datascience/.DS_Store
+
+# node / npm
+node_modules/
+*.log
+npm-debug.log*
+
+# Jupyter Notebook checkpoints
+**/.ipynb_checkpoints/
+
+# IDE
+.vs/
+.vscode/
+
+# secrets / environment variables
+.env
+.env.*
+.env.example
