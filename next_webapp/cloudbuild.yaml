@@ -1,7 +1,6 @@
 options:
-  # default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
   logging: GCS_ONLY
-  
+
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
@@ -26,6 +25,12 @@ steps:
       - '--region=australia-southeast1'
       - '--platform=managed'
       - '--allow-unauthenticated'
+      - '--port=3000'
+      - '--memory=512Mi'
+      - '--cpu=1'
+      - '--set-secrets=MONGODB_URI=mongodb-uri:latest'
+      # Add further --set-secrets or --set-env-vars entries as needed, e.g.:
+      # - '--set-env-vars=NEXT_PUBLIC_APP_URL=https://next-webapp-staging-XXXXX.australia-southeast1.run.app'
 
 images:
   - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
