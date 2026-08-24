@@ -15,6 +15,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00163_Parking_Availability_in_the_Melbourne_CBD | T2 2026 | Transport and Mobility | Stefan Cucos (updated: Aidan Page) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00163_Parking_Availability_in_the_Melbourne_CBD.ipynb) |
 | UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis | T2 2026 | Urban Planning and Development | Harsh Dwivedi (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis.ipynb) |
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
+| UC00109_Green_Wall_Locations_Melbourne | T2 2026 | Environmental Sustainability | Alison Collins | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00109_Green_Wall_Locations_Melbourne.ipynb) |
 
 ### Ready To Publish 
 
