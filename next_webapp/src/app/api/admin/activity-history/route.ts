@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/library/supabaseClient';
 import { getAuthUser } from '@/app/api/library/auth';
-
+export const dynamic = 'force-dynamic'; // to block the static cache of the supabase,because it is deprecated and will be removed in the future, so we need to force dynamic to avoid caching issues
 function formatActivity(method: string | null, url: string | null): string {
   if (!method || !url) return 'Unknown action';
   const path = url.split('?')[0];

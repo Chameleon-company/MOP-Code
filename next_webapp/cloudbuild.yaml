@@ -28,7 +28,9 @@ steps:
       - '--port=3000'
       - '--memory=512Mi'
       - '--cpu=1'
-      - '--set-secrets=MONGODB_URI=mongodb-uri:latest'
+      - '--set-secrets=MONGODB_URI=mongodb-uri:latest,JWT_SECRET=jwt-secret:latest,SMTP_PASSWORD=smtp-password:latest'
+      - '--set-env-vars=SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=mopchameleon@gmail.com,SMTP_FROM=mopchameleon@gmail.com,GCS_IMAGES_BUCKET=mop-images'
+      # the other stuff is int the secrets, so we don't need to set them here
 
 images:
   - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
