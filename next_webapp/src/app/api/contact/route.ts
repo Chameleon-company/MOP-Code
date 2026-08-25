@@ -12,21 +12,48 @@ const REQUIRED_SMTP_VARS = [
     'SMTP_FROM',
 ] as const;
 
-for (const varName of REQUIRED_SMTP_VARS) {
-    if (!process.env[varName]) {
-        throw new Error(`Missing required environment variable: ${varName}`);
+// for (const varName of REQUIRED_SMTP_VARS) {
+//     if (!process.env[varName]) {
+//         throw new Error(`Missing required environment variable: ${varName}`);
+//     }
+// }
+
+let _transporter: nodemailer.Transporter | null = null;
+
+function getTransporter(): nodemailer.Transporter {
+    // This code only runs when getTransporter() is CALLED,
+    // not when the file is merely imported/loaded. added because the env vars are not available 
+    // at import time in cloud run, but they are available at runtime.
+    if (_transporter) return _transporter;
+
+    for (const varName of REQUIRED_SMTP_VARS) {
+        if (!process.env[varName]) {
+            throw new Error(`Missing required environment variable: ${varName}`);
+        }
     }
+
+    _transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        secure: false, // STARTTLS on port 587
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASSWORD,
+        },
+    });
+ 
+    return _transporter;
 }
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: false, // STARTTLS on port 587
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-    },
-});
+// const transporter = nodemailer.createTransport({
+//     host: process.env.SMTP_HOST,
+//     port: Number(process.env.SMTP_PORT),
+//     secure: false, // STARTTLS on port 587
+//     auth: {
+//         user: process.env.SMTP_USER,
+//         pass: process.env.SMTP_PASSWORD,
+//     },
+// });
 
 export async function POST(request: Request) {
     try {
@@ -67,6 +94,7 @@ export async function POST(request: Request) {
             `Message:\n${message}`;
 
         try {
+            const transporter =  getTransporter(); // Ensure transporter is initialized and env vars are checked
             await transporter.sendMail({
                 from: process.env.SMTP_FROM,
                 to: CONTACT_RECIPIENT,
