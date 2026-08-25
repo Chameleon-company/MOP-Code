@@ -9,6 +9,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
 | UC00088_Pedestrian_Activity_Near_Bus_Stops | T2 2026 | Transport and Mobility | Shilpa Sharma (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00088_Pedestrian_Activity_Near_Bus_Stops.ipynb) |
+| UC00069_Melbourne_Tree_History | T2 2026 | Environmental Sustainability | Venuka Hirushan Wijenayake (updated: Soorya Ravi) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00069_Melbourne_Tree_History.ipynb) |
 
 ### Ready To Publish 
 
@@ -70,7 +71,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00066_Pedestrian_Prediction | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2024/T1/UC00066_Pedestrian_Prediction) | Transport and Mobility | `requests.get()` | Thomas Rostov |  |
 | UC00067_Public_Event_Planning | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Tourism_and_Hospitality/2024/T1/UC00067_Public_Event_Planning) | Tourism and Hospitality | `requests.get()` | Samiha Haque |  |
 | UC00068_Pedestrian_Accidents_and_Bus-stops | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Safety_and_Security/2024/T1/UC00068_Pedestrian_Accidents_and_Bus-stops) | Safety and Security | `requests.get()` | Alison Collins |  |
-| UC00069_Tree_History | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2024/T1/UC00069_Tree_History) | Environmental Sustainability | `requests.get()` | Venuka Hirushan Wijenayake |  |
 
 
 #### T2 2024
