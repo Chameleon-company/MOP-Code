@@ -476,7 +476,7 @@ const Footer = () => {
 						>
 							<h2
 								id="footer-quick-links-heading"
-								className="section-heading text-center md:text-left"
+								className="section-heading text-center md:text-start"
 							>
 								Quick Links
 							</h2>
@@ -504,12 +504,12 @@ const Footer = () => {
 								paddingInlineEnd: "28px",
 							}}
 						>
-							<h3
+							<h2
 								id="footer-connect-heading"
-								className="section-heading text-center md:text-left"
+								className="section-heading text-center md:text-start"
 							>
 								Connect
-							</h3>
+							</h2>
 							<div className="heading-bar" />
 
 							<nav aria-labelledby="footer-connect-heading">
@@ -517,7 +517,7 @@ const Footer = () => {
 									href="https://data.melbourne.vic.gov.au/pages/home/"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
+									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
 									style={{
 										color: "rgba(255,255,255,0.92)",
 										textDecoration: "none",
@@ -543,8 +543,8 @@ const Footer = () => {
 								</a>
 
 								<div className="flex flex-col items-center md:items-start">
-									<p
-										className="text-center md:text-left"
+									<h3
+										className="text-center md:text-start"
 										style={{
 											fontSize: "0.78rem",
 											color: "rgba(255,255,255,0.85)",
@@ -556,7 +556,7 @@ const Footer = () => {
 										}}
 									>
 										Follow us
-									</p>
+									</h3>
 
 									<div
 										className="justify-center md:justify-start"
@@ -584,9 +584,12 @@ const Footer = () => {
 						</div>
 
 						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-							<p className="section-heading text-center md:text-start">
+							<h2
+								id="footer-newsletter-heading"
+								className="section-heading text-center md:text-start"
+							>
 								Newsletter
-							</p>
+							</h2>
 							<div className="heading-bar" />
 
 							<p
