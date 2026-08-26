@@ -4,7 +4,7 @@ import {
     UpdateCategoryDTO,
     validateUpdateCategory,
     sanitizeCategoryInput,
-} from "@/models/Category";
+} from "@/types/category";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
 

@@ -4,13 +4,14 @@
 // 1. Base Category Model (DB Shape)
 // ==============================
 export interface Category {
-  id: number;
-  category_name: string | null;
+  _id: string;
+  legacy_id: string | null;
+  category_name: string;
   description: string | null;
   cover_img: string | null;
   created_at: string;
-  updated_at: string | null;
-  created_by: number | null;
+  updated_at: string;
+  created_by: string | null;
 }
 
 // ==============================
