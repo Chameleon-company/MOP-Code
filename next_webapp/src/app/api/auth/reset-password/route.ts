@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from '@/lib/dbConnect';
+import User from '@/models/mongoose/User';
 import bcrypt from 'bcryptjs';
 import { errorResponse } from '@/app/api/library/errorResponse';
 
@@ -14,34 +15,58 @@ export async function POST(request: Request) {
 
         // 2. Validate new_password matches confirm_password
         if (new_password !== confirm_password) {
-            return errorResponse('Passwords do not match', 400, 'PASSWORDS_DO_NOT_MATCH');
+            return errorResponse(
+                'Passwords do not match',
+                400,
+                'PASSWORDS_DO_NOT_MATCH',
+            );
         }
 
         // 3. Validate new_password length
         if (new_password.length < 8) {
-            return errorResponse('Password must be at least 8 characters', 400, 'PASSWORD_TOO_SHORT');
+            return errorResponse(
+                'Password must be at least 8 characters',
+                400,
+                'PASSWORD_TOO_SHORT',
+            );
         }
 
-        // 4. Look up user by email
-        const { data: userData, error: userError } = await supabase
-            .from('user')
-            .select('id, email, password')
-            .eq('email', email)
-            .single();
+        await dbConnect();
 
-        if (userError || !userData) {
-            return errorResponse('Invalid credentials', 401, 'INVALID_CREDENTIALS');
+        const normalizeEmail = email.toLowerCase().trim();
+
+        // 4. Look up user in MongoDB
+        const userData = await User.findOne({
+            email: normalizeEmail,
+        }).exec();
+
+        if (!userData) {
+            return errorResponse(
+                'Invalid credentials',
+                401,
+                'INVALID_CREDENTIALS',
+            );
         }
 
-        // 5. Verify temp_password against stored hash
-        const isTempPasswordValid = await bcrypt.compare(temp_password, userData.password);
+        // 5. Verify temporary password
+        const isTempPasswordValid = await bcrypt.compare(
+            temp_password,
+            userData.password,
+        );
 
         if (!isTempPasswordValid) {
-            return errorResponse('Invalid temporary password', 401, 'INVALID_TEMP_PASSWORD');
+            return errorResponse(
+                'Invalid temporary password',
+                401,
+                'INVALID_TEMP_PASSWORD',
+            );
         }
 
-        // 6. Ensure new_password is not identical to temp_password
-        const isSameAsTemp = await bcrypt.compare(new_password, userData.password);
+        // 6. Ensure new password is different from temporary password
+        const isSameAsTemp = await bcrypt.compare(
+            new_password,
+            userData.password,
+        );
 
         if (isSameAsTemp) {
             return errorResponse(
@@ -54,26 +79,24 @@ export async function POST(request: Request) {
         // 7. Hash new password
         const hashedPassword = await bcrypt.hash(new_password, 10);
 
-        // 8. Update user record with new hashed password
-        const { error: updateError } = await supabase
-            .from('user')
-            .update({
-                password: hashedPassword,
-                updated_at: new Date().toISOString(),
-            })
-            .eq('email', email);
-
-        if (updateError) {
-            throw updateError;
-        }
+        // 8. Update MongoDB user
+        userData.password = hashedPassword;
+        await userData.save();
 
         // 9. Return success
         return NextResponse.json(
-            { success: true, message: 'Password reset successfully' },
+            {
+                success: true,
+                message: 'Password reset successfully',
+            },
             { status: 200 },
         );
     } catch (error) {
         console.error('Reset Password Error:', error);
-        return errorResponse('Internal Server Error', 500, 'INTERNAL_ERROR');
+        return errorResponse(
+            'Internal Server Error',
+            500,
+            'INTERNAL_ERROR',
+        );
     }
 }
