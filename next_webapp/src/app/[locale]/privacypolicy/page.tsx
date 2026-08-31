@@ -3,8 +3,7 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { HiMoon, HiSun } from "react-icons/hi2";
+import { useEffect, useRef, useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -16,13 +15,11 @@ const Privacypolicy: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+  const policyContentRef = useRef<HTMLDivElement>(null);
 
   const toggleSection = (key: string) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
   };
 
   useEffect(() => {
@@ -66,30 +63,85 @@ const Privacypolicy: React.FC = () => {
     setOpenSections({});
   };
 
-  const downloadPDF = () => {
-    const input = document.querySelector(".policy-box");
-    if (!input) return;
+  const waitForLayout = () =>
+    new Promise<void>((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+    );
 
-    html2canvas(input as HTMLElement).then((canvas: HTMLCanvasElement) => {
+  const downloadPDF = async () => {
+    if (!policyContentRef.current || isGeneratingPDF) return;
+
+    const previousSearchTerm = searchTerm;
+    const previousOpenSections = openSections;
+
+    try {
+      setIsGeneratingPDF(true);
+      setSearchTerm("");
+      setOpenSections(
+        Object.fromEntries(sections.map(({ key }) => [key, true]))
+      );
+
+      await waitForLayout();
+      await document.fonts?.ready;
+
+      const input = policyContentRef.current;
+      if (!input) return;
+
+      const canvas = await html2canvas(input, {
+        backgroundColor: "#ffffff",
+        scale: Math.min(window.devicePixelRatio || 1, 2),
+        useCORS: true,
+        logging: false,
+        width: input.scrollWidth,
+        height: input.scrollHeight,
+        windowWidth: input.scrollWidth,
+        windowHeight: input.scrollHeight,
+        onclone: (clonedDocument) => {
+          clonedDocument.documentElement.classList.remove("dark");
+        },
+      });
+
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
-      const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const renderedHeight = (canvas.height * pdfWidth) / canvas.width;
+      let remainingHeight = renderedHeight;
+      let yPosition = 0;
+
+      pdf.addImage(imgData, "PNG", 0, yPosition, pdfWidth, renderedHeight);
+      remainingHeight -= pageHeight;
+
+      while (remainingHeight > 0) {
+        yPosition = remainingHeight - renderedHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, yPosition, pdfWidth, renderedHeight);
+        remainingHeight -= pageHeight;
+      }
+
       pdf.save("privacy-policy.pdf");
-    });
+    } finally {
+      setSearchTerm(previousSearchTerm);
+      setOpenSections(previousOpenSections);
+      setIsGeneratingPDF(false);
+    }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-black dark:text-white transition-colors duration-300">
       <Header />
 
-      <main className="flex-grow flex flex-col items-center font-montserrat relative pb-20 policy-box">
+      <main className="flex-grow flex flex-col items-center font-montserrat relative pb-20">
+        <div
+          ref={policyContentRef}
+          id="privacy-policy-content"
+          className="flex w-full flex-col items-center bg-white px-4 pb-4 text-gray-900"
+        >
         <h1 className="text-3xl font-bold mt-10 mb-6">{t("Privacy Policy")}</h1>
 
-        <div className="flex flex-col items-center gap-4 w-full max-w-4xl px-4">
+        <div className="flex flex-col items-center gap-4 w-full max-w-4xl">
           <input
+            data-html2canvas-ignore
             type="text"
             placeholder="Search sections..."
             value={searchTerm}
@@ -97,15 +149,19 @@ const Privacypolicy: React.FC = () => {
             className="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600"
           />
 
-          <div className="flex gap-4 flex-wrap justify-center">
-            <button onClick={expandAll} className="bg-green-600 text-white px-4 py-2 rounded">
+          <div data-html2canvas-ignore className="flex gap-3 flex-wrap justify-center">
+            <button onClick={expandAll} className="rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
               Expand All
             </button>
-            <button onClick={collapseAll} className="bg-green-600 text-white px-4 py-2 rounded">
+            <button onClick={collapseAll} className="rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
               Collapse All
             </button>
-            <button onClick={downloadPDF} className="bg-green-600 text-white px-4 py-2 rounded">
-              Download PDF
+            <button
+              onClick={downloadPDF}
+              disabled={isGeneratingPDF}
+              className="rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
+            >
+              {isGeneratingPDF ? "Generating PDF..." : "Download PDF"}
             </button>
           </div>
 
@@ -139,6 +195,7 @@ const Privacypolicy: React.FC = () => {
           <div className="flex items-center justify-center mt-10">
             <p className="text-center text-[14px] max-w-4xl">{t("p7")}</p>
           </div>
+        </div>
         </div>
       </main>
 
