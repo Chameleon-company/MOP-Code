@@ -135,7 +135,7 @@ const Privacypolicy: React.FC = () => {
         <div
           ref={policyContentRef}
           id="privacy-policy-content"
-          className="flex w-full flex-col items-center bg-white px-4 pb-4 text-gray-900"
+          className="flex w-full flex-col items-center bg-white px-4 pb-4 text-gray-900 dark:bg-black dark:text-white"
         >
         <h1 className="text-3xl font-bold mt-10 mb-6">{t("Privacy Policy")}</h1>
 

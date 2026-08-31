@@ -47,6 +47,14 @@ describe("Privacy Policy PDF export", () => {
     });
   });
 
+  it("respects dark mode on the policy content container", () => {
+    render(<PrivacyPolicy />);
+
+    const policyContent = document.getElementById("privacy-policy-content");
+
+    expect(policyContent).toHaveClass("dark:bg-black", "dark:text-white");
+  });
+
   it("expands every section and adds enough A4 pages for the complete canvas", async () => {
     render(<PrivacyPolicy />);
 
