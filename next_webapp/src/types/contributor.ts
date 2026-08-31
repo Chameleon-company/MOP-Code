@@ -1,15 +1,23 @@
-export type ContributorType = "Student" | "Mentor" | "Company Director";
+// ./types/contributor.ts
 
-export type ContributorLevel = "Senior" | "Junior";
+export type ContributorType = "student" | "mentor" | "company_director";
+
+export type TeamName = 
+"Data Science Team" | "Website Development Team" | "Design Team" | "Cyber Security Team";
+
+export type ContributorLevel = "Junior" | "Senior";
 
 export interface ContributorRecord {
-  fullName: string;
+  _id: string;
+  name: string;
   year: number;
-  trimester: number;
-  contributorType: ContributorType;
-  team?: string;
-  positionOrRole?: string;
-  level?: ContributorLevel;
-  displayOrder: number;
-  status: boolean;
+  trimester: 1 | 2 | 3;
+  contributor_type: ContributorType;
+  team: TeamName | null;
+  position: string | null;
+  level: ContributorLevel | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }

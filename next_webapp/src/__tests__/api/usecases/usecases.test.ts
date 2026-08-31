@@ -1,210 +1,320 @@
 /**
  * @jest-environment node
  *
- * Tests for GET /api/usecases — pagination behavior.
- * All Supabase calls are mocked — no real DB work happens here.
+ * Tests for GET /api/usecases pagination and tag filtering.
+ * MongoDB operations are mocked, so no real database work occurs.
  */
-
-// ─── Mocks ───────────────────────────────────────────────────────────────────
 
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: jest.fn().mockImplementation((body: unknown, init?: { status?: number }) => ({
-      status: init?.status ?? 200,
-      json: jest.fn().mockResolvedValue(body),
-      _body: body,
-    })),
+    json: jest.fn().mockImplementation(
+      (body: unknown, init?: { status?: number }) => ({
+        status: init?.status ?? 200,
+        json: jest.fn().mockResolvedValue(body),
+        _body: body,
+      }),
+    ),
   },
 }));
 
-jest.mock('@/library/supabaseClient', () => ({
-  supabase: { from: jest.fn() },
+jest.mock('@/lib/dbConnect', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock('@/models/mongoose/UseCase', () => ({
+  __esModule: true,
+  default: {
+    countDocuments: jest.fn(),
+    find: jest.fn(),
+  },
+}));
+
+jest.mock('@/app/api/library/useCaseDto', () => ({
+  toUseCaseDTO: jest.fn((document: unknown) => document),
 }));
 
 jest.mock('@/app/api/library/errorResponse', () => ({
-  errorResponse: jest.fn().mockImplementation((message: string, status: number, code?: string) => ({
-    status,
-    json: jest.fn().mockResolvedValue({ success: false, message, code }),
-    _body: { success: false, message, code },
-  })),
+  errorResponse: jest.fn().mockImplementation(
+    (message: string, status: number, code?: string) => ({
+      status,
+      json: jest.fn().mockResolvedValue({
+        success: false,
+        message,
+        code,
+      }),
+      _body: {
+        success: false,
+        message,
+        code,
+      },
+    }),
+  ),
 }));
 
-// ─── Imports ─────────────────────────────────────────────────────────────────
-
 import { GET } from '../../../app/api/usecases/route';
-import { supabase } from '@/library/supabaseClient';
-
-const jestExpect = globalThis.expect as unknown as jest.Expect;
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+import dbConnect from '@/lib/dbConnect';
+import UseCase from '@/models/mongoose/UseCase';
 
 function makeRequest(url: string) {
   return { url } as unknown as Request;
 }
 
-// Fluent chain: all methods return the chain; .range() and .single() resolve.
-// The chain itself is also directly awaitable via .then (for queries like .select().in()).
-function makeChain(result: { data: unknown; error: unknown; count?: number }) {
-  const chain: Record<string, any> = {};
-  chain.select = jest.fn().mockReturnValue(chain);
-  chain.or     = jest.fn().mockReturnValue(chain);
-  chain.eq     = jest.fn().mockReturnValue(chain);
-  chain.in     = jest.fn().mockReturnValue(chain);
-  chain.range  = jest.fn().mockResolvedValue(result);
-  chain.single = jest.fn().mockResolvedValue(result);
-  chain.then   = (resolve: any, reject: any) => Promise.resolve(result).then(resolve, reject);
-  chain.ilike  = jest.fn().mockReturnValue(chain);
-  chain.order  = jest.fn().mockReturnValue(chain);
+function setupMongoResult(documents: unknown[], total: number) {
+  const chain: any = {};
+
+  chain.sort = jest.fn().mockReturnValue(chain);
+  chain.skip = jest.fn().mockReturnValue(chain);
+  chain.limit = jest.fn().mockReturnValue(chain);
+  chain.lean = jest.fn().mockResolvedValue(documents);
+
+  (UseCase.countDocuments as jest.Mock).mockResolvedValue(total);
+  (UseCase.find as jest.Mock).mockReturnValue(chain);
+
   return chain;
 }
 
-// ─── Fixtures ────────────────────────────────────────────────────────────────
+const UC_1 = {
+  _id: '507f1f77bcf86cd799439011',
+  title: 'ML Basics',
+  description: 'Intro to ML',
+  tags: [{ name: 'Machine Learning', slug: 'ml' }],
+};
 
-const UC_1 = { id: 1, title: 'ML Basics',    description: 'Intro to ML',    category_id: 1 };
-const UC_2 = { id: 2, title: 'Deep Learning', description: 'Neural nets',    category_id: 3 };
-const UC_3 = { id: 3, title: 'Climate',       description: 'Weather models', category_id: 2 };
+const UC_2 = {
+  _id: '507f1f77bcf86cd799439012',
+  title: 'Deep Learning',
+  description: 'Neural networks',
+  tags: [{ name: 'Machine Learning', slug: 'ml' }],
+};
+
+const UC_3 = {
+  _id: '507f1f77bcf86cd799439013',
+  title: 'Climate',
+  description: 'Weather models',
+  tags: [{ name: 'Environment', slug: 'environment' }],
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
+  (dbConnect as jest.Mock).mockResolvedValue(undefined);
+  setupMongoResult([], 0);
 });
-
-// ─── Tests: GET /api/usecases - pagination ───────────────────────────────────
 
 describe('GET /api/usecases - pagination', () => {
+  test('uses page 1 and pageSize 10 by default', async () => {
+    const chain = setupMongoResult(
+      [UC_1, UC_2, UC_3],
+      3,
+    );
 
-  test('no params → defaults page=1 pageSize=10, calls range(0,9), returns metadata', async () => {
-    const chain = makeChain({ data: [UC_1, UC_2, UC_3], error: null, count: 3 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+    const response = await GET(
+      makeRequest('http://localhost/api/usecases'),
+    );
+    const body = await response.json();
 
-    const res = await GET(makeRequest('http://localhost/api/usecases'));
-    const body = await res.json();
+    expect(response.status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.count).toBe(3);
+    expect(body.pagination).toEqual({
+      page: 1,
+      pageSize: 10,
+      total: 3,
+      totalPages: 1,
+    });
 
-    jestExpect(res.status).toBe(200);
-    jestExpect(body.success).toBe(true);
-    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 3, totalPages: 1 });
-    jestExpect(chain.range).toHaveBeenCalledWith(0, 9);
+    expect(dbConnect).toHaveBeenCalledTimes(1);
+    expect(chain.sort).toHaveBeenCalledWith({
+      created_at: -1,
+    });
+    expect(chain.skip).toHaveBeenCalledWith(0);
+    expect(chain.limit).toHaveBeenCalledWith(10);
   });
 
-  test('page=2 pageSize=5 → calls range(5,9) and metadata reflects request', async () => {
-    const chain = makeChain({ data: [UC_3], error: null, count: 11 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+  test('applies page 2 and pageSize 5', async () => {
+    const chain = setupMongoResult([UC_3], 11);
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?page=2&pageSize=5'));
-    const body = await res.json();
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?page=2&pageSize=5',
+      ),
+    );
+    const body = await response.json();
 
-    jestExpect(body.pagination).toEqual({ page: 2, pageSize: 5, total: 11, totalPages: 3 });
-    jestExpect(chain.range).toHaveBeenCalledWith(5, 9);
+    expect(response.status).toBe(200);
+    expect(body.pagination).toEqual({
+      page: 2,
+      pageSize: 5,
+      total: 11,
+      totalPages: 3,
+    });
+
+    expect(chain.skip).toHaveBeenCalledWith(5);
+    expect(chain.limit).toHaveBeenCalledWith(5);
   });
 
-  test('totalPages rounds up (count=7, pageSize=3 → 3 pages)', async () => {
-    const chain = makeChain({ data: [UC_1, UC_2, UC_3], error: null, count: 7 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+  test('rounds totalPages up', async () => {
+    setupMongoResult([UC_1, UC_2, UC_3], 7);
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?pageSize=3'));
-    const body = await res.json();
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?pageSize=3',
+      ),
+    );
+    const body = await response.json();
 
-    jestExpect(body.pagination.totalPages).toBe(3);
+    expect(body.pagination.totalPages).toBe(3);
   });
 
-  test('invalid page param → returns 400 INVALID_PAGE', async () => {
-    const chain = makeChain({ data: [], error: null, count: 0 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+  test('invalid page returns 400 INVALID_PAGE', async () => {
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?page=abc',
+      ),
+    );
+    const body = await response.json();
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?page=abc'));
-    const body = await res.json();
-
-    jestExpect(res.status).toBe(400);
-    jestExpect(body.code).toBe('INVALID_PAGE');
-    jestExpect(chain.range).not.toHaveBeenCalled();
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_PAGE');
+    expect(dbConnect).not.toHaveBeenCalled();
+    expect(UseCase.find).not.toHaveBeenCalled();
   });
 
-  test('no results → total=0 totalPages=0', async () => {
-    const chain = makeChain({ data: [], error: null, count: 0 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+  test('invalid pageSize returns 400 INVALID_PAGE_SIZE', async () => {
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?pageSize=0',
+      ),
+    );
+    const body = await response.json();
 
-    const res = await GET(makeRequest('http://localhost/api/usecases'));
-    const body = await res.json();
-
-    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_PAGE_SIZE');
+    expect(dbConnect).not.toHaveBeenCalled();
+    expect(UseCase.find).not.toHaveBeenCalled();
   });
 
-  test('count field on response equals length of current page data', async () => {
-    const chain = makeChain({ data: [UC_1, UC_2], error: null, count: 50 });
-    (supabase.from as jest.Mock).mockReturnValue(chain);
+  test('pageSize above 100 returns 400', async () => {
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?pageSize=101',
+      ),
+    );
+    const body = await response.json();
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?pageSize=2'));
-    const body = await res.json();
-
-    jestExpect(body.count).toBe(2);
-    jestExpect(body.pagination.total).toBe(50);
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_PAGE_SIZE');
+    expect(dbConnect).not.toHaveBeenCalled();
   });
 
+  test('returns zero pagination values when no results exist', async () => {
+    setupMongoResult([], 0);
+
+    const response = await GET(
+      makeRequest('http://localhost/api/usecases'),
+    );
+    const body = await response.json();
+
+    expect(body.success).toBe(true);
+    expect(body.data).toEqual([]);
+    expect(body.count).toBe(0);
+    expect(body.pagination).toEqual({
+      page: 1,
+      pageSize: 10,
+      total: 0,
+      totalPages: 0,
+    });
+  });
+
+  test('count equals the number of documents on the current page', async () => {
+    setupMongoResult([UC_1, UC_2], 50);
+
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?pageSize=2',
+      ),
+    );
+    const body = await response.json();
+
+    expect(body.count).toBe(2);
+    expect(body.pagination.total).toBe(50);
+    expect(body.pagination.totalPages).toBe(25);
+  });
 });
 
-// ─── Tests: early-return paths include pagination metadata ────────────────────
+describe('GET /api/usecases - embedded tag filtering', () => {
+  test('filters directly by embedded tag slug', async () => {
+    setupMongoResult([UC_1, UC_2], 2);
 
-describe('GET /api/usecases - tag filter early returns', () => {
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?tag=ml&pageSize=5',
+      ),
+    );
+    const body = await response.json();
 
-  test('unknown tag slug → empty response with pagination metadata', async () => {
-    (supabase.from as jest.Mock).mockImplementation((table: string) => {
-      if (table === 'tags') return makeChain({ data: null, error: { message: 'Not found' } });
-      return makeChain({ data: [], error: null, count: 0 });
+    expect(response.status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.data).toEqual([UC_1, UC_2]);
+    expect(body.pagination).toEqual({
+      page: 1,
+      pageSize: 5,
+      total: 2,
+      totalPages: 1,
     });
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?tag=ghost'));
-    const body = await res.json();
-
-    jestExpect(body.success).toBe(true);
-    jestExpect(body.data).toHaveLength(0);
-    jestExpect(body.pagination).toEqual({ page: 1, pageSize: 10, total: 0, totalPages: 0 });
+    expect(UseCase.countDocuments).toHaveBeenCalledWith({
+      'tags.slug': 'ml',
+    });
+    expect(UseCase.find).toHaveBeenCalledWith({
+      'tags.slug': 'ml',
+    });
   });
 
-  test('unknown tag slug with custom page/pageSize → metadata echoes those params', async () => {
-    (supabase.from as jest.Mock).mockImplementation((table: string) => {
-      if (table === 'tags') return makeChain({ data: null, error: { message: 'Not found' } });
-      return makeChain({ data: [], error: null, count: 0 });
+  test('returns an empty result when a tag has no matching use cases', async () => {
+    setupMongoResult([], 0);
+
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?tag=ghost',
+      ),
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.data).toEqual([]);
+    expect(body.pagination).toEqual({
+      page: 1,
+      pageSize: 10,
+      total: 0,
+      totalPages: 0,
     });
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?tag=ghost&page=3&pageSize=5'));
-    const body = await res.json();
-
-    jestExpect(body.pagination).toEqual({ page: 3, pageSize: 5, total: 0, totalPages: 0 });
+    expect(UseCase.find).toHaveBeenCalledWith({
+      'tags.slug': 'ghost',
+    });
   });
 
-  test('tag found but no usecases linked → empty response with pagination metadata', async () => {
-    (supabase.from as jest.Mock).mockImplementation((table: string) => {
-      if (table === 'tags') return makeChain({ data: { id: 5 }, error: null });
-      if (table === 'usecase_tags') return makeChain({ data: [], error: null });
-      return makeChain({ data: [], error: null, count: 0 });
+  test('applies pagination together with the tag filter', async () => {
+    const chain = setupMongoResult([], 12);
+
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?tag=ml&page=3&pageSize=5',
+      ),
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body.pagination).toEqual({
+      page: 3,
+      pageSize: 5,
+      total: 12,
+      totalPages: 3,
     });
 
-    const res = await GET(makeRequest('http://localhost/api/usecases?tag=rare-tag'));
-    const body = await res.json();
-
-    jestExpect(body.success).toBe(true);
-    jestExpect(body.data).toHaveLength(0);
-    jestExpect(body.pagination.total).toBe(0);
+    expect(chain.skip).toHaveBeenCalledWith(10);
+    expect(chain.limit).toHaveBeenCalledWith(5);
   });
-
-  test('tag filter with matches → paginated results include metadata', async () => {
-    const usecasesChain = makeChain({ data: [UC_1, UC_2], error: null, count: 2 });
-
-    (supabase.from as jest.Mock).mockImplementation((table: string) => {
-      if (table === 'tags') return makeChain({ data: { id: 7 }, error: null });
-      if (table === 'usecase_tags') {
-        return makeChain({ data: [{ usecase_id: 1 }, { usecase_id: 2 }], error: null });
-      }
-      return usecasesChain;
-    });
-
-    const res = await GET(makeRequest('http://localhost/api/usecases?tag=ml&pageSize=5'));
-    const body = await res.json();
-
-    jestExpect(body.success).toBe(true);
-    jestExpect(body.pagination.pageSize).toBe(5);
-    jestExpect(body.pagination.total).toBe(2);
-    jestExpect(body.pagination.totalPages).toBe(1);
-    jestExpect(usecasesChain.range).toHaveBeenCalledWith(0, 4);
-  });
-
 });

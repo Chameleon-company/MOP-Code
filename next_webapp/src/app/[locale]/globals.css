@@ -15,20 +15,17 @@
 @layer base {
   html {
     font-family: "Poppins", sans-serif;
+  }
+
+  body {
     color: var(--color-dark);
     background: var(--color-light);
   }
-}
-/* Uncomment above when dark mode is implemented */
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .dark body {
+    color: var(--color-light);
+    background: var(--color-dark);
+  }
 }
 
 @layer utilities {

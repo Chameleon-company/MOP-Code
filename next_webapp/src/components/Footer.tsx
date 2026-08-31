@@ -5,6 +5,7 @@ import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import Image from "next/image";
 
 const Footer = () => {
 	const t = useTranslations("common");
@@ -243,7 +244,7 @@ const Footer = () => {
         .quick-link::after {
           content: '';
           position: absolute;
-          left: 0;
+          inset-inline-start: 0;
           bottom: -1px;
           width: 0;
           height: 1px;
@@ -255,6 +256,10 @@ const Footer = () => {
           color: #ffffff;
           transform: translateX(5px);
           text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        [dir="rtl"] .quick-link:hover {
+          transform: translateX(-5px);
         }
 
         .quick-link:hover::after {
@@ -269,6 +274,11 @@ const Footer = () => {
 
         .quick-link:hover .arrow {
           opacity: 1;
+        }
+
+        [dir="rtl"] .quick-link .arrow {
+          display: inline-block;
+          transform: scaleX(-1);
         }
 
         .section-heading {
@@ -306,27 +316,27 @@ const Footer = () => {
             border-radius: 10px;
           }
           .footer-col-links.footer-tight-pad {
-            padding-left: 12px !important;
-            padding-right: 12px !important;
+            padding-inline-start: 12px !important;
+            padding-inline-end: 12px !important;
           }
           .footer-col-connect.footer-tight-pad {
-            padding-right: 12px !important;
+            padding-inline-end: 12px !important;
           }
         }
 
         /* Phone only: single column + centered; from md (tablet) up = same as desktop */
         @media (max-width: 767px) {
           .footer-col-links {
-            border-left: none !important;
-            border-right: none !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            border-inline-start: none !important;
+            border-inline-end: none !important;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
           .footer-col-connect {
-            border-right: none !important;
-            padding-right: 0 !important;
+            border-inline-end: none !important;
+            padding-inline-end: 0 !important;
             align-items: center !important;
           }
 
@@ -432,10 +442,12 @@ const Footer = () => {
 								className="logo-card max-w-full shrink-0"
 								aria-label="Go to home page"
 							>
-								<img
+								<Image
 									src="/img/new-logo-white.png"
 									alt="Melbourne Open Playground logo"
-									className="relative z-[1] h-16 w-auto md:h-[64px] lg:h-[72px] xl:h-[79px]"
+									width={79}
+									height={79}
+									className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
 								/>
 								<span className="shimmer-sweep" aria-hidden="true" />
 							</Link>
@@ -446,7 +458,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-left md:text-[0.85rem] lg:text-[0.9rem]"
+								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
 							>
 								Exploring Melbourne&#39;s open data to build smarter
 								communities.
@@ -456,18 +468,24 @@ const Footer = () => {
 						<div
 							className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderLeft: "1px solid rgba(255,255,255,0.3)",
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingLeft: "28px",
-								paddingRight: "28px",
+								borderInlineStart: "1px solid rgba(255,255,255,0.3)",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineStart: "28px",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">
+							<h2
+								id="footer-quick-links-heading"
+								className="section-heading text-center md:text-start"
+							>
 								Quick Links
-							</p>
+							</h2>
 							<div className="heading-bar" />
 
-							<div className="flex w-full flex-col items-center gap-3 md:items-start">
+							<nav
+								aria-labelledby="footer-quick-links-heading"
+								className="flex w-full flex-col items-center gap-3 md:items-start"
+							>
 								{links.map((item) => (
 									<Link key={item.name} href={item.path} className="quick-link">
 										<span className="arrow" aria-hidden="true">
@@ -476,92 +494,85 @@ const Footer = () => {
 										{t(item.name)}
 									</Link>
 								))}
-							</div>
+							</nav>
 						</div>
 
 						<div
 							className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
 							style={{
-								borderRight: "1px solid rgba(255,255,255,0.3)",
-								paddingRight: "28px",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineEnd: "28px",
 							}}
 						>
-							<p className="section-heading text-center md:text-left">Connect</p>
+							<h2
+								id="footer-connect-heading"
+								className="section-heading text-center md:text-start"
+							>
+								Connect
+							</h2>
 							<div className="heading-bar" />
 
-							<a
-								href="https://data.melbourne.vic.gov.au/pages/home/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
-								style={{
-									color: "rgba(255,255,255,0.92)",
-									textDecoration: "none",
-									transition: "color 0.2s ease, text-shadow 0.2s ease",
-									display: "flex",
-									alignItems: "center",
-									gap: "4px",
-									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-								}}
-								onMouseEnter={(e) => {
-									e.currentTarget.style.color = "#ffffff";
-									e.currentTarget.style.textShadow =
-										"0 0 12px rgba(255,255,255,0.6)";
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-									e.currentTarget.style.textShadow =
-										"0 1px 4px rgba(0,0,0,0.25)";
-								}}
-							>
-								Melbourne Open Data
-								<span style={{ fontSize: "0.8rem" }}>↗</span>
-							</a>
-
-							<div className="flex flex-col items-center md:items-start">
-								<p
-									className="text-center md:text-left"
-									style={{
-										fontSize: "0.78rem",
-										color: "rgba(255,255,255,0.85)",
-										marginBottom: "12px",
-										letterSpacing: "0.12em",
-										textTransform: "uppercase",
-										textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-										fontWeight: 600,
-									}}
+							<nav aria-labelledby="footer-connect-heading">
+								<a
+									href="https://data.melbourne.vic.gov.au/pages/home/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex min-w-0 flex-wrap items-center justify-center gap-1 break-words text-center text-[rgba(255,255,255,0.92)] [text-shadow:0_1px_4px_rgba(0,0,0,0.25)] transition-[color,text-shadow] hover:text-white hover:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] focus-visible:text-white focus-visible:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
 								>
-									Follow us
-								</p>
+									Melbourne Open Data
+									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
+										↗
+									</span>
+								</a>
 
-								<div
-									className="justify-center md:justify-start"
-									style={{ display: "flex", gap: "12px" }}
-								>
-									{socialIcons.map(({ Icon, label, path }) => (
-										<a
-											key={label}
-											href={path}
-											target="_blank"
-											rel="noopener noreferrer"
-											aria-label={label}
-											className="social-btn"
-										>
-											<Icon
-												size={18}
-												style={{ position: "relative", zIndex: 1 }}
-											/>
-											<span className="shimmer-sweep" aria-hidden="true" />
-										</a>
-									))}
+								<div className="flex flex-col items-center md:items-start">
+									<h3
+										className="text-center md:text-start"
+										style={{
+											fontSize: "0.78rem",
+											color: "rgba(255,255,255,0.85)",
+											marginBottom: "12px",
+											letterSpacing: "0.12em",
+											textTransform: "uppercase",
+											textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+											fontWeight: 600,
+										}}
+									>
+										Follow us
+									</h3>
+
+									<div
+										className="justify-center md:justify-start"
+										style={{ display: "flex", gap: "12px" }}
+									>
+										{socialIcons.map(({ Icon, label, path }) => (
+											<a
+												key={label}
+												href={path}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label={label}
+												className="social-btn"
+											>
+												<Icon
+													size={18}
+													style={{ position: "relative", zIndex: 1 }}
+												/>
+												<span className="shimmer-sweep" aria-hidden="true" />
+											</a>
+										))}
+									</div>
 								</div>
-							</div>
+							</nav>
 						</div>
 
 						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-							<p className="section-heading text-center md:text-left">
+							<h2
+								id="footer-newsletter-heading"
+								className="section-heading text-center md:text-start"
+							>
 								Newsletter
-							</p>
+							</h2>
 							<div className="heading-bar" />
 
 							<p
@@ -570,7 +581,7 @@ const Footer = () => {
 									lineHeight: "1.7",
 									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
 								}}
-								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-left md:text-[0.85rem] lg:text-[0.95rem]"
+								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
 							>
 								Get Melbourne open-data updates first.
 							</p>
@@ -636,25 +647,8 @@ const Footer = () => {
 
 									<button
 										type="submit"
-										className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[0.85rem] font-semibold transition hover:opacity-95 active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
-										onMouseEnter={(e) => {
-											e.currentTarget.style.background =
-												"rgba(255,255,255,0.92)";
-											e.currentTarget.style.color = "#166534";
-											e.currentTarget.style.border =
-												"1px solid rgba(255,255,255,0.7)";
-										}}
-										onMouseLeave={(e) => {
-											e.currentTarget.style.background =
-												"rgba(110, 231, 183, 0.24)";
-											e.currentTarget.style.color = "#f0fdf4";
-											e.currentTarget.style.border =
-												"1px solid rgba(167, 243, 208, 0.5)";
-										}}
+										className="shrink-0 whitespace-nowrap rounded-lg border border-[rgba(167,243,208,0.5)] bg-[rgba(110,231,183,0.24)] px-2.5 py-1.5 text-[0.85rem] font-semibold text-[#f0fdf4] transition hover:border-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[#166534] focus-visible:border-[rgba(255,255,255,0.7)] focus-visible:bg-[rgba(255,255,255,0.92)] focus-visible:text-[#166534] active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
 										style={{
-											background: "rgba(110, 231, 183, 0.24)",
-											color: "#f0fdf4",
-											border: "1px solid rgba(167, 243, 208, 0.5)",
 											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
 										}}
 									>
