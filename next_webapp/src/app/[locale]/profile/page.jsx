@@ -5,6 +5,7 @@ import Footer from "../../../components/Footer";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Camera, User, Mail, Phone, MapPin, Calendar, Save } from "lucide-react";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const Profile = () => {
   const router = useRouter();
@@ -96,44 +97,42 @@ const Profile = () => {
         return;
       }
 
-      const response = await fetch("/api/profile", {
+      const result = await apiFetch("/api/profile", {
         method: "GET",
         headers: {
           "x-user-id": userId,
           "Authorization": `Bearer ${token}`,
         },
+        silent: true,
       });
 
-      console.log("Profile API response status:", response.status);
-      const result = await response.json();
       console.log("Profile API response:", result);
 
-      if (result.success && result.data) {
-        setFormData((prev) => ({
-          ...prev,
-          first_name: result.data.first_name || "",
-          last_name: result.data.last_name || "",
-          age: result.data.age || "",
-          gender: result.data.gender || "",
-          profile_img: result.data.profile_img || "",
-          email: result.data.email || "",
-        }));
+      setFormData((prev) => ({
+        ...prev,
+        first_name: result.data.first_name || "",
+        last_name: result.data.last_name || "",
+        age: result.data.age || "",
+        gender: result.data.gender || "",
+        profile_img: result.data.profile_img || "",
+        email: result.data.email || "",
+      }));
 
-        // Set profile image preview if available
-        if (result.data.profile_img) {
-          setProfileImage(result.data.profile_img);
-        }
-
-        console.log("Profile data loaded successfully:", result.data);
-      } else {
-        console.error("Failed to fetch profile - success is false or no data:", result);
-        if (result.message === "Unauthorised") {
-          setErrors({ form: "You are not authorized. Please login again." });
-        }
+      // Set profile image preview if available
+      if (result.data.profile_img) {
+        setProfileImage(result.data.profile_img);
       }
+
+      console.log("Profile data loaded successfully:", result.data);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
-      setErrors({ form: "Failed to load profile. Please try again." });
+      // Note: previously only an "Unauthorised" failure surfaced any message here;
+      // every other failure was silently dropped. Now shows a message either way.
+      if (error instanceof Error && error.message === "Unauthorised") {
+        setErrors({ form: "You are not authorized. Please login again." });
+      } else {
+        setErrors({ form: "Failed to load profile. Please try again." });
+      }
     } finally {
       setFetchingProfile(false);
     }
@@ -172,30 +171,24 @@ const Profile = () => {
       formDataForUpload.append("userId", userId);
 
       // Upload to API endpoint (we'll need to create this)
-      const uploadResponse = await fetch("/api/profile/upload-image", {
+      const uploadResult = await apiFetch("/api/profile/upload-image", {
         method: "POST",
         headers: {
           "x-user-id": userId,
           "Authorization": `Bearer ${token}`,
         },
         body: formDataForUpload,
+        silent: true,
       });
 
-      const uploadResult = await uploadResponse.json();
-
-      if (uploadResult.success && uploadResult.imageUrl) {
-        setFormData((prev) => ({
-          ...prev,
-          profile_img: uploadResult.imageUrl,
-        }));
-        console.log("Image uploaded successfully:", uploadResult.imageUrl);
-      } else {
-        setErrors({ form: uploadResult.message || "Failed to upload image" });
-        setProfileImage(null);
-      }
+      setFormData((prev) => ({
+        ...prev,
+        profile_img: uploadResult.imageUrl,
+      }));
+      console.log("Image uploaded successfully:", uploadResult.imageUrl);
     } catch (error) {
       console.error("Image upload error:", error);
-      setErrors({ form: "Failed to upload image. Please try again." });
+      setErrors({ form: error instanceof Error ? error.message : "Failed to upload image. Please try again." });
       setProfileImage(null);
     }
   };
@@ -229,7 +222,7 @@ const Profile = () => {
         payload[key] === undefined && delete payload[key]
       );
 
-      const response = await fetch("/api/profile", {
+      await apiFetch("/api/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -237,27 +230,23 @@ const Profile = () => {
           "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
+        silent: true,
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setSuccessMessage("Profile updated successfully!");
-        setTimeout(() => setSuccessMessage(""), 5000);
-      } else {
-        if (result.errors && Array.isArray(result.errors)) {
-          const errorMap = {};
-          result.errors.forEach((err) => {
-            errorMap[err.field] = err.message;
-          });
-          setErrors(errorMap);
-        } else {
-          setErrors({ form: result.message });
-        }
-      }
+      setSuccessMessage("Profile updated successfully!");
+      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error("Error updating profile:", error);
-      setErrors({ form: "Failed to update profile. Please try again." });
+      const body = error instanceof ApiError ? error.body : null;
+      if (body?.errors && Array.isArray(body.errors)) {
+        const errorMap = {};
+        body.errors.forEach((err) => {
+          errorMap[err.field] = err.message;
+        });
+        setErrors(errorMap);
+      } else {
+        setErrors({ form: error instanceof Error ? error.message : "Failed to update profile. Please try again." });
+      }
     } finally {
       setLoading(false);
     }

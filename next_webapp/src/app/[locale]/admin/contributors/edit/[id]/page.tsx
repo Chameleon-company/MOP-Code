@@ -6,6 +6,7 @@ import ContributorForm, {
   ContributorFormData,
 } from "../../components/ContributorForm";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 type ApiContributor = {
   id: number | string;
@@ -70,21 +71,14 @@ export default function EditContributorPage() {
       setError("");
 
       try {
-        const response = await fetch(
+        const json = await apiFetch<any>(
           `/api/contributors/${id}`,
           {
             headers: getAuthHeaders(),
             cache: "no-store",
+            silent: true,
           },
         );
-
-        const json = await response.json();
-
-        if (!response.ok || !json.success) {
-          throw new Error(
-            json.message || "Contributor not found",
-          );
-        }
 
         const contributor: ApiContributor =
           json.data ?? json.contributor;
@@ -154,7 +148,7 @@ export default function EditContributorPage() {
         is_active: data.isActive,
       };
 
-      const response = await fetch(
+      await apiFetch(
         `/api/contributors/${id}`,
         {
           method: "PUT",
@@ -163,20 +157,9 @@ export default function EditContributorPage() {
             ...getAuthHeaders(),
           },
           body: JSON.stringify(payload),
+          silent: true,
         },
       );
-
-      const json = await response.json();
-
-      if (!response.ok || !json.success) {
-        const message = json.errors
-          ? Object.values(json.errors).flat().join(", ")
-          : json.message ||
-          "Failed to update contributor";
-
-        setError(message);
-        return;
-      }
 
       setToast({
         message: "Contributor updated successfully.",
@@ -189,9 +172,14 @@ export default function EditContributorPage() {
     } catch (error) {
       console.error(error);
 
-      setError(
-        "Something went wrong. Please try again.",
-      );
+      const body = error instanceof ApiError ? (error.body as any) : null;
+      const message = body?.errors
+        ? Object.values(body.errors).flat().join(", ")
+        : error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+
+      setError(message);
     } finally {
       setSubmitting(false);
     }

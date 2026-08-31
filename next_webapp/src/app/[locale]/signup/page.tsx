@@ -5,6 +5,7 @@ import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Link } from "@/i18n-navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -85,20 +86,18 @@ const SignUpPage = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await fetch("/api/auth/signup", {
+      await apiFetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
+        silent: true,
       });
-      const data = await response.json();
-      if (response.ok) {
-        setSuccessMessage("Account created! Redirecting to login...");
-        setTimeout(() => router.push(`/${locale}/login`), 1500);
-      } else {
-        setErrorMessage(data.message || "Sign-up failed. Please try again.");
-      }
-    } catch {
-      setErrorMessage("Something went wrong. Please try again later.");
+
+      setSuccessMessage("Account created! Redirecting to login...");
+      setTimeout(() => router.push(`/${locale}/login`), 1500);
+    } catch (err) {
+      const body = err instanceof ApiError ? (err.body as any) : null;
+      setErrorMessage(body?.message || (err instanceof Error ? err.message : "Sign-up failed. Please try again."));
     } finally {
       setIsSubmitting(false);
     }
