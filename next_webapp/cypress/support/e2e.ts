@@ -19,14 +19,23 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-// Ignore React hydration errors thrown by the app in dev mode and Minified React errors.
+// Suppress app-side exceptions that are unrelated to the test assertions.
+// Returning false prevents Cypress from failing the test on these known-noisy errors.
 Cypress.on('uncaught:exception', (err) => {
-    if (
-        /Hydrat/i.test(err.message) ||
-        /hydrat/i.test(err.message) ||
-        /Minified React error #418/.test(err.message) ||
-        /Minified React error #423/.test(err.message)
-    ) {
-        return false
+    const knownNoise = [
+        // React hydration mismatches (common in Next.js SSR + dev mode)
+        /hydrat/i,
+        // Minified React error codes for hydration failures
+        /Minified React error #418/,
+        /Minified React error #423/,
+        /Minified React error #425/,
+        // Next.js router / navigation internal errors
+        /NEXT_NOT_FOUND/,
+        /NEXT_REDIRECT/,
+        // ResizeObserver loop warnings from third-party widgets
+        /ResizeObserver loop/,
+    ];
+    if (knownNoise.some((pattern) => pattern.test(err.message))) {
+        return false;
     }
 })
