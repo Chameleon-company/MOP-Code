@@ -450,485 +450,381 @@ const Footer = () => {
         }
       `}</style>
 
-      <footer
-        ref={footerRef}
-        className="relative overflow-hidden text-white"
-        style={{ minHeight: "380px" }}
-        onMouseLeave={() => {
-          targetParallax.current = {
-            x: 0,
-            y: 0,
-          };
-        }}
-      >
-        <div
-          className="absolute inset-0 z-10"
-          style={{
-            background:
-              "linear-gradient(135deg, #16a34a 0%, #22c55e 25%, #22c55e 50%, #22c55e 75%, #16a34a 100%)",
-            backgroundSize: "400% 400%",
-            animation: "gradientShift 12s ease infinite",
-          }}
-        />
+			<footer
+				ref={footerRef}
+				className="relative overflow-hidden text-white"
+				style={{ minHeight: "380px" }}
+				onMouseLeave={() => {
+					targetParallax.current = { x: 0, y: 0 };
+				}}
+			>
+				<div
+					className="absolute inset-0 z-10"
+					style={{
+						background:
+							"linear-gradient(135deg, #16a34a 0%, #22c55e 25%, #22c55e 50%, #22c55e 75%, #16a34a 100%)",
+						backgroundSize: "400% 400%",
+						animation: "gradientShift 12s ease infinite",
+					}}
+				/>
 
-        <div
-          className="pointer-events-none absolute inset-0 z-10"
-          style={{
-            background:
-              "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)",
-            animation: "bgShimmer 6s ease-in-out infinite",
-          }}
-        />
+				<div
+					className="pointer-events-none absolute inset-0 z-10"
+					style={{
+						background:
+							"linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)",
+						animation: "bgShimmer 6s ease-in-out infinite",
+					}}
+				/>
 
-        <div
-          className="pointer-events-none absolute z-10 rounded-full"
-          style={{
-            width: 340,
-            height: 340,
-            top: "-80px",
-            right: "5%",
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 70%)",
-            animation: "floatGlass 9s ease-in-out infinite",
-          }}
-        />
+				<div
+					className="pointer-events-none absolute z-10 rounded-full"
+					style={{
+						width: 340,
+						height: 340,
+						top: "-80px",
+						right: "5%",
+						background:
+							"radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 70%)",
+						animation: "floatGlass 9s ease-in-out infinite",
+					}}
+				/>
 
-        <div
-          className="pointer-events-none absolute z-10 rounded-full"
-          style={{
-            width: 220,
-            height: 220,
-            bottom: "-40px",
-            left: "8%",
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%)",
-            animation:
-              "floatGlass2 11s ease-in-out infinite",
-          }}
-        />
+				<div
+					className="pointer-events-none absolute z-10 rounded-full"
+					style={{
+						width: 220,
+						height: 220,
+						bottom: "-40px",
+						left: "8%",
+						background:
+							"radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%)",
+						animation: "floatGlass2 11s ease-in-out infinite",
+					}}
+				/>
 
-        <div
-          className="pointer-events-none absolute z-10"
-          style={{
-            width: 180,
-            height: 180,
-            top: "30%",
-            left: "40%",
-            borderRadius:
-              "60% 40% 55% 45% / 50% 60% 40% 50%",
-            background: "rgba(255,255,255,0.05)",
-            backdropFilter: "blur(2px)",
-            animation:
-              "floatGlass 14s ease-in-out infinite reverse",
-          }}
-        />
+				<div
+					className="pointer-events-none absolute z-10"
+					style={{
+						width: 180,
+						height: 180,
+						top: "30%",
+						left: "40%",
+						borderRadius: "60% 40% 55% 45% / 50% 60% 40% 50%",
+						background: "rgba(255,255,255,0.05)",
+						backdropFilter: "blur(2px)",
+						animation: "floatGlass 14s ease-in-out infinite reverse",
+					}}
+				/>
 
-        <div
-          className="pointer-events-none absolute top-0 z-20 w-full"
-          style={{
-            height: "3px",
-            background: "rgba(255,255,255,0.9)",
-            boxShadow:
-              "0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.4)",
-          }}
-        />
+				<div
+					className="pointer-events-none absolute top-0 z-20 w-full"
+					style={{
+						height: "3px",
+						background: "rgba(255,255,255,0.9)",
+						boxShadow:
+							"0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.4)",
+					}}
+				/>
 
-        <div
-          className="relative z-20 mx-auto min-w-0 max-w-full px-4 pb-6 pt-14 sm:px-6 md:px-6 lg:px-12 xl:px-20"
-          style={{
-            maxWidth: "1200px",
-            transform: `translateX(${
-              parallaxOffset.x * 0.3
-            }px) translateY(${
-              parallaxOffset.y * 0.3
-            }px)`,
-            transition: "transform 0.1s linear",
-          }}
-        >
-          <div className="footer-main-grid grid min-w-0 grid-cols-1 items-center gap-10 md:grid-cols-4 md:items-start md:gap-4 lg:gap-8 xl:gap-10">
-            {/* LOGO */}
-            <div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
-              <Link
-                href="/"
-                className="logo-card max-w-full shrink-0"
-                aria-label="Go to home page"
-              >
-                <Image
-                  src="/img/new-logo-white.png"
-                  alt="Melbourne Open Playground logo"
-                  width={79}
-                  height={79}
-                  className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
-                />
+				<div
+					className="relative z-20 mx-auto min-w-0 max-w-full px-4 pb-6 pt-14 sm:px-6 md:px-6 lg:px-12 xl:px-20"
+					style={{
+						maxWidth: "1200px",
+						transform: `translateX(${parallaxOffset.x * 0.3}px) translateY(${
+							parallaxOffset.y * 0.3
+						}px)`,
+						transition: "transform 0.1s linear",
+					}}
+				>
+					<div className="footer-main-grid grid min-w-0 grid-cols-1 items-center gap-10 md:grid-cols-4 md:items-start md:gap-4 lg:gap-8 xl:gap-10">
+						<div className="flex min-w-0 flex-col items-center gap-5 md:items-start">
+							<Link
+								href="/"
+								className="logo-card max-w-full shrink-0"
+								aria-label="Go to home page"
+							>
+								<Image
+									src="/img/new-logo-white.png"
+									alt="Melbourne Open Playground logo"
+									width={79}
+									height={79}
+									className="relative z-[1] h-16 w-16 md:h-[64px] md:w-[64px] lg:h-[72px] lg:w-[72px] xl:h-[79px] xl:w-[79px]"
+								/>
+								<span className="shimmer-sweep" aria-hidden="true" />
+							</Link>
 
-                <span
-                  className="shimmer-sweep"
-                  aria-hidden="true"
-                />
-              </Link>
+							<p
+								style={{
+									color: "rgba(255,255,255,0.92)",
+									lineHeight: "1.7",
+									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+								}}
+								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
+							>
+								Exploring Melbourne&#39;s open data to build smarter
+								communities.
+							</p>
+						</div>
 
-              <p
-                style={{
-                  color: "rgba(255,255,255,0.92)",
-                  lineHeight: "1.7",
-                  textShadow:
-                    "0 1px 4px rgba(0,0,0,0.25)",
-                }}
-                className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-left md:text-[0.85rem] lg:text-[0.9rem]"
-              >
-                {t("Footer intro")}
-              </p>
-            </div>
+						<div
+							className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
+							style={{
+								borderInlineStart: "1px solid rgba(255,255,255,0.3)",
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineStart: "28px",
+								paddingInlineEnd: "28px",
+							}}
+						>
+							<h2
+								id="footer-quick-links-heading"
+								className="section-heading text-center md:text-start"
+							>
+								Quick Links
+							</h2>
+							<div className="heading-bar" />
 
-            {/* QUICK LINKS */}
-            <div
-              className="footer-col-links footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
-              style={{
-                borderLeft:
-                  "1px solid rgba(255,255,255,0.3)",
-                borderRight:
-                  "1px solid rgba(255,255,255,0.3)",
-                paddingLeft: "28px",
-                paddingRight: "28px",
-              }}
-            >
-              <p className="section-heading text-center md:text-left">
-                {t("Quick Links")}
-              </p>
+							<nav
+								aria-labelledby="footer-quick-links-heading"
+								className="flex w-full flex-col items-center gap-3 md:items-start"
+							>
+								{links.map((item) => (
+									<Link key={item.name} href={item.path} className="quick-link">
+										<span className="arrow" aria-hidden="true">
+											›
+										</span>
+										{t(item.name)}
+									</Link>
+								))}
+							</nav>
+						</div>
 
-              <div className="heading-bar" />
+						<div
+							className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
+							style={{
+								borderInlineEnd: "1px solid rgba(255,255,255,0.3)",
+								paddingInlineEnd: "28px",
+							}}
+						>
+							<h2
+								id="footer-connect-heading"
+								className="section-heading text-center md:text-start"
+							>
+								Connect
+							</h2>
+							<div className="heading-bar" />
 
-              <div className="flex w-full flex-col items-center gap-3 md:items-start">
-                {links.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.path}
-                    className="quick-link"
-                  >
-                    <span
-                      className="arrow"
-                      aria-hidden="true"
-                    >
-                      ›
-                    </span>
+							<nav aria-labelledby="footer-connect-heading">
+								<a
+									href="https://data.melbourne.vic.gov.au/pages/home/"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex min-w-0 flex-wrap items-center justify-center gap-1 break-words text-center text-[rgba(255,255,255,0.92)] [text-shadow:0_1px_4px_rgba(0,0,0,0.25)] transition-[color,text-shadow] hover:text-white hover:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] focus-visible:text-white focus-visible:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
+								>
+									Melbourne Open Data
+									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
+										↗
+									</span>
+								</a>
 
-                    {t(item.name)}
-                  </Link>
-                ))}
-              </div>
-            </div>
+								<div className="flex flex-col items-center md:items-start">
+									<h3
+										className="text-center md:text-start"
+										style={{
+											fontSize: "0.78rem",
+											color: "rgba(255,255,255,0.85)",
+											marginBottom: "12px",
+											letterSpacing: "0.12em",
+											textTransform: "uppercase",
+											textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+											fontWeight: 600,
+										}}
+									>
+										Follow us
+									</h3>
 
-            {/* CONNECT */}
-            <div
-              className="footer-col-connect footer-tight-pad flex min-w-0 flex-col items-center gap-4 md:items-start"
-              style={{
-                borderRight:
-                  "1px solid rgba(255,255,255,0.3)",
-                paddingRight: "28px",
-              }}
-            >
-              <p className="section-heading text-center md:text-left">
-                {t("Connect")}
-              </p>
+									<div
+										className="justify-center md:justify-start"
+										style={{ display: "flex", gap: "12px" }}
+									>
+										{socialIcons.map(({ Icon, label, path }) => (
+											<a
+												key={label}
+												href={path}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label={label}
+												className="social-btn"
+											>
+												<Icon
+													size={18}
+													style={{ position: "relative", zIndex: 1 }}
+												/>
+												<span className="shimmer-sweep" aria-hidden="true" />
+											</a>
+										))}
+									</div>
+								</div>
+							</nav>
+						</div>
 
-              <div className="heading-bar" />
+						<div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
+							<h2
+								id="footer-newsletter-heading"
+								className="section-heading text-center md:text-start"
+							>
+								Newsletter
+							</h2>
+							<div className="heading-bar" />
 
-              <a
-                href="https://data.melbourne.vic.gov.au/pages/home/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-left md:text-[0.82rem] lg:text-[0.95rem]"
-                style={{
-                  color: "rgba(255,255,255,0.92)",
-                  textDecoration: "none",
-                  transition:
-                    "color 0.2s ease, text-shadow 0.2s ease",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  textShadow:
-                    "0 1px 4px rgba(0,0,0,0.25)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color =
-                    "#ffffff";
-                  e.currentTarget.style.textShadow =
-                    "0 0 12px rgba(255,255,255,0.6)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color =
-                    "rgba(255,255,255,0.92)";
-                  e.currentTarget.style.textShadow =
-                    "0 1px 4px rgba(0,0,0,0.25)";
-                }}
-              >
-                Melbourne Open Data
-                <span style={{ fontSize: "0.8rem" }}>
-                  ↗
-                </span>
-              </a>
+							<p
+								style={{
+									color: "rgba(255,255,255,0.92)",
+									lineHeight: "1.7",
+									textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+								}}
+								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
+							>
+								Get Melbourne open-data updates first.
+							</p>
 
-              <div className="flex flex-col items-center md:items-start">
-                <p
-                  className="text-center md:text-left"
-                  style={{
-                    fontSize: "0.78rem",
-                    color:
-                      "rgba(255,255,255,0.85)",
-                    marginBottom: "12px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    textShadow:
-                      "0 1px 4px rgba(0,0,0,0.25)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {t("Follow us")}
-                </p>
+							<div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
+								<form
+									className="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2 md:gap-1.5"
+									onSubmit={(e) => {
+										e.preventDefault();
 
-                <div
-                  className="justify-center md:justify-start"
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                  }}
-                >
-                  {socialIcons.map(
-                    ({ Icon, label, path }) => (
-                      <a
-                        key={label}
-                        href={path}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={label}
-                        className="social-btn"
-                      >
-                        <Icon
-                          size={18}
-                          style={{
-                            position: "relative",
-                            zIndex: 1,
-                          }}
-                        />
+										const trimmed = newsletterEmail.trim();
 
-                        <span
-                          className="shimmer-sweep"
-                          aria-hidden="true"
-                        />
-                      </a>
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
+										if (!trimmed) {
+											setNewsletterError("Please enter your email address.");
+											return;
+										}
 
-            {/* NEWSLETTER */}
-            <div className="flex min-w-0 flex-col items-center gap-4 md:items-start">
-              <p className="section-heading text-center md:text-left">
-                {t("Newsletter")}
-              </p>
+										if (!isValidNewsletterEmail(trimmed)) {
+											setNewsletterError(
+												"Please enter a valid email address (e.g. morgan.lee@gmail.com).",
+											);
+											return;
+										}
 
-              <div className="heading-bar" />
+										setNewsletterError(null);
+										setNewsletterEmail("");
+										setShowNewsletterToast(true);
+									}}
+									noValidate
+								>
+									<label htmlFor="footer-newsletter-email" className="sr-only">
+										Email for newsletter
+									</label>
 
-              <p
-                style={{
-                  color: "rgba(255,255,255,0.92)",
-                  lineHeight: "1.7",
-                  textShadow:
-                    "0 1px 4px rgba(0,0,0,0.25)",
-                }}
-                className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-left md:text-[0.85rem] lg:text-[0.95rem]"
-              >
-                {t("Newsletter description")}
-              </p>
+									<input
+										id="footer-newsletter-email"
+										name="email"
+										type="email"
+										inputMode="email"
+										autoComplete="email"
+										required
+										placeholder="Enter your email"
+										value={newsletterEmail}
+										onChange={(e) => {
+											setNewsletterEmail(e.target.value);
 
-              <div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
-                <form
-                  className="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2 md:gap-1.5"
-                  onSubmit={(e) => {
-                    e.preventDefault();
+											if (newsletterError) {
+												setNewsletterError(null);
+											}
+										}}
+										aria-invalid={newsletterError ? true : undefined}
+										aria-describedby={
+											newsletterError ? "footer-newsletter-error" : undefined
+										}
+										className="newsletter-email-input min-w-0 w-full max-w-full flex-1 rounded-lg px-2 py-1.5 text-[0.85rem] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] outline-none transition placeholder:text-white placeholder:opacity-100 sm:px-2.5 md:px-1.5 md:py-1 md:text-[0.78rem] lg:px-2.5 lg:py-1.5 lg:text-[0.85rem]"
+										style={{
+											background: "rgba(255,255,255,0.1)",
+											border: newsletterError
+												? "1px solid rgba(252, 165, 165, 0.95)"
+												: "1px solid rgba(255,255,255,0.25)",
+										}}
+									/>
 
-                    const trimmed =
-                      newsletterEmail.trim();
+									<button
+										type="submit"
+										className="shrink-0 whitespace-nowrap rounded-lg border border-[rgba(167,243,208,0.5)] bg-[rgba(110,231,183,0.24)] px-2.5 py-1.5 text-[0.85rem] font-semibold text-[#f0fdf4] transition hover:border-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[#166534] focus-visible:border-[rgba(255,255,255,0.7)] focus-visible:bg-[rgba(255,255,255,0.92)] focus-visible:text-[#166534] active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
+										style={{
+											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
+										}}
+									>
+										Submit
+									</button>
+								</form>
 
-                    if (!trimmed) {
-                      setNewsletterError(
-                        t("Newsletter required")
-                      );
-                      return;
-                    }
+								{newsletterError ? (
+									<p
+										id="footer-newsletter-error"
+										role="alert"
+										className="px-0.5 text-red-100"
+										style={{
+											fontSize: "0.9rem",
+											textShadow: "0 1px 2px rgba(0,0,0,0.35)",
+										}}
+									>
+										{newsletterError}
+									</p>
+								) : null}
+							</div>
+						</div>
+					</div>
 
-                    if (
-                      !isValidNewsletterEmail(
-                        trimmed
-                      )
-                    ) {
-                      setNewsletterError(
-                        t("Newsletter invalid")
-                      );
-                      return;
-                    }
+					<div
+						className="footer-bottom"
+						style={{
+							marginTop: "24px",
+							paddingTop: "18px",
+							borderTop: "1px solid rgba(255,255,255,0.3)",
+							textAlign: "center",
+							fontSize: "0.75rem",
+							color: "rgba(255,255,255,0.75)",
+							letterSpacing: "0.05em",
+							textShadow: "0 1px 3px rgba(0,0,0,0.2)",
+						}}
+					>
+						© {new Date().getFullYear()} Melbourne Open Playground. All rights
+						reserved.
+					</div>
+				</div>
+			</footer>
 
-                    setNewsletterError(null);
-                    setNewsletterEmail("");
-                    setShowNewsletterToast(true);
-                  }}
-                  noValidate
-                >
-                  <label
-                    htmlFor="footer-newsletter-email"
-                    className="sr-only"
-                  >
-                    {t("Email for newsletter")}
-                  </label>
+			{showNewsletterToast ? (
+				<div
+					className="fixed bottom-6 left-1/2 z-[200] flex max-w-[min(calc(100vw-2rem),420px)] -translate-x-1/2 items-center gap-3 rounded-2xl px-5 py-3.5 shadow-lg"
+					style={{
+						background: "rgba(22, 101, 52, 0.97)",
+						border: "1px solid rgba(255,255,255,0.35)",
+						boxShadow:
+							"0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08) inset",
+					}}
+					role="status"
+					aria-live="polite"
+				>
+					<span
+						className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold"
+						style={{
+							background: "rgba(255,255,255,0.2)",
+							color: "#fff",
+						}}
+						aria-hidden
+					>
+						✓
+					</span>
 
-                  <input
-                    id="footer-newsletter-email"
-                    name="email"
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    required
-                    placeholder={t(
-                      "Enter your email"
-                    )}
-                    value={newsletterEmail}
-                    onChange={(e) => {
-                      setNewsletterEmail(
-                        e.target.value
-                      );
-
-                      if (newsletterError) {
-                        setNewsletterError(null);
-                      }
-                    }}
-                    aria-invalid={
-                      newsletterError
-                        ? true
-                        : undefined
-                    }
-                    aria-describedby={
-                      newsletterError
-                        ? "footer-newsletter-error"
-                        : undefined
-                    }
-                    className="newsletter-email-input min-w-0 w-full max-w-full flex-1 rounded-lg px-2 py-1.5 text-[0.85rem] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] outline-none transition placeholder:text-white placeholder:opacity-100 sm:px-2.5 md:px-1.5 md:py-1 md:text-[0.78rem] lg:px-2.5 lg:py-1.5 lg:text-[0.85rem]"
-                    style={{
-                      background:
-                        "rgba(255,255,255,0.1)",
-                      border: newsletterError
-                        ? "1px solid rgba(252, 165, 165, 0.95)"
-                        : "1px solid rgba(255,255,255,0.25)",
-                    }}
-                  />
-
-                  <button
-                    type="submit"
-                    className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[0.85rem] font-semibold transition hover:opacity-95 active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.92)";
-                      e.currentTarget.style.color =
-                        "#166534";
-                      e.currentTarget.style.border =
-                        "1px solid rgba(255,255,255,0.7)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "rgba(110, 231, 183, 0.24)";
-                      e.currentTarget.style.color =
-                        "#f0fdf4";
-                      e.currentTarget.style.border =
-                        "1px solid rgba(167, 243, 208, 0.5)";
-                    }}
-                    style={{
-                      background:
-                        "rgba(110, 231, 183, 0.24)",
-                      color: "#f0fdf4",
-                      border:
-                        "1px solid rgba(167, 243, 208, 0.5)",
-                      boxShadow:
-                        "0 3px 10px rgba(0,0,0,0.18)",
-                    }}
-                  >
-                    {t("Submit")}
-                  </button>
-                </form>
-
-                {newsletterError ? (
-                  <p
-                    id="footer-newsletter-error"
-                    role="alert"
-                    className="px-0.5 text-red-100"
-                    style={{
-                      fontSize: "0.9rem",
-                      textShadow:
-                        "0 1px 2px rgba(0,0,0,0.35)",
-                    }}
-                  >
-                    {newsletterError}
-                  </p>
-                ) : null}
-              </div>
-            </div>
-          </div>
-
-          {/* COPYRIGHT */}
-          <div
-            className="footer-bottom"
-            style={{
-              marginTop: "24px",
-              paddingTop: "18px",
-              borderTop:
-                "1px solid rgba(255,255,255,0.3)",
-              textAlign: "center",
-              fontSize: "0.75rem",
-              color: "rgba(255,255,255,0.75)",
-              letterSpacing: "0.05em",
-              textShadow:
-                "0 1px 3px rgba(0,0,0,0.2)",
-            }}
-          >
-            © {new Date().getFullYear()}{" "}
-            {t("Copyright")}
-          </div>
-        </div>
-      </footer>
-
-      {/* NEWSLETTER SUCCESS */}
-      {showNewsletterToast ? (
-        <div
-          className="fixed bottom-6 left-1/2 z-[200] flex max-w-[min(calc(100vw-2rem),420px)] -translate-x-1/2 items-center gap-3 rounded-2xl px-5 py-3.5 shadow-lg"
-          style={{
-            background:
-              "rgba(22, 101, 52, 0.97)",
-            border:
-              "1px solid rgba(255,255,255,0.35)",
-            boxShadow:
-              "0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08) inset",
-          }}
-          role="status"
-          aria-live="polite"
-        >
-          <span
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg font-bold"
-            style={{
-              background:
-                "rgba(255,255,255,0.2)",
-              color: "#fff",
-            }}
-            aria-hidden
-          >
-            ✓
-          </span>
-
-          <p className="text-sm font-medium leading-snug text-white">
-            {t("Newsletter success")}
-          </p>
-        </div>
-      ) : null}
-    </>
-  );
+					<p className="text-sm font-medium leading-snug text-white">
+						You&apos;re in — we&apos;ll only email when there&apos;s something
+						worth your time.
+					</p>
+				</div>
+			) : null}
+		</>
+	);
 };
 
 export default Footer;
