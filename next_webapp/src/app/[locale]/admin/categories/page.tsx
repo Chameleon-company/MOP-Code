@@ -193,11 +193,15 @@ export default function CategoriesPage() {
                   <td className="px-3 py-4">
                     <div className="flex items-center gap-2">
                       <Link href={`/${locale}/admin/categories/edit/${category.id}`}>
-                        <button className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]">
+                        <button
+                          aria-label={`Edit ${category.category_name}`}
+                          className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]"
+                        >
                           <Pencil size={16} />
                         </button>
                       </Link>
                       <button
+                        aria-label={`Delete ${category.category_name}`}
                         onClick={() => handleDelete(category.id, category.category_name)}
                         className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50"
                       >
