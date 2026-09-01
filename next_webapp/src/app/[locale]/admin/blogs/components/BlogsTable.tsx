@@ -19,8 +19,84 @@ export default function BlogTable({
   onDelete: (id: number) => void;
 }) {
   return (
-    <div className="rounded-2xl bg-[#ECEAEA] p-5">
-      <div className="overflow-x-auto">
+    <div className="rounded-2xl bg-[#ECEAEA] p-3 sm:p-5">
+      {/* Mobile Card View (< 768px) */}
+      <div className="space-y-3 md:hidden">
+        {data.map((item: any) => (
+          <div
+            key={item.id}
+            className="flex flex-col gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="shrink-0">
+                  <ImageHoverPreview
+                    src={item.cover_img || "/images/category-placeholder.png"}
+                    alt={item.title}
+                  />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-semibold text-[#687280]">
+                      #{item.id}
+                    </span>
+                    <span className="text-[11px] text-[#687280]">
+                      {item.published_date || "—"}
+                    </span>
+                  </div>
+                  <h4 className="truncate text-sm font-semibold text-black">
+                    {item.title}
+                  </h4>
+                </div>
+              </div>
+
+              <div className="flex shrink-0 items-center gap-1.5">
+                <Link href={`/${locale}/admin/blogs/edit/${item.id}`}>
+                  <button
+                    type="button"
+                    aria-label="Edit blog"
+                    className="rounded-lg bg-[#ECEAEA] p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]"
+                  >
+                    <Pencil size={15} />
+                  </button>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => onDelete(item.id)}
+                  aria-label="Delete blog"
+                  className="rounded-lg bg-[#ECEAEA] p-2 text-red-500 transition hover:bg-red-50"
+                >
+                  <Trash2 size={15} />
+                </button>
+              </div>
+            </div>
+
+            {item.description && (
+              <p className="line-clamp-2 text-xs text-[#687280]">
+                {item.description}
+              </p>
+            )}
+
+            <div className="flex items-center justify-between border-t border-black/5 pt-2 text-xs text-[#687280]">
+              <span>
+                By:{" "}
+                <span className="font-medium text-black">
+                  {item.created_by_name ?? "—"}
+                </span>
+              </span>
+            </div>
+          </div>
+        ))}
+
+        {data.length === 0 && (
+          <div className="rounded-xl bg-white p-8 text-center text-sm text-[#687280]">
+            No blogs found.
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Table View (>= 768px) */}
+      <div className="hidden overflow-x-auto md:block">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-black/30 text-left text-sm font-semibold">
@@ -41,25 +117,25 @@ export default function BlogTable({
                 <td className="px-3 py-4 text-sm text-[#687280]">{item.id}</td>
 
                 <td className="px-3 py-4">
-                <ImageHoverPreview
-                 src={item.cover_img || "/images/category-placeholder.png"}
-                 alt={item.title}
-                />
+                  <ImageHoverPreview
+                    src={item.cover_img || "/images/category-placeholder.png"}
+                    alt={item.title}
+                  />
                 </td>
 
                 <td className="px-3 py-4 text-sm font-medium">{item.title}</td>
 
                 <td className="max-w-[220px] px-3 py-4 text-sm text-[#687280]">
-  <TextHoverPreview text={item.description || "—"} />
-</td>
+                  <TextHoverPreview text={item.description || "—"} />
+                </td>
 
                 <td className="px-3 py-4 text-sm text-[#687280]">
                   {item.published_date || "—"}
                 </td>
 
                 <td className="max-w-[260px] px-3 py-4 text-sm text-[#687280]">
-  <TextHoverPreview text={stripHtml(item.content) || "—"} />
-</td>
+                  <TextHoverPreview text={stripHtml(item.content) || "—"} />
+                </td>
 
                 <td className="px-3 py-4 text-sm text-[#687280]">
                   {item.created_by_name ?? "—"}

@@ -51,51 +51,97 @@ export default function AdminRecentActivity() {
         Recent Activity
       </h2>
 
-      <div className="w-full overflow-x-auto rounded-2xl bg-[#ECEAEA] p-4 shadow-sm sm:p-5 md:p-6">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="border-b border-black">
-              <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
-                Date
-              </th>
-              <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
-                Activity
-              </th>
-              <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
-                Performed By
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading && (
-              <tr>
-                <td colSpan={3} className="px-2 py-6 text-center text-[13px] text-[#687280]">
-                  Loading...
-                </td>
-              </tr>
-            )}
-            {!loading && entries.length === 0 && (
-              <tr>
-                <td colSpan={3} className="px-2 py-6 text-center text-[13px] text-[#687280]">
-                  No recent activity.
-                </td>
-              </tr>
-            )}
-            {entries.map((entry) => (
-              <tr key={entry.id} className="border-b border-gray-300 last:border-b-0">
-                <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
-                  {formatTime(entry.performedAt)}
-                </td>
-                <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
+      <div className="w-full rounded-2xl bg-[#ECEAEA] p-3 shadow-sm sm:p-5 md:p-6">
+        {/* Mobile Card View (< 768px) */}
+        <div className="space-y-3 md:hidden">
+          {loading && (
+            <div className="rounded-xl bg-white p-6 text-center text-xs text-[#687280]">
+              Loading...
+            </div>
+          )}
+          {!loading && entries.length === 0 && (
+            <div className="rounded-xl bg-white p-6 text-center text-xs text-[#687280]">
+              No recent activity.
+            </div>
+          )}
+          {!loading &&
+            entries.map((entry) => (
+              <div
+                key={entry.id}
+                className="flex flex-col gap-2 rounded-xl border border-black/5 bg-white p-3.5 shadow-sm"
+              >
+                <p className="text-xs font-medium text-black sm:text-sm">
                   {entry.activity}
-                </td>
-                <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
-                  {entry.performedBy}
-                </td>
-              </tr>
+                </p>
+                <div className="flex items-center justify-between border-t border-black/5 pt-2 text-[11px] text-[#687280]">
+                  <span>
+                    By:{" "}
+                    <span className="font-medium text-black">
+                      {entry.performedBy}
+                    </span>
+                  </span>
+                  <span>{formatTime(entry.performedAt)}</span>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+        </div>
+
+        {/* Desktop Table View (>= 768px) */}
+        <div className="hidden overflow-x-auto md:block">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-black">
+                <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
+                  Date
+                </th>
+                <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
+                  Activity
+                </th>
+                <th className="px-2 py-3 text-left text-[13px] font-semibold text-black sm:text-[14px]">
+                  Performed By
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    className="px-2 py-6 text-center text-[13px] text-[#687280]"
+                  >
+                    Loading...
+                  </td>
+                </tr>
+              )}
+              {!loading && entries.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    className="px-2 py-6 text-center text-[13px] text-[#687280]"
+                  >
+                    No recent activity.
+                  </td>
+                </tr>
+              )}
+              {entries.map((entry) => (
+                <tr
+                  key={entry.id}
+                  className="border-b border-gray-300 last:border-b-0"
+                >
+                  <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
+                    {formatTime(entry.performedAt)}
+                  </td>
+                  <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
+                    {entry.activity}
+                  </td>
+                  <td className="px-2 py-3 text-[13px] text-black sm:text-[14px]">
+                    {entry.performedBy}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -89,11 +89,13 @@ export default function ActivityHistoryPage() {
     });
 
   return (
-    <div className="ml-[88px] md:ml-[148px] lg:ml-0">
+    <div>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">Activity History</h1>
-        <p className="mt-2 text-[16px] leading-[24px] text-[#687280]">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold leading-tight text-[#2DBE6C] sm:text-3xl md:text-[40px]">
+          Activity History
+        </h1>
+        <p className="mt-1 text-xs text-[#687280] sm:text-sm md:text-[16px]">
           Track all admin activities and changes
         </p>
       </div>
@@ -123,42 +125,78 @@ export default function ActivityHistoryPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl bg-[#ECEAEA] p-5">
+      <div className="rounded-2xl bg-[#ECEAEA] p-3 sm:p-5">
         {loading ? (
-          <div className="py-16 text-center text-sm text-[#687280]">Loading...</div>
-        ) : error ? (
-          <div className="py-16 text-center text-sm text-red-500">{error}</div>
-        ) : entries.length === 0 ? (
-          <div className="py-16 text-center text-sm text-[#687280]">No activity found.</div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-black/30">
-                  <th className="min-w-[280px] px-3 py-4 text-left text-[14px] font-semibold text-black">
-                    Activity Performed
-                  </th>
-                  <th className="px-3 py-4 text-left text-[14px] font-semibold text-black">
-                    Performed By
-                  </th>
-                  <th className="px-3 py-4 text-left text-[14px] font-semibold text-black">
-                    Performed At
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {entries.map((entry) => (
-                  <tr key={entry.id} className="border-b border-black/10">
-                    <td className="min-w-[280px] px-3 py-4 text-[14px] font-medium text-black">
-                      {entry.activity}
-                    </td>
-                    <td className="px-3 py-4 text-[14px] text-[#687280]">{entry.performedBy}</td>
-                    <td className="px-3 py-4 text-[14px] text-[#687280]">{formatTime(entry.performedAt)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="rounded-xl bg-white p-8 text-center text-sm text-[#687280]">
+            Loading...
           </div>
+        ) : error ? (
+          <div className="rounded-xl bg-white p-8 text-center text-sm text-red-500">
+            {error}
+          </div>
+        ) : entries.length === 0 ? (
+          <div className="rounded-xl bg-white p-8 text-center text-sm text-[#687280]">
+            No activity found.
+          </div>
+        ) : (
+          <>
+            {/* Mobile Card View (< 768px) */}
+            <div className="space-y-3 md:hidden">
+              {entries.map((entry) => (
+                <div
+                  key={entry.id}
+                  className="flex flex-col gap-2 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
+                >
+                  <p className="text-sm font-medium text-black">
+                    {entry.activity}
+                  </p>
+                  <div className="flex items-center justify-between border-t border-black/5 pt-2 text-xs text-[#687280]">
+                    <span>
+                      By:{" "}
+                      <span className="font-medium text-black">
+                        {entry.performedBy}
+                      </span>
+                    </span>
+                    <span>{formatTime(entry.performedAt)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View (>= 768px) */}
+            <div className="hidden overflow-x-auto md:block">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-black/30">
+                    <th className="min-w-[280px] px-3 py-4 text-left text-[14px] font-semibold text-black">
+                      Activity Performed
+                    </th>
+                    <th className="px-3 py-4 text-left text-[14px] font-semibold text-black">
+                      Performed By
+                    </th>
+                    <th className="px-3 py-4 text-left text-[14px] font-semibold text-black">
+                      Performed At
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {entries.map((entry) => (
+                    <tr key={entry.id} className="border-b border-black/10">
+                      <td className="min-w-[280px] px-3 py-4 text-[14px] font-medium text-black">
+                        {entry.activity}
+                      </td>
+                      <td className="px-3 py-4 text-[14px] text-[#687280]">
+                        {entry.performedBy}
+                      </td>
+                      <td className="px-3 py-4 text-[14px] text-[#687280]">
+                        {formatTime(entry.performedAt)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 

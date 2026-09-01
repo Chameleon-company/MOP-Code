@@ -134,16 +134,18 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
   return (
     <div>
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-[40px] font-semibold text-emerald-500">Use Cases</h1>
-          <p className="mt-2 text-[16px] text-[#687280]">
+          <h1 className="text-2xl font-semibold text-emerald-500 sm:text-3xl md:text-[40px]">
+            Use Cases
+          </h1>
+          <p className="mt-1 text-xs text-[#687280] sm:text-sm md:text-[16px]">
             Manage and organize your use cases
           </p>
         </div>
         <Link
           href={`/${locale}/admin/use-cases/add`}
-          className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-emerald-500"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500 sm:px-5 sm:py-3"
         >
           <Plus size={18} />
           Add New
@@ -157,22 +159,22 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
       )}
 
       {/* Search + Filter */}
-      <div className="mb-6 flex flex-col gap-3 md:flex-row">
-        <div className="flex flex-1 items-center gap-2 rounded-xl border border-[#CFEFD9] bg-[#F8FFFA] px-4 py-3">
-          <Search size={18} className="text-[#1F8F50]" />
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-1 items-center gap-2 rounded-xl border border-[#CFEFD9] bg-[#F8FFFA] px-3.5 py-2.5 sm:px-4 sm:py-3">
+          <Search size={18} className="shrink-0 text-[#1F8F50]" />
           <input
             placeholder="Search use cases..."
             value={search}
             onChange={(e) => handleSearch(e.target.value)}
-            className="w-full bg-transparent text-sm outline-none"
+            className="w-full min-w-0 bg-transparent text-sm outline-none"
           />
         </div>
-        <div className="flex items-center gap-2 rounded-xl border border-[#CFEFD9] bg-[#F8FFFA] px-4 py-3">
-          <Filter size={18} className="text-[#1F8F50]" />
+        <div className="flex items-center gap-2 rounded-xl border border-[#CFEFD9] bg-[#F8FFFA] px-3.5 py-2.5 sm:px-4 sm:py-3">
+          <Filter size={18} className="shrink-0 text-[#1F8F50]" />
           <select
             value={selectedCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
-            className="bg-transparent text-sm outline-none"
+            className="w-full bg-transparent text-sm outline-none sm:w-auto"
           >
             <option value="All">All Categories</option>
             {categories.map((c) => (

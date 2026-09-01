@@ -429,26 +429,21 @@ export default function ContributorsPage() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-[40px] font-semibold text-[#2DBE6C]">
+          <h1 className="text-2xl font-semibold leading-tight text-[#2DBE6C] sm:text-3xl md:text-[40px]">
             Contributors
           </h1>
 
-          <p className="mt-2 text-[16px] text-[#687280]">
-            Manage students and mentors displayed on the
-            website
+          <p className="mt-1 text-xs text-[#687280] sm:text-sm md:text-[16px]">
+            Manage students and mentors displayed on the website
           </p>
         </div>
 
         <button
           type="button"
-          onClick={() =>
-            router.push(
-              `/${locale}/admin/contributors/add`,
-            )
-          }
-          className="flex items-center justify-center gap-2 rounded-xl bg-[#2DBE6C] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#25A85E]"
+          onClick={() => router.push(`/${locale}/admin/contributors/add`)}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#2DBE6C] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#25A85E] sm:px-5 sm:py-3"
         >
           <Plus size={18} />
           Add Contributor
@@ -534,43 +529,134 @@ export default function ContributorsPage() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[1000px] border-collapse">
-              <thead>
-                <tr className="border-b border-gray-100 text-left">
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Name
-                  </th>
+          <>
+            {/* Mobile Card View (< 768px) */}
+            <div className="space-y-3 md:hidden">
+              {filteredContributors.map((contributor) => (
+                <div
+                  key={contributor.id}
+                  className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-semibold text-[#344054]">
+                        {contributor.name}
+                      </h4>
+                      <p className="mt-0.5 text-xs text-[#687280]">
+                        T{contributor.trimester}, {contributor.year}
+                      </p>
+                    </div>
 
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Period
-                  </th>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          router.push(
+                            `/${locale}/admin/contributors/edit/${contributor.id}`,
+                          )
+                        }
+                        className="rounded-lg border border-gray-200 p-2 text-[#687280] transition hover:border-[#2DBE6C] hover:text-[#2DBE6C]"
+                        aria-label={`Edit ${contributor.name}`}
+                      >
+                        <Edit size={16} />
+                      </button>
 
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Type
-                  </th>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(contributor)}
+                        disabled={deletingId === contributor.id}
+                        className="rounded-lg border border-red-100 p-2 text-red-500 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+                        aria-label={`Delete ${contributor.name}`}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
 
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Team
-                  </th>
+                  <div className="grid grid-cols-2 gap-2 border-t border-gray-100 pt-2 text-xs">
+                    <div>
+                      <span className="block text-[11px] text-[#687280]">
+                        Type
+                      </span>
+                      <span className="mt-0.5 inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium capitalize text-blue-600">
+                        {contributor.contributor_type}
+                      </span>
+                    </div>
 
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Role
-                  </th>
+                    <div>
+                      <span className="block text-[11px] text-[#687280]">
+                        Status
+                      </span>
+                      <span
+                        className={`mt-0.5 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          contributor.is_active
+                            ? "bg-green-50 text-green-600"
+                            : "bg-gray-100 text-gray-500"
+                        }`}
+                      >
+                        {contributor.is_active ? "Active" : "Inactive"}
+                      </span>
+                    </div>
 
-                  <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
-                    Status
-                  </th>
+                    <div>
+                      <span className="block text-[11px] text-[#687280]">
+                        Team
+                      </span>
+                      <span className="font-medium text-[#344054]">
+                        {contributor.team || "—"}
+                      </span>
+                    </div>
 
-                  <th className="px-4 py-4 text-right text-sm font-semibold text-[#344054]">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
+                    <div>
+                      <span className="block text-[11px] text-[#687280]">
+                        Role
+                      </span>
+                      <span className="font-medium text-[#344054]">
+                        {contributor.position || "—"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-              <tbody>
-                {filteredContributors.map(
-                  (contributor) => (
+            {/* Desktop Table View (>= 768px) */}
+            <div className="hidden overflow-x-auto md:block">
+              <table className="w-full min-w-[1000px] border-collapse">
+                <thead>
+                  <tr className="border-b border-gray-100 text-left">
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Name
+                    </th>
+
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Period
+                    </th>
+
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Type
+                    </th>
+
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Team
+                    </th>
+
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Role
+                    </th>
+
+                    <th className="px-4 py-4 text-sm font-semibold text-[#344054]">
+                      Status
+                    </th>
+
+                    <th className="px-4 py-4 text-right text-sm font-semibold text-[#344054]">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {filteredContributors.map((contributor) => (
                     <tr
                       key={contributor.id}
                       className="border-b border-gray-100 last:border-b-0"
@@ -582,15 +668,12 @@ export default function ContributorsPage() {
                       </td>
 
                       <td className="px-4 py-4 text-sm text-[#687280]">
-                        T{contributor.trimester},{" "}
-                        {contributor.year}
+                        T{contributor.trimester}, {contributor.year}
                       </td>
 
                       <td className="px-4 py-4">
                         <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium capitalize text-blue-600">
-                          {
-                            contributor.contributor_type
-                          }
+                          {contributor.contributor_type}
                         </span>
                       </td>
 
@@ -610,9 +693,7 @@ export default function ContributorsPage() {
                               : "bg-gray-100 text-gray-500"
                           }`}
                         >
-                          {contributor.is_active
-                            ? "Active"
-                            : "Inactive"}
+                          {contributor.is_active ? "Active" : "Inactive"}
                         </span>
                       </td>
 
@@ -633,13 +714,8 @@ export default function ContributorsPage() {
 
                           <button
                             type="button"
-                            onClick={() =>
-                              handleDelete(contributor)
-                            }
-                            disabled={
-                              deletingId ===
-                              contributor.id
-                            }
+                            onClick={() => handleDelete(contributor)}
+                            disabled={deletingId === contributor.id}
                             className="rounded-lg border border-red-100 p-2 text-red-500 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                             aria-label={`Delete ${contributor.name}`}
                           >
@@ -648,11 +724,11 @@ export default function ContributorsPage() {
                         </div>
                       </td>
                     </tr>
-                  ),
-                )}
-              </tbody>
-            </table>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 

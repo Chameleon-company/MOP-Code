@@ -1,13 +1,17 @@
 "use client";
 
-import { Bell, Search, UserCircle2, Settings, LogOut } from "lucide-react";
+import { Bell, Search, UserCircle2, Settings, LogOut, Menu } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 
-export default function AdminHeader() {
+type AdminHeaderProps = {
+  onToggleMobileMenu?: () => void;
+};
+
+export default function AdminHeader({ onToggleMobileMenu }: AdminHeaderProps) {
   const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
@@ -39,7 +43,17 @@ export default function AdminHeader() {
 
   return (
     <header className="flex h-[72px] w-full items-center justify-between border-b border-[#D9D9D9] bg-[#F1EFEF] px-3 sm:px-4 md:px-6">
-      <div className="flex shrink-0 items-center">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            aria-label="Open mobile menu"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-black transition hover:bg-black/5 lg:hidden"
+          >
+            <Menu size={22} />
+          </button>
+        )}
         <Image
           src="/img/new-logo-green.png"
           alt="Chameleon Logo"
@@ -50,30 +64,32 @@ export default function AdminHeader() {
         />
       </div>
 
-      <div className="mx-2 flex w-full min-w-0 max-w-[160px] items-center rounded-lg border border-[#D9D9D9] bg-white px-3 py-2 sm:mx-4 sm:max-w-[260px] md:max-w-[420px]">
-        <Search size={16} className="shrink-0 text-[#9CA3AF]" />
+      <div className="mx-1.5 flex w-full min-w-0 max-w-[130px] items-center rounded-lg border border-[#D9D9D9] bg-white px-2.5 py-1.5 sm:mx-4 sm:max-w-[260px] sm:px-3 sm:py-2 md:max-w-[420px]">
+        <Search size={15} className="shrink-0 text-[#9CA3AF]" />
         <input
           type="text"
           placeholder="Search data"
-          className="ml-2 w-full min-w-0 bg-transparent text-sm outline-none"
+          className="ml-1.5 w-full min-w-0 bg-transparent text-xs sm:ml-2 sm:text-sm outline-none"
         />
       </div>
 
-      <div className="flex shrink-0 items-center gap-3 sm:gap-4 md:gap-5">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-4 md:gap-5">
         <button
           type="button"
+          aria-label="Notifications"
           className="text-[#4ADE80] transition hover:scale-105"
         >
-          <Bell size={20} className="sm:h-[22px] sm:w-[22px]" />
+          <Bell size={18} className="sm:h-[22px] sm:w-[22px]" />
         </button>
 
         <div className="relative" ref={dropdownRef}>
           <button
             type="button"
             onClick={() => setProfileOpen((prev) => !prev)}
+            aria-label="User menu"
             className="text-[#4ADE80] transition hover:scale-105"
           >
-            <UserCircle2 size={26} className="sm:h-[30px] sm:w-[30px]" />
+            <UserCircle2 size={24} className="sm:h-[30px] sm:w-[30px]" />
           </button>
 
           {profileOpen && (
