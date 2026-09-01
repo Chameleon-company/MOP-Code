@@ -917,8 +917,10 @@ const Dashboard = () => {
 					params.set("search", searchTerm.trim());
 					params.set("search_by", searchMode);
 				}
-				const res = await fetch(`/api/usecases?${params}`);
-				const json = await res.json();
+				const json = await apiFetch<{ success: boolean; data?: any[] }>(
+					`/api/usecases?${params}`,
+					{ silent: true }
+				);
 				if (json.success) {
 					setFilteredCaseStudies(
 						(json.data || []).map((u: any) => ({

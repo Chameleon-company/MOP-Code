@@ -49,13 +49,11 @@ const UseCasePage: React.FC = () => {
     if (!id || !useCase?.content_file_id) return;
 
     setContentLoading(true);
-    // Not migrated to apiFetch: this endpoint returns the raw notebook text,
-    // not the app's usual {success, data} JSON envelope, and apiFetch always
-    // parses the response as JSON.
-    fetch(`/api/usecases/${id}/content`)
-      .then((r) => (r.ok ? r.text() : null))
+    // This endpoint returns the raw notebook text, not the app's usual
+    // {success, data} JSON envelope, so use apiFetch's text mode.
+    apiFetch<string>(`/api/usecases/${id}/content`, { responseType: "text" })
       .then(setNotebookText)
-      .catch(() => setNotebookText(null))
+      .catch(() => setNotebookText(null)) // apiFetch already showed a toast
       .finally(() => setContentLoading(false));
   }, [id, useCase?.content_file_id]);
 

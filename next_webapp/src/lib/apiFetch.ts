@@ -27,6 +27,14 @@ interface ApiFetchOptions extends RequestInit {
    * throws ApiError on failure either way.
    */
   silent?: boolean;
+  /**
+   * How to parse a successful response body. Defaults to "json" to
+   * preserve existing behavior. Use "text" for endpoints that return
+   * a raw body (e.g. file/notebook content) rather than this app's
+   * usual `{ success, data }` JSON envelope. Error handling (toast on
+   * failure, ApiError on non-2xx) is the same either way.
+   */
+  responseType?: "json" | "text";
 }
 
 /**
@@ -43,13 +51,15 @@ interface ApiFetchOptions extends RequestInit {
  *
  * On success, resolves with the parsed JSON body (the full response
  * envelope - callers destructure `.data` as needed, matching this
- * app's existing `{ success, data }` API shape).
+ * app's existing `{ success, data }` API shape). Pass
+ * `responseType: "text"` for endpoints that return a raw body instead
+ * (e.g. file/notebook content) to get the raw text back unparsed.
  */
 export async function apiFetch<T = unknown>(
   input: string,
   options: ApiFetchOptions = {}
 ): Promise<T> {
-  const { silent, ...init } = options;
+  const { silent, responseType = "json", ...init } = options;
 
   let res: Response;
   try {
@@ -58,6 +68,16 @@ export async function apiFetch<T = unknown>(
     const message = "Network error - please check your connection and try again.";
     if (!silent) toast.error(message);
     throw new ApiError(message, 0);
+  }
+
+  if (responseType === "text") {
+    const text = await res.text().catch(() => "");
+    if (!res.ok) {
+      const message = `Request failed (${res.status})`;
+      if (!silent) toast.error(message);
+      throw new ApiError(message, res.status, text);
+    }
+    return text as unknown as T;
   }
 
   let body: unknown = null;
