@@ -33,7 +33,15 @@ const LanguageDropdown: React.FC = () => {
   const t = useTranslations("common");
 
   return (
-    <div ref={ref} className="relative">
+    <div
+      ref={ref}
+      className="relative"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsOpen(false);
+        }
+      }}
+    >
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

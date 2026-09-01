@@ -539,7 +539,9 @@ const Footer = () => {
 									}}
 								>
 									Melbourne Open Data
-									<span style={{ fontSize: "0.8rem" }}>↗</span>
+									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
+										↗
+									</span>
 								</a>
 
 								<div className="flex flex-col items-center md:items-start">
@@ -664,25 +666,8 @@ const Footer = () => {
 
 									<button
 										type="submit"
-										className="shrink-0 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[0.85rem] font-semibold transition hover:opacity-95 active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
-										onMouseEnter={(e) => {
-											e.currentTarget.style.background =
-												"rgba(255,255,255,0.92)";
-											e.currentTarget.style.color = "#166534";
-											e.currentTarget.style.border =
-												"1px solid rgba(255,255,255,0.7)";
-										}}
-										onMouseLeave={(e) => {
-											e.currentTarget.style.background =
-												"rgba(110, 231, 183, 0.24)";
-											e.currentTarget.style.color = "#f0fdf4";
-											e.currentTarget.style.border =
-												"1px solid rgba(167, 243, 208, 0.5)";
-										}}
+										className="shrink-0 whitespace-nowrap rounded-lg border border-[rgba(167,243,208,0.5)] bg-[rgba(110,231,183,0.24)] px-2.5 py-1.5 text-[0.85rem] font-semibold text-[#f0fdf4] transition hover:border-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[#166534] focus-visible:border-[rgba(255,255,255,0.7)] focus-visible:bg-[rgba(255,255,255,0.92)] focus-visible:text-[#166534] active:scale-[0.98] max-sm:w-auto max-sm:self-center max-sm:px-2.5 sm:px-2.5 md:px-2 md:py-1 md:text-[0.78rem] lg:px-3 lg:py-1.5 lg:text-[0.85rem]"
 										style={{
-											background: "rgba(110, 231, 183, 0.24)",
-											color: "#f0fdf4",
-											border: "1px solid rgba(167, 243, 208, 0.5)",
 											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
 										}}
 									>
