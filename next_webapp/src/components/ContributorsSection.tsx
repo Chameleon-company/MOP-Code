@@ -21,6 +21,7 @@ interface GroupedTeam {
 interface GroupedTrimester {
   trimester: number;
   companyDirector?: string;
+  projectLeads: string[];
   mentors: string[];
   teams: GroupedTeam[];
 }
@@ -59,6 +60,10 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
         .filter((record) => record.contributor_type === "mentor")
         .map((record) => record.name);
 
+      const projectLeads = sorted
+        .filter((record) => record.contributor_type === "project_lead")
+        .map((record) => record.name);
+
       const students = sorted.filter(
         (record) => record.contributor_type === "student"
       );
@@ -78,11 +83,28 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
       trimesters.push({
         trimester,
         companyDirector,
+        projectLeads,
         mentors,
-        teams: Array.from(teamsByName, ([teamName, members]) => ({
-          teamName,
-          members,
-        })),
+        teams: Array.from(teamsByName, ([teamName, members]) => {
+          const sortedMembers = [...members].sort((a, b) => {
+            const getWeight = (role?: string) => {
+              if (!role) return 3;
+              const lower = role.toLowerCase();
+              if (lower.includes("lead")) return 1;
+              if (lower.includes("manager")) return 2;
+              return 3;
+            };
+            const wA = getWeight(a.role);
+            const wB = getWeight(b.role);
+            if (wA !== wB) return wA - wB;
+            return a.name.localeCompare(b.name);
+          });
+          
+          return {
+            teamName,
+            members: sortedMembers,
+          };
+        }),
       });
     }
 
@@ -198,9 +220,15 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
       )}
 
       {trimester.mentors.length > 0 && (
-        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-2">
           <GraduationCap size={14} aria-hidden="true" />
           {t("contributors.mentoredBy", { names: trimester.mentors.join(", ") })}
+        </p>
+      )}
+
+      {trimester.projectLeads.length > 0 && (
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
+          Project Lead{trimester.projectLeads.length > 1 ? 's' : ''}: {trimester.projectLeads.join(", ")}
         </p>
       )}
 

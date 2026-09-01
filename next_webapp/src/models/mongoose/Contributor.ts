@@ -7,6 +7,7 @@ export const TEAM_ROLES = {
     "Data Scientist",
     "Data Science Team Lead",
     "Data Science Quality Manager",
+    "Project Lead",
   ],
   "Website Development Team": [
     "Web Developer",
@@ -21,6 +22,9 @@ export const TEAM_ROLES = {
     "Cyber Security Team Member",
     "Cyber Security Team Lead",
   ],
+  "Project Team": [
+    "Documentation Manager",
+  ],
 } as const;
 
 export type TeamName = keyof typeof TEAM_ROLES;
@@ -30,21 +34,24 @@ export const TEAMS = [
   "Website Development Team",
   "Design Team",
   "Cyber Security Team",
+  "Project Team",
 ] as const;
 export const ROLES = [
   "Web Developer",
   "Data Scientist",
   "Data Science Team Lead",
   "Data Science Quality Manager",
+  "Project Lead",
   "Web Dev Team Lead",
   "Web Dev Quality Manager",
   "Design Team Member",
   "Design Team Lead",
   "Cyber Security Team Member",
   "Cyber Security Team Lead",
+  "Documentation Manager",
 ] as const;
 export const LEVELS = ["Junior", "Senior"] as const;
-export const CONTRIBUTOR_TYPES = ["student", "mentor", "company_director"] as const;
+export const CONTRIBUTOR_TYPES = ["student", "mentor", "company_director", "project_lead"] as const;
 
 const contributorSchema = new Schema(
   {

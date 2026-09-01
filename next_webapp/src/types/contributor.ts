@@ -1,9 +1,9 @@
 // ./types/contributor.ts
 
-export type ContributorType = "student" | "mentor" | "company_director";
+export type ContributorType = "student" | "mentor" | "company_director" | "project_lead";
 
 export type TeamName = 
-"Data Science Team" | "Website Development Team" | "Design Team" | "Cyber Security Team";
+"Data Science Team" | "Website Development Team" | "Design Team" | "Cyber Security Team" | "Project Team";
 
 export type ContributorLevel = "Junior" | "Senior";
 
