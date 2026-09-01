@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from '@/lib/dbConnect';
+import User from '@/models/mongoose/User';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { errorResponse } from '@/app/api/library/errorResponse';
@@ -31,19 +32,21 @@ export async function POST(request: Request) {
         if (!email || typeof email !== 'string') {
             return errorResponse('Email is required', 400, 'MISSING_FIELDS');
         }
-        // Cap length before regex evaluation to prevent polynomial backtracking (ReDoS) on long input.
+
         if (email.length > 254 || !EMAIL_REGEX.test(email)) {
             return errorResponse('A valid email address is required', 400, 'INVALID_EMAIL');
         }
 
-        // 2. Look up user — return safe response if not found to avoid email enumeration
-        const { data: userData, error: userError } = await supabase
-            .from('user')
-            .select('id, email')
-            .eq('email', email)
-            .single();
+        await dbConnect();
 
-        if (userError || !userData) {
+        const normalizeEmail = email.toLowerCase().trim();
+
+        // 2. Look up user in MongoDB
+        const userData = await User.findOne({
+            email: normalizeEmail,
+        }).exec();
+
+        if (!userData) {
             return SAFE_RESPONSE;
         }
 
@@ -53,20 +56,11 @@ export async function POST(request: Request) {
         // 4. Hash temporary password
         const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
-        // 5. Update user record with hashed temp password
-        const { error: updateError } = await supabase
-            .from('user')
-            .update({
-                password: hashedPassword,
-                updated_at: new Date().toISOString(),
-            })
-            .eq('email', email);
+        // 5. Update MongoDB user
+        userData.password = hashedPassword;
+        await userData.save();
 
-        if (updateError) {
-            throw updateError;
-        }
-
-        // 6. Send email with temporary password via SMTP
+        // 6. Send email
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: Number(process.env.SMTP_PORT),
@@ -78,7 +72,7 @@ export async function POST(request: Request) {
 
         await transporter.sendMail({
             from: process.env.SMTP_FROM,
-            to: email,
+            to: userData.email,
             subject: 'Your Temporary Password - MOP Platform',
             text:
                 `Your temporary password is: ${tempPassword}\n\n` +
@@ -86,7 +80,6 @@ export async function POST(request: Request) {
                 `This temporary password can only be used once.`,
         });
 
-        // 7. Return safe response
         return SAFE_RESPONSE;
     } catch (error) {
         console.error('Forgot Password Error:', error);
