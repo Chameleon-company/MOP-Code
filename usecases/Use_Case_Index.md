@@ -11,6 +11,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
+| UC00109_Green_Wall_Locations_Melbourne | T2 2026 | Environmental Sustainability | Alison Collins | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00109_Green_Wall_Locations_Melbourne.ipynb) |
 
 ### Ready To Publish 
 
@@ -78,7 +79,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 #### T2 2024
 | Use Case Name | Use Case Location | Domain | Data Collection Method | Author |
 | :---: | :---: | :---: | :---: | :---: |
-| UC00023_New_Business_Location | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Business_and_Economy/2024/T2/UC00023_New_Business_Location) | Business and Economy | `pd.read_csv(url)` | Steven Tuften |
 | UC00070_Capacity_Forecasting_and_Strategic_Insights | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Urban_Planning_and_Development/2024/T2/UC00070_Capacity_Forecasting_and_Strategic_Insights) | Urban Planning and Development | `requests.get()` | Venuka Hirushan Wijenayake |
 | UC00071_Assessing_Parking_Availability | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2024/T2/UC00071_Assessing_Parking_Availability) | Transport and Mobility | `requests.get()` | Chathu Siriwardena |
 | UC00072_Urban_Growth_and_Transit_Planning_for_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Urban_Planning_and_Development/2024/T2/UC00072_Urban_Growth_and_Transit_Planning_for_Melbourne) | Urban Planning and Development | `requests.get()` | Manasa Nagaraja |
