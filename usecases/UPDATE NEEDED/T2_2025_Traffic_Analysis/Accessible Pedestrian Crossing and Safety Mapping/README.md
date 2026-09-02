@@ -53,7 +53,7 @@ The work forms part of **Use Case 1 Traffic Analysis (T2_2025)** in the MOP AI+I
 
 ```bash
 git clone https://github.com/Chameleon-company/MOP-Code.git
-cd "MOP-Code/artificial-intelligence/T2_2025/Traffic Analysis/Accessible Pedestrian Crossing and Safety Mapping"
+cd "MOP-Code/usecases/UPDATE NEEDED/T2_2025_Traffic_Analysis/Accessible Pedestrian Crossing and Safety Mapping"
 
 ```
 
