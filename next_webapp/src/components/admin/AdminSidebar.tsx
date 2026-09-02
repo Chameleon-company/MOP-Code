@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import {
@@ -48,6 +49,19 @@ export default function AdminSidebar({
     }
   };
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMobileMenu();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       {/* ── Mobile Off-Canvas Drawer (< 1024px) ── */}
@@ -57,15 +71,13 @@ export default function AdminSidebar({
           tabIndex={0}
           aria-label="Close menu backdrop"
           onClick={closeMobileMenu}
-          onKeyDown={(e) => e.key === "Escape" && closeMobileMenu()}
           className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity lg:hidden"
         />
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-[#1F8F50] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-[#1F8F50] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="flex h-[72px] items-center justify-between border-b border-white/15 px-4">
           <div className="flex items-center gap-2">
@@ -101,11 +113,10 @@ export default function AdminSidebar({
                 key={item.label}
                 href={href}
                 onClick={closeMobileMenu}
-                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
-                  isActive
+                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${isActive
                     ? "bg-white text-[#1F8F50] shadow-sm"
                     : "text-white/90 hover:bg-white/15 hover:text-white"
-                }`}
+                  }`}
               >
                 <Icon size={18} />
                 <span>{item.label}</span>
@@ -117,20 +128,18 @@ export default function AdminSidebar({
 
       {/* ── Desktop Collapsible Sidebar (>= 1024px) ── */}
       <aside
-        className={`hidden shrink-0 transition-all duration-300 shadow-sm lg:flex lg:flex-col ${
-          sidebarOpen ? "w-[190px] bg-[#1F8F50]" : "w-[70px] bg-[#F1EFEF]"
-        }`}
+        className={`hidden shrink-0 transition-all duration-300 shadow-sm lg:flex lg:flex-col ${sidebarOpen ? "w-[190px] bg-[#1F8F50]" : "w-[70px] bg-[#F1EFEF]"
+          }`}
       >
         <div className="flex h-[72px] items-center px-3">
           <button
             type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-            className={`flex h-10 w-10 items-center justify-center rounded-lg transition ${
-              sidebarOpen
+            className={`flex h-10 w-10 items-center justify-center rounded-lg transition ${sidebarOpen
                 ? "text-white hover:bg-white/20"
                 : "text-black hover:bg-black/5"
-            }`}
+              }`}
           >
             <Menu size={20} />
           </button>
@@ -147,15 +156,13 @@ export default function AdminSidebar({
                 key={item.label}
                 href={href}
                 title={!sidebarOpen ? item.label : ""}
-                className={`flex items-center rounded-lg transition-all duration-200 ${
-                  sidebarOpen ? "gap-3 px-3 py-2" : "justify-center px-0 py-2"
-                } ${
-                  isActive
+                className={`flex items-center rounded-lg transition-all duration-200 ${sidebarOpen ? "gap-3 px-3 py-2" : "justify-center px-0 py-2"
+                  } ${isActive
                     ? "bg-white text-[#1F8F50]"
                     : sidebarOpen
-                    ? "text-white hover:bg-white/20"
-                    : "text-black hover:bg-black/5"
-                }`}
+                      ? "text-white hover:bg-white/20"
+                      : "text-black hover:bg-black/5"
+                  }`}
               >
                 <Icon size={16} className="h-[18px] w-[18px]" />
                 {sidebarOpen && (

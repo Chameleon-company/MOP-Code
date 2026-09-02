@@ -9,12 +9,22 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
 }
 
+interface BlogItem {
+  id: number;
+  cover_img?: string | null;
+  title: string;
+  description?: string | null;
+  published_date?: string | null;
+  content?: string | null;
+  created_by_name?: string | null;
+}
+
 export default function BlogTable({
   data,
   locale,
   onDelete,
 }: {
-  data: any[];
+  data: BlogItem[];
   locale: string;
   onDelete: (id: number) => void;
 }) {
@@ -22,7 +32,7 @@ export default function BlogTable({
     <div className="rounded-2xl bg-[#ECEAEA] p-3 sm:p-5">
       {/* Mobile Card View (< 768px) */}
       <div className="space-y-3 md:hidden">
-        {data.map((item: any) => (
+        {data.map((item) => (
           <div
             key={item.id}
             className="flex flex-col gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
@@ -112,7 +122,7 @@ export default function BlogTable({
           </thead>
 
           <tbody>
-            {data.map((item: any) => (
+            {data.map((item) => (
               <tr key={item.id} className="border-b border-black/10">
                 <td className="px-3 py-4 text-sm text-[#687280]">{item.id}</td>
 
