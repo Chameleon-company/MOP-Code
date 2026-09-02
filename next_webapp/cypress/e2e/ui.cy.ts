@@ -86,11 +86,25 @@ describe('Language Switcher', () => {
 
 // 3. Mobile Navigation
 describe('Mobile Navigation', () => {
+  // Suppress ResizeObserver loop locally — triggered by third-party widgets at 375 px viewport
+  let removeResizeHandler: (() => void) | undefined;
+
   beforeEach(() => {
     // Set mobile viewport
     cy.viewport(375, 812);
     HOME_STUBS();
     cy.visit('/');
+
+    const handler = (err: Error) => {
+      if (/ResizeObserver loop/.test(err.message)) return false;
+    };
+    cy.on('uncaught:exception', handler);
+    removeResizeHandler = () => cy.off('uncaught:exception', handler);
+  });
+
+  afterEach(() => {
+    removeResizeHandler?.();
+    removeResizeHandler = undefined;
   });
 
   it('hamburger menu button is visible on mobile', () => {
