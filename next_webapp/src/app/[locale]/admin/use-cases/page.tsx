@@ -8,6 +8,7 @@ import UseCaseTable from "./components/UseCaseTable";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import AdminToast from "@/components/admin/AdminToast";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
 
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -41,10 +42,9 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
 
   // Fetch all categories once for the dropdown
   useEffect(() => {
-    fetch("/api/categories?pageSize=100", { headers: getAuthHeaders() })
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: any[] }>("/api/categories?pageSize=100", { headers: getAuthHeaders() })
       .then((json) => { if (json.success) setCategories(json.data || []); })
-      .catch(() => {});
+      .catch(() => {}); // apiFetch already showed a toast; this was previously a fully silent failure
   }, []);
 
   // Re-fetch use cases whenever page, search, or category filter changes
@@ -63,17 +63,15 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
       if (search) params.set("search", search);
       if (selectedCategory !== "All") params.set("category_id", selectedCategory);
 
-      const res = await fetch(`/api/usecases?${params}`, { headers: getAuthHeaders() });
-      const json = await res.json();
-      if (json.success) {
-        setUsecases(json.data || []);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-        setTotal(json.pagination?.total ?? 0);
-      } else {
-        setError(json.message || json.error || "Failed to load use cases.");
-      }
-    } catch {
-      setError("Failed to load data.");
+      const json = await apiFetch<{ success: boolean; data: any[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/usecases?${params}`,
+        { headers: getAuthHeaders(), silent: true }
+      );
+      setUsecases(json.data || []);
+      setTotalPages(json.pagination?.totalPages ?? 1);
+      setTotal(json.pagination?.total ?? 0);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load data.");
     } finally {
       setLoading(false);
     }
@@ -97,31 +95,22 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
     if (!deleteTarget) return;
   
     try {
-      const res = await fetch(`/api/usecases/${deleteTarget.id}`, {
+      await apiFetch(`/api/usecases/${deleteTarget.id}`, {
         method: "DELETE",
         headers: getAuthHeaders(),
+        silent: true,
       });
-  
-      const json = await res.json();
-  
-      if (!json.success) {
-        setToast({
-          message: json.message || json.error || "Failed to delete use case.",
-          type: "error",
-        });
-        return;
-      }
-  
+
       setToast({ message: "Use case deleted successfully.", type: "success" });
       setDeleteTarget(null);
-  
+
       if (usecases.length === 1 && page > 1) {
         setPage((p) => p - 1);
       } else {
         fetchUseCases();
       }
-    } catch {
-      setToast({ message: "Failed to delete use case.", type: "error" });
+    } catch (e) {
+      setToast({ message: e instanceof Error ? e.message : "Failed to delete use case.", type: "error" });
     }
   }
 

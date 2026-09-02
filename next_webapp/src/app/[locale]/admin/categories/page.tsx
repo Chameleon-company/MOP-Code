@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Pagination from "@/components/Pagination";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 function getAuthHeaders(): HeadersInit {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -49,24 +50,20 @@ export default function CategoriesPage() {
         page: String(currentPage),
         pageSize: String(PAGE_SIZE),
       });
-      const res = await fetch(`/api/categories?${params}`, {
+      const json = await apiFetch<any>(`/api/categories?${params}`, {
         headers: getAuthHeaders(),
+        silent: true,
       });
-      const json = await res.json();
-      if (res.status === 401) {
+      setCategories(json.data || []);
+      setTotalPages(json.pagination?.totalPages ?? 1);
+      setTotal(json.pagination?.total ?? 0);
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
         localStorage.removeItem("user");
         router.replace(`/${locale}/login`);
         return;
       }
-      if (json.success) {
-        setCategories(json.data || []);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-        setTotal(json.pagination?.total ?? 0);
-      } else {
-        setError(json.message || "Failed to load categories.");
-      }
-    } catch {
-      setError("Failed to load categories.");
+      setError(e instanceof Error ? e.message : "Failed to load categories.");
     } finally {
       setLoading(false);
     }
@@ -80,36 +77,27 @@ export default function CategoriesPage() {
     if (!deleteTarget) return;
   
     try {
-      const res = await fetch(`/api/categories/${deleteTarget.id}`, {
+      await apiFetch(`/api/categories/${deleteTarget.id}`, {
         method: "DELETE",
         headers: getAuthHeaders(),
+        silent: true,
       });
-  
-      const json = await res.json();
-  
-      if (!json.success) {
-        setToast({
-          message: json.message || "Failed to delete category.",
-          type: "error",
-        });
-        return;
-      }
-  
+
       setToast({
         message: "Category deleted successfully.",
         type: "success",
       });
-  
+
       setDeleteTarget(null);
-  
+
       if (categories.length === 1 && page > 1) {
         setPage((p) => p - 1);
       } else {
         fetchCategories(page);
       }
-    } catch {
+    } catch (e) {
       setToast({
-        message: "Failed to delete category.",
+        message: e instanceof Error ? e.message : "Failed to delete category.",
         type: "error",
       });
     }
@@ -268,27 +256,27 @@ export default function CategoriesPage() {
                       <TextHoverPreview text={category.description || "—"} />
                     </td>
 
-                    <td className="px-3 py-4">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/${locale}/admin/categories/edit/${category.id}`}
-                        >
-                          <button className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]">
-                            <Pencil size={16} />
-                          </button>
-                        </Link>
+                  <td className="px-3 py-4">
+                    <div className="flex items-center gap-2">
+                      <Link href={`/${locale}/admin/categories/edit/${category.id}`}>
                         <button
-                          onClick={() =>
-                            handleDelete(category.id, category.category_name)
-                          }
-                          className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50"
+                          aria-label={`Edit ${category.category_name}`}
+                          className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]"
                         >
-                          <Trash2 size={16} />
+                          <Pencil size={16} />
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </Link>
+                      <button
+                        aria-label={`Delete ${category.category_name}`}
+                        onClick={() => handleDelete(category.id, category.category_name)}
+                        className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
 
               {!loading && categories.length === 0 && (
                 <tr>
