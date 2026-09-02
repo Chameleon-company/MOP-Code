@@ -34,10 +34,17 @@ const UseCases: React.FC = () => {
     searchParams.get("search") ??
     "";
 
+  /*
+   * Validate the URL search mode instead of casting it directly.
+   * Only "title" and "tag" are supported by the frontend.
+   */
+  const searchBy = searchParams.get("search_by");
+
   const initMode: LocalSearchMode = searchParams.get("tag_name")
     ? "tag"
-    : (searchParams.get("search_by") as LocalSearchMode | null) ??
-      "title";
+    : searchBy === "tag"
+      ? "tag"
+      : "title";
 
   const [searchTerm, setSearchTerm] =
     useState<string>(initTerm);
@@ -95,12 +102,12 @@ const UseCases: React.FC = () => {
             params.set("tag_name", term);
           } else {
             params.set("search", term);
-            params.set("search_by", mode);
+            params.set("search_by", "title");
           }
         }
 
         const res = await fetch(
-          `/api/usecases?${params}`
+          `/api/usecases?${params.toString()}`
         );
 
         const json = await res.json();
@@ -108,30 +115,53 @@ const UseCases: React.FC = () => {
         if (json.success) {
           const mapped: CaseStudy[] = (
             json.data || []
-          ).map((u: any) => ({
-            id: u.id,
-            title: u.title,
-            description: u.description ?? "",
-            tags: (u.tags || []).map((tag: any) =>
-              typeof tag === "string"
-                ? tag
-                : tag.name
-            ),
-            image: u.cover_img ?? "",
-            category: u.category_id
-              ? String(u.category_id)
-              : "",
-            htmlFile: "",
-          }));
+          ).map((u: any) => {
+            /*
+             * The API now returns an embedded category object.
+             * Support either an object or string representation.
+             */
+            const category =
+              typeof u.category === "string"
+                ? u.category
+                : u.category?.name ??
+                  u.category?.title ??
+                  u.category?.id ??
+                  "";
+
+            return {
+              id: u.id,
+              title: u.title,
+              description: u.description ?? "",
+              tags: (u.tags || []).map((tag: any) =>
+                typeof tag === "string"
+                  ? tag
+                  : tag.name
+              ),
+              image: u.cover_img ?? "",
+              category: String(category),
+              htmlFile: "",
+            };
+          });
 
           setUsecases(mapped);
           setTotal(json.pagination?.total ?? 0);
           setTotalPages(
             json.pagination?.totalPages ?? 1
           );
+        } else {
+          setUsecases([]);
+          setTotal(0);
+          setTotalPages(1);
         }
       } catch (error) {
-        console.error(error);
+        console.error(
+          "Failed to fetch use cases:",
+          error
+        );
+
+        setUsecases([]);
+        setTotal(0);
+        setTotalPages(1);
       } finally {
         setLoading(false);
       }

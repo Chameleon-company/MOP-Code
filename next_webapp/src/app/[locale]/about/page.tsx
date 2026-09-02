@@ -12,7 +12,7 @@ const About = async () => {
   const t = await getTranslations("about");
 
   return (
-    <div className="min-h-screen bg-white text-black dark:bg-[#1d1919] dark:text-white">
+    <div className="about-page min-h-screen bg-white text-black dark:bg-[#1d1919] dark:text-white">
       <Header />
 
       {/* HERO SECTION */}

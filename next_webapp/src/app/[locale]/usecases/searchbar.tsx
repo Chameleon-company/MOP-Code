@@ -1,10 +1,9 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { CATEGORY } from "../../types";
 import { ChevronDown, Search } from "lucide-react";
 
-export type LocalSearchMode = "title" | "tag" | "content";
+export type LocalSearchMode = "title" | "tag";
 
 interface SearchBarProps {
   onSearch: (
@@ -39,10 +38,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     {
       value: "tag",
       label: t("Search by tag"),
-    },
-    {
-      value: "content",
-      label: t("Search by content"),
     },
   ];
 
