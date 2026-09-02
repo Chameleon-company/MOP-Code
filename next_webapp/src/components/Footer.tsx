@@ -517,7 +517,26 @@ const Footer = () => {
 									href="https://data.melbourne.vic.gov.au/pages/home/"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="flex min-w-0 flex-wrap items-center justify-center gap-1 break-words text-center text-[rgba(255,255,255,0.92)] [text-shadow:0_1px_4px_rgba(0,0,0,0.25)] transition-[color,text-shadow] hover:text-white hover:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] focus-visible:text-white focus-visible:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
+									className="flex min-w-0 flex-wrap justify-center break-words text-center md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
+									style={{
+										color: "rgba(255,255,255,0.92)",
+										textDecoration: "none",
+										transition: "color 0.2s ease, text-shadow 0.2s ease",
+										display: "flex",
+										alignItems: "center",
+										gap: "4px",
+										textShadow: "0 1px 4px rgba(0,0,0,0.25)",
+									}}
+									onMouseEnter={(e) => {
+										e.currentTarget.style.color = "#ffffff";
+										e.currentTarget.style.textShadow =
+											"0 0 12px rgba(255,255,255,0.6)";
+									}}
+									onMouseLeave={(e) => {
+										e.currentTarget.style.color = "rgba(255,255,255,0.92)";
+										e.currentTarget.style.textShadow =
+											"0 1px 4px rgba(0,0,0,0.25)";
+									}}
 								>
 									Melbourne Open Data
 									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
