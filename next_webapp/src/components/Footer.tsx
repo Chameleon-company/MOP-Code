@@ -621,7 +621,7 @@ const Footer = () => {
 									rel="noopener noreferrer"
 									className="flex min-w-0 flex-wrap items-center justify-center gap-1 break-words text-center text-[rgba(255,255,255,0.92)] [text-shadow:0_1px_4px_rgba(0,0,0,0.25)] transition-[color,text-shadow] hover:text-white hover:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] focus-visible:text-white focus-visible:[text-shadow:0_0_12px_rgba(255,255,255,0.6)] md:justify-start md:text-start md:text-[0.82rem] lg:text-[0.95rem]"
 								>
-									Melbourne Open Data
+									{t("Melbourne Open Data")}
 									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
 										↗
 									</span>
