@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { apiFetch } from "@/lib/apiFetch";
 
 type FormDataType = {
   fullName: string;
@@ -114,7 +115,9 @@ export default function ContactUsSection() {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch("/api/contact", {
+      // silent: true - this form already shows its own inline success/failure
+      // banner right below; a global toast on top would just be redundant.
+      await apiFetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,13 +128,8 @@ export default function ContactUsSection() {
           subject: formData.subject,
           message: formData.message,
         }),
+        silent: true,
       });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Failed to submit the form.");
-      }
 
       setSuccessMessage("Your message has been sent successfully.");
       setFormData({

@@ -7,6 +7,7 @@ import enMessages from "./en.json";
 import "./chatbot.css";
 import { processInput } from "./nlp/nlpProcessor";
 import { CaseStudy } from "@/app/types";
+import { apiFetch } from "@/lib/apiFetch";
 
 type Message = {
   content: React.ReactNode;
@@ -149,12 +150,14 @@ const Chatbot = () => {
 
   const fetchUseCasesFromAPI = async (searchTerm: string, searchMode = "TITLE") => {
     try {
-      const response = await fetch("/api/search-use-cases", {
+      // silent: true - a failed background lookup here just falls back to
+      // the chatbot's own "couldn't find that" reply, not worth a toast.
+      const data = await apiFetch<{ filteredStudies: CaseStudy[] }>("/api/search-use-cases", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ category: "", searchMode, searchTerm }),
+        silent: true,
       });
-      const data = await response.json();
       return data.filteredStudies;
     } catch (error) {
       console.error("Error fetching use cases:", error);

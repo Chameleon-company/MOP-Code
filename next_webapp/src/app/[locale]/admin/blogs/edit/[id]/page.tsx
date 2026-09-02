@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BlogForm from "../../components/BlogsForm";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 function authHeaders(user: any) {
   const userId = user.userId ?? user.id ?? "";
@@ -29,13 +30,7 @@ export default function EditBlogPage() {
     const fetchBlog = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const res = await fetch(`/api/blogs/${id}`, { headers: authHeaders(user) });
-        const json = await res.json();
-
-        if (!res.ok || !json.success) {
-          setLoadError(json.message || "Failed to load blog");
-          return;
-        }
+        const json = await apiFetch<any>(`/api/blogs/${id}`, { headers: authHeaders(user), silent: true });
 
         const b = json.data;
         setInitialData({
@@ -47,7 +42,7 @@ export default function EditBlogPage() {
         });
       } catch (e) {
         console.error(e);
-        setLoadError("Failed to load blog");
+        setLoadError(e instanceof Error ? e.message : "Failed to load blog");
       }
     };
 
@@ -70,26 +65,23 @@ export default function EditBlogPage() {
         formData.append("cover_img", data.coverImage);
       }
 
-      const res = await fetch(`/api/blogs/${id}`, {
+      await apiFetch(`/api/blogs/${id}`, {
         method: "PUT",
         headers: authHeaders(user),
         body: formData,
+        silent: true,
       });
-
-      const json = await res.json();
-
-      if (!res.ok || !json.success) {
-        const msg = json.errors
-          ? Object.values(json.errors).join(", ")
-          : json.message || "Failed to update blog";
-        setSubmitError(msg);
-        return;
-      }
 
       router.push(`/${locale}/admin/blogs`);
     } catch (e) {
       console.error(e);
-      setSubmitError("Something went wrong. Please try again.");
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const msg = body?.errors
+        ? Object.values(body.errors).join(", ")
+        : e instanceof Error
+          ? e.message
+          : "Something went wrong. Please try again.";
+      setSubmitError(msg);
     } finally {
       setSubmitting(false);
     }

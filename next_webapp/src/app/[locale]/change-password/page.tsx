@@ -4,6 +4,7 @@ import React, { Suspense, useState } from "react";
 import { useRouter, Link } from "@/i18n-navigation";
 import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const ERROR_MESSAGES: Record<string, string> = {
   MISSING_FIELDS: "All fields are required.",
@@ -53,7 +54,7 @@ function ChangePasswordForm() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/reset-password", {
+      await apiFetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -62,26 +63,22 @@ function ChangePasswordForm() {
           new_password: newPassword,
           confirm_password: confirmNewPassword,
         }),
+        silent: true,
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setSuccess(true);
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
-      } else {
-        setError(
-          ERROR_MESSAGES[data.code] ||
-            data.message ||
-            "Something went wrong. Please try again.",
-        );
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setSuccess(true);
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
+    } catch (err) {
+      const body = err instanceof ApiError ? (err.body as any) : null;
+      setError(
+        (body?.code && ERROR_MESSAGES[body.code]) ||
+          body?.message ||
+          (err instanceof Error ? err.message : "Something went wrong. Please try again."),
+      );
     } finally {
       setLoading(false);
     }
