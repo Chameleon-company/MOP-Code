@@ -10,7 +10,7 @@
 - Draft or sample datasets you're using while building out a use case
 - Anything still being worked on that isn't ready for formal review yet
 
-Each student creates their own folder here to work in (e.g. named after yourself or your project) rather than working loose in the root of `Playground/`.
+Each student creates their own folder here to work in, named after yourself, rather than working loose in the root of `Playground/`.
 
 ## Keeping this folder clean
 
