@@ -1,48 +1,15 @@
-Real-Time Route Optimisation using Traffic & Environmental Data
+# Playground
 
-Overview:
-This project focuses on developing a data-driven approach to real-time route optimisation by analysing traffic activity and environmental conditions in Melbourne. The goal is to predict traffic congestion patterns and use these insights to support smarter routing decisions.
+`Playground/` is a working space for students actively developing a use case — not a place for finished or long-term work.
 
-Objective:
-To build a system that:
-Predicts traffic volume (congestion levels) across different locations and times
-Incorporates weather and environmental factors
-Enables comparison of routes to select the least congested path
+## What goes here
 
-Datasets Used:
-1. Transport Activity Count Dataset
-Provides vehicle counts across multiple locations at 5-minute intervals
-Includes different transport types (cars, buses, trucks, etc.)
-2. ICT Microclimate Sensor Dataset
-Provides environmental data such as:
-Temperature
-Wind speed
-Humidity
-Air quality 
-Noise levels
+- Rough, in-progress notebooks and scripts
+- Draft or sample datasets you're using while building out a use case
+- Anything still being worked on that isn't ready for formal review yet
 
-Data Processing:
-The datasets were preprocessed to ensure consistency and usability:
-Filtered relevant vehicle types for congestion analysis
-Converted timestamps and aggregated data into hourly intervals
-Engineered time-based features (hour, day of week, weekend)
-Cleaned and aggregated environmental data across sensors
-Datasets were merged on hourly timestamps after aligning time zones and aggregating sensor readings across locations
+## Keeping this folder clean
 
-Data Integration:
-Traffic and environmental datasets were merged using timestamp-based joins, creating a unified dataset that captures:
-Traffic conditions
-Environmental influences
-Temporal patterns
+Once your use case is finished and has been moved into [`usecases/READY TO PUBLISH`](../usecases/READY%20TO%20PUBLISH), **delete your working folder from `Playground/`**.
 
-This enables analysis of how different factors impact congestion.
-
-Use Case
-
-The processed dataset can be used to:
-
-Train models to predict traffic volume
-Identify congestion patterns over time
-Support route optimisation systems by:
-Comparing predicted congestion across routes
-Selecting the most efficient path
+This folder should only ever contain work that's actively in progress — not a growing archive of past projects. If it's published, it doesn't belong here anymore.
