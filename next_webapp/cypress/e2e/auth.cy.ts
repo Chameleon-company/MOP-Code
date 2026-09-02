@@ -423,10 +423,10 @@ describe('Change Password Page', () => {
     cy.get('#newPassword').should('have.attr', 'type', 'password');
     cy.get('#confirmNewPassword').should('have.attr', 'type', 'password');
 
-    // Click all three toggle buttons (there are three Show password buttons)
-    cy.get('button[aria-label="Show password"]').each(($btn) => {
-      cy.wrap($btn).click();
-    });
+    // Re-query each button individually — avoids stale DOM refs after React re-renders on each click
+    cy.get('button[aria-label="Show password"]').eq(0).click();
+    cy.get('button[aria-label="Show password"]').eq(0).click();
+    cy.get('button[aria-label="Show password"]').eq(0).click();
 
     // All three fields should now be type="text"
     cy.get('#tempPassword').should('have.attr', 'type', 'text');
