@@ -7,6 +7,7 @@ import BlogTable from "./components/BlogsTable";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import AdminToast from "@/components/admin/AdminToast";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
 
 function authHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -46,15 +47,12 @@ export default function BlogsPage({ params }: { params: Promise<{ locale: string
       if (searchTerm) { params.set("search", searchTerm); params.set("search_by", "all"); }
       if (dateFilter) { params.set("date_from", dateFilter); params.set("date_to", dateFilter); }
 
-      const res = await fetch(`/api/blogs?${params}`, { headers: authHeaders() });
-      const json = await res.json();
-      if (json.success) {
-        setBlogs(json.data ?? []);
-        setTotal(json.pagination?.total ?? 0);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-      }
+      const json = await apiFetch<any>(`/api/blogs?${params}`, { headers: authHeaders() });
+      setBlogs(json.data ?? []);
+      setTotal(json.pagination?.total ?? 0);
+      setTotalPages(json.pagination?.totalPages ?? 1);
     } catch (e) {
-      console.error(e);
+      console.error(e); // apiFetch already showed a toast; this was previously a fully silent failure
     } finally {
       setLoading(false);
     }
@@ -82,26 +80,18 @@ export default function BlogsPage({ params }: { params: Promise<{ locale: string
     if (!deleteTarget) return;
   
     try {
-      const res = await fetch(`/api/blogs/${deleteTarget.id}`, {
+      await apiFetch(`/api/blogs/${deleteTarget.id}`, {
         method: "DELETE",
         headers: authHeaders(),
+        silent: true,
       });
-  
-      const json = await res.json();
-  
-      if (json.success) {
-        setToast({ message: "Blog deleted successfully.", type: "success" });
-        setDeleteTarget(null);
-        fetchBlogs(search, selectedDate, page);
-      } else {
-        setToast({
-          message: json.message || "Failed to delete blog.",
-          type: "error",
-        });
-      }
+
+      setToast({ message: "Blog deleted successfully.", type: "success" });
+      setDeleteTarget(null);
+      fetchBlogs(search, selectedDate, page);
     } catch (e) {
       console.error(e);
-      setToast({ message: "Failed to delete blog.", type: "error" });
+      setToast({ message: e instanceof Error ? e.message : "Failed to delete blog.", type: "error" });
     }
   };
 
