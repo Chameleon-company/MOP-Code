@@ -56,25 +56,26 @@ export async function PUT(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const { userId, isAdmin } = getAuthUser(request as any);
+
     try {
         // ==============================
         // 1. Auth check
         // ==============================
-        const { userId, isAdmin } = getAuthUser(request as any);
 
         if (!userId) {
-            return errorResponse("User not authenticated", 401, "UNAUTHORIZED");
+            return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
         }
 
         if (!isAdmin) {
-            return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN");
+            return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
         }
 
         const { id } = await params;
         const categoryId = Number(id);
 
         if (!categoryId) {
-            return errorResponse("Invalid category ID", 400, "INVALID_ID");
+            return errorResponse("Invalid category ID", 400, "INVALID_ID", request, userId);
         }
 
         // ==============================
@@ -89,7 +90,7 @@ export async function PUT(
         const validationError = validateUpdateCategory(cleanData);
 
         if (validationError) {
-            return errorResponse(validationError, 400, "VALIDATION_ERROR");
+            return errorResponse(validationError, 400, "VALIDATION_ERROR", request, userId);
         }
 
         // ==============================
@@ -102,7 +103,7 @@ export async function PUT(
             .single();
 
         if (fetchError || !existing) {
-            return errorResponse("Category not found", 404, "NOT_FOUND");
+            return errorResponse("Category not found", 404, "NOT_FOUND", request, userId);
         }
 
         // ==============================
@@ -122,7 +123,9 @@ export async function PUT(
                 return errorResponse(
                     "Failed to validate category",
                     500,
-                    "DB_CHECK_ERROR"
+                    "DB_CHECK_ERROR",
+                    request,
+                    userId
                 );
             }
 
@@ -130,7 +133,9 @@ export async function PUT(
                 return errorResponse(
                     "Category with this name already exists",
                     400,
-                    "DUPLICATE_CATEGORY"
+                    "DUPLICATE_CATEGORY",
+                    request,
+                    userId
                 );
             }
         }
@@ -150,7 +155,7 @@ export async function PUT(
 
         if (error) {
             console.error("Update error:", error);
-            return errorResponse("Failed to update category", 500, "DB_UPDATE_ERROR");
+            return errorResponse("Failed to update category", 500, "DB_UPDATE_ERROR", request, userId);
         }
 
         // ==============================
@@ -179,7 +184,9 @@ export async function PUT(
         return errorResponse(
             "Internal Server Error",
             500,
-            "INTERNAL_ERROR"
+            "INTERNAL_ERROR",
+            request,
+            userId
         );
     }
 }
@@ -193,23 +200,24 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { userId, isAdmin } = getAuthUser(request);
+
   try {
     // 1. Auth check
-    const { userId, isAdmin } = getAuthUser(request);
 
     if (!userId) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED");
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
     }
 
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN");
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
     }
 
     const { id } = await params;
     const categoryId = Number(id);
 
     if (!categoryId || Number.isNaN(categoryId)) {
-      return errorResponse("Invalid category ID", 400, "INVALID_ID");
+      return errorResponse("Invalid category ID", 400, "INVALID_ID", request, userId);
     }
 
     // 2. Check category exists
@@ -220,7 +228,7 @@ export async function DELETE(
       .single();
 
     if (categoryError || !existingCategory) {
-      return errorResponse("Category not found", 404, "CATEGORY_NOT_FOUND");
+      return errorResponse("Category not found", 404, "CATEGORY_NOT_FOUND", request, userId);
     }
 
     // 3. Count how many use cases are using this category
@@ -234,7 +242,9 @@ export async function DELETE(
       return errorResponse(
         "Failed to validate category usage",
         500,
-        "USAGE_CHECK_ERROR"
+        "USAGE_CHECK_ERROR",
+        request,
+        userId
       );
     }
 
@@ -265,7 +275,9 @@ export async function DELETE(
       return errorResponse(
         "Failed to delete category",
         500,
-        "DELETE_ERROR"
+        "DELETE_ERROR",
+        request,
+        userId
       );
     }
 
@@ -283,6 +295,6 @@ export async function DELETE(
     );
   } catch (error) {
     console.error("Delete Category Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR");
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request, userId);
   }
 }

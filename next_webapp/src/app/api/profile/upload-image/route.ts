@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
+import { getAuthUser } from "@/app/api/library/auth";
 
 function unauthorized() {
   return NextResponse.json(
@@ -24,8 +18,8 @@ function badRequest(message: string) {
 }
 
 export async function POST(request: NextRequest) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
+  const { userId, isAuthenticated } = getAuthUser(request);
+  if (!isAuthenticated || !userId) return unauthorized();
 
   try {
     const formData = await request.formData();

@@ -42,26 +42,25 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
     }
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
     }
 
     const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return errorResponse("Invalid contributor ID", 400, "INVALID_ID", request);
+      return errorResponse("Invalid contributor ID", 400, "INVALID_ID", request, userId);
     }
-
     let body;
     try {
       body = await request.json();
     } catch (error) {
       if (error instanceof SyntaxError) {
-        return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request);
+        return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request, userId);
       }
       throw error;
     }
@@ -70,7 +69,7 @@ export async function PUT(
 
     const existing = await Contributor.findById(id);
     if (!existing) {
-      return errorResponse("Contributor not found", 404, "NOT_FOUND", request);
+      return errorResponse("Contributor not found", 404, "NOT_FOUND", request, userId);
     }
 
     const isStudent = body.contributor_type === "student";
@@ -96,10 +95,10 @@ export async function PUT(
     return NextResponse.json({ success: true, data: toContributorDTO(existing.toObject()) });
   } catch (error) {
     if (error instanceof Error && error.name === "ValidationError") {
-      return errorResponse(error.message, 400, "VALIDATION_ERROR", request);
+      return errorResponse(error.message, 400, "VALIDATION_ERROR", request, userId);
     }
     console.error("Update Contributor Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request);
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request, userId);
   }
 }
 
@@ -111,33 +110,34 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const {userId, isAuthenticated, isAdmin } = getAuthUser(request);
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
     }
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
     }
 
     const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return errorResponse("Invalid contributor ID", 400, "INVALID_ID", request);
+      return errorResponse("Invalid contributor ID", 400, "INVALID_ID", request, userId);
     }
 
     await dbConnect();
 
     const deleted = await Contributor.findByIdAndDelete(id);
     if (!deleted) {
-      return errorResponse("Contributor not found", 404, "NOT_FOUND", request);
+      return errorResponse("Contributor not found", 404, "NOT_FOUND", request, userId);
     }
 
     return NextResponse.json({
       success: true,
       message: "Contributor deleted successfully",
     });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Delete Contributor Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request);
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request, userId);
   }
 }
