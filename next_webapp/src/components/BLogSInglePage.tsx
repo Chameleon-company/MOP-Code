@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n-navigation";
 import Image from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
 
 interface Blog {
   id: number;
@@ -42,23 +43,17 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
     const fetchBlog = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/home/blogs/${id}`);
-        const json = await res.json();
-
-        if (!res.ok || !json.success) {
-          setNotFound(true);
-          return;
-        }
+        const json = await apiFetch<{ success: boolean; data: Blog }>(`/api/home/blogs/${id}`);
 
         setBlog(json.data);
 
         // Random recommendations (server pools up to 800, shuffles, returns 3)
-        const relRes = await fetch(
-          `/api/home/blogs?recommend=1&excludeId=${encodeURIComponent(String(json.data.id))}&take=3`
+        const relJson = await apiFetch<{ success: boolean; data: RelatedBlog[] }>(
+          `/api/home/blogs?recommend=1&excludeId=${encodeURIComponent(String(json.data.id))}&take=3`,
+          { silent: true } // recommendations are non-critical; fail quietly rather than toast
         );
-        const relJson = await relRes.json();
         if (relJson.success && Array.isArray(relJson.data)) {
-          setRelated(relJson.data as RelatedBlog[]);
+          setRelated(relJson.data);
         }
       } catch (e) {
         console.error(e);

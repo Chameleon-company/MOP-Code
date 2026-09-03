@@ -14,7 +14,6 @@ const config: Config = {
         primary: "var(--color-primary)",
         dark:    "var(--color-dark)",
         light:   "var(--color-light)",
-        white:   "var(--color-white)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

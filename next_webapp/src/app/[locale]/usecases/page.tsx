@@ -143,6 +143,7 @@ import SearchBar, { LocalSearchMode } from "./searchbar";
 import PreviewComponent from "./preview";
 import { CATEGORY, CaseStudy } from "../../types";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
+import { apiFetch } from "@/lib/apiFetch";
 
 const PAGE_SIZE = 9;
 
@@ -200,8 +201,9 @@ const UseCases: React.FC = () => {
 					}
 				}
 
-				const res = await fetch(`/api/usecases?${params}`);
-				const json = await res.json();
+				const json = await apiFetch<{ success: boolean; data: any[]; pagination?: { total: number; totalPages: number } }>(
+					`/api/usecases?${params}`
+				);
 
 				if (json.success) {
 					const mapped: CaseStudy[] = (json.data || []).map((u: any) => ({
@@ -220,7 +222,7 @@ const UseCases: React.FC = () => {
 					setTotalPages(json.pagination?.totalPages ?? 1);
 				}
 			} catch (e) {
-				console.error(e);
+				console.error(e); // apiFetch already showed a toast
 			} finally {
 				setLoading(false);
 			}

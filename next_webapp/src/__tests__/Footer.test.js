@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Footer from '../components/Footer';
 
@@ -121,5 +122,36 @@ describe('Footer component', () => {
         ),
       ),
     ).toBeInTheDocument();
+  });
+
+  test('shows a validation error for an invalid newsletter email', async () => {
+    const user = userEvent.setup();
+    render(<Footer />);
+
+    await user.type(
+      screen.getByLabelText('Email for newsletter'),
+      'not-an-email',
+    );
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      /Please enter a valid email address/i,
+    );
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  test('accepts a valid email and shows a success toast', async () => {
+    const user = userEvent.setup();
+    render(<Footer />);
+
+    const input = screen.getByLabelText('Email for newsletter');
+
+    await user.type(input, 'morgan.lee@gmail.com');
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    expect(input).toHaveValue('');
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /we'll only email when there's something worth your time/i,
+    );
   });
 });

@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import BlogForm from "../components/BlogsForm";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 export default function AddBlog() {
   const router = useRouter();
   const { locale } = useParams<{ locale: string }>();
@@ -30,7 +31,7 @@ export default function AddBlog() {
         formData.append("cover_img", data.coverImage);
       }
 
-      const res = await fetch("/api/blogs", {
+      await apiFetch("/api/blogs", {
         method: "POST",
         headers: {
           "x-user-id": String(userId),
@@ -39,17 +40,8 @@ export default function AddBlog() {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: formData,
+        silent: true,
       });
-
-      const json = await res.json();
-
-      if (!res.ok || !json.success) {
-        const msg = json.errors
-          ? Object.values(json.errors).join(", ")
-          : json.message || "Failed to create blog";
-        setError(msg);
-        return;
-      }
 
       setToast({
         message: "Blog added successfully.",
@@ -61,7 +53,13 @@ export default function AddBlog() {
       }, 1000);
     } catch (e) {
       console.error(e);
-      setError("Something went wrong. Please try again.");
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const msg = body?.errors
+        ? Object.values(body.errors).join(", ")
+        : e instanceof Error
+          ? e.message
+          : "Something went wrong. Please try again.";
+      setError(msg);
     } finally {
       setSubmitting(false);
     }
