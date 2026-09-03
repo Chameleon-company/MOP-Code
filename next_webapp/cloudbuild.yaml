@@ -2,7 +2,8 @@ options:
   logging: GCS_ONLY
 
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'Build Docker Image'
+    name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
       - '-t'
@@ -10,12 +11,14 @@ steps:
       - '.'
     dir: 'next_webapp'
 
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'Push to Artifact Registry'
+    name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
       - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - id: 'Deploy to Cloud Run'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
@@ -28,10 +31,8 @@ steps:
       - '--port=3000'
       - '--memory=512Mi'
       - '--cpu=1'
-      - '--set-secrets=MONGODB_URI=mongodb-uri:latest,JWT_SECRET=jwt-secret:latest,SMTP_PASSWORD=smtp-password:latest,SUPABASE_API_KEY=supabase-api-key:latest'
+      - '--set-secrets=MONGODB_URI=mongodb-uri:latest,JWT_SECRET=JWT_SECRET:latest,SMTP_PASSWORD=SMTP_PASSWORD:latest,SUPABASE_API_KEY=supabase-api-key:latest'
       - '--set-env-vars=SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=mopchameleon@gmail.com,SMTP_FROM=mopchameleon@gmail.com,GCS_IMAGES_BUCKET=gs://mop-images,SUPABASE_URL=https://jusajjfvjxtlkafmscwx.supabase.co'
-   #abasdbsa   
-# the other stuff is int the secrets, so we don't need to set them here
 
 images:
   - 'australia-southeast1-docker.pkg.dev/sit-22t1-city-of-melbo-d86dc19/cloud-run-source-deploy/next-webapp:$COMMIT_SHA'
