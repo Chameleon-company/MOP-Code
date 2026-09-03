@@ -4,6 +4,7 @@ import dbConnect from '@/lib/dbConnect';
 import Log from '@/models/mongoose/Log';
 import User from '@/models/mongoose/User';
 import { getAuthUser } from '@/app/api/library/auth';
+import { errorResponse } from '@/app/api/library/errorResponse';
 import logger from '@/utils/logger';
 
 const ALLOWED_SORT = new Set([
@@ -269,20 +270,26 @@ export async function GET(request: NextRequest) {
 // DELETE /api/logs?olderThanDays=N
 // Deletes logs older than the requested number of days.
 export async function DELETE(request: NextRequest) {
-  try {
-    const authUser = getAuthUser(request);
+  const authUser = getAuthUser(request);
 
-    if (!authUser.isAuthenticated) {
-      return NextResponse.json(
-        { success: false, message: 'Unauthorized' },
-        { status: 401 },
+  try {
+    if (!authUser.isAuthenticated || !authUser.userId) {
+      return errorResponse(
+        'User not authenticated',
+        401,
+        'UNAUTHORIZED',
+        request,
+        authUser.userId,
       );
     }
 
     if (!authUser.isAdmin) {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden - Admin only' },
-        { status: 403 },
+      return errorResponse(
+        'Forbidden - Admin only',
+        403,
+        'FORBIDDEN',
+        request,
+        authUser.userId,
       );
     }
 
@@ -293,12 +300,12 @@ export async function DELETE(request: NextRequest) {
     );
 
     if (!Number.isInteger(rawDays) || rawDays < 1) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'olderThanDays must be a positive integer',
-        },
-        { status: 400 },
+      return errorResponse(
+        'olderThanDays must be a positive integer',
+        400,
+        'INVALID_OLDER_THAN_DAYS',
+        request,
+        authUser.userId,
       );
     }
 
@@ -333,12 +340,16 @@ export async function DELETE(request: NextRequest) {
       {
         source: 'api',
         url: '/api/logs',
+        user_id: authUser.userId,
       },
     );
 
-    return NextResponse.json(
-      { success: false, message: 'Internal Server Error' },
-      { status: 500 },
+    return errorResponse(
+      'Internal Server Error',
+      500,
+      'INTERNAL_ERROR',
+      request,
+      authUser.userId,
     );
   }
 }

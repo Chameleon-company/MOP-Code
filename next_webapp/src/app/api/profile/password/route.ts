@@ -1,18 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { supabase } from "@/library/supabaseClient";
+import dbConnect from "@/lib/dbConnect";
+import User from "@/models/mongoose/User";
+import { getAuthUser } from "@/app/api/library/auth";
 import { validatePasswordChangeInput } from "@/app/api/library/validators";
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
 
 function badRequest(message: string, errors?: { field: string; message: string }[]) {
   const response: any = { success: false, message };
@@ -38,8 +33,8 @@ function serverError() {
 // ---------------------------------------------------------------------------
 
 export async function PUT(request: NextRequest) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
+  const { userId, isAuthenticated } = getAuthUser(request);
+  if (!isAuthenticated || !userId) return unauthorized();
 
   // --- Parse body -----------------------------------------------------------
   let body: {
@@ -62,40 +57,31 @@ export async function PUT(request: NextRequest) {
   const { current_password, new_password, confirm_password } = body;
 
   // --- Fetch the stored bcrypt hash from the user table ---------------------
-  const { data: user, error: fetchError } = await supabase
-    .from("user")
-    .select("password")
-    .eq("id", userId)
-    .maybeSingle();
+  try {
+    await dbConnect();
 
-  if (fetchError) {
-    console.error("[PUT /api/profile/password] fetch error:", fetchError);
+    const user = await User.findById(userId).select("password");
+
+    // Return 401 (not 404) to avoid leaking whether a user ID exists
+    if (!user) return unauthorized();
+
+    // --- Verify the current password against the stored hash ------------------
+    const matches = await bcrypt.compare(current_password!, user.password);
+    if (!matches) return unauthorized("Current password is incorrect");
+
+    // --- Hash the new password and save it ------------------------------------
+    // 12 salt rounds = ~300ms on modern hardware, strong against brute force
+    const newHash = await bcrypt.hash(new_password!, 12);
+
+    user.password = newHash;
+    await user.save();
+
+    return NextResponse.json({
+      success: true,
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    console.error("[PUT /api/profile/password] error:", error);
     return serverError();
   }
-
-  // Return 401 (not 404) to avoid leaking whether a user ID exists
-  if (!user) return unauthorized();
-
-  // --- Verify the current password against the stored hash ------------------
-  const matches = await bcrypt.compare(current_password!, user.password);
-  if (!matches) return unauthorized("Current password is incorrect");
-
-  // --- Hash the new password and save it ------------------------------------
-  // 12 salt rounds = ~300ms on modern hardware, strong against brute force
-  const newHash = await bcrypt.hash(new_password!, 12);
-
-  const { error: updateError } = await supabase
-    .from("user")
-    .update({ password: newHash })
-    .eq("id", userId);
-
-  if (updateError) {
-    console.error("[PUT /api/profile/password] update error:", updateError);
-    return serverError();
-  }
-
-  return NextResponse.json({
-    success: true,
-    message: "Password updated successfully",
-  });
 }

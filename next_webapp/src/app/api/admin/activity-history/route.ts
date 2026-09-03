@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from "@/lib/dbConnect";
+import Log from "@/models/mongoose/Log";
+import User from "@/models/mongoose/User";
 import { getAuthUser } from '@/app/api/library/auth';
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 function formatActivity(method: string | null, url: string | null): string {
   if (!method || !url) return 'Unknown action';
@@ -47,130 +53,173 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
   }
 
-  const url   = new URL(request.url);
-  const sp    = url.searchParams;
+  try {
+    await dbConnect();
+    const url   = new URL(request.url);
+    const sp    = url.searchParams;
 
-  const format     = sp.get('format') ?? 'json';           // 'json' | 'csv'
-  const includeGet = sp.get('includeGet') === 'true';       // default: write-ops only
-  const search     = sp.get('search')?.trim() ?? '';
+    const format     = sp.get('format') ?? 'json';           // 'json' | 'csv'
+    const includeGet = sp.get('includeGet') === 'true';       // default: write-ops only
+    const search     = sp.get('search')?.trim() ?? '';
 
-  // Sort
-  const rawSortBy    = sp.get('sortBy') ?? 'timestamp';
-  const rawSortOrder = sp.get('sortOrder') ?? 'desc';
-  const sortBy       = ALLOWED_SORT_COLUMNS.has(rawSortBy) ? rawSortBy : 'timestamp';
-  const ascending    = rawSortOrder.toLowerCase() === 'asc';
+    // Sort
+    const rawSortBy    = sp.get('sortBy') ?? 'timestamp';
+    const rawSortOrder = sp.get('sortOrder') ?? 'desc';
+    const sortBy       = ALLOWED_SORT_COLUMNS.has(rawSortBy) ? rawSortBy : 'timestamp';
+    const ascending    = rawSortOrder.toLowerCase() === 'asc';
 
-  // Pagination (ignored for CSV export — returns all rows)
-  const page     = Math.max(1, parseInt(sp.get('page')     || '1'));
-  const pageSize = Math.min(50, parseInt(sp.get('pageSize') || '20'));
-  const offset   = (page - 1) * pageSize;
+    // Pagination (ignored for CSV export — returns all rows)
+    const page     = Math.max(1, parseInt(sp.get('page')     || '1'));
+    const pageSize = Math.min(50, parseInt(sp.get('pageSize') || '20'));
+    const offset   = (page - 1) * pageSize;
 
-  // Resolve search term → matching user_ids
-  let filterUserIds: number[] | null = null;
-  if (search) {
-    const [{ data: detailsMatch }, { data: emailMatch }] = await Promise.all([
-      supabase
-        .from('user_details')
-        .select('user_id')
-        .or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%`),
-      supabase
-        .from('user')
-        .select('id')
-        .ilike('email', `%${search}%`),
-    ]);
+    // Resolve search term → matching user_ids
+    let filterUserIds: string[] | null = null;
+    if (search) {
+      const escapedSearch = escapeRegex(search);
 
-    const ids = new Set<number>();
-    detailsMatch?.forEach((d) => ids.add(d.user_id));
-    emailMatch?.forEach((u)   => ids.add(u.id));
-    filterUserIds = Array.from(ids);
+      const matchingUsers = await User.find({
+        $or: [
+          { email: { $regex: escapedSearch, $options: "i" } },
+          { "profile.first_name": { $regex: escapedSearch, $options: "i" } },
+          { "profile.last_name": { $regex: escapedSearch, $options: "i" } },
+        ],
+      })
+        .select("_id")
+        .lean();
 
-    if (filterUserIds.length === 0) {
-      const emptyPagination = { page, pageSize, total: 0, totalPages: 0 };
-      if (format === 'csv') return new NextResponse('id,activity,performedBy,performedAt\n', {
-        headers: { 'Content-Type': 'text/csv', 'Content-Disposition': 'attachment; filename="activity-history.csv"' },
-      });
-      return NextResponse.json({ success: true, data: [], pagination: emptyPagination });
+      filterUserIds = matchingUsers.map((u) => u._id.toString());
+
+      if (filterUserIds.length === 0) {
+        const emptyPagination = {
+          page,
+          pageSize,
+          total: 0,
+          totalPages: 0,
+        };
+
+        if (format === "csv") {
+          return new NextResponse(
+            "id,activity,performedBy,performedAt\n",
+            {
+              headers: {
+                "Content-Type": "text/csv",
+                "Content-Disposition":
+                  'attachment; filename="activity-history.csv"',
+              },
+            }
+          );
+        }
+
+        return NextResponse.json({
+          success: true,
+          data: [],
+          pagination: emptyPagination,
+        });
+      }
     }
-  }
 
-  // Build base query
-  let query = supabase
-    .from('logs')
-    .select('id, method, url, user_id, timestamp', { count: 'exact' })
-    .eq('source', 'middleware')
-    .not('user_id', 'is', null)
-    .order(sortBy, { ascending });
+    // Build base query
+    const logFilter: Record<string, unknown> = {
+      source: "middleware",
+      user_id: { $ne: null },
+    };
 
-  if (!includeGet) {
-    query = query.in('method', ['POST', 'PUT', 'PATCH', 'DELETE']);
-  }
+    if (!includeGet) {
+      logFilter.method = {
+        $in: ["POST", "PUT", "PATCH", "DELETE"],
+      };
+    }
 
-  if (filterUserIds !== null) {
-    query = query.in('user_id', filterUserIds);
-  }
+    if (filterUserIds !== null) {
+      logFilter.user_id = {
+        $in: filterUserIds,
+      };
+    }
 
-  // For CSV, fetch all records; for JSON, paginate
-  if (format !== 'csv') {
-    query = query.range(offset, offset + pageSize - 1);
-  }
+    const sortDirection = ascending ? 1 : -1;
 
-  const { data: logs, error, count } = await query;
+    let logsQuery = Log.find(logFilter)
+      .sort({ [sortBy]: sortDirection });
 
-  if (error) {
-    return NextResponse.json({ success: false, message: 'Failed to fetch activity' }, { status: 500 });
-  }
+    if (format !== "csv") {
+      logsQuery = logsQuery
+        .skip(offset)
+        .limit(pageSize);
+    }
 
-  // Resolve user display names
-  const userIds = [...new Set((logs ?? []).map((l) => l.user_id).filter(Boolean))] as number[];
-  const userNameMap: Record<number, string> = {};
-
-  if (userIds.length > 0) {
-    const [{ data: details }, { data: users }] = await Promise.all([
-      supabase.from('user_details').select('user_id, first_name, last_name').in('user_id', userIds),
-      supabase.from('user').select('id, email').in('id', userIds),
+    const [logs, total] = await Promise.all([
+      logsQuery.lean(),
+      Log.countDocuments(logFilter),
     ]);
 
-    const emailMap: Record<number, string> = {};
-    users?.forEach((u) => { emailMap[u.id] = u.email; });
+    // Resolve user display names
+    const userIds = [
+      ...new Set(
+        logs
+          .map((l) => l.user_id?.toString())
+          .filter((id): id is string => Boolean(id))
+      ),
+    ];
 
-    details?.forEach((d) => {
-      const name = `${d.first_name ?? ''} ${d.last_name ?? ''}`.trim();
-      userNameMap[d.user_id] = name || emailMap[d.user_id] || `User #${d.user_id}`;
+    const userNameMap: Record<string, string> = {};
+
+    if (userIds.length > 0) {
+        const users = await User.find({
+          _id: { $in: userIds },
+        })
+          .select("_id email profile.first_name profile.last_name")
+          .lean();
+
+      users.forEach((user) => {
+        const id = user._id.toString();
+        const name =
+          `${user.profile?.first_name ?? ""} ${user.profile?.last_name ?? ""}`.trim();userNameMap[id] =name ||user.email || `User #${id}`;
+      });
+    }
+
+    const mapped = logs.map((log) => {
+      const userId = log.user_id?.toString();
+
+      return {
+        id: log._id.toString(),
+        activity: formatActivity(log.method, log.url),
+        performedBy: userId
+          ? userNameMap[userId] ?? `User #${userId}`
+          : "System",
+        performedAt: log.timestamp,
+      };
     });
 
-    userIds.forEach((id) => {
-      if (!userNameMap[id]) userNameMap[id] = emailMap[id] || `User #${id}`;
+    // ── CSV export ────────────────────────────────────────────────────────────
+    if (format === 'csv') {
+      const escape = (v: string) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+      const rows = mapped.map((r) =>
+        [r.id, escape(r.activity), escape(r.performedBy), r.performedAt].join(',')
+      );
+      const csv = ['id,activity,performedBy,performedAt', ...rows].join('\n');
+
+      return new NextResponse(csv, {
+        headers: {
+          'Content-Type': 'text/csv',
+          'Content-Disposition': 'attachment; filename="activity-history.csv"',
+        },
+      });
+    }
+
+    // ── JSON response ─────────────────────────────────────────────────────────
+    return NextResponse.json({
+      success: true,
+      data: mapped,
+      pagination: { page, pageSize, total, totalPages: Math.ceil(total / pageSize) },
     });
   }
+  catch (error) {
+      console.error("[GET /api/activity] error:", error);
 
-  const mapped = (logs ?? []).map((log) => ({
-    id: log.id,
-    activity:    formatActivity(log.method, log.url),
-    performedBy: log.user_id ? (userNameMap[log.user_id] ?? `User #${log.user_id}`) : 'System',
-    performedAt: log.timestamp,
-  }));
-
-  // ── CSV export ────────────────────────────────────────────────────────────
-  if (format === 'csv') {
-    const escape = (v: string) => `"${String(v ?? '').replace(/"/g, '""')}"`;
-    const rows = mapped.map((r) =>
-      [r.id, escape(r.activity), escape(r.performedBy), r.performedAt].join(',')
-    );
-    const csv = ['id,activity,performedBy,performedAt', ...rows].join('\n');
-
-    return new NextResponse(csv, {
-      headers: {
-        'Content-Type': 'text/csv',
-        'Content-Disposition': 'attachment; filename="activity-history.csv"',
-      },
-    });
-  }
-
-  // ── JSON response ─────────────────────────────────────────────────────────
-  const total = count ?? 0;
-  return NextResponse.json({
-    success: true,
-    data: mapped,
-    pagination: { page, pageSize, total, totalPages: Math.ceil(total / pageSize) },
-  });
+      return NextResponse.json(
+        { success: false, message: "Failed to fetch activity" },
+        { status: 500 }
+      );
+    }
 }
