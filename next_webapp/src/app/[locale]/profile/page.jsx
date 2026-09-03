@@ -320,11 +320,10 @@ const Profile = () => {
                     First Name
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.first_name
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.first_name
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <User size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -346,11 +345,10 @@ const Profile = () => {
                     Last Name
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.last_name
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.last_name
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <User size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -372,11 +370,10 @@ const Profile = () => {
                     Age
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.age
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.age
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <Calendar size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -401,11 +398,10 @@ const Profile = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleChange}
-                    className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white transition-colors ${
-                      errors.gender
+                    className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white transition-colors ${errors.gender
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-500"
-                    }`}
+                      }`}
                   >
                     <option value="" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Select gender</option>
                     <option value="Male" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Male</option>
@@ -422,11 +418,10 @@ const Profile = () => {
                     Email
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.email
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.email
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <Mail size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -448,11 +443,10 @@ const Profile = () => {
                     Phone
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.phone
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.phone
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <Phone size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -474,11 +468,10 @@ const Profile = () => {
                     Address
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
-                      errors.address
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${errors.address
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
-                    }`}
+                      }`}
                   >
                     <MapPin size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
@@ -506,11 +499,10 @@ const Profile = () => {
                   onChange={handleChange}
                   rows="5"
                   placeholder="Write something about yourself..."
-                  className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 transition-colors ${
-                    errors.bio
+                  className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 transition-colors ${errors.bio
                       ? "border-red-500"
                       : "border-gray-300 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-500"
-                  }`}
+                    }`}
                 />
                 {errors.bio && (
                   <p className="text-red-500 text-sm mt-1">{errors.bio}</p>

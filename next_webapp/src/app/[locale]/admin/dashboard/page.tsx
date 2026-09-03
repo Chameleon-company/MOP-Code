@@ -71,9 +71,9 @@ export default function DashboardPage() {
   const displayValue = (value: string) => (loading ? "…" : value);
 
   return (
-    <div className="p-6">
+    <div>
       {/* Title */}
-      <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-emerald-500">
+      <h1 className="mb-6 text-2xl font-semibold leading-tight text-emerald-500 sm:text-3xl md:mb-8 md:text-[40px]">
         Dashboard
       </h1>
 

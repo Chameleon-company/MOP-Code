@@ -223,20 +223,22 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="-m-8">
+    <div>
       {/* ── Page header ─────────────────────────────────────── */}
-      <div className="flex flex-col gap-4 px-8 py-6 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-[40px] font-semibold leading-[48px] text-emerald-500">Gallery</h1>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-semibold leading-tight text-emerald-500 sm:text-3xl md:text-[40px]">
+          Gallery
+        </h1>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {/* Search */}
-          <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-2.5">
+          <div className="flex flex-1 items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-3.5 py-2.5 sm:flex-none">
             <Search size={16} className="text-emerald-600" />
             <input
               placeholder="Search by title..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-44 bg-transparent text-sm outline-none"
+              className="w-full bg-transparent text-sm outline-none sm:w-44"
             />
             {searchInput && (
               <button
@@ -252,7 +254,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
           <button
             type="button"
             onClick={() => setUploadOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-emerald-500"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500 sm:px-5 sm:py-3"
           >
             <Plus size={16} />
             Upload New Photo
