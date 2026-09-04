@@ -200,7 +200,7 @@ const UseCaseCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
           {study.tags?.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+              className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
             >
               {tag}
             </span>
@@ -275,7 +275,7 @@ const PreviewComponent: React.FC<Props> = ({
         </div>
       </section>
 
-      <section className="grid items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <section className="grid items-stretch gap-6 sm:grid-cols-2 sm:gap-7 xl:grid-cols-3 xl:gap-8">
         {caseStudies.map((study) => (
           <UseCaseCard key={study.id} study={study} />
         ))}
