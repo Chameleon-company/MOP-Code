@@ -9,7 +9,22 @@ import '@testing-library/jest-dom';
 import Footer from '../components/Footer';
 
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key) => key,
+  useTranslations: () => (key) => ({
+    'Footer intro': "Exploring Melbourne's open data to build smarter communities.",
+    'Quick Links': 'Quick Links',
+    Connect: 'Connect',
+    'Follow us': 'Follow us',
+    Newsletter: 'Newsletter',
+    'Newsletter description': 'Get Melbourne open-data updates first.',
+    'Enter your email': 'Enter your email',
+    Submit: 'Submit',
+    'Email for newsletter': 'Email for newsletter',
+    'Newsletter required': 'Please enter your email address.',
+    'Newsletter invalid': 'Please enter a valid email address (e.g. morgan.lee@gmail.com).',
+    'Newsletter success': "You're in — we'll only email when there's something worth your time.",
+    Copyright: 'Melbourne Open Playground. All rights reserved.',
+    'accessibility.home': 'Go to home page',
+  }[key] ?? key),
 }));
 
 jest.mock('@/i18n-navigation', () => ({

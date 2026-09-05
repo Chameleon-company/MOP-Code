@@ -542,7 +542,7 @@ const Footer = () => {
 							<Link
 								href="/"
 								className="logo-card max-w-full shrink-0"
-								aria-label="Go to home page"
+                aria-label={t("accessibility.home")}
 							>
 								<Image
 									src="/img/new-logo-white.png"
@@ -562,8 +562,7 @@ const Footer = () => {
 								}}
 								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
 							>
-								Exploring Melbourne&#39;s open data to build smarter
-								communities.
+                {t("Footer intro")}
 							</p>
 						</div>
 
@@ -580,7 +579,7 @@ const Footer = () => {
 								id="footer-quick-links-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Quick Links
+                {t("Quick Links")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -610,7 +609,7 @@ const Footer = () => {
 								id="footer-connect-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Connect
+                {t("Connect")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -659,7 +658,7 @@ const Footer = () => {
 											fontWeight: 600,
 										}}
 									>
-										Follow us
+                                {t("Follow us")}
 									</h3>
 
 									<div
@@ -692,7 +691,7 @@ const Footer = () => {
 								id="footer-newsletter-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Newsletter
+                        {t("Newsletter")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -704,7 +703,7 @@ const Footer = () => {
 								}}
 								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
 							>
-								Get Melbourne open-data updates first.
+                {t("Newsletter description")}
 							</p>
 
 							<div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
@@ -716,14 +715,12 @@ const Footer = () => {
 										const trimmed = newsletterEmail.trim();
 
 										if (!trimmed) {
-											setNewsletterError("Please enter your email address.");
+                      setNewsletterError(t("Newsletter required"));
 											return;
 										}
 
 										if (!isValidNewsletterEmail(trimmed)) {
-											setNewsletterError(
-												"Please enter a valid email address (e.g. morgan.lee@gmail.com).",
-											);
+                      setNewsletterError(t("Newsletter invalid"));
 											return;
 										}
 
@@ -734,7 +731,7 @@ const Footer = () => {
 									noValidate
 								>
 									<label htmlFor="footer-newsletter-email" className="sr-only">
-										Email for newsletter
+                    {t("Email for newsletter")}
 									</label>
 
 									<input
@@ -744,7 +741,7 @@ const Footer = () => {
 										inputMode="email"
 										autoComplete="email"
 										required
-										placeholder="Enter your email"
+                    placeholder={t("Enter your email")}
 										value={newsletterEmail}
 										onChange={(e) => {
 											setNewsletterEmail(e.target.value);
@@ -773,7 +770,7 @@ const Footer = () => {
 											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
 										}}
 									>
-										Submit
+                    {t("Submit")}
 									</button>
 								</form>
 
@@ -807,8 +804,7 @@ const Footer = () => {
 							textShadow: "0 1px 3px rgba(0,0,0,0.2)",
 						}}
 					>
-						© {new Date().getFullYear()} Melbourne Open Playground. All rights
-						reserved.
+            © {new Date().getFullYear()} {t("Copyright")}
 					</div>
 				</div>
 			</footer>
@@ -837,8 +833,7 @@ const Footer = () => {
 					</span>
 
 					<p className="text-sm font-medium leading-snug text-white">
-						You&apos;re in — we&apos;ll only email when there&apos;s something
-						worth your time.
+            {t("Newsletter success")}
 					</p>
 				</div>
 			) : null}
