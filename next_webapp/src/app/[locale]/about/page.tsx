@@ -1,151 +1,173 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ContributorsSection from "../../../components/ContributorsSection";
-import "../../../../public/styles/about.css";
+import "./about.css";
 import { Link } from "@/i18n-navigation";
 import { getContributors } from "@/lib/getContributors";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 const About = async () => {
-	const contributors = (await getContributors()) ?? [];
+  const contributors = (await getContributors()) ?? [];
+  const t = await getTranslations("about");
 
-	return (
-		<div className="bg-white dark:bg-[#1d1919] text-black dark:text-white min-h-screen">
-			<Header />
+  return (
+    <div className="about-page min-h-screen bg-white text-black dark:bg-[#1d1919] dark:text-white">
+      <Header />
 
-			{/* HERO SECTION */}
-			<section className="section max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-				{/* Image */}
-				<Image
-					src="/img/melbourne-city1.jpg"
-					alt="Melbourne City"
-					width={1080}
-					height={1350}
-					sizes="(max-width: 768px) 75vw, 40vw"
-					className="hero-img w-full sm:w-3/4 md:w-2/5 lg:w-1/3 h-auto"
-				/>
+      {/* HERO SECTION */}
+      <section className="section mx-auto flex max-w-6xl flex-col items-center gap-10 md:flex-row">
+        <Image
+          src="/img/melbourne-city1.jpg"
+          alt="Melbourne City"
+          width={1080}
+          height={1350}
+          sizes="(max-width: 768px) 75vw, 40vw"
+          className="hero-img h-auto w-full sm:w-3/4 md:w-2/5 lg:w-1/3"
+        />
 
-				{/* Text */}
-				<div className="md:w-1/2">
-					<h1 className="section-title">About Us</h1>
-					<p className="section-subtitle">
-						The Melbourne Open Data Project (MOP) is a capstone initiative
-						aligned with the City of Melbourne’s strategic vision. It transforms
-						open data into actionable insights using AI, data science, and
-						modern web technologies.
-					</p>
-				</div>
-			</section>
+        <div className="md:w-1/2">
+          <h1 className="section-title">
+            {t("About Us")}
+          </h1>
 
-			{/* PROJECT OVERVIEW */}
-			<section className="section bg-gray-100 dark:bg-[#263238] text-center">
-				<h2 className="section-title">Project Overview</h2>
-				<p className="section-subtitle max-w-3xl mx-auto">
-					MOP enables businesses, researchers, and government agencies to
-					explore real time urban data, AI driven insights, and visualisations.
-					The platform supports smarter decision making across sustainability,
-					transport, healthcare, and economic development.
-				</p>
-			</section>
+          <p className="section-subtitle">
+            {t("heroDescription")}
+          </p>
+        </div>
+      </section>
 
-			{/* OBJECTIVES */}
-			<section className="section max-w-6xl mx-auto">
-				<h2 className="section-title text-center">Our Objectives</h2>
+      {/* PROJECT OVERVIEW */}
+      <section className="section bg-gray-100 text-center dark:bg-[#263238]">
+        <h2 className="section-title">
+          {t("Project Overview")}
+        </h2>
 
-				<Image
-					src="/img/objectives.jpg"
-					alt="Objectives"
-					width={5402}
-					height={3601}
-					sizes="(max-width: 768px) 100vw, 1152px"
-					className="hero-img w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[360px] object-cover"
-				/>
+        <p className="section-subtitle mx-auto max-w-3xl">
+          {t("projectOverviewDescription")}
+        </p>
+      </section>
 
-				<div className="grid md:grid-cols-3 gap-8 mt-8">
-					<div className="card bg-white/70 backdrop-blur-md border border-gray-200 shadow-md rounded-xl p-6 hover:shadow-xl transition">
-						<h3 className="font-semibold text-xl mb-2">Data Accessibility</h3>
-						<p>
-							Make open data easy to access and understandable for all users.
-						</p>
-					</div>
+      {/* OBJECTIVES */}
+      <section className="section mx-auto max-w-6xl">
+        <h2 className="section-title text-center">
+          {t("Our Objectives")}
+        </h2>
 
-					<div className="card bg-white/70 backdrop-blur-md border border-gray-200 shadow-md rounded-xl p-6 hover:shadow-xl transition">
-						<h3 className="font-semibold text-xl mb-2">Smart Insights</h3>
-						<p>
-							Use AI and analytics to generate meaningful insights from complex
-							datasets.
-						</p>
-					</div>
+        <Image
+          src="/img/objectives.jpg"
+          alt="Objectives"
+          width={5402}
+          height={3601}
+          sizes="(max-width: 768px) 100vw, 1152px"
+          className="hero-img h-[220px] w-full object-cover sm:h-[280px] md:h-[320px] lg:h-[360px]"
+        />
 
-					<div className="card bg-white/70 backdrop-blur-md border border-gray-200 shadow-md rounded-xl p-6 hover:shadow-xl transition">
-						<h3 className="font-semibold text-xl mb-2">Urban Innovation</h3>
-						<p>
-							Support smart city initiatives and improve urban living
-							experiences.
-						</p>
-					</div>
-				</div>
-			</section>
+        <div className="mt-8 grid gap-8 md:grid-cols-3">
+          <div className="card rounded-xl border border-gray-200 bg-white/70 p-6 shadow-md backdrop-blur-md transition hover:shadow-xl">
+            <h3 className="mb-2 text-xl font-semibold">
+              {t("Data Accessibility")}
+            </h3>
 
-			{/* KEY FEATURES */}
-			<section className="section bg-gradient-to-r from-green-500 to-emerald-600 text-white py-16 px-6">
-				<h2 className="section-title text-center text-3xl font-bold">
-					Key Features
-				</h2>
+            <p>
+              {t("dataAccessibilityDescription")}
+            </p>
+          </div>
 
-				<div className="grid md:grid-cols-4 gap-6 mt-10 max-w-6xl mx-auto">
-					<div className="feature-card bg-white/15 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/25 hover:scale-105 transition duration-300 shadow-lg">
-						<h4 className="font-bold text-lg mb-2">Real-time Data</h4>
-						<p className="text-sm text-white/90">
-							Live updates from urban datasets.
-						</p>
-					</div>
+          <div className="card rounded-xl border border-gray-200 bg-white/70 p-6 shadow-md backdrop-blur-md transition hover:shadow-xl">
+            <h3 className="mb-2 text-xl font-semibold">
+              {t("Smart Insights")}
+            </h3>
 
-					<div className="feature-card bg-white/15 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/25 hover:scale-105 transition duration-300 shadow-lg">
-						<h4 className="font-bold text-lg mb-2">AI Analytics</h4>
-						<p className="text-sm text-white/90">
-							Predictive and intelligent insights.
-						</p>
-					</div>
+            <p>
+              {t("smartInsightsDescription")}
+            </p>
+          </div>
 
-					<div className="feature-card bg-white/15 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/25 hover:scale-105 transition duration-300 shadow-lg">
-						<h4 className="font-bold text-lg mb-2">Interactive UI</h4>
-						<p className="text-sm text-white/90">
-							User-friendly dashboards and visualisations.
-						</p>
-					</div>
+          <div className="card rounded-xl border border-gray-200 bg-white/70 p-6 shadow-md backdrop-blur-md transition hover:shadow-xl">
+            <h3 className="mb-2 text-xl font-semibold">
+              {t("Urban Innovation")}
+            </h3>
 
-					<div className="feature-card bg-white/15 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/25 hover:scale-105 transition duration-300 shadow-lg">
-						<h4 className="font-bold text-lg mb-2">Open APIs</h4>
-						<p className="text-sm text-white/90">
-							Seamless integration with public data sources.
-						</p>
-					</div>
-				</div>
-			</section>
+            <p>
+              {t("urbanInnovationDescription")}
+            </p>
+          </div>
+        </div>
+      </section>
 
-			{/* CONTRIBUTORS */}
-			<ContributorsSection contributors={contributors} />
+      {/* KEY FEATURES */}
+      <section className="section bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-16 text-white">
+        <h2 className="section-title text-center text-3xl font-bold">
+          {t("Key Features")}
+        </h2>
 
-			{/* CTA SECTION */}
-			<section className="section text-center">
-				<h2 className="section-title">Explore Our Platform</h2>
+        <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-4">
+          <div className="feature-card rounded-xl border border-white/20 bg-white/15 p-6 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105 hover:bg-white/25">
+            <h4 className="mb-2 text-lg font-bold">
+              {t("Real-time Data")}
+            </h4>
 
-				<p className="section-subtitle">
-					Discover how data driven solutions can transform industries and
-					improve city life.
-				</p>
+            <p className="text-sm text-white/90">
+              {t("realTimeDataDescription")}
+            </p>
+          </div>
 
-				<Link href="/usecases" className="inline-block mt-6">
-					<button type="button" className="cta-btn">
-						View Use Cases
-					</button>
-				</Link>
-			</section>
+          <div className="feature-card rounded-xl border border-white/20 bg-white/15 p-6 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105 hover:bg-white/25">
+            <h4 className="mb-2 text-lg font-bold">
+              {t("AI Analytics")}
+            </h4>
 
-			<Footer />
-		</div>
-	);
+            <p className="text-sm text-white/90">
+              {t("aiAnalyticsDescription")}
+            </p>
+          </div>
+
+          <div className="feature-card rounded-xl border border-white/20 bg-white/15 p-6 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105 hover:bg-white/25">
+            <h4 className="mb-2 text-lg font-bold">
+              {t("Interactive UI")}
+            </h4>
+
+            <p className="text-sm text-white/90">
+              {t("interactiveUIDescription")}
+            </p>
+          </div>
+
+          <div className="feature-card rounded-xl border border-white/20 bg-white/15 p-6 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105 hover:bg-white/25">
+            <h4 className="mb-2 text-lg font-bold">
+              {t("Open APIs")}
+            </h4>
+
+            <p className="text-sm text-white/90">
+              {t("openAPIsDescription")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTRIBUTORS */}
+      <ContributorsSection contributors={contributors} />
+
+      {/* CTA SECTION */}
+      <section className="section text-center">
+        <h2 className="section-title">
+          {t("Explore Our Platform")}
+        </h2>
+
+        <p className="section-subtitle">
+          {t("exploreDescription")}
+        </p>
+
+        <Link href="/usecases" className="mt-6 inline-block">
+          <button type="button" className="cta-btn">
+            {t("View Use Cases")}
+          </button>
+        </Link>
+      </section>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default About;

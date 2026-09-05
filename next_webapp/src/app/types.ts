@@ -19,7 +19,7 @@ export type SearchParams = {
 
 
 export interface CaseStudy {
-  id: number;
+  id: string;
   title: string;
   description: string;
   tags: string[];
