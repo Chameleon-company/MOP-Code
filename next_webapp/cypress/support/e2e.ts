@@ -1,32 +1,17 @@
-// ***********************************************************
-// This example support/e2e.ts is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
+import './commands';
 
-// Import commands.js using ES2015 syntax:
-import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
-// Ignore React hydration errors thrown by the app in dev mode and Minified React errors.
+// Suppress React hydration errors globally — universal SSR noise in Next.js dev mode.
+// NEXT_NOT_FOUND, NEXT_REDIRECT, and ResizeObserver are NOT suppressed here; scope those locally.
 Cypress.on('uncaught:exception', (err) => {
-    if (
-        /Hydrat/i.test(err.message) ||
-        /hydrat/i.test(err.message) ||
-        /Minified React error #418/.test(err.message) ||
-        /Minified React error #423/.test(err.message)
-    ) {
-        return false
+    const hydrationErrors = [
+        // React hydration mismatches (common in Next.js SSR + dev mode)
+        /hydrat/i,
+        // Minified React error codes for hydration failures
+        /Minified React error #418/,
+        /Minified React error #423/,
+        /Minified React error #425/,
+    ];
+    if (hydrationErrors.some((pattern) => pattern.test(err.message))) {
+        return false;
     }
-})
+});

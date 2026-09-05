@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  Suspense,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { Suspense, useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -15,6 +10,7 @@ import SearchBar, { LocalSearchMode } from "./searchbar";
 import PreviewComponent from "./preview";
 import { CATEGORY, CaseStudy } from "../../types";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
+import { apiFetch } from "@/lib/apiFetch";
 
 const PAGE_SIZE = 9;
 
@@ -29,38 +25,23 @@ const UseCases: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
 
-  const initTerm =
-    searchParams.get("tag_name") ??
-    searchParams.get("search") ??
-    "";
+  const initTerm = searchParams.get("tag_name") ?? searchParams.get("search") ?? "";
 
-  /*
-   * Validate the URL search mode instead of casting it directly.
-   * Only "title" and "tag" are supported by the frontend.
-   */
+  // Validate URL mode instead of unsafe casting
   const searchBy = searchParams.get("search_by");
-
   const initMode: LocalSearchMode = searchParams.get("tag_name")
     ? "tag"
     : searchBy === "tag"
       ? "tag"
       : "title";
 
-  const [searchTerm, setSearchTerm] =
-    useState<string>(initTerm);
-
-  const [searchMode, setSearchMode] =
-    useState<LocalSearchMode>(initMode);
-
-  const [debouncedTerm, setDebouncedTerm] =
-    useState<string>(initTerm);
-
-  const [debouncedMode, setDebouncedMode] =
-    useState<LocalSearchMode>(initMode);
+  const [searchTerm, setSearchTerm] = useState<string>(initTerm);
+  const [searchMode, setSearchMode] = useState<LocalSearchMode>(initMode);
+  const [debouncedTerm, setDebouncedTerm] = useState<string>(initTerm);
+  const [debouncedMode, setDebouncedMode] = useState<LocalSearchMode>(initMode);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
-
     if (storedTheme === "dark") {
       setDarkMode(true);
       document.documentElement.classList.add("dark");
@@ -68,27 +49,16 @@ const UseCases: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle(
-      "dark",
-      darkMode
-    );
+    document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
   const handleToggle = useCallback((value: boolean) => {
     setDarkMode(value);
-
-    localStorage.setItem(
-      "theme",
-      value ? "dark" : "light"
-    );
+    localStorage.setItem("theme", value ? "dark" : "light");
   }, []);
 
   const fetchUsecases = useCallback(
-    async (
-      currentPage: number,
-      term: string,
-      mode: LocalSearchMode
-    ) => {
+    async (currentPage: number, term: string, mode: LocalSearchMode) => {
       setLoading(true);
 
       try {
@@ -106,37 +76,25 @@ const UseCases: React.FC = () => {
           }
         }
 
-        const res = await fetch(
-          `/api/usecases?${params.toString()}`
-        );
-
-        const json = await res.json();
+        const json = await apiFetch<{
+          success: boolean;
+          data: any[];
+          pagination?: { total: number; totalPages: number };
+        }>(`/api/usecases?${params.toString()}`);
 
         if (json.success) {
-          const mapped: CaseStudy[] = (
-            json.data || []
-          ).map((u: any) => {
-            /*
-             * The API now returns an embedded category object.
-             * Support either an object or string representation.
-             */
+          const mapped: CaseStudy[] = (json.data || []).map((u: any) => {
+            // Support both object and string category shape
             const category =
               typeof u.category === "string"
                 ? u.category
-                : u.category?.name ??
-                  u.category?.title ??
-                  u.category?.id ??
-                  "";
+                : u.category?.name ?? u.category?.title ?? u.category?.id ?? "";
 
             return {
               id: u.id,
               title: u.title,
               description: u.description ?? "",
-              tags: (u.tags || []).map((tag: any) =>
-                typeof tag === "string"
-                  ? tag
-                  : tag.name
-              ),
+              tags: (u.tags || []).map((tag: any) => (typeof tag === "string" ? tag : tag.name)),
               image: u.cover_img ?? "",
               category: String(category),
               htmlFile: "",
@@ -145,20 +103,14 @@ const UseCases: React.FC = () => {
 
           setUsecases(mapped);
           setTotal(json.pagination?.total ?? 0);
-          setTotalPages(
-            json.pagination?.totalPages ?? 1
-          );
+          setTotalPages(json.pagination?.totalPages ?? 1);
         } else {
           setUsecases([]);
           setTotal(0);
           setTotalPages(1);
         }
       } catch (error) {
-        console.error(
-          "Failed to fetch use cases:",
-          error
-        );
-
+        console.error("Failed to fetch use cases:", error);
         setUsecases([]);
         setTotal(0);
         setTotalPages(1);
@@ -169,7 +121,7 @@ const UseCases: React.FC = () => {
     []
   );
 
-  // Wait briefly after typing before fetching.
+  // Debounce typing
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedTerm(searchTerm);
@@ -181,43 +133,23 @@ const UseCases: React.FC = () => {
   }, [searchTerm, searchMode]);
 
   useEffect(() => {
-    fetchUsecases(
-      page,
-      debouncedTerm,
-      debouncedMode
-    );
-  }, [
-    page,
-    debouncedTerm,
-    debouncedMode,
-    fetchUsecases,
-  ]);
+    fetchUsecases(page, debouncedTerm, debouncedMode);
+  }, [page, debouncedTerm, debouncedMode, fetchUsecases]);
 
-  const handleSearch = useCallback(
-    (
-      term: string,
-      mode: LocalSearchMode,
-      _cat: CATEGORY
-    ) => {
-      setSearchTerm(term);
-      setSearchMode(mode);
-      setDebouncedTerm(term);
-      setDebouncedMode(mode);
-      setPage(1);
-    },
-    []
-  );
+  // Submit search immediately
+  const handleSearch = useCallback((term: string, mode: LocalSearchMode, _cat: CATEGORY) => {
+    setSearchTerm(term);
+    setSearchMode(mode);
+    setDebouncedTerm(term);
+    setDebouncedMode(mode);
+    setPage(1);
+  }, []);
 
-  const handleTermChange = useCallback(
-    (
-      term: string,
-      mode: LocalSearchMode
-    ) => {
-      setSearchTerm(term);
-      setSearchMode(mode);
-    },
-    []
-  );
+  // Live typing callback
+  const handleTermChange = useCallback((term: string, mode: LocalSearchMode) => {
+    setSearchTerm(term);
+    setSearchMode(mode);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f7f9fb] text-black transition-colors duration-200 dark:bg-gray-900 dark:text-white">
@@ -226,7 +158,6 @@ const UseCases: React.FC = () => {
       <main className="flex-grow">
         <section className="relative overflow-hidden bg-gradient-to-br from-green-700 via-green-600 to-green-500 px-4 pb-20 pt-20 text-center dark:from-green-900 dark:via-green-800 dark:to-green-700">
           <div className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
-
           <div className="pointer-events-none absolute -bottom-12 -right-12 h-80 w-80 rounded-full bg-white/10 blur-2xl" />
 
           <div className="relative mx-auto max-w-3xl">
@@ -239,11 +170,9 @@ const UseCases: React.FC = () => {
               style={{
                 fontWeight: 900,
                 fontStyle: "normal",
-                fontFamily:
-                  "'Barlow Condensed', sans-serif",
+                fontFamily: "'Barlow Condensed', sans-serif",
                 letterSpacing: "-0.02em",
-                textShadow:
-                  "2px 2px 8px rgba(0,0,0,0.35)",
+                textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
               }}
             >
               {t("User Cases")}
@@ -296,9 +225,7 @@ const UseCases: React.FC = () => {
       </main>
 
       <div className="fixed bottom-4 right-4 z-50">
-        <Tooglebutton
-          onValueChange={handleToggle}
-        />
+        <Tooglebutton onValueChange={handleToggle} />
       </div>
 
       <Footer />
