@@ -5,11 +5,8 @@ import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import { storage } from "@/utils/storage";
-<<<<<<< HEAD
 import Image from "next/image";
-=======
 import { apiFetch, ApiError } from "@/lib/apiFetch";
->>>>>>> origin/master
 
 type GalleryImage = {
   id: number;
