@@ -31,6 +31,16 @@ const LanguageDropdown: React.FC = () => {
   };
 
   const t = useTranslations("common");
+  const languages = [
+    { locale: "en", labelKey: "languages.english" },
+    { locale: "cn", labelKey: "languages.chinese" },
+    { locale: "es", labelKey: "languages.spanish" },
+    { locale: "el", labelKey: "languages.greek" },
+    { locale: "ar", labelKey: "languages.arabic" },
+    { locale: "it", labelKey: "languages.italian" },
+    { locale: "hi", labelKey: "languages.hindi" },
+    { locale: "vi", labelKey: "languages.vietnamese" },
+  ] as const;
 
   return (
     <div
@@ -52,62 +62,16 @@ const LanguageDropdown: React.FC = () => {
       </button>
       {isOpen && (
         <div className="absolute z-10 bg-white rounded shadow-lg mt-1 w-48">
-          <button
-            type="button"
-            onClick={() => selectLanguage("en")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            English
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("cn")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Chinese (中文)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("es")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Spanish (Español)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("el")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Greek (Ελληνικά)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("ar")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Arabic (العربية)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("it")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Italian (Italiano)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("hi")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Hindi (हिन्दी)
-          </button>
-          <button
-            type="button"
-            onClick={() => selectLanguage("vi")}
-            className="block font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
-          >
-            Vietnamese (Tiếng Việt)
-          </button>
+          {languages.map((language) => (
+            <button
+              key={language.locale}
+              type="button"
+              onClick={() => selectLanguage(language.locale)}
+              className="block w-full text-start font-serif px-4 py-2 text-lg rounded text-gray-700 hover:bg-gray-100"
+            >
+              {t(language.labelKey)}
+            </button>
+          ))}
 
         </div>
       )}

@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
+import { apiFetch } from "@/lib/apiFetch";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -52,13 +53,11 @@ const Statistics = () => {
   }, [tagFilter, trimesterFilter, caseStudies]);
 
   async function searchUseCases(searchParams: SearchParams) {
-    const response = await fetch("/api/search-use-cases", {
+    return apiFetch<{ filteredStudies: CaseStudy[] }>("/api/search-use-cases", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(searchParams),
     });
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
   }
 
   const getStats = (caseStudiesArray: CaseStudy[]) => {

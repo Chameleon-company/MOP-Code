@@ -5,7 +5,8 @@
             "cypress",
             "node"
         ],
-        "noEmit": true
+        "noEmit": true,
+        "ignoreDeprecations": "5.0"
     },
     "include": [
         "**/*.ts",
