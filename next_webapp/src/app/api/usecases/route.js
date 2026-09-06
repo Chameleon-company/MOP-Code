@@ -34,14 +34,14 @@ export async function POST(request) {
   // a missing file, but a harmless orphaned file (if cleanup itself fails)
   // is an acceptable worst case.
   let uploadedFileId = null;
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
 
   try {
-    const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
     }
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
     }
 
     let body;
@@ -49,7 +49,7 @@ export async function POST(request) {
       body = await request.json();
     } catch (error) {
       if (error instanceof SyntaxError) {
-        return errorResponse("Invalid JSON body", 400, "INVALID_JSON", request);
+        return errorResponse("Invalid JSON body", 400, "INVALID_JSON", request, userId);
       }
       throw error;
     }
@@ -60,7 +60,7 @@ export async function POST(request) {
     const { title, description, cover_img, category_id, tags, content } = body;
 
     if (typeof title !== "string" || title.trim().length === 0) {
-      return errorResponse("title is required", 400, "MISSING_FIELDS", request);
+      return errorResponse("title is required", 400, "MISSING_FIELDS", request, userId);
     }
 
     // content is optional — a use case can be created without a notebook,
@@ -71,7 +71,7 @@ export async function POST(request) {
     if (content !== undefined && content !== null && content !== "") {
       const validation = validateNotebookContent(content);
       if (!validation.valid) {
-        return errorResponse(validation.message, validation.status, validation.code, request);
+        return errorResponse(validation.message, validation.status, validation.code, request, userId);
       }
       contentType = validation.contentType;
       notebookBuffer = validation.notebookBuffer;
@@ -119,10 +119,10 @@ export async function POST(request) {
     );
   } catch (error) {
     if (error instanceof Error && error.name === "ValidationError") {
-      return errorResponse(error.message, 400, "VALIDATION_ERROR", request);
+      return errorResponse(error.message, 400, "VALIDATION_ERROR", request, userId);
     }
     console.error("[POST /api/usecases] unexpected error:", error);
-    return errorResponse("Internal server error", 500, "INTERNAL_ERROR", request);
+    return errorResponse("Internal server error", 500, "INTERNAL_ERROR", request, userId);
   }
 }
 
