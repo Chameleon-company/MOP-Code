@@ -1,0 +1,32 @@
+[2025-03-26 16:13:20.610305] USER: hi
+[2025-03-26 16:13:20.610353] BOT: It's okay to feel that way sometimes. Have you tried talking to someone about it?
+User
+
+[2025-03-26 16:13:28.307918] USER: i am feeling overwelmed with studies
+[2025-03-26 16:13:28.307943] BOT: I can understand how you're feeling right now. It's okay to take a break and prioritize your mental health. Have you considered speaking with a counselor or therapist?
+User
+
+[2025-04-01 14:41:43.493983] USER: hi
+[2025-04-01 14:41:43.494023] BOT: Coping strategies can include engaging in self-care, talking with friends, seeing a therapist, or seeking medication if necessary. It's important to find what works best for you and seek professional resources if needed.
+User
+
+[2025-04-01 14:41:57.937528] USER: i am stresses
+[2025-04-01 14:41:57.937557] BOT: it's understandable to feel stressed sometimes. Have you considered any relaxation techniques to help manage your stress?
+User
+
+[2025-04-01 16:07:51.526583] USER: hi
+[2025-04-01 16:07:51.526633] BOT: That's great to hear. There are also many self-care techniques you can try, like deep breathing, meditation, or exercise. Would you like me to look up some resources on those techniques for you?
+User
+
+[2025-04-01 16:09:42.924814] USER: hi
+[2025-04-01 16:09:42.924853] BOT: That's great to hear. There are also many self-care techniques you can try, like deep breathing, meditation, or exercise. Would you like me to look up some resources on those techniques for you?
+User
+
+[2025-04-01 16:10:30.149849] USER: hello. i am overwelmened
+[2025-04-01 16:10:30.149918] BOT: Hello, I'm here to help. Have you considered seeking professional help for your current situation?
+User
+
+[2025-04-01 16:10:43.082159] USER: i am taking help from friends
+[2025-04-01 16:10:43.082198] BOT: It's great that you reached out for support. It's important to have a strong support system in place. What kind of help do your friends provide?
+User
+

@@ -38,7 +38,7 @@ jest.mock('../../../app/api/library/auth', () => ({
   getAuthUser: jest.fn(),
 }));
 
-jest.mock('../../../models/Category', () => ({
+jest.mock('../../../types/category', () => ({
   validateCreateCategory: jest.fn(),
   validateUpdateCategory: jest.fn(),
   sanitizeCategoryInput: jest.fn().mockImplementation((data: any) => data),
@@ -50,7 +50,7 @@ import { POST, GET } from '../../../app/api/categories/route';
 import { PUT, DELETE } from '../../../app/api/categories/[id]/route';
 import { supabase } from '../../../library/supabaseClient';
 import { getAuthUser } from '../../../app/api/library/auth';
-import { validateCreateCategory, validateUpdateCategory } from '../../../models/Category';
+import { validateCreateCategory, validateUpdateCategory } from '../../../types/category';
 
 const jestExpect = globalThis.expect as unknown as jest.Expect;
 

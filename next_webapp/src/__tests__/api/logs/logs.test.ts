@@ -264,6 +264,37 @@ describe('GET /api/logs', () => {
     expect(response.status).toBe(500);
     expect(body.success).toBe(false);
   });
+  
+  test('caps pageSize at 200', async () => {
+  await GET(
+    makeRequest(
+      'http://localhost:3000/api/logs?pageSize=500',
+    ),
+  );
+
+  expect(findChain.limit).toHaveBeenCalledWith(200);
+  });
+
+  test('sorts by timestamp descending by default', async () => {
+    await GET(makeRequest());
+
+    expect(findChain.sort).toHaveBeenCalledWith({
+      timestamp: -1,
+    });
+  });
+
+test('falls back to timestamp for an invalid sort field', async () => {
+  await GET(
+    makeRequest(
+      'http://localhost:3000/api/logs?sortBy=username',
+    ),
+  );
+
+  expect(findChain.sort).toHaveBeenCalledWith({
+     timestamp: -1,
+    });
+  });
+
 });
 
 describe('DELETE /api/logs', () => {

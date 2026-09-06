@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import { FiMail, FiMapPin, FiPhone, FiSend } from "react-icons/fi";
+import { apiFetch } from "@/lib/apiFetch";
 
 type FormField = {
   name: string;
@@ -190,7 +191,9 @@ const Contact = () => {
   try {
     setIsSubmitting(true);
 
-    const response = await fetch("/api/contact", {
+    // silent: true - this form already shows its own inline success/failure
+    // banner right below; a global toast on top would just be redundant.
+    await apiFetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -201,13 +204,8 @@ const Contact = () => {
         subject: formValues.subject,
         message: `Phone: ${formValues.phone}\n\n${formValues.message}`,
       }),
+      silent: true,
     });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to submit the form.");
-    }
 
     setSuccessMessage("Your message has been sent successfully.");
     setShowSuccess(true);

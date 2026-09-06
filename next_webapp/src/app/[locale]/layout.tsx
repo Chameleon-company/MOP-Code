@@ -3,6 +3,7 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Poppins, Barlow_Condensed } from "next/font/google";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default async function LocaleLayout({
 
         <NextIntlClientProvider messages={messages}>
           <div className="flex-1 flex flex-col">{children}</div>
+          <Toaster richColors position="top-right" />
         </NextIntlClientProvider>
       </body>
     </html>

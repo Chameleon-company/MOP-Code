@@ -1,0 +1,20 @@
+# === Ignore actual model files ===
+models/*.gguf
+
+# === Ignore log files, but not the folder ===
+logs/*.txt
+logs/*.log
+logs/*.csv
+
+# === Python ignores ===
+__pycache__/
+*.pyc
+.env
+.ipynb_checkpoints/
+
+# === VS Code config ===
+.vscode/
+
+# === Ignore Jupyter Notebook checkpoints ===
+notebooks/.ipynb_checkpoints/*.ipynb
+

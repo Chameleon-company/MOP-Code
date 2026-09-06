@@ -100,6 +100,7 @@ import Footer from "@/components/Footer";
 import BlogCard from "@/components/BlogCard";
 import Pagination from "@/components/Pagination";
 import { Search } from "lucide-react";
+import { apiFetch } from "@/lib/apiFetch";
 
 const PAGE_SIZE = 9;
 type SearchMode = "title" | "content";
@@ -133,15 +134,16 @@ export default function BlogListingPage() {
         params.set("search", term);
         params.set("search_by", mode);
       }
-      const res = await fetch(`/api/home/blogs?${params}`);
-      const json = await res.json();
+      const json = await apiFetch<{ success: boolean; data: Blog[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/home/blogs?${params}`
+      );
       if (json.success) {
         setBlogs(json.data ?? []);
         setTotal(json.pagination?.total ?? 0);
         setTotalPages(json.pagination?.totalPages ?? 1);
       }
     } catch (e) {
-      console.error(e);
+      console.error(e); // apiFetch already showed a toast
     } finally {
       setLoading(false);
     }

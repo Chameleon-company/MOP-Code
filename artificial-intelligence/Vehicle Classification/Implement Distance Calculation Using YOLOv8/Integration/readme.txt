@@ -1,1 +1,0 @@
- 1. Use test_Vehicle_with_metric_depth to calculate the maximum and minimum depth within the bounding box of YOLOv8  ， use meters as the unit.
