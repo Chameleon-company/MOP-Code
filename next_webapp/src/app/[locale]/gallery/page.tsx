@@ -125,11 +125,10 @@ export default function GalleryPage() {
             </span>
 
             <h1
-              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm"
+              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm font-[family-name:var(--font-barlow-condensed)]"
               style={{
                 animationDelay: "0.2s",
-                fontWeight: 900,
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,    
                 letterSpacing: "-0.02em",
                 textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
               }}

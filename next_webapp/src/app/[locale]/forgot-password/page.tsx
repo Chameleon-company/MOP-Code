@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/i18n-navigation";
+import Image from "next/image";
 
 const ERROR_MESSAGES: Record<string, string> = {
   MISSING_FIELDS: "Please enter your email address.",
@@ -58,9 +59,11 @@ const ForgotPasswordPage = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 sm:p-12">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <img
+            <Image
               src="/img/new-logo-green.png"
               alt="Melbourne Open Data logo"
+              width={200}
+              height={64}
               className="h-16 w-auto"
             />
           </div>

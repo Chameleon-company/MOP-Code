@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FolderPlus, ImagePlus, Save } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
+import Image from "next/image";  
+
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
@@ -162,10 +164,13 @@ setTimeout(() => {
             className="cursor-pointer rounded-2xl border-2 border-dashed border-[#CFEFD9] bg-[#F8FFFA] p-8 text-center transition hover:bg-[#F0FFF6]"
           >
             {imagePreview ? (
-              <img
+              <Image
+                width={320}
+                height={160}
+                unoptimized
                 src={imagePreview}
                 alt="Preview"
-                className="mx-auto h-40 rounded-lg object-cover"
+                className="mx-auto h-40 w-auto rounded-lg object-cover"
               />
             ) : (
               <>

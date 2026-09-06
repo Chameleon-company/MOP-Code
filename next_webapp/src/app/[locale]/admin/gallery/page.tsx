@@ -5,6 +5,7 @@ import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import { storage } from "@/utils/storage";
+import Image from "next/image";
 
 type GalleryImage = {
   id: number;
@@ -295,7 +296,10 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               onClick={() => setSelectedImage(image)}
               className="group relative overflow-hidden focus:outline-none"
             >
-              <img
+              <Image
+                width={600}
+                height={256}
+                unoptimized
                 src={image.img_url}
                 alt={image.title}
                 className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -345,10 +349,13 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               <X size={18} strokeWidth={3} />
             </button>
 
-            <img
+            <Image
               src={selectedImage.img_url}
               alt={selectedImage.title}
               className="h-96 w-full rounded-xl object-cover"
+              width={800}
+              height={384}
+              unoptimized
             />
 
             <p className="mt-4 text-[16px] font-semibold text-gray-900">{selectedImage.title}</p>
@@ -398,7 +405,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
             <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#1F8F50]/40 bg-[#E8F5EE] py-10 transition hover:border-[#1F8F50] hover:bg-[#D6EFE2]">
               {uploadPreview ? (
-                <img src={uploadPreview} alt="Preview" className="max-h-40 rounded-lg object-contain" />
+                <Image src={uploadPreview} alt="Preview" className="max-h-40 w-auto rounded-lg object-contain" width={320} height={160} unoptimized />
               ) : (
                 <>
                   <Upload size={36} className="mb-3 text-[#1F8F50]" />
@@ -462,10 +469,13 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                     : "border-[#1F8F50]/40 bg-[#E8F5EE] hover:border-[#1F8F50] hover:bg-[#D6EFE2]"
                 }`}
               >
-                <img
+                <Image
                   src={editPreview ?? editTarget.img_url}
                   alt="Preview"
+                  width={500}
+                  height={192}
                   className="max-h-48 w-full rounded-lg object-contain py-4 px-4"
+                  unoptimized
                 />
                 <p className="pb-3 text-[12px] font-medium text-[#1F8F50]/70">
                   {editPreview ? "New image selected — click to change" : "Click to replace image (optional)"}
