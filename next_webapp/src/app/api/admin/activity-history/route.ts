@@ -174,7 +174,8 @@ export async function GET(request: NextRequest) {
       users.forEach((user) => {
         const id = user._id.toString();
         const name =
-          `${user.profile?.first_name ?? ""} ${user.profile?.last_name ?? ""}`.trim();userNameMap[id] =name ||user.email || `User #${id}`;
+          `${user.profile?.first_name ?? ""} ${user.profile?.last_name ?? ""}`.trim();
+          userNameMap[id] =name ||user.email || `User #${id}`;
       });
     }
 
