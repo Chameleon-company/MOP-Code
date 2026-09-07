@@ -22,7 +22,6 @@ const StationMarker: React.FC<Props> = ({ station, index }) => (
           width={400}
           height={250}
           style={{ width: '100%', height: 'auto', borderRadius: 8, display: 'block' }}
-          unoptimized
         />
       </div>
 

@@ -297,7 +297,7 @@ const Profile = () => {
                       width={128}
                       height={128}
                       className="w-full h-full object-cover"
-                      unoptimized
+                      unoptimized={profileImage?.startsWith("blob:")}
                     />
                   ) : (
                     <User className="w-14 h-14 text-gray-400 dark:text-gray-400" />

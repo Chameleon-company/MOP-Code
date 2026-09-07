@@ -152,7 +152,7 @@ export default function BlogForm({ initialData, onSubmit, submitting = false }: 
                 className="mx-auto h-48 w-auto rounded-lg object-cover"
                 width={400}
                 height={192}
-                unoptimized
+                unoptimized={coverPreview?.startsWith("blob:")}
               />
               <button
                 type="button"

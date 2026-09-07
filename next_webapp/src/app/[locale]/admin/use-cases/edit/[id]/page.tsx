@@ -386,7 +386,7 @@ export default function EditUseCasePage() {
                   width={320}
                   height={160}
                   className="mx-auto h-40 w-auto rounded-lg object-cover"
-                  unoptimized
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>

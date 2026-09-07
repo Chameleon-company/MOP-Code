@@ -285,7 +285,6 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               <Image
                 width={600}
                 height={256}
-                unoptimized
                 src={image.img_url}
                 alt={image.title}
                 className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -341,7 +340,6 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               className="h-96 w-full rounded-xl object-cover"
               width={800}
               height={384}
-              unoptimized
             />
 
             <p className="mt-4 text-[16px] font-semibold text-gray-900">{selectedImage.title}</p>
@@ -461,7 +459,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                   width={500}
                   height={192}
                   className="max-h-48 w-full rounded-lg object-contain py-4 px-4"
-                  unoptimized
+                  unoptimized={!!editPreview?.startsWith("blob:")}
                 />
                 <p className="pb-3 text-[12px] font-medium text-[#1F8F50]/70">
                   {editPreview ? "New image selected — click to change" : "Click to replace image (optional)"}

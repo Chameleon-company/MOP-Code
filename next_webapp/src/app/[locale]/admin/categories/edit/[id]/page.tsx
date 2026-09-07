@@ -193,7 +193,7 @@ export default function EditCategoryPage() {
                   className="mx-auto h-40 w-auto rounded-lg object-cover"
                   width={320}
                   height={160}
-                  unoptimized
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>
