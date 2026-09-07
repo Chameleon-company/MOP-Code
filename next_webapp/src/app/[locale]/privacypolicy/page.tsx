@@ -4,11 +4,9 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { HiMoon, HiSun } from "react-icons/hi2";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { storage } from "@/utils/storage";
+import html2canvas from "html2canvas";
 
 const Privacypolicy: React.FC = () => {
   const t = useTranslations("privacypolicy");
@@ -19,10 +17,6 @@ const Privacypolicy: React.FC = () => {
 
   const toggleSection = (key: string) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
   };
 
   useEffect(() => {
@@ -66,9 +60,14 @@ const Privacypolicy: React.FC = () => {
     setOpenSections({});
   };
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     const input = document.querySelector(".policy-box");
     if (!input) return;
+
+    const [{default: html12canvas}, {default: jsPDF}] = await Promise.all([
+      import("html2canvas"),
+      import("jspdf"),
+    ]);
 
     html2canvas(input as HTMLElement).then((canvas: HTMLCanvasElement) => {
       const imgData = canvas.toDataURL("image/png");

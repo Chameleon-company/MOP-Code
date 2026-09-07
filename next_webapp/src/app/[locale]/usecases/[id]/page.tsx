@@ -7,7 +7,15 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import NotebookRenderer from "@/components/NotebookRenderer";
+import dynamic from "next/dynamic";
+
+const NotebookRenderer = dynamic(() => import("@/components/NotebookRenderer"), {
+  loading: () => (
+    <div className="mb-8 flex items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 p-10 dark:border-gray-700 dark:bg-gray-900">
+      <div className="h-6 w6 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+    </div>
+  ),
+});
 
 const UseCasePage: React.FC = () => {
   const params = useParams();
