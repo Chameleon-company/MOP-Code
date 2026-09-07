@@ -225,5 +225,29 @@
   "Clear": "Clear",
   "ClickOrDrag": "Click or drag file to upload",
   "SupportedTypes": "Supported: PDF, DOCX, PNG…"
-}
+},
+  "seo": {
+    "home_title": "Open Data for a Smarter Melbourne",
+    "home_description": "Melbourne Open Playground turns Melbourne's open data into interactive tools, use cases, and insights for a smarter, more sustainable city.",
+    "about_title": "About Us",
+    "about_description": "Learn about Melbourne Open Playground, a Deakin University capstone project making Melbourne's open data accessible, useful, and actionable.",
+    "blog_title": "Blog",
+    "blog_description": "Read the latest articles, insights, and updates from Melbourne Open Playground on open data, sustainability, and smart city innovation.",
+    "usecases_title": "Use Cases",
+    "usecases_description": "Discover real-world use cases showing how Melbourne's open data drives smarter decisions in health, environment, transport, and more.",
+    "categories_title": "Categories",
+    "categories_description": "Browse Melbourne Open Playground's data and content by category to quickly find the insights and use cases most relevant to you.",
+    "gallery_title": "Gallery",
+    "gallery_description": "Explore Melbourne through the lens of open data — landmarks, green spaces, sustainability initiatives, and smart city innovations.",
+    "faq_title": "Frequently Asked Questions",
+    "faq_description": "Find answers to common questions about Melbourne Open Playground, our open data sources, use cases, and how to get involved.",
+    "contact_title": "Contact Us",
+    "contact_description": "Get in touch with the Melbourne Open Playground team for questions, feedback, partnership enquiries, or support.",
+    "licensing_title": "Licensing",
+    "licensing_description": "Review the licensing terms for using Melbourne Open Playground's data, content, and tools.",
+    "privacypolicy_title": "Privacy Policy",
+    "privacypolicy_description": "Read Melbourne Open Playground's privacy policy to understand how we collect, use, and protect your personal information.",
+    "ev_infrastructure_title": "EV Infrastructure",
+    "ev_infrastructure_description": "Explore open data on Melbourne's electric vehicle charging infrastructure, including locations, availability, and growth trends."
+  }
 }
