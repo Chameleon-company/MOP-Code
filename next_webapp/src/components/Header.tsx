@@ -13,28 +13,38 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const languages = [
-	{ name: "English", locale: "en" },
-	{ name: "Chinese (中文)", locale: "cn" },
-	{ name: "Spanish (Español)", locale: "es" },
-	{ name: "Greek (Ελληνικά)", locale: "el" },
-	{ name: "Arabic (العربية)", locale: "ar" },
-	{ name: "Italian (Italiano)", locale: "it" },
-	{ name: "Hindi (हिन्दी)", locale: "hi" },
-	{ name: "Vietnamese (Tiếng Việt)", locale: "vi" },
+	{ labelKey: "languages.english", locale: "en" },
+	{ labelKey: "languages.chinese", locale: "cn" },
+	{ labelKey: "languages.spanish", locale: "es" },
+	{ labelKey: "languages.greek", locale: "el" },
+	{ labelKey: "languages.arabic", locale: "ar" },
+	{ labelKey: "languages.italian", locale: "it" },
+	{ labelKey: "languages.hindi", locale: "hi" },
+	{ labelKey: "languages.vietnamese", locale: "vi" },
 ] as const;
 
-const navItems = [
-	{ type: "link", name: "Home", link: "/" },
-	{ type: "link", name: "About Us", link: "/about" },
-	{ type: "link", name: "Profile", link: "/profile" },
+type NavItem =
+	| { type: "link"; id: string; labelKey: string; link: string }
+	| {
+			type: "dropdown";
+			id: string;
+			labelKey: string;
+			items: readonly { id: string; labelKey: string; link: string }[];
+	  };
+
+const navItems: readonly NavItem[] = [
+	{ type: "link", id: "home", labelKey: "nav.home", link: "/" },
+	{ type: "link", id: "about", labelKey: "nav.about", link: "/about" },
+	{ type: "link", id: "profile", labelKey: "nav.profile", link: "/profile" },
 	{
 		type: "dropdown",
-		name: "Explore",
+		id: "explore",
+		labelKey: "nav.explore",
 		items: [
-			{ name: "Use Cases", link: "/usecases" },
-			{ name: "Blogs", link: "/blog" },
-			{ name: "Gallery", link: "/gallery" },
-			{ name: "Contact Us", link: "/contact" },
+			{ id: "useCases", labelKey: "nav.useCases", link: "/usecases" },
+			{ id: "blogs", labelKey: "nav.blogs", link: "/blog" },
+			{ id: "gallery", labelKey: "nav.gallery", link: "/gallery" },
+			{ id: "contact", labelKey: "nav.contact", link: "/contact" },
 		],
 	},
 ] as const;
@@ -50,14 +60,17 @@ const Header = () => {
 	const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 	const [isLangOpen, setIsLangOpen] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 	const { theme, toggleTheme } = useTheme();
 	const exploreRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
+		const userStr = localStorage.getItem("user");
 		if (!token) {
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 			return;
 		}
 		try {
@@ -72,14 +85,24 @@ const Header = () => {
 				localStorage.removeItem("user");
 				localStorage.removeItem("userId");
 				setIsLoggedIn(false);
+				setIsAdmin(false);
 			} else {
 				setIsLoggedIn(true);
+				if (userStr) {
+					try {
+						const userData = JSON.parse(userStr);
+						setIsAdmin(userData.roleId === 1);
+					} catch {
+						setIsAdmin(false);
+					}
+				}
 			}
 		} catch {
 			localStorage.removeItem("token");
 			localStorage.removeItem("user");
 			localStorage.removeItem("userId");
 			setIsLoggedIn(false);
+			setIsAdmin(false);
 		}
 	}, []);
 
@@ -108,6 +131,7 @@ const Header = () => {
 		localStorage.removeItem("user");
 		localStorage.removeItem("userId");
 		setIsLoggedIn(false);
+		setIsAdmin(false);
 		setShowLogoutConfirm(false);
 		i18nRouter.push("/");
 	};
@@ -144,7 +168,7 @@ const Header = () => {
 		return cleanPath === link || cleanPath.startsWith(`${link}/`);
 	};
 
-	const isDropdownActive = (items: readonly { name: string; link: string }[]) =>
+	const isDropdownActive = (items: readonly { id: string; labelKey: string; link: string }[]) =>
 		items.some((sub) => isActiveLink(sub.link));
 
 	// ─── shared class helpers ────────────────────────────────────────────────
@@ -165,9 +189,12 @@ const Header = () => {
 				? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
 				: "text-gray-700 hover:bg-green-50 hover:text-green-700 dark:text-gray-200 dark:hover:bg-green-900/25 dark:hover:text-green-300"
 		}`;
-		const visibleNavItems = navItems.filter(
-	(item) => item.name !== "Profile" || isLoggedIn
-);
+	const visibleNavItems: NavItem[] = [
+		...navItems.filter((item) => item.id !== "profile" || isLoggedIn),
+		...(isAdmin
+			? [{ type: "link" as const, id: "admin", labelKey: "nav.admin", link: "/admin/dashboard" }]
+			: []),
+	];
 
 	return (
 		<>
@@ -238,7 +265,7 @@ const Header = () => {
 						<Link
 							href="/"
 							className="flex-shrink-0 flex items-center"
-							aria-label="Go to homepage"
+							aria-label={t("accessibility.home")}
 						>
 							<Image
 								className="h-16 w-16 transition-transform duration-300 ease-out hover:scale-110 hover:drop-shadow-lg"
@@ -253,57 +280,57 @@ const Header = () => {
 						{/* Desktop nav links */}
 						<nav
 							className="ms-8 hidden lg:flex lg:items-center gap-2"
-							aria-label="Main navigation"
+							aria-label={t("accessibility.mainNavigation")}
 						>
 							{visibleNavItems.map((item) =>
 								item.type === "link" ? (
 									<Link
-										key={item.name}
+										key={item.id}
 										href={item.link}
 										className={`${navLinkBase} ${
 											isActiveLink(item.link) ? navLinkActive : navLinkIdle
 										}`}
 									>
-										{t(item.name)}
+										{t(item.labelKey)}
 									</Link>
 								) : (
 									/* Explore dropdown – click-based, stays open until closed */
 									<div
-										key={item.name}
+										key={item.id}
 										ref={exploreRef}
 										className="relative"
 									>
 										<button
 											type="button"
 											aria-haspopup="true"
-											aria-expanded={openDropdown === item.name}
-											onClick={() => toggleDesktopDropdown(item.name)}
+											aria-expanded={openDropdown === item.id}
+											onClick={() => toggleDesktopDropdown(item.id)}
 											className={`${navLinkBase} flex items-center gap-1 ${
 												isDropdownActive(item.items) ? navLinkActive : navLinkIdle
 											}`}
 										>
-											{item.name}
+											{t(item.labelKey)}
 											<HiChevronDown
 												className={`h-4 w-4 transition-transform duration-300 ${
-													openDropdown === item.name ? "rotate-180" : ""
+																			openDropdown === item.id ? "rotate-180" : ""
 												}`}
 											/>
 										</button>
 
-										{openDropdown === item.name && (
+										{openDropdown === item.id && (
 											<div className={dropdownPanel} role="menu">
 												{/* Green accent top bar */}
 												<div className="h-0.5 w-full bg-gradient-to-r from-green-500 to-emerald-500" />
 												<div className="py-1.5">
 													{item.items.map((sub) => (
 														<Link
-															key={sub.name}
+																key={sub.id}
 															href={sub.link}
 															role="menuitem"
 															onClick={() => setOpenDropdown(null)}
 															className={dropdownItem(isActiveLink(sub.link))}
 														>
-															{t(sub.name)}
+																	{t(sub.labelKey)}
 														</Link>
 													))}
 												</div>
@@ -320,9 +347,7 @@ const Header = () => {
 						{/* Theme toggle */}
 						<button
 							onClick={toggleTheme}
-							aria-label={
-								theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-							}
+							aria-label={theme === "dark" ? t("accessibility.switchToLight") : t("accessibility.switchToDark")}
 							className="p-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800 transition-all duration-200 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
 						>
 							{theme === "dark" ? (
@@ -361,7 +386,7 @@ const Header = () => {
 						<div className="flex lg:hidden">
 							<button
 								onClick={toggleMenu}
-								aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+								aria-label={isMenuOpen ? t("accessibility.closeMenu") : t("accessibility.openMenu")}
 								aria-expanded={isMenuOpen}
 								className="p-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
 							>
@@ -380,7 +405,7 @@ const Header = () => {
 					<div className="lg:hidden pb-4">
 						<nav
 							className="mt-2 space-y-1 rounded-2xl border border-gray-100 bg-white p-3 shadow-2xl dark:border-gray-700 dark:bg-gray-900"
-							aria-label="Mobile navigation"
+							aria-label={t("accessibility.mobileNavigation")}
 						>
 							{/* Top green accent */}
 							<div className="h-0.5 w-full rounded-full bg-gradient-to-r from-green-500 to-emerald-500 mb-2" />
@@ -388,7 +413,7 @@ const Header = () => {
 							{visibleNavItems.map((item) =>
 								item.type === "link" ? (
 									<Link
-										key={item.name}
+										key={item.id}
 										href={item.link}
 										onClick={closeMenu}
 										className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
@@ -397,33 +422,33 @@ const Header = () => {
 												: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 										}`}
 									>
-										{t(item.name)}
+										{t(item.labelKey)}
 									</Link>
 								) : (
-									<div key={item.name}>
+									<div key={item.id}>
 										<button
 											type="button"
-											aria-expanded={openMobileDropdown === item.name}
-											onClick={() => toggleMobileDropdown(item.name)}
+											aria-expanded={openMobileDropdown === item.id}
+											onClick={() => toggleMobileDropdown(item.id)}
 											className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
 												isDropdownActive(item.items)
 													? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-sm"
 													: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 											}`}
 										>
-											<span>{item.name}</span>
+											<span>{t(item.labelKey)}</span>
 											<HiChevronDown
 												className={`h-4 w-4 transition-transform duration-300 ${
-													openMobileDropdown === item.name ? "rotate-180" : ""
+													openMobileDropdown === item.id ? "rotate-180" : ""
 												}`}
 											/>
 										</button>
 
-										{openMobileDropdown === item.name && (
+										{openMobileDropdown === item.id && (
 											<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 												{item.items.map((sub) => (
 													<Link
-														key={sub.name}
+															key={sub.id}
 														href={sub.link}
 														onClick={closeMenu}
 														className={`block px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
@@ -432,7 +457,7 @@ const Header = () => {
 																: "text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 														}`}
 													>
-														{t(sub.name)}
+															{t(sub.labelKey)}
 													</Link>
 												))}
 											</div>
@@ -460,11 +485,11 @@ const Header = () => {
 									<div className="mt-1 ms-3 space-y-0.5 border-s-2 border-green-200 ps-3 dark:border-green-800/60">
 										{languages.map((lang) => (
 											<button
-												key={lang.locale}
+														key={lang.locale}
 												onClick={() => selectLanguage(lang.locale)}
 												className="block w-full text-start px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-700 hover:text-green-700 hover:bg-green-50 dark:text-gray-200 dark:hover:text-green-300 dark:hover:bg-green-900/20"
 											>
-												{lang.name}
+														{t(lang.labelKey)}
 											</button>
 										))}
 									</div>

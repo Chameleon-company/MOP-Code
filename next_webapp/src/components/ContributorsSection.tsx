@@ -31,7 +31,7 @@ interface GroupedYear {
 }
 
 function groupContributors(records: ContributorRecord[]): GroupedYear[] {
-  const visible = (records ?? []).filter((record) => record.status);
+  const visible = (records ?? []).filter((record) => record.is_active);
 
   const byYear = new Map<number, Map<number, ContributorRecord[]>>();
   for (const record of visible) {
@@ -48,19 +48,19 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
 
     for (const [trimester, recordsInTrimester] of byTrimester) {
       const sorted = [...recordsInTrimester].sort(
-        (a, b) => a.displayOrder - b.displayOrder
+        (a, b) => a.display_order - b.display_order
       );
 
       const companyDirector = sorted.find(
-        (record) => record.contributorType === "Company Director"
-      )?.fullName;
+        (record) => record.contributor_type === "company_director"
+      )?.name;
 
       const mentors = sorted
-        .filter((record) => record.contributorType === "Mentor")
-        .map((record) => record.fullName);
+        .filter((record) => record.contributor_type === "mentor")
+        .map((record) => record.name);
 
       const students = sorted.filter(
-        (record) => record.contributorType === "Student"
+        (record) => record.contributor_type === "student"
       );
 
       const teamsByName = new Map<string, GroupedMember[]>();
@@ -68,10 +68,10 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
         const teamName = student.team ?? "Unassigned";
         if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
         teamsByName.get(teamName)!.push({
-          id: student.id,
-          name: student.fullName,
-          role: student.positionOrRole,
-          seniority: student.level,
+          id: student._id,
+          name: student.name,
+          role: student.position ?? undefined,
+          seniority: student.level ?? undefined,
         });
       }
 

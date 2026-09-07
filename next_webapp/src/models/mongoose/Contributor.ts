@@ -2,6 +2,29 @@ import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // Fixed vocabularies the team-agreed taxonomy (supersedes the earlier
 // placeholder values copied from the admin form's old dropdown).
+export const TEAM_ROLES = {
+  "Data Science Team": [
+    "Data Scientist",
+    "Data Science Team Lead",
+    "Data Science Quality Manager",
+  ],
+  "Website Development Team": [
+    "Web Developer",
+    "Web Dev Team Lead",
+    "Web Dev Quality Manager",
+  ],
+  "Design Team": [
+    "Design Team Member",
+    "Design Team Lead",
+  ],
+  "Cyber Security Team": [
+    "Cyber Security Team Member",
+    "Cyber Security Team Lead",
+  ],
+} as const;
+
+export type TeamName = keyof typeof TEAM_ROLES;
+
 export const TEAMS = [
   "Data Science Team",
   "Website Development Team",

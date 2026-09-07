@@ -1,14 +1,20 @@
+import { apiFetch } from "@/lib/apiFetch";
+
 export interface LiveUseCase {
   id: number;
   name: string;
   description: string;
-  htmlPath: string;   
+  htmlPath: string;
 }
 
 export async function searchUseCases(query: string): Promise<LiveUseCase[]> {
-  const res = await fetch(`/api/usecases?q=${encodeURIComponent(query)}`);
-  if (!res.ok) return [];
-  return (await res.json()) as LiveUseCase[];
+  try {
+    // silent: true - this is a lookup helper; callers expect a plain
+    // array back and fall back to [] on failure, not a toast.
+    return await apiFetch<LiveUseCase[]>(`/api/usecases?q=${encodeURIComponent(query)}`, { silent: true });
+  } catch {
+    return [];
+  }
 }
 
 
