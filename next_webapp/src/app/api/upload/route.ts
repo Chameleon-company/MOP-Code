@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
+import { getAuthUser } from "../library/auth";
 
 // ==============================
 // POST /api/upload
@@ -9,10 +10,9 @@ import { supabase } from "@/library/supabaseClient";
 // ==============================
 
 export async function POST(request: NextRequest) {
-  const userIdRaw = request.headers.get("x-user-id");
-  const userId = userIdRaw ? Number(userIdRaw) : null;
+  const { userId, isAuthenticated } = getAuthUser(request);
 
-  if (!userId) {
+  if (!isAuthenticated || !userId) {
     return NextResponse.json(
       { success: false, message: "Unauthorised" },
       { status: 401 }

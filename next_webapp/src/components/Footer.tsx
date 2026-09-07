@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { Link } from "@/i18n-navigation";
 import { useTranslations } from "next-intl";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
@@ -8,142 +13,214 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 
 const Footer = () => {
-	const t = useTranslations("common");
-	const [newsletterEmail, setNewsletterEmail] = useState("");
-	const [newsletterError, setNewsletterError] = useState<string | null>(null);
-	const [showNewsletterToast, setShowNewsletterToast] = useState(false);
-	const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
+  const t = useTranslations("common");
 
-	const footerRef = useRef<HTMLElement>(null);
-	const animFrameRef = useRef<number | null>(null);
-	const targetParallax = useRef({ x: 0, y: 0 });
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterError, setNewsletterError] = useState<string | null>(
+    null
+  );
+  const [showNewsletterToast, setShowNewsletterToast] =
+    useState(false);
+  const [parallaxOffset, setParallaxOffset] = useState({
+    x: 0,
+    y: 0,
+  });
 
-	const handleMouseMove = useCallback((e: MouseEvent) => {
-		if (!footerRef.current) return;
+  const footerRef = useRef<HTMLElement>(null);
+  const animFrameRef = useRef<number | null>(null);
+  const targetParallax = useRef({ x: 0, y: 0 });
 
-		const rect = footerRef.current.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		const cx = (x / rect.width - 0.5) * 2;
-		const cy = (y / rect.height - 0.5) * 2;
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!footerRef.current) return;
 
-		targetParallax.current = { x: cx * 8, y: cy * 5 };
-	}, []);
+    const rect = footerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-	useEffect(() => {
-		const animate = () => {
-			setParallaxOffset((prev) => ({
-				x: prev.x + (targetParallax.current.x - prev.x) * 0.06,
-				y: prev.y + (targetParallax.current.y - prev.y) * 0.06,
-			}));
+    const cx = (x / rect.width - 0.5) * 2;
+    const cy = (y / rect.height - 0.5) * 2;
 
-			animFrameRef.current = requestAnimationFrame(animate);
-		};
+    targetParallax.current = {
+      x: cx * 8,
+      y: cy * 5,
+    };
+  }, []);
 
-		animFrameRef.current = requestAnimationFrame(animate);
+  useEffect(() => {
+    const animate = () => {
+      setParallaxOffset((prev) => ({
+        x:
+          prev.x +
+          (targetParallax.current.x - prev.x) * 0.06,
+        y:
+          prev.y +
+          (targetParallax.current.y - prev.y) * 0.06,
+      }));
 
-		return () => {
-			if (animFrameRef.current) {
-				cancelAnimationFrame(animFrameRef.current);
-			}
-		};
-	}, []);
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
 
-	useEffect(() => {
-		const el = footerRef.current;
-		if (!el) return;
+    animFrameRef.current = requestAnimationFrame(animate);
 
-		el.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, []);
 
-		return () => {
-			el.removeEventListener("mousemove", handleMouseMove);
-		};
-	}, [handleMouseMove]);
+  useEffect(() => {
+    const el = footerRef.current;
 
-	useEffect(() => {
-		if (!showNewsletterToast) return;
+    if (!el) return;
 
-		const id = window.setTimeout(() => {
-			setShowNewsletterToast(false);
-		}, 4000);
+    el.addEventListener("mousemove", handleMouseMove);
 
-		return () => {
-			window.clearTimeout(id);
-		};
-	}, [showNewsletterToast]);
+    return () => {
+      el.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [handleMouseMove]);
 
-	const isValidNewsletterEmail = (raw: string): boolean => {
-		const v = raw.trim();
+  useEffect(() => {
+    if (!showNewsletterToast) return;
 
-		if (v.length < 5) return false;
-		if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return false;
+    const id = window.setTimeout(() => {
+      setShowNewsletterToast(false);
+    }, 4000);
 
-		const [local, domain] = v.split("@");
+    return () => {
+      window.clearTimeout(id);
+    };
+  }, [showNewsletterToast]);
 
-		if (!local || !domain || /^\d+$/.test(local)) return false;
-		if (
-			domain.startsWith(".") ||
-			domain.endsWith(".") ||
-			domain.includes("..")
-		) {
-			return false;
-		}
+  const isValidNewsletterEmail = (raw: string): boolean => {
+    const v = raw.trim();
 
-		return true;
-	};
+    if (v.length < 5) return false;
 
-	const links = [
-		{ name: "Licensing", path: "/licensing" },
-		{ name: "Privacy Policy", path: "/privacypolicy" },
-		{ name: "Contact Us", path: "/contact" },
-	];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+      return false;
+    }
 
-	const socialIcons = [
-		{
-			Icon: FaFacebook,
-			label: "Facebook",
-			path: "https://www.facebook.com/cityofmelbourne/",
-		},
-		{
-			Icon: FaSquareXTwitter,
-			label: "Twitter/X",
-			path: "https://twitter.com/MelbourneOpenPlayground",
-		},
-		{
-			Icon: FaLinkedin,
-			label: "LinkedIn",
-			path: "https://www.linkedin.com/company/melbourne-open-playground",
-		},
-	];
+    const [local, domain] = v.split("@");
 
-	return (
-		<>
-			<style>{`
+    if (!local || !domain || /^\d+$/.test(local)) {
+      return false;
+    }
+
+    if (
+      domain.startsWith(".") ||
+      domain.endsWith(".") ||
+      domain.includes("..")
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const links = [
+    {
+      name: "Licensing",
+      path: "/licensing",
+    },
+    {
+      name: "Privacy Policy",
+      path: "/privacypolicy",
+    },
+    {
+      name: "Contact Us",
+      path: "/contact",
+    },
+  ];
+
+  const socialIcons = [
+    {
+      Icon: FaFacebook,
+      label: "Facebook",
+      path: "https://www.facebook.com/cityofmelbourne/",
+    },
+    {
+      Icon: FaSquareXTwitter,
+      label: "Twitter/X",
+      path: "https://twitter.com/MelbourneOpenPlayground",
+    },
+    {
+      Icon: FaLinkedin,
+      label: "LinkedIn",
+      path: "https://www.linkedin.com/company/melbourne-open-playground",
+    },
+  ];
+
+  return (
+    <>
+      <style>{`
         @keyframes gradientShift {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+          0% {
+            background-position: 0% 50%;
+          }
+
+          50% {
+            background-position: 100% 50%;
+          }
+
+          100% {
+            background-position: 0% 50%;
+          }
         }
 
         @keyframes bgShimmer {
-          0%   { transform: translateX(-100%) skewX(-15deg); }
-          100% { transform: translateX(200%) skewX(-15deg); }
+          0% {
+            transform: translateX(-100%) skewX(-15deg);
+          }
+
+          100% {
+            transform: translateX(200%) skewX(-15deg);
+          }
         }
 
         @keyframes shimmerSweep {
-          0%   { transform: translateX(-150%) skewX(-12deg); }
-          100% { transform: translateX(250%) skewX(-12deg); }
+          0% {
+            transform: translateX(-150%) skewX(-12deg);
+          }
+
+          100% {
+            transform: translateX(250%) skewX(-12deg);
+          }
         }
 
         @keyframes floatGlass {
-          0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.12; }
-          33%       { transform: translateY(-18px) translateX(8px) scale(1.03); opacity: 0.18; }
-          66%       { transform: translateY(-8px) translateX(-6px) scale(0.98); opacity: 0.10; }
+          0%,
+          100% {
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.12;
+          }
+
+          33% {
+            transform: translateY(-18px) translateX(8px)
+              scale(1.03);
+            opacity: 0.18;
+          }
+
+          66% {
+            transform: translateY(-8px) translateX(-6px)
+              scale(0.98);
+            opacity: 0.1;
+          }
         }
 
         @keyframes floatGlass2 {
-          0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.08; }
-          50%       { transform: translateY(14px) translateX(-10px) scale(1.05); opacity: 0.15; }
+          0%,
+          100% {
+            transform: translateY(0px) translateX(0px) scale(1);
+            opacity: 0.08;
+          }
+
+          50% {
+            transform: translateY(14px) translateX(-10px)
+              scale(1.05);
+            opacity: 0.15;
+          }
         }
 
         .social-btn {
@@ -155,32 +232,41 @@ const Footer = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.08);
+          background: rgba(255, 255, 255, 0.08);
           box-shadow:
-            4px 4px 10px rgba(0,0,0,0.35),
-            -2px -2px 6px rgba(255,255,255,0.12),
-            inset 0 1px 0 rgba(255,255,255,0.15);
-          border: 1px solid rgba(255,255,255,0.18);
-          transition: box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+            4px 4px 10px rgba(0, 0, 0, 0.35),
+            -2px -2px 6px rgba(255, 255, 255, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          transition:
+            box-shadow 0.25s ease,
+            background 0.25s ease,
+            color 0.25s ease,
+            transform 0.2s ease;
           cursor: pointer;
-          color: rgba(255,255,255,0.85);
+          color: rgba(255, 255, 255, 0.85);
           text-decoration: none;
         }
 
         .social-btn:hover {
-          background: rgba(255,255,255,0.95);
+          background: rgba(255, 255, 255, 0.95);
           color: #166534;
           transform: translateY(-2px) scale(1.04);
           box-shadow:
-            0 10px 24px rgba(0,0,0,0.35),
-            0 0 16px rgba(255,255,255,0.25),
-            inset 0 1px 0 rgba(255,255,255,1);
+            0 10px 24px rgba(0, 0, 0, 0.35),
+            0 0 16px rgba(255, 255, 255, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .social-btn .shimmer-sweep {
           position: absolute;
           inset: 0;
-          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.7) 50%,
+            transparent 100%
+          );
           transform: translateX(-150%) skewX(-12deg);
           pointer-events: none;
         }
@@ -193,16 +279,18 @@ const Footer = () => {
           position: relative;
           overflow: hidden;
           display: inline-block;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.22);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.22);
           border-radius: 20px;
           padding: 18px 26px;
           box-shadow:
-            6px 6px 16px rgba(0,0,0,0.4),
-            -2px -2px 8px rgba(255,255,255,0.1),
-            inset 0 1px 0 rgba(255,255,255,0.2);
+            6px 6px 16px rgba(0, 0, 0, 0.4),
+            -2px -2px 8px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
           backdrop-filter: blur(12px);
-          transition: box-shadow 0.3s ease, transform 0.25s ease;
+          transition:
+            box-shadow 0.3s ease,
+            transform 0.25s ease;
           cursor: pointer;
           text-decoration: none;
         }
@@ -210,16 +298,21 @@ const Footer = () => {
         .logo-card:hover {
           transform: translateY(-3px) scale(1.01);
           box-shadow:
-            0 18px 34px rgba(0,0,0,0.4),
-            0 0 24px rgba(255,255,255,0.14),
-            -2px -2px 8px rgba(255,255,255,0.15),
-            inset 0 1px 0 rgba(255,255,255,0.3);
+            0 18px 34px rgba(0, 0, 0, 0.4),
+            0 0 24px rgba(255, 255, 255, 0.14),
+            -2px -2px 8px rgba(255, 255, 255, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .logo-card .shimmer-sweep {
           position: absolute;
           inset: 0;
-          background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+          background: linear-gradient(
+            105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 100%
+          );
           transform: translateX(-150%) skewX(-12deg);
           pointer-events: none;
         }
@@ -234,28 +327,30 @@ const Footer = () => {
           align-items: center;
           gap: 8px;
           font-size: 0.95rem;
-          color: rgba(255,255,255,0.92);
+          color: rgba(255, 255, 255, 0.92);
           text-decoration: none;
-          transition: color 0.2s ease, transform 0.2s ease;
+          transition:
+            color 0.2s ease,
+            transform 0.2s ease;
           padding: 2px 0;
-          text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .quick-link::after {
-          content: '';
+          content: "";
           position: absolute;
           inset-inline-start: 0;
           bottom: -1px;
           width: 0;
           height: 1px;
-          background: rgba(255,255,255,0.8);
+          background: rgba(255, 255, 255, 0.8);
           transition: width 0.3s ease;
         }
 
         .quick-link:hover {
           color: #ffffff;
           transform: translateX(5px);
-          text-shadow: 0 0 12px rgba(255,255,255,0.6);
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
         }
 
         [dir="rtl"] .quick-link:hover {
@@ -287,44 +382,51 @@ const Footer = () => {
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: #ffffff;
-          text-shadow: 0 0 16px rgba(255,255,255,0.5), 0 1px 4px rgba(0,0,0,0.3);
+          text-shadow:
+            0 0 16px rgba(255, 255, 255, 0.5),
+            0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .heading-bar {
           height: 3px;
           width: 40px;
           border-radius: 9999px;
-          background: rgba(255,255,255,0.9);
-          box-shadow: 0 0 8px rgba(255,255,255,0.7), 0 0 16px rgba(255,255,255,0.3);
+          background: rgba(255, 255, 255, 0.9);
+          box-shadow:
+            0 0 8px rgba(255, 255, 255, 0.7),
+            0 0 16px rgba(255, 255, 255, 0.3);
         }
 
-        /* Tablet / small laptop: shrink chrome so four columns fit without clipping */
         @media (min-width: 768px) and (max-width: 1279px) {
           .footer-main-grid .logo-card {
             padding: 12px 16px;
           }
+
           .footer-main-grid .section-heading {
             font-size: 0.72rem;
             letter-spacing: 0.14em;
           }
+
           .footer-main-grid .quick-link {
             font-size: 0.82rem;
           }
+
           .footer-main-grid .social-btn {
             width: 38px;
             height: 38px;
             border-radius: 10px;
           }
+
           .footer-col-links.footer-tight-pad {
             padding-inline-start: 12px !important;
             padding-inline-end: 12px !important;
           }
+
           .footer-col-connect.footer-tight-pad {
             padding-inline-end: 12px !important;
           }
         }
 
-        /* Phone only: single column + centered; from md (tablet) up = same as desktop */
         @media (max-width: 767px) {
           .footer-col-links {
             border-inline-start: none !important;
@@ -440,7 +542,7 @@ const Footer = () => {
 							<Link
 								href="/"
 								className="logo-card max-w-full shrink-0"
-								aria-label="Go to home page"
+                aria-label={t("accessibility.home")}
 							>
 								<Image
 									src="/img/new-logo-white.png"
@@ -460,8 +562,7 @@ const Footer = () => {
 								}}
 								className="max-w-[220px] text-center text-[0.9rem] md:max-w-none md:text-start md:text-[0.85rem] lg:text-[0.9rem]"
 							>
-								Exploring Melbourne&#39;s open data to build smarter
-								communities.
+                {t("Footer intro")}
 							</p>
 						</div>
 
@@ -478,7 +579,7 @@ const Footer = () => {
 								id="footer-quick-links-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Quick Links
+                {t("Quick Links")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -508,7 +609,7 @@ const Footer = () => {
 								id="footer-connect-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Connect
+                {t("Connect")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -538,7 +639,7 @@ const Footer = () => {
 											"0 1px 4px rgba(0,0,0,0.25)";
 									}}
 								>
-									Melbourne Open Data
+									{t("Melbourne Open Data")}
 									<span aria-hidden="true" style={{ fontSize: "0.8rem" }}>
 										↗
 									</span>
@@ -557,7 +658,7 @@ const Footer = () => {
 											fontWeight: 600,
 										}}
 									>
-										Follow us
+                                {t("Follow us")}
 									</h3>
 
 									<div
@@ -590,7 +691,7 @@ const Footer = () => {
 								id="footer-newsletter-heading"
 								className="section-heading text-center md:text-start"
 							>
-								Newsletter
+                        {t("Newsletter")}
 							</h2>
 							<div className="heading-bar" />
 
@@ -602,7 +703,7 @@ const Footer = () => {
 								}}
 								className="max-w-[220px] text-center text-[0.95rem] md:max-w-none md:w-full md:text-start md:text-[0.85rem] lg:text-[0.95rem]"
 							>
-								Get Melbourne open-data updates first.
+                {t("Newsletter description")}
 							</p>
 
 							<div className="mx-auto flex w-full max-w-[240px] flex-col gap-1 sm:max-w-[280px] md:mx-0 md:max-w-none md:min-w-0">
@@ -614,14 +715,12 @@ const Footer = () => {
 										const trimmed = newsletterEmail.trim();
 
 										if (!trimmed) {
-											setNewsletterError("Please enter your email address.");
+                      setNewsletterError(t("Newsletter required"));
 											return;
 										}
 
 										if (!isValidNewsletterEmail(trimmed)) {
-											setNewsletterError(
-												"Please enter a valid email address (e.g. morgan.lee@gmail.com).",
-											);
+                      setNewsletterError(t("Newsletter invalid"));
 											return;
 										}
 
@@ -632,7 +731,7 @@ const Footer = () => {
 									noValidate
 								>
 									<label htmlFor="footer-newsletter-email" className="sr-only">
-										Email for newsletter
+                    {t("Email for newsletter")}
 									</label>
 
 									<input
@@ -642,7 +741,7 @@ const Footer = () => {
 										inputMode="email"
 										autoComplete="email"
 										required
-										placeholder="Enter your email"
+                    placeholder={t("Enter your email")}
 										value={newsletterEmail}
 										onChange={(e) => {
 											setNewsletterEmail(e.target.value);
@@ -671,7 +770,7 @@ const Footer = () => {
 											boxShadow: "0 3px 10px rgba(0,0,0,0.18)",
 										}}
 									>
-										Submit
+                    {t("Submit")}
 									</button>
 								</form>
 
@@ -705,8 +804,7 @@ const Footer = () => {
 							textShadow: "0 1px 3px rgba(0,0,0,0.2)",
 						}}
 					>
-						© {new Date().getFullYear()} Melbourne Open Playground. All rights
-						reserved.
+            © {new Date().getFullYear()} {t("Copyright")}
 					</div>
 				</div>
 			</footer>
@@ -735,8 +833,7 @@ const Footer = () => {
 					</span>
 
 					<p className="text-sm font-medium leading-snug text-white">
-						You&apos;re in — we&apos;ll only email when there&apos;s something
-						worth your time.
+            {t("Newsletter success")}
 					</p>
 				</div>
 			) : null}
