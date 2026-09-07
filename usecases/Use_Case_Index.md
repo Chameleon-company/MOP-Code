@@ -7,11 +7,14 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
+
 | UC00088_Pedestrian_Activity_Near_Bus_Stops | T2 2026 | Transport and Mobility | Shilpa Sharma (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00088_Pedestrian_Activity_Near_Bus_Stops.ipynb) |
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
 | UC00111_Melbourne_Parking_Hotspot_Analysis | T2 2026 | Transport and Mobility | Siju Deng (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00111_Melbourne_Parking_Hotspot_Analysis.ipynb) |
+| UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
+
 
 ### Ready To Publish 
 
@@ -246,7 +249,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00022_Livability_Analysis_by_Location | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00022_Livability_Analysis_by_Location) |  | `requests.get(url)`, csv | Adam Bullivant and Basilia Sethu | Trello Card Created |
 | UC00024_Pedestrian_Foot_Traffic_Business_Case | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00024_Pedestrian_Foot_Traffic_Business_Case) |  | `requests.get()` | Mollie |  |
 | UC00026_Soil_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00026_Soil_Analysis) |  | `requests.get()` | Not Found | Needs a story; there is only code. Trello Card Created |
-| UC00027_Spot_Parking_Problems | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00027_Spot_Parking_Problems) |  | `pd.read_csv(url)` | Tithra Chap | Trello Card Created - Also in Rework |
 | UC00030_Walkability | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00030_Walkability) |  | `gpd.read_file` | Hannah Smith | Trello Card Updated |
 | UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne) |  | `requests.get()` |  |  |
 | UC00039_Bird_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00039_Bird_Analysis) |  | `requests.get()` | Arjun Jamwal |  |
