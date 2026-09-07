@@ -25,9 +25,12 @@ from urllib.request import Request, urlopen
 
 
 GITHUB_API = "https://api.github.com"
-GITHUB_OWNER = "Chameleon-company"
-GITHUB_REPOSITORY = "MOP-Code"
-GITHUB_BRANCH = "master"
+# These defaults preserve the upstream MOP catalogue for local use.  The
+# GitHub Pages workflow supplies the repository's owner and name so a fork
+# scans its own master branch after use cases are merged.
+GITHUB_OWNER = os.getenv("MOP_GITHUB_OWNER", "Chameleon-company")
+GITHUB_REPOSITORY = os.getenv("MOP_GITHUB_REPOSITORY", "MOP-Code")
+GITHUB_BRANCH = os.getenv("MOP_GITHUB_BRANCH", "master")
 FINALISED_PATH = "usecases/FINALISED"
 CITY_CATALOGUE_API = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets"
 CITY_DATA_HOSTS = {"data.melbourne.vic.gov.au", "www.data.melbourne.vic.gov.au"}

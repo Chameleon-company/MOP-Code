@@ -1,0 +1,62 @@
+name: Refresh and publish Data Asset Catalogue
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'usecases/FINALISED/**'
+      - 'usecases/Data Assest Management/**'
+      - '.github/workflows/refresh-data-asset-catalogue.yml'
+  workflow_dispatch:
+  schedule:
+    # Weekly metadata refresh: Monday 05:00 Melbourne time during AEST.
+    - cron: '0 19 * * 0'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: data-asset-catalogue-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MOP_GITHUB_OWNER: ${{ github.repository_owner }}
+      MOP_GITHUB_REPOSITORY: ${{ github.event.repository.name }}
+      MOP_GITHUB_BRANCH: master
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Regenerate the catalogue
+        run: python3 'usecases/Data Assest Management/data_asset_catalogue.py'
+
+      - name: Prepare the published site
+        run: |
+          mkdir -p _site
+          cp 'usecases/Data Assest Management/outputs/Data_Asset_Catalogue.html' _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
