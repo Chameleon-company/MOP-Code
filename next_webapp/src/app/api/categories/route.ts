@@ -78,6 +78,22 @@ export async function POST(request: NextRequest) {
         // ==============================
         // 5. Insert into Supabase
         // ==============================
+        let userid = null; 
+        
+        if (userId) {
+            const idStr = String(userId);
+
+            // If it's a valid MongoDB ObjectId, look it up in Mongoose
+            if (mongoose.Types.ObjectId.isValid(idStr)) {
+                const user = await User.findById(idStr).select("_id legacy_id").lean();
+                userid = user ? user.legacy_id : null;
+            } else {
+                // Otherwise, fall back to checking by the legacy identifier
+                const user = await User.findOne({ legacy_id: idStr }).select("_id legacy_id").lean();
+                userid = user ? user.legacy_id : null;
+            }
+        }
+
         const { data, error } = await supabase
             .from("categories")
             .insert([
@@ -85,12 +101,20 @@ export async function POST(request: NextRequest) {
                     category_name,
                     description: description ?? null,
                     cover_img: cover_img ?? null,
-                    created_by: Number(userId),
+                    created_by: userid,
                 },
             ])
             .select()
             .single();
 
+        if (error) {
+            logger.error(`Supabase Insert Error: ${error.message || String(error)}`);
+            return errorResponse(
+                "Failed to create category",
+                500,
+                "DB_INSERT_ERROR"
+            );
+        }
 
         const { data: createdUser, error: userError } = await supabase
             .from("user")
@@ -100,15 +124,6 @@ export async function POST(request: NextRequest) {
 
         if (userError) {
             logger.error(`User fetch error: ${userError.message || String(userError)}`);
-        }
-
-        if (error) {
-            logger.error(`Supabase Insert Error: ${error.message || String(error)}`);
-            return errorResponse(
-                "Failed to create category",
-                500,
-                "DB_INSERT_ERROR"
-            );
         }
 
         // ==============================
