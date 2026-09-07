@@ -12,6 +12,8 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
 | UC00111_Melbourne_Parking_Hotspot_Analysis | T2 2026 | Transport and Mobility | Siju Deng (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00111_Melbourne_Parking_Hotspot_Analysis.ipynb) |
+| UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests | T2 2026 | Urban Planning and Development | Yash K Daware and Vaibhavi J Deo (update: Tsz Fung Yuen)| [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests.ipynb)  |
+
 
 ### Ready To Publish 
 
@@ -250,7 +252,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00030_Walkability | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00030_Walkability) |  | `gpd.read_file` | Hannah Smith | Trello Card Updated |
 | UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne) |  | `requests.get()` |  |  |
 | UC00039_Bird_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00039_Bird_Analysis) |  | `requests.get()` | Arjun Jamwal |  |
-| UC00040_Housing_Prices,_Landmarks_and_Places_of_Interests | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00040_Housing_Prices%2C_Landmarks_and_Places_of_Interests) |  | `requests.get()` | Yash K Daware and Vaibhavi J Deo |  |
 | UC00041_Urban_Flood_Management_and_Emergency_Response | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00041_Urban_Flood_Management_and_Emergency_Response) |  | `requests.get()` |  |  |
 | UC00123_Parking_Slot_Occupancy_Detection | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00123_Parking_Slot_Occupancy_Detection) |  | `requests.get()` | Sabri Serkan Gulluoglu |  |
 | UC00134_Enhancing_Urban_Green_Space | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/UPDATE%20NEEDED/UC00134_Enhancing_Urban_Green_Space) |  | `requests.get()` | Poojith Girish |  |
