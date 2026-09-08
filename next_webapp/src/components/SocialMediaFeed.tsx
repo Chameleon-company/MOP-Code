@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Script from "next/script";
 import { InstagramEmbed } from "react-social-media-embed";
 
 const SocialMediaFeed: React.FC = () => {
@@ -8,6 +9,21 @@ const SocialMediaFeed: React.FC = () => {
       className="w-full bg-gray-50 dark:bg-[#263238] py-8 px-4 mt-8 text-black dark:text-white"
       aria-labelledby="instagram-heading"
     >
+      {/* Instagram's embed.js is loaded once here via next/script instead of
+          letting InstagramEmbed inject it itself, so it's deduped and kept
+          off the critical path — this section is below the fold, so the
+          browser can wait until it's idle. InstagramEmbed is rendered with
+          scriptLoadDisabled so it never injects its own copy; once this
+          script finishes loading we call window.instgrm.Embeds.process()
+          ourselves to hydrate the blockquote it renders below. */}
+      <Script
+        src="https://www.instagram.com/embed.js"
+        strategy="lazyOnload"
+        onLoad={() => {
+          (window as unknown as { instgrm?: { Embeds?: { process?: () => void } } })
+            .instgrm?.Embeds?.process?.();
+        }}
+      />
       <div className="text-center mb-6">
         <h2
           id="instagram-heading"
@@ -30,6 +46,7 @@ const SocialMediaFeed: React.FC = () => {
             url="https://www.instagram.com/cityofmelbourne/?igsh=OXFqa25sdno5OTRv#"
             width="100%"
             height="auto"
+            scriptLoadDisabled
           />
         </div>
         <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-[#37474F] w-full max-w-[400px] h-[500px] flex items-center justify-center">
