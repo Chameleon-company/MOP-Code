@@ -6,6 +6,7 @@ export const TEAM_ROLES = {
   "Data Science Team": [
     "Data Scientist",
     "Data Science Team Lead",
+    "Data Science Assistant Team Lead",
     "Data Science Quality Manager",
     "Project Lead",
   ],
@@ -40,6 +41,7 @@ export const ROLES = [
   "Web Developer",
   "Data Scientist",
   "Data Science Team Lead",
+  "Data Science Assistant Team Lead",
   "Data Science Quality Manager",
   "Project Lead",
   "Web Dev Team Lead",

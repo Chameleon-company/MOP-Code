@@ -70,7 +70,7 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
 
       const teamsByName = new Map<string, GroupedMember[]>();
       for (const student of students) {
-        const teamName = student.team ?? "Unassigned";
+        const teamName = student.team ?? "Students";
         if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
         teamsByName.get(teamName)!.push({
           id: student._id,
