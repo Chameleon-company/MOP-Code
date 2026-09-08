@@ -3,16 +3,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Link } from "@/i18n-navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { apiFetch } from "@/lib/apiFetch";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import dynamic from "next/dynamic";
 
 const NotebookRenderer = dynamic(() => import("@/components/NotebookRenderer"), {
   loading: () => (
     <div className="mb-8 flex items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 p-10 dark:border-gray-700 dark:bg-gray-900">
-      <div className="h-6 w6 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
+      <div className="h-6 w-6 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
     </div>
   ),
 });
@@ -35,8 +37,7 @@ const UseCasePage: React.FC = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`/api/usecases/${id}`)
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: any }>(`/api/usecases/${id}`)
       .then((ucJson) => {
         if (!ucJson.success) {
           setNotFound(true);
@@ -48,7 +49,7 @@ const UseCasePage: React.FC = () => {
         // so there's no separate join/lookup call needed here any more.
         setTags((ucJson.data.tags ?? []).map((t: any) => t.name));
       })
-      .catch(() => setNotFound(true))
+      .catch(() => setNotFound(true)) // apiFetch already showed a toast
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -56,10 +57,11 @@ const UseCasePage: React.FC = () => {
     if (!id || !useCase?.content_file_id) return;
 
     setContentLoading(true);
-    fetch(`/api/usecases/${id}/content`)
-      .then((r) => (r.ok ? r.text() : null))
+    // This endpoint returns the raw notebook text, not the app's usual
+    // {success, data} JSON envelope, so use apiFetch's text mode.
+    apiFetch<string>(`/api/usecases/${id}/content`, { responseType: "text" })
       .then(setNotebookText)
-      .catch(() => setNotebookText(null))
+      .catch(() => setNotebookText(null)) // apiFetch already showed a toast
       .finally(() => setContentLoading(false));
   }, [id, useCase?.content_file_id]);
 
@@ -165,7 +167,9 @@ const UseCasePage: React.FC = () => {
                 />
               ) : (
                 <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 [&_*]:dark:text-gray-200">
-                  <NotebookRenderer content={notebookText} />
+                  <ErrorBoundary name="NotebookRenderer">
+                    <NotebookRenderer content={notebookText} />
+                  </ErrorBoundary>
                 </div>
               )
             ) : (
@@ -179,13 +183,26 @@ const UseCasePage: React.FC = () => {
             </div>
           )}
 
-          <Link
-            href="/usecases"
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            <ArrowLeft size={16} />
-            Back to use cases
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/usecases"
+              className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+            >
+              <ArrowLeft size={16} />
+              Back to use cases
+            </Link>
+
+            {useCase.content_file_id && (
+              <a
+                href={`/api/usecases/${id}/content`}
+                download={`${useCase.title}.ipynb`}
+                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              >
+                <Download size={16} />
+                Download .ipynb
+              </a>
+            )}
+          </div>
         </div>
       </main>
       <Footer />
