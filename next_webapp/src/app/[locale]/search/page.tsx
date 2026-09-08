@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import SearchFilter from "../../../components/SearchFilter";
 import SearchResults from "../../../components/SearchResults";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
 
 interface SearchResult {
     id: number;
@@ -56,12 +57,11 @@ export default function SearchPage() {
             setError(false);
             try {
                 const params = new URLSearchParams(searchParams.toString());
-                const response = await fetch(`/api/search?${params.toString()}`);
-                const data = await response.json();
+                const data = await apiFetch<{ success: boolean; data: SearchData }>(`/api/search?${params.toString()}`);
                 if (data.success) setSearchResults(data.data);
                 else setError(true);
             } catch {
-                setError(true);
+                setError(true); // apiFetch already showed a toast
             } finally {
                 setLoading(false);
             }

@@ -311,6 +311,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { BookOpen, ImagePlus, Save, X } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch } from "@/lib/apiFetch";
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const userId = user.userId ?? user.id ?? "";
@@ -348,11 +349,11 @@ export default function AddUseCasePage() {
   const notebookInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    fetch("/api/categories", { headers: getAuthHeaders() })
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: any[] }>("/api/categories", { headers: getAuthHeaders() })
       .then((json) => {
         if (json.success) setCategories(json.data || []);
-      });
+      })
+      .catch(() => {}); // apiFetch already showed a toast; this was previously unhandled
   }, []);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -369,12 +370,13 @@ export default function AddUseCasePage() {
     formData.append("folder", "usecases");
     formData.append("bucket", "usecase-images");
 
-    imageUploadPromiseRef.current = fetch("/api/upload", {
+    // Not silent: this upload happens in the background before the user
+    // hits Save, so a toast here is the only immediate feedback.
+    imageUploadPromiseRef.current = apiFetch<{ success: boolean; url?: string }>("/api/upload", {
       method: "POST",
       headers: authHeaders,
       body: formData,
     })
-      .then((r) => r.json())
       .then((json) => {
         setImageUploading(false);
         return json.success ? (json.url as string) : null;
@@ -444,7 +446,7 @@ export default function AddUseCasePage() {
         }
       }
 
-      const res = await fetch("/api/usecases", {
+      await apiFetch("/api/usecases", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify({
@@ -456,27 +458,21 @@ export default function AddUseCasePage() {
           created_by: userId,
           tags,
         }),
+        silent: true,
       });
-      const json = await res.json();
 
-      if (!json.success) {
-        const msg = json.message || json.error || "Failed to create use case.";
-        setError(msg);
-        setToast({ message: msg, type: "error" });
-        setSaving(false);
-        return;
-      }
-      
       setToast({
         message: "Use case added successfully.",
         type: "success",
       });
-      
+
       setTimeout(() => {
         router.push(`/${locale}/admin/use-cases`);
       }, 1000);
-    } catch {
-      setError("Failed to create use case.");
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Failed to create use case.";
+      setError(msg);
+      setToast({ message: msg, type: "error" });
       setSaving(false);
     }
   }

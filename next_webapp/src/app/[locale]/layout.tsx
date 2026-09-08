@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Toaster } from "sonner";
 
 export default async function LocaleLayout({
   children,
@@ -39,6 +40,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <div className="flex-1 flex flex-col">{children}</div>
+          <Toaster richColors position="top-right" />
         </NextIntlClientProvider>
       </body>
     </html>

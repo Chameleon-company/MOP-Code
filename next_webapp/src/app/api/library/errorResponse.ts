@@ -19,7 +19,7 @@ export function errorResponse(
     status: number,
     code?: string,
     request?: Request,
-    userId?: number
+    userId?: string | null
 ): NextResponse<ErrorBody> {
     // Log the error with additional context
     logger.error(`API Error Response: ${status} - ${message}${code ? ` (${code})` : ''}`, {
