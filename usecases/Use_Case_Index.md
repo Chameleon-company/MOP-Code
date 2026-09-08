@@ -8,10 +8,19 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00088_Pedestrian_Activity_Near_Bus_Stops | T2 2026 | Transport and Mobility | Shilpa Sharma (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00088_Pedestrian_Activity_Near_Bus_Stops.ipynb) |
+<<<<<<< Updated upstream
+=======
+| UC00069_Melbourne_Tree_History | T2 2026 | Environmental Sustainability | Venuka Hirushan Wijenayake (updated: Soorya Ravi) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00069_Melbourne_Tree_History.ipynb) |
+>>>>>>> Stashed changes
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
 | UC00111_Melbourne_Parking_Hotspot_Analysis | T2 2026 | Transport and Mobility | Siju Deng (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00111_Melbourne_Parking_Hotspot_Analysis.ipynb) |
+<<<<<<< Updated upstream
+=======
+| UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
+
+>>>>>>> Stashed changes
 
 ### Ready To Publish 
 
