@@ -7,16 +7,25 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
+<<<<<<< HEAD
 | UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
 | UC00041_Urban_Flood_Management_and_Emergency_Response_2026 | T2 2026 | Urban Planning and Development | (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00041_Urban_Flood_Management_and_Emergency_Response_2026.ipynb) |
+=======
+| UC00041_Urban_Flood_Management_and_Emergency_Response_2023 | T2 2026 | Urban Planning and Development | Sahan Chamod & Tharaka Sri(updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00041_Urban_Flood_Management_and_Emergency_Response_2023.ipynb) |
+>>>>>>> 356c25b2e (Usecase updated)
 | UC00061_Melbourne_Employment_and_Industry_Analysis_2002-2024 | T2 2026 | Business and Economy | Aayush Patel | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00061_Melbourne_Employment_and_Industry_Analysis_2002-2024.ipynb) |
 | UC00088_Pedestrian_Activity_Near_Bus_Stops | T2 2026 | Transport and Mobility | Shilpa Sharma (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00088_Pedestrian_Activity_Near_Bus_Stops.ipynb) |
 | UC00111_Melbourne_Parking_Hotspot_Analysis | T2 2026 | Transport and Mobility | Siju Deng (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00111_Melbourne_Parking_Hotspot_Analysis.ipynb) |
 | UC00117_Comparing_Melbourne_Age_Groups_in_2016 | T2 2026 | Demographics and Community | Adersh Antony (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00117_Comparing_Melbourne_Age_Groups_in_2016.ipynb) |
 | UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb | T2 2026 | Safety and Security | Adithya Sentil (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00157_Night_Time_Pedestrian_Safety_Analysis.ipynb) |
 | UC00163_Parking_Availability_in_the_Melbourne_CBD | T2 2026 | Transport and Mobility | Stefan Cucos (updated: Aidan Page) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00163_Parking_Availability_in_the_Melbourne_CBD.ipynb) |
+<<<<<<< HEAD
 | UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis | T2 2026 | Urban Planning and Development | Harsh Dwivedi (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis.ipynb) |
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
+=======
+| UC00111_Melbourne_Parking_Hotspot_Analysis | T2 2026 | Transport and Mobility | Siju Deng (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00111_Melbourne_Parking_Hotspot_Analysis.ipynb) |
+| UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
+>>>>>>> 356c25b2e (Usecase updated)
 
 ### Ready To Publish 
 
