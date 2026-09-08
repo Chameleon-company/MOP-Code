@@ -188,7 +188,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00167_Climate_Change_Impact_Simulation | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2025/T1/UC00167_Climate_Change_Impact_Simulation.html) | Environmental Sustainability | `requests.get()` | Rohang Shah |
 | UC00169_Heat_Vulnerability_Mapping | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2025/T1/UC00169_Heat_Vulnerability_Mapping) | Environmental Sustainability | `requests.get()` | Soham Tamhane |
 | UC00170_Bike_Usage | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2025/T1/UC00170_Bike_Usage) | Transport and Mobility | `requests.get()` | Samarth Dipakkumar Shah |
-| UC00171_Melbourne_Urban_Microclimate_Dynamics | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2025/T1/UC00171_Melbourne_Urban_Microclimate_Dynamics) | Environmental Sustainability | `requests.get()` | Harsh Dwivedi |
 
 
 #### T2 2025
