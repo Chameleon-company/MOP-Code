@@ -100,6 +100,13 @@ contributorSchema.pre("validate", function (next) {
     if (!this.level) {
       this.invalidate("level", "level is required for student contributors");
     }
+    
+    if (this.team && this.position) {
+      const validRoles = TEAM_ROLES[this.team as TeamName];
+      if (validRoles && !(validRoles as readonly string[]).includes(this.position)) {
+        this.invalidate("position", `Position '${this.position}' is not valid for team '${this.team}'`);
+      }
+    }
   }
   next();
 });
