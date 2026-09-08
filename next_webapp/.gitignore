@@ -20,7 +20,7 @@ yarn-error.log*
 # next.js
 /.next/
 /out/
-/next_webapp/analyze/
+/next_webapp/analyze/.
 
 # production
 /build
