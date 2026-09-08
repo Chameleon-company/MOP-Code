@@ -1,26 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
 import { uploadImageToStorage } from "../../library/uploadImageToStorage";
+import { getAuthUser } from "@/app/api/library/auth";
+import { errorResponse } from "@/app/api/library/errorResponse";
 import logger from "@/utils/logger";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
-
-// ── Auth helpers ───────────────────────────────────────────────────────────
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
 
 // ── Response helpers ───────────────────────────────────────────────────────
 function unauthorized() {
@@ -64,7 +52,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!getUserId(request)) return unauthorized();
+  const { userId, isAuthenticated } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) return unauthorized();
 
   const galleryImageId = await parseId(params);
   if (!galleryImageId) return badRequest("Invalid gallery image id");
@@ -97,9 +87,15 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) {
+    return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
+  }
+
+  if (!isAdmin) {
+    return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
+  }
 
   const galleryImageId = await parseId(params);
   if (!galleryImageId) return badRequest("Invalid gallery image id");
@@ -172,7 +168,13 @@ export async function PUT(
 
     if (error) {
       console.error("[PUT /api/gallery/[id]] update error:", error);
-      return serverError("Failed to update gallery image");
+      return errorResponse(
+        "Failed to update gallery image",
+        500,
+        "DB_UPDATE_ERROR",
+        request,
+        userId
+      );
     }
 
     if (!galleryImage) return notFound();
@@ -186,7 +188,14 @@ export async function PUT(
     console.error("[PUT /api/gallery/[id]] unexpected error:", error);
     const message =
       error instanceof Error ? error.message : "Failed to update gallery image";
-    return serverError(message);
+
+    return errorResponse(
+      message,
+      500,
+      "INTERNAL_ERROR",
+      request,
+      userId
+    );
   }
 }
 
@@ -198,9 +207,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) {
+    return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
+  }
+
+  if (!isAdmin) {
+    return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
+  }
 
   const galleryImageId = await parseId(params);
   if (!galleryImageId) return badRequest("Invalid gallery image id");
@@ -221,7 +236,13 @@ export async function DELETE(
 
     if (error) {
       console.error("[DELETE /api/gallery/[id]] delete error:", error);
-      return serverError("Failed to delete gallery image");
+      return errorResponse(
+        "Failed to delete gallery image",
+        500,
+        "DELETE_ERROR",
+        request,
+        userId
+      );
     }
 
     // Best-effort: remove image file from storage and log the deletion
@@ -252,6 +273,12 @@ export async function DELETE(
     });
   } catch (error) {
     console.error("[DELETE /api/gallery/[id]] unexpected error:", error);
-    return serverError("Failed to delete gallery image");
+    return errorResponse(
+      "Failed to delete gallery image",
+      500,
+      "INTERNAL_ERROR",
+      request,
+      userId
+    );
   }
 }

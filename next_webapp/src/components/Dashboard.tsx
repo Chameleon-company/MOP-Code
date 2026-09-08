@@ -11,6 +11,7 @@ import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
 import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
 import { useEffect, useState, useRef } from "react";
+import { apiFetch } from "@/lib/apiFetch";
 import {
 	ArrowRight,
 	Play,
@@ -916,8 +917,10 @@ const Dashboard = () => {
 					params.set("search", searchTerm.trim());
 					params.set("search_by", searchMode);
 				}
-				const res = await fetch(`/api/usecases?${params}`);
-				const json = await res.json();
+				const json = await apiFetch<{ success: boolean; data?: any[] }>(
+					`/api/usecases?${params}`,
+					{ silent: true }
+				);
 				if (json.success) {
 					setFilteredCaseStudies(
 						(json.data || []).map((u: any) => ({
@@ -940,18 +943,16 @@ const Dashboard = () => {
 	}, [searchTerm, searchMode]);
 
 	useEffect(() => {
-		fetch("/api/usecases/recent")
-			.then((r) => r.json())
-			.then((json) => { if (json.success) setRecentUseCases(json.data || []); })
-			.catch(() => {})
+		apiFetch<{ success: boolean; data: any[] }>("/api/usecases/recent")
+			.then((json) => { if (json.success) setRecentUseCases(json.data ?? []); })
+			.catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
 			.finally(() => setRecentLoading(false));
 	}, []);
 
 	useEffect(() => {
-		fetch("/api/home/categories")
-			.then((r) => r.json())
-			.then((json) => { if (json.success) setHomeCategories(json.data || []); })
-			.catch(() => {});
+		apiFetch<{ success: boolean; data: any[] }>("/api/home/categories")
+			.then((json) => { if (json.success) setHomeCategories(json.data ?? []); })
+			.catch(() => {}); // apiFetch already showed a toast; just fall back to the empty state below
 	}, []);
 
 	// Add click outside handler

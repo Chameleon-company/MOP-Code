@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
+import { apiFetch } from "@/lib/apiFetch";
 
 
 const StatisticsChart = dynamic(() => import("../../../components/StatisticsChart"), {
@@ -49,13 +50,11 @@ const Statistics = () => {
   }, [tagFilter, trimesterFilter, caseStudies]);
 
   async function searchUseCases(searchParams: SearchParams) {
-    const response = await fetch("/api/search-use-cases", {
+    return apiFetch<{ filteredStudies: CaseStudy[] }>("/api/search-use-cases", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(searchParams),
     });
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
   }
 
   const getStats = (caseStudiesArray: CaseStudy[]) => {
