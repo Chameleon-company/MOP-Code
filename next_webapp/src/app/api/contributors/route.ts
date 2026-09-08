@@ -32,13 +32,13 @@ export async function GET(request: NextRequest) {
 // Create a contributor (ADMIN ONLY)
 // ==============================
 export async function POST(request: NextRequest) {
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request);
+      return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
     }
     if (!isAdmin) {
-      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request);
+      return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
     }
 
     let body;
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       body = await request.json();
     } catch (error) {
       if (error instanceof SyntaxError) {
-        return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request);
+        return errorResponse("Invalid JSON in request body.", 400, "INVALID_JSON", request, userId);
       }
       throw error;
     }
@@ -71,9 +71,9 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     if (error instanceof Error && error.name === "ValidationError") {
-      return errorResponse(error.message, 400, "VALIDATION_ERROR", request);
+      return errorResponse(error.message, 400, "VALIDATION_ERROR", request, userId);
     }
     console.error("Create Contributor Error:", error);
-    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request);
+    return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR", request, userId);
   }
 }
