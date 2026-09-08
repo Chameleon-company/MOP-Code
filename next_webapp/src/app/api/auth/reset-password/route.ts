@@ -48,10 +48,34 @@ export async function POST(request: Request) {
             );
         }
 
-        // 5. Verify temporary password
+        // 5. Verify temporary password token
+        if (!userData.reset_token) {
+            return errorResponse(
+                'No reset token found',
+                401,
+                'INVALID_TEMP_PASSWORD',
+            );
+        }
+
+        if (userData.reset_token_used) {
+            return errorResponse(
+                'Temporary password has already been used',
+                401,
+                'TOKEN_USED',
+            );
+        }
+
+        if (userData.reset_token_expires && new Date() > userData.reset_token_expires) {
+            return errorResponse(
+                'Temporary password has expired',
+                401,
+                'TOKEN_EXPIRED',
+            );
+        }
+
         const isTempPasswordValid = await bcrypt.compare(
             temp_password,
-            userData.password,
+            userData.reset_token,
         );
 
         if (!isTempPasswordValid) {
@@ -81,6 +105,7 @@ export async function POST(request: Request) {
 
         // 8. Update MongoDB user
         userData.password = hashedPassword;
+        userData.reset_token_used = true;
         await userData.save();
 
         // 9. Return success
