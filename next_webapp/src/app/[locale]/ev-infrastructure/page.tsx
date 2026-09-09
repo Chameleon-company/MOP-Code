@@ -1,15 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { fixLeafletIcon } from '@/library/fixLeafletIcon';
 import { Link } from '@/i18n-navigation';
-fixLeafletIcon();
+import dynamic from 'next/dynamic';
 
 import { stations as allStations } from '../../../data/stations';
-import StationMarker from '../../../components/StationMarker';
 import type { Station } from '../../../types/station';
+
+const MapContainer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const StationMarker = dynamic(
+  () => import('../../../components/StationMarker').then((mod) => mod.default),
+  { ssr: false }
+);
 
 const EVInfrastructurePage = () => {
   const [query, setQuery] = useState('');
@@ -29,6 +39,10 @@ const EVInfrastructurePage = () => {
       handleSearch();
     }
   };
+
+  useEffect(() => {
+    import('@/library/fixLeafletIcon').then(({ fixLeafletIcon }) => fixLeafletIcon());
+  }, []);
 
   const total = filteredStations.length || 1;
   const availablePercentage = (filteredStations.filter(s => s.status.toLowerCase() === 'available').length / total) * 100;

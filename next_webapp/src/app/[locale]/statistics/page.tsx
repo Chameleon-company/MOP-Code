@@ -1,24 +1,21 @@
 ﻿"use client";
 
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Colors,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import dynamic from "next/dynamic";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import { apiFetch } from "@/lib/apiFetch";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const StatisticsChart = dynamic(() => import("../../../components/StatisticsChart"), {
+  loading: () => (
+    <div className="h-64 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
+      Loading chart...
+    </div>
+    ),
+ });
 
 const Statistics = () => {
   const [caseStudies, setStats] = useState([]);
@@ -146,7 +143,7 @@ const Statistics = () => {
             <div className="bg-white dark:bg-gray-900 shadow-lg h-auto w-full md:w-[40rem] mb-20 pb-40">
               <h4 className="m-10 font-bold text-[15px]">{t("t1")}</h4>
               <div className="mx-5">
-                <Bar data={data1} options={options} />
+                <StatisticsChart data={data1} options={options} />
               </div>
             </div>
           </div>
