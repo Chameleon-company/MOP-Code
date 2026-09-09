@@ -65,7 +65,6 @@ export default function EditUseCasePage() {
 
         setTitle(uc.title || "");
         setDescription(uc.description || "");
-        setCategoryId(uc.category_id ? String(uc.category_id) : "");
 
         setExistingImgUrl(uc.cover_img || null);
         setImagePreview(uc.cover_img || null);
@@ -81,7 +80,20 @@ export default function EditUseCasePage() {
         }
 
         if (catJson.success) {
-          setCategories(catJson.data || []);
+          const cats = catJson.data || [];
+          setCategories(cats);
+
+          // Support match by legacy_id (Supabase) or id (Mongo).
+          const matched = uc.category
+            ? cats.find(
+                (c: any) =>
+                  String(c.id) === String(uc.category.id) ||
+                  String(c.id) === String(uc.category.legacy_id),
+              )
+            : null;
+          setCategoryId(matched ? String(matched.id) : "");
+        } else {
+          setCategoryId("");
         }
       })
       .catch((e) => setFetchError(e instanceof Error ? e.message : "Failed to load use case."))
