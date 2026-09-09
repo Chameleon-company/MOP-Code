@@ -1,7 +1,8 @@
 # Sprint 3: Lighthouse CI
 
-The repository-root `.github/workflows/lighthouse.yml` runs on every pull request
-opened, updated, or reopened against `staging`, and supports manual runs. It checks
+The repository-root [Lighthouse workflow](../../.github/workflows/lighthouse.yml)
+is configured to run when a PR targeting `staging` is opened, receives new commits,
+or is reopened. It also defines a manual trigger. It checks
 out GitHub's PR merge commit, installs locked dependencies, builds Next.js in
 production mode, and audits that build on port 3001. There is no path filter, so
 PRs always receive the check. New commits cancel older runs for the same PR.
@@ -56,7 +57,13 @@ nonzero. Build/startup/browser failures also fail the workflow.
 
 ## GitHub setup and reports
 
-Commit the frontend files **and** the repository-root workflow. Open a PR targeting
+The workflow must be included in the pushed commits, not just present locally.
+From `next_webapp`, stage it explicitly with
+`git add ../.github/workflows/lighthouse.yml` and confirm it appears in
+`git diff --cached --name-only` before committing. A `git add .` from
+`next_webapp` does not include this parent directory.
+
+The first hosted run has not yet been verified. Open a PR targeting
 `staging`, then inspect **Actions → Lighthouse CI → Lighthouse performance budgets**.
 Download the `lighthouse-reports-…` artifact to view HTML/JSON results. Reports are
 retained for 14 days and uploaded even when an audit assertion fails; a build
