@@ -25,7 +25,8 @@ describe('Global Navigation', () => {
     HOME_STUBS();
     cy.viewport(1280, 720);
     cy.visit('/');
-    cy.wait(1000);
+    // Wait for stubbed APIs
+    cy.wait(['@categories', '@recentUseCases']);
   });
 
   it('should navigate to the About Us page', () => {
@@ -61,6 +62,22 @@ describe('Global Navigation', () => {
 
 // 2. Return Navigation to Home (from every menu-bar page)
 describe('Return Navigation to Home from inner pages', () => {
+  // Suppress NEXT_NOT_FOUND locally for data-driven pages (gallery, blog, contact)
+  let removeNotFoundHandler: (() => void) | undefined;
+
+  beforeEach(() => {
+    const handler = (err: Error) => {
+      if (/NEXT_NOT_FOUND/.test(err.message)) return false;
+    };
+    cy.on('uncaught:exception', handler);
+    removeNotFoundHandler = () => cy.off('uncaught:exception', handler);
+  });
+
+  afterEach(() => {
+    removeNotFoundHandler?.();
+    removeNotFoundHandler = undefined;
+  });
+
   // Helper: visit a page, click the Home nav link, assert we land on /en
   const navigateHomeFrom = (path: string) => {
     cy.visit(path);
@@ -92,6 +109,22 @@ describe('Return Navigation to Home from inner pages', () => {
 
 // 3. Auth-Guarded Page Redirect
 describe('Auth guard redirect', () => {
+  // Suppress NEXT_REDIRECT locally for unauthenticated users 
+  let removeRedirectHandler: (() => void) | undefined;
+
+  beforeEach(() => {
+    const handler = (err: Error) => {
+      if (/NEXT_REDIRECT/.test(err.message)) return false;
+    };
+    cy.on('uncaught:exception', handler);
+    removeRedirectHandler = () => cy.off('uncaught:exception', handler);
+  });
+
+  afterEach(() => {
+    removeRedirectHandler?.();
+    removeRedirectHandler = undefined;
+  });
+
   it('should redirect unauthenticated users from /profile to /login', () => {
     cy.clearLocalStorage();
     cy.visit('/profile');

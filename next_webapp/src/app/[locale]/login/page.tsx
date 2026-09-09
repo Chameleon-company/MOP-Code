@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Link } from "@/i18n-navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { storage } from "@/utils/storage";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 function LoginForm() {
     const t = useTranslations("login");
@@ -38,18 +39,12 @@ function LoginForm() {
             setIsSubmitting(true);
             setError("");
 
-            const response = await fetch("/api/auth/login", {
+            const result = await apiFetch<any>("/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
+                silent: true,
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                setError(result.message || "Login failed");
-                return;
-            }
 
             storage.setItem("userId", result.data.userId.toString());
             storage.setItem("user", JSON.stringify(result.data));
@@ -62,7 +57,8 @@ function LoginForm() {
             }
         } catch (err) {
             console.error("Login error:", err);
-            setError("Something went wrong. Please try again.");
+            const body = err instanceof ApiError ? (err.body as any) : null;
+            setError(body?.message || (err instanceof Error ? err.message : "Login failed"));
         } finally {
             setIsSubmitting(false);
         }

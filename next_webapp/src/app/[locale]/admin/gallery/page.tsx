@@ -5,6 +5,7 @@ import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import { storage } from "@/utils/storage";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 type GalleryImage = {
   id: number;
@@ -73,17 +74,15 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       });
       if (searchTerm) qs.set("search", searchTerm);
 
-      const res = await fetch(`/api/gallery?${qs}`, { headers: authHeaders() });
-      const json = await res.json();
-      if (json.success) {
-        setImages(json.data ?? []);
-        setTotal(json.pagination?.total ?? 0);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-      } else {
-        setToast({ message: json.message || "Failed to fetch gallery.", type: "error" });
-      }
-    } catch {
-      setToast({ message: "Failed to fetch gallery.", type: "error" });
+      const json = await apiFetch<{ success: boolean; data: GalleryImage[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/gallery?${qs}`,
+        { headers: authHeaders(), silent: true }
+      );
+      setImages(json.data ?? []);
+      setTotal(json.pagination?.total ?? 0);
+      setTotalPages(json.pagination?.totalPages ?? 1);
+    } catch (e) {
+      setToast({ message: e instanceof Error ? e.message : "Failed to fetch gallery.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -118,25 +117,21 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       formData.append("title", uploadTitle.trim());
       formData.append("image", uploadFile);
 
-      const res = await fetch("/api/gallery", {
+      await apiFetch("/api/gallery", {
         method: "POST",
         headers: authHeaders(),
         body: formData,
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo uploaded successfully.", type: "success" });
-        closeUpload();
-        fetchImages(search, 1);
-        setPage(1);
-      } else {
-        const errMsg =
-          json.errors?.title || json.errors?.image || json.message || "Upload failed.";
-        setToast({ message: errMsg, type: "error" });
-      }
-    } catch {
-      setToast({ message: "Upload failed.", type: "error" });
+      setToast({ message: "Gallery photo uploaded successfully.", type: "success" });
+      closeUpload();
+      fetchImages(search, 1);
+      setPage(1);
+    } catch (e) {
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const errMsg = body?.errors?.title || body?.errors?.image || (e instanceof Error ? e.message : "Upload failed.");
+      setToast({ message: errMsg, type: "error" });
     } finally {
       setUploading(false);
     }
@@ -178,24 +173,20 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       formData.append("title", editTitle.trim() || editTarget.title);
       if (editFile) formData.append("image", editFile);
 
-      const res = await fetch(`/api/gallery/${editTarget.id}`, {
+      await apiFetch(`/api/gallery/${editTarget.id}`, {
         method: "PUT",
         headers: authHeaders(),
         body: formData,
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo updated successfully.", type: "success" });
-        closeEdit();
-        fetchImages(search, page);
-      } else {
-        const errMsg =
-          json.errors?.title || json.errors?.image || json.message || "Update failed.";
-        setToast({ message: errMsg, type: "error" });
-      }
-    } catch {
-      setToast({ message: "Update failed.", type: "error" });
+      setToast({ message: "Gallery photo updated successfully.", type: "success" });
+      closeEdit();
+      fetchImages(search, page);
+    } catch (e) {
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const errMsg = body?.errors?.title || body?.errors?.image || (e instanceof Error ? e.message : "Update failed.");
+      setToast({ message: errMsg, type: "error" });
     } finally {
       setSaving(false);
     }
@@ -212,25 +203,20 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
   const confirmDelete = async () => {
     if (!deleteTarget) return;
     try {
-      const res = await fetch(`/api/gallery/${deleteTarget.id}`, {
+      await apiFetch(`/api/gallery/${deleteTarget.id}`, {
         method: "DELETE",
         headers: authHeaders(),
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo deleted successfully.", type: "success" });
-        setDeleteTarget(null);
-        setSelectedImage(null);
-        const newPage = images.length === 1 && page > 1 ? page - 1 : page;
-        setPage(newPage);
-        fetchImages(search, newPage);
-      } else {
-        setToast({ message: json.message || "Delete failed.", type: "error" });
-        setDeleteTarget(null);
-      }
-    } catch {
-      setToast({ message: "Delete failed.", type: "error" });
+      setToast({ message: "Gallery photo deleted successfully.", type: "success" });
+      setDeleteTarget(null);
+      setSelectedImage(null);
+      const newPage = images.length === 1 && page > 1 ? page - 1 : page;
+      setPage(newPage);
+      fetchImages(search, newPage);
+    } catch (e) {
+      setToast({ message: e instanceof Error ? e.message : "Delete failed.", type: "error" });
       setDeleteTarget(null);
     }
   };

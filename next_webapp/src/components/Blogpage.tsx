@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
 import Image from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
 
 interface Blog {
   id: number;
@@ -16,10 +17,9 @@ const BlogPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/home/blogs?page=1&pageSize=3")
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: Blog[] }>("/api/home/blogs?page=1&pageSize=3")
       .then((json) => { if (json.success) setBlogs(json.data ?? []); })
-      .catch(() => {})
+      .catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
       .finally(() => setLoading(false));
   }, []);
 

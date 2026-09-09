@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/i18n-navigation";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const ERROR_MESSAGES: Record<string, string> = {
   MISSING_FIELDS: "Please enter your email address.",
@@ -24,24 +25,21 @@ const ForgotPasswordPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/forgot-password", {
+      await apiFetch("/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
+        silent: true,
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setSuccess(true);
-      } else {
-        setError(
-          ERROR_MESSAGES[data.code] ||
-            data.message ||
-            "Something went wrong. Please try again.",
-        );
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
+      setSuccess(true);
+    } catch (err) {
+      const body = err instanceof ApiError ? (err.body as any) : null;
+      setError(
+        (body?.code && ERROR_MESSAGES[body.code]) ||
+          body?.message ||
+          (err instanceof Error ? err.message : "Something went wrong. Please try again."),
+      );
     } finally {
       setLoading(false);
     }

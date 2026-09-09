@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FolderPlus, ImagePlus, Save } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch } from "@/lib/apiFetch";
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
@@ -53,23 +54,23 @@ export default function AddCategoryPage() {
         formData.append("file", imageFile);
         formData.append("folder", "categories");
 
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          headers: authHeaders,
-          body: formData,
-        });
-        const uploadJson = await uploadRes.json();
-
-        if (!uploadJson.success) {
-          setError("Image upload failed: " + (uploadJson.message || "Unknown error"));
+        try {
+          const uploadJson = await apiFetch<{ success: boolean; url?: string }>("/api/upload", {
+            method: "POST",
+            headers: authHeaders,
+            body: formData,
+            silent: true,
+          });
+          coverImgUrl = uploadJson.url ?? null;
+        } catch (e) {
+          setError("Image upload failed: " + (e instanceof Error ? e.message : "Unknown error"));
           setLoading(false);
           return;
         }
-        coverImgUrl = uploadJson.url;
       }
 
       // 2. Create the category
-      const res = await fetch("/api/categories", {
+      await apiFetch("/api/categories", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify({
@@ -77,23 +78,18 @@ export default function AddCategoryPage() {
           description,
           cover_img: coverImgUrl,
         }),
+        silent: true,
       });
-      const json = await res.json();
-
-      if (!json.success) {
-        setError(json.message || "Failed to create category.");
-        setLoading(false);
-        return;
-      }
 
       setToast({ message: "Category added successfully.", type: "success" });
 
 setTimeout(() => {
   router.push(`/${locale}/admin/categories`);
 }, 1000);
-    } catch {
-      setError("Failed to create category.");
-      setToast({ message: "Failed to add category.", type: "error" });
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "Failed to create category.";
+      setError(message);
+      setToast({ message, type: "error" });
       setLoading(false);
     }
   }

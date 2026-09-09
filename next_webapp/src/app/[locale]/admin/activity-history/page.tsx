@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowUpDown } from "lucide-react";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
 
 interface ActivityEntry {
   id: number;
@@ -60,9 +61,10 @@ export default function ActivityHistoryPage() {
       });
       if (searchTerm) params.set("search", searchTerm);
 
-      const res = await fetch(`/api/admin/activity-history?${params}`, { headers: authHeaders() });
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message || "Failed to fetch activity");
+      const json = await apiFetch<{ success: boolean; data: ActivityEntry[]; pagination: { total: number; totalPages: number } }>(
+        `/api/admin/activity-history?${params}`,
+        { headers: authHeaders(), silent: true }
+      );
       setEntries(json.data || []);
       setTotal(json.pagination.total);
       setTotalPages(json.pagination.totalPages);

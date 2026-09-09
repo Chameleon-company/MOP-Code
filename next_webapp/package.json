@@ -42,6 +42,7 @@
     "react-tag-input-component": "^2.0.2",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
+    "sonner": "^2.0.8",
     "winston": "^3.19.0"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@lhci/cli": "0.15.1",
+    "@next/bundle-analyzer": "^16.3.4",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.3.0",
