@@ -179,3 +179,7 @@ Some rules to look out for:
 2. If you are pushing from a branch that has other collaborator you have mentioned their name in the pull request message.
 
 ## Resources
+## Lighthouse CI (Sprint 3)
+
+Pull requests targeting `staging` run production Lighthouse audits with enforced
+performance budgets. See [setup, local testing, reports, and required branch protection](docs/lighthouse-ci.md).
