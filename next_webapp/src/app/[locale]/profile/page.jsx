@@ -5,6 +5,7 @@ import Footer from "../../../components/Footer";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Camera, User, Mail, Phone, MapPin, Calendar, Save } from "lucide-react";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const Profile = () => {
   const router = useRouter();
@@ -96,44 +97,42 @@ const Profile = () => {
         return;
       }
 
-      const response = await fetch("/api/profile", {
+      const result = await apiFetch("/api/profile", {
         method: "GET",
         headers: {
           "x-user-id": userId,
           "Authorization": `Bearer ${token}`,
         },
+        silent: true,
       });
 
-      console.log("Profile API response status:", response.status);
-      const result = await response.json();
       console.log("Profile API response:", result);
 
-      if (result.success && result.data) {
-        setFormData((prev) => ({
-          ...prev,
-          first_name: result.data.first_name || "",
-          last_name: result.data.last_name || "",
-          age: result.data.age || "",
-          gender: result.data.gender || "",
-          profile_img: result.data.profile_img || "",
-          email: result.data.email || "",
-        }));
+      setFormData((prev) => ({
+        ...prev,
+        first_name: result.data.first_name || "",
+        last_name: result.data.last_name || "",
+        age: result.data.age || "",
+        gender: result.data.gender || "",
+        profile_img: result.data.profile_img || "",
+        email: result.data.email || "",
+      }));
 
-        // Set profile image preview if available
-        if (result.data.profile_img) {
-          setProfileImage(result.data.profile_img);
-        }
-
-        console.log("Profile data loaded successfully:", result.data);
-      } else {
-        console.error("Failed to fetch profile - success is false or no data:", result);
-        if (result.message === "Unauthorised") {
-          setErrors({ form: "You are not authorized. Please login again." });
-        }
+      // Set profile image preview if available
+      if (result.data.profile_img) {
+        setProfileImage(result.data.profile_img);
       }
+
+      console.log("Profile data loaded successfully:", result.data);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
-      setErrors({ form: "Failed to load profile. Please try again." });
+      // Note: previously only an "Unauthorised" failure surfaced any message here;
+      // every other failure was silently dropped. Now shows a message either way.
+      if (error instanceof Error && error.message === "Unauthorised") {
+        setErrors({ form: "You are not authorized. Please login again." });
+      } else {
+        setErrors({ form: "Failed to load profile. Please try again." });
+      }
     } finally {
       setFetchingProfile(false);
     }
@@ -172,30 +171,24 @@ const Profile = () => {
       formDataForUpload.append("userId", userId);
 
       // Upload to API endpoint (we'll need to create this)
-      const uploadResponse = await fetch("/api/profile/upload-image", {
+      const uploadResult = await apiFetch("/api/profile/upload-image", {
         method: "POST",
         headers: {
           "x-user-id": userId,
           "Authorization": `Bearer ${token}`,
         },
         body: formDataForUpload,
+        silent: true,
       });
 
-      const uploadResult = await uploadResponse.json();
-
-      if (uploadResult.success && uploadResult.imageUrl) {
-        setFormData((prev) => ({
-          ...prev,
-          profile_img: uploadResult.imageUrl,
-        }));
-        console.log("Image uploaded successfully:", uploadResult.imageUrl);
-      } else {
-        setErrors({ form: uploadResult.message || "Failed to upload image" });
-        setProfileImage(null);
-      }
+      setFormData((prev) => ({
+        ...prev,
+        profile_img: uploadResult.imageUrl,
+      }));
+      console.log("Image uploaded successfully:", uploadResult.imageUrl);
     } catch (error) {
       console.error("Image upload error:", error);
-      setErrors({ form: "Failed to upload image. Please try again." });
+      setErrors({ form: error instanceof Error ? error.message : "Failed to upload image. Please try again." });
       setProfileImage(null);
     }
   };
@@ -229,7 +222,7 @@ const Profile = () => {
         payload[key] === undefined && delete payload[key]
       );
 
-      const response = await fetch("/api/profile", {
+      await apiFetch("/api/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -237,27 +230,23 @@ const Profile = () => {
           "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
+        silent: true,
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setSuccessMessage("Profile updated successfully!");
-        setTimeout(() => setSuccessMessage(""), 5000);
-      } else {
-        if (result.errors && Array.isArray(result.errors)) {
-          const errorMap = {};
-          result.errors.forEach((err) => {
-            errorMap[err.field] = err.message;
-          });
-          setErrors(errorMap);
-        } else {
-          setErrors({ form: result.message });
-        }
-      }
+      setSuccessMessage("Profile updated successfully!");
+      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error("Error updating profile:", error);
-      setErrors({ form: "Failed to update profile. Please try again." });
+      const body = error instanceof ApiError ? error.body : null;
+      if (body?.errors && Array.isArray(body.errors)) {
+        const errorMap = {};
+        body.errors.forEach((err) => {
+          errorMap[err.field] = err.message;
+        });
+        setErrors(errorMap);
+      } else {
+        setErrors({ form: error instanceof Error ? error.message : "Failed to update profile. Please try again." });
+      }
     } finally {
       setLoading(false);
     }
@@ -278,7 +267,7 @@ const Profile = () => {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#1f2a30] border border-gray-200 dark:border-white/10 rounded-2xl shadow-md p-6 md:p-8">
+          <div className="bg-white dark:bg-[#1f2a30] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 md:p-8">
             {fetchingProfile && (
               <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-500 text-blue-800 dark:text-blue-100 px-4 py-3 rounded-lg mb-6">
                 Loading your profile data...
@@ -299,7 +288,7 @@ const Profile = () => {
 
             <form onSubmit={handleSubmit} className="space-y-8" disabled={fetchingProfile}>
               <div className="flex flex-col items-center justify-center">
-                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 flex items-center justify-center">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#263238] flex items-center justify-center">
                   {profileImage ? (
                     <img
                       src={profileImage}
@@ -307,7 +296,7 @@ const Profile = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <User className="w-14 h-14 text-gray-400" />
+                    <User className="w-14 h-14 text-gray-400 dark:text-gray-400" />
                   )}
 
                   <label className="absolute bottom-1 right-7 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full cursor-pointer transition">
@@ -327,24 +316,24 @@ const Profile = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     First Name
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.first_name
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <User size={18} className="text-gray-400 mr-2" />
+                    <User size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="text"
                       name="first_name"
                       value={formData.first_name}
                       onChange={handleChange}
                       placeholder="Enter your first name"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.first_name && (
@@ -353,24 +342,24 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Last Name
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.last_name
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <User size={18} className="text-gray-400 mr-2" />
+                    <User size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="text"
                       name="last_name"
                       value={formData.last_name}
                       onChange={handleChange}
                       placeholder="Enter your last name"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.last_name && (
@@ -379,24 +368,24 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Age
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.age
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <Calendar size={18} className="text-gray-400 mr-2" />
+                    <Calendar size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="number"
                       name="age"
                       value={formData.age}
                       onChange={handleChange}
                       placeholder="Enter your age"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.age && (
@@ -405,23 +394,23 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Gender
                   </label>
                   <select
                     name="gender"
                     value={formData.gender}
                     onChange={handleChange}
-                    className={`w-full bg-white dark:bg-white/5 border rounded-xl px-4 py-3 outline-none text-black dark:text-white ${
+                    className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white transition-colors ${
                       errors.gender
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-500"
                     }`}
                   >
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Select gender</option>
+                    <option value="Male" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Male</option>
+                    <option value="Female" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Female</option>
+                    <option value="Other" className="bg-white dark:bg-[#263238] text-gray-900 dark:text-white">Other</option>
                   </select>
                   {errors.gender && (
                     <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
@@ -429,24 +418,24 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Email
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.email
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <Mail size={18} className="text-gray-400 mr-2" />
+                    <Mail size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Enter your email"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.email && (
@@ -455,24 +444,24 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Phone
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.phone
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <Phone size={18} className="text-gray-400 mr-2" />
+                    <Phone size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="text"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Enter your phone number"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.phone && (
@@ -481,24 +470,24 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Address
                   </label>
                   <div
-                    className={`flex items-center bg-white dark:bg-white/5 border rounded-xl px-3 ${
+                    className={`flex items-center bg-white dark:bg-[#263238] border rounded-xl px-3 transition-colors ${
                       errors.address
                         ? "border-red-500"
-                        : "border-gray-300 dark:border-white/10"
+                        : "border-gray-300 dark:border-gray-600 focus-within:border-green-500 dark:focus-within:border-green-500"
                     }`}
                   >
-                    <MapPin size={18} className="text-gray-400 mr-2" />
+                    <MapPin size={18} className="text-gray-400 dark:text-gray-400 mr-2 shrink-0" />
                     <input
                       type="text"
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
                       placeholder="Enter your address"
-                      className="w-full bg-transparent outline-none py-3 text-black dark:text-white placeholder-gray-500"
+                      className="w-full bg-transparent outline-none py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                     />
                   </div>
                   {errors.address && (
@@ -508,7 +497,7 @@ const Profile = () => {
               </div>
 
               <div>
-                <label className="block mb-2 text-sm font-medium text-black dark:text-white">
+                <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                   Bio
                 </label>
                 <textarea
@@ -517,10 +506,10 @@ const Profile = () => {
                   onChange={handleChange}
                   rows="5"
                   placeholder="Write something about yourself..."
-                  className={`w-full bg-white dark:bg-white/5 border rounded-xl px-4 py-3 outline-none text-black dark:text-white placeholder-gray-500 ${
+                  className={`w-full bg-white dark:bg-[#263238] border rounded-xl px-4 py-3 outline-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 transition-colors ${
                     errors.bio
                       ? "border-red-500"
-                      : "border-gray-300 dark:border-white/10"
+                      : "border-gray-300 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-500"
                   }`}
                 />
                 {errors.bio && (

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { apiFetch } from '@/lib/apiFetch';
 
 // Matches the Mongoose Category schema (src/models/mongoose/Category.ts).
 // No slug, color, or icon fields exist on the schema.
@@ -47,13 +48,12 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch('/api/categories');
-            const data = await response.json();
+            const data = await apiFetch<{ success: boolean; data: Category[] }>('/api/categories');
             if (data.success) {
                 setCategories(data.data);
             }
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching categories:', error); // apiFetch already showed a toast
         }
     };
 

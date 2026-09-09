@@ -83,20 +83,20 @@ export async function PUT(request, { params }) {
   // be cleaned up if the doc save fails afterward — same mint-then-cleanup
   // shape as POST, plus old-file retirement once the save succeeds (below).
   let newFileId = null;
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
 
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request);
+      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request, userId);
     }
     if (!isAdmin) {
-      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request);
+      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request, userId);
     }
 
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request);
+      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request, userId);
     }
 
     let body;
@@ -104,7 +104,7 @@ export async function PUT(request, { params }) {
       body = await request.json();
     } catch (error) {
       if (error instanceof SyntaxError) {
-        return errorResponse('Invalid JSON body', 400, 'INVALID_JSON', request);
+        return errorResponse('Invalid JSON body', 400, 'INVALID_JSON', request, userId);
       }
       throw error;
     }
@@ -116,6 +116,7 @@ export async function PUT(request, { params }) {
         400,
         'VALIDATION_ERROR',
         request,
+        userId,
       );
     }
 
@@ -144,7 +145,7 @@ export async function PUT(request, { params }) {
       contentProvided;
 
     if (!anyFieldProvided) {
-      return errorResponse('No fields provided to update', 400, 'NO_FIELDS', request);
+      return errorResponse('No fields provided to update', 400, 'NO_FIELDS', request, userId);
     }
 
     // Step 1: validate/size-check new content (case b only) — before
@@ -153,7 +154,7 @@ export async function PUT(request, { params }) {
     if (isReplacingContent) {
       const validation = validateNotebookContent(content);
       if (!validation.valid) {
-        return errorResponse(validation.message, validation.status, validation.code, request);
+        return errorResponse(validation.message, validation.status, validation.code, request, userId);
       }
       notebookBuffer = validation.notebookBuffer;
     }
@@ -162,7 +163,7 @@ export async function PUT(request, { params }) {
 
     const existing = await UseCase.findById(id);
     if (!existing) {
-      return errorResponse('Use case not found', 404, 'NOT_FOUND', request);
+      return errorResponse('Use case not found', 404, 'NOT_FOUND', request, userId);
     }
 
     // Capture the current file id before anything is mutated — this is
@@ -235,10 +236,10 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ success: true, data: toUseCaseDTO(saved.toObject()) });
   } catch (error) {
     if (error instanceof Error && error.name === 'ValidationError') {
-      return errorResponse(error.message, 400, 'VALIDATION_ERROR', request);
+      return errorResponse(error.message, 400, 'VALIDATION_ERROR', request, userId);
     }
     console.error('[PUT /api/usecases/[id]] unexpected error:', error);
-    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request);
+    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request, userId);
   }
 }
 
@@ -247,26 +248,27 @@ export async function PUT(request, { params }) {
 // retires its GridFS notebook file (if any) — see the ordering rationale in
 // the comment below.
 export async function DELETE(request, { params }) {
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
   try {
-    const { isAuthenticated, isAdmin } = getAuthUser(request);
     if (!isAuthenticated) {
-      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request);
+      return errorResponse('User not authenticated', 401, 'UNAUTHORIZED', request, userId);
     }
     if (!isAdmin) {
-      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request);
+      return errorResponse('Forbidden - Admin only', 403, 'FORBIDDEN', request, userId);
     }
 
     const { id } = await params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request);
+      return errorResponse('Invalid use case ID', 400, 'INVALID_ID', request, userId);
     }
 
     await dbConnect();
 
     const existing = await UseCase.findById(id);
     if (!existing) {
-      return errorResponse('Use case not found', 404, 'NOT_FOUND', request);
+      return errorResponse('Use case not found', 404, 'NOT_FOUND', request, userId);
     }
 
     // Capture before deleting the doc — nothing left to retire once it's gone.
@@ -298,6 +300,6 @@ export async function DELETE(request, { params }) {
     });
   } catch (error) {
     console.error('[DELETE /api/usecases/[id]] unexpected error:', error);
-    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request);
+    return errorResponse('Internal server error', 500, 'INTERNAL_ERROR', request, userId);
   }
 }
