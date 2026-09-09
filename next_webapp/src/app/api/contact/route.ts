@@ -12,11 +12,6 @@ const REQUIRED_SMTP_VARS = [
     'SMTP_FROM',
 ] as const;
 
-// for (const varName of REQUIRED_SMTP_VARS) {
-//     if (!process.env[varName]) {
-//         throw new Error(`Missing required environment variable: ${varName}`);
-//     }
-// }
 
 let _transporter: nodemailer.Transporter | null = null;
 

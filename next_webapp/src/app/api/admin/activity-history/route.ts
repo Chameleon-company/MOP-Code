@@ -52,7 +52,6 @@ export async function GET(request: NextRequest) {
   if (!isAdmin) {
     return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
   }
-  const supabase = getSupabase();
 
   try {
     await dbConnect();
