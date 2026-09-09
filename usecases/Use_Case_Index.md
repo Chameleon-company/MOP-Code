@@ -15,7 +15,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00163_Parking_Availability_in_the_Melbourne_CBD | T2 2026 | Transport and Mobility | Stefan Cucos (updated: Aidan Page) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00163_Parking_Availability_in_the_Melbourne_CBD.ipynb) |
 | UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis | T2 2026 | Urban Planning and Development | Harsh Dwivedi (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis.ipynb) |
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
-
+| UC00139_Optimisation_of_Outdoor_Fitness_Activities_in_Melbourne | T2 2026 | Health and Wellbeing | Ananya Krishnan | [File Link](FINALISED/UC00139_Optimisation_of_Outdoor_Fitness_Activities_in_Melbourne.ipynb) |
 ### Ready To Publish 
 
 #### T1 2023
@@ -149,7 +149,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00136_Graffiti_Vandalism_Prediction | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Safety_and_Security/2024/T3/UC00136_Graffiti_Vandalism_Prediction) | Safety and Security | `requests.get()` | Supratim Dobhal |
 | UC00137_Bike_Route_Optimisation | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2024/T3/UC00137_Bike_Route_Optimisation) | Transport and Mobility | `requests.get()` | Nishant Khamkar |
 | UC00138_Influence_of_Employment_on_Price_of_Houses | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Business_and_Economy/2024/T3/UC00138_Influence_of_Employment_on_Price_of_Houses) | Business and Economy | `requests.get()` | Dhruvil Mehta |
-| UC00139_Optimisation_of_Outdoor_Fitness_Activities | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Health_and_Wellbeing/2025/T1) | Health and Wellbeing | `requests.get()` | Ananya Krishnan |
+
 | UC00140_Urban_Tree_Canopy_Heat_Reduction | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2024/T3/UC00140_Urban_Tree_Canopy_Heat_Reduction) | Environmental Sustainability | `requests.get()` | Soham Tamhane |
 
 
