@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 type Testimonial = {
@@ -66,15 +66,13 @@ export default function TestimonialsSection() {
     return () => clearInterval(interval);
   }, [index]);
 
-  const getVisibleTestimonials = () => {
-    return [
-      testimonials[index],
-      testimonials[(index + 1) % total],
-      testimonials[(index + 2) % total],
-    ];
-  };
-
-  const visible = getVisibleTestimonials();
+  const visible = useMemo(() => {
+  return [
+    testimonials[index],
+    testimonials[(index + 1) % total],
+    testimonials[(index + 2) % total],
+  ];
+}, [index, total]);
 
   return (
     <>
