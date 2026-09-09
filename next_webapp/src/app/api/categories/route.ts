@@ -9,6 +9,9 @@ import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
 import { NextRequest } from "next/server";
 import logger from "@/utils/logger";
+import mongoose from "mongoose";
+import User from "@/models/mongoose/User"; // Update path if necessary
+import dbConnect from "@/lib/dbConnect"; // Update path if necessary
 
 // ==============================
 // POST /api/categories
@@ -17,6 +20,8 @@ import logger from "@/utils/logger";
 
 export async function POST(request: NextRequest) {
     try {
+        await dbConnect(); 
+        
         // ==============================
         // 1. Check Admin Authorization
         // ==============================
