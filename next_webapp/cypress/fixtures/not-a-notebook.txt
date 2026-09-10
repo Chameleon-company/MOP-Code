@@ -1,0 +1,2 @@
+This is a plain text file, not a Jupyter notebook. It should be rejected by 
+its file extension before the app ever tries to parse it as JSON.
