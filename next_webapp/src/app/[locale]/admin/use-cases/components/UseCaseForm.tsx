@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { Save, ImagePlus } from "lucide-react";
+import Image from "next/image";  
 
 export default function UseCaseForm({ initialData, onSubmit }: any) {
   const [form, setForm] = useState(
@@ -159,10 +160,13 @@ export default function UseCaseForm({ initialData, onSubmit }: any) {
               </p>
             </>
           ) : (
-            <img
+            <Image
               src={preview}
               alt="preview"
-              className="mx-auto h-40 rounded-lg object-cover"
+              width={320}
+              height={160}
+              className="mx-auto h-40 w-auto rounded-lg object-cover"
+              unoptimized
             />
           )}
         </div>

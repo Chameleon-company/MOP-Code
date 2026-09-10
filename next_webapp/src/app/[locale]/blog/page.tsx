@@ -193,11 +193,10 @@ export default function BlogListingPage() {
             </span>
 
             <h1
-              className="mb-5 text-5xl text-white drop-shadow-sm sm:text-6xl"
+              className="mb-5 text-5xl text-white drop-shadow-sm sm:text-6xl font-[family-name:var(--font-barlow-condensed)]"
               style={{
                 fontWeight: 900,
                 fontStyle: "normal",
-                fontFamily: "'Barlow Condensed', sans-serif",
                 letterSpacing: "-0.02em",
                 textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
               }}
