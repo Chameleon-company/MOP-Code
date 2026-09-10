@@ -114,10 +114,10 @@ const [toast, setToast] = useState<{ message: string; type: "success" | "error" 
     }
   }
 
-  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.category_name]));
+  // Use category name from use case object
   const displayData = usecases.map((u) => ({
     ...u,
-    category_name: categoryMap[u.category_id] ?? "—",
+    category_name: u.category?.category_name ?? "—",
   }));
 
   return (
