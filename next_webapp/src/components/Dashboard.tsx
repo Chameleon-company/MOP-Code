@@ -10,7 +10,7 @@ import secondimage from "../../public/img/second_image.png";
 import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
 import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { apiFetch } from "@/lib/apiFetch";
 import {
 	ArrowRight,
@@ -889,13 +889,20 @@ const Dashboard = () => {
 	// Keep the initial, preloaded slide stable for first paint. A full-viewport
 	// auto-rotating image becomes a new LCP candidate every five seconds.
 	// Visitors can still select a slide with the dots or swipe controls.
-	const goToSlide = (index: number) => {
+		const goToSlide = useCallback((index: number) => {
 		setCurrentSlide(index);
-	};
+	}, []);
 
 	// Convenience helpers used by swipe gestures (HeroSlider) and dots
-	const handleNext = () => goToSlide((currentSlide + 1) % HERO_SLIDES.length);
-	const handlePrev = () => goToSlide((currentSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+	const handleNext = useCallback(() => {
+		setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+	}, []);
+
+	const handlePrev = useCallback(() => {
+		setCurrentSlide(
+			(prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length,
+		);
+	}, []);
 
 	// Hero search: Title / Content / Tag (see HERO_SEARCH_MODES)
 	const searchContainerRef = useRef<HTMLDivElement>(null);

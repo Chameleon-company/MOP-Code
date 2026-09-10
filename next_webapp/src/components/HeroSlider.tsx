@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 export const HERO_SLIDES = [
   { src: "/img/mainImage.webp",   alt: "Melbourne city overview" },
   { src: "/img/mel.jpg",          alt: "Melbourne aerial view" },
@@ -21,7 +21,7 @@ interface HeroSliderProps {
   onPrev: () => void;
 }
 
-export default function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderProps) {
+function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderProps) {
   const slide = HERO_SLIDES[currentIndex];
 
   // ── Touch / swipe detection ────────────────────────────────────────────────
@@ -85,3 +85,5 @@ export default function HeroSlider({ currentIndex, onNext, onPrev }: HeroSliderP
     </div>
   );
 }
+
+export default memo(HeroSlider);
