@@ -37,11 +37,9 @@ export async function POST(request: Request) {
 
         const { limited } = await checkPasswordResetRateLimit(normalizeEmail, ip, "failed_reset_attempt");
         if (limited) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse('Too many failed reset attempts, please try again later', 429, 'TOO_MANY_ATTEMPTS');
         }
-
-        await dbConnect();
-
         // 4. Look up user in MongoDB
         const userData = await User.findOne({
             email: normalizeEmail,

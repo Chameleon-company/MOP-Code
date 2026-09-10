@@ -19,8 +19,9 @@ function isWithinWindow(lastAttemptAt: Date): boolean {
 export function getClientIp(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    const first = forwardedFor.split(",")[0]?.trim();
-    if (first) return first;
+    const ips = forwardedFor.split(",");
+    const last = ips[ips.length - 1]?.trim();
+    if (last) return last;
   }
   return request.headers.get("x-real-ip") || "unknown";
 }
@@ -71,12 +72,28 @@ export async function recordPasswordResetAttempt(
       keys.map(({ key, type }) =>
         PasswordResetRateLimit.findOneAndUpdate(
           { key, type, action },
-          {
-            $inc: { attempts: 1 },
-            $set: { last_attempt_at: now },
-            $setOnInsert: { first_attempt_at: now },
-          },
-          { upsert: true },
+          [
+            {
+              $set: {
+                attempts: {
+                  $cond: {
+                    if: { $lt: ["$last_attempt_at", new Date(now.getTime() - WINDOW_MS)] },
+                    then: 1,
+                    else: { $add: [{ $ifNull: ["$attempts", 0] }, 1] }
+                  }
+                },
+                first_attempt_at: {
+                  $cond: {
+                    if: { $lt: ["$last_attempt_at", new Date(now.getTime() - WINDOW_MS)] },
+                    then: now,
+                    else: { $ifNull: ["$first_attempt_at", now] }
+                  }
+                },
+                last_attempt_at: now
+              }
+            }
+          ],
+          { upsert: true }
         ),
       ),
     );

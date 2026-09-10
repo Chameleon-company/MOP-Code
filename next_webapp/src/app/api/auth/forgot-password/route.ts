@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { errorResponse } from '@/app/api/library/errorResponse';
 import crypto from 'crypto';
-import { checkPasswordResetRateLimit, recordPasswordResetAttempt, getClientIp } from '@/app/api/library/passwordResetRateLimit';
+import { checkPasswordResetRateLimit, recordPasswordResetAttempt, clearPasswordResetAttempts, getClientIp } from '@/app/api/library/passwordResetRateLimit';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TEMP_PASSWORD_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -45,13 +45,10 @@ export async function POST(request: Request) {
         const normalizeEmail = email.toLowerCase().trim();
 
         const { limited } = await checkPasswordResetRateLimit(normalizeEmail, ip, "forgot_password_request");
+        await recordPasswordResetAttempt(normalizeEmail, ip, "forgot_password_request");
         if (limited) {
             return errorResponse('Too many requests, please try again later', 429, 'RATE_LIMIT_EXCEEDED');
         }
-        await recordPasswordResetAttempt(normalizeEmail, ip, "forgot_password_request");
-
-        await dbConnect();
-
         // 2. Look up user in MongoDB
         const userData = await User.findOne({
             email: normalizeEmail,
@@ -101,6 +98,9 @@ export async function POST(request: Request) {
             // We intentionally don't throw here so developers can test the reset flow
             // by grabbing the temp password from the console.
         }
+
+        // 5. Clear the rate limit on success so they aren't unnecessarily blocked
+        await clearPasswordResetAttempts(normalizeEmail, ip, "forgot_password_request");
 
         return SAFE_RESPONSE;
     } catch (error) {
