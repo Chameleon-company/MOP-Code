@@ -1,7 +1,5 @@
 # misc
 **/.DS_Store
-.claude/
-graphify-out/
 Playground/.DS_Store
 datascience/.DS_Store
 
@@ -26,5 +24,4 @@ npm-debug.log*
 .gradle/
 **/build/
 local.properties
-CLAUDE.md
 .gitignore
