@@ -1,14 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import GalleryImage from "@/models/mongoose/GalleryImage";
+import { uploadImageToGCS } from "../../library/uploadImageToGCS";
 import { supabase } from "@/library/supabaseClient";
-import { uploadImageToStorage } from "../../library/uploadImageToStorage";
-import { getAuthUser } from "@/app/api/library/auth";
-import { errorResponse } from "@/app/api/library/errorResponse";
 import logger from "@/utils/logger";
+
+const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
+
+// ── Auth helpers ───────────────────────────────────────────────────────────
+function getUserId(request: NextRequest): number | null {
+  const raw = request.headers.get("x-user-id");
+  if (!raw) return null;
+  const id = Number(raw);
+  return Number.isFinite(id) ? id : null;
+}
+
+function isAdmin(request: NextRequest): boolean {
+  const role = request.headers.get("x-user-role");
+  const roleId = request.headers.get("x-user-role-id");
+  return role?.toLowerCase() === "admin" || roleId === "1";
+}
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
+}
 
 // ── Response helpers ───────────────────────────────────────────────────────
 function unauthorized() {
@@ -40,10 +64,9 @@ function serverError(message = "Internal server error") {
 // ── Shared param parsing ───────────────────────────────────────────────────
 async function parseId(
   params: Promise<{ id: string }>
-): Promise<number | null> {
+): Promise<string | null> {
   const { id } = await params;
-  const n = Number(id);
-  return Number.isFinite(n) && n > 0 ? n : null;
+  return mongoose.Types.ObjectId.isValid(id) ? id : null;
 }
 
 // ── GET /api/gallery/[id] ──────────────────────────────────────────────────
@@ -60,20 +83,15 @@ export async function GET(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    const { data, error } = await supabase
-      .from("gallery_images")
-      .select("id, title, img_url, created_at, created_by")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (error?.code === "PGRST116" || !data) return notFound();
+    const data = await GalleryImage.findById(galleryImageId)
+      .select("title img_url created_at created_by")
+      .lean();
 
-    if (error) {
-      console.error("[GET /api/gallery/[id]] error:", error);
-      return serverError("Failed to fetch gallery image");
-    }
+    if (!data) return notFound();
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true, data: toDTO(data) });
   } catch (error) {
     console.error("[GET /api/gallery/[id]] unexpected error:", error);
     return serverError("Failed to fetch gallery image");
@@ -101,14 +119,11 @@ export async function PUT(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    // Verify the record exists first
-    const { data: existing, error: fetchError } = await supabase
-      .from("gallery_images")
-      .select("id")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (fetchError?.code === "PGRST116" || !existing) return notFound();
+    // Verify the record exists first
+    const existing = await GalleryImage.findById(galleryImageId);
+    if (!existing) return notFound();
 
     const formData = await request.formData();
     const title = formData.get("title")?.toString().trim();
@@ -142,47 +157,26 @@ export async function PUT(
       return badRequest("Validation failed", errors);
     }
 
-    const updatePayload: { title?: string; img_url?: string; updated_at: string } = {
-      updated_at: new Date().toISOString(),
-    };
-
-    if (title) updatePayload.title = title;
+    if (title) existing.title = title;
 
     if (hasImage) {
-      const uploaded = await uploadImageToStorage({
-        file: image as File,
-        bucket: "gallery-images",
-        folder: "gallery",
-        prefix: "gallery",
-        userId,
-      });
-      updatePayload.img_url = uploaded.publicUrl;
+      const buffer = Buffer.from(await (image as File).arrayBuffer());
+      const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
+
+      try {
+        existing.img_url = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+      } catch (uploadError) {
+        console.error("[PUT /api/gallery/[id]] upload error:", uploadError);
+        return serverError("Failed to upload gallery image");
+      }
     }
 
-    const { data: galleryImage, error } = await supabase
-      .from("gallery_images")
-      .update(updatePayload)
-      .eq("id", galleryImageId)
-      .select("id, title, img_url, created_at, created_by")
-      .single();
-
-    if (error) {
-      console.error("[PUT /api/gallery/[id]] update error:", error);
-      return errorResponse(
-        "Failed to update gallery image",
-        500,
-        "DB_UPDATE_ERROR",
-        request,
-        userId
-      );
-    }
-
-    if (!galleryImage) return notFound();
+    await existing.save();
 
     return NextResponse.json({
       success: true,
       message: "Gallery image updated successfully",
-      data: galleryImage,
+      data: toDTO(existing.toObject()),
     });
   } catch (error) {
     console.error("[PUT /api/gallery/[id]] unexpected error:", error);
@@ -221,29 +215,12 @@ export async function DELETE(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    const { data: existing, error: fetchError } = await supabase
-      .from("gallery_images")
-      .select("id, img_url")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (fetchError?.code === "PGRST116" || !existing) return notFound();
+    const existing = await GalleryImage.findById(galleryImageId).lean();
+    if (!existing) return notFound();
 
-    const { error } = await supabase
-      .from("gallery_images")
-      .delete()
-      .eq("id", galleryImageId);
-
-    if (error) {
-      console.error("[DELETE /api/gallery/[id]] delete error:", error);
-      return errorResponse(
-        "Failed to delete gallery image",
-        500,
-        "DELETE_ERROR",
-        request,
-        userId
-      );
-    }
+    await GalleryImage.findByIdAndDelete(galleryImageId);
 
     // Best-effort: remove image file from storage and log the deletion
     if (existing?.img_url) {

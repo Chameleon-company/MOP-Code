@@ -1,7 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import Blog from "@/models/mongoose/Blog";
 import { supabase } from "@/library/supabaseClient";
-import { getAuthUser } from "@/app/api/library/auth";
+import { uploadImageToGCS } from "../../library/uploadImageToGCS";
 import logger from "@/utils/logger";
+
+const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
+
+// ─── Auth helpers ─────────────────────────────────────────────────────────────
+
+function getUserId(request: NextRequest): number | null {
+  const raw = request.headers.get("x-user-id");
+  if (!raw) return null;
+  const id = Number(raw);
+  return Number.isFinite(id) ? id : null;
+}
+
+function isAdmin(request: NextRequest): boolean {
+  const role = request.headers.get("x-user-role");
+  const roleId = request.headers.get("x-user-role-id");
+  return role?.toLowerCase() === "admin" || roleId === "1";
+}
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
+}
 
 // ─── Response helpers ─────────────────────────────────────────────────────────
 
@@ -77,21 +104,15 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const blogId = Number(id);
-  if (!Number.isFinite(blogId)) return badRequest("Invalid blog id");
+  if (!mongoose.Types.ObjectId.isValid(id)) return badRequest("Invalid blog id");
 
   try {
-    const { data: blog, error } = await supabase
-      .from("blogs")
-      .select(
-        "id, created_at, updated_at, title, description, published_date, content, cover_img, created_by"
-      )
-      .eq("id", blogId)
-      .single();
+    await dbConnect();
 
-    if (error || !blog) return notFound();
+    const blog = await Blog.findById(id).lean();
+    if (!blog) return notFound();
 
-    return NextResponse.json({ success: true, data: blog });
+    return NextResponse.json({ success: true, data: toDTO(blog) });
   } catch (error) {
     console.error("[GET /api/blogs/[id]] error:", error);
     return serverError("Failed to fetch blog");
@@ -109,8 +130,7 @@ export async function PUT(
   if (!isAdmin) return forbidden();
 
   const { id } = await params;
-  const blogId = Number(id);
-  if (!Number.isFinite(blogId)) return badRequest("Invalid blog id");
+  if (!mongoose.Types.ObjectId.isValid(id)) return badRequest("Invalid blog id");
 
   try {
     const formData = await request.formData();
@@ -137,57 +157,39 @@ export async function PUT(
       return badRequest("Validation failed", fieldErrors);
     }
 
-    const updatePayload: Record<string, any> = {
-      updated_at: new Date().toISOString(),
-    };
+    await dbConnect();
 
-    if (title !== undefined) updatePayload.title = title;
-    if (description !== undefined) updatePayload.description = description || null;
-    if (publishedDate !== undefined) updatePayload.published_date = publishedDate || null;
-    if (content !== undefined) updatePayload.content = content;
+    const existing = await Blog.findById(id);
+    if (!existing) return notFound();
+
+    const updateFields: Record<string, unknown> = {};
+    if (title !== undefined) updateFields.title = title;
+    if (description !== undefined) updateFields.description = description || null;
+    if (publishedDate !== undefined) {
+      updateFields.published_date = publishedDate ? new Date(publishedDate) : null;
+    }
+    if (content !== undefined) updateFields.content = content;
+    existing.set(updateFields);
 
     // Upload new cover image if provided
     if (hasNewCover) {
-      const buffer = await coverImg!.arrayBuffer();
-      const ext = coverImg!.name.split(".").pop();
-      const filePath = `blogs/covers/blog-cover-${userId}-${Date.now()}.${ext}`;
+      const buffer = Buffer.from(await coverImg!.arrayBuffer());
+      const filename = `blogs/covers/blog-cover-${userId}-${Date.now()}.webp`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("blog-images")
-        .upload(filePath, buffer, { contentType: coverImg!.type, upsert: false });
-
-      if (uploadError) {
+      try {
+        existing.cover_img = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+      } catch (uploadError) {
         console.error("[PUT /api/blogs/[id]] upload error:", uploadError);
-        return serverError(`Cover image upload failed: ${uploadError.message}`);
+        return serverError("Cover image upload failed");
       }
-
-      const { data: publicUrlData } = supabase.storage
-        .from("blog-images")
-        .getPublicUrl(filePath);
-
-      if (!publicUrlData?.publicUrl) return serverError("Failed to generate cover image URL");
-
-      updatePayload.cover_img = publicUrlData.publicUrl;
     }
 
-    const { data: blog, error } = await supabase
-      .from("blogs")
-      .update(updatePayload)
-      .eq("id", blogId)
-      .select("*")
-      .single();
-
-    if (error) {
-      console.error("[PUT /api/blogs/[id]] update error:", error);
-      return serverError(`Failed to update blog: ${error.message}`);
-    }
-
-    if (!blog) return notFound();
+    await existing.save();
 
     return NextResponse.json({
       success: true,
       message: "Blog updated successfully",
-      data: blog,
+      data: toDTO(existing.toObject()),
     });
   } catch (error) {
     console.error("[PUT /api/blogs/[id]] error:", error);
@@ -206,23 +208,16 @@ export async function DELETE(
   if (!isAdmin) return forbidden();
 
   const { id } = await params;
-  const blogId = Number(id);
-  if (!Number.isFinite(blogId)) return badRequest("Invalid blog id");
+  if (!mongoose.Types.ObjectId.isValid(id)) return badRequest("Invalid blog id");
 
   try {
+    await dbConnect();
+
     // Fetch cover_img path before deleting so we can clean up storage
-    const { data: existing } = await supabase
-      .from("blogs")
-      .select("cover_img")
-      .eq("id", blogId)
-      .single();
+    const existing = await Blog.findById(id).select("cover_img").lean();
 
-    const { error } = await supabase.from("blogs").delete().eq("id", blogId);
-
-    if (error) {
-      console.error("[DELETE /api/blogs/[id]] error:", error);
-      return serverError(`Failed to delete blog: ${error.message}`);
-    }
+    const deleted = await Blog.findByIdAndDelete(id);
+    if (!deleted) return notFound();
 
     // Best-effort: remove cover image from storage and log the deletion
     if (existing?.cover_img) {
@@ -233,14 +228,14 @@ export async function DELETE(
           await supabase.storage.from("blog-images").remove([storagePath]);
           logger.info(`Storage file deleted: blog-images/${storagePath}`, {
             source: "api",
-            url: `/api/blogs/${blogId}`,
+            url: `/api/blogs/${id}`,
             user_id: userId,
           });
         }
       } catch {
-        logger.warn(`Failed to remove storage file for blog #${blogId}`, {
+        logger.warn(`Failed to remove storage file for blog #${id}`, {
           source: "api",
-          url: `/api/blogs/${blogId}`,
+          url: `/api/blogs/${id}`,
           user_id: userId,
         });
       }

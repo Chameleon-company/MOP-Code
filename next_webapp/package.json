@@ -12,6 +12,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@ckeditor/ckeditor5-react": "^6.3.0",
+    "@google-cloud/storage": "^7.21.0",
     "@sentry/nextjs": "^10.52.0",
     "@supabase/supabase-js": "^2.99.3",
     "axios": "^1.8.4",

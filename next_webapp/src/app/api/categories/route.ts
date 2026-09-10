@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import Category from "@/models/mongoose/Category";
 import {
     CreateCategoryDTO,
     validateCreateCategory,
@@ -9,6 +11,19 @@ import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
 import { NextRequest } from "next/server";
 import logger from "@/utils/logger";
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+    const { _id, __v, ...rest } = doc;
+    return { id: _id.toString(), ...rest };
+}
+
+// Escape regex metacharacters so user input can't be used to build an
+// unintended (or catastrophic) regular expression.
+function escapeRegex(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 // ==============================
 // POST /api/categories
@@ -31,7 +46,6 @@ export async function POST(request: NextRequest) {
             return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
         }
 
-
         // ==============================
         // 2. Parse & Sanitize Input
         // ==============================
@@ -49,26 +63,15 @@ export async function POST(request: NextRequest) {
 
         const { category_name, description, cover_img } = cleanData;
 
+        await dbConnect();
+
         // ==============================
         // 4. Check duplicate category
         // ==============================
 
-        const { data: existingCategory, error: checkError } = await supabase
-            .from("categories")
-            .select("id")
-            .ilike("category_name", category_name)
-            .maybeSingle();
-
-        if (checkError) {
-            logger.error(`Duplicate Check Error: ${checkError.message || String(checkError)}`);
-            return errorResponse(
-                "Failed to validate category",
-                500,
-                "DB_CHECK_ERROR",
-                request,
-                userId
-            );
-        }
+        const existingCategory = await Category.findOne({
+            category_name: { $regex: `^${escapeRegex(category_name)}$`, $options: "i" },
+        }).lean();
 
         if (existingCategory) {
             return errorResponse(
@@ -81,54 +84,28 @@ export async function POST(request: NextRequest) {
         }
 
         // ==============================
-        // 5. Insert into Supabase
+        // 5. Insert into MongoDB
         // ==============================
-        const { data, error } = await supabase
-            .from("categories")
-            .insert([
-                {
-                    category_name,
-                    description: description ?? null,
-                    cover_img: cover_img ?? null,
-                    created_by: Number(userId),
-                },
-            ])
-            .select()
-            .single();
+        const createdBy =
+            userId && mongoose.Types.ObjectId.isValid(String(userId))
+                ? String(userId)
+                : null;
 
-
-        const { data: createdUser, error: userError } = await supabase
-            .from("user")
-            .select("id, email, role_id")
-            .eq("id", data.created_by)
-            .single();
-
-        if (userError) {
-            logger.error(`User fetch error: ${userError.message || String(userError)}`);
-        }
-
-        if (error) {
-            logger.error(`Supabase Insert Error: ${error.message || String(error)}`);
-            return errorResponse(
-                "Failed to create category",
-                500,
-                "DB_INSERT_ERROR",
-                request,
-                userId
-            );
-        }
+        const created = await Category.create({
+            category_name,
+            description: description ?? null,
+            cover_img: cover_img ?? null,
+            created_by: createdBy,
+        });
 
         // ==============================
-        // 5. Success Response
+        // 6. Success Response
         // ==============================
         return NextResponse.json(
             {
                 success: true,
                 message: "Category created successfully",
-                data: {
-                    ...data,
-                    created_by_user: createdUser || null,
-                },
+                data: toDTO(created.toObject()),
             },
             { status: 201 }
         );
@@ -162,34 +139,30 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search");
     const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10) || 1);
     const pageSize = Math.max(1, parseInt(searchParams.get("pageSize") ?? "10", 10) || 10);
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const skip = (page - 1) * pageSize;
 
-    // 3. Build query
-    let query = supabase
-      .from("categories")
-      .select("*", { count: "exact" })
-      .order("created_at", { ascending: false });
+    await dbConnect();
 
-    // If search param provided, filter by category name
+    // 3. Build filter
+    const filter: Record<string, unknown> = {};
     if (search && search.trim().length > 0) {
-      query = query.ilike("category_name", `%${search.trim()}%`);
+      filter.category_name = { $regex: escapeRegex(search.trim()), $options: "i" };
     }
 
     // 4. Execute query
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      logger.error(`[GET /api/categories] fetch error: ${error.message || String(error)}`);
-      return errorResponse("Failed to fetch categories", 500, "DB_FETCH_ERROR");
-    }
-
-    const total = count ?? 0;
+    const [data, total] = await Promise.all([
+      Category.find(filter)
+        .sort({ created_at: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      Category.countDocuments(filter),
+    ]);
 
     // 5. Return response
     return NextResponse.json({
       success: true,
-      data: data,
+      data: data.map(toDTO),
       count: data.length,
       pagination: {
         page,

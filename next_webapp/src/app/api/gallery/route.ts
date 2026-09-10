@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
-import { uploadImageToStorage } from "../library/uploadImageToStorage";
-import { getAuthUser } from "../library/auth";
-import { errorResponse } from "../library/errorResponse";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import GalleryImage from "@/models/mongoose/GalleryImage";
+import { uploadImageToGCS } from "../library/uploadImageToGCS";
+
+const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -10,6 +12,35 @@ const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
 const DEFAULT_PAGE_SIZE = 12;
 const MAX_PAGE_SIZE = 100;
+
+// ── Auth helpers ───────────────────────────────────────────────────────────
+function getUserId(request: NextRequest): number | null {
+  const raw = request.headers.get("x-user-id");
+  if (!raw) return null;
+  const id = Number(raw);
+  return Number.isFinite(id) ? id : null;
+}
+
+function isAdmin(request: NextRequest): boolean {
+  const role = request.headers.get("x-user-role");
+  const roleId = request.headers.get("x-user-role-id");
+  return role?.toLowerCase() === "admin" || roleId === "1";
+}
+
+// created_by is a Mongo ObjectId ref — only usable once the header carries a
+// real Mongo User _id (post Auth-phase migration). Until then, fall back to
+// null rather than let Mongoose throw a CastError on a legacy numeric id.
+function getCreatedBy(request: NextRequest): string | null {
+  const raw = request.headers.get("x-user-id");
+  return raw && mongoose.Types.ObjectId.isValid(raw) ? raw : null;
+}
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
+}
 
 // ── Response helpers ───────────────────────────────────────────────────────
 function unauthorized() {
@@ -82,30 +113,28 @@ export async function GET(request: NextRequest) {
     const pageSize =
       Math.max(1, parseInt(rawPageSize ?? String(DEFAULT_PAGE_SIZE), 10)) ||
       DEFAULT_PAGE_SIZE;
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const skip = (page - 1) * pageSize;
 
-    let query = supabase
-      .from("gallery_images")
-      .select("id, title, img_url, created_at, created_by", { count: "exact" })
-      .order("created_at", { ascending: false });
+    await dbConnect();
 
+    const filter: Record<string, unknown> = {};
     if (search) {
-      query = query.ilike("title", `%${search}%`);
+      filter.title = { $regex: search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), $options: "i" };
     }
 
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("[GET /api/gallery] error:", error);
-      return serverError("Failed to fetch gallery images");
-    }
-
-    const total = count ?? 0;
+    const [data, total] = await Promise.all([
+      GalleryImage.find(filter)
+        .select("title img_url created_at created_by")
+        .sort({ created_at: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      GalleryImage.countDocuments(filter),
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: data ?? [],
+      data: data.map(toDTO),
       pagination: {
         page,
         pageSize,
@@ -147,40 +176,30 @@ export async function POST(request: NextRequest) {
       return badRequest("Validation failed", errors);
     }
 
-    const uploaded = await uploadImageToStorage({
-      file: image as File,
-      bucket: "gallery-images",
-      folder: "gallery",
-      prefix: "gallery",
-      userId,
-    });
+    const buffer = Buffer.from(await (image as File).arrayBuffer());
+    const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
 
-    const { data: galleryImage, error } = await supabase
-      .from("gallery_images")
-      .insert({
-        title,
-        img_url: uploaded.publicUrl,
-        created_by: userId,
-      })
-      .select("id, title, img_url, created_at, created_by")
-      .single();
-
-    if (error) {
-      console.error("[POST /api/gallery] insert error:", error);
-      return errorResponse(
-        "Failed to create gallery image",
-        500,
-        "DB_INSERT_ERROR",
-        request,
-        userId
-      );
+    let imgUrl: string;
+    try {
+      imgUrl = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+    } catch (uploadError) {
+      console.error("[POST /api/gallery] upload error:", uploadError);
+      return serverError("Failed to upload gallery image");
     }
+
+    await dbConnect();
+
+    const created = await GalleryImage.create({
+      title,
+      img_url: imgUrl,
+      created_by: getCreatedBy(request),
+    });
 
     return NextResponse.json(
       {
         success: true,
         message: "Gallery image added successfully",
-        data: galleryImage,
+        data: toDTO(created.toObject()),
       },
       { status: 201 }
     );

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import Blog from "@/models/mongoose/Blog";
 
 function shuffleInPlace<T>(arr: T[]): void {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -8,44 +10,47 @@ function shuffleInPlace<T>(arr: T[]): void {
   }
 }
 
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
+}
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
 
+    await dbConnect();
+
     /** Random picks for “Continue exploring” (blog detail). Excludes current id. */
     if (url.searchParams.get("recommend") === "1") {
-      const excludeRaw = url.searchParams.get("excludeId");
-      const excludeId = excludeRaw ? parseInt(excludeRaw, 10) : NaN;
+      const excludeId = url.searchParams.get("excludeId");
       const take = Math.min(
         10,
         Math.max(1, parseInt(url.searchParams.get("take") ?? "3", 10) || 3)
       );
 
-      let q = supabase
-        .from("blogs")
-        .select("id, title, description, cover_img, published_date")
-        .limit(800);
-
-      if (Number.isFinite(excludeId) && excludeId > 0) {
-        q = q.neq("id", excludeId);
+      const filter: Record<string, unknown> = {};
+      if (excludeId && mongoose.Types.ObjectId.isValid(excludeId)) {
+        filter._id = { $ne: excludeId };
       }
 
-      const { data, error } = await q;
+      const data = await Blog.find(filter)
+        .select("title description cover_img published_date")
+        .limit(800)
+        .lean();
 
-      if (error) {
-        console.error("[GET /api/home/blogs recommend] error:", error);
-        return NextResponse.json(
-          { success: false, message: "Failed to fetch blogs" },
-          { status: 500 }
-        );
-      }
-
-      const pool = [...(data ?? [])];
+      const pool = [...data];
       shuffleInPlace(pool);
 
       return NextResponse.json({
         success: true,
-        data: pool.slice(0, take),
+        data: pool.slice(0, take).map(toDTO),
       });
     }
 
@@ -54,41 +59,36 @@ export async function GET(request: NextRequest) {
       50,
       Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "9", 10) || 9)
     );
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const skip = (page - 1) * pageSize;
 
     const search = url.searchParams.get("search")?.trim() ?? "";
     const searchBy = url.searchParams.get("search_by")?.trim() ?? "title";
 
-    let query = supabase
-      .from("blogs")
-      .select("id, title, description, cover_img, published_date", { count: "exact" })
-      .order("published_date", { ascending: false, nullsFirst: false })
-      .order("created_at", { ascending: false });
-
+    const filter: Record<string, unknown> = {};
     if (search) {
       if (searchBy === "content") {
-        query = query.or(`description.ilike.%${search}%,content.ilike.%${search}%`);
+        filter.$or = [
+          { description: { $regex: escapeRegex(search), $options: "i" } },
+          { content: { $regex: escapeRegex(search), $options: "i" } },
+        ];
       } else {
-        query = query.ilike("title", `%${search}%`);
+        filter.title = { $regex: escapeRegex(search), $options: "i" };
       }
     }
 
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("[GET /api/home/blogs] error:", error);
-      return NextResponse.json(
-        { success: false, message: "Failed to fetch blogs" },
-        { status: 500 }
-      );
-    }
-
-    const total = count ?? 0;
+    const [data, total] = await Promise.all([
+      Blog.find(filter)
+        .select("title description cover_img published_date created_at")
+        .sort({ published_date: -1, created_at: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      Blog.countDocuments(filter),
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: data ?? [],
+      data: data.map(toDTO),
       pagination: {
         page,
         pageSize,

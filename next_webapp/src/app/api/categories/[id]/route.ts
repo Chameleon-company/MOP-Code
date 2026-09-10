@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import Category from "@/models/mongoose/Category";
+import UseCase from "@/models/mongoose/UseCase";
 import {
     UpdateCategoryDTO,
     validateUpdateCategory,
@@ -7,6 +10,17 @@ import {
 } from "@/types/category";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+    const { _id, __v, ...rest } = doc;
+    return { id: _id.toString(), ...rest };
+}
+
+function escapeRegex(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 // ==============================
 // GET /api/categories/:id
@@ -24,23 +38,20 @@ export async function GET(
     }
 
     const { id } = await params;
-    const categoryId = Number(id);
 
-    if (!categoryId || Number.isNaN(categoryId)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return errorResponse("Invalid category ID", 400, "INVALID_ID");
     }
 
-    const { data, error } = await supabase
-      .from("categories")
-      .select("*")
-      .eq("id", categoryId)
-      .single();
+    await dbConnect();
 
-    if (error || !data) {
+    const category = await Category.findById(id).lean();
+
+    if (!category) {
       return errorResponse("Category not found", 404, "NOT_FOUND");
     }
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true, data: toDTO(category) });
   } catch (error) {
     console.error("Get Category Error:", error);
     return errorResponse("Internal Server Error", 500, "INTERNAL_ERROR");
@@ -72,10 +83,9 @@ export async function PUT(
         }
 
         const { id } = await params;
-        const categoryId = Number(id);
 
-        if (!categoryId) {
-            return errorResponse("Invalid category ID", 400, "INVALID_ID", request, userId);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return errorResponse("Invalid category ID", 400, "INVALID_ID");
         }
 
         // ==============================
@@ -93,17 +103,15 @@ export async function PUT(
             return errorResponse(validationError, 400, "VALIDATION_ERROR", request, userId);
         }
 
+        await dbConnect();
+
         // ==============================
         // 4. Check if category exists
         // ==============================
-        const { data: existing, error: fetchError } = await supabase
-            .from("categories")
-            .select("*")
-            .eq("id", categoryId)
-            .single();
+        const existing = await Category.findById(id);
 
-        if (fetchError || !existing) {
-            return errorResponse("Category not found", 404, "NOT_FOUND", request, userId);
+        if (!existing) {
+            return errorResponse("Category not found", 404, "NOT_FOUND");
         }
 
         // ==============================
@@ -111,23 +119,13 @@ export async function PUT(
         // ==============================
 
         if (cleanData.category_name) {
-            const { data: duplicate, error: duplicateError } = await supabase
-                .from("categories")
-                .select("id")
-                .ilike("category_name", cleanData.category_name)
-                .neq("id", categoryId) // exclude current record
-                .maybeSingle();
-
-            if (duplicateError) {
-                console.error("Duplicate check error:", duplicateError);
-                return errorResponse(
-                    "Failed to validate category",
-                    500,
-                    "DB_CHECK_ERROR",
-                    request,
-                    userId
-                );
-            }
+            const duplicate = await Category.findOne({
+                _id: { $ne: id },
+                category_name: {
+                    $regex: `^${escapeRegex(cleanData.category_name)}$`,
+                    $options: "i",
+                },
+            }).lean();
 
             if (duplicate) {
                 return errorResponse(
@@ -143,40 +141,16 @@ export async function PUT(
         // ==============================
         // 6. Update category
         // ==============================
-        const { data, error } = await supabase
-            .from("categories")
-            .update({
-                ...cleanData,
-                updated_at: new Date().toISOString(),
-            })
-            .eq("id", categoryId)
-            .select()
-            .single();
-
-        if (error) {
-            console.error("Update error:", error);
-            return errorResponse("Failed to update category", 500, "DB_UPDATE_ERROR", request, userId);
-        }
+        existing.set(cleanData);
+        await existing.save();
 
         // ==============================
-        // 7. Fetch updated user info
-        // ==============================
-        const { data: updatedUser } = await supabase
-            .from("user")
-            .select("id, email, role_id")
-            .eq("id", data.created_by)
-            .single();
-
-        // ==============================
-        // 8. Success response
+        // 7. Success response
         // ==============================
         return NextResponse.json({
             success: true,
             message: "Category updated successfully",
-            data: {
-                ...data,
-                created_by_user: updatedUser || null,
-            },
+            data: toDTO(existing.toObject()),
         });
     } catch (error) {
         console.error("Update Category Error:", error);
@@ -214,41 +188,24 @@ export async function DELETE(
     }
 
     const { id } = await params;
-    const categoryId = Number(id);
 
-    if (!categoryId || Number.isNaN(categoryId)) {
-      return errorResponse("Invalid category ID", 400, "INVALID_ID", request, userId);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return errorResponse("Invalid category ID", 400, "INVALID_ID");
     }
 
-    // 2. Check category exists
-    const { data: existingCategory, error: categoryError } = await supabase
-      .from("categories")
-      .select("id, category_name")
-      .eq("id", categoryId)
-      .single();
+    await dbConnect();
 
-    if (categoryError || !existingCategory) {
-      return errorResponse("Category not found", 404, "CATEGORY_NOT_FOUND", request, userId);
+    // 2. Check category exists
+    const existingCategory = await Category.findById(id).lean();
+
+    if (!existingCategory) {
+      return errorResponse("Category not found", 404, "CATEGORY_NOT_FOUND");
     }
 
     // 3. Count how many use cases are using this category
-    const { count, error: countError } = await supabase
-      .from("usecases")
-      .select("*", { count: "exact", head: true })
-      .eq("category_id", categoryId);
+    const count = await UseCase.countDocuments({ "category.id": id });
 
-    if (countError) {
-      console.error("Use case count error:", countError);
-      return errorResponse(
-        "Failed to validate category usage",
-        500,
-        "USAGE_CHECK_ERROR",
-        request,
-        userId
-      );
-    }
-
-    if ((count ?? 0) > 0) {
+    if (count > 0) {
       return NextResponse.json(
         {
           success: false,
@@ -256,8 +213,8 @@ export async function DELETE(
           code: "CATEGORY_IN_USE",
           data: {
             assigned_usecase_count: count,
-            category_id: categoryId,
-            category_name: existingCategory.category_name,
+            category_id: (existingCategory as any)._id.toString(),
+            category_name: (existingCategory as any).category_name,
           },
         },
         { status: 400 }
@@ -265,21 +222,7 @@ export async function DELETE(
     }
 
     // 4. Delete category
-    const { error: deleteError } = await supabase
-      .from("categories")
-      .delete()
-      .eq("id", categoryId);
-
-    if (deleteError) {
-      console.error("Delete category error:", deleteError);
-      return errorResponse(
-        "Failed to delete category",
-        500,
-        "DELETE_ERROR",
-        request,
-        userId
-      );
-    }
+    await Category.findByIdAndDelete(id);
 
     // 5. Success response
     return NextResponse.json(
@@ -287,8 +230,8 @@ export async function DELETE(
         success: true,
         message: "Category deleted successfully",
         data: {
-          id: existingCategory.id,
-          category_name: existingCategory.category_name,
+          id: (existingCategory as any)._id.toString(),
+          category_name: (existingCategory as any).category_name,
         },
       },
       { status: 200 }
