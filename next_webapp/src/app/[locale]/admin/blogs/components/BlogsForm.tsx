@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, Save, X } from "lucide-react";
+import Image from "next/image";  
+
 
 export default function BlogForm({ initialData, onSubmit, submitting = false }: any) {
   const [form, setForm] = useState(
@@ -144,10 +146,13 @@ export default function BlogForm({ initialData, onSubmit, submitting = false }: 
         >
           {coverPreview ? (
             <>
-              <img
+              <Image
                 src={coverPreview}
                 alt="Cover preview"
-                className="mx-auto h-48 rounded-lg object-cover"
+                className="mx-auto h-48 w-auto rounded-lg object-cover"
+                width={400}
+                height={192}
+                unoptimized={coverPreview?.startsWith("blob:")}
               />
               <button
                 type="button"

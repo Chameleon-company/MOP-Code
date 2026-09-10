@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Link } from "@/i18n-navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { storage } from "@/utils/storage";
+import Image from "next/image";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 function LoginForm() {
     const t = useTranslations("login");
@@ -38,18 +40,12 @@ function LoginForm() {
             setIsSubmitting(true);
             setError("");
 
-            const response = await fetch("/api/auth/login", {
+            const result = await apiFetch<any>("/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
+                silent: true,
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                setError(result.message || "Login failed");
-                return;
-            }
 
             storage.setItem("userId", result.data.userId.toString());
             storage.setItem("user", JSON.stringify(result.data));
@@ -62,7 +58,8 @@ function LoginForm() {
             }
         } catch (err) {
             console.error("Login error:", err);
-            setError("Something went wrong. Please try again.");
+            const body = err instanceof ApiError ? (err.body as any) : null;
+            setError(body?.message || (err instanceof Error ? err.message : "Login failed"));
         } finally {
             setIsSubmitting(false);
         }
@@ -78,7 +75,13 @@ function LoginForm() {
             <div className="relative z-10 w-full max-w-lg mx-4">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 sm:p-12">
                     <div className="flex justify-center mb-6">
-                        <img src="/img/new-logo-green.png" alt="Melbourne Open Data logo" className="h-16 w-auto" />
+                        <Image
+                            src="/img/new-logo-green.png"
+                            alt="Melbourne Open Data logo"
+                            width={200}
+                            height={64}
+                            className="h-16 w-auto"
+                        />
                     </div>
 
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-1">

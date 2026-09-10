@@ -1,9 +1,14 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import createBundleAnalyzer from "@next/bundle-analyzer";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
+const withBundleAnalyzer = createBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
   experimental: {
     forceSwcTransforms: true,
   },
@@ -33,4 +38,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withBundleAnalyzer(withNextIntl(nextConfig));

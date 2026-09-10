@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import '../../../../public/styles/otp_verification.css';
+import Image from "next/image";
 
 const PasswordStrengthIndicator = ({ password }) => {
     const calculateStrength = (password) => {
@@ -58,7 +59,13 @@ const OTPVerificationPage = () => {
       {/* Logo */}
       <div className="logo">
         {/* Add your logo here */}
-        <img src="/img/new-logo-green.png" alt="Chameleon Logo" className=" h-40" />
+        <Image
+          src="/img/new-logo-green.png"
+          alt="Chameleon Logo"
+          width={300}
+          height={160}
+          className="h-40 w-auto"
+        />
       </div>
 
       <div className="text-center mt-4">
