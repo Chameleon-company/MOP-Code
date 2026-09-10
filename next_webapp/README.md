@@ -179,3 +179,9 @@ Some rules to look out for:
 2. If you are pushing from a branch that has other collaborator you have mentioned their name in the pull request message.
 
 ## Resources
+## Lighthouse CI (Sprint 3)
+
+The [repository-root workflow](../.github/workflows/lighthouse.yml) is configured
+to run production Lighthouse audits with enforced performance budgets on PRs
+targeting `staging`. It must be committed and pushed with the frontend changes;
+the first hosted run still needs verification. See [setup, local testing, reports, and required branch protection](docs/lighthouse-ci.md).

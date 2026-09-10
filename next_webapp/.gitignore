@@ -49,3 +49,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+# Lighthouse CI reports
+/.lighthouseci/
+/lighthouse-reports/

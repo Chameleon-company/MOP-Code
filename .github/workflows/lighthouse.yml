@@ -1,0 +1,53 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [staging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    name: Lighthouse performance budgets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: next_webapp
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      CYPRESS_INSTALL_BINARY: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: next_webapp/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Locate runner Chrome
+        run: echo "CHROME_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+      - name: Build production frontend
+        run: npm run build:lighthouse
+      - name: Audit public pages and enforce budgets
+        run: npm run lighthouse
+      - name: Save Lighthouse reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            next_webapp/lighthouse-reports/
+            next_webapp/.lighthouseci/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
