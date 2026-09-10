@@ -3,9 +3,11 @@ import dbConnect from '@/lib/dbConnect';
 import User from '@/models/mongoose/User';
 import bcrypt from 'bcryptjs';
 import { errorResponse } from '@/app/api/library/errorResponse';
+import { checkPasswordResetRateLimit, recordPasswordResetAttempt, clearPasswordResetAttempts, getClientIp } from '@/app/api/library/passwordResetRateLimit';
 
 export async function POST(request: Request) {
     try {
+        const ip = getClientIp(request);
         const { email, temp_password, new_password, confirm_password } = await request.json();
 
         // 1. Validate all fields are present
@@ -31,9 +33,14 @@ export async function POST(request: Request) {
             );
         }
 
-        await dbConnect();
-
         const normalizeEmail = email.toLowerCase().trim();
+
+        const { limited } = await checkPasswordResetRateLimit(normalizeEmail, ip, "failed_reset_attempt");
+        if (limited) {
+            return errorResponse('Too many failed reset attempts, please try again later', 429, 'TOO_MANY_ATTEMPTS');
+        }
+
+        await dbConnect();
 
         // 4. Look up user in MongoDB
         const userData = await User.findOne({
@@ -41,6 +48,7 @@ export async function POST(request: Request) {
         }).exec();
 
         if (!userData) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse(
                 'Invalid credentials',
                 401,
@@ -50,6 +58,7 @@ export async function POST(request: Request) {
 
         // 5. Verify temporary password token
         if (!userData.reset_token) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse(
                 'No reset token found',
                 401,
@@ -58,6 +67,7 @@ export async function POST(request: Request) {
         }
 
         if (userData.reset_token_used) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse(
                 'Temporary password has already been used',
                 401,
@@ -66,6 +76,7 @@ export async function POST(request: Request) {
         }
 
         if (userData.reset_token_expires && new Date() > userData.reset_token_expires) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse(
                 'Temporary password has expired',
                 401,
@@ -79,6 +90,7 @@ export async function POST(request: Request) {
         );
 
         if (!isTempPasswordValid) {
+            await recordPasswordResetAttempt(normalizeEmail, ip, "failed_reset_attempt");
             return errorResponse(
                 'Invalid temporary password',
                 401,
@@ -89,7 +101,7 @@ export async function POST(request: Request) {
         // 6. Ensure new password is different from temporary password
         const isSameAsTemp = await bcrypt.compare(
             new_password,
-            userData.password,
+            userData.reset_token,
         );
 
         if (isSameAsTemp) {
@@ -107,6 +119,8 @@ export async function POST(request: Request) {
         userData.password = hashedPassword;
         userData.reset_token_used = true;
         await userData.save();
+
+        await clearPasswordResetAttempts(normalizeEmail, ip, "failed_reset_attempt");
 
         // 9. Return success
         return NextResponse.json(

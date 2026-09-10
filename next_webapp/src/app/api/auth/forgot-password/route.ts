@@ -5,36 +5,13 @@ import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { errorResponse } from '@/app/api/library/errorResponse';
 import crypto from 'crypto';
+import { checkPasswordResetRateLimit, recordPasswordResetAttempt, getClientIp } from '@/app/api/library/passwordResetRateLimit';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TEMP_PASSWORD_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const TEMP_PASSWORD_LENGTH = 10;
 
-const rateLimitCache = new Map<string, { count: number, resetTime: number }>();
-const RATE_LIMIT_MAX_REQUESTS = 3;
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
-function checkRateLimit(key: string): boolean {
-    const now = Date.now();
-    const record = rateLimitCache.get(key);
-    
-    if (!record) {
-        rateLimitCache.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-        return true;
-    }
-    
-    if (now > record.resetTime) {
-        rateLimitCache.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-        return true;
-    }
-    
-    if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
-        return false;
-    }
-    
-    record.count++;
-    return true;
-}
 
 function generateTempPassword(): string {
     let result = '';
@@ -53,11 +30,7 @@ const SAFE_RESPONSE = NextResponse.json(
 
 export async function POST(request: Request) {
     try {
-        const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
-        if (ip !== 'unknown' && !checkRateLimit(`ip_${ip}`)) {
-            return errorResponse('Too many requests, please try again later', 429, 'RATE_LIMIT_EXCEEDED');
-        }
-
+        const ip = getClientIp(request);
         const { email } = await request.json();
 
         // 1. Validate input
@@ -71,9 +44,11 @@ export async function POST(request: Request) {
 
         const normalizeEmail = email.toLowerCase().trim();
 
-        if (!checkRateLimit(`email_${normalizeEmail}`)) {
-            return errorResponse('Too many requests for this email, please try again later', 429, 'RATE_LIMIT_EXCEEDED');
+        const { limited } = await checkPasswordResetRateLimit(normalizeEmail, ip, "forgot_password_request");
+        if (limited) {
+            return errorResponse('Too many requests, please try again later', 429, 'RATE_LIMIT_EXCEEDED');
         }
+        await recordPasswordResetAttempt(normalizeEmail, ip, "forgot_password_request");
 
         await dbConnect();
 
@@ -119,7 +94,9 @@ export async function POST(request: Request) {
                     `This temporary password can only be used once.`,
             });
         } catch (emailError) {
-            console.error('SMTP Error (swallowed for dev testing). Temp Password is:', tempPassword);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error('SMTP Error (swallowed for dev testing). Temp Password is:', tempPassword);
+            }
             console.error(emailError);
             // We intentionally don't throw here so developers can test the reset flow
             // by grabbing the temp password from the console.
