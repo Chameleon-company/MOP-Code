@@ -6,6 +6,7 @@
 .pnp.js
 .yarn/install-state.gz
 
+
 # logs
 /logs
 *.log
@@ -19,6 +20,7 @@ yarn-error.log*
 # next.js
 /.next/
 /out/
+/analyze/
 
 # production
 /build
