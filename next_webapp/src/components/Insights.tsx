@@ -1,6 +1,7 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
 
 
 const categoryStyles: Record<string, { badge: string; border: string }> = {
@@ -24,10 +25,9 @@ const Insights: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/home/categories")
-      .then((r) => r.json())
-      .then((json) => { if (json.success) setCategories(json.data || []); })
-      .catch(() => {})
+    apiFetch<{ success: boolean; data: any[] }>("/api/home/categories")
+      .then((json) => { if (json.success) setCategories(json.data ?? []); })
+      .catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
       .finally(() => setLoading(false));
   }, []);
 

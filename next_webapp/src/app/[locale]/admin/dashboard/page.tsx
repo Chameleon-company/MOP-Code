@@ -5,6 +5,7 @@ import { LayoutGrid, Folder, BookOpen, Images } from "lucide-react";
 import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
 import { storage } from "@/utils/storage";
+import { apiFetch } from "@/lib/apiFetch";
 
 function getAuthHeaders(): HeadersInit {
   let user: Record<string, any> = {};
@@ -35,17 +36,12 @@ export default function DashboardPage() {
     async function fetchStats() {
       try {
         const headers = getAuthHeaders();
-        const [totalRes, categoryRes, blogsRes, galleryRes] = await Promise.all([
-          fetch("/api/statistics/total-count"),
-          fetch("/api/statistics/by-category"),
-          fetch("/api/blogs?page=1&pageSize=1", { headers }),
-          fetch("/api/gallery?page=1&pageSize=1", { headers }),
+        const [totalData, categoryData, blogsData, galleryData] = await Promise.all([
+          apiFetch<any>("/api/statistics/total-count"),
+          apiFetch<any>("/api/statistics/by-category"),
+          apiFetch<any>("/api/blogs?page=1&pageSize=1", { headers }),
+          apiFetch<any>("/api/gallery?page=1&pageSize=1", { headers }),
         ]);
-
-        const totalData = await totalRes.json();
-        const categoryData = await categoryRes.json();
-        const blogsData = await blogsRes.json();
-        const galleryData = await galleryRes.json();
 
         if (totalData.success) {
           setTotalUseCases(String(totalData.total));
@@ -63,7 +59,7 @@ export default function DashboardPage() {
           setTotalGallery(String(galleryData.pagination?.total ?? 0));
         }
       } catch {
-        // Keep "—" on error
+        // Keep "—" on error; apiFetch already showed a toast
       } finally {
         setLoading(false);
       }

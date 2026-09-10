@@ -34,6 +34,10 @@ const userSchema = new Schema(
 
     role: { type: RoleRefSchema, default: null },
     profile: { type: ProfileSchema, default: null },
+
+    reset_token: { type: String, default: null },
+    reset_token_expires: { type: Date, default: null },
+    reset_token_used: { type: Boolean, default: false },
   },
   {
     collection: "users",

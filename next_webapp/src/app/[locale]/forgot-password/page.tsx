@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Link } from "@/i18n-navigation";
+import Image from "next/image";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const ERROR_MESSAGES: Record<string, string> = {
   MISSING_FIELDS: "Please enter your email address.",
@@ -24,24 +26,21 @@ const ForgotPasswordPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/forgot-password", {
+      await apiFetch("/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
+        silent: true,
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setSuccess(true);
-      } else {
-        setError(
-          ERROR_MESSAGES[data.code] ||
-            data.message ||
-            "Something went wrong. Please try again.",
-        );
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
+      setSuccess(true);
+    } catch (err) {
+      const body = err instanceof ApiError ? (err.body as any) : null;
+      setError(
+        (body?.code && ERROR_MESSAGES[body.code]) ||
+          body?.message ||
+          (err instanceof Error ? err.message : "Something went wrong. Please try again."),
+      );
     } finally {
       setLoading(false);
     }
@@ -58,9 +57,11 @@ const ForgotPasswordPage = () => {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 sm:p-12">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <img
+            <Image
               src="/img/new-logo-green.png"
               alt="Melbourne Open Data logo"
+              width={200}
+              height={64}
               className="h-16 w-auto"
             />
           </div>
