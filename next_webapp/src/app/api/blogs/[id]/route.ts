@@ -2,26 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/mongoose/Blog";
-import { supabase } from "@/library/supabaseClient";
 import { uploadImageToGCS } from "../../library/uploadImageToGCS";
+import { deleteImageFromGCS } from "../../library/deleteImageFromGCS";
+import { getAuthUser } from "../../library/auth";
 import logger from "@/utils/logger";
-
-const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
-
-// ─── Auth helpers ─────────────────────────────────────────────────────────────
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
+import { getImagesBucket } from "../../library/gcsBucket";
 
 // Map a Mongo document (or .lean() object) to the flat shape the frontend
 // expects — plain string `id`, never a raw `_id`/`__v`.
@@ -177,7 +162,7 @@ export async function PUT(
       const filename = `blogs/covers/blog-cover-${userId}-${Date.now()}.webp`;
 
       try {
-        existing.cover_img = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+        existing.cover_img = await uploadImageToGCS(buffer, filename, getImagesBucket());
       } catch (uploadError) {
         console.error("[PUT /api/blogs/[id]] upload error:", uploadError);
         return serverError("Cover image upload failed");
@@ -219,14 +204,12 @@ export async function DELETE(
     const deleted = await Blog.findByIdAndDelete(id);
     if (!deleted) return notFound();
 
-    // Best-effort: remove cover image from storage and log the deletion
+    // Best-effort cleanup — must not fail the delete
     if (existing?.cover_img) {
       try {
-        const imgUrl = new URL(existing.cover_img);
-        const storagePath = imgUrl.pathname.split("/blog-images/")[1];
-        if (storagePath) {
-          await supabase.storage.from("blog-images").remove([storagePath]);
-          logger.info(`Storage file deleted: blog-images/${storagePath}`, {
+        const removed = await deleteImageFromGCS(existing.cover_img, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${existing.cover_img}`, {
             source: "api",
             url: `/api/blogs/${id}`,
             user_id: userId,

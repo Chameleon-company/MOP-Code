@@ -4,23 +4,10 @@ import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/mongoose/Blog";
 import User from "@/models/mongoose/User";
 import { uploadImageToGCS } from "../library/uploadImageToGCS";
-
-const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
+import { getAuthUser } from "../library/auth";
+import { getImagesBucket } from "../library/gcsBucket";
 
 // ─── Auth helpers ────────────────────────────────────────────────────────────
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
 
 // created_by is a Mongo ObjectId ref — only usable once the header carries a
 // real Mongo User _id (post Auth-phase migration). Until then, fall back to
@@ -163,7 +150,7 @@ export async function POST(request: NextRequest) {
 
     let coverImgUrl: string;
     try {
-      coverImgUrl = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+      coverImgUrl = await uploadImageToGCS(buffer, filename, getImagesBucket());
     } catch (uploadError) {
       console.error("[POST /api/blogs] upload error:", uploadError);
       return serverError("Cover image upload failed");

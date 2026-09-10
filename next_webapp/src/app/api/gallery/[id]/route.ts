@@ -3,29 +3,16 @@ import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import GalleryImage from "@/models/mongoose/GalleryImage";
 import { uploadImageToGCS } from "../../library/uploadImageToGCS";
-import { supabase } from "@/library/supabaseClient";
+import { deleteImageFromGCS } from "../../library/deleteImageFromGCS";
+import { getAuthUser } from "../../library/auth";
+import { errorResponse } from "../../library/errorResponse";
 import logger from "@/utils/logger";
-
-const GCS_IMAGES_BUCKET = process.env.GCS_IMAGES_BUCKET ?? "mop-images";
+import { getImagesBucket } from "../../library/gcsBucket";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
-
-// ── Auth helpers ───────────────────────────────────────────────────────────
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
 
 // Map a Mongo document (or .lean() object) to the flat shape the frontend
 // expects — plain string `id`, never a raw `_id`/`__v`.
@@ -164,7 +151,7 @@ export async function PUT(
       const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
 
       try {
-        existing.img_url = await uploadImageToGCS(buffer, filename, GCS_IMAGES_BUCKET);
+        existing.img_url = await uploadImageToGCS(buffer, filename, getImagesBucket());
       } catch (uploadError) {
         console.error("[PUT /api/gallery/[id]] upload error:", uploadError);
         return serverError("Failed to upload gallery image");
@@ -194,9 +181,8 @@ export async function PUT(
 }
 
 // ── DELETE /api/gallery/[id] ───────────────────────────────────────────────
-// Admin only. Permanently removes the record (storage file is NOT deleted
-// automatically — Supabase Storage cleanup can be handled separately or
-// via a storage lifecycle policy).
+// Admin only. Removes the record, then the backing object from GCS.
+// Images still on Supabase URLs are left alone and need a separate sweep.
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -222,14 +208,12 @@ export async function DELETE(
 
     await GalleryImage.findByIdAndDelete(galleryImageId);
 
-    // Best-effort: remove image file from storage and log the deletion
+    // Best-effort cleanup — must not fail the delete
     if (existing?.img_url) {
       try {
-        const imgUrl = new URL(existing.img_url);
-        const storagePath = imgUrl.pathname.split("/gallery-images/")[1];
-        if (storagePath) {
-          await supabase.storage.from("gallery-images").remove([storagePath]);
-          logger.info(`Storage file deleted: gallery-images/${storagePath}`, {
+        const removed = await deleteImageFromGCS(existing.img_url, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${existing.img_url}`, {
             source: "api",
             url: `/api/gallery/${galleryImageId}`,
             user_id: userId,

@@ -32,7 +32,7 @@ steps:
       - '--cpu=1'
 # TODO this is where the secrets are set, and the env vars are set please remember to remove the secrets for the supabase api key and the smtp password from here after it is decomposed
       - '--set-secrets=MONGODB_URI=mongodb-uri:latest,JWT_SECRET=JWT_SECRET:latest,SMTP_PASSWORD=SMTP_PASSWORD:latest,SUPABASE_API_KEY=supabase-api-key:latest'
-      - '--set-env-vars=SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=mopchameleon@gmail.com,SMTP_FROM=mopchameleon@gmail.com,GCS_IMAGES_BUCKET=gs://mop-images,SUPABASE_URL=https://jusajjfvjxtlkafmscwx.supabase.co'
+      - '--set-env-vars=SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=mopchameleon@gmail.com,SMTP_FROM=mopchameleon@gmail.com,GCS_IMAGES_BUCKET=mop-images,SUPABASE_URL=https://jusajjfvjxtlkafmscwx.supabase.co'
 # this code block is there to be able to add the deakin.edu.au domain to the cloud run invoker role, so that users with deakin.edu.au email addresses can access the app
 # reason being that the GCP policy does not allow this  to be accesse publically
   - id: 'Allow Deakin Domain Access'
