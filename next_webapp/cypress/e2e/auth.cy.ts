@@ -1,6 +1,6 @@
 // Authentication flow E2E tests — covers login, signup, forgot-password, change-password, and OTP-verification
 // form validation, error states, success states, and navigation.
-// Admin access-control and sidebar navigation tests are in admin.cy.ts
+// Admin access-control and sidebar navigation tests are in admin_workflow.cy.ts
 //
 // Selectors:
 //   - Email input:      cy.get('input[type="email"]')
