@@ -98,17 +98,19 @@ export default function BlogsPage({ params }: { params: Promise<{ locale: string
   return (
     <div>
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-[40px] font-semibold text-[#2DBE6C]">Blogs</h1>
-          <p className="mt-2 text-[16px] text-[#687280]">
+          <h1 className="text-2xl font-semibold leading-tight text-[#2DBE6C] sm:text-3xl md:text-[40px]">
+            Blogs
+          </h1>
+          <p className="mt-1 text-xs text-[#687280] sm:text-sm md:text-[16px]">
             Manage and organize your blogs
           </p>
         </div>
 
         <Link
           href={`/${locale}/admin/blogs/add`}
-          className="flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-3 text-white hover:bg-[#2DBE6C]"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#1F8F50] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#2DBE6C] sm:px-5 sm:py-3"
         >
           <Plus size={18} />
           Add New
