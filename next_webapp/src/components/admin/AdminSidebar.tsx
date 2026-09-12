@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import {
   Menu,
+  X,
   LayoutDashboard,
   FolderOpen,
   Briefcase,
@@ -27,33 +28,56 @@ const menuItems = [
 type AdminSidebarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileOpen: boolean;
+  setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function AdminSidebar({
   sidebarOpen,
   setSidebarOpen,
+  mobileOpen,
+  setMobileOpen,
 }: AdminSidebarProps) {
   const pathname = usePathname();
   const params = useParams();
   const locale = params?.locale as string;
 
-  const asideBase = `transition-all duration-300 shadow-sm`;
-  const asideWidth = sidebarOpen
-    ? "w-[120px] md:w-[180px] lg:w-[190px]"
-    : "w-[56px] md:w-[70px]";
-  const asideBg = sidebarOpen ? "bg-[#1F8F50]" : "bg-[#F1EFEF]";
-
   return (
     <>
-      {/* Mobile + tablet */}
+      {/* Backdrop — mobile/tablet only, shown while the drawer is open */}
+      {mobileOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setMobileOpen(false)}
+          className="fixed inset-0 z-20 bg-black/50 backdrop-blur-[2px] dark:bg-black/60 lg:hidden"
+        />
+      )}
+
       <aside
-        className={`absolute left-0 top-0 bottom-0 z-20 lg:hidden ${asideBase} ${asideWidth} ${asideBg}`}
+        className={`fixed inset-y-0 left-0 z-30 w-[190px] bg-[#1F8F50] shadow-sm transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:static lg:z-auto lg:translate-x-0 lg:transition-all lg:duration-300 ${
+          sidebarOpen ? "lg:w-[190px] lg:bg-[#1F8F50]" : "lg:w-[70px] lg:bg-[#F1EFEF]"
+        }`}
       >
-        <div className="px-2 py-3">
+        <div className="flex items-center px-2 py-3 lg:px-3">
+          {/* Close button — mobile drawer only */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition hover:bg-white/20 lg:hidden"
+          >
+            <X size={20} />
+          </button>
+
+          {/* Collapse/expand button — desktop only */}
           <button
             type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-black transition hover:bg-white/20"
+            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            className="hidden h-10 w-10 items-center justify-center rounded-lg text-black transition hover:bg-white/20 lg:flex"
           >
             <Menu size={20} />
           </button>
@@ -70,69 +94,27 @@ export default function AdminSidebar({
                 key={item.label}
                 href={href}
                 title={!sidebarOpen ? item.label : ""}
-                className={`flex items-center rounded-lg transition-all duration-200 ${
-                  sidebarOpen ? "gap-2 px-3 py-2" : "justify-center px-0 py-2"
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 transition-all duration-200 ${
+                  sidebarOpen
+                    ? "lg:gap-3 lg:px-3 lg:py-2"
+                    : "lg:justify-center lg:gap-0 lg:px-0 lg:py-2"
                 } ${
                   isActive
                     ? "bg-white text-[#1F8F50]"
                     : sidebarOpen
-                    ? "text-black hover:bg-white/20"
-                    : "text-black hover:bg-black/5"
+                    ? "text-white hover:bg-white/20"
+                    : "text-white hover:bg-white/20 lg:text-black lg:hover:bg-black/5"
                 }`}
               >
                 <Icon size={16} className="md:h-[18px] md:w-[18px]" />
-                {sidebarOpen && (
-                  <span className="text-[12px] md:text-[14px] font-medium leading-tight">
-                    {item.label}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
-
-      {/* Desktop only */}
-      <aside
-        className={`hidden lg:block ${asideBase} ${
-          sidebarOpen ? "w-[190px] bg-[#1F8F50]" : "w-[70px] bg-[#F1EFEF]"
-        }`}
-      >
-        <div className="px-3 py-3">
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-black transition hover:bg-white/20"
-          >
-            <Menu size={20} />
-          </button>
-        </div>
-
-        <nav className="space-y-2 px-2 pt-4">
-          {menuItems.map((item) => {
-            const href = `/${locale}${item.path}`;
-            const isActive = pathname === href;
-            const Icon = item.icon;
-
-            return (
-              <Link
-                key={item.label}
-                href={href}
-                title={!sidebarOpen ? item.label : ""}
-                className={`flex items-center rounded-lg transition-all duration-200 ${
-                  sidebarOpen ? "gap-3 px-3 py-2" : "justify-center px-0 py-2"
-                } ${
-                  isActive
-                    ? "bg-white text-[#1F8F50]"
-                    : sidebarOpen
-                    ? "text-black hover:bg-white/20"
-                    : "text-black hover:bg-black/5"
-                }`}
-              >
-                <Icon size={16} className="h-[18px] w-[18px]" />
-                {sidebarOpen && (
-                  <span className="text-[14px] font-medium">{item.label}</span>
-                )}
+                <span
+                  className={`text-[12px] font-medium leading-tight md:text-[14px] ${
+                    !sidebarOpen ? "lg:hidden" : ""
+                  }`}
+                >
+                  {item.label}
+                </span>
               </Link>
             );
           })}
