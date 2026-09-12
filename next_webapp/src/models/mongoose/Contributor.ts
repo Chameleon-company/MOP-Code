@@ -1,50 +1,6 @@
 import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
-// Fixed vocabularies the team-agreed taxonomy (supersedes the earlier
-// placeholder values copied from the admin form's old dropdown).
-export const TEAM_ROLES = {
-  "Data Science Team": [
-    "Data Scientist",
-    "Data Science Team Lead",
-    "Data Science Quality Manager",
-  ],
-  "Website Development Team": [
-    "Web Developer",
-    "Web Dev Team Lead",
-    "Web Dev Quality Manager",
-  ],
-  "Design Team": [
-    "Design Team Member",
-    "Design Team Lead",
-  ],
-  "Cyber Security Team": [
-    "Cyber Security Team Member",
-    "Cyber Security Team Lead",
-  ],
-} as const;
-
-export type TeamName = keyof typeof TEAM_ROLES;
-
-export const TEAMS = [
-  "Data Science Team",
-  "Website Development Team",
-  "Design Team",
-  "Cyber Security Team",
-] as const;
-export const ROLES = [
-  "Web Developer",
-  "Data Scientist",
-  "Data Science Team Lead",
-  "Data Science Quality Manager",
-  "Web Dev Team Lead",
-  "Web Dev Quality Manager",
-  "Design Team Member",
-  "Design Team Lead",
-  "Cyber Security Team Member",
-  "Cyber Security Team Lead",
-] as const;
-export const LEVELS = ["Junior", "Senior"] as const;
-export const CONTRIBUTOR_TYPES = ["student", "mentor", "company_director"] as const;
+import { TEAM_ROLES, TEAMS, ROLES, LEVELS, CONTRIBUTOR_TYPES, type TeamName } from "@/types/contributor";
 
 const contributorSchema = new Schema(
   {
@@ -90,6 +46,13 @@ contributorSchema.pre("validate", function (next) {
     }
     if (!this.level) {
       this.invalidate("level", "level is required for student contributors");
+    }
+    
+    if (this.team && this.position) {
+      const validRoles = TEAM_ROLES[this.team as TeamName];
+      if (validRoles && !(validRoles as readonly string[]).includes(this.position)) {
+        this.invalidate("position", `Position '${this.position}' is not valid for team '${this.team}'`);
+      }
     }
   }
   next();

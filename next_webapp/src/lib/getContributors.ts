@@ -8,7 +8,7 @@ interface RawContributor {
   name: string;
   year: number;
   trimester: number;
-  contributor_type: "student" | "mentor" | "company_director";
+  contributor_type: "student" | "mentor" | "company_director" | "project_lead";
   team: string | null;
   position: string | null;
   level: "Junior" | "Senior" | null;
@@ -22,6 +22,7 @@ const CONTRIBUTOR_TYPE_MAP: Record<RawContributor["contributor_type"], Contribut
   student: "student",
   mentor: "mentor",
   company_director: "company_director",
+  project_lead: "project_lead",
 };
 
 function mapToContributorRecord(raw: RawContributor): ContributorRecord {
