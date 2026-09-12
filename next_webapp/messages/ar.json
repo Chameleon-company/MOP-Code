@@ -268,5 +268,29 @@
     "Clear": "مسح",
     "ClickOrDrag": "انقر أو اسحب الملف للتحميل",
     "SupportedTypes": "مدعوم: PDF، DOCX، PNG…"
+  },
+  "seo": {
+    "home_title": "بيانات مفتوحة لمدينة ملبورن الذكية",
+    "home_description": "يحوّل Melbourne Open Playground بيانات ملبورن المفتوحة إلى أدوات تفاعلية ودراسات حالة ورؤى من أجل مدينة أذكى وأكثر استدامة.",
+    "about_title": "معلومات عنا",
+    "about_description": "تعرّف على Melbourne Open Playground، وهو مشروع تخرج من جامعة ديكين يهدف إلى جعل بيانات ملبورن المفتوحة سهلة الوصول ومفيدة وقابلة للتطبيق.",
+    "blog_title": "المدونة",
+    "blog_description": "اقرأ أحدث المقالات والرؤى والتحديثات من Melbourne Open Playground حول البيانات المفتوحة والاستدامة وابتكار المدن الذكية.",
+    "usecases_title": "دراسات الحالة",
+    "usecases_description": "اكتشف دراسات حالة واقعية توضح كيف تدفع بيانات ملبورن المفتوحة قرارات أذكى في الصحة والبيئة والنقل وغيرها.",
+    "categories_title": "الفئات",
+    "categories_description": "تصفّح بيانات ومحتوى Melbourne Open Playground حسب الفئة للعثور بسرعة على الرؤى ودراسات الحالة الأكثر صلة باهتماماتك.",
+    "gallery_title": "المعرض",
+    "gallery_description": "استكشف ملبورن من منظور البيانات المفتوحة: المعالم والمساحات الخضراء ومبادرات الاستدامة وابتكارات المدن الذكية.",
+    "faq_title": "الأسئلة الشائعة",
+    "faq_description": "اعثر على إجابات للأسئلة الشائعة حول Melbourne Open Playground ومصادر بياناتنا المفتوحة ودراسات الحالة وكيفية المشاركة.",
+    "contact_title": "اتصل بنا",
+    "contact_description": "تواصل مع فريق Melbourne Open Playground للأسئلة أو الملاحظات أو استفسارات الشراكة أو الدعم.",
+    "licensing_title": "الترخيص",
+    "licensing_description": "اطّلع على شروط ترخيص استخدام بيانات ومحتوى وأدوات Melbourne Open Playground.",
+    "privacypolicy_title": "سياسة الخصوصية",
+    "privacypolicy_description": "اقرأ سياسة خصوصية Melbourne Open Playground لفهم كيفية جمع معلوماتك الشخصية واستخدامها وحمايتها.",
+    "ev_infrastructure_title": "البنية التحتية للمركبات الكهربائية",
+    "ev_infrastructure_description": "استكشف البيانات المفتوحة حول البنية التحتية لشحن المركبات الكهربائية في ملبورن، بما في ذلك المواقع والتوفر واتجاهات النمو."
   }
 }

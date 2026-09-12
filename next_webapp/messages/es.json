@@ -277,5 +277,29 @@
     "Clear": "Limpiar",
     "ClickOrDrag": "Haz clic o arrastra el archivo para subir",
     "SupportedTypes": "Soportados: PDF, DOCX, PNG…"
+  },
+  "seo": {
+    "home_title": "Datos Abiertos para una Melbourne Más Inteligente",
+    "home_description": "Melbourne Open Playground convierte los datos abiertos de Melbourne en herramientas interactivas, casos de uso e información para una ciudad más inteligente y sostenible.",
+    "about_title": "Acerca de Nosotros",
+    "about_description": "Conoce Melbourne Open Playground, un proyecto de culminación de la Universidad Deakin que hace que los datos abiertos de Melbourne sean accesibles, útiles y prácticos.",
+    "blog_title": "Blog",
+    "blog_description": "Lee los últimos artículos, ideas y novedades de Melbourne Open Playground sobre datos abiertos, sostenibilidad e innovación en ciudades inteligentes.",
+    "usecases_title": "Casos de Uso",
+    "usecases_description": "Descubre casos de uso reales que muestran cómo los datos abiertos de Melbourne impulsan decisiones más inteligentes en salud, medio ambiente, transporte y más.",
+    "categories_title": "Categorías",
+    "categories_description": "Explora los datos y contenidos de Melbourne Open Playground por categoría para encontrar rápidamente la información y los casos de uso más relevantes para ti.",
+    "gallery_title": "Galería",
+    "gallery_description": "Explora Melbourne a través de los datos abiertos: monumentos, espacios verdes, iniciativas de sostenibilidad e innovaciones de ciudades inteligentes.",
+    "faq_title": "Preguntas Frecuentes",
+    "faq_description": "Encuentra respuestas a preguntas frecuentes sobre Melbourne Open Playground, nuestras fuentes de datos abiertos, casos de uso y cómo participar.",
+    "contact_title": "Contáctanos",
+    "contact_description": "Ponte en contacto con el equipo de Melbourne Open Playground para preguntas, comentarios, consultas de colaboración o soporte.",
+    "licensing_title": "Licencias",
+    "licensing_description": "Revisa los términos de licencia para el uso de los datos, contenidos y herramientas de Melbourne Open Playground.",
+    "privacypolicy_title": "Política de Privacidad",
+    "privacypolicy_description": "Lee la política de privacidad de Melbourne Open Playground para entender cómo recopilamos, usamos y protegemos tu información personal.",
+    "ev_infrastructure_title": "Infraestructura de Vehículos Eléctricos",
+    "ev_infrastructure_description": "Explora los datos abiertos sobre la infraestructura de carga de vehículos eléctricos en Melbourne, incluyendo ubicaciones, disponibilidad y tendencias de crecimiento."
   }
 }

@@ -277,5 +277,29 @@
     "Clear": "清除",
     "ClickOrDrag": "点击或拖拽文件上传",
     "SupportedTypes": "支持格式：PDF、DOCX、PNG…"
+  },
+  "seo": {
+    "home_title": "开放数据，成就更智慧的墨尔本",
+    "home_description": "Melbourne Open Playground 将墨尔本的开放数据转化为交互式工具、应用案例和洞见，助力打造更智慧、更可持续的城市。",
+    "about_title": "关于我们",
+    "about_description": "了解 Melbourne Open Playground——一个迪肯大学的顶点项目，致力于让墨尔本的开放数据变得易于获取、实用且可操作。",
+    "blog_title": "博客",
+    "blog_description": "阅读 Melbourne Open Playground 关于开放数据、可持续发展和智慧城市创新的最新文章、见解与动态。",
+    "usecases_title": "应用案例",
+    "usecases_description": "探索真实的应用案例，了解墨尔本的开放数据如何在医疗、环境、交通等领域推动更明智的决策。",
+    "categories_title": "分类",
+    "categories_description": "按分类浏览 Melbourne Open Playground 的数据与内容，快速找到与您最相关的见解和应用案例。",
+    "gallery_title": "图库",
+    "gallery_description": "透过开放数据的视角探索墨尔本——地标建筑、绿色空间、可持续发展举措与智慧城市创新。",
+    "faq_title": "常见问题",
+    "faq_description": "查找有关 Melbourne Open Playground、我们的开放数据来源、应用案例以及如何参与的常见问题解答。",
+    "contact_title": "联系我们",
+    "contact_description": "如有问题、反馈、合作咨询或支持需求，欢迎联系 Melbourne Open Playground 团队。",
+    "licensing_title": "许可协议",
+    "licensing_description": "查看使用 Melbourne Open Playground 数据、内容和工具的许可条款。",
+    "privacypolicy_title": "隐私政策",
+    "privacypolicy_description": "阅读 Melbourne Open Playground 的隐私政策，了解我们如何收集、使用和保护您的个人信息。",
+    "ev_infrastructure_title": "电动汽车基础设施",
+    "ev_infrastructure_description": "探索有关墨尔本电动汽车充电基础设施的开放数据，包括位置、可用性和增长趋势。"
   }
 }

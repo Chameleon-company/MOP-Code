@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import ContributorsSection from "../../../components/ContributorsSection";
@@ -5,7 +7,23 @@ import "./about.css";
 import { Link } from "@/i18n-navigation";
 import { getContributors } from "@/lib/getContributors";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getHreflangAlternates } from "@/lib/seo/hreflang";
+
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "seo" });
+	const { canonical, languages } = getHreflangAlternates("/about");
+
+	return {
+		title: t("about_title"),
+		description: t("about_description"),
+		alternates: { canonical, languages },
+	};
+}
 
 const About = async () => {
   const contributors = (await getContributors()) ?? [];
