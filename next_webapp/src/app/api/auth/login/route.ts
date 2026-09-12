@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorResponse } from '@/app/api/library/errorResponse';
+import {
+    checkLoginRateLimit,
+    getClientIp,
+    recordFailedLoginAttempt,
+    resetLoginAttempts,
+} from '@/app/api/library/loginRateLimit';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/models/mongoose/User';
 
@@ -19,10 +25,19 @@ export async function POST(request: Request) {
             return errorResponse('Email and password are required', 400, 'MISSING_FIELDS');
         }
         const normalizeEmail = email.toLowerCase().trim();
+        const ip = getClientIp(request);
+
+        // 1.5. Rate limit checked before any lookup/compare below.
+        const { limited } = await checkLoginRateLimit(normalizeEmail, ip);
+        if (limited) {
+            return errorResponse('Too many attempts, please try again later.', 429, 'TOO_MANY_ATTEMPTS');
+        }
+
         // 2. Find user by email
         const userData = await User.findOne({ email:normalizeEmail }).exec();
 
         if (!userData) {
+            await recordFailedLoginAttempt(normalizeEmail, ip);
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
@@ -33,6 +48,7 @@ export async function POST(request: Request) {
         );
 
         if (!isPasswordValid) {
+            await recordFailedLoginAttempt(normalizeEmail, ip);
             return errorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
         }
 
@@ -65,6 +81,9 @@ export async function POST(request: Request) {
         };
 
         const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '7d' });
+
+        // Successful login clear any tracked failed attempts.
+        await resetLoginAttempts(normalizeEmail, ip);
 
         // 7. Return success response with everything
         return NextResponse.json(
