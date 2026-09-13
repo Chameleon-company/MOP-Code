@@ -30,6 +30,7 @@ export async function POST(request: Request) {
         // 1.5. Rate limit checked before any lookup/compare below.
         const { limited } = await checkLoginRateLimit(normalizeEmail, ip);
         if (limited) {
+            await recordFailedLoginAttempt(normalizeEmail, ip);
             return errorResponse('Too many attempts, please try again later.', 429, 'TOO_MANY_ATTEMPTS');
         }
 

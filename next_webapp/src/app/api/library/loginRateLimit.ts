@@ -19,15 +19,23 @@ function isWithinWindow(lastAttemptAt: Date): boolean {
 }
 
 /**
- * Extract the client IP the same way src/middleware.ts does: first entry of
- * x-forwarded-for, else x-real-ip. `request.ip` is not reliable on Cloud
- * Run TLS terminates at a proxy in front of the instance.
+ * Extract the client IP from x-forwarded-for, else x-real-ip. `request.ip`
+ * is not reliable on Cloud Run TLS terminates at a proxy in front of the
+ * instance.
+ *
+ * Takes the LAST entry of x-forwarded-for, not the first: Cloud Run appends
+ * the real client IP to the end of the chain, while every entry before that
+ * is attacker-controlled request-header content. Trusting the first entry
+ * lets a client spoof any IP and bypass the per-IP limit entirely.
  */
 export function getClientIp(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    const first = forwardedFor.split(",")[0]?.trim();
-    if (first) return first;
+    const parts = forwardedFor
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean);
+    if (parts.length > 0) return parts[parts.length - 1];
   }
   return request.headers.get("x-real-ip") || "unknown";
 }
@@ -64,6 +72,7 @@ export async function checkLoginRateLimit(
     return { limited: false };
   }
 }
+const EPOCH = new Date(0);
 
 /**
  * Record a failed login attempt against both the email and IP keys.
@@ -85,11 +94,39 @@ export async function recordFailedLoginAttempt(
       keys.map(({ key, type }) =>
         LoginAttempt.findOneAndUpdate(
           { key, type },
-          {
-            $inc: { attempts: 1 },
-            $set: { last_attempt_at: now },
-            $setOnInsert: { first_attempt_at: now },
-          },
+          [
+            {
+              $set: {
+                _stale: {
+                  $gte: [
+                    {
+                      $subtract: [
+                        now,
+                        { $ifNull: ["$last_attempt_at", EPOCH] },
+                      ],
+                    },
+                    WINDOW_MS,
+                  ],
+                },
+              },
+            },
+            {
+              $set: {
+                attempts: {
+                  $cond: [
+                    "$_stale",
+                    1,
+                    { $add: [{ $ifNull: ["$attempts", 0] }, 1] },
+                  ],
+                },
+                first_attempt_at: {
+                  $cond: ["$_stale", now, { $ifNull: ["$first_attempt_at", now] }],
+                },
+                last_attempt_at: now,
+              },
+            },
+            { $unset: "_stale" },
+          ],
           { upsert: true },
         ),
       ),
