@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
 import { uploadImageToStorage } from "../library/uploadImageToStorage";
+import { getAuthUser } from "../library/auth";
+import { errorResponse } from "../library/errorResponse";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -8,20 +10,6 @@ const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
 const DEFAULT_PAGE_SIZE = 12;
 const MAX_PAGE_SIZE = 100;
-
-// ── Auth helpers ───────────────────────────────────────────────────────────
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
 
 // ── Response helpers ───────────────────────────────────────────────────────
 function unauthorized() {
@@ -66,7 +54,9 @@ function validateImage(image: File | null): string | null {
 // Admin listing with pagination and optional title search.
 // Query params: page, pageSize, search
 export async function GET(request: NextRequest) {
-  if (!getUserId(request)) return unauthorized();
+  const { userId, isAuthenticated } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) return unauthorized();
 
   try {
     const url = new URL(request.url);
@@ -132,9 +122,15 @@ export async function GET(request: NextRequest) {
 // ── POST /api/gallery ──────────────────────────────────────────────────────
 // Admin only. Accepts multipart/form-data: title (string), image (File).
 export async function POST(request: NextRequest) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) {
+    return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
+  }
+
+  if (!isAdmin) {
+    return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
+  }
 
   try {
     const formData = await request.formData();
@@ -171,7 +167,13 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("[POST /api/gallery] insert error:", error);
-      return serverError("Failed to create gallery image");
+      return errorResponse(
+        "Failed to create gallery image",
+        500,
+        "DB_INSERT_ERROR",
+        request,
+        userId
+      );
     }
 
     return NextResponse.json(
@@ -186,6 +188,13 @@ export async function POST(request: NextRequest) {
     console.error("[POST /api/gallery] unexpected error:", error);
     const message =
       error instanceof Error ? error.message : "Failed to add gallery image";
-    return serverError(message);
+
+    return errorResponse(
+      message,
+      500,
+      "INTERNAL_ERROR",
+      request,
+      userId
+    );
   }
 }

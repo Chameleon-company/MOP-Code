@@ -15,7 +15,7 @@ export async function uploadImageToStorage({
   bucket: string;
   folder: string;
   prefix: string;
-  userId: number;
+  userId: string;
 }) {
   if (!file) {
     throw new Error("No image file provided");
