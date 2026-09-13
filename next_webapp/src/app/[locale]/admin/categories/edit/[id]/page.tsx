@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FolderOpen, ImagePlus, Save } from "lucide-react";
+import Image from "next/image";
 import { apiFetch } from "@/lib/apiFetch";
 
 function getAuthHeaders() {
@@ -186,10 +187,13 @@ export default function EditCategoryPage() {
               className="cursor-pointer rounded-2xl border-2 border-dashed border-[#CFEFD9] bg-[#F8FFFA] p-8 text-center transition hover:bg-[#F0FFF6]"
             >
               {imagePreview ? (
-                <img
+                <Image
                   src={imagePreview}
                   alt="Preview"
-                  className="mx-auto h-40 rounded-lg object-cover"
+                  className="mx-auto h-40 w-auto rounded-lg object-cover"
+                  width={320}
+                  height={160}
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>

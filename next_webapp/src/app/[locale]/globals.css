@@ -1,5 +1,4 @@
 /* global.css */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
   --color-primary: #2ecc71;
@@ -13,10 +12,6 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: "Poppins", sans-serif;
-  }
-
   body {
     color: var(--color-dark);
     background: var(--color-light);
