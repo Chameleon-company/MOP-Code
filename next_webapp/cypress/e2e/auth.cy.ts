@@ -102,7 +102,7 @@ describe('Login Page', () => {
     cy.get('button[type="submit"]').click();
 
     // Generic error should be shown
-    cy.contains('Something went wrong. Please try again.').should('be.visible');
+    cy.contains('Network error - please check your connection and try again.').should('be.visible');
   });
 
   it('shows a loading spinner while the login request is in-flight', () => {
@@ -241,7 +241,7 @@ describe('Signup Page', () => {
     cy.get('input[name="confirmPassword"]').type('StrongPass1!');
     cy.get('button[type="submit"]').click();
 
-    cy.contains('Something went wrong. Please try again later.').should('be.visible');
+    cy.contains('Network error - please check your connection and try again.').should('be.visible');
   });
 });
 
@@ -299,7 +299,7 @@ describe('Forgot Password Page', () => {
     cy.get('input[type="email"]').type('user@example.com');
     cy.get('button[type="submit"]').click();
 
-    cy.contains('Something went wrong. Please try again.').should('be.visible');
+    cy.contains('Network error - please check your connection and try again.').should('be.visible');
   });
 
   it('has a "Back to Sign In" link that navigates to /login', () => {
