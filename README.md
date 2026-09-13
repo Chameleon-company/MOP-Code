@@ -1,64 +1,63 @@
-<img src="/images/mop-black.png" alt="drawing" width="100"/>
+<img src="next_webapp/public/img/new-logo-green.png" alt="Melbourne Open Data Playground" width="140"/>
 
-**Melbourne Open Data Playground**
-==================================
-Last Updated: 13-Dec-2021
+# Melbourne Open Data Playground (MOP)
 
-An initiative of the [Deakin University Industry Student Capstone (DISC) Program](https://www.discprojects.com/) for the [City of Melbourne](https://data.melbourne.vic.gov.au/).
+**An industry capstone project by [Chameleon](https://github.com/Chameleon-company), sponsored by Deakin University for the [City of Melbourne](https://data.melbourne.vic.gov.au/).**
 
-# About
-
-Welcome to the Melbourne Open Data Playground GitHub community page.
-
-Melbourne Open Data Playground (MOP) is a capstone project sponsored by Deakin University.
-
-Since Covid there has been greater demand for data by the business community to support their decision making. This project is designed to align with and support two strategic imperitives from City of Melbourne Council being:
-
-- **The Economic Development Strategy to be a digitally-connected city, and**
-- **The 2021-2025 Council Plan which outlines the specific objective of delivering programs that will build digital literacy skills and capabilities.**
-
-The City of Melbourne has been an Australian leader in Open Data since 2014.
-
-Through research and local community engagement, the City of Melbourne has identified two key gaps in community knowledge of open data, these being:
-- an understanding of how to access Open Data, and
-- how to gain insights from the data in support of application development and finding solutions to city problems.
+🌐 **Live site:** [melbourne-open-playground.vercel.app](https://melbourne-open-playground.vercel.app)
 
 ---
 
+## About
 
-What is in this repository?
-=====
-In this GitHub repository you can access a wide variety of example Jupyter notebooks that let you explore, visualise and analyse Open Data published by the City of Melbourne.
+Melbourne Open Data Playground (MOP) helps the business, research, and developer community discover, explore, and build on the City of Melbourne's Open Data. Since 2014 the City of Melbourne has been an Australian leader in open data, but two gaps remain in the community's ability to make use of it:
 
-By publishing these notebooks, we aim to increase adoption and use of City of Melbourne Open Data to support the business, research and development community. 
+- understanding **how to access** Open Data, and
+- knowing **how to gain insights** from it to support application development and solve real city problems.
 
-This repository contains :
-- [Example Jupyter Notebooks](example_notebooks/)
-- [Open Data API (a command line python program for open data retrieval)](opendataapi/)
+MOP addresses both — publishing runnable Jupyter notebook use cases against City of Melbourne datasets, and a web platform for browsing, showcasing, and interacting with them.
 
----
-
-Who manages this repository?
-=====
-
-This repository was setup, and is managed, by the D2I Melbourne City Capstone Team at Deakin University.
-
-This repository is designed to provide access to both:
-- supplementary content for the [Melbourne Open Data Playground](https://6pdglgxshl.execute-api.ap-southeast-2.amazonaws.com/Prod/) web site, and
-- a forum for community contribution to the use of City Of Melbourne Open Data.
-
-Note: This team is active and monitoring this repository primarily during [Deakin University's 2022 Trimesters](https://www.deakin.edu.au/students/enrolment-fees-and-money/university-handbook/2022-handbook/2022-trimester-dates) 
+This repository is developed and maintained by **Chameleon**, a Deakin University Industry Capstone team, with each trimester's student cohort contributing new use cases, data science work, and improvements to the web platform.
 
 ---
 
-How can I contribute to this repository?
-=====
+## Repository structure
 
-* Step 1: Setup a [GitHub account](https://github.com/signup) and [ensure you are familiar with how to use Git and GitHub](https://lab.github.com/)
-* Step 2: Star and watch this page for updates
-* Step 3: [Explore some of the many example Jupyter notebooks available in this Repository](https://github.com/D2I-Melbourne/MOP/tree/master/example_notebooks)
-* Step 4: [Let us know about if you have ideas for new features or spotted defects we should correct](https://github.com/D2I-Melbourne/MOP/issues)
-* Step 5: Create your own Use Case using [City of Melbourne Open Data](https://data.melbourne.vic.gov.au/) and our [Jupyter Notebook template](https://github.com/D2I-Melbourne/MOP/blob/master/example_notebooks/usecases/usecase-TEMPLATE.ipynb).
-
+| Folder | Contents |
+|---|---|
+| [`next_webapp/`](next_webapp/) | The MOP website — a Next.js application. See its own [README](next_webapp/README.md) for setup instructions. |
+| [`usecases/`](usecases/) | Jupyter notebook use cases built on City of Melbourne Open Data, organised by publishing status (`READY TO PUBLISH`, `FINALISED`, `RETIRED`, `UPDATE NEEDED`, `DEPENDENCIES`). See [`Use_Case_Index.md`](usecases/Use_Case_Index.md) for the full index. |
+| [`Playground/`](Playground/) | Work-in-progress and experimental notebooks from current and past student contributors. |
+| [`documentation/`](documentation/) | Onboarding guides, tooling how-tos, and team process documentation for new contributors. |
 
 ---
+
+## Getting started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Chameleon-company/MOP-Code.git
+   ```
+2. To run the **website**, see [`next_webapp/README.md`](next_webapp/README.md) for full setup instructions.
+3. To explore a **use case**, open any notebook under [`usecases/`](usecases/) in Jupyter — start with [`usecases/usecase_TEMPLATE.ipynb`](usecases/usecase_TEMPLATE.ipynb) if you're building a new one.
+
+---
+
+## How can I contribute?
+
+1. Set up a [GitHub account](https://github.com/signup) and get familiar with [Git and GitHub](https://lab.github.com/) if you haven't already.
+2. Star and watch this repository for updates.
+3. Read through [`documentation/`](documentation/) for onboarding guides and team working practices.
+4. Explore the existing [use cases](usecases/) and the [website](https://melbourne-open-playground.vercel.app).
+5. [Open an issue](https://github.com/Chameleon-company/MOP-Code/issues) if you spot a defect or have an idea for a new feature.
+6. Build your own use case using [City of Melbourne Open Data](https://data.melbourne.vic.gov.au/) and the [notebook template](usecases/usecase_TEMPLATE.ipynb), then open a pull request.
+
+Each use-case team/project works in its own branch, merging into `master` once complete — see [`documentation/`](documentation/) for the detailed contribution and pull request workflow.
+
+---
+
+## About Chameleon
+
+[Chameleon](https://github.com/Chameleon-company) is a Deakin University student capstone organisation building applied data and software projects for real-world partners. Beyond MOP, Chameleon also maintains projects such as [EVAT](https://github.com/Chameleon-company/EVAT) and [TreeO2](https://github.com/Chameleon-company/TreeO2).
+
+📧 Contact: chameleon@deakin.edu.au

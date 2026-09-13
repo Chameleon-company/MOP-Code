@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FolderOpen, ImagePlus, Save } from "lucide-react";
+import Image from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
 
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -39,20 +41,16 @@ export default function EditCategoryPage() {
       setFetchLoading(true);
       setFetchError("");
       try {
-        const res = await fetch(`/api/categories/${id}`, {
+        const json = await apiFetch<any>(`/api/categories/${id}`, {
           headers: getAuthHeaders(),
+          silent: true,
         });
-        const json = await res.json();
-        if (!json.success) {
-          setFetchError(json.message || "Category not found.");
-          return;
-        }
         setCategoryName(json.data.category_name || "");
         setDescription(json.data.description || "");
         setExistingImgUrl(json.data.cover_img || null);
         setImagePreview(json.data.cover_img || null);
-      } catch {
-        setFetchError("Failed to load category.");
+      } catch (e) {
+        setFetchError(e instanceof Error ? e.message : "Failed to load category.");
       } finally {
         setFetchLoading(false);
       }
@@ -83,22 +81,22 @@ export default function EditCategoryPage() {
         formData.append("file", imageFile);
         formData.append("folder", "categories");
 
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          headers: authHeaders,
-          body: formData,
-        });
-        const uploadJson = await uploadRes.json();
-
-        if (!uploadJson.success) {
-          setSaveError("Image upload failed: " + (uploadJson.message || "Unknown error"));
+        try {
+          const uploadJson = await apiFetch<{ success: boolean; url?: string }>("/api/upload", {
+            method: "POST",
+            headers: authHeaders,
+            body: formData,
+            silent: true,
+          });
+          coverImgUrl = uploadJson.url ?? null;
+        } catch (e) {
+          setSaveError("Image upload failed: " + (e instanceof Error ? e.message : "Unknown error"));
           setSaving(false);
           return;
         }
-        coverImgUrl = uploadJson.url;
       }
 
-      const res = await fetch(`/api/categories/${id}`, {
+      await apiFetch(`/api/categories/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify({
@@ -106,18 +104,12 @@ export default function EditCategoryPage() {
           description,
           cover_img: coverImgUrl,
         }),
+        silent: true,
       });
-      const json = await res.json();
-
-      if (!json.success) {
-        setSaveError(json.message || "Failed to update category.");
-        setSaving(false);
-        return;
-      }
 
       router.push(`/${locale}/admin/categories`);
-    } catch {
-      setSaveError("Failed to update category.");
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : "Failed to update category.");
       setSaving(false);
     }
   }
@@ -195,10 +187,13 @@ export default function EditCategoryPage() {
               className="cursor-pointer rounded-2xl border-2 border-dashed border-[#CFEFD9] bg-[#F8FFFA] p-8 text-center transition hover:bg-[#F0FFF6]"
             >
               {imagePreview ? (
-                <img
+                <Image
                   src={imagePreview}
                   alt="Preview"
-                  className="mx-auto h-40 rounded-lg object-cover"
+                  className="mx-auto h-40 w-auto rounded-lg object-cover"
+                  width={320}
+                  height={160}
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>

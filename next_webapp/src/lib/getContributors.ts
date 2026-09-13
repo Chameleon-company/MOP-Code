@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import Contributor from "@/models/mongoose/Contributor";
+import Contributor, { TeamName } from "@/models/mongoose/Contributor";
 import { toContributorDTO } from "@/app/api/library/contributorDto";
 import type { ContributorRecord, ContributorType, ContributorLevel } from "@/types/contributor";
 
@@ -19,23 +19,25 @@ interface RawContributor {
 }
 
 const CONTRIBUTOR_TYPE_MAP: Record<RawContributor["contributor_type"], ContributorType> = {
-  student: "Student",
-  mentor: "Mentor",
-  company_director: "Company Director",
+  student: "student",
+  mentor: "mentor",
+  company_director: "company_director",
 };
 
 function mapToContributorRecord(raw: RawContributor): ContributorRecord {
   return {
-    id: raw.id,
-    fullName: raw.name,
+    _id: raw.id,
+    name: raw.name,
     year: raw.year,
-    trimester: raw.trimester,
-    contributorType: CONTRIBUTOR_TYPE_MAP[raw.contributor_type],
-    team: raw.team ?? undefined,
-    positionOrRole: raw.position ?? undefined,
-    level: (raw.level ?? undefined) as ContributorLevel | undefined,
-    displayOrder: raw.display_order,
-    status: raw.is_active,
+    trimester: raw.trimester as 1 | 2 | 3, //casted b/c RawContributor.trimester is a number, but ContributorRecord.trimester is a union type of 1 | 2 | 3
+    contributor_type: CONTRIBUTOR_TYPE_MAP[raw.contributor_type],
+    team: (raw.team ?? null) as TeamName | null, // casted b/c RawContributor.team is a string | null, but ContributorRecord.team is a union type of TeamName | null
+    position: raw.position ?? null,
+    level: (raw.level ?? null) as ContributorLevel | null,
+    display_order: raw.display_order,
+    is_active: raw.is_active,
+    created_at: raw.created_at,
+    updated_at: raw.updated_at,
   };
 }
 

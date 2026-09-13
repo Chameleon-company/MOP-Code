@@ -52,19 +52,32 @@ function CustomSelect({
         type="button"
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
-        className={`mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-[15px] text-gray-800 outline-none transition focus:border-[#2DBE6C] focus:ring-2 focus:ring-[#2DBE6C]/10 flex items-center justify-between ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:border-gray-300"
-          } ${className}`}
+        className={`mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-[15px] outline-none transition flex items-center justify-between ${
+          disabled
+            ? "cursor-not-allowed bg-gray-50 text-gray-400 opacity-60"
+            : "cursor-pointer bg-white text-gray-800 hover:border-gray-300 focus:border-[#2DBE6C] focus:ring-2 focus:ring-[#2DBE6C]/10"
+        } ${className}`}
       >
-        <span className={selectedOption ? "text-gray-800" : "text-gray-500"}>
-          {selectedOption ? selectedOption.label : placeholder}
+        <span
+          className={
+            selectedOption && selectedOption.value
+              ? "text-gray-800"
+              : "text-gray-400"
+          }
+        >
+          {selectedOption && selectedOption.value
+            ? selectedOption.label
+            : placeholder}
         </span>
         <ChevronDown
           size={18}
-          className={`text-gray-400 transition ${isOpen ? "rotate-180" : ""}`}
+          className={`text-gray-400 transition ${
+            isOpen ? "rotate-180" : ""
+          }`}
         />
       </button>
 
-      {isOpen && (
+      {isOpen && !disabled && (
         <div className="absolute top-full left-0 right-0 mt-2 rounded-xl border border-gray-200 bg-white shadow-lg z-10">
           {options.map((option) => (
             <button
@@ -129,6 +142,35 @@ const inputClassName =
 
 const labelClassName = "text-[14px] font-medium text-[#344054]";
 
+export const TEAM_OPTIONS: CustomSelectOption[] = [
+  { value: "", label: "Select team", icon: "" },
+  { value: "Data Science Team", label: "Data Science Team", icon: "📊" },
+  { value: "Website Development Team", label: "Website Development Team", icon: "💻" },
+  { value: "Design Team", label: "Design Team", icon: "🎨" },
+  { value: "Cyber Security Team", label: "Cyber Security Team", icon: "🛡️" },
+];
+
+export const TEAM_ROLES: Record<string, string[]> = {
+  "Data Science Team": [
+    "Data Scientist",
+    "Data Science Team Lead",
+    "Data Science Quality Manager",
+  ],
+  "Website Development Team": [
+    "Web Developer",
+    "Web Dev Team Lead",
+    "Web Dev Quality Manager",
+  ],
+  "Design Team": [
+    "Design Team Member",
+    "Design Team Lead",
+  ],
+  "Cyber Security Team": [
+    "Cyber Security Team Member",
+    "Cyber Security Team Lead",
+  ],
+};
+
 export default function ContributorForm({
   initialData,
   onSubmit,
@@ -168,6 +210,14 @@ export default function ContributorForm({
       team: "",
       position: "",
       level: "",
+    }));
+  };
+
+  const handleTeamChange = (team: string) => {
+    setFormData((previous) => ({
+      ...previous,
+      team,
+      position: "",
     }));
   };
 
@@ -211,6 +261,14 @@ export default function ContributorForm({
   };
 
   const isStudent = formData.contributorType === "student";
+
+  const availableRoles = formData.team ? TEAM_ROLES[formData.team] || [] : [];
+  const roleOptions: CustomSelectOption[] = formData.team
+    ? [
+        { value: "", label: "Select position" },
+        ...availableRoles.map((role) => ({ value: role, label: role })),
+      ]
+    : [{ value: "", label: "Select a team first" }];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -307,16 +365,8 @@ export default function ContributorForm({
 
             <CustomSelect
               value={formData.team}
-              onChange={(value) =>
-                updateField("team", value)
-              }
-              options={[
-                { value: "", label: "Select team", icon: "" },
-                { value: "Data Science Team", label: "Data Science Team", icon: "📊" },
-                { value: "Website Development Team", label: "Website Development Team", icon: "💻" },
-                { value: "Design Team", label: "Design Team", icon: "🎨" },
-                { value: "Cyber Security Team", label: "Cyber Security Team", icon: "🛡️" },
-              ]}
+              onChange={handleTeamChange}
+              options={TEAM_OPTIONS}
               placeholder="Select team"
               disabled={submitting}
             />
@@ -334,21 +384,11 @@ export default function ContributorForm({
               onChange={(value) =>
                 updateField("position", value)
               }
-              options={[
-                { value: "", label: "Select position" },
-                { value: "Web Developer", label: "Web Developer" },
-                { value: "Data Scientist", label: "Data Scientist" },
-                { value: "Data Science Team Lead", label: "Data Science Team Lead" },
-                { value: "Data Science Quality Manager", label: "Data Science Quality Manager" },
-                { value: "Web Dev Team Lead", label: "Web Dev Team Lead" },
-                { value: "Web Dev Quality Manager", label: "Web Dev Quality Manager" },
-                { value: "Design Team Member", label: "Design Team Member" },
-                { value: "Design Team Lead", label: "Design Team Lead" },
-                { value: "Cyber Security Team Member", label: "Cyber Security Team Member" },
-                { value: "Cyber Security Team Lead", label: "Cyber Security Team Lead" },
-              ]}
-              placeholder="Select position"
-              disabled={submitting}
+              options={roleOptions}
+              placeholder={
+                formData.team ? "Select position" : "Select a team first"
+              }
+              disabled={submitting || !formData.team}
             />
           </div>
         )}

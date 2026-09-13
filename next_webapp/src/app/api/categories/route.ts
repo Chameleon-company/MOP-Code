@@ -4,7 +4,7 @@ import {
     CreateCategoryDTO,
     validateCreateCategory,
     sanitizeCategoryInput,
-} from "@/models/Category";
+} from "@/types/category";
 import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
 import { NextRequest } from "next/server";
@@ -19,20 +19,21 @@ import dbConnect from "@/lib/dbConnect"; // Update path if necessary
 // ==============================
 
 export async function POST(request: NextRequest) {
+    const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
     try {
         await dbConnect(); 
         
         // ==============================
         // 1. Check Admin Authorization
         // ==============================
-        const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
 
         if (!isAuthenticated) {
-            return errorResponse("User not authenticated", 401, "UNAUTHORIZED");
+            return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
         }
 
         if (!isAdmin) {
-            return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN");
+            return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
         }
 
 
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
         const validationError = validateCreateCategory(cleanData);
 
         if (validationError) {
-            return errorResponse(validationError, 400, "VALIDATION_ERROR");
+            return errorResponse(validationError, 400, "VALIDATION_ERROR", request, userId);
         }
 
         const { category_name, description, cover_img } = cleanData;
@@ -68,7 +69,9 @@ export async function POST(request: NextRequest) {
             return errorResponse(
                 "Failed to validate category",
                 500,
-                "DB_CHECK_ERROR"
+                "DB_CHECK_ERROR",
+                request,
+                userId
             );
         }
 
@@ -76,7 +79,9 @@ export async function POST(request: NextRequest) {
             return errorResponse(
                 "Category already exists",
                 400,
-                "DUPLICATE_CATEGORY"
+                "DUPLICATE_CATEGORY",
+                request,
+                userId
             );
         }
 
@@ -131,6 +136,17 @@ export async function POST(request: NextRequest) {
             logger.error(`User fetch error: ${userError.message || String(userError)}`);
         }
 
+        if (error) {
+            logger.error(`Supabase Insert Error: ${error.message || String(error)}`);
+            return errorResponse(
+                "Failed to create category",
+                500,
+                "DB_INSERT_ERROR",
+                request,
+                userId
+            );
+        }
+
         // ==============================
         // 5. Success Response
         // ==============================
@@ -151,7 +167,9 @@ export async function POST(request: NextRequest) {
         return errorResponse(
             "Internal Server Error",
             500,
-            "INTERNAL_ERROR"
+            "INTERNAL_ERROR",
+            request,
+            userId
         );
     }
 }

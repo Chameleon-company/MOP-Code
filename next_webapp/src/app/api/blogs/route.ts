@@ -1,20 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
-
-// ─── Auth helpers ────────────────────────────────────────────────────────────
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
+import { getAuthUser } from "@/app/api/library/auth";
 
 // ─── Response helpers ─────────────────────────────────────────────────────────
 
@@ -107,9 +93,9 @@ function validateImage(file: File): string | null {
 // ─── POST — create blog ───────────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+  if (!isAuthenticated || !userId) return unauthorized();
+  if (!isAdmin) return forbidden();
 
   try {
     const formData = await request.formData();

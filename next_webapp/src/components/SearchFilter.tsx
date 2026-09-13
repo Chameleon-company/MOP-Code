@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { apiFetch } from '@/lib/apiFetch';
 
 // Matches the Mongoose Category schema (src/models/mongoose/Category.ts).
 // No slug, color, or icon fields exist on the schema.
@@ -47,13 +48,12 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch('/api/categories');
-            const data = await response.json();
+            const data = await apiFetch<{ success: boolean; data: Category[] }>('/api/categories');
             if (data.success) {
                 setCategories(data.data);
             }
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching categories:', error); // apiFetch already showed a toast
         }
     };
 
@@ -110,8 +110,9 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
 
             {/* Search Query */}
             <div className="mb-6">
-                <label className="block text-sm font-medium mb-2">Search Query</label>
+                <label htmlFor="search-query" className="block text-sm font-medium mb-2">Search Query</label>
                 <input
+                    id="search-query"
                     type="text"
                     value={draft.query}
                     onChange={(e) => setDraft(prev => ({ ...prev, query: e.target.value }))}
@@ -146,8 +147,9 @@ export default function SearchFilter({ onFilterChange }: SearchFilterProps) {
 
             {/* Sort Options */}
             <div className="mb-6">
-                <label className="block text-sm font-medium mb-2">Sort By</label>
+                <label htmlFor="sort-by" className="block text-sm font-medium mb-2">Sort By</label>
                 <select
+                    id="sort-by"
                     value={`${draft.sortBy}-${draft.sortOrder}`}
                     onChange={(e) => {
                         const [sortBy, sortOrder] = e.target.value.split('-');

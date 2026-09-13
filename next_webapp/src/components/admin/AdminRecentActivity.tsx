@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/apiFetch";
 
 interface ActivityEntry {
   id: number;
@@ -36,12 +37,11 @@ export default function AdminRecentActivity() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/activity-history?pageSize=5", { headers: authHeaders() })
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: ActivityEntry[] }>("/api/admin/activity-history?pageSize=5", { headers: authHeaders() })
       .then((json) => {
         if (json.success) setEntries(json.data || []);
       })
-      .catch(() => {})
+      .catch(() => {}) // apiFetch already showed a toast; this was previously a fully silent failure
       .finally(() => setLoading(false));
   }, []);
 

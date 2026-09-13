@@ -1,21 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/library/supabaseClient";
+import { getAuthUser } from "@/app/api/library/auth";
 import logger from "@/utils/logger";
-
-// ─── Auth helpers ─────────────────────────────────────────────────────────────
-
-function getUserId(request: NextRequest): number | null {
-  const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
-}
-
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
-}
 
 // ─── Response helpers ─────────────────────────────────────────────────────────
 
@@ -118,9 +104,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+  if (!isAuthenticated || !userId) return unauthorized();
+  if (!isAdmin) return forbidden();
 
   const { id } = await params;
   const blogId = Number(id);
@@ -215,9 +201,9 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+  if (!isAuthenticated || !userId) return unauthorized();
+  if (!isAdmin) return forbidden();
 
   const { id } = await params;
   const blogId = Number(id);

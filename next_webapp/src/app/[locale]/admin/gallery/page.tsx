@@ -5,6 +5,8 @@ import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
 import { storage } from "@/utils/storage";
+import Image from "next/image";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 type GalleryImage = {
   id: number;
@@ -73,17 +75,15 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       });
       if (searchTerm) qs.set("search", searchTerm);
 
-      const res = await fetch(`/api/gallery?${qs}`, { headers: authHeaders() });
-      const json = await res.json();
-      if (json.success) {
-        setImages(json.data ?? []);
-        setTotal(json.pagination?.total ?? 0);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-      } else {
-        setToast({ message: json.message || "Failed to fetch gallery.", type: "error" });
-      }
-    } catch {
-      setToast({ message: "Failed to fetch gallery.", type: "error" });
+      const json = await apiFetch<{ success: boolean; data: GalleryImage[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/gallery?${qs}`,
+        { headers: authHeaders(), silent: true }
+      );
+      setImages(json.data ?? []);
+      setTotal(json.pagination?.total ?? 0);
+      setTotalPages(json.pagination?.totalPages ?? 1);
+    } catch (e) {
+      setToast({ message: e instanceof Error ? e.message : "Failed to fetch gallery.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -118,25 +118,21 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       formData.append("title", uploadTitle.trim());
       formData.append("image", uploadFile);
 
-      const res = await fetch("/api/gallery", {
+      await apiFetch("/api/gallery", {
         method: "POST",
         headers: authHeaders(),
         body: formData,
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo uploaded successfully.", type: "success" });
-        closeUpload();
-        fetchImages(search, 1);
-        setPage(1);
-      } else {
-        const errMsg =
-          json.errors?.title || json.errors?.image || json.message || "Upload failed.";
-        setToast({ message: errMsg, type: "error" });
-      }
-    } catch {
-      setToast({ message: "Upload failed.", type: "error" });
+      setToast({ message: "Gallery photo uploaded successfully.", type: "success" });
+      closeUpload();
+      fetchImages(search, 1);
+      setPage(1);
+    } catch (e) {
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const errMsg = body?.errors?.title || body?.errors?.image || (e instanceof Error ? e.message : "Upload failed.");
+      setToast({ message: errMsg, type: "error" });
     } finally {
       setUploading(false);
     }
@@ -178,24 +174,20 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
       formData.append("title", editTitle.trim() || editTarget.title);
       if (editFile) formData.append("image", editFile);
 
-      const res = await fetch(`/api/gallery/${editTarget.id}`, {
+      await apiFetch(`/api/gallery/${editTarget.id}`, {
         method: "PUT",
         headers: authHeaders(),
         body: formData,
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo updated successfully.", type: "success" });
-        closeEdit();
-        fetchImages(search, page);
-      } else {
-        const errMsg =
-          json.errors?.title || json.errors?.image || json.message || "Update failed.";
-        setToast({ message: errMsg, type: "error" });
-      }
-    } catch {
-      setToast({ message: "Update failed.", type: "error" });
+      setToast({ message: "Gallery photo updated successfully.", type: "success" });
+      closeEdit();
+      fetchImages(search, page);
+    } catch (e) {
+      const body = e instanceof ApiError ? (e.body as any) : null;
+      const errMsg = body?.errors?.title || body?.errors?.image || (e instanceof Error ? e.message : "Update failed.");
+      setToast({ message: errMsg, type: "error" });
     } finally {
       setSaving(false);
     }
@@ -212,25 +204,20 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
   const confirmDelete = async () => {
     if (!deleteTarget) return;
     try {
-      const res = await fetch(`/api/gallery/${deleteTarget.id}`, {
+      await apiFetch(`/api/gallery/${deleteTarget.id}`, {
         method: "DELETE",
         headers: authHeaders(),
+        silent: true,
       });
-      const json = await res.json();
 
-      if (json.success) {
-        setToast({ message: "Gallery photo deleted successfully.", type: "success" });
-        setDeleteTarget(null);
-        setSelectedImage(null);
-        const newPage = images.length === 1 && page > 1 ? page - 1 : page;
-        setPage(newPage);
-        fetchImages(search, newPage);
-      } else {
-        setToast({ message: json.message || "Delete failed.", type: "error" });
-        setDeleteTarget(null);
-      }
-    } catch {
-      setToast({ message: "Delete failed.", type: "error" });
+      setToast({ message: "Gallery photo deleted successfully.", type: "success" });
+      setDeleteTarget(null);
+      setSelectedImage(null);
+      const newPage = images.length === 1 && page > 1 ? page - 1 : page;
+      setPage(newPage);
+      fetchImages(search, newPage);
+    } catch (e) {
+      setToast({ message: e instanceof Error ? e.message : "Delete failed.", type: "error" });
       setDeleteTarget(null);
     }
   };
@@ -295,7 +282,9 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               onClick={() => setSelectedImage(image)}
               className="group relative overflow-hidden focus:outline-none"
             >
-              <img
+              <Image
+                width={600}
+                height={256}
                 src={image.img_url}
                 alt={image.title}
                 className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -345,10 +334,12 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               <X size={18} strokeWidth={3} />
             </button>
 
-            <img
+            <Image
               src={selectedImage.img_url}
               alt={selectedImage.title}
               className="h-96 w-full rounded-xl object-cover"
+              width={800}
+              height={384}
             />
 
             <p className="mt-4 text-[16px] font-semibold text-gray-900">{selectedImage.title}</p>
@@ -398,7 +389,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
             <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#1F8F50]/40 bg-[#E8F5EE] py-10 transition hover:border-[#1F8F50] hover:bg-[#D6EFE2]">
               {uploadPreview ? (
-                <img src={uploadPreview} alt="Preview" className="max-h-40 rounded-lg object-contain" />
+                <Image src={uploadPreview} alt="Preview" className="max-h-40 w-auto rounded-lg object-contain" width={320} height={160} unoptimized />
               ) : (
                 <>
                   <Upload size={36} className="mb-3 text-[#1F8F50]" />
@@ -462,10 +453,13 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                     : "border-[#1F8F50]/40 bg-[#E8F5EE] hover:border-[#1F8F50] hover:bg-[#D6EFE2]"
                 }`}
               >
-                <img
+                <Image
                   src={editPreview ?? editTarget.img_url}
                   alt="Preview"
+                  width={500}
+                  height={192}
                   className="max-h-48 w-full rounded-lg object-contain py-4 px-4"
+                  unoptimized={!!editPreview?.startsWith("blob:")}
                 />
                 <p className="pb-3 text-[12px] font-medium text-[#1F8F50]/70">
                   {editPreview ? "New image selected — click to change" : "Click to replace image (optional)"}

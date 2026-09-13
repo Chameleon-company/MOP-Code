@@ -17,6 +17,7 @@ import {
   useState,
 } from "react";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch } from "@/lib/apiFetch";
 
 type CustomSelectOption = {
   value: string;
@@ -244,18 +245,11 @@ export default function ContributorsPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/contributors", {
+      const json = await apiFetch<any>("/api/contributors", {
         headers: getAuthHeaders(),
         cache: "no-store",
+        silent: true,
       });
-
-      const json = await response.json();
-
-      if (!response.ok || !json.success) {
-        throw new Error(
-          json.message || "Failed to load contributors",
-        );
-      }
 
       const contributorData =
         json.data ?? json.contributors ?? [];
@@ -269,7 +263,7 @@ export default function ContributorsPage() {
       console.error(error);
 
       setToast({
-        message: "Failed to load contributors.",
+        message: error instanceof Error ? error.message : "Failed to load contributors.",
         type: "error",
       });
     } finally {
@@ -371,21 +365,14 @@ export default function ContributorsPage() {
     setDeletingId(contributor.id);
 
     try {
-      const response = await fetch(
+      await apiFetch(
         `/api/contributors/${contributor.id}`,
         {
           method: "DELETE",
           headers: getAuthHeaders(),
+          silent: true,
         },
       );
-
-      const json = await response.json();
-
-      if (!response.ok || !json.success) {
-        throw new Error(
-          json.message || "Failed to delete contributor",
-        );
-      }
 
       setContributors((previous) =>
         previous.filter(

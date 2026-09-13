@@ -26,7 +26,7 @@ const Licensing = () => {
     <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-black text-black dark:text-white transition-colors">
       <Header />
 
-      <main className="flex-grow px-6 md:px-10 lg:px-20 py-10">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
         <h1 className="text-4xl font-bold text-center mb-10">{t("Licensing")}</h1>
 
         {/* Section 1 */}

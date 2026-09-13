@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { BookOpen, ImagePlus, Save, X, Plus } from "lucide-react";
+import Image from "next/image";  
+import { apiFetch } from "@/lib/apiFetch";
 
 function getAuthHeaders() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -56,20 +58,14 @@ export default function EditUseCasePage() {
     const headers = getAuthHeaders();
 
     Promise.all([
-      fetch(`/api/usecases/${id}`, { headers }).then((r) => r.json()),
-      fetch("/api/categories", { headers }).then((r) => r.json()),
+      apiFetch<any>(`/api/usecases/${id}`, { headers, silent: true }),
+      apiFetch<any>("/api/categories", { headers, silent: true }),
     ])
       .then(([ucJson, catJson]) => {
-        if (!ucJson.success) {
-          setFetchError(ucJson.message || ucJson.error || "Use case not found.");
-          return;
-        }
-
         const uc = ucJson.data;
 
         setTitle(uc.title || "");
         setDescription(uc.description || "");
-        setCategoryId(uc.category_id ? String(uc.category_id) : "");
 
         setExistingImgUrl(uc.cover_img || null);
         setImagePreview(uc.cover_img || null);
@@ -85,10 +81,23 @@ export default function EditUseCasePage() {
         }
 
         if (catJson.success) {
-          setCategories(catJson.data || []);
+          const cats = catJson.data || [];
+          setCategories(cats);
+
+          // Support match by legacy_id (Supabase) or id (Mongo).
+          const matched = uc.category
+            ? cats.find(
+                (c: any) =>
+                  String(c.id) === String(uc.category.id) ||
+                  String(c.id) === String(uc.category.legacy_id),
+              )
+            : null;
+          setCategoryId(matched ? String(matched.id) : "");
+        } else {
+          setCategoryId("");
         }
       })
-      .catch(() => setFetchError("Failed to load use case."))
+      .catch((e) => setFetchError(e instanceof Error ? e.message : "Failed to load use case."))
       .finally(() => setFetchLoading(false));
   }, [id]);
 
@@ -107,12 +116,14 @@ export default function EditUseCasePage() {
     formData.append("folder", "usecases");
     formData.append("bucket", "usecase-images");
 
-    imageUploadPromiseRef.current = fetch("/api/upload", {
+    // Not silent: this upload happens in the background before the user
+    // hits Save, so a toast here is the only immediate feedback - the
+    // saveError banner below only shows up once they submit.
+    imageUploadPromiseRef.current = apiFetch<{ success: boolean; url?: string }>("/api/upload", {
       method: "POST",
       headers: authHeaders,
       body: formData,
     })
-      .then((r) => r.json())
       .then((json) => {
         setImageUploading(false);
         return json.success ? (json.url as string) : null;
@@ -196,7 +207,7 @@ export default function EditUseCasePage() {
 
       const updatedContent = notebookContent;
 
-      const res = await fetch(`/api/usecases/${id}`, {
+      await apiFetch(`/api/usecases/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -210,19 +221,12 @@ export default function EditUseCasePage() {
           ...(updatedContent !== undefined ? { content: updatedContent } : {}),
           tags,
         }),
+        silent: true,
       });
 
-      const json = await res.json();
-
-      if (!json.success) {
-        setSaveError(json.message || json.error || "Failed to update use case.");
-        setSaving(false);
-        return;
-      }
-
       router.push(`/${locale}/admin/use-cases`);
-    } catch {
-      setSaveError("Failed to update use case.");
+    } catch (e) {
+      setSaveError(e instanceof Error ? e.message : "Failed to update use case.");
       setSaving(false);
     }
   }
@@ -388,10 +392,13 @@ export default function EditUseCasePage() {
               className="cursor-pointer rounded-2xl border-2 border-dashed border-[#CFEFD9] bg-[#F8FFFA] p-8 text-center transition hover:bg-[#F0FFF6]"
             >
               {imagePreview ? (
-                <img
+                <Image
                   src={imagePreview}
                   alt="Preview"
-                  className="mx-auto h-40 rounded-lg object-cover"
+                  width={320}
+                  height={160}
+                  className="mx-auto h-40 w-auto rounded-lg object-cover"
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>

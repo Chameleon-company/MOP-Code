@@ -19,3 +19,8 @@ npm-debug.log*
 .env
 .env.*
 .env.example
+
+# Android / Gradle build cache
+.gradle/
+**/build/
+local.properties

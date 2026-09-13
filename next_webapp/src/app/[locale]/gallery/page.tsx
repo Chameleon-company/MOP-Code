@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
 
 const GLOW_COLORS = [
   "#22c55e",
@@ -46,15 +47,16 @@ export default function GalleryPage() {
         page: String(page),
         pageSize: String(ITEMS_PER_PAGE),
       });
-      const res = await fetch(`/api/home/gallery?${qs}`);
-      const json = await res.json();
+      const json = await apiFetch<{ success: boolean; data: ApiImage[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/home/gallery?${qs}`
+      );
       if (json.success) {
         setImages(json.data ?? []);
         setTotal(json.pagination?.total ?? 0);
         setTotalPages(json.pagination?.totalPages ?? 1);
       }
     } catch (e) {
-      console.error("Failed to fetch gallery:", e);
+      console.error("Failed to fetch gallery:", e); // apiFetch already showed a toast
     } finally {
       setLoading(false);
     }
@@ -125,11 +127,10 @@ export default function GalleryPage() {
             </span>
 
             <h1
-              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm"
+              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm font-[family-name:var(--font-barlow-condensed)]"
               style={{
                 animationDelay: "0.2s",
-                fontWeight: 900,
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,    
                 letterSpacing: "-0.02em",
                 textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
               }}
