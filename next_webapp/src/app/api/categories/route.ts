@@ -9,6 +9,9 @@ import { errorResponse } from "@/app/api/library/errorResponse";
 import { getAuthUser } from "@/app/api/library/auth";
 import { NextRequest } from "next/server";
 import logger from "@/utils/logger";
+import mongoose from "mongoose";
+import User from "@/models/mongoose/User"; // Update path if necessary
+import dbConnect from "@/lib/dbConnect"; // Update path if necessary
 
 // ==============================
 // POST /api/categories
@@ -19,6 +22,8 @@ export async function POST(request: NextRequest) {
     const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
 
     try {
+        await dbConnect(); 
+        
         // ==============================
         // 1. Check Admin Authorization
         // ==============================
@@ -83,6 +88,22 @@ export async function POST(request: NextRequest) {
         // ==============================
         // 5. Insert into Supabase
         // ==============================
+        let userid = null; 
+        
+        if (userId) {
+            const idStr = String(userId);
+
+            // If it's a valid MongoDB ObjectId, look it up in Mongoose
+            if (mongoose.Types.ObjectId.isValid(idStr)) {
+                const user = await User.findById(idStr).select("_id legacy_id").lean();
+                userid = user ? user.legacy_id : null;
+            } else {
+                // Otherwise, fall back to checking by the legacy identifier
+                const user = await User.findOne({ legacy_id: idStr }).select("_id legacy_id").lean();
+                userid = user ? user.legacy_id : null;
+            }
+        }
+
         const { data, error } = await supabase
             .from("categories")
             .insert([
@@ -90,12 +111,20 @@ export async function POST(request: NextRequest) {
                     category_name,
                     description: description ?? null,
                     cover_img: cover_img ?? null,
-                    created_by: Number(userId),
+                    created_by: userid,
                 },
             ])
             .select()
             .single();
 
+        if (error) {
+            logger.error(`Supabase Insert Error: ${error.message || String(error)}`);
+            return errorResponse(
+                "Failed to create category",
+                500,
+                "DB_INSERT_ERROR"
+            );
+        }
 
         const { data: createdUser, error: userError } = await supabase
             .from("user")
