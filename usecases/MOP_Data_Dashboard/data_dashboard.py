@@ -1,4 +1,4 @@
-"""Build the MOP Data Asset Management Platform from GitHub FINALISED use cases.
+"""Build the MOP Data Dashboard from GitHub FINALISED use cases.
 
 The builder uses only the Python standard library. It reads public notebooks from
 GitHub, retrieves the City of Melbourne Open Data catalogue, normalises dataset
@@ -8,6 +8,7 @@ references, and writes a standalone HTML dashboard plus a CSV register.
 from __future__ import annotations
 
 import ast
+import base64
 import csv
 import html
 import json
@@ -32,6 +33,7 @@ GITHUB_OWNER = os.getenv("MOP_GITHUB_OWNER", "Chameleon-company")
 GITHUB_REPOSITORY = os.getenv("MOP_GITHUB_REPOSITORY", "MOP-Code")
 GITHUB_BRANCH = os.getenv("MOP_GITHUB_BRANCH", "master")
 FINALISED_PATH = "usecases/FINALISED"
+USE_CASE_INDEX_PATH = "usecases/Use_Case_Index.md"
 CITY_CATALOGUE_API = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets"
 CITY_DATA_HOSTS = {"data.melbourne.vic.gov.au", "www.data.melbourne.vic.gov.au"}
 DATA_FILE_EXTENSIONS = {
@@ -75,6 +77,7 @@ class BuildConfig:
     github_repository: str = GITHUB_REPOSITORY
     github_branch: str = GITHUB_BRANCH
     finalised_path: str = FINALISED_PATH
+    use_case_index_path: str = USE_CASE_INDEX_PATH
 
     @property
     def output_dir(self) -> Path:
@@ -91,6 +94,10 @@ class BuildConfig:
     @property
     def asset_ids_file(self) -> Path:
         return self.project_dir / "config" / "asset_id_registry.csv"
+
+    @property
+    def logo_file(self) -> Path:
+        return self.project_dir / "assets" / "Chameleon_logo.png"
 
 
 def _request(url: str, *, expect_json: bool = False, retries: int = 2) -> Any:
@@ -212,6 +219,8 @@ def _repo_path_from_url(reference: str, config: BuildConfig) -> str | None:
 
 
 def _looks_like_data_url(reference: str) -> bool:
+    if "{" in reference or "}" in reference:
+        return False
     parsed = urlparse(reference)
     host = parsed.netloc.lower()
     path = parsed.path.lower()
@@ -470,6 +479,7 @@ def build_records(
             "link": f"https://data.melbourne.vic.gov.au/explore/dataset/{dataset_id}/",
             "source": "City of Melbourne Open Data",
             "publisher": _clean(meta.get("publisher")) or "City of Melbourne",
+            "description": _clean(meta.get("description"), limit=1200) or "Not stated",
             "themes": meta.get("theme") or ["Not stated"],
             "used_by": sorted({(use["notebook_code"], use["notebook_url"]) for use in uses}),
             "datatype": "Geospatial" if field_types & {"geo_point_2d", "geo_shape"} else "Tabular",
@@ -488,6 +498,9 @@ def build_records(
             "link": first["link"],
             "source": first["source"],
             "publisher": first["publisher"],
+            "description": (
+                f"Dataset referenced from {first['source']} by a FINALISED MOP use case."
+            ),
             "themes": ["Not applicable"],
             "used_by": sorted({(use["notebook_code"], use["notebook_url"]) for use in uses}),
             "datatype": _type_from_link(first["link"]),
@@ -499,7 +512,7 @@ def build_records(
 
     for record in records:
         override = overrides.get(record["asset_key"], {})
-        for field in ("dataset", "link", "source", "publisher", "datatype", "size"):
+        for field in ("dataset", "link", "source", "publisher", "description", "datatype", "size"):
             if override.get(field):
                 record[field] = override[field]
         if override.get("themes"):
@@ -516,10 +529,10 @@ def build_records(
 def _write_csv(records: list[dict[str, Any]], path: Path) -> None:
     fields = [
         "asset_id", "asset_key", "dataset", "link", "source", "publisher",
-        "themes", "used_by", "datatype", "size", "variable_count", "variables",
+        "description", "themes", "used_by", "datatype", "size", "variable_count", "variables",
     ]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for record in records:
             writer.writerow(
@@ -533,7 +546,22 @@ def _write_csv(records: list[dict[str, Any]], path: Path) -> None:
             )
 
 
-BASE_STYLE = """<style>body{font-family:Arial,sans-serif;margin:2rem;color:#17212b}h1{margin-bottom:.35rem}.sub{margin:0 0 1rem;color:#52616b}.views,.filters,#pagination{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 1rem}button,select,input{padding:.5rem .65rem;font-size:.92rem}button{border:1px solid #073b4c;background:#fff;color:#073b4c;border-radius:.2rem;cursor:pointer}button.active{background:#073b4c;color:#fff}input{width:22rem;max-width:100%}table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:fixed}th,td{border:1px solid #d6dde3;padding:.55rem;vertical-align:top;text-align:left}th{background:#073b4c;color:#fff;position:sticky;top:0}th:nth-child(1),td:nth-child(1){width:8%}th:nth-child(2),td:nth-child(2){width:30%;overflow-wrap:anywhere}th:nth-child(3),td:nth-child(3){width:17%;overflow-wrap:anywhere}th:nth-child(4),td:nth-child(4){width:12%}th:nth-child(5),td:nth-child(5){width:13%}th:nth-child(6),td:nth-child(6){width:10%}body.mode-mop .source-col,body.mode-mop .source-filter,body.mode-selected .theme-col,body.mode-selected .theme-filter{display:none}tr:nth-child(even){background:#f7fafb}a{color:#075985}.tooltip{position:relative;cursor:help;border-bottom:1px dotted #075985}.tooltiptext{visibility:hidden;min-width:18rem;max-width:30rem;max-height:38rem;overflow-y:auto;background:#17212b;color:#fff;text-align:left;border-radius:.25rem;padding:.6rem;position:absolute;z-index:1;left:0;bottom:125%;font-weight:normal;line-height:1.45;white-space:nowrap}.tooltip:hover .tooltiptext{visibility:visible}@media(max-height:760px){.tooltiptext{max-height:calc(100vh - 5rem)}}</style>"""
+BASE_STYLE = """<style>
+body{font-family:Arial,sans-serif;margin:2rem;color:#17212b}
+h1{margin-bottom:.35rem}.sub{margin:0 0 1rem;color:#52616b}
+.views,.filters,#pagination{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 1rem}
+button,select,input{padding:.5rem .65rem;font-size:.92rem}
+button{border:1px solid #073b4c;background:#fff;color:#073b4c;border-radius:.2rem;cursor:pointer}
+button.active{background:#073b4c;color:#fff}input{width:22rem;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:fixed}
+th,td{border:1px solid #d6dde3;padding:.55rem;vertical-align:top;text-align:left}
+th{background:#073b4c;color:#fff;position:sticky;top:0}
+tr:nth-child(even){background:#f7fafb}a{color:#075985}
+.tooltip{position:relative;cursor:help;border-bottom:1px dotted #075985}
+.tooltiptext{visibility:hidden;min-width:18rem;max-width:30rem;max-height:38rem;overflow-y:auto;background:#17212b;color:#fff;text-align:left;border-radius:.25rem;padding:.6rem;position:absolute;z-index:1;left:0;bottom:125%;font-weight:normal;line-height:1.45;white-space:nowrap}
+.tooltip:hover .tooltiptext{visibility:visible}
+@media(max-height:760px){.tooltiptext{max-height:calc(100vh - 5rem)}}
+</style>"""
 
 DASHBOARD_STYLE = """<style>#data-asset-dashboard{margin-top:.5rem}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:0 0 1rem}.kpis article,.chart{border:1px solid #d6dde3;background:#fff;padding:1rem}.kpis span{display:block;color:#52616b;font-size:.85rem}.kpis strong{font-size:1.8rem;color:#073b4c}.insight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.chart h2{font-size:1rem;margin:0 0 .8rem}.donut-wrap{display:flex;align-items:center;gap:1rem}.donut{width:9rem;height:9rem;border-radius:50%;display:grid;place-items:center;position:relative}.donut:after{content:'';width:5.6rem;height:5.6rem;background:#fff;border-radius:50%;position:absolute}.donut span{z-index:1;font-weight:bold;font-size:1.3rem}.bar-row{display:grid;grid-template-columns:minmax(8rem,1.4fr) minmax(7rem,2fr) 2rem;gap:.5rem;align-items:center;margin:.48rem 0}.bar-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar-track,.progress{background:#e2e8f0;height:.8rem}.bar-track i,.progress i{display:block;height:100%;background:#073b4c}.adoption-value{font-size:1.2rem;margin:1.3rem 0 .7rem}@media(max-width:760px){.kpis,.insight-grid{grid-template-columns:1fr}}</style>"""
 
@@ -541,10 +569,25 @@ POLISHED_STYLE = """<style>body{background:#f5f8fa}h1{font-size:2rem}.views{padd
 
 REUSE_STYLE = """<style>.sub{display:none}.bar-row{grid-template-columns:minmax(6rem,.7fr) minmax(10rem,2.4fr) 1.8rem}.bar-track{max-width:24rem}.reuse-matrix-grid{display:grid;grid-template-columns:minmax(18rem,.8fr) minmax(28rem,1.7fr);gap:1rem;margin-top:1rem}.reuse-list ol{list-style:none;margin:0;padding:0}.reuse-list li{display:grid;grid-template-columns:2rem minmax(0,1fr) 2rem;gap:.55rem;align-items:center;padding:.54rem 0;border-bottom:1px solid #e2e8f0}.reuse-list li>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rank{display:grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:.78rem;font-weight:700}.reuse-list b{text-align:right;color:#6d28d9}.reuse-note{font-size:.8rem;color:#64748b;margin:.75rem 0 0}.matrix-chart{margin-top:0}.matrix{width:100%;table-layout:fixed;font-size:.74rem}.matrix th,.matrix td{min-width:0;padding:.7rem .35rem}.matrix th:first-child,.matrix td:first-child{width:26%;min-width:0}.matrix th:not(:first-child),.matrix td:not(:first-child){width:auto}@media(max-width:920px){.reuse-matrix-grid{grid-template-columns:1fr}}@media(max-width:760px){.kpis,.insight-grid{grid-template-columns:1fr}}</style>"""
 
-VIEW_STYLE = """<style>.view-subtitles{min-height:2.6rem}.view-subtitle{display:none;margin:.55rem 0 1rem;color:#52616b;font-size:.95rem;line-height:1.45}.view-subtitle a{color:#075985}.mode-insights .subtitle-insights,.mode-mop .subtitle-mop,.mode-selected .subtitle-selected{display:block}.scope-note{margin:2rem 0 0;padding-top:1rem;border-top:1px solid #dbe4e9;color:#52616b;font-size:.85rem;line-height:1.45}</style>"""
+VIEW_STYLE = """<style>.view-subtitles{min-height:2.6rem}.view-subtitle{display:none;margin:.55rem 0 1rem;color:#52616b;font-size:.95rem;line-height:1.45}.view-subtitle a{color:#075985}.mode-insights .subtitle-insights,.mode-catalogue .subtitle-catalogue{display:block}.scope-note{margin:2rem 0 0;padding-top:1rem;border-top:1px solid #dbe4e9;color:#52616b;font-size:.85rem;line-height:1.45}</style>"""
+
+HEADER_STYLE = """<style>
+.site-header{display:grid;grid-template-columns:minmax(7rem,1fr) auto minmax(28rem,1fr);gap:1.5rem;align-items:center;margin:-.5rem 0 1.5rem;padding:1rem 1.25rem;background:#fff;border:1px solid #dbe4e9;border-radius:.65rem;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.brand-mark{display:flex;align-items:center;justify-content:flex-start}.brand-logo{width:104px;height:88px;object-fit:contain}.header-centre{text-align:center}.header-centre h1{margin:0;color:#073b4c;font-size:2.75rem;line-height:1.1}.header-actions{justify-self:end;max-width:31rem;min-width:0}.header-actions .views{justify-content:flex-end;margin:0 0 .75rem auto}.header-copy{min-width:0}.header-copy .view-subtitles{min-height:0}.header-copy .view-subtitle{margin:0;text-align:right}
+.kpis{grid-template-columns:repeat(5,minmax(0,1fr))}.kpis article:nth-child(5){border-top-color:#ec4899}.description-col{overflow-wrap:anywhere;line-height:1.45}.no-results{margin:1rem 0;padding:1rem;border:1px solid #f0c36d;border-radius:.45rem;background:#fff8e8;color:#694c00}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.filters{display:grid;grid-template-columns:minmax(12rem,.8fr) minmax(16rem,1.2fr) minmax(14rem,1fr) minmax(12rem,1fr)}.filters input,.filters select{width:100%;box-sizing:border-box}
+.matrix td{color:#0f172a}.matrix td.matrix-zero{background:#f8fafc;color:#64748b}.matrix-note{margin:.75rem 0 0;color:#64748b;font-size:.8rem}
+#catalogue th:nth-child(1),#catalogue td:nth-child(1){width:7%}#catalogue th:nth-child(2),#catalogue td:nth-child(2){width:20%}#catalogue th:nth-child(3),#catalogue td:nth-child(3){width:13%}#catalogue th:nth-child(4),#catalogue td:nth-child(4){width:11%}#catalogue th:nth-child(5),#catalogue td:nth-child(5){width:9%}#catalogue th:nth-child(6),#catalogue td:nth-child(6){width:14%}#catalogue th:nth-child(7),#catalogue td:nth-child(7){width:26%}
+#pagination button:disabled{cursor:not-allowed;opacity:.45}
+@media(max-width:1100px){.site-header{grid-template-columns:8rem 1fr}.header-actions{grid-column:1/-1;justify-self:stretch;max-width:none}.header-actions .views{justify-content:center;margin-left:auto;margin-right:auto}.header-copy .view-subtitle{text-align:center}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1000px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.site-header{grid-template-columns:1fr;text-align:center}.brand-mark{justify-content:center}.header-centre h1{font-size:2.25rem}.header-actions{grid-column:auto}.kpis{grid-template-columns:1fr}}
+@media(max-width:620px){.filters{grid-template-columns:1fr}}
+</style>"""
 
 
 def _load_use_case_domains(path: Path) -> dict[str, str]:
+    """Load legacy local mappings as an offline fallback."""
     if not path.exists():
         return {}
     with path.open(encoding="utf-8", newline="") as handle:
@@ -553,6 +596,49 @@ def _load_use_case_domains(path: Path) -> dict[str, str]:
             for row in csv.DictReader(handle)
             if row.get("use_case_code", "").strip() and row.get("domain", "").strip()
         }
+
+
+def fetch_use_case_domains(config: BuildConfig) -> dict[str, str]:
+    """Read current Use Case domains automatically from Use_Case_Index.md."""
+    encoded_path = quote(config.use_case_index_path, safe="/")
+    url = (
+        f"https://raw.githubusercontent.com/{config.github_owner}/"
+        f"{config.github_repository}/{config.github_branch}/{encoded_path}"
+    )
+    index = _request(url)
+    domains: dict[str, str] = {}
+    for line in index.splitlines():
+        if not line.lstrip().startswith("|"):
+            continue
+        columns = [column.strip() for column in line.strip().strip("|").split("|")]
+        if len(columns) < 3:
+            continue
+        match = USE_CASE_RE.search(columns[0])
+        domain = _clean(columns[2])
+        if match and domain and not set(domain) <= {"-", ":"}:
+            domains[match.group(0).upper()] = domain
+    if not domains:
+        raise RuntimeError(f"No Use Case domains found in {config.use_case_index_path}")
+    return domains
+
+
+def resolve_use_case_domains(config: BuildConfig) -> dict[str, str]:
+    """Return automatic index mappings and refresh the local fallback cache."""
+    domains = _load_use_case_domains(config.use_case_domains_file)
+    domains.update(fetch_use_case_domains(config))
+    config.use_case_domains_file.parent.mkdir(parents=True, exist_ok=True)
+    with config.use_case_domains_file.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["use_case_code", "domain"],
+            lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(
+            {"use_case_code": code, "domain": domain}
+            for code, domain in sorted(domains.items())
+        )
+    return domains
 
 
 def _bars(title: str, values: dict[str, int], colour: str) -> str:
@@ -571,6 +657,9 @@ def _render_insights(records: list[dict[str, Any]], domains: dict[str, str]) -> 
     mop_selected = [record for record in selected if record["kind"] == "mop"]
     external_selected = [record for record in selected if record["kind"] != "mop"]
     all_mop = [record for record in records if record["kind"] == "mop"]
+    finalised_use_cases = {
+        use["code"] for record in selected for use in record["used_by"]
+    }
     adoption = len(mop_selected) / len(all_mop) * 100 if all_mop else 0
     mop_share = len(mop_selected) / len(selected) * 100 if selected else 0
 
@@ -605,7 +694,7 @@ def _render_insights(records: list[dict[str, Any]], domains: dict[str, str]) -> 
     matrix_themes = sorted(
         {
             theme
-            for record in all_mop
+            for record in mop_selected
             for theme in record["themes"]
             if theme != "Not stated"
         }
@@ -614,50 +703,72 @@ def _render_insights(records: list[dict[str, Any]], domains: dict[str, str]) -> 
         (value for values in matrix.values() for value in values.values()),
         default=1,
     )
-    matrix_header = "".join(f"<th>{html.escape(theme)}</th>" for theme in matrix_themes)
-    matrix_rows = "".join(
-        f"<tr><th>{html.escape(domain)}</th>"
-        + "".join(
-            f'<td style="background-color:rgba(13,110,253,'
-            f'{matrix[domain].get(theme, 0) / matrix_max * .82:.2f})">'
-            f'{matrix[domain].get(theme, 0) or ""}</td>'
-            for theme in matrix_themes
+    matrix_header = "".join(
+        f'<th scope="col">{html.escape(theme)}</th>' for theme in matrix_themes
+    )
+
+    def matrix_cell(domain: str, theme: str) -> str:
+        value = matrix[domain].get(theme, 0)
+        if not value:
+            return (
+                f'<td class="matrix-zero" title="{html.escape(domain)} × '
+                f'{html.escape(theme)}: 0">0</td>'
+            )
+        intensity = .18 + (value / matrix_max * .42)
+        return (
+            f'<td style="background-color:rgba(13,110,253,{intensity:.2f})" '
+            f'title="{html.escape(domain)} × {html.escape(theme)}: {value}">{value}</td>'
         )
+
+    matrix_rows = "".join(
+        f'<tr><th scope="row">{html.escape(domain)}</th>'
+        + "".join(matrix_cell(domain, theme) for theme in matrix_themes)
         + "</tr>"
         for domain in sorted(matrix)
     ) or "<tr><td>Not stated</td></tr>"
 
     return (
         '<section id="data-asset-dashboard"><div class="kpis">'
-        f'<article><span>Total assets used</span><strong>{len(selected)}</strong></article>'
-        f'<article><span>Used MOP assets</span><strong>{len(mop_selected)}</strong></article>'
-        f'<article><span>External assets</span><strong>{len(external_selected)}</strong></article>'
+        f'<article><span>FINALISED Use Cases</span><strong>{len(finalised_use_cases)}</strong></article>'
+        f'<article><span>Total datasets used</span><strong>{len(selected)}</strong></article>'
+        f'<article><span>Used MOP datasets</span><strong>{len(mop_selected)}</strong></article>'
+        f'<article><span>External datasets</span><strong>{len(external_selected)}</strong></article>'
         f'<article><span>MOP adoption rate</span><strong>{adoption:.1f}%</strong></article>'
         '</div><div class="insight-grid"><section class="chart">'
-        '<h2>MOP vs external assets</h2><div class="donut-wrap">'
+        '<h2>MOP vs external datasets</h2><div class="donut-wrap">'
         f'<div class="donut" style="background:conic-gradient(#0f766e 0 {mop_share:.1f}%,'
         f'#f59e0b {mop_share:.1f}% 100%)"><span>{len(selected)}</span></div>'
-        f'<div><p><b>{len(mop_selected)}</b> MOP assets</p>'
-        f'<p><b>{len(external_selected)}</b> External assets</p></div></div></section>'
+        f'<div><p><b>{len(mop_selected)}</b> MOP datasets</p>'
+        f'<p><b>{len(external_selected)}</b> External datasets</p></div></div></section>'
         '<section class="chart"><h2>MOP catalogue adoption</h2>'
         f'<p class="adoption-value"><b>{len(mop_selected)}</b> of {len(all_mop)} MOP datasets used</p>'
         f'<div class="progress"><i style="width:{adoption:.1f}%"></i></div>'
         f'<p>{adoption:.1f}% of the current catalogue</p></section>'
-        + _bars("Assets by CoM Theme", themes, "bar-blue")
+        + _bars("Datasets by CoM Theme", themes, "bar-blue")
         + _bars("Use cases by number of datasets", use_cases, "bar-orange")
         + '</div><div class="reuse-matrix-grid"><section class="chart reuse-list">'
         f'<h2>Top reused datasets</h2><ol>{reused_items}</ol>'
         '<p class="reuse-note">Number indicates use cases using the dataset.</p></section>'
         '<section class="chart matrix-chart"><h2>Use Case Domain by City of Melbourne Theme</h2>'
         f'<div class="matrix-wrap"><table class="matrix"><thead><tr><th>Use case domain</th>'
-        f'{matrix_header}</tr></thead><tbody>{matrix_rows}</tbody></table></div></section></div></section>'
+        f'{matrix_header}</tr></thead><tbody>{matrix_rows}</tbody></table></div>'
+        '<p class="matrix-note">Cells show dataset-use relationships; 0 means none.</p>'
+        '</section></div></section>'
     )
+
+
+def _logo_data_uri(path: Path) -> str:
+    if not path.exists():
+        raise FileNotFoundError(f"Dashboard logo not found: {path}")
+    encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:image/png;base64,{encoded}"
 
 
 def _write_html(
     records: list[dict[str, Any]],
     path: Path,
     domains: dict[str, str],
+    logo_file: Path,
 ) -> None:
     cell = lambda value: html.escape(str(value))
     source_options = "".join(
@@ -693,9 +804,23 @@ def _write_html(
             f'<b>Variables:</b> {variable_count}<span class="tooltiptext">{variables}</span>'
             f'</span><br><b>Type:</b> {cell(record["datatype"])}'
         )
+        use_case_codes = " ".join(use["code"] for use in record["used_by"])
+        search_terms = " ".join(
+            [
+                record["dataset"],
+                record["description"],
+                record["source"],
+                record["publisher"],
+                " ".join(record["themes"]),
+                use_case_codes,
+                record["datatype"],
+                record["size"],
+                " ".join(record["variables"]),
+            ]
+        ).lower()
         attributes = (
-            f'data-dataset="{html.escape(record["dataset"].lower(), quote=True)}" '
-            f'data-use-cases="{html.escape(" ".join(use["code"] for use in record["used_by"]), quote=True)}" '
+            f'data-search="{html.escape(search_terms, quote=True)}" '
+            f'data-use-cases="{html.escape(use_case_codes, quote=True)}" '
             f'data-source="{html.escape(record["source"], quote=True)}" '
             f'data-themes="{html.escape("|".join(theme.lower() for theme in record["themes"]), quote=True)}" '
             f'data-selected="{str(bool(record["used_by"])).lower()}" '
@@ -705,51 +830,70 @@ def _write_html(
             f'<tr {attributes}><td>{cell(record["asset_id"])}</td><td>{dataset}</td>'
             f'<td class="source-col">{cell(record["source"])}</td>'
             f'<td class="theme-col">{"<br>".join(cell(theme) for theme in record["themes"])}</td>'
-            f'<td>{used_by}</td><td class="type-col">{type_size}</td></tr>'
+            f'<td>{used_by}</td><td class="type-col">{type_size}</td>'
+            f'<td class="description-col">{cell(record["description"])}</td></tr>'
         )
 
     subtitles = (
         '<div class="view-subtitles">'
-        '<p class="view-subtitle subtitle-insights">An overview of data assets used across Use Cases, '
+        '<p class="view-subtitle subtitle-insights">An overview of datasets used across Use Cases, '
         'including MOP Open Data adoption, reuse and theme coverage.</p>'
-        '<p class="view-subtitle subtitle-mop">Explore the '
-        '<a href="https://data.melbourne.vic.gov.au/explore/?sort=modified" target="_blank" '
-        'rel="noopener">City of Melbourne Open Data catalogue</a>, including CoM Themes, '
-        'data types and sizes.</p>'
-        '<p class="view-subtitle subtitle-selected">Browse datasets used in FINALISED Use Cases, '
-        'including MOP Open Data and external sources.</p></div>'
+        '</div>'
     )
-    script = """<script>const pageSize=20;let page=1,mode='insights';function setMode(next){mode=next;page=1;document.body.className='mode-'+mode;document.querySelectorAll('[data-mode]').forEach(button=>button.classList.toggle('active',button.dataset.mode===mode));const insight=document.getElementById('data-asset-dashboard'),tableShell=document.getElementById('table-shell');const isInsights=mode==='insights';insight.hidden=!isInsights;tableShell.hidden=isInsights;if(isInsights)return;if(mode==='mop')document.getElementById('source').value='';else document.getElementById('theme').value='';filterRows()}function shownRows(){const q=document.getElementById('search').value.trim().toLowerCase(),source=document.getElementById('source').value,theme=document.getElementById('theme').value;return [...document.querySelectorAll('#catalogue tbody tr')].filter(row=>{const modeMatch=mode==='selected'?row.dataset.selected==='true':row.dataset.mop==='true';const searchMatch=!q||row.dataset.dataset.includes(q)||row.dataset.useCases.split(' ').some(code=>code.toLowerCase().startsWith(q));return modeMatch&&searchMatch&&(!source||row.dataset.source===source)&&(!theme||row.dataset.themes.split('|').includes(theme))})}function renderPage(){const all=[...document.querySelectorAll('#catalogue tbody tr')],shown=shownRows(),pages=Math.max(1,Math.ceil(shown.length/pageSize));page=Math.max(1,Math.min(page,pages));all.forEach(row=>row.style.display='none');shown.slice((page-1)*pageSize,page*pageSize).forEach(row=>row.style.display='');document.getElementById('page-info').textContent='Page '+page+' of '+pages+' ('+shown.length+' records)'}function filterRows(){page=1;renderPage()}function changePage(step){const pages=Math.max(1,Math.ceil(shownRows().length/pageSize));page=Math.max(1,Math.min(page+step,pages));renderPage()}renderPage();</script>"""
+    script = r"""<script>
+const pageSize=20;let page=1,mode='insights';
+function setMode(next){mode=next;page=1;document.body.className='mode-'+mode;document.querySelectorAll('[data-mode]').forEach(button=>button.classList.toggle('active',button.dataset.mode===mode));const insight=document.getElementById('data-asset-dashboard'),tableShell=document.getElementById('table-shell'),isInsights=mode==='insights';insight.hidden=!isInsights;tableShell.hidden=isInsights;if(!isInsights)filterRows()}
+function shownRows(){const q=document.getElementById('search').value.trim().toLowerCase(),scope=document.getElementById('scope').value,source=document.getElementById('source').value,theme=document.getElementById('theme').value;return [...document.querySelectorAll('#catalogue tbody tr')].filter(row=>{const isMop=row.dataset.mop==='true',isUsed=row.dataset.selected==='true';const scopeMatch=scope==='all'||(scope==='mop'&&isMop)||(scope==='used'&&isUsed)||(scope==='unused-mop'&&isMop&&!isUsed)||(scope==='external'&&!isMop);const searchMatch=!q||row.dataset.search.includes(q);return scopeMatch&&searchMatch&&(!source||row.dataset.source===source)&&(!theme||row.dataset.themes.split('|').includes(theme))})}
+function renderPage(){const all=[...document.querySelectorAll('#catalogue tbody tr')],shown=shownRows(),pages=Math.max(1,Math.ceil(shown.length/pageSize));page=Math.max(1,Math.min(page,pages));all.forEach(row=>row.style.display='none');shown.slice((page-1)*pageSize,page*pageSize).forEach(row=>row.style.display='');const empty=document.getElementById('no-results'),pagination=document.getElementById('pagination'),q=document.getElementById('search').value.trim();empty.hidden=shown.length!==0;empty.textContent=/^uc\d+$/i.test(q)?'No matching datasets were found. This use case may not be finalised yet or may not contain a detectable dataset reference.':'No datasets match the current search and filters.';pagination.hidden=shown.length===0;document.getElementById('page-info').textContent='Page '+page+' of '+pages+' ('+shown.length+' records)';document.getElementById('previous-page').disabled=page<=1;document.getElementById('next-page').disabled=page>=pages}
+function filterRows(){page=1;renderPage()}
+function changePage(step){const pages=Math.max(1,Math.ceil(shownRows().length/pageSize));page=Math.max(1,Math.min(page+step,pages));renderPage()}
+renderPage();
+</script>"""
+    logo = _logo_data_uri(logo_file)
     content = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        '<title>MOP Data Asset Manage Platform</title>'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<title>MOP Data Dashboard</title>'
         + BASE_STYLE
         + DASHBOARD_STYLE
         + POLISHED_STYLE
         + REUSE_STYLE
         + VIEW_STYLE
-        + '</head><body class="mode-insights"><h1>MOP Data Asset Manage Platform</h1>'
-        '<p class="sub">A unified view of City of Melbourne Open Data, its use across MOP '
-        'notebooks, and opportunities for data reuse.</p><div class="views">'
-        '<button class="active" data-mode="insights" onclick="setMode(\'insights\')">'
-        'Data Asset Dashboard</button><button data-mode="mop" onclick="setMode(\'mop\')">'
-        'Open Data Catalogue</button><button data-mode="selected" onclick="setMode(\'selected\')">'
-        'Usage</button></div>'
-        + subtitles
+        + HEADER_STYLE
+        + '</head><body class="mode-insights"><header class="site-header">'
+        f'<div class="brand-mark"><img class="brand-logo" src="{logo}" alt="Chameleon logo"></div>'
+        '<div class="header-centre"><h1>MOP Data Dashboard</h1></div>'
+        '<div class="header-actions"><nav class="views" '
+        'aria-label="Dashboard views"><button class="active" data-mode="insights" '
+        'onclick="setMode(\'insights\')">Data Usage Dashboard</button>'
+        '<button data-mode="catalogue" onclick="setMode(\'catalogue\')">Data Catalogue</button></nav>'
+        f'<div class="header-copy">{subtitles}</div></div></header>'
         + _render_insights(records, domains)
         + '<div id="table-shell" hidden><div id="filters" class="filters">'
-        '<input id="search" placeholder="Search Dataset name or Use Case code" oninput="filterRows()">'
-        '<select id="source" class="source-filter" onchange="filterRows()">'
+        '<select id="scope" onchange="filterRows()" aria-label="Filter by dataset scope">'
+        '<option value="all">All Datasets</option>'
+        '<option value="mop">All MOP Open Data</option>'
+        '<option value="used">Used in FINALISED Use Cases</option>'
+        '<option value="unused-mop">Unused MOP Open Data</option>'
+        '<option value="external">External Datasets</option></select>'
+        '<label class="sr-only" for="search">Search datasets and use cases</label>'
+        '<input id="search" name="mop-dataset-search" type="search" autocomplete="off" '
+        'placeholder="Search dataset name, keyword or Use Case code" '
+        'oninput="filterRows()">'
+        '<select id="source" class="source-filter" onchange="filterRows()" aria-label="Filter by source">'
         f'<option value="">All Sources</option>{source_options}</select>'
-        '<select id="theme" class="theme-filter" onchange="filterRows()">'
+        '<select id="theme" class="theme-filter" onchange="filterRows()" aria-label="Filter by theme">'
         f'<option value="">All CoM Themes</option>{theme_options}</select></div>'
-        '<table id="catalogue"><thead><tr><th>Asset ID</th><th>Dataset</th>'
+        '<p id="no-results" class="no-results" role="status" aria-live="polite" hidden></p>'
+        '<table id="catalogue"><thead><tr><th>Dataset ID</th><th>Dataset</th>'
         '<th class="source-col">Source</th><th class="theme-col">CoM Theme</th>'
-        '<th>Used by</th><th class="type-col">Size and Type</th></tr></thead>'
+        '<th>Used by</th><th class="type-col">Size and Type</th>'
+        '<th class="description-col">Dataset Description</th></tr></thead>'
         f'<tbody>{"".join(body)}</tbody></table><div id="pagination">'
-        '<button onclick="changePage(-1)">Previous</button><span id="page-info"></span>'
-        '<button onclick="changePage(1)">Next</button></div></div>'
-        '<footer class="scope-note">This platform is designed for FINALISED Use Cases and '
+        '<button id="previous-page" onclick="changePage(-1)">Previous</button>'
+        '<span id="page-info"></span>'
+        '<button id="next-page" onclick="changePage(1)">Next</button></div></div>'
+        '<footer class="scope-note">This dashboard is designed for FINALISED Use Cases and '
         'reflects the notebooks currently available in the repository.</footer>'
         + script
         + "</body></html>"
@@ -773,16 +917,19 @@ def build(config: BuildConfig | None = None) -> dict[str, Any]:
     records = build_records(findings, city_catalogue, _load_overrides(config.overrides_file))
     _assign_asset_ids(records, config.asset_ids_file)
 
-    csv_path = config.output_dir / "Data_Asset_Catalogue.csv"
-    html_path = config.output_dir / "Data_Asset_Catalogue.html"
+    csv_path = config.output_dir / "Data_Catalogue.csv"
+    html_path = config.output_dir / "MOP Data Dashboard.html"
+    domains = resolve_use_case_domains(config)
     _write_csv(records, csv_path)
-    _write_html(records, html_path, _load_use_case_domains(config.use_case_domains_file))
+    _write_html(records, html_path, domains, config.logo_file)
 
     used = [record for record in records if record["used_by"]]
+    use_case_codes = {item["code"] for row in used for item in row["used_by"]}
     summary = {
         "source": f"github.com/{config.github_owner}/{config.github_repository}/{config.github_branch}/{config.finalised_path}",
         "notebooks_scanned": len(notebooks),
-        "use_cases": len({item["code"] for row in used for item in row["used_by"]}),
+        "use_cases": len(use_case_codes),
+        "unclassified_use_cases": sorted(use_case_codes - domains.keys()),
         "catalogue_datasets": len(city_catalogue),
         "used_assets": len(used),
         "html": str(html_path),
