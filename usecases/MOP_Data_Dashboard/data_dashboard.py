@@ -101,12 +101,17 @@ class BuildConfig:
 
 
 def _request(url: str, *, expect_json: bool = False, retries: int = 2) -> Any:
+    parsed_url = urlparse(url)
+    is_github_api = (
+        parsed_url.scheme.lower() == "https"
+        and (parsed_url.hostname or "").lower() == "api.github.com"
+    )
     headers = {
-        "Accept": "application/vnd.github+json" if "api.github.com" in url else "application/json",
+        "Accept": "application/vnd.github+json" if is_github_api else "application/json",
         "User-Agent": "MOP-data-asset-platform",
     }
     token = os.getenv("GITHUB_TOKEN")
-    if token and "api.github.com" in url:
+    if token and is_github_api:
         headers["Authorization"] = f"Bearer {token}"
 
     for attempt in range(retries + 1):
