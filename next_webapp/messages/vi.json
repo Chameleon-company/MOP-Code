@@ -268,5 +268,29 @@
     "Clear": "Xóa",
     "ClickOrDrag": "Nhấp hoặc kéo tệp để tải lên",
     "SupportedTypes": "Được hỗ trợ: PDF, DOCX, PNG…"
+  },
+  "seo": {
+    "home_title": "Dữ Liệu Mở Cho Một Melbourne Thông Minh Hơn",
+    "home_description": "Melbourne Open Playground biến dữ liệu mở của Melbourne thành các công cụ tương tác, nghiên cứu điển hình và thông tin chuyên sâu cho một thành phố thông minh và bền vững hơn.",
+    "about_title": "Về Chúng Tôi",
+    "about_description": "Tìm hiểu về Melbourne Open Playground, một dự án cuối khóa của Đại học Deakin giúp dữ liệu mở của Melbourne trở nên dễ tiếp cận, hữu ích và có thể ứng dụng.",
+    "blog_title": "Blog",
+    "blog_description": "Đọc các bài viết, thông tin chuyên sâu và cập nhật mới nhất từ Melbourne Open Playground về dữ liệu mở, phát triển bền vững và đổi mới thành phố thông minh.",
+    "usecases_title": "Nghiên Cứu Điển Hình",
+    "usecases_description": "Khám phá các nghiên cứu điển hình thực tế cho thấy dữ liệu mở của Melbourne thúc đẩy các quyết định thông minh hơn trong y tế, môi trường, giao thông và nhiều lĩnh vực khác.",
+    "categories_title": "Danh Mục",
+    "categories_description": "Duyệt dữ liệu và nội dung của Melbourne Open Playground theo danh mục để nhanh chóng tìm thấy thông tin chuyên sâu và nghiên cứu điển hình phù hợp nhất với bạn.",
+    "gallery_title": "Thư Viện Ảnh",
+    "gallery_description": "Khám phá Melbourne qua lăng kính dữ liệu mở - các địa danh, không gian xanh, sáng kiến bền vững và đổi mới thành phố thông minh.",
+    "faq_title": "Câu Hỏi Thường Gặp",
+    "faq_description": "Tìm câu trả lời cho các câu hỏi thường gặp về Melbourne Open Playground, nguồn dữ liệu mở, nghiên cứu điển hình và cách tham gia.",
+    "contact_title": "Liên Hệ",
+    "contact_description": "Liên hệ với đội ngũ Melbourne Open Playground để đặt câu hỏi, gửi phản hồi, hợp tác hoặc yêu cầu hỗ trợ.",
+    "licensing_title": "Giấy Phép",
+    "licensing_description": "Xem lại các điều khoản cấp phép sử dụng dữ liệu, nội dung và công cụ của Melbourne Open Playground.",
+    "privacypolicy_title": "Chính Sách Bảo Mật",
+    "privacypolicy_description": "Đọc chính sách bảo mật của Melbourne Open Playground để hiểu cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn.",
+    "ev_infrastructure_title": "Hạ Tầng Xe Điện",
+    "ev_infrastructure_description": "Khám phá dữ liệu mở về hạ tầng sạc xe điện tại Melbourne, bao gồm vị trí, tình trạng sẵn có và xu hướng tăng trưởng."
   }
 }
