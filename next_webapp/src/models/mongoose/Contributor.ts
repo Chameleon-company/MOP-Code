@@ -38,6 +38,11 @@ contributorSchema.pre("validate", function (next) {
     this.position = null;
     this.level = null;
   } else {
+    // Relax strict validation for historical data backfill
+    if (this.year && this.year < 2024) {
+      return next();
+    }
+
     if (!this.team) {
       this.invalidate("team", "team is required for student contributors");
     }

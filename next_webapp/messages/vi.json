@@ -109,8 +109,8 @@
       "trimester": "Học kỳ {number}",
       "companyDirector": "Giám đốc Công ty: {name}",
       "mentoredBy": "Được hướng dẫn bởi {names}",
-      "projectLead": "Project Lead: {names}",
-      "projectLeadsPlural": "Project Leads: {names}"
+      "projectLead": "Trưởng dự án: {names}",
+      "projectLeadsPlural": "Các Trưởng dự án: {names}"
     },
     "heroDescription": "Dự án Dữ liệu Mở Melbourne (MOP) là một sáng kiến cuối khóa phù hợp với tầm nhìn chiến lược của Thành phố Melbourne. Dự án chuyển đổi dữ liệu mở thành các thông tin hữu ích bằng AI, khoa học dữ liệu và công nghệ web hiện đại.",
     "Project Overview": "Tổng Quan Dự Án",

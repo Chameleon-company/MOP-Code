@@ -109,8 +109,8 @@
       "trimester": "ट्राइमेस्टर {number}",
       "companyDirector": "कंपनी निदेशक: {name}",
       "mentoredBy": "{names} द्वारा मार्गदर्शित",
-      "projectLead": "Project Lead: {names}",
-      "projectLeadsPlural": "Project Leads: {names}"
+      "projectLead": "प्रोजेक्ट लीड: {names}",
+      "projectLeadsPlural": "प्रोजेक्ट लीड्स: {names}"
     },
     "heroDescription": "मेलबर्न ओपन डेटा प्रोजेक्ट (MOP) एक कैपस्टोन पहल है जो मेलबर्न शहर की रणनीतिक दृष्टि के अनुरूप है। यह AI, डेटा साइंस और आधुनिक वेब तकनीकों का उपयोग करके खुले डेटा को उपयोगी अंतर्दृष्टि में बदलता है।",
     "Project Overview": "परियोजना अवलोकन",
