@@ -181,7 +181,8 @@ Some rules to look out for:
 ## Resources
 ## Lighthouse CI (Sprint 3)
 
-The [repository-root workflow](../.github/workflows/lighthouse.yml) is configured
-to run production Lighthouse audits with enforced performance budgets on PRs
-targeting `staging`. It must be committed and pushed with the frontend changes;
-the first hosted run still needs verification. See [setup, local testing, reports, and required branch protection](docs/lighthouse-ci.md).
+Production Lighthouse audits with enforced performance budgets can be run
+locally against a production build (`npm run lighthouse`). There is currently
+no automated GitHub Actions workflow running this on PRs — see
+[setup and local testing](docs/lighthouse-ci.md) for details and for what
+re-adding CI enforcement would take.

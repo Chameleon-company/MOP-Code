@@ -1,11 +1,12 @@
 # Sprint 3: Lighthouse CI
 
-The repository-root [Lighthouse workflow](../../.github/workflows/lighthouse.yml)
-is configured to run when a PR targeting `staging` is opened, receives new commits,
-or is reopened. It also defines a manual trigger. It checks
-out GitHub's PR merge commit, installs locked dependencies, builds Next.js in
-production mode, and audits that build on port 3001. There is no path filter, so
-PRs always receive the check. New commits cancel older runs for the same PR.
+This originally shipped with a repository-root `.github/workflows/lighthouse.yml`
+GitHub Actions workflow, gated on PRs targeting `staging`. That workflow has been
+removed: it never actually ran (zero executions since it merged) because this
+repo's PR flow exclusively targets `master`, not `staging` — no PR has ever been
+opened against `staging`. The tooling below (`lighthouserc.cjs`, the npm scripts)
+is unaffected and fully functional on its own; only the automated CI trigger is
+gone. See "Re-adding CI enforcement" below if reviving it.
 
 ## Audits and budgets
 
@@ -55,25 +56,22 @@ Open HTML reports in `lighthouse-reports/`; raw runs and assertion results are i
 `.lighthouseci/`. Both directories are ignored by Git. A budget failure exits
 nonzero. Build/startup/browser failures also fail the workflow.
 
-## GitHub setup and reports
+## Re-adding CI enforcement
 
-The workflow must be included in the pushed commits, not just present locally.
-From `next_webapp`, stage it explicitly with
-`git add ../.github/workflows/lighthouse.yml` and confirm it appears in
-`git diff --cached --name-only` before committing. A `git add .` from
-`next_webapp` does not include this parent directory.
+There is no GitHub Actions workflow running these audits automatically right
+now — only the local commands above. To wire this back up correctly:
 
-The first hosted run has not yet been verified. Open a PR targeting
-`staging`, then inspect **Actions → Lighthouse CI → Lighthouse performance budgets**.
-Download the `lighthouse-reports-…` artifact to view HTML/JSON results. Reports are
-retained for 14 days and uploaded even when an audit assertion fails; a build
-failure can occur before any report is available. Reports are not sent to public
-Lighthouse storage.
-
-A repository administrator must add **Lighthouse performance budgets** as a
-required status check in the `staging` branch protection rule or ruleset after its
-first run. The workflow produces a failing status; branch protection makes that
-status prevent merging. This repository setting cannot be enforced by a YAML file.
+1. Add a workflow (e.g. `.github/workflows/lighthouse.yml`) triggered on
+   `pull_request: branches: [master]` — not `staging`, since that's the branch
+   PRs in this repo actually target. Have it run `npm run build:lighthouse`
+   then `npm run lighthouse` from `next_webapp`, and upload
+   `lighthouse-reports/` and `.lighthouseci/` as artifacts.
+2. Open a real PR to `master` so the workflow runs at least once — GitHub only
+   lets you select a status check for branch protection after it has reported
+   once.
+3. A repository administrator then adds the check's job name as a **required
+   status check** in `master`'s branch protection rule/ruleset. This can't be
+   enforced by the YAML file alone.
 
 Implementation follows the [official Lighthouse CI configuration documentation](https://googlechrome.github.io/lighthouse-ci/docs/configuration.html).
 
@@ -81,8 +79,6 @@ Implementation follows the [official Lighthouse CI configuration documentation](
 
 - Production build passed with the audit environment configuration.
 - `npm ci --dry-run --ignore-scripts --offline` passed (lockfile verification).
-- Workflow YAML parsed successfully; staging trigger, working directory, and
-  report upload on failure were checked.
 - `npm run test:lighthouse` passed six CLI integration cases: a healthy report,
   performance score regression, LCP regression, blocking-time regression, layout
   shift regression, and an HTTP error page. Failure cases returned exit code 1.
