@@ -7,6 +7,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
+| UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
 | UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
 | UC00041_Urban_Flood_Management_and_Emergency_Response_2026 | T2 2026 | Urban Planning and Development | (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00041_Urban_Flood_Management_and_Emergency_Response_2026.ipynb) |
 | UC00061_Melbourne_Employment_and_Industry_Analysis_2002-2024 | T2 2026 | Business and Economy | Aayush Patel | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00061_Melbourne_Employment_and_Industry_Analysis_2002-2024.ipynb) |
@@ -17,7 +18,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00163_Parking_Availability_in_the_Melbourne_CBD | T2 2026 | Transport and Mobility | Stefan Cucos (updated: Aidan Page) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00163_Parking_Availability_in_the_Melbourne_CBD.ipynb) |
 | UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis | T2 2026 | Urban Planning and Development | Harsh Dwivedi (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00171_Melbourne_Urban_Microclimate_and_Pedestrian_Activity_Analysis.ipynb) |
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
-| UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
 
 ### Ready To Publish 
 
