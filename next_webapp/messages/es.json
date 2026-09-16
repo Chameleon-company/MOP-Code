@@ -109,8 +109,8 @@
       "trimester": "Trimestre {number}",
       "companyDirector": "Director de la Empresa: {name}",
       "mentoredBy": "Con la mentoría de {names}",
-      "projectLead": "Project Lead: {names}",
-      "projectLeadsPlural": "Project Leads: {names}"
+      "projectLead": "Líder de Proyecto: {names}",
+      "projectLeadsPlural": "Líderes de Proyecto: {names}"
     },
     "heroDescription": "El Proyecto de Datos Abiertos de Melbourne (MOP) es una iniciativa de culminación alineada con la visión estratégica de la Ciudad de Melbourne. Transforma los datos abiertos en información útil mediante inteligencia artificial, ciencia de datos y tecnologías web modernas.",
     "Project Overview": "Descripción del Proyecto",

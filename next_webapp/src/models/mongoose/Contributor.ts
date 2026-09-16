@@ -21,6 +21,7 @@ const contributorSchema = new Schema(
 
     display_order: { type: Number, default: 0 },
     is_active: { type: Boolean, default: true },
+    is_legacy_backfill: { type: Boolean, default: false }, // Transient flag for backfill script
   },
   {
     collection: "contributors",
@@ -38,6 +39,11 @@ contributorSchema.pre("validate", function (next) {
     this.position = null;
     this.level = null;
   } else {
+    // Relax strict validation for historical data backfill
+    if (this.is_legacy_backfill) {
+      return next();
+    }
+
     if (!this.team) {
       this.invalidate("team", "team is required for student contributors");
     }

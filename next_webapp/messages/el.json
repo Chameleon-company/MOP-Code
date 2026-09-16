@@ -109,8 +109,8 @@
       "trimester": "Τρίμηνο {number}",
       "companyDirector": "Διευθυντής Εταιρείας: {name}",
       "mentoredBy": "Καθοδήγηση από {names}",
-      "projectLead": "Project Lead: {names}",
-      "projectLeadsPlural": "Project Leads: {names}"
+      "projectLead": "Επικεφαλής Έργου: {names}",
+      "projectLeadsPlural": "Επικεφαλείς Έργου: {names}"
     },
     "heroDescription": "Το Melbourne Open Data Project (MOP) είναι μια τελική πρωτοβουλία ευθυγραμμισμένη με το στρατηγικό όραμα της Πόλης της Μελβούρνης. Μετατρέπει τα ανοικτά δεδομένα σε αξιοποιήσιμες γνώσεις χρησιμοποιώντας τεχνητή νοημοσύνη, επιστήμη δεδομένων και σύγχρονες τεχνολογίες ιστού.",
     "Project Overview": "Επισκόπηση Έργου",
