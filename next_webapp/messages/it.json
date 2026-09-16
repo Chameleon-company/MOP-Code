@@ -108,7 +108,9 @@
       "empty": "Nessun collaboratore disponibile al momento.",
       "trimester": "Trimestre {number}",
       "companyDirector": "Direttore Aziendale: {name}",
-      "mentoredBy": "Guidati da {names}"
+      "mentoredBy": "Guidati da {names}",
+      "projectLead": "Project Lead: {names}",
+      "projectLeadsPlural": "Project Leads: {names}"
     },
     "heroDescription": "Il Melbourne Open Data Project (MOP) è un'iniziativa finale allineata con la visione strategica della Città di Melbourne. Trasforma i dati aperti in informazioni utilizzabili tramite intelligenza artificiale, data science e moderne tecnologie web.",
     "Project Overview": "Panoramica del Progetto",

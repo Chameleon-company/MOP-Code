@@ -1,14 +1,14 @@
 import dbConnect from "@/lib/dbConnect";
-import Contributor, { TeamName } from "@/models/mongoose/Contributor";
+import Contributor from "@/models/mongoose/Contributor";
 import { toContributorDTO } from "@/app/api/library/contributorDto";
-import type { ContributorRecord, ContributorType, ContributorLevel } from "@/types/contributor";
+import type { ContributorRecord, ContributorType, ContributorLevel, TeamName } from "@/types/contributor";
 
 interface RawContributor {
   id: string;
   name: string;
   year: number;
   trimester: number;
-  contributor_type: "student" | "mentor" | "company_director";
+  contributor_type: "student" | "mentor" | "company_director" | "project_lead";
   team: string | null;
   position: string | null;
   level: "Junior" | "Senior" | null;
@@ -22,6 +22,7 @@ const CONTRIBUTOR_TYPE_MAP: Record<RawContributor["contributor_type"], Contribut
   student: "student",
   mentor: "mentor",
   company_director: "company_director",
+  project_lead: "project_lead",
 };
 
 function mapToContributorRecord(raw: RawContributor): ContributorRecord {

@@ -489,6 +489,7 @@ export default function ContributorsPage() {
               { value: "student", label: "👨‍🎓 Students" },
               { value: "mentor", label: "👨‍🏫 Mentors" },
               { value: "company_director", label: "🏢 Company Directors" },
+              { value: "project_lead", label: "👑 Project Leads" },
             ]}
             placeholder="All types"
           />
