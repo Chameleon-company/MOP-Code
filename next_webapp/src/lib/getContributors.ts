@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
-import Contributor, { TeamName } from "@/models/mongoose/Contributor";
+import Contributor from "@/models/mongoose/Contributor";
 import { toContributorDTO } from "@/app/api/library/contributorDto";
-import type { ContributorRecord, ContributorType, ContributorLevel } from "@/types/contributor";
+import type { ContributorRecord, ContributorType, ContributorLevel, TeamName } from "@/types/contributor";
 
 interface RawContributor {
   id: string;

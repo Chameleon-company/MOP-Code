@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { TEAM_ROLES, type ContributorType, type ContributorLevel } from "@/types/contributor";
+import { TEAM_ROLES, type ContributorType, type ContributorLevel, type TeamName } from "@/types/contributor";
 
 type CustomSelectOption = {
   value: string;
@@ -243,7 +243,7 @@ export default function ContributorForm({
 
   const isStudent = formData.contributorType === "student";
 
-  const availableRoles = formData.team ? TEAM_ROLES[formData.team] || [] : [];
+  const availableRoles = formData.team ? TEAM_ROLES[formData.team as TeamName] || [] : [];
   const roleOptions: CustomSelectOption[] = formData.team
     ? [
         { value: "", label: "Select position" },

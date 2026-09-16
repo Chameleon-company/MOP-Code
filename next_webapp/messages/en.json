@@ -108,7 +108,9 @@
       "empty": "No contributors available at the moment.",
       "trimester": "Trimester {number}",
       "companyDirector": "Company Director: {name}",
-      "mentoredBy": "Mentored by {names}"
+      "mentoredBy": "Mentored by {names}",
+      "projectLead": "Project Lead: {names}",
+      "projectLeadsPlural": "Project Leads: {names}"
     },
     "heroDescription": "The Melbourne Open Data Project (MOP) is a capstone initiative aligned with the City of Melbourne’s strategic vision. It transforms open data into actionable insights using AI, data science, and modern web technologies.",
     "Project Overview": "Project Overview",

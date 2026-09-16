@@ -220,7 +220,7 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
       )}
 
       {trimester.mentors.length > 0 && (
-        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-2">
+        <p className={`flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 ${trimester.projectLeads.length > 0 ? 'mb-2' : 'mb-4'}`}>
           <GraduationCap size={14} aria-hidden="true" />
           {t("contributors.mentoredBy", { names: trimester.mentors.join(", ") })}
         </p>
@@ -228,7 +228,9 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
 
       {trimester.projectLeads.length > 0 && (
         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
-          Project Lead{trimester.projectLeads.length > 1 ? 's' : ''}: {trimester.projectLeads.join(", ")}
+          {trimester.projectLeads.length > 1
+            ? t("contributors.projectLeadsPlural", { names: trimester.projectLeads.join(", ") })
+            : t("contributors.projectLead", { names: trimester.projectLeads.join(", ") })}
         </p>
       )}
 
