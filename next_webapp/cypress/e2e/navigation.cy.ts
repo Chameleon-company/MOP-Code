@@ -47,7 +47,7 @@ describe('Global Navigation', () => {
 
   it('should navigate home via the logo', () => {
     cy.visit('/about');
-    cy.get('a[aria-label="Go to homepage"]').click();
+    cy.get('header').find('a[aria-label="Go to homepage"]').first().click();
     cy.url().should('match', /\/en\/?$/);
   });
 
