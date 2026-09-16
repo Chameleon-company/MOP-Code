@@ -81,23 +81,23 @@ class BuildConfig:
 
     @property
     def output_dir(self) -> Path:
-        return self.project_dir / "outputs"
+        return self.project_dir
 
     @property
     def overrides_file(self) -> Path:
-        return self.project_dir / "config" / "asset_overrides.csv"
+        return self.project_dir / "asset_overrides.csv"
 
     @property
     def use_case_domains_file(self) -> Path:
-        return self.project_dir / "config" / "use_case_domains.csv"
+        return self.project_dir / "use_case_domains.csv"
 
     @property
     def asset_ids_file(self) -> Path:
-        return self.project_dir / "config" / "asset_id_registry.csv"
+        return self.project_dir / "asset_id_registry.csv"
 
     @property
     def logo_file(self) -> Path:
-        return self.project_dir / "assets" / "Chameleon_logo.png"
+        return self.project_dir / "Chameleon_logo.png"
 
 
 def _request(url: str, *, expect_json: bool = False, retries: int = 2) -> Any:

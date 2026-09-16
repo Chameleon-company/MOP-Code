@@ -47,8 +47,7 @@ During each refresh, the workflow:
    `usecases/Use_Case_Index.md`;
 4. preserves existing stable dataset IDs and assigns IDs to newly discovered
    datasets;
-5. regenerates `outputs/Data_Catalogue.csv` and
-   `outputs/MOP Data Dashboard.html`; and
+5. regenerates `Data_Catalogue.csv` and `MOP Data Dashboard.html`; and
 6. publishes the regenerated HTML file as the GitHub Pages website.
 
 The refresh process therefore does not require the dashboard tables to be
@@ -103,8 +102,8 @@ Alternatively, open and run `Refresh_Data_Dashboard.ipynb`.
 
 Generated files:
 
-- `outputs/MOP Data Dashboard.html`
-- `outputs/Data_Catalogue.csv`
+- `MOP Data Dashboard.html`
+- `Data_Catalogue.csv`
 
 ## Maintenance notes
 
@@ -113,9 +112,8 @@ Generated files:
   GitHub Actions workflow performs this refresh automatically.
 - Dataset metadata that cannot be verified is shown as `Not stated`.
 - Use Case domains are read automatically from `usecases/Use_Case_Index.md`.
-  `config/use_case_domains.csv` is refreshed automatically as an offline cache.
-- `config/asset_id_registry.csv` preserves stable dataset identifiers between
-  refreshes.
+  `use_case_domains.csv` is refreshed automatically as an offline cache.
+- `asset_id_registry.csv` preserves stable dataset identifiers between refreshes.
 - GitHub Actions commits registry and domain-cache changes generated during a
   refresh, so newly assigned IDs remain stable in later runs.
 - The repository's GitHub Pages publishing source must be set to **GitHub

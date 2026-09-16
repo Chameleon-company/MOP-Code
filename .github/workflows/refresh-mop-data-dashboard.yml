@@ -45,8 +45,8 @@ jobs:
 
       - name: Preserve stable IDs and the domain cache
         run: |
-          git add 'usecases/MOP_Data_Dashboard/config/asset_id_registry.csv'
-          git add 'usecases/MOP_Data_Dashboard/config/use_case_domains.csv'
+          git add 'usecases/MOP_Data_Dashboard/asset_id_registry.csv'
+          git add 'usecases/MOP_Data_Dashboard/use_case_domains.csv'
           if git diff --cached --quiet; then
             exit 0
           fi
@@ -58,7 +58,7 @@ jobs:
       - name: Prepare the published site
         run: |
           mkdir -p _site
-          cp 'usecases/MOP_Data_Dashboard/outputs/MOP Data Dashboard.html' _site/index.html
+          cp 'usecases/MOP_Data_Dashboard/MOP Data Dashboard.html' _site/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
