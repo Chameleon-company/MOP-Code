@@ -67,12 +67,12 @@ export default function TestimonialsSection() {
   }, [index]);
 
   const visible = useMemo(() => {
-  return [
-    testimonials[index],
-    testimonials[(index + 1) % total],
-    testimonials[(index + 2) % total],
-  ];
-}, [index, total]);
+    return [
+      testimonials[index],
+      testimonials[(index + 1) % total],
+      testimonials[(index + 2) % total],
+    ];
+  }, [index, total]);
 
   return (
     <>

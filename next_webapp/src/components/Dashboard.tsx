@@ -889,7 +889,7 @@ const Dashboard = () => {
 	// Keep the initial, preloaded slide stable for first paint. A full-viewport
 	// auto-rotating image becomes a new LCP candidate every five seconds.
 	// Visitors can still select a slide with the dots or swipe controls.
-		const goToSlide = useCallback((index: number) => {
+        const goToSlide = useCallback((index: number) => {
 		setCurrentSlide(index);
 	}, []);
 
