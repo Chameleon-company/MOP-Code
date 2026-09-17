@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { useState } from "react";
+import Image from "next/image";
 
 type Source = string | string[];
 
@@ -48,19 +49,25 @@ function CellOutput({ output }: { output: NotebookOutput }) {
 
     if (data["image/png"]) {
       return (
-        <img
+        <Image
           src={`data:image/png;base64,${join(data["image/png"]).trim()}`}
           alt="notebook output"
-          className="max-w-full rounded-lg"
+          width={800}
+          height={600}
+          className="h-auto max-w-full rounded-lg"
+          unoptimized
         />
       );
     }
     if (data["image/jpeg"]) {
       return (
-        <img
+        <Image
           src={`data:image/jpeg;base64,${join(data["image/jpeg"]).trim()}`}
           alt="notebook output"
-          className="max-w-full rounded-lg"
+          width={800}
+          height={600}
+          className="h-auto max-w-full rounded-lg"
+          unoptimized
         />
       );
     }

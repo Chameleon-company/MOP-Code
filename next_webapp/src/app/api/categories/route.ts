@@ -34,6 +34,8 @@ export async function POST(request: NextRequest) {
     const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
 
     try {
+        await dbConnect(); 
+        
         // ==============================
         // 1. Check Admin Authorization
         // ==============================

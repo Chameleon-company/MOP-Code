@@ -12,11 +12,6 @@ const REQUIRED_SMTP_VARS = [
     'SMTP_FROM',
 ] as const;
 
-// for (const varName of REQUIRED_SMTP_VARS) {
-//     if (!process.env[varName]) {
-//         throw new Error(`Missing required environment variable: ${varName}`);
-//     }
-// }
 
 let _transporter: nodemailer.Transporter | null = null;
 
@@ -44,16 +39,6 @@ function getTransporter(): nodemailer.Transporter {
  
     return _transporter;
 }
-
-// const transporter = nodemailer.createTransport({
-//     host: process.env.SMTP_HOST,
-//     port: Number(process.env.SMTP_PORT),
-//     secure: false, // STARTTLS on port 587
-//     auth: {
-//         user: process.env.SMTP_USER,
-//         pass: process.env.SMTP_PASSWORD,
-//     },
-// });
 
 export async function POST(request: Request) {
     try {
