@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useRouter } from "@/i18n-navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
 
@@ -14,19 +13,23 @@ export default function AdminLayoutClient({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [authorized, setAuthorized] = useState(false);
   const router = useRouter();
-  const locale = useLocale();
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
-    const user = stored ? JSON.parse(stored) : null;
+    let user = null;
+    try {
+      user = stored ? JSON.parse(stored) : null;
+    } catch {
+      user = null;
+    }
 
     if (!user || !user.token) {
-      router.replace(`/${locale}/login`);
+      router.replace("/login");
       return;
     }
 
     if (user.roleId !== 1) {
-      router.replace(`/${locale}/profile`);
+      router.replace("/profile");
       return;
     }
 
