@@ -5,19 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { FolderOpen, ImagePlus, Save } from "lucide-react";
 import Image from "next/image";
 import { apiFetch } from "@/lib/apiFetch";
-
-function getAuthHeaders() {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 export default function EditCategoryPage() {
   const router = useRouter();

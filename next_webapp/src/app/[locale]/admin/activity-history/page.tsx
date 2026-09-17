@@ -4,23 +4,13 @@ import { useState, useEffect, useCallback } from "react";
 import { ArrowUpDown } from "lucide-react";
 import Pagination from "@/components/Pagination";
 import { apiFetch } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 interface ActivityEntry {
   id: number;
   activity: string;
   performedBy: string;
   performedAt: string;
-}
-
-function authHeaders(): Record<string, string> {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const token: string = user.token ?? "";
-  return {
-    "x-user-id": String(user.userId ?? user.id ?? ""),
-    "x-user-role-id": String(user.roleId ?? user.role_id ?? ""),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
 }
 
 const PAGE_SIZE = 20;
@@ -63,7 +53,7 @@ export default function ActivityHistoryPage() {
 
       const json = await apiFetch<{ success: boolean; data: ActivityEntry[]; pagination: { total: number; totalPages: number } }>(
         `/api/admin/activity-history?${params}`,
-        { headers: authHeaders(), silent: true }
+        { headers: getAuthHeaders(), silent: true }
       );
       setEntries(json.data || []);
       setTotal(json.pagination.total);

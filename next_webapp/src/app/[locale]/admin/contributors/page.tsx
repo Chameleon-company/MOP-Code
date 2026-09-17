@@ -18,6 +18,7 @@ import {
 } from "react";
 import AdminToast from "@/components/admin/AdminToast";
 import { apiFetch } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 type CustomSelectOption = {
   value: string;
@@ -218,28 +219,6 @@ export default function ContributorsPage() {
     message: string;
     type: "success" | "error";
   } | null>(null);
-
-  const getAuthHeaders = () => {
-    const user = JSON.parse(
-      localStorage.getItem("user") || "{}",
-    );
-
-    const userId = user.userId ?? user.id ?? "";
-    const roleId = user.roleId ?? user.role_id ?? "";
-    const token = user.token ?? "";
-
-    return {
-      "x-user-id": String(userId),
-      "x-user-role-id": String(roleId),
-      "x-user-role":
-        user.roleName ?? user.role_name ?? "",
-      ...(token
-        ? {
-            Authorization: `Bearer ${token}`,
-          }
-        : {}),
-    };
-  };
 
   const fetchContributors = useCallback(async () => {
     setLoading(true);
