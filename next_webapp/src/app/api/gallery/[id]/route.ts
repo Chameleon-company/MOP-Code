@@ -146,6 +146,8 @@ export async function PUT(
 
     if (title) existing.title = title;
 
+    const previousImage = existing.img_url;
+
     if (hasImage) {
       const buffer = Buffer.from(await (image as File).arrayBuffer());
       const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
@@ -159,6 +161,27 @@ export async function PUT(
     }
 
     await existing.save();
+
+    // Drop the replaced image only once the new URL is safely persisted,
+    // otherwise a failed save would leave the record pointing at a deleted file.
+    if (hasImage && previousImage && previousImage !== existing.img_url) {
+      try {
+        const removed = await deleteImageFromGCS(previousImage, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${previousImage}`, {
+            source: "api",
+            url: `/api/gallery/${galleryImageId}`,
+            user_id: userId,
+          });
+        }
+      } catch {
+        logger.warn(`Failed to remove replaced image for gallery image #${galleryImageId}`, {
+          source: "api",
+          url: `/api/gallery/${galleryImageId}`,
+          user_id: userId,
+        });
+      }
+    }
 
     return NextResponse.json({
       success: true,

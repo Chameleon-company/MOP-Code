@@ -157,6 +157,8 @@ export async function PUT(
     existing.set(updateFields);
 
     // Upload new cover image if provided
+    const previousCover = existing.cover_img;
+
     if (hasNewCover) {
       const buffer = Buffer.from(await coverImg!.arrayBuffer());
       const filename = `blogs/covers/blog-cover-${userId}-${Date.now()}.webp`;
@@ -170,6 +172,27 @@ export async function PUT(
     }
 
     await existing.save();
+
+    // Drop the replaced image only once the new URL is safely persisted,
+    // otherwise a failed save would leave the record pointing at a deleted file.
+    if (hasNewCover && previousCover && previousCover !== existing.cover_img) {
+      try {
+        const removed = await deleteImageFromGCS(previousCover, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${previousCover}`, {
+            source: "api",
+            url: `/api/blogs/${id}`,
+            user_id: userId,
+          });
+        }
+      } catch {
+        logger.warn(`Failed to remove replaced cover image for blog #${id}`, {
+          source: "api",
+          url: `/api/blogs/${id}`,
+          user_id: userId,
+        });
+      }
+    }
 
     return NextResponse.json({
       success: true,

@@ -7,6 +7,10 @@ import { getImagesBucket } from "../../library/gcsBucket";
 // Run service account needs roles/storage.objectViewer on this bucket.
 const storage = new Storage();
 
+// This route is public, so it must only ever serve the prefixes the app
+// writes to — never anything else that lands in the bucket.
+const ALLOWED_PREFIXES = ["blogs/", "gallery/", "categories/", "profiles/"];
+
 // GET /api/images/[...path]
 // Public — no auth required. Streams an object out of the private
 // mop-images bucket (blogs/covers/..., gallery/...) so the browser never
@@ -17,6 +21,13 @@ export async function GET(
 ) {
   const { path } = await params;
   const objectPath = path.join("/");
+
+  if (
+    objectPath.includes("..") ||
+    !ALLOWED_PREFIXES.some((p) => objectPath.startsWith(p))
+  ) {
+    return NextResponse.json({ success: false, message: "Image not found" }, { status: 404 });
+  }
 
   try {
     const [buffer] = await storage.bucket(getImagesBucket()).file(objectPath).download();

@@ -6,6 +6,7 @@ import User from "@/models/mongoose/User";
 import { uploadImageToGCS } from "../library/uploadImageToGCS";
 import { getAuthUser } from "../library/auth";
 import { getImagesBucket } from "../library/gcsBucket";
+import { deleteImageFromGCS } from "../library/deleteImageFromGCS";
 
 // ─── Auth helpers ────────────────────────────────────────────────────────────
 
@@ -159,14 +160,22 @@ export async function POST(request: NextRequest) {
     // Insert document
     await dbConnect();
 
-    const created = await Blog.create({
-      title: title!,
-      description,
-      published_date: publishedDate,
-      content: content!,
-      cover_img: coverImgUrl,
-      created_by: getCreatedBy(request),
-    });
+    let created;
+    try {
+      created = await Blog.create({
+        title: title!,
+        description,
+        published_date: publishedDate,
+        content: content!,
+        cover_img: coverImgUrl,
+        created_by: getCreatedBy(request),
+      });
+    } catch (dbError) {
+      // The image is already in the bucket but nothing references it now,
+      // so take it back out rather than leaving it orphaned.
+      await deleteImageFromGCS(coverImgUrl, getImagesBucket()).catch(() => {});
+      throw dbError;
+    }
 
     return NextResponse.json(
       { success: true, message: "Blog created successfully", data: toDTO(created.toObject()) },

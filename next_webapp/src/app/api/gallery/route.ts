@@ -6,6 +6,7 @@ import { uploadImageToGCS } from "../library/uploadImageToGCS";
 import { getAuthUser } from "../library/auth";
 import { errorResponse } from "../library/errorResponse";
 import { getImagesBucket } from "../library/gcsBucket";
+import { deleteImageFromGCS } from "../library/deleteImageFromGCS";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -177,11 +178,19 @@ export async function POST(request: NextRequest) {
 
     await dbConnect();
 
-    const created = await GalleryImage.create({
-      title,
-      img_url: imgUrl,
-      created_by: getCreatedBy(request),
-    });
+    let created;
+    try {
+      created = await GalleryImage.create({
+        title,
+        img_url: imgUrl,
+        created_by: getCreatedBy(request),
+      });
+    } catch (dbError) {
+      // The image is already in the bucket but nothing references it now,
+      // so take it back out rather than leaving it orphaned.
+      await deleteImageFromGCS(imgUrl, getImagesBucket()).catch(() => {});
+      throw dbError;
+    }
 
     return NextResponse.json(
       {
