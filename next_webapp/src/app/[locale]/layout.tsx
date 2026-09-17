@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import Script from "next/script";
 import { Poppins, Barlow_Condensed } from "next/font/google";
 import { Toaster } from "sonner";
 
@@ -31,7 +32,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
-        <script
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function () {
