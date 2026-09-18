@@ -6,6 +6,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
+| UC00009_Melbourne_Child_Friendly_Places_Analysis_2023 | T2 2026 | Education and Teaching | Arjun Jamwal (updated: Aayush Patel) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00009_Melbourne_Child_Friendly_Places_Analysis_2023.ipynb) |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
 | UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
@@ -43,7 +44,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 #### T3 2023
 | Use Case Name | Use Case Location | Domain | Data Collection Method | Author | Notes |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| UC00009_Childcare_Facilities_Analysis | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Education_and_Teaching/2023/UC00009_Childcare_Facilities_Analysis) | Education and Teaching | `requests.get()` | Arjun Janwal |  |
 | UC00011_Impact_of_Planned_Works | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2023/T3/UC00011_Impact_of_Planned_Works) | Transport and Mobility | `requests.get()` | Te' Claire and Harley NGO |  |
 | UC00012_Laneways_Waterflow | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2023/UC00012_Laneways_Waterflow) | Environmental Sustainability | `requests.get()` | Alison Collins |  |
 | UC00013_Projected_Venue_Growth | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Tourism_and_Hospitality/2023/UC00013_Projected_Venue_Growth) | Tourism and Hospitality | `requests.get()` | Daniel D'Amore |  |
