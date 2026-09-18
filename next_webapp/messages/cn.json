@@ -108,7 +108,9 @@
       "empty": "暂无贡献者信息。",
       "trimester": "第 {number} 学期",
       "companyDirector": "公司总监：{name}",
-      "mentoredBy": "指导导师：{names}"
+      "mentoredBy": "指导导师：{names}",
+      "projectLead": "项目负责人: {names}",
+      "projectLeadsPlural": "项目负责人: {names}"
     },
     "heroDescription": "墨尔本开放数据项目（MOP）是一项与墨尔本市战略愿景一致的毕业项目。它利用人工智能、数据科学和现代网络技术，将开放数据转化为可操作的洞察。",
     "Project Overview": "项目概览",
