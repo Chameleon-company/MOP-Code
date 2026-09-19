@@ -3,17 +3,24 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowRight, FileText } from "lucide-react";
 
 import { CaseStudy } from "../../types";
 import Pagination from "@/components/Pagination";
 
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
 const UseCaseCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
   const t = useTranslations("usecases");
   const params = useParams<{ locale: string }>();
   const locale = params?.locale ?? "en";
+  const [imgSrc, setImgSrc] = useState(study.image || null);
+
+  useEffect(() => {
+    setImgSrc(study.image || null);
+  }, [study.image]);
 
   return (
     <Link
@@ -21,12 +28,13 @@ const UseCaseCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
       className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-green-400 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="relative h-44 w-full shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-700">
-        {study.image ? (
+        {imgSrc ? (
           <Image
-            src={study.image}
+            src={imgSrc}
             alt={study.title}
             fill
             className="object-cover transition duration-300 group-hover:scale-105"
+            onError={() => setImgSrc(FALLBACK_IMAGE)}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-green-600 dark:text-green-300">

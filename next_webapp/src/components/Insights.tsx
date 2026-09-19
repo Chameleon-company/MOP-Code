@@ -20,6 +20,27 @@ function toSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 }
 
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function CategoryTileImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+      className="object-cover transition-transform duration-300 group-hover:scale-105"
+      onError={() => setImgSrc(FALLBACK_IMAGE)}
+    />
+  );
+}
+
 const Insights: React.FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -73,12 +94,9 @@ const Insights: React.FC = () => {
                 className={`bg-gray-50 dark:bg-[#37474F] hover:bg-gray-100 dark:hover:bg-[#455A64] rounded-2xl shadow-md hover:shadow-2xl border-2 border-transparent ${style.border} transition-all duration-300 flex flex-col group hover:-translate-y-1`}
               >
                 <div className="relative h-44 overflow-hidden rounded-t-2xl">
-                  <Image
+                  <CategoryTileImage
                     src={cat.cover_img || "/img/insights/eco.webp"}
                     alt={cat.category_name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
