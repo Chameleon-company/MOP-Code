@@ -8,6 +8,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | :---: | :---: | :---: | :---: | :---: |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
+| UC00022_Livability_Analysis_by_Location | T2 2026 | Urban Planning and Development | Adam Bullivant and Basilia Sethu (updated: Kush Patel) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00022_Livability_Analysis_by_Location.ipynb) |
 | UC00026_Melbourne_Soil_Analysis_2024-2025 | T2 2026 | Environmental Sustainability | Thomas Rostov (updated: Aayush Amitbhai Patel) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00026_Melbourne_Soil_Analysis_2024-2025.ipynb) |
 | UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
 | UC00041_Urban_Flood_Management_and_Emergency_Response_2026 | T2 2026 | Urban Planning and Development | (updated: Atishay Jain) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00041_Urban_Flood_Management_and_Emergency_Response_2026.ipynb) |
@@ -23,6 +24,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00180_Weather_Based_Pedestrian_Flow_Prediction | T2 2026 | Transport and Mobility | Adithya Sentil (updated: Jack Rochford) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/DS-UC00180-Jack/usecases/FINALISED/UC00180_Weather_Based_Pedestrian_Flow_Prediction.ipynb) |
 | UC00184_Analysing_Microclimate_and_Soil_Interactions_for_Urban_Sustainability | T2 2026 | Environmental Sustainability | Mahesh Chirra (updated: Aidan Page) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00184_Analysing_Microclimate_and_Soil_Interactions_for_Urban_Sustainability.ipynb) |
 | UC00023_New_Business_Location | T2 2026 | Business and Economy | Steven Tuften (updated: Supriya Gautam) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00023_New_Business_Location.ipynb) |
+
 
 ### Ready To Publish 
 
@@ -247,7 +249,11 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00018_Environmental_Sensor_Study | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00018_Environmental_Sensor_Study) |  | Socrata "SODAPY_APPTOKEN" |  | Trello Card Created |
 | UC00019_Evaluate_Business_Location_with_Pedestrian_Traffic | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00019_Evaluate_Business_Location_with_Pedestrian_Traffic) |  | `requests.get(url)`, csv |  | Trello Card Created |
 | UC00020_High-Rise_Building_and_Public_Transport | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00020_High-Rise_Building_and_Public_Transport) |  | `pd.read_csv` | Jack Pham and Basilia Carmel Sethu | Trello Card Updated |
+<<<<<<< HEAD
 | UC00022_Livability_Analysis_by_Location | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00022_Livability_Analysis_by_Location) |  | `requests.get(url)`, csv | Adam Bullivant and Basilia Sethu | Trello Card Created |
+=======
+| UC00021_Litter_Traps_&_Public_BBQ | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00021_Litter_Traps_%26_Public_BBQ) |  | `pd.read_csv()` | Tharusha Cao and Thomas Warren | Trello Card Created |
+>>>>>>> dfcf4e110 (Update Use_Case_Index.md)
 | UC00024_Pedestrian_Foot_Traffic_Business_Case | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00024_Pedestrian_Foot_Traffic_Business_Case) |  | `requests.get()` | Mollie |  |
 | UC00030_Walkability | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00030_Walkability) |  | `gpd.read_file` | Hannah Smith | Trello Card Updated |
 | UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne) |  | `requests.get()` |  |  |
