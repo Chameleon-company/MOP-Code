@@ -1,25 +1,27 @@
 import type { Metadata } from "next";
+import mongoose from "mongoose";
 import { getTranslations } from "next-intl/server";
 import BlogSinglePage from "@/components/BLogSInglePage";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { supabase } from "@/library/supabaseClient";
+import dbConnect from "@/lib/dbConnect";
+import Blog from "@/models/mongoose/Blog";
 import { getHreflangAlternates } from "@/lib/seo/hreflang";
 
 type BlogDetailParams = Promise<{ locale: string; id: string }>;
 
 async function getBlogForMetadata(id: string) {
-  const blogId = Number(id);
-  if (!Number.isFinite(blogId)) return null;
+  if (!mongoose.Types.ObjectId.isValid(id)) return null;
 
-  const { data, error } = await supabase
-    .from("blogs")
-    .select("id, title, description, cover_img")
-    .eq("id", blogId)
-    .single();
+  await dbConnect();
 
-  if (error || !data) return null;
-  return data;
+  const blog = await Blog.findById(id, {
+    title: 1,
+    description: 1,
+    cover_img: 1,
+  }).lean();
+
+  return blog;
 }
 
 export async function generateMetadata({
