@@ -1,14 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
-import { uploadImageToStorage } from "../../library/uploadImageToStorage";
-import { getAuthUser } from "@/app/api/library/auth";
-import { errorResponse } from "@/app/api/library/errorResponse";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import GalleryImage from "@/models/mongoose/GalleryImage";
+import { uploadImageToGCS } from "../../library/uploadImageToGCS";
+import { deleteImageFromGCS } from "../../library/deleteImageFromGCS";
+import { getAuthUser } from "../../library/auth";
+import { errorResponse } from "../../library/errorResponse";
 import logger from "@/utils/logger";
+import { getImagesBucket } from "../../library/gcsBucket";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
 const MAX_TITLE_LENGTH = 200;
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
+}
 
 // ── Response helpers ───────────────────────────────────────────────────────
 function unauthorized() {
@@ -40,10 +51,9 @@ function serverError(message = "Internal server error") {
 // ── Shared param parsing ───────────────────────────────────────────────────
 async function parseId(
   params: Promise<{ id: string }>
-): Promise<number | null> {
+): Promise<string | null> {
   const { id } = await params;
-  const n = Number(id);
-  return Number.isFinite(n) && n > 0 ? n : null;
+  return mongoose.Types.ObjectId.isValid(id) ? id : null;
 }
 
 // ── GET /api/gallery/[id] ──────────────────────────────────────────────────
@@ -60,20 +70,15 @@ export async function GET(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    const { data, error } = await supabase
-      .from("gallery_images")
-      .select("id, title, img_url, created_at, created_by")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (error?.code === "PGRST116" || !data) return notFound();
+    const data = await GalleryImage.findById(galleryImageId)
+      .select("title img_url created_at created_by")
+      .lean();
 
-    if (error) {
-      console.error("[GET /api/gallery/[id]] error:", error);
-      return serverError("Failed to fetch gallery image");
-    }
+    if (!data) return notFound();
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true, data: toDTO(data) });
   } catch (error) {
     console.error("[GET /api/gallery/[id]] unexpected error:", error);
     return serverError("Failed to fetch gallery image");
@@ -101,14 +106,11 @@ export async function PUT(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    // Verify the record exists first
-    const { data: existing, error: fetchError } = await supabase
-      .from("gallery_images")
-      .select("id")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (fetchError?.code === "PGRST116" || !existing) return notFound();
+    // Verify the record exists first
+    const existing = await GalleryImage.findById(galleryImageId);
+    if (!existing) return notFound();
 
     const formData = await request.formData();
     const title = formData.get("title")?.toString().trim();
@@ -142,47 +144,49 @@ export async function PUT(
       return badRequest("Validation failed", errors);
     }
 
-    const updatePayload: { title?: string; img_url?: string; updated_at: string } = {
-      updated_at: new Date().toISOString(),
-    };
+    if (title) existing.title = title;
 
-    if (title) updatePayload.title = title;
+    const previousImage = existing.img_url;
 
     if (hasImage) {
-      const uploaded = await uploadImageToStorage({
-        file: image as File,
-        bucket: "gallery-images",
-        folder: "gallery",
-        prefix: "gallery",
-        userId,
-      });
-      updatePayload.img_url = uploaded.publicUrl;
+      const buffer = Buffer.from(await (image as File).arrayBuffer());
+      const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
+
+      try {
+        existing.img_url = await uploadImageToGCS(buffer, filename, getImagesBucket());
+      } catch (uploadError) {
+        console.error("[PUT /api/gallery/[id]] upload error:", uploadError);
+        return serverError("Failed to upload gallery image");
+      }
     }
 
-    const { data: galleryImage, error } = await supabase
-      .from("gallery_images")
-      .update(updatePayload)
-      .eq("id", galleryImageId)
-      .select("id, title, img_url, created_at, created_by")
-      .single();
+    await existing.save();
 
-    if (error) {
-      console.error("[PUT /api/gallery/[id]] update error:", error);
-      return errorResponse(
-        "Failed to update gallery image",
-        500,
-        "DB_UPDATE_ERROR",
-        request,
-        userId
-      );
+    // Drop the replaced image only once the new URL is safely persisted,
+    // otherwise a failed save would leave the record pointing at a deleted file.
+    if (hasImage && previousImage && previousImage !== existing.img_url) {
+      try {
+        const removed = await deleteImageFromGCS(previousImage, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${previousImage}`, {
+            source: "api",
+            url: `/api/gallery/${galleryImageId}`,
+            user_id: userId,
+          });
+        }
+      } catch {
+        logger.warn(`Failed to remove replaced image for gallery image #${galleryImageId}`, {
+          source: "api",
+          url: `/api/gallery/${galleryImageId}`,
+          user_id: userId,
+        });
+      }
     }
-
-    if (!galleryImage) return notFound();
 
     return NextResponse.json({
       success: true,
       message: "Gallery image updated successfully",
-      data: galleryImage,
+      data: toDTO(existing.toObject()),
     });
   } catch (error) {
     console.error("[PUT /api/gallery/[id]] unexpected error:", error);
@@ -200,9 +204,8 @@ export async function PUT(
 }
 
 // ── DELETE /api/gallery/[id] ───────────────────────────────────────────────
-// Admin only. Permanently removes the record (storage file is NOT deleted
-// automatically — Supabase Storage cleanup can be handled separately or
-// via a storage lifecycle policy).
+// Admin only. Removes the record, then the backing object from GCS.
+// Images still on Supabase URLs are left alone and need a separate sweep.
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -221,38 +224,19 @@ export async function DELETE(
   if (!galleryImageId) return badRequest("Invalid gallery image id");
 
   try {
-    const { data: existing, error: fetchError } = await supabase
-      .from("gallery_images")
-      .select("id, img_url")
-      .eq("id", galleryImageId)
-      .single();
+    await dbConnect();
 
-    if (fetchError?.code === "PGRST116" || !existing) return notFound();
+    const existing = await GalleryImage.findById(galleryImageId).lean();
+    if (!existing) return notFound();
 
-    const { error } = await supabase
-      .from("gallery_images")
-      .delete()
-      .eq("id", galleryImageId);
+    await GalleryImage.findByIdAndDelete(galleryImageId);
 
-    if (error) {
-      console.error("[DELETE /api/gallery/[id]] delete error:", error);
-      return errorResponse(
-        "Failed to delete gallery image",
-        500,
-        "DELETE_ERROR",
-        request,
-        userId
-      );
-    }
-
-    // Best-effort: remove image file from storage and log the deletion
+    // Best-effort cleanup — must not fail the delete
     if (existing?.img_url) {
       try {
-        const imgUrl = new URL(existing.img_url);
-        const storagePath = imgUrl.pathname.split("/gallery-images/")[1];
-        if (storagePath) {
-          await supabase.storage.from("gallery-images").remove([storagePath]);
-          logger.info(`Storage file deleted: gallery-images/${storagePath}`, {
+        const removed = await deleteImageFromGCS(existing.img_url, getImagesBucket());
+        if (removed) {
+          logger.info(`Storage file deleted: ${existing.img_url}`, {
             source: "api",
             url: `/api/gallery/${galleryImageId}`,
             user_id: userId,

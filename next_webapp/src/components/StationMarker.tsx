@@ -3,6 +3,7 @@
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import type { Station } from '../types/station';
+import Image from "next/image";
 
 type Props = {
   station: Station;
@@ -15,9 +16,11 @@ const StationMarker: React.FC<Props> = ({ station, index }) => (
       <div>
         <div style={{ fontWeight: 600 }}>{station.name}</div>
         <div style={{ margin: '6px 0' }}>Status: {station.status}</div>
-        <img
+        <Image
           src={station.image}
           alt={`${station.name} photo`}
+          width={400}
+          height={250}
           style={{ width: '100%', height: 'auto', borderRadius: 8, display: 'block' }}
         />
       </div>
