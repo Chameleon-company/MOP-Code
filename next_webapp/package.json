@@ -17,7 +17,6 @@
     "@ckeditor/ckeditor5-react": "^6.3.0",
     "@google-cloud/storage": "^7.21.0",
     "@sentry/nextjs": "^10.52.0",
-    "@supabase/supabase-js": "^2.99.3",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.3",
     "chart.js": "^4.4.2",
