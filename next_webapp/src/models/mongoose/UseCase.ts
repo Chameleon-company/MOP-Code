@@ -54,6 +54,7 @@ const useCaseSchema = new Schema(
 );
 
 useCaseSchema.index({ "category.id": 1 });
+useCaseSchema.index({ "category.legacy_id": 1 });
 useCaseSchema.index({ "tags.slug": 1 });
 useCaseSchema.index({ created_by: 1 });
 useCaseSchema.index({ legacy_id: 1 });

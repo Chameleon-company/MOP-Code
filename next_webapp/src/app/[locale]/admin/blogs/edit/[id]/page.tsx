@@ -4,18 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BlogForm from "../../components/BlogsForm";
 import { apiFetch, ApiError } from "@/lib/apiFetch";
-
-function authHeaders(user: any) {
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 export default function EditBlogPage() {
   const router = useRouter();
@@ -29,8 +18,7 @@ export default function EditBlogPage() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const json = await apiFetch<any>(`/api/blogs/${id}`, { headers: authHeaders(user), silent: true });
+        const json = await apiFetch<any>(`/api/blogs/${id}`, { headers: getAuthHeaders(), silent: true });
 
         const b = json.data;
         setInitialData({
@@ -54,8 +42,6 @@ export default function EditBlogPage() {
     setSubmitError("");
 
     try {
-      const user = JSON.parse(localStorage.getItem("user") || "{}");
-
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("description", data.description ?? "");
@@ -67,7 +53,7 @@ export default function EditBlogPage() {
 
       await apiFetch(`/api/blogs/${id}`, {
         method: "PUT",
-        headers: authHeaders(user),
+        headers: getAuthHeaders(),
         body: formData,
         silent: true,
       });

@@ -132,9 +132,11 @@ const UseCases: React.FC = () => {
     return () => clearTimeout(timer);
   }, [searchTerm, searchMode]);
 
+
   useEffect(() => {
     fetchUsecases(page, debouncedTerm, debouncedMode);
   }, [page, debouncedTerm, debouncedMode, fetchUsecases]);
+
 
   // Submit search immediately
   const handleSearch = useCallback((term: string, mode: LocalSearchMode, _cat: CATEGORY) => {
@@ -165,18 +167,18 @@ const UseCases: React.FC = () => {
               {t("Melbourne Open Data")}
             </span>
 
-            <h1
-              className="mb-5 text-5xl text-white drop-shadow-sm sm:text-6xl"
-              style={{
-                fontWeight: 900,
-                fontStyle: "normal",
-                fontFamily: "'Barlow Condensed', sans-serif",
-                letterSpacing: "-0.02em",
-                textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
-              }}
-            >
-              {t("User Cases")}
-            </h1>
+						<h1
+							className="mb-5 text-5xl text-white drop-shadow-sm sm:text-6xl font-[family-name:var(--font-barlow-condensed)]"
+							style={{
+								fontWeight: 900,
+								fontStyle: "normal",
+								letterSpacing: "-0.02em",
+								textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
+							}}
+						>
+							{t("User Cases")}
+						</h1>
+
 
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-green-100">
               {t("Page description")}

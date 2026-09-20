@@ -252,10 +252,6 @@ const Header = () => {
 		)}
 
 		<header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-700">
-			<link
-				href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-				rel="stylesheet"
-			/>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-16 w-full">
 
