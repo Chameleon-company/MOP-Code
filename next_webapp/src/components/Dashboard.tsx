@@ -860,6 +860,27 @@ const HERO_SEARCH_MODES: { value: SEARCH_MODE; label: string }[] = [
 	{ value: SEARCH_MODE.TAG, label: "Tag" },
 ];
 
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function RecentUseCaseImage({ src, alt }: { src: string; alt: string }) {
+	const [imgSrc, setImgSrc] = useState(src);
+
+	useEffect(() => {
+		setImgSrc(src);
+	}, [src]);
+
+	return (
+		<Image
+			src={imgSrc}
+			alt={alt}
+			fill
+			sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+			className="object-cover transition-transform group-hover:scale-[1.02]"
+			onError={() => setImgSrc(FALLBACK_IMAGE)}
+		/>
+	);
+}
+
 const Dashboard = () => {
 
   //edits for use case studies
@@ -1348,12 +1369,9 @@ const Dashboard = () => {
                     className="bg-white dark:bg-[#2f4048] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition flex flex-col group overflow-hidden"
                   >
                     <div className="relative h-40 w-full overflow-hidden">
-                      <Image
+                      <RecentUseCaseImage
                         src={item.cover_img || "/img/biotech.jpeg"}
                         alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                        className="object-cover transition-transform group-hover:scale-[1.02]"
                       />
                     </div>
                     <div className="p-5 flex flex-col flex-grow">

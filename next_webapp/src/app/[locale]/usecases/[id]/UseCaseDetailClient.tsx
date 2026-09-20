@@ -3,8 +3,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "@/i18n-navigation";
 import { ArrowLeft, Download } from "lucide-react";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import NotebookRenderer from "@/components/NotebookRenderer";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({ src, ...props }: ImageProps) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 const UseCaseDetailClient: React.FC<{ id: string }> = ({ id }) => {
   const [useCase, setUseCase] = useState<any>(null);
@@ -110,7 +122,7 @@ const UseCaseDetailClient: React.FC<{ id: string }> = ({ id }) => {
 
         {useCase.cover_img && (
           <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-md">
-            <Image
+            <ImageWithFallback
               src={useCase.cover_img}
               alt={useCase.title}
               fill
