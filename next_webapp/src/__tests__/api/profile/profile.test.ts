@@ -117,10 +117,16 @@ describe('GET /api/profile', () => {
 
         expect(response.status).toBe(200);
         expect(body.success).toBe(true);
-        expect(body.data.user_id).toBe(USER_ID);
-        expect(body.data.first_name).toBe('Jason');
-        expect(body.data.last_name).toBe('Holder');
-        expect(body.data.email).toBe('jason@gmail.com');
+        expect(body.data).toEqual(
+            expect.objectContaining({
+                first_name: 'Jason',
+                last_name: 'Holder',
+                age: null,
+                gender: null,
+                profile_img: null,
+                email: 'jason@gmail.com',
+            }),
+        );
 
         expect(dbConnect).toHaveBeenCalledTimes(1);
         expect(User.findById).toHaveBeenCalledWith(USER_ID);
@@ -156,9 +162,16 @@ describe('GET /api/profile', () => {
 
         expect(response.status).toBe(200);
         expect(body.success).toBe(true);
-        expect(body.data.first_name).toBeNull();
-        expect(body.data.last_name).toBeNull();
-        expect(body.data.email).toBe('jason@gmail.com');
+        expect(body.data).toEqual(
+            expect.objectContaining({
+                first_name: null,
+                last_name: null,
+                age: null,
+                gender: null,
+                profile_img: null,
+                email: 'jason@gmail.com',
+            }),
+        );
     });
 
     test('user not found returns 401', async () => {
@@ -203,8 +216,12 @@ describe('PUT /api/profile', () => {
         expect(response.status).toBe(200);
         expect(body.success).toBe(true);
         expect(body.message).toBe('Profile updated successfully');
-        expect(body.data.first_name).toBe('Jason');
-        expect(body.data.last_name).toBe('Smith');
+        expect(body.data).toEqual(
+            expect.objectContaining({
+                first_name: 'Jason',
+                last_name: 'Smith',
+            }),
+        );
         expect(user.save).toHaveBeenCalledTimes(1);
     });
 
@@ -248,8 +265,12 @@ describe('PUT /api/profile', () => {
 
         expect(response.status).toBe(200);
         expect(body.success).toBe(true);
-        expect(body.data.age).toBe(25);
-        expect(body.data.gender).toBe('Male');
+        expect(body.data).toEqual(
+            expect.objectContaining({
+                age: 25,
+                gender: 'Male',
+            }),
+        );
     });
 
     test('invalid gender returns 400 validation error', async () => {
@@ -338,8 +359,12 @@ describe('PUT /api/profile', () => {
             'profile',
             expect.any(Object),
         );
-        expect(body.data.first_name).toBe('New');
-        expect(body.data.last_name).toBe('User');
+        expect(body.data).toEqual(
+            expect.objectContaining({
+                first_name: 'New',
+                last_name: 'User',
+            }),
+        );
         expect(user.save).toHaveBeenCalledTimes(1);
     });
 });

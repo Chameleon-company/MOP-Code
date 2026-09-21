@@ -1,12 +1,28 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type ComponentProps } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Pagination from "@/components/Pagination";
+import { apiFetch } from "@/lib/apiFetch";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({
+  src,
+  ...props
+}: ComponentProps<typeof Image>) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 const GLOW_COLORS = [
   "#22c55e",
@@ -46,15 +62,16 @@ export default function GalleryPage() {
         page: String(page),
         pageSize: String(ITEMS_PER_PAGE),
       });
-      const res = await fetch(`/api/home/gallery?${qs}`);
-      const json = await res.json();
+      const json = await apiFetch<{ success: boolean; data: ApiImage[]; pagination?: { total: number; totalPages: number } }>(
+        `/api/home/gallery?${qs}`
+      );
       if (json.success) {
         setImages(json.data ?? []);
         setTotal(json.pagination?.total ?? 0);
         setTotalPages(json.pagination?.totalPages ?? 1);
       }
     } catch (e) {
-      console.error("Failed to fetch gallery:", e);
+      console.error("Failed to fetch gallery:", e); // apiFetch already showed a toast
     } finally {
       setLoading(false);
     }
@@ -125,11 +142,10 @@ export default function GalleryPage() {
             </span>
 
             <h1
-              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm"
+              className="anim-fade-up text-5xl sm:text-6xl text-white mb-5 drop-shadow-sm font-[family-name:var(--font-barlow-condensed)]"
               style={{
                 animationDelay: "0.2s",
-                fontWeight: 900,
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,    
                 letterSpacing: "-0.02em",
                 textShadow: "2px 2px 8px rgba(0,0,0,0.35)",
               }}
@@ -192,7 +208,7 @@ export default function GalleryPage() {
                       className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 shadow-md transition-transform duration-200 hover:-translate-y-0.5 text-left w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
                       <div className="relative h-64 overflow-hidden">
-                        <Image
+                        <ImageWithFallback
                           src={img.img_url}
                           alt={img.title}
                           fill
@@ -285,7 +301,7 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative h-[75vh] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image
+                <ImageWithFallback
                   src={lightbox.img_url}
                   alt={lightbox.title}
                   fill

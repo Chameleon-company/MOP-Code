@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const DashboardCaseStd = () => {
   const t = useTranslations("common");
@@ -36,9 +37,11 @@ const DashboardCaseStd = () => {
           <a>
             <div className="card-wrapper bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
               <div className="top-image mb-4">
-                <img
+                <Image
                   src={caseStudy.image}
                   alt={caseStudy.title}
+                  width={500}
+                  height={160}
                   className="w-full h-40 object-cover rounded-lg"
                 />
               </div>

@@ -114,7 +114,10 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
             {metric.value}
           </p>
         </div>
-        <div className={`p-3 rounded-xl ${colors.bg} ${colors.darkBg} transition-transform duration-300 group-hover:scale-110`}>
+        <div
+          aria-hidden="true"
+          className={`p-3 rounded-xl ${colors.bg} ${colors.darkBg} transition-transform duration-300 group-hover:scale-110`}
+        >
           {metric.icon}
         </div>
       </div>
@@ -128,9 +131,9 @@ const CityMetricCard: React.FC<CityMetricCardProps> = ({
           }`}
         >
           {isPositive ? (
-            <TrendingUp size={16} className="mr-1" />
+            <TrendingUp aria-hidden="true" size={16} className="mr-1" />
           ) : (
-            <TrendingDown size={16} className="mr-1" />
+            <TrendingDown aria-hidden="true" size={16} className="mr-1" />
           )}
           <span className="text-sm font-medium">
             {isPositive ? "+" : ""}

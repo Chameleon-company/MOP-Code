@@ -4,25 +4,8 @@ import { useEffect, useState } from "react";
 import { LayoutGrid, Folder, BookOpen, Images } from "lucide-react";
 import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
-import { storage } from "@/utils/storage";
-
-function getAuthHeaders(): HeadersInit {
-  let user: Record<string, any> = {};
-  try {
-    user = JSON.parse(storage.getItem("user") || "{}");
-  } catch {
-    user = {};
-  }
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { apiFetch } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 export default function DashboardPage() {
   const [totalUseCases, setTotalUseCases] = useState<string>("—");
@@ -35,17 +18,12 @@ export default function DashboardPage() {
     async function fetchStats() {
       try {
         const headers = getAuthHeaders();
-        const [totalRes, categoryRes, blogsRes, galleryRes] = await Promise.all([
-          fetch("/api/statistics/total-count"),
-          fetch("/api/statistics/by-category"),
-          fetch("/api/blogs?page=1&pageSize=1", { headers }),
-          fetch("/api/gallery?page=1&pageSize=1", { headers }),
+        const [totalData, categoryData, blogsData, galleryData] = await Promise.all([
+          apiFetch<any>("/api/statistics/total-count"),
+          apiFetch<any>("/api/statistics/by-category"),
+          apiFetch<any>("/api/blogs?page=1&pageSize=1", { headers }),
+          apiFetch<any>("/api/gallery?page=1&pageSize=1", { headers }),
         ]);
-
-        const totalData = await totalRes.json();
-        const categoryData = await categoryRes.json();
-        const blogsData = await blogsRes.json();
-        const galleryData = await galleryRes.json();
 
         if (totalData.success) {
           setTotalUseCases(String(totalData.total));
@@ -63,7 +41,7 @@ export default function DashboardPage() {
           setTotalGallery(String(galleryData.pagination?.total ?? 0));
         }
       } catch {
-        // Keep "—" on error
+        // Keep "—" on error; apiFetch already showed a toast
       } finally {
         setLoading(false);
       }
@@ -75,9 +53,9 @@ export default function DashboardPage() {
   const displayValue = (value: string) => (loading ? "…" : value);
 
   return (
-    <div className="p-6">
+    <div>
       {/* Title */}
-      <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-emerald-500">
+      <h1 className="mb-6 text-2xl font-semibold leading-tight text-emerald-500 sm:text-3xl md:mb-8 md:text-[40px]">
         Dashboard
       </h1>
 

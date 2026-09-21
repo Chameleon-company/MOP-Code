@@ -1,0 +1,95 @@
+/* About page font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap");
+
+.about-page {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Section spacing */
+.about-page .section {
+  padding: 4rem 1.5rem;
+}
+
+/* Titles */
+.about-page .section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.about-page .section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* Dark mode text */
+.dark .about-page .section-subtitle {
+  color: #ccc;
+}
+
+/* Hero image */
+.about-page .hero-img {
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease;
+}
+
+.about-page .hero-img:hover {
+  transform: scale(1.03);
+}
+
+/* Cards */
+.about-page .card {
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.dark .about-page .card {
+  background: #2c2c2c;
+}
+
+.about-page .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Feature cards */
+.about-page .feature-card {
+  border-radius: 12px;
+  padding: 1.2rem;
+  background: white;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.about-page .feature-card:hover {
+  transform: scale(1.05);
+}
+
+/* Button */
+.about-page .cta-btn {
+  background-color: #16a34a;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.about-page .cta-btn:hover {
+  background-color: #15803d;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-page .section-title {
+    font-size: 1.8rem;
+  }
+
+  .about-page .section-subtitle {
+    font-size: 1rem;
+  }
+}

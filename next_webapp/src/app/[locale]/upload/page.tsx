@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { TagsInput } from "react-tag-input-component";
 import axios from "axios";
 import Tooglebutton from "../Tooglebutton/Tooglebutton";
+import Image from "next/image";
 
 const Upload = () => {
 	const t = useTranslations("upload");
@@ -229,9 +230,11 @@ const Upload = () => {
 							// multiple
 						/>
 
-						<img
+						<Image
 							src="/img/Upload_use_case.png"
 							alt="Upload"
+							width={160}
+							height={128}
 							className={[
 								"mx-auto w-auto",
 								"h-28 md:h-32",
@@ -252,7 +255,7 @@ const Upload = () => {
 						<div className="mt-8 bg-gray-100 dark:bg-[#1a1a1a] p-6 rounded-lg shadow-inner">
 							<div className="flex justify-between items-center mb-2">
 								<div className="flex items-center gap-2">
-									<img src="/img/document.png" alt="doc" className="h-6" />
+									<Image src="/img/document.png" alt="doc" width={24} height={24} className="h-6 w-6"  />
 									<span>{selectedFileName}</span>
 								</div>
 								<span>{progress}%</span>

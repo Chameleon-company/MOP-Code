@@ -3,7 +3,20 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n-navigation";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({ src, ...props }: ImageProps) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 interface Blog {
   id: number;
@@ -42,23 +55,17 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
     const fetchBlog = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/home/blogs/${id}`);
-        const json = await res.json();
-
-        if (!res.ok || !json.success) {
-          setNotFound(true);
-          return;
-        }
+        const json = await apiFetch<{ success: boolean; data: Blog }>(`/api/home/blogs/${id}`);
 
         setBlog(json.data);
 
         // Random recommendations (server pools up to 800, shuffles, returns 3)
-        const relRes = await fetch(
-          `/api/home/blogs?recommend=1&excludeId=${encodeURIComponent(String(json.data.id))}&take=3`
+        const relJson = await apiFetch<{ success: boolean; data: RelatedBlog[] }>(
+          `/api/home/blogs?recommend=1&excludeId=${encodeURIComponent(String(json.data.id))}&take=3`,
+          { silent: true } // recommendations are non-critical; fail quietly rather than toast
         );
-        const relJson = await relRes.json();
         if (relJson.success && Array.isArray(relJson.data)) {
-          setRelated(relJson.data as RelatedBlog[]);
+          setRelated(relJson.data);
         }
       } catch (e) {
         console.error(e);
@@ -130,7 +137,7 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
         {/* ── Cover image ── */}
         {blog.cover_img && (
           <figure className="relative mt-2 mb-10 aspect-[16/10] w-full overflow-hidden sm:mb-12 md:mb-14">
-            <Image
+            <ImageWithFallback
               src={blog.cover_img}
               alt={blog.title}
               fill
@@ -186,7 +193,7 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
                   >
                     <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                       {b.cover_img ? (
-                        <Image
+                        <ImageWithFallback
                           src={b.cover_img}
                           alt={b.title}
                           fill

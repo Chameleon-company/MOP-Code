@@ -179,3 +179,10 @@ Some rules to look out for:
 2. If you are pushing from a branch that has other collaborator you have mentioned their name in the pull request message.
 
 ## Resources
+## Lighthouse CI (Sprint 3)
+
+Production Lighthouse audits with enforced performance budgets can be run
+locally against a production build (`npm run lighthouse`). There is currently
+no automated GitHub Actions workflow running this on PRs — see
+[setup and local testing](docs/lighthouse-ci.md) for details and for what
+re-adding CI enforcement would take.

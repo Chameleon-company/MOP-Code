@@ -4,11 +4,27 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Footer from '../components/Footer';
 
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key) => key,
+  useTranslations: () => (key) => ({
+    'Footer intro': "Exploring Melbourne's open data to build smarter communities.",
+    'Quick Links': 'Quick Links',
+    Connect: 'Connect',
+    'Follow us': 'Follow us',
+    Newsletter: 'Newsletter',
+    'Newsletter description': 'Get Melbourne open-data updates first.',
+    'Enter your email': 'Enter your email',
+    Submit: 'Submit',
+    'Email for newsletter': 'Email for newsletter',
+    'Newsletter required': 'Please enter your email address.',
+    'Newsletter invalid': 'Please enter a valid email address (e.g. morgan.lee@gmail.com).',
+    'Newsletter success': "You're in — we'll only email when there's something worth your time.",
+    Copyright: 'Melbourne Open Playground. All rights reserved.',
+    'accessibility.home': 'Go to home page',
+  }[key] ?? key),
 }));
 
 jest.mock('@/i18n-navigation', () => ({
@@ -121,5 +137,36 @@ describe('Footer component', () => {
         ),
       ),
     ).toBeInTheDocument();
+  });
+
+  test('shows a validation error for an invalid newsletter email', async () => {
+    const user = userEvent.setup();
+    render(<Footer />);
+
+    await user.type(
+      screen.getByLabelText('Email for newsletter'),
+      'not-an-email',
+    );
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      /Please enter a valid email address/i,
+    );
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  test('accepts a valid email and shows a success toast', async () => {
+    const user = userEvent.setup();
+    render(<Footer />);
+
+    const input = screen.getByLabelText('Email for newsletter');
+
+    await user.type(input, 'morgan.lee@gmail.com');
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    expect(input).toHaveValue('');
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /we'll only email when there's something worth your time/i,
+    );
   });
 });

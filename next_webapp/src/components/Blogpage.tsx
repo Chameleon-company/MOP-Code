@@ -1,7 +1,20 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
+import { apiFetch } from "@/lib/apiFetch";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({ src, ...props }: ImageProps) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 interface Blog {
   id: number;
@@ -16,10 +29,9 @@ const BlogPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/home/blogs?page=1&pageSize=3")
-      .then((r) => r.json())
+    apiFetch<{ success: boolean; data: Blog[] }>("/api/home/blogs?page=1&pageSize=3")
       .then((json) => { if (json.success) setBlogs(json.data ?? []); })
-      .catch(() => {})
+      .catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
       .finally(() => setLoading(false));
   }, []);
 
@@ -54,7 +66,7 @@ const BlogPage: React.FC = () => {
             >
               {blog.cover_img && (
                 <div className="relative h-44 overflow-hidden">
-                  <Image
+                  <ImageWithFallback
                     src={blog.cover_img}
                     alt={blog.title}
                     fill

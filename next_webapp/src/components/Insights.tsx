@@ -1,7 +1,7 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Link } from "@/i18n-navigation";
+import { apiFetch } from "@/lib/apiFetch";
 
 
 const categoryStyles: Record<string, { badge: string; border: string }> = {
@@ -20,15 +20,35 @@ function toSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 }
 
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function CategoryTileImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+      className="object-cover transition-transform duration-300 group-hover:scale-105"
+      onError={() => setImgSrc(FALLBACK_IMAGE)}
+    />
+  );
+}
+
 const Insights: React.FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/home/categories")
-      .then((r) => r.json())
-      .then((json) => { if (json.success) setCategories(json.data || []); })
-      .catch(() => {})
+    apiFetch<{ success: boolean; data: any[] }>("/api/home/categories")
+      .then((json) => { if (json.success) setCategories(json.data ?? []); })
+      .catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
       .finally(() => setLoading(false));
   }, []);
 
@@ -69,18 +89,14 @@ const Insights: React.FC = () => {
             };
 
             return (
-              <Link
+              <div
                 key={cat.id}
-                href={`/categories/${cat.id}`}
                 className={`bg-gray-50 dark:bg-[#37474F] hover:bg-gray-100 dark:hover:bg-[#455A64] rounded-2xl shadow-md hover:shadow-2xl border-2 border-transparent ${style.border} transition-all duration-300 flex flex-col group hover:-translate-y-1`}
               >
                 <div className="relative h-44 overflow-hidden rounded-t-2xl">
-                  <Image
+                  <CategoryTileImage
                     src={cat.cover_img || "/img/insights/eco.webp"}
                     alt={cat.category_name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
@@ -96,13 +112,8 @@ const Insights: React.FC = () => {
                   <p className="text-gray-600 dark:text-gray-300 text-sm flex-grow leading-relaxed">
                     {cat.description || ""}
                   </p>
-
-                  <span className="mt-5 bg-green-500 group-hover:bg-green-600 group-hover:shadow-lg text-white py-2 px-4 rounded-xl text-sm font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2">
-                    View Details
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </span>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

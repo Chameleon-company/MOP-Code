@@ -21,6 +21,7 @@ interface GroupedTeam {
 interface GroupedTrimester {
   trimester: number;
   companyDirector?: string;
+  projectLeads: string[];
   mentors: string[];
   teams: GroupedTeam[];
 }
@@ -31,7 +32,7 @@ interface GroupedYear {
 }
 
 function groupContributors(records: ContributorRecord[]): GroupedYear[] {
-  const visible = (records ?? []).filter((record) => record.status);
+  const visible = (records ?? []).filter((record) => record.is_active);
 
   const byYear = new Map<number, Map<number, ContributorRecord[]>>();
   for (const record of visible) {
@@ -48,41 +49,62 @@ function groupContributors(records: ContributorRecord[]): GroupedYear[] {
 
     for (const [trimester, recordsInTrimester] of byTrimester) {
       const sorted = [...recordsInTrimester].sort(
-        (a, b) => a.displayOrder - b.displayOrder
+        (a, b) => a.display_order - b.display_order
       );
 
       const companyDirector = sorted.find(
-        (record) => record.contributorType === "Company Director"
-      )?.fullName;
+        (record) => record.contributor_type === "company_director"
+      )?.name;
 
       const mentors = sorted
-        .filter((record) => record.contributorType === "Mentor")
-        .map((record) => record.fullName);
+        .filter((record) => record.contributor_type === "mentor")
+        .map((record) => record.name);
+
+      const projectLeads = sorted
+        .filter((record) => record.contributor_type === "project_lead")
+        .map((record) => record.name);
 
       const students = sorted.filter(
-        (record) => record.contributorType === "Student"
+        (record) => record.contributor_type === "student"
       );
 
       const teamsByName = new Map<string, GroupedMember[]>();
       for (const student of students) {
-        const teamName = student.team ?? "Unassigned";
+        const teamName = student.team ?? "Students";
         if (!teamsByName.has(teamName)) teamsByName.set(teamName, []);
         teamsByName.get(teamName)!.push({
-          id: student.id,
-          name: student.fullName,
-          role: student.positionOrRole,
-          seniority: student.level,
+          id: student._id,
+          name: student.name,
+          role: student.position ?? undefined,
+          seniority: student.level ?? undefined,
         });
       }
 
       trimesters.push({
         trimester,
         companyDirector,
+        projectLeads,
         mentors,
-        teams: Array.from(teamsByName, ([teamName, members]) => ({
-          teamName,
-          members,
-        })),
+        teams: Array.from(teamsByName, ([teamName, members]) => {
+          const sortedMembers = [...members].sort((a, b) => {
+            const getWeight = (role?: string) => {
+              if (!role) return 3;
+              const lower = role.toLowerCase();
+              if (lower.includes("lead")) return 1;
+              if (lower.includes("manager")) return 2;
+              return 3;
+            };
+            const wA = getWeight(a.role);
+            const wB = getWeight(b.role);
+            if (wA !== wB) return wA - wB;
+            return a.name.localeCompare(b.name);
+          });
+          
+          return {
+            teamName,
+            members: sortedMembers,
+          };
+        }),
       });
     }
 
@@ -198,9 +220,17 @@ function TrimesterCard({ trimester }: { trimester: GroupedTrimester }) {
       )}
 
       {trimester.mentors.length > 0 && (
-        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className={`flex items-center gap-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400 ${trimester.projectLeads.length > 0 ? 'mb-2' : 'mb-4'}`}>
           <GraduationCap size={14} aria-hidden="true" />
           {t("contributors.mentoredBy", { names: trimester.mentors.join(", ") })}
+        </p>
+      )}
+
+      {trimester.projectLeads.length > 0 && (
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-4">
+          {trimester.projectLeads.length > 1
+            ? t("contributors.projectLeadsPlural", { names: trimester.projectLeads.join(", ") })
+            : t("contributors.projectLead", { names: trimester.projectLeads.join(", ") })}
         </p>
       )}
 

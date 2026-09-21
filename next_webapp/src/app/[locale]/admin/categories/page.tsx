@@ -8,19 +8,8 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Pagination from "@/components/Pagination";
-
-function getAuthHeaders(): HeadersInit {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { apiFetch, ApiError } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 const PAGE_SIZE = 10;
 
@@ -49,24 +38,20 @@ export default function CategoriesPage() {
         page: String(currentPage),
         pageSize: String(PAGE_SIZE),
       });
-      const res = await fetch(`/api/categories?${params}`, {
+      const json = await apiFetch<any>(`/api/categories?${params}`, {
         headers: getAuthHeaders(),
+        silent: true,
       });
-      const json = await res.json();
-      if (res.status === 401) {
+      setCategories(json.data || []);
+      setTotalPages(json.pagination?.totalPages ?? 1);
+      setTotal(json.pagination?.total ?? 0);
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
         localStorage.removeItem("user");
         router.replace(`/${locale}/login`);
         return;
       }
-      if (json.success) {
-        setCategories(json.data || []);
-        setTotalPages(json.pagination?.totalPages ?? 1);
-        setTotal(json.pagination?.total ?? 0);
-      } else {
-        setError(json.message || "Failed to load categories.");
-      }
-    } catch {
-      setError("Failed to load categories.");
+      setError(e instanceof Error ? e.message : "Failed to load categories.");
     } finally {
       setLoading(false);
     }
@@ -80,36 +65,27 @@ export default function CategoriesPage() {
     if (!deleteTarget) return;
   
     try {
-      const res = await fetch(`/api/categories/${deleteTarget.id}`, {
+      await apiFetch(`/api/categories/${deleteTarget.id}`, {
         method: "DELETE",
         headers: getAuthHeaders(),
+        silent: true,
       });
-  
-      const json = await res.json();
-  
-      if (!json.success) {
-        setToast({
-          message: json.message || "Failed to delete category.",
-          type: "error",
-        });
-        return;
-      }
-  
+
       setToast({
         message: "Category deleted successfully.",
         type: "success",
       });
-  
+
       setDeleteTarget(null);
-  
+
       if (categories.length === 1 && page > 1) {
         setPage((p) => p - 1);
       } else {
         fetchCategories(page);
       }
-    } catch {
+    } catch (e) {
       setToast({
-        message: "Failed to delete category.",
+        message: e instanceof Error ? e.message : "Failed to delete category.",
         type: "error",
       });
     }
@@ -118,19 +94,19 @@ export default function CategoriesPage() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-[40px] font-semibold leading-[48px] text-[#2DBE6C]">
+          <h1 className="text-2xl font-semibold leading-tight text-[#2DBE6C] sm:text-3xl md:text-[40px]">
             Categories
           </h1>
-          <p className="mt-2 text-[16px] leading-[24px] text-[#687280]">
+          <p className="mt-1 text-xs text-[#687280] sm:text-sm md:text-[16px]">
             View all current categories here.
           </p>
         </div>
 
         <Link
           href={`/${locale}/admin/categories/add`}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#1F8F50] px-5 py-3 text-[14px] font-medium text-white transition hover:bg-[#2DBE6C]"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#1F8F50] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#2DBE6C] sm:px-5 sm:py-3"
         >
           <Plus size={18} />
           Add New
@@ -144,8 +120,79 @@ export default function CategoriesPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-2xl bg-[#ECEAEA] p-5">
-        <div className="overflow-x-auto">
+      <div className="rounded-2xl bg-[#ECEAEA] p-3 sm:p-5">
+        {/* Mobile Card View (< 768px) */}
+        <div className="space-y-3 md:hidden">
+          {loading && (
+            <div className="rounded-xl bg-white p-8 text-center text-sm text-[#687280]">
+              Loading...
+            </div>
+          )}
+
+          {!loading &&
+            categories.map((category) => (
+              <div
+                key={category.id}
+                className="flex flex-col gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="shrink-0">
+                      <ImageHoverPreview
+                        src={
+                          category.cover_img ||
+                          "/images/category-placeholder.png"
+                        }
+                        alt={category.category_name}
+                      />
+                    </div>
+                    <h4 className="truncate text-sm font-semibold text-black">
+                      {category.category_name}
+                    </h4>
+                  </div>
+
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    <Link
+                      href={`/${locale}/admin/categories/edit/${category.id}`}
+                    >
+                      <button
+                        type="button"
+                        aria-label="Edit category"
+                        className="rounded-lg bg-[#ECEAEA] p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]"
+                      >
+                        <Pencil size={15} />
+                      </button>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDelete(category.id, category.category_name)
+                      }
+                      aria-label="Delete category"
+                      className="rounded-lg bg-[#ECEAEA] p-2 text-red-500 transition hover:bg-red-50"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                </div>
+
+                {category.description && (
+                  <p className="line-clamp-2 rounded-lg border border-black/5 bg-[#F9F9F9] p-2.5 text-xs text-[#687280]">
+                    {category.description}
+                  </p>
+                )}
+              </div>
+            ))}
+
+          {!loading && categories.length === 0 && (
+            <div className="rounded-xl bg-white p-8 text-center text-sm text-[#687280]">
+              No data available at the moment.
+            </div>
+          )}
+        </div>
+
+        {/* Desktop Table View (>= 768px) */}
+        <div className="hidden overflow-x-auto md:block">
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b border-black/30">
@@ -167,37 +214,48 @@ export default function CategoriesPage() {
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={4} className="px-3 py-10 text-center text-[14px] text-[#687280]">
+                  <td
+                    colSpan={4}
+                    className="px-3 py-10 text-center text-[14px] text-[#687280]"
+                  >
                     Loading...
                   </td>
                 </tr>
               )}
 
-              {!loading && categories.map((category) => (
-                <tr key={category.id} className="border-b border-black/10">
-                  <td className="px-3 py-4">
-                  <ImageHoverPreview
-                     src={category.cover_img || "/images/category-placeholder.png"}
-                     alt={category.category_name}
-                  />
-                  </td>
+              {!loading &&
+                categories.map((category) => (
+                  <tr key={category.id} className="border-b border-black/10">
+                    <td className="px-3 py-4">
+                      <ImageHoverPreview
+                        src={
+                          category.cover_img ||
+                          "/images/category-placeholder.png"
+                        }
+                        alt={category.category_name}
+                      />
+                    </td>
 
-                  <td className="px-3 py-4 text-[14px] font-medium text-black">
-                    {category.category_name}
-                  </td>
+                    <td className="px-3 py-4 text-[14px] font-medium text-black">
+                      {category.category_name}
+                    </td>
 
-                  <td className="px-3 py-4 text-[14px] text-[#687280]">
-  <TextHoverPreview text={category.description || "—"} />
-</td>
+                    <td className="px-3 py-4 text-[14px] text-[#687280]">
+                      <TextHoverPreview text={category.description || "—"} />
+                    </td>
 
                   <td className="px-3 py-4">
                     <div className="flex items-center gap-2">
                       <Link href={`/${locale}/admin/categories/edit/${category.id}`}>
-                        <button className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]">
+                        <button
+                          aria-label={`Edit ${category.category_name}`}
+                          className="rounded-lg bg-white p-2 text-[#1F8F50] transition hover:bg-[#DFF7E8]"
+                        >
                           <Pencil size={16} />
                         </button>
                       </Link>
                       <button
+                        aria-label={`Delete ${category.category_name}`}
                         onClick={() => handleDelete(category.id, category.category_name)}
                         className="rounded-lg bg-white p-2 text-red-500 transition hover:bg-red-50"
                       >
@@ -210,7 +268,10 @@ export default function CategoriesPage() {
 
               {!loading && categories.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-3 py-10 text-center text-[14px] text-[#687280]">
+                  <td
+                    colSpan={4}
+                    className="px-3 py-10 text-center text-[14px] text-[#687280]"
+                  >
                     No data available at the moment.
                   </td>
                 </tr>

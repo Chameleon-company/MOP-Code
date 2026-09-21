@@ -10,7 +10,8 @@ import secondimage from "../../public/img/second_image.png";
 import HeroSlider, { HERO_SLIDES } from "@/components/HeroSlider";
 import { useTranslations } from "next-intl";
 import { CaseStudy, CATEGORY, SEARCH_MODE, SearchParams } from "@/app/types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { apiFetch } from "@/lib/apiFetch";
 import {
 	ArrowRight,
 	Play,
@@ -859,6 +860,27 @@ const HERO_SEARCH_MODES: { value: SEARCH_MODE; label: string }[] = [
 	{ value: SEARCH_MODE.TAG, label: "Tag" },
 ];
 
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function RecentUseCaseImage({ src, alt }: { src: string; alt: string }) {
+	const [imgSrc, setImgSrc] = useState(src);
+
+	useEffect(() => {
+		setImgSrc(src);
+	}, [src]);
+
+	return (
+		<Image
+			src={imgSrc}
+			alt={alt}
+			fill
+			sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+			className="object-cover transition-transform group-hover:scale-[1.02]"
+			onError={() => setImgSrc(FALLBACK_IMAGE)}
+		/>
+	);
+}
+
 const Dashboard = () => {
 
   //edits for use case studies
@@ -888,13 +910,20 @@ const Dashboard = () => {
 	// Keep the initial, preloaded slide stable for first paint. A full-viewport
 	// auto-rotating image becomes a new LCP candidate every five seconds.
 	// Visitors can still select a slide with the dots or swipe controls.
-	const goToSlide = (index: number) => {
+        const goToSlide = useCallback((index: number) => {
 		setCurrentSlide(index);
-	};
+	}, []);
 
 	// Convenience helpers used by swipe gestures (HeroSlider) and dots
-	const handleNext = () => goToSlide((currentSlide + 1) % HERO_SLIDES.length);
-	const handlePrev = () => goToSlide((currentSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+	const handleNext = useCallback(() => {
+		setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+	}, []);
+
+	const handlePrev = useCallback(() => {
+		setCurrentSlide(
+			(prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length,
+		);
+	}, []);
 
 	// Hero search: Title / Content / Tag (see HERO_SEARCH_MODES)
 	const searchContainerRef = useRef<HTMLDivElement>(null);
@@ -916,8 +945,10 @@ const Dashboard = () => {
 					params.set("search", searchTerm.trim());
 					params.set("search_by", searchMode);
 				}
-				const res = await fetch(`/api/usecases?${params}`);
-				const json = await res.json();
+				const json = await apiFetch<{ success: boolean; data?: any[] }>(
+					`/api/usecases?${params}`,
+					{ silent: true }
+				);
 				if (json.success) {
 					setFilteredCaseStudies(
 						(json.data || []).map((u: any) => ({
@@ -940,18 +971,16 @@ const Dashboard = () => {
 	}, [searchTerm, searchMode]);
 
 	useEffect(() => {
-		fetch("/api/usecases/recent")
-			.then((r) => r.json())
-			.then((json) => { if (json.success) setRecentUseCases(json.data || []); })
-			.catch(() => {})
+		apiFetch<{ success: boolean; data: any[] }>("/api/usecases/recent")
+			.then((json) => { if (json.success) setRecentUseCases(json.data ?? []); })
+			.catch(() => {}) // apiFetch already showed a toast; just fall back to the empty state below
 			.finally(() => setRecentLoading(false));
 	}, []);
 
 	useEffect(() => {
-		fetch("/api/home/categories")
-			.then((r) => r.json())
-			.then((json) => { if (json.success) setHomeCategories(json.data || []); })
-			.catch(() => {});
+		apiFetch<{ success: boolean; data: any[] }>("/api/home/categories")
+			.then((json) => { if (json.success) setHomeCategories(json.data ?? []); })
+			.catch(() => {}); // apiFetch already showed a toast; just fall back to the empty state below
 	}, []);
 
 	// Add click outside handler
@@ -1340,12 +1369,9 @@ const Dashboard = () => {
                     className="bg-white dark:bg-[#2f4048] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition flex flex-col group overflow-hidden"
                   >
                     <div className="relative h-40 w-full overflow-hidden">
-                      <Image
+                      <RecentUseCaseImage
                         src={item.cover_img || "/img/biotech.jpeg"}
                         alt={item.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                        className="object-cover transition-transform group-hover:scale-[1.02]"
                       />
                     </div>
                     <div className="p-5 flex flex-col flex-grow">

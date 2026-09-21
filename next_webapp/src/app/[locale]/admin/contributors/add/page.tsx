@@ -6,6 +6,7 @@ import ContributorForm, {
   ContributorFormData,
 } from "../components/ContributorForm";
 import AdminToast from "@/components/admin/AdminToast";
+import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 export default function AddContributorPage() {
   const router = useRouter();
@@ -52,7 +53,7 @@ export default function AddContributorPage() {
         is_active: data.isActive,
       };
 
-      const response = await fetch("/api/contributors", {
+      await apiFetch("/api/contributors", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,20 +68,8 @@ export default function AddContributorPage() {
             : {}),
         },
         body: JSON.stringify(payload),
+        silent: true,
       });
-
-      const json = await response.json();
-
-      console.log("API Response:", { status: response.ok, success: json.success, data: json });
-
-      if (!response.ok || !json.success) {
-        const message = json.errors
-          ? Object.values(json.errors).flat().join(", ")
-          : json.message || "Failed to add contributor";
-
-        setError(message);
-        return;
-      }
 
       setToast({
         message: "Contributor added successfully.",
@@ -93,9 +82,14 @@ export default function AddContributorPage() {
     } catch (error) {
       console.error(error);
 
-      setError(
-        "Something went wrong. Please try again.",
-      );
+      const body = error instanceof ApiError ? (error.body as any) : null;
+      const message = body?.errors
+        ? Object.values(body.errors).flat().join(", ")
+        : error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+
+      setError(message);
     } finally {
       setSubmitting(false);
     }
