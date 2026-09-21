@@ -3,20 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FolderOpen, ImagePlus, Save } from "lucide-react";
+import Image from "next/image";
 import { apiFetch } from "@/lib/apiFetch";
-
-function getAuthHeaders() {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 export default function EditCategoryPage() {
   const router = useRouter();
@@ -186,10 +175,13 @@ export default function EditCategoryPage() {
               className="cursor-pointer rounded-2xl border-2 border-dashed border-[#CFEFD9] bg-[#F8FFFA] p-8 text-center transition hover:bg-[#F0FFF6]"
             >
               {imagePreview ? (
-                <img
+                <Image
                   src={imagePreview}
                   alt="Preview"
-                  className="mx-auto h-40 rounded-lg object-cover"
+                  className="mx-auto h-40 w-auto rounded-lg object-cover"
+                  width={320}
+                  height={160}
+                  unoptimized={imagePreview?.startsWith("blob:")}
                 />
               ) : (
                 <>

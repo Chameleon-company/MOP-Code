@@ -1,7 +1,6 @@
 # misc
 **/.DS_Store
 Playground/.DS_Store
-datascience/.DS_Store
 
 # node / npm
 node_modules/
@@ -19,3 +18,8 @@ npm-debug.log*
 .env
 .env.*
 .env.example
+
+# Android / Gradle build cache
+.gradle/
+**/build/
+local.properties
