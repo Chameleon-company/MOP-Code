@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/library/supabaseClient';
+import dbConnect from '@/lib/dbConnect';
+import Category from '@/models/mongoose/Category';
 import { errorResponse } from '@/app/api/library/errorResponse';
 
 // GET /api/home/categories
@@ -7,19 +8,16 @@ import { errorResponse } from '@/app/api/library/errorResponse';
 // Public — no auth required (used on the home page).
 export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('categories')
-      .select('id, category_name, description, cover_img')
-      .order('category_name', { ascending: true });
+    await dbConnect();
 
-    if (error) {
-      console.error('[GET /api/home/categories] fetch error:', error);
-      return errorResponse('Failed to fetch categories', 500, 'DB_FETCH_ERROR');
-    }
+    const data = await Category.find({})
+      .select('category_name description cover_img')
+      .sort({ category_name: 1 })
+      .lean();
 
     return NextResponse.json({
       success: true,
-      data: data ?? [],
+      data: data.map(({ _id, __v, ...rest }: any) => ({ id: _id.toString(), ...rest })),
     });
   } catch (error) {
     console.error('[GET /api/home/categories] unexpected error:', error);

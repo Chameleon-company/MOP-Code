@@ -111,8 +111,8 @@ describe('Admin — categories list', () => {
 
     cy.visit('/admin/categories', { onBeforeLoad: seedAdmin });
     cy.wait('@getEmptyCategories');
-    // Empty-state message should replace the table
-    cy.contains('No data available at the moment.').should('be.visible');
+    // Empty-state message should appear — scope to the desktop table
+    cy.get('table').contains('No data available at the moment.').should('be.visible');
   });
 
   it('links to the add-category page', () => {
@@ -277,40 +277,39 @@ describe('Admin — add contributor', () => {
     cy.contains('Contributor added successfully.').should('be.visible');
   });
 
-  it('does not offer "Project Lead" as a contributor type', () => {
-    // Open the dropdown and verify all visible options — project_lead is a stale DB value (PR #2138)
+  it('offers "Project Lead" as a contributor type', () => {
+    // All four contributor types should be visible — project_lead
     openDropdown('Contributor Type');
     cy.contains('button', '👨‍🎓 Student').should('be.visible');
     cy.contains('button', '👨‍🏫 Mentor').should('be.visible');
     cy.contains('button', '🏢 Company Director').should('be.visible');
-    cy.contains('button', /project lead/i).should('not.exist');
+    cy.contains('button', '👑 Project Lead').should('be.visible');
   });
 
-  it('does not offer the "Project Team" team option', () => {
+  it('offers the "Project Team" team option for students', () => {
     // Select Student type first — team options are dependent on contributor type
     openDropdown('Contributor Type');
     cy.contains('button', '👨‍🎓 Student').click();
 
-    // "Project Team" is a newer addition not yet in the hardcoded list (PR #2138)
+    // Project Team
     openDropdown('Team');
     cy.contains('button', 'Data Science Team').should('be.visible');
     cy.contains('button', 'Cyber Security Team').should('be.visible');
-    cy.contains('button', 'Project Team').should('not.exist');
+    cy.contains('button', 'Project Team').should('be.visible');
   });
 
-  it('does not offer the newer Data Science Team positions', () => {
+  it('offers the full Data Science Team positions including newer roles', () => {
     openDropdown('Contributor Type');
     cy.contains('button', '👨‍🎓 Student').click();
 
     openDropdown('Team');
     cy.contains('button', 'Data Science Team').click();
 
-    // Check which positions are and aren't offered (PR #2138 gap)
+    // All positions will refer the contributorType and Team
     openDropdown('Position or Role');
     cy.contains('button', 'Data Scientist').should('be.visible');
     cy.contains('button', 'Data Science Team Lead').should('be.visible');
-    cy.contains('button', 'Data Science Assistant Team Lead').should('not.exist');
-    cy.contains('button', 'Project Lead').should('not.exist');
+    cy.contains('button', 'Data Science Assistant Team Lead').should('be.visible');
   });
 });
 
@@ -346,7 +345,7 @@ describe('Admin — edit contributor', () => {
     cy.contains('button', 'Data Scientist').should('be.visible');
   });
 
-  it('shows no contributor type selected for a project_lead record (the #2138 gap)', () => {
+  it('pre-fills the contributor type for a project_lead record', () => {
     cy.intercept('GET', `/api/contributors/${contributorId}`, {
       statusCode: 200,
       body: {
@@ -369,8 +368,59 @@ describe('Admin — edit contributor', () => {
     cy.visit(`/admin/contributors/edit/${contributorId}`, { onBeforeLoad: seedAdmin });
     cy.wait('@getContributor');
 
-    // "project_lead" isn't a form option, so it falls back to the placeholder.
-    cy.contains('label', 'Contributor Type').parent().contains('button', 'Select type').should('be.visible');
+    // project_lead is now a valid form option
+    cy.contains('label', 'Contributor Type').parent().contains('button', '👑 Project Lead').should('be.visible');
+  });
+
+  it('sends updated fields on submit and redirects to the list', () => {
+    cy.intercept('GET', `/api/contributors/${contributorId}`, {
+      statusCode: 200,
+      body: {
+        success: true,
+        data: {
+          id: contributorId,
+          name: 'Ada Lovelace',
+          year: 2026,
+          trimester: 1,
+          contributor_type: 'student',
+          team: 'Data Science Team',
+          position: 'Data Scientist',
+          level: 'Senior',
+          display_order: 0,
+          is_active: true,
+        },
+      },
+    }).as('getContributor');
+
+    cy.intercept('PUT', `/api/contributors/${contributorId}`, {
+      statusCode: 200,
+      body: { success: true },
+    }).as('updateContributor');
+
+    // Stub the list page GET so the redirect doesn't hit the real backend
+    cy.intercept('GET', '/api/contributors*', {
+      statusCode: 200,
+      body: { success: true, data: [] },
+    }).as('getContributorsAfterUpdate');
+
+    cy.visit(`/admin/contributors/edit/${contributorId}`, { onBeforeLoad: seedAdmin });
+    cy.wait('@getContributor');
+
+    // Update the name and submit
+    cy.get('input[placeholder="Enter full name"]').clear().type('Ada Lovelace Updated');
+    cy.contains('button', 'Update Contributor').click();
+
+    // Verify the PUT body contains the updated name
+    cy.wait('@updateContributor').its('request.body').should('deep.include', {
+      name: 'Ada Lovelace Updated',
+      contributor_type: 'student',
+      team: 'Data Science Team',
+      position: 'Data Scientist',
+      level: 'Senior',
+    });
+
+    cy.contains('Contributor updated successfully.').should('be.visible');
+    cy.url({ timeout: 3000 }).should('include', '/admin/contributors');
   });
 });
 
@@ -392,11 +442,16 @@ describe('Admin — contributors list: delete', () => {
   });
 
   it('asks for confirmation before deleting, and cancel leaves it in place', () => {
-    // Open the delete confirmation dialog
-    cy.get('button[aria-label="Delete Ada Lovelace"]').click();
-    cy.contains('Delete Contributor').should('be.visible');
-    cy.contains('Are you sure you want to delete').should('be.visible');
-    cy.contains('Ada Lovelace').should('be.visible');
+    // Open the delete confirmation dialog — use .last() to target the visible desktop table
+    // button; the first match is inside div.md:hidden (mobile cards, display:none at desktop).
+    cy.get('button[aria-label="Delete Ada Lovelace"]').last().click();
+    // Scope to the fixed modal overlay — cy.contains('Ada Lovelace') would otherwise
+    // match the hidden mobile card h4 (inside md:hidden) before the modal span.
+    cy.get('.fixed.inset-0').within(() => {
+      cy.contains('Delete Contributor').should('be.visible');
+      cy.contains('Are you sure you want to delete').should('be.visible');
+      cy.contains('Ada Lovelace').should('be.visible');
+    });
 
     // Cancel should dismiss the dialog without removing the row
     cy.contains('button', 'Cancel').click();
@@ -410,7 +465,7 @@ describe('Admin — contributors list: delete', () => {
     }).as('deleteContributor');
 
     // Open the dialog and confirm deletion
-    cy.get('button[aria-label="Delete Ada Lovelace"]').click();
+    cy.get('button[aria-label="Delete Ada Lovelace"]').last().click();
     cy.contains('button', 'Delete').click();
 
     cy.wait('@deleteContributor');

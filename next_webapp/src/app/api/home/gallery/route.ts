@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
+import dbConnect from "@/lib/dbConnect";
+import GalleryImage from "@/models/mongoose/GalleryImage";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const DEFAULT_PAGE_SIZE = 12;
@@ -11,6 +12,13 @@ function badRequest(message: string) {
 
 function serverError(message = "Internal server error") {
   return NextResponse.json({ success: false, message }, { status: 500 });
+}
+
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
 }
 
 // ── GET /api/home/gallery ──────────────────────────────────────────────────
@@ -45,30 +53,28 @@ export async function GET(request: NextRequest) {
     const pageSize =
       Math.max(1, parseInt(rawPageSize ?? String(DEFAULT_PAGE_SIZE), 10)) ||
       DEFAULT_PAGE_SIZE;
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const skip = (page - 1) * pageSize;
 
-    let query = supabase
-      .from("gallery_images")
-      .select("id, title, img_url, created_at", { count: "exact" })
-      .order("created_at", { ascending: false });
+    await dbConnect();
 
+    const filter: Record<string, unknown> = {};
     if (search) {
-      query = query.ilike("title", `%${search}%`);
+      filter.title = { $regex: search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), $options: "i" };
     }
 
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("[GET /api/home/gallery] error:", error);
-      return serverError("Failed to fetch gallery images");
-    }
-
-    const total = count ?? 0;
+    const [data, total] = await Promise.all([
+      GalleryImage.find(filter)
+        .select("title img_url created_at")
+        .sort({ created_at: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      GalleryImage.countDocuments(filter),
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: data ?? [],
+      data: data.map(toDTO),
       pagination: {
         page,
         pageSize,
