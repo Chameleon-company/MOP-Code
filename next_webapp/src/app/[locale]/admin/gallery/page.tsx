@@ -4,8 +4,9 @@ import { useState, useEffect, useCallback, use } from "react";
 import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
-import { storage } from "@/utils/storage";
+import Image from "next/image";
 import { apiFetch, ApiError } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 type GalleryImage = {
   id: number;
@@ -13,24 +14,6 @@ type GalleryImage = {
   img_url: string;
   created_at: string;
 };
-
-function authHeaders(): Record<string, string> {
-  let user: Record<string, any> = {};
-  try {
-    user = JSON.parse(storage.getItem("user") || "{}");
-  } catch {
-    user = {};
-  }
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
 
 const PAGE_SIZE = 12;
 
@@ -76,7 +59,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       const json = await apiFetch<{ success: boolean; data: GalleryImage[]; pagination?: { total: number; totalPages: number } }>(
         `/api/gallery?${qs}`,
-        { headers: authHeaders(), silent: true }
+        { headers: getAuthHeaders(), silent: true }
       );
       setImages(json.data ?? []);
       setTotal(json.pagination?.total ?? 0);
@@ -119,7 +102,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       await apiFetch("/api/gallery", {
         method: "POST",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         body: formData,
         silent: true,
       });
@@ -175,7 +158,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       await apiFetch(`/api/gallery/${editTarget.id}`, {
         method: "PUT",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         body: formData,
         silent: true,
       });
@@ -205,7 +188,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
     try {
       await apiFetch(`/api/gallery/${deleteTarget.id}`, {
         method: "DELETE",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         silent: true,
       });
 
@@ -223,20 +206,22 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="-m-8">
+    <div>
       {/* ── Page header ─────────────────────────────────────── */}
-      <div className="flex flex-col gap-4 px-8 py-6 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-[40px] font-semibold leading-[48px] text-emerald-500">Gallery</h1>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-semibold leading-tight text-emerald-500 sm:text-3xl md:text-[40px]">
+          Gallery
+        </h1>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {/* Search */}
-          <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-2.5">
+          <div className="flex flex-1 items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-3.5 py-2.5 sm:flex-none">
             <Search size={16} className="text-emerald-600" />
             <input
               placeholder="Search by title..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-44 bg-transparent text-sm outline-none"
+              className="w-full bg-transparent text-sm outline-none sm:w-44"
             />
             {searchInput && (
               <button
@@ -252,7 +237,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
           <button
             type="button"
             onClick={() => setUploadOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-[14px] font-medium text-white transition hover:bg-emerald-500"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500 sm:px-5 sm:py-3"
           >
             <Plus size={16} />
             Upload New Photo
@@ -281,7 +266,9 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               onClick={() => setSelectedImage(image)}
               className="group relative overflow-hidden focus:outline-none"
             >
-              <img
+              <Image
+                width={600}
+                height={256}
                 src={image.img_url}
                 alt={image.title}
                 className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -331,10 +318,12 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
               <X size={18} strokeWidth={3} />
             </button>
 
-            <img
+            <Image
               src={selectedImage.img_url}
               alt={selectedImage.title}
               className="h-96 w-full rounded-xl object-cover"
+              width={800}
+              height={384}
             />
 
             <p className="mt-4 text-[16px] font-semibold text-gray-900">{selectedImage.title}</p>
@@ -384,7 +373,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
             <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#1F8F50]/40 bg-[#E8F5EE] py-10 transition hover:border-[#1F8F50] hover:bg-[#D6EFE2]">
               {uploadPreview ? (
-                <img src={uploadPreview} alt="Preview" className="max-h-40 rounded-lg object-contain" />
+                <Image src={uploadPreview} alt="Preview" className="max-h-40 w-auto rounded-lg object-contain" width={320} height={160} unoptimized />
               ) : (
                 <>
                   <Upload size={36} className="mb-3 text-[#1F8F50]" />
@@ -448,10 +437,13 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
                     : "border-[#1F8F50]/40 bg-[#E8F5EE] hover:border-[#1F8F50] hover:bg-[#D6EFE2]"
                 }`}
               >
-                <img
+                <Image
                   src={editPreview ?? editTarget.img_url}
                   alt="Preview"
+                  width={500}
+                  height={192}
                   className="max-h-48 w-full rounded-lg object-contain py-4 px-4"
+                  unoptimized={!!editPreview?.startsWith("blob:")}
                 />
                 <p className="pb-3 text-[12px] font-medium text-[#1F8F50]/70">
                   {editPreview ? "New image selected — click to change" : "Click to replace image (optional)"}
