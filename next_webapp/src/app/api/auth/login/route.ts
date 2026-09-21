@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorResponse } from '@/app/api/library/errorResponse';
+import {
+    checkLoginRateLimit,
+    getClientIp,
+    resetLoginAttempts,
+} from '@/app/api/library/loginRateLimit';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/models/mongoose/User';
 
@@ -19,6 +24,17 @@ export async function POST(request: Request) {
             return errorResponse('Email and password are required', 400, 'MISSING_FIELDS');
         }
         const normalizeEmail = email.toLowerCase().trim();
+        const ip = getClientIp(request);
+
+        // 1.5. Rate limit checked before any lookup/compare below. This
+        // atomically records the attempt too (see checkLoginRateLimit), so
+        // no separate recording call is needed in the failure branches
+        // below adding one there would double-count this request.
+        const { limited } = await checkLoginRateLimit(normalizeEmail, ip);
+        if (limited) {
+            return errorResponse('Too many attempts, please try again later.', 429, 'TOO_MANY_ATTEMPTS');
+        }
+
         // 2. Find user by email
         const userData = await User.findOne({ email:normalizeEmail }).exec();
 
@@ -65,6 +81,9 @@ export async function POST(request: Request) {
         };
 
         const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '7d' });
+
+        // Successful login clear any tracked failed attempts.
+        await resetLoginAttempts(normalizeEmail, ip);
 
         // 7. Return success response with everything
         return NextResponse.json(

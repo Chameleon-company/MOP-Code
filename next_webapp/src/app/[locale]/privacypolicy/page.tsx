@@ -5,8 +5,6 @@ import Footer from "../../../components/Footer";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { storage } from "@/utils/storage";
 
 const Privacypolicy: React.FC = () => {
@@ -86,6 +84,11 @@ const Privacypolicy: React.FC = () => {
 
       const input = policyContentRef.current;
       if (!input) return;
+
+      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf")
+      ]);
 
       const canvas = await html2canvas(input, {
         backgroundColor: "#ffffff",
