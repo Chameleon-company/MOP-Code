@@ -125,8 +125,15 @@ notebook code and cannot infer arbitrary dynamically calculated references.
 Manual workflow runs build the selected revision, including its notebooks.
 Registry persistence is attempted only for runs on `master`; a protected-branch
 rejection is non-blocking. Generated registries still need to be saved through
-a reviewed change when direct pushes are prohibited. Test-branch deployments
-must be allowed by the fork's `github-pages` environment.
+a reviewed change when direct pushes are prohibited.
+
+For pre-merge testing, open Actions, select this workflow, and use **Run
+workflow** to choose the test branch. Branch runs execute the tests, regenerate
+the dashboard and upload the `github-pages` artifact; they skip both registry
+pushes and deployment. Download the artifact to inspect `index.html` and
+`build-summary.json`. Only runs on `master` can publish to the live Pages site.
+Branch pushes and pull requests do not currently trigger this workflow, so
+start the pre-merge validation run manually.
 
 Run the offline regression tests with:
 
@@ -143,7 +150,9 @@ python3 -m unittest discover -s usecases/MOP_Data_Dashboard -p 'test_*.py'
 - Use Case domains are read automatically from `usecases/Use_Case_Index.md`.
   `use_case_domains.csv` is refreshed automatically as an offline cache.
 - `asset_id_registry.csv` preserves stable dataset identifiers between refreshes.
-- GitHub Actions commits registry and domain-cache changes generated during a
-  refresh, so newly assigned IDs remain stable in later runs.
+- GitHub Actions attempts to commit registry and domain-cache changes during
+  master refreshes. When branch protection rejects the push, deployment can
+  continue, but registry changes must be persisted through a separate reviewed
+  change to retain newly assigned sequential IDs across future refreshes.
 - The repository's GitHub Pages publishing source must be set to **GitHub
   Actions** for automatic deployment to the live URL.
