@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import mongoose from "mongoose";
-import { supabase } from "@/library/supabaseClient";
 import dbConnect from "@/lib/dbConnect";
 import UseCase from "@/models/mongoose/UseCase";
+import Blog from "@/models/mongoose/Blog";
 import { getHreflangAlternates } from "@/lib/seo/hreflang";
 
 const STATIC_ROUTES = [
@@ -30,13 +30,14 @@ function buildEntry(pathname: string, lastModified?: Date): SitemapEntry {
 }
 
 async function getBlogEntries(): Promise<SitemapEntry[]> {
-  const { data, error } = await supabase.from("blogs").select("id, updated_at");
-  if (error || !data) return [];
+  await dbConnect();
 
-  return data.map((blog) =>
+  const docs = await Blog.find({}, { _id: 1, updated_at: 1 }).lean();
+
+  return docs.map((doc) =>
     buildEntry(
-      `/blog/${blog.id}`,
-      blog.updated_at ? new Date(blog.updated_at) : undefined,
+      `/blog/${(doc._id as mongoose.Types.ObjectId).toString()}`,
+      doc.updated_at ? new Date(doc.updated_at) : undefined,
     ),
   );
 }

@@ -1,8 +1,20 @@
 ﻿"use client";
 import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n-navigation";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { apiFetch } from "@/lib/apiFetch";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({ src, ...props }: ImageProps) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 interface Blog {
   id: number;
@@ -54,7 +66,7 @@ const BlogPage: React.FC = () => {
             >
               {blog.cover_img && (
                 <div className="relative h-44 overflow-hidden">
-                  <Image
+                  <ImageWithFallback
                     src={blog.cover_img}
                     alt={blog.title}
                     fill
