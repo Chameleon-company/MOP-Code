@@ -103,30 +103,46 @@ export async function GET(request: NextRequest) {
 
     // ── Query ────────────────────────────────────────────────────────────────
 
-    // Fetch all matching docs to get an accurate total for pagination.
-    // For very large collections a two-step countDocuments + paginated find
-    // would be more efficient, but the use-case collection is small enough
-    // that a single lean pass is fine here.
-    const allResults = await UseCase
+    // Count first so the requested page can be clamped before fetching data.
+    // This preserves the existing out-of-range page behaviour without loading
+    // every matching document into application memory.
+    const total      = await UseCase.countDocuments(filter);
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    const page       = Math.min(isNaN(rawPage) || rawPage < 1 ? 1 : rawPage, totalPages);
+    const offset     = (page - 1) * pageSize;
+
+    const query = UseCase
       .find(filter)
       .select(SEARCH_PROJECTION)
       .sort({ [sortField]: sortDir })
+      .skip(offset)
+      .limit(pageSize)
       .lean();
 
-    // Handle unknown tag slug: embedded filter returning 0 results is fine,
-    // but we mirror the old behaviour of returning an empty result set rather
-    // than a 404.
-    const total      = allResults.length;
-    const totalPages = Math.max(1, Math.ceil(total / pageSize));
-    const page       = Math.min(isNaN(rawPage) || rawPage < 1 ? 1 : rawPage, totalPages);
+    let results;
+    try {
+      results = await query;
+    } catch (error) {
+      if (!(error instanceof Error) || !('code' in error) || error.code !== 292) {
+        throw error;
+      }
 
-    const paginatedResults = allResults.slice((page - 1) * pageSize, page * pageSize);
+      // Shared Atlas clusters cannot spill sorts to disk. Retry with only
+      // safe search fields entering the sort, excluding large legacy bodies.
+      results = await UseCase.aggregate([
+        { $match: filter },
+        { $project: SEARCH_PROJECTION },
+        { $sort: { [sortField]: sortDir } },
+        { $skip: offset },
+        { $limit: pageSize },
+      ]).exec();
+    }
 
     return NextResponse.json(
       {
         success: true,
         data: {
-          results: paginatedResults,
+          results,
           pagination: {
             page,
             pageSize,

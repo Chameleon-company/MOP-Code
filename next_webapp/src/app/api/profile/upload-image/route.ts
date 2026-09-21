@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
 import { getAuthUser } from "@/app/api/library/auth";
+import { uploadImageToGCS } from "@/app/api/library/uploadImageToGCS";
+import { getImagesBucket } from "@/app/api/library/gcsBucket";
+
+// TODO: prefix not confirmed with the GCP owner yet — follows the old
+// Supabase layout for now.
+const PROFILE_IMAGE_PREFIX = "profiles";
 
 function unauthorized() {
   return NextResponse.json(
@@ -17,15 +22,24 @@ function badRequest(message: string) {
   return NextResponse.json({ success: false, message }, { status: 400 });
 }
 
+// ==============================
+// POST /api/profile/upload-image
+// Upload a profile image to GCS (auth required)
+// Body: multipart/form-data → file: File
+// Returns: { success, message, imageUrl }
+//
+// Only stores the image. PUT /api/profile saves the URL onto the user.
+// ==============================
+
 export async function POST(request: NextRequest) {
   const { userId, isAuthenticated } = getAuthUser(request);
   if (!isAuthenticated || !userId) return unauthorized();
 
   try {
     const formData = await request.formData();
-    const file = formData.get("file") as File;
+    const file = formData.get("file") as File | null;
 
-    if (!file) {
+    if (!file || file.size === 0) {
       return badRequest("No file provided");
     }
 
@@ -40,41 +54,23 @@ export async function POST(request: NextRequest) {
       return badRequest("File size must be less than 5MB");
     }
 
-    // Convert file to buffer
-    const buffer = await file.arrayBuffer();
+    const buffer = Buffer.from(await file.arrayBuffer());
 
-    // Generate unique filename
-    const filename = `profile-${userId}-${Date.now()}.${file.name.split(".").pop()}`;
-    const filePath = `profiles/${userId}/${filename}`;
+    // always .webp — uploadImageToGCS re-encodes
+    const filename = `${PROFILE_IMAGE_PREFIX}/${userId}/profile-${userId}-${Date.now()}.webp`;
 
-    // Upload to Supabase Storage
-    const { data, error } = await supabase.storage
-      .from("profile-images")
-      .upload(filePath, buffer, {
-        contentType: file.type,
-        upsert: false,
-      });
-
-    if (error) {
-      console.error("[POST /api/profile/upload-image] upload error:", error);
-      return serverError(`Upload failed: ${error.message}`);
+    let imageUrl: string;
+    try {
+      imageUrl = await uploadImageToGCS(buffer, filename, getImagesBucket());
+    } catch (uploadError) {
+      console.error("[POST /api/profile/upload-image] upload error:", uploadError);
+      return serverError("Profile image upload failed");
     }
-
-    // Get public URL
-    const { data: publicUrlData } = supabase.storage
-      .from("profile-images")
-      .getPublicUrl(filePath);
-
-    if (!publicUrlData?.publicUrl) {
-      return serverError("Failed to generate public URL");
-    }
-
-    console.log("[POST /api/profile/upload-image] success:", publicUrlData.publicUrl);
 
     return NextResponse.json({
       success: true,
       message: "Image uploaded successfully",
-      imageUrl: publicUrlData.publicUrl,
+      imageUrl,
     });
   } catch (error) {
     console.error("[POST /api/profile/upload-image] error:", error);

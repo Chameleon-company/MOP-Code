@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback, use } from "react";
 import { Plus, X, Upload, Search, Pencil } from "lucide-react";
 import AdminToast from "@/components/admin/AdminToast";
 import ConfirmModal from "@/components/admin/ConfirmModal";
-import { storage } from "@/utils/storage";
 import Image from "next/image";
 import { apiFetch, ApiError } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 type GalleryImage = {
   id: number;
@@ -14,24 +14,6 @@ type GalleryImage = {
   img_url: string;
   created_at: string;
 };
-
-function authHeaders(): Record<string, string> {
-  let user: Record<string, any> = {};
-  try {
-    user = JSON.parse(storage.getItem("user") || "{}");
-  } catch {
-    user = {};
-  }
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
 
 const PAGE_SIZE = 12;
 
@@ -77,7 +59,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       const json = await apiFetch<{ success: boolean; data: GalleryImage[]; pagination?: { total: number; totalPages: number } }>(
         `/api/gallery?${qs}`,
-        { headers: authHeaders(), silent: true }
+        { headers: getAuthHeaders(), silent: true }
       );
       setImages(json.data ?? []);
       setTotal(json.pagination?.total ?? 0);
@@ -120,7 +102,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       await apiFetch("/api/gallery", {
         method: "POST",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         body: formData,
         silent: true,
       });
@@ -176,7 +158,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
 
       await apiFetch(`/api/gallery/${editTarget.id}`, {
         method: "PUT",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         body: formData,
         silent: true,
       });
@@ -206,7 +188,7 @@ export default function GalleryPage({ params }: { params: Promise<{ locale: stri
     try {
       await apiFetch(`/api/gallery/${deleteTarget.id}`, {
         method: "DELETE",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         silent: true,
       });
 
