@@ -76,6 +76,7 @@ jobs:
           path: _site
 
   deploy:
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     environment:
