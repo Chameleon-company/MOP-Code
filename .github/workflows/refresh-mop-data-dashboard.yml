@@ -44,6 +44,9 @@ jobs:
         run: python3 'usecases/MOP_Data_Dashboard/data_dashboard.py'
 
       - name: Preserve stable IDs and the domain cache
+        # master is protected in the organisation repository. A rejected cache
+        # update must not prevent the newly built dashboard from deploying.
+        continue-on-error: true
         run: |
           git add 'usecases/MOP_Data_Dashboard/asset_id_registry.csv'
           git add 'usecases/MOP_Data_Dashboard/use_case_domains.csv'
