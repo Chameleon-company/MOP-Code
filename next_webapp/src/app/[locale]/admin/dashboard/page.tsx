@@ -4,26 +4,8 @@ import { useEffect, useState } from "react";
 import { LayoutGrid, Folder, BookOpen, Images } from "lucide-react";
 import AdminStatCard from "@/components/admin/AdminStatsCard";
 import AdminRecentActivity from "@/components/admin/AdminRecentActivity";
-import { storage } from "@/utils/storage";
 import { apiFetch } from "@/lib/apiFetch";
-
-function getAuthHeaders(): HeadersInit {
-  let user: Record<string, any> = {};
-  try {
-    user = JSON.parse(storage.getItem("user") || "{}");
-  } catch {
-    user = {};
-  }
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 export default function DashboardPage() {
   const [totalUseCases, setTotalUseCases] = useState<string>("—");
@@ -71,9 +53,9 @@ export default function DashboardPage() {
   const displayValue = (value: string) => (loading ? "…" : value);
 
   return (
-    <div className="p-6">
+    <div>
       {/* Title */}
-      <h1 className="mb-10 text-[40px] font-semibold leading-[48px] text-emerald-500">
+      <h1 className="mb-6 text-2xl font-semibold leading-tight text-emerald-500 sm:text-3xl md:mb-8 md:text-[40px]">
         Dashboard
       </h1>
 

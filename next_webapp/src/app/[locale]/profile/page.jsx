@@ -5,6 +5,7 @@ import Footer from "../../../components/Footer";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Camera, User, Mail, Phone, MapPin, Calendar, Save } from "lucide-react";
+import Image from "next/image";
 import { apiFetch, ApiError } from "@/lib/apiFetch";
 
 const Profile = () => {
@@ -12,6 +13,7 @@ const Profile = () => {
   const params = useParams();
   const locale = params?.locale || "en";
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImageError, setProfileImageError] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -27,6 +29,10 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [fetchingProfile, setFetchingProfile] = useState(true);
+
+  useEffect(() => {
+    setProfileImageError(false);
+  }, [profileImage]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -289,11 +295,15 @@ const Profile = () => {
             <form onSubmit={handleSubmit} className="space-y-8" disabled={fetchingProfile}>
               <div className="flex flex-col items-center justify-center">
                 <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#263238] flex items-center justify-center">
-                  {profileImage ? (
-                    <img
+                  {profileImage && !profileImageError ? (
+                    <Image
                       src={profileImage}
                       alt="Profile Preview"
+                      width={128}
+                      height={128}
                       className="w-full h-full object-cover"
+                      unoptimized={profileImage?.startsWith("blob:")}
+                      onError={() => setProfileImageError(true)}
                     />
                   ) : (
                     <User className="w-14 h-14 text-gray-400 dark:text-gray-400" />

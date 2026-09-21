@@ -7,13 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "build:lighthouse": "node scripts/lighthouse-env.cjs npm run build",
+    "lighthouse": "node scripts/lighthouse-env.cjs lhci autorun",
+    "test:lighthouse": "node scripts/test-lighthouse.cjs"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@ckeditor/ckeditor5-react": "^6.3.0",
+    "@google-cloud/storage": "^7.21.0",
     "@sentry/nextjs": "^10.52.0",
-    "@supabase/supabase-js": "^2.99.3",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.3",
     "chart.js": "^4.4.2",
@@ -46,6 +49,8 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
+    "@lhci/cli": "0.15.1",
+    "@next/bundle-analyzer": "^16.3.4",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.3.0",

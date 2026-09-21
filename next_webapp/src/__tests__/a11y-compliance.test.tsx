@@ -6,13 +6,39 @@ import userEvent from "@testing-library/user-event";
 import { Users } from "lucide-react";
 import Footer from "../components/Footer";
 import CityMetricCard from "../components/CityMetricCard";
+import Header from "../components/Header";
 import LanguageDropdown from "../components/LanguageDropdown";
 
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();
 
 jest.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: () => (key: string) => ({
+    "languages.english": "English",
+    "languages.chinese": "Chinese",
+    "languages.spanish": "Spanish",
+    "languages.greek": "Greek",
+    "languages.arabic": "Arabic",
+    "languages.italian": "Italian",
+    "languages.hindi": "Hindi",
+    "languages.vietnamese": "Vietnamese",
+    "nav.home": "Home",
+    "nav.about": "About Us",
+    "nav.profile": "Profile",
+    "nav.explore": "Explore",
+    "nav.useCases": "Use Cases",
+    "nav.blogs": "Blogs",
+    "nav.gallery": "Gallery",
+    "nav.contact": "Contact Us",
+    "nav.admin": "Admin Portal",
+    "accessibility.home": "Go to homepage",
+    "accessibility.mainNavigation": "Main navigation",
+    "accessibility.mobileNavigation": "Mobile navigation",
+    "accessibility.openMenu": "Open menu",
+    "accessibility.closeMenu": "Close menu",
+    "accessibility.switchToLight": "Switch to light mode",
+    "accessibility.switchToDark": "Switch to dark mode",
+  }[key] ?? key),
   useFormatter: () => ({
     number: (value: number) => String(value),
   }),
@@ -33,6 +59,14 @@ jest.mock("next/image", () => ({
   ),
 }));
 
+jest.mock("../hooks/useTheme", () => ({
+  useTheme: () => ({ theme: "light", toggleTheme: jest.fn() }),
+}));
+
+jest.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));
+
 beforeEach(() => {
   mockPush.mockClear();
   mockRefresh.mockClear();
@@ -41,6 +75,16 @@ beforeEach(() => {
 });
 
 describe("accessibility compliance", () => {
+  it("renders translated header navigation and accessibility labels", () => {
+    render(<Header />);
+
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Go to homepage" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Explore" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Switch to dark mode" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Language" })).toBeInTheDocument();
+  });
+
   it("exposes footer headings and navigation landmarks", () => {
     render(<Footer />);
 

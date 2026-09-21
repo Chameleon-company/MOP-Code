@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/library/supabaseClient";
-import { uploadImageToStorage } from "../library/uploadImageToStorage";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
+import GalleryImage from "@/models/mongoose/GalleryImage";
+import { uploadImageToGCS } from "../library/uploadImageToGCS";
+import { getAuthUser } from "../library/auth";
+import { errorResponse } from "../library/errorResponse";
+import { getImagesBucket } from "../library/gcsBucket";
+import { deleteImageFromGCS } from "../library/deleteImageFromGCS";
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -10,17 +16,19 @@ const DEFAULT_PAGE_SIZE = 12;
 const MAX_PAGE_SIZE = 100;
 
 // ── Auth helpers ───────────────────────────────────────────────────────────
-function getUserId(request: NextRequest): number | null {
+// created_by is a Mongo ObjectId ref — only usable once the header carries a
+// real Mongo User _id (post Auth-phase migration). Until then, fall back to
+// null rather than let Mongoose throw a CastError on a legacy numeric id.
+function getCreatedBy(request: NextRequest): string | null {
   const raw = request.headers.get("x-user-id");
-  if (!raw) return null;
-  const id = Number(raw);
-  return Number.isFinite(id) ? id : null;
+  return raw && mongoose.Types.ObjectId.isValid(raw) ? raw : null;
 }
 
-function isAdmin(request: NextRequest): boolean {
-  const role = request.headers.get("x-user-role");
-  const roleId = request.headers.get("x-user-role-id");
-  return role?.toLowerCase() === "admin" || roleId === "1";
+// Map a Mongo document (or .lean() object) to the flat shape the frontend
+// expects — plain string `id`, never a raw `_id`/`__v`.
+function toDTO(doc: any) {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest };
 }
 
 // ── Response helpers ───────────────────────────────────────────────────────
@@ -66,7 +74,9 @@ function validateImage(image: File | null): string | null {
 // Admin listing with pagination and optional title search.
 // Query params: page, pageSize, search
 export async function GET(request: NextRequest) {
-  if (!getUserId(request)) return unauthorized();
+  const { userId, isAuthenticated } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) return unauthorized();
 
   try {
     const url = new URL(request.url);
@@ -92,30 +102,28 @@ export async function GET(request: NextRequest) {
     const pageSize =
       Math.max(1, parseInt(rawPageSize ?? String(DEFAULT_PAGE_SIZE), 10)) ||
       DEFAULT_PAGE_SIZE;
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const skip = (page - 1) * pageSize;
 
-    let query = supabase
-      .from("gallery_images")
-      .select("id, title, img_url, created_at, created_by", { count: "exact" })
-      .order("created_at", { ascending: false });
+    await dbConnect();
 
+    const filter: Record<string, unknown> = {};
     if (search) {
-      query = query.ilike("title", `%${search}%`);
+      filter.title = { $regex: search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), $options: "i" };
     }
 
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("[GET /api/gallery] error:", error);
-      return serverError("Failed to fetch gallery images");
-    }
-
-    const total = count ?? 0;
+    const [data, total] = await Promise.all([
+      GalleryImage.find(filter)
+        .select("title img_url created_at created_by")
+        .sort({ created_at: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      GalleryImage.countDocuments(filter),
+    ]);
 
     return NextResponse.json({
       success: true,
-      data: data ?? [],
+      data: data.map(toDTO),
       pagination: {
         page,
         pageSize,
@@ -132,9 +140,15 @@ export async function GET(request: NextRequest) {
 // ── POST /api/gallery ──────────────────────────────────────────────────────
 // Admin only. Accepts multipart/form-data: title (string), image (File).
 export async function POST(request: NextRequest) {
-  const userId = getUserId(request);
-  if (!userId) return unauthorized();
-  if (!isAdmin(request)) return forbidden();
+  const { userId, isAuthenticated, isAdmin } = getAuthUser(request);
+
+  if (!isAuthenticated || !userId) {
+    return errorResponse("User not authenticated", 401, "UNAUTHORIZED", request, userId);
+  }
+
+  if (!isAdmin) {
+    return errorResponse("Forbidden - Admin only", 403, "FORBIDDEN", request, userId);
+  }
 
   try {
     const formData = await request.formData();
@@ -151,34 +165,38 @@ export async function POST(request: NextRequest) {
       return badRequest("Validation failed", errors);
     }
 
-    const uploaded = await uploadImageToStorage({
-      file: image as File,
-      bucket: "gallery-images",
-      folder: "gallery",
-      prefix: "gallery",
-      userId,
-    });
+    const buffer = Buffer.from(await (image as File).arrayBuffer());
+    const filename = `gallery/gallery-${userId}-${Date.now()}.webp`;
 
-    const { data: galleryImage, error } = await supabase
-      .from("gallery_images")
-      .insert({
+    let imgUrl: string;
+    try {
+      imgUrl = await uploadImageToGCS(buffer, filename, getImagesBucket());
+    } catch (uploadError) {
+      console.error("[POST /api/gallery] upload error:", uploadError);
+      return serverError("Failed to upload gallery image");
+    }
+
+    await dbConnect();
+
+    let created;
+    try {
+      created = await GalleryImage.create({
         title,
-        img_url: uploaded.publicUrl,
-        created_by: userId,
-      })
-      .select("id, title, img_url, created_at, created_by")
-      .single();
-
-    if (error) {
-      console.error("[POST /api/gallery] insert error:", error);
-      return serverError("Failed to create gallery image");
+        img_url: imgUrl,
+        created_by: getCreatedBy(request),
+      });
+    } catch (dbError) {
+      // The image is already in the bucket but nothing references it now,
+      // so take it back out rather than leaving it orphaned.
+      await deleteImageFromGCS(imgUrl, getImagesBucket()).catch(() => {});
+      throw dbError;
     }
 
     return NextResponse.json(
       {
         success: true,
         message: "Gallery image added successfully",
-        data: galleryImage,
+        data: toDTO(created.toObject()),
       },
       { status: 201 }
     );
@@ -186,6 +204,13 @@ export async function POST(request: NextRequest) {
     console.error("[POST /api/gallery] unexpected error:", error);
     const message =
       error instanceof Error ? error.message : "Failed to add gallery image";
-    return serverError(message);
+
+    return errorResponse(
+      message,
+      500,
+      "INTERNAL_ERROR",
+      request,
+      userId
+    );
   }
 }
