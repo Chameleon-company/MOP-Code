@@ -104,6 +104,35 @@ Generated files:
 
 - `MOP Data Dashboard.html`
 - `Data_Catalogue.csv`
+- `build-summary.json`: source revision, build time, dataset count per notebook,
+  and any use cases without detected dataset references. The Pages workflow
+  publishes this beside `index.html` for debugging a deployed dashboard.
+
+## Checking use-case coverage
+
+The FINALISED headline counts unique use-case codes in the scanned notebook
+inventory, including use cases whose datasets could not be extracted. Dataset
+charts and tables include only detected references; a visible notice lists any
+unmatched use cases. Compare `use_cases` with `use_cases_with_datasets` in the
+build summary, and inspect `use_cases_without_datasets` when they differ.
+
+The scanner supports Data Sets headings in Markdown or the HTML notebook
+template, including links in the same cell as the heading. It also resolves
+literal dataset-ID variables passed to recognised API helpers such as
+`API_Unlimited`, including assignments in earlier cells. It never executes
+notebook code and cannot infer arbitrary dynamically calculated references.
+
+Manual workflow runs build the selected revision, including its notebooks.
+Registry persistence is attempted only for runs on `master`; a protected-branch
+rejection is non-blocking. Generated registries still need to be saved through
+a reviewed change when direct pushes are prohibited. Test-branch deployments
+must be allowed by the fork's `github-pages` environment.
+
+Run the offline regression tests with:
+
+```bash
+python3 -m unittest discover -s usecases/MOP_Data_Dashboard -p 'test_*.py'
+```
 
 ## Maintenance notes
 
