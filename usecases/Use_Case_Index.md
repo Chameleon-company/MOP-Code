@@ -248,10 +248,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00018_Environmental_Sensor_Study | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00018_Environmental_Sensor_Study) |  | Socrata "SODAPY_APPTOKEN" |  | Trello Card Created |
 | UC00019_Evaluate_Business_Location_with_Pedestrian_Traffic | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00019_Evaluate_Business_Location_with_Pedestrian_Traffic) |  | `requests.get(url)`, csv |  | Trello Card Created |
 | UC00020_High-Rise_Building_and_Public_Transport | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00020_High-Rise_Building_and_Public_Transport) |  | `pd.read_csv` | Jack Pham and Basilia Carmel Sethu | Trello Card Updated |
-<<<<<<< HEAD
-=======
-| UC00021_Litter_Traps_&_Public_BBQ | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00021_Litter_Traps_%26_Public_BBQ) |  | `pd.read_csv()` | Tharusha Cao and Thomas Warren | Trello Card Created |
->>>>>>> dfcf4e110 (Update Use_Case_Index.md)
 | UC00024_Pedestrian_Foot_Traffic_Business_Case | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00024_Pedestrian_Foot_Traffic_Business_Case) |  | `requests.get()` | Mollie |  |
 | UC00030_Walkability | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00030_Walkability) |  | `gpd.read_file` | Hannah Smith | Trello Card Updated |
 | UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/master/datascience/usecases/UPDATE%20NEEDED/UC00033_Identify_Potential_Area_for_New_Cafe_in_Melbourne) |  | `requests.get()` |  |  |
