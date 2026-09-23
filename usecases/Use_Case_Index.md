@@ -6,7 +6,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
-| UC00006_Small_Area_Population_Growth_and_Active_Transport_2023-2043 | T2 2026 | Transport and Mobility | Angie Hollingworth and Mick Wiedermann (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00006_Small_Area_Population_Growth_and_Active_Transport_2023-2043.ipynb) |
+| UC00006_Cycling_Infrastructure_and_Future_Population_Growth_2023-2043 | T2 2026 | Transport and Mobility | Angie Hollingworth and Mick Wiedermann (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00006_Cycling_Infrastructure_and_Future_Population_Growth_2023-2043.ipynb) |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
 | UC00027_Off_Street_Parking_Gaps | T2 2026 | Transport and Mobility | Tithra Chap (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00027_Off_Street_Parking_Gaps.ipynb) |
