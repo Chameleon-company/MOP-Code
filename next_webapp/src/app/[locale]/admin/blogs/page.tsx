@@ -8,19 +8,7 @@ import ConfirmModal from "@/components/admin/ConfirmModal";
 import AdminToast from "@/components/admin/AdminToast";
 import Pagination from "@/components/Pagination";
 import { apiFetch } from "@/lib/apiFetch";
-
-function authHeaders() {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = user.userId ?? user.id ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 const PAGE_SIZE = 10;
 
@@ -47,7 +35,7 @@ export default function BlogsPage({ params }: { params: Promise<{ locale: string
       if (searchTerm) { params.set("search", searchTerm); params.set("search_by", "all"); }
       if (dateFilter) { params.set("date_from", dateFilter); params.set("date_to", dateFilter); }
 
-      const json = await apiFetch<any>(`/api/blogs?${params}`, { headers: authHeaders() });
+      const json = await apiFetch<any>(`/api/blogs?${params}`, { headers: getAuthHeaders() });
       setBlogs(json.data ?? []);
       setTotal(json.pagination?.total ?? 0);
       setTotalPages(json.pagination?.totalPages ?? 1);
@@ -82,7 +70,7 @@ export default function BlogsPage({ params }: { params: Promise<{ locale: string
     try {
       await apiFetch(`/api/blogs/${deleteTarget.id}`, {
         method: "DELETE",
-        headers: authHeaders(),
+        headers: getAuthHeaders(),
         silent: true,
       });
 

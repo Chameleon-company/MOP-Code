@@ -3,8 +3,20 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n-navigation";
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { apiFetch } from "@/lib/apiFetch";
+
+const FALLBACK_IMAGE = "/images/category-placeholder.png";
+
+function ImageWithFallback({ src, ...props }: ImageProps) {
+  const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(src || FALLBACK_IMAGE);
+  }, [src]);
+
+  return <Image {...props} src={imgSrc} onError={() => setImgSrc(FALLBACK_IMAGE)} />;
+}
 
 interface Blog {
   id: number;
@@ -125,7 +137,7 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
         {/* ── Cover image ── */}
         {blog.cover_img && (
           <figure className="relative mt-2 mb-10 aspect-[16/10] w-full overflow-hidden sm:mb-12 md:mb-14">
-            <Image
+            <ImageWithFallback
               src={blog.cover_img}
               alt={blog.title}
               fill
@@ -181,7 +193,7 @@ const BlogSinglePage: React.FC<{ id: string }> = ({ id }) => {
                   >
                     <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
                       {b.cover_img ? (
-                        <Image
+                        <ImageWithFallback
                           src={b.cover_img}
                           alt={b.title}
                           fill

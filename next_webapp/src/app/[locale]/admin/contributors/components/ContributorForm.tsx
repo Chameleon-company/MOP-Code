@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { TEAM_ROLES, type ContributorType, type ContributorLevel, type TeamName } from "@/types/contributor";
 
 type CustomSelectOption = {
   value: string;
@@ -108,10 +109,10 @@ export type ContributorFormData = {
   name: string;
   year: string;
   trimester: string;
-  contributorType: "student" | "mentor" | "company_director";
+  contributorType: ContributorType;
   team: string;
   position: string;
-  level: "Senior" | "Junior" | "";
+  level: ContributorLevel | "";
   displayOrder: string;
   isActive: boolean;
 };
@@ -148,28 +149,8 @@ export const TEAM_OPTIONS: CustomSelectOption[] = [
   { value: "Website Development Team", label: "Website Development Team", icon: "💻" },
   { value: "Design Team", label: "Design Team", icon: "🎨" },
   { value: "Cyber Security Team", label: "Cyber Security Team", icon: "🛡️" },
+  { value: "Project Team", label: "Project Team", icon: "📁" },
 ];
-
-export const TEAM_ROLES: Record<string, string[]> = {
-  "Data Science Team": [
-    "Data Scientist",
-    "Data Science Team Lead",
-    "Data Science Quality Manager",
-  ],
-  "Website Development Team": [
-    "Web Developer",
-    "Web Dev Team Lead",
-    "Web Dev Quality Manager",
-  ],
-  "Design Team": [
-    "Design Team Member",
-    "Design Team Lead",
-  ],
-  "Cyber Security Team": [
-    "Cyber Security Team Member",
-    "Cyber Security Team Lead",
-  ],
-};
 
 export default function ContributorForm({
   initialData,
@@ -262,7 +243,7 @@ export default function ContributorForm({
 
   const isStudent = formData.contributorType === "student";
 
-  const availableRoles = formData.team ? TEAM_ROLES[formData.team] || [] : [];
+  const availableRoles = formData.team ? TEAM_ROLES[formData.team as TeamName] || [] : [];
   const roleOptions: CustomSelectOption[] = formData.team
     ? [
         { value: "", label: "Select position" },
@@ -351,6 +332,7 @@ export default function ContributorForm({
               { value: "student", label: "👨‍🎓 Student" },
               { value: "mentor", label: "👨‍🏫 Mentor" },
               { value: "company_director", label: "🏢 Company Director" },
+              { value: "project_lead", label: "👑 Project Lead" },
             ]}
             placeholder="Select type"
             disabled={submitting}

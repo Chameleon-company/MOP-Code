@@ -2,23 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiFetch";
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 interface ActivityEntry {
   id: number;
   activity: string;
   performedBy: string;
   performedAt: string;
-}
-
-function authHeaders(): Record<string, string> {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const token: string = user.token ?? "";
-  return {
-    "x-user-id": String(user.userId ?? user.id ?? ""),
-    "x-user-role-id": String(user.roleId ?? user.role_id ?? ""),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
 }
 
 function formatTime(iso: string) {
@@ -37,7 +27,7 @@ export default function AdminRecentActivity() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiFetch<{ success: boolean; data: ActivityEntry[] }>("/api/admin/activity-history?pageSize=5", { headers: authHeaders() })
+    apiFetch<{ success: boolean; data: ActivityEntry[] }>("/api/admin/activity-history?pageSize=5", { headers: getAuthHeaders() })
       .then((json) => {
         if (json.success) setEntries(json.data || []);
       })

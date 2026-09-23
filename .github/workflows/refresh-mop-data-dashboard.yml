@@ -1,0 +1,77 @@
+name: Refresh and publish MOP Data Dashboard
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'usecases/FINALISED/**'
+      - 'usecases/Use_Case_Index.md'
+      - 'usecases/MOP_Data_Dashboard/**'
+      - '.github/workflows/refresh-mop-data-dashboard.yml'
+  workflow_dispatch:
+  schedule:
+    # Weekly metadata refresh: Monday 05:00 Melbourne time during AEST.
+    - cron: '0 19 * * 0'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: mop-data-dashboard-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MOP_GITHUB_OWNER: ${{ github.repository_owner }}
+      MOP_GITHUB_REPOSITORY: ${{ github.event.repository.name }}
+      MOP_GITHUB_BRANCH: master
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Regenerate the dashboard
+        run: python3 'usecases/MOP_Data_Dashboard/data_dashboard.py'
+
+      - name: Preserve stable IDs and the domain cache
+        run: |
+          git add 'usecases/MOP_Data_Dashboard/asset_id_registry.csv'
+          git add 'usecases/MOP_Data_Dashboard/use_case_domains.csv'
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'CI: refresh dashboard registries [skip ci]'
+          git push
+
+      - name: Prepare the published site
+        run: |
+          mkdir -p _site
+          cp 'usecases/MOP_Data_Dashboard/MOP Data Dashboard.html' _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
