@@ -9,19 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Pagination from "@/components/Pagination";
 import { apiFetch, ApiError } from "@/lib/apiFetch";
-
-function getAuthHeaders(): HeadersInit {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = user.userId ?? user.id ?? localStorage.getItem("userId") ?? "";
-  const roleId = user.roleId ?? user.role_id ?? "";
-  const token = user.token ?? "";
-  return {
-    "x-user-id": String(userId),
-    "x-user-role-id": String(roleId),
-    "x-user-role": user.roleName ?? user.role_name ?? "",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+import { getAuthHeaders } from "@/lib/auth/authHeaders";
 
 const PAGE_SIZE = 10;
 

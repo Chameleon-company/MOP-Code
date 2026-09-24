@@ -36,19 +36,28 @@ jest.mock('@/app/api/library/errorResponse', () => ({
 }));
 
 // ── UseCase model mock ────────────────────────────────────────────────────────
-// The route calls UseCase.find(filter).select(...).sort(...).lean()
-// We expose `__setResults` so individual tests can inject fixture data.
+// The route counts matching documents, then calls
+// UseCase.find(filter).select(...).sort(...).skip(...).limit(...).lean().
+// The mutable values let individual tests inject a page of results and its
+// independently counted total.
 let __mockResults: unknown[] = [];
+let __mockTotal = 0;
 
 jest.mock('@/models/mongoose/UseCase', () => {
   const chain = {
     select: jest.fn().mockReturnThis(),
     sort:   jest.fn().mockReturnThis(),
+    skip:   jest.fn().mockReturnThis(),
+    limit:  jest.fn().mockReturnThis(),
     lean:   jest.fn().mockImplementation(() => Promise.resolve(__mockResults)),
   };
   return {
     UseCase: {
+      countDocuments: jest.fn().mockImplementation(() => Promise.resolve(__mockTotal)),
       find: jest.fn().mockReturnValue(chain),
+      aggregate: jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockImplementation(() => Promise.resolve(__mockResults)),
+      })),
     },
   };
 });
@@ -80,8 +89,9 @@ function makeRequest(url: string) {
   return { url } as unknown as import('next/server').NextRequest;
 }
 
-function setResults(docs: unknown[]) {
+function setResults(docs: unknown[], total = docs.length) {
   __mockResults = docs;
+  __mockTotal = total;
 }
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
@@ -113,6 +123,7 @@ const UC_3 = {
 beforeEach(() => {
   jest.clearAllMocks();
   __mockResults = [];
+  __mockTotal = 0;
 });
 
 describe('GET /api/search', () => {
@@ -142,7 +153,7 @@ describe('GET /api/search', () => {
     const findArg = (UseCase.find as jest.Mock).mock.calls[0][0];
     expect(findArg).toHaveProperty('$or');
     expect(Array.isArray(findArg.$or)).toBe(true);
-    // Exactly one DB call (not two like the old Supabase route)
+    expect(UseCase.countDocuments).toHaveBeenCalledTimes(1);
     expect(UseCase.find).toHaveBeenCalledTimes(1);
   });
 
@@ -205,21 +216,23 @@ describe('GET /api/search', () => {
       400,
       'INVALID_CATEGORY',
     );
+    expect(UseCase.countDocuments).not.toHaveBeenCalled();
     expect(UseCase.find).not.toHaveBeenCalled();
   });
 
   // ── Tag filter ──────────────────────────────────────────────────────────────
-  test('tag — filters by tags.slug in a single DB call', async () => {
+  test('tag — uses the embedded tags.slug filter for count and results', async () => {
     setResults([UC_1, UC_2]);
     const res = await GET(makeRequest('http://localhost/api/search?tag=ml'));
     const body = await res.json();
 
     expect(res.status).toBe(200);
     expect(body.data.results).toHaveLength(2);
-    // Exactly one DB call (old code needed 3 round-trips)
+    expect(UseCase.countDocuments).toHaveBeenCalledTimes(1);
     expect(UseCase.find).toHaveBeenCalledTimes(1);
     const findArg = (UseCase.find as jest.Mock).mock.calls[0][0];
     expect(findArg['tags.slug']).toBe('ml');
+    expect(UseCase.countDocuments).toHaveBeenCalledWith(findArg);
   });
 
   // ── Unknown tag slug ────────────────────────────────────────────────────────
@@ -234,7 +247,7 @@ describe('GET /api/search', () => {
   });
 
   // ── Combined filters ────────────────────────────────────────────────────────
-  test('q + category + tag — all three filters passed to a single find() call', async () => {
+  test('q + category + tag — the same combined filter is used for count and results', async () => {
     setResults([UC_2]);
     const res = await GET(makeRequest('http://localhost/api/search?q=deep&category=3&tag=dl'));
     const body = await res.json();
@@ -246,11 +259,12 @@ describe('GET /api/search', () => {
     expect(findArg).toHaveProperty('$or');
     expect(findArg['category.legacy_id']).toBe('3');
     expect(findArg['tags.slug']).toBe('dl');
+    expect(UseCase.countDocuments).toHaveBeenCalledWith(findArg);
   });
 
   // ── Pagination ──────────────────────────────────────────────────────────────
-  test('pagination — slices results correctly', async () => {
-    setResults([UC_1, UC_2, UC_3]);
+  test('pagination — fetches only the requested page from MongoDB', async () => {
+    setResults([UC_2], 3);
     const res = await GET(makeRequest('http://localhost/api/search?page=2&pageSize=1'));
     const body = await res.json();
 
@@ -261,6 +275,25 @@ describe('GET /api/search', () => {
       page: 2, pageSize: 1, total: 3, totalPages: 3,
       hasNext: true, hasPrev: true,
     });
+
+    const chainInstance = (UseCase.find as jest.Mock).mock.results[0].value;
+    expect(chainInstance.skip).toHaveBeenCalledWith(1);
+    expect(chainInstance.limit).toHaveBeenCalledWith(1);
+  });
+
+  test('pagination — clamps an out-of-range page before querying MongoDB', async () => {
+    setResults([UC_3], 3);
+    const res = await GET(makeRequest('http://localhost/api/search?page=99&pageSize=2'));
+    const body = await res.json();
+
+    expect(body.data.pagination).toMatchObject({
+      page: 2, pageSize: 2, total: 3, totalPages: 2,
+      hasNext: false, hasPrev: true,
+    });
+
+    const chainInstance = (UseCase.find as jest.Mock).mock.results[0].value;
+    expect(chainInstance.skip).toHaveBeenCalledWith(2);
+    expect(chainInstance.limit).toHaveBeenCalledWith(2);
   });
 
   // ── Content leak regression ─────────────────────────────────────────────────
@@ -288,6 +321,40 @@ describe('GET /api/search', () => {
     // Forbidden fields must be absent from the projection entirely.
     expect(projection).not.toHaveProperty('content');
     expect(projection).not.toHaveProperty('content_file_id');
+  });
+
+  test('sort memory limit — retries with safe projection before sorting the last page', async () => {
+    setResults([UC_3], 3);
+    const chain = (UseCase.find as jest.Mock)();
+    chain.lean.mockRejectedValueOnce(Object.assign(new Error('Sort exceeded memory limit'), { code: 292 }));
+
+    const res = await GET(makeRequest('http://localhost/api/search?page=999&pageSize=2&tag=ml&sortBy=title&sortOrder=ASC'));
+    const body = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(body.data.results).toEqual([UC_3]);
+    expect(body.data.pagination).toMatchObject({ page: 2, total: 3, hasNext: false });
+    const pipeline = (UseCase.aggregate as jest.Mock).mock.calls[0][0];
+    expect(pipeline).toEqual([
+      { $match: { 'tags.slug': 'ml' } },
+      { $project: expect.objectContaining({ _id: 1, title: 1 }) },
+      { $sort: { title: 1 } },
+      { $skip: 2 },
+      { $limit: 2 },
+    ]);
+    expect(pipeline[1].$project).not.toHaveProperty('content');
+    expect(pipeline[1].$project).not.toHaveProperty('content_file_id');
+  });
+
+  test('sort fallback failure — returns 500 INTERNAL_ERROR', async () => {
+    const chain = (UseCase.find as jest.Mock)();
+    chain.lean.mockRejectedValueOnce(Object.assign(new Error('Sort exceeded memory limit'), { code: 292 }));
+    (UseCase.aggregate as jest.Mock).mockImplementationOnce(() => ({
+      exec: jest.fn().mockRejectedValue(new Error('Aggregation failed')),
+    }));
+
+    const res = await GET(makeRequest('http://localhost/api/search'));
+    expect(res.status).toBe(500);
   });
 
   // ── Internal error ──────────────────────────────────────────────────────────
