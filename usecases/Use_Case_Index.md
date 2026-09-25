@@ -6,6 +6,7 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 
 | Use Case Name | Updated | Domain | Author | Use Case Location |
 | :---: | :---: | :---: | :---: | :---: |
+| UC00006_Cycling_Infrastructure_and_Future_Population_Growth_2023-2043 | T2 2026 | Transport and Mobility | Angie Hollingworth and Mick Wiedermann (updated: Sumit Adhikari) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00006_Cycling_Infrastructure_and_Future_Population_Growth_2023-2043.ipynb) |
 | UC00009_Melbourne_Child_Friendly_Places_Analysis_2023 | T2 2026 | Education and Teaching | Arjun Jamwal (updated: Aayush Patel) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00009_Melbourne_Child_Friendly_Places_Analysis_2023.ipynb) |
 | UC00010_2023_Melbourne_Liveability_Assessment | T2 2026 | Urban Planning and Development | Siju Deng (updated: Rukshan Dias) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00010_2023_Melbourne_Liveability_Assessment.ipynb) |
 | UC00021_Litter_Traps_and_Public_Amenities | T2 2026 | Environmental Sustainability | Tharusha Cao and Thomas Warren (updated: Maanak Gadia) | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/master/usecases/FINALISED/UC00021_Litter_Traps_and_Public_Amenities.ipynb) |
@@ -42,7 +43,6 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | UC00003_Urban_Heat_Island_(UHI)_Effect_Reduction | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Environmental_Sustainability/2023/UC00003_Urban_Heat_Island_%28UHI%29_Effect_Reduction) | Environmental Sustainability | `requests.get()` | Amy Tran and Siyu Ai |  |
 | UC00004_Live_Events_and_The_Effect_on_Foot_Traffic_and_Business | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2023/T1/UC00004_Live_Events_and_The_Effect_on_Foot_Traffic_and_Business) | Transport and Mobility | `requests.get()` | Keefe Alpay and Nathan Clee |  |
 | UC00005_Supporting_Local_Businesses_Surrounding_Tourist | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Tourism_and_Hospitality/2023/UC00005_Supporting_Local_Businesses_Surrounding_Tourist) | Tourism and Hospitality | `requests.get()` | Kruthi Shetty and Vinit Shetty |  |
-| UC00006_Small_Population_Growth_Active_Transport | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Transport_and_Mobility/2023/T1/UC00006_Small_Population_Growth_Active_Transport) | Transport and Mobility | `requests.get()` | Angie Hollingworth and Mick Wiedermann |  |
 
 
 #### T2 2023
