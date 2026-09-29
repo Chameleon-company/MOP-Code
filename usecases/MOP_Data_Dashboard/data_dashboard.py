@@ -18,6 +18,7 @@ import re
 import time
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 from urllib.error import HTTPError, URLError
@@ -28,7 +29,7 @@ from urllib.request import Request, urlopen
 GITHUB_API = "https://api.github.com"
 # These defaults preserve the upstream MOP catalogue for local use.  The
 # GitHub Pages workflow supplies the repository's owner and name so a fork
-# scans its own master branch after use cases are merged.
+# scans its own selected revision (master for normal automatic refreshes).
 GITHUB_OWNER = os.getenv("MOP_GITHUB_OWNER", "Chameleon-company")
 GITHUB_REPOSITORY = os.getenv("MOP_GITHUB_REPOSITORY", "MOP-Code")
 GITHUB_BRANCH = os.getenv("MOP_GITHUB_BRANCH", "master")
@@ -63,10 +64,13 @@ MOP_CALL_RE = re.compile(
     re.I,
 )
 USE_CASE_RE = re.compile(r"UC\d{5}(?!\d)", re.I)
-SECTION_HEADING_RE = re.compile(r"(?:^|\n)\s*#{1,6}\s+", re.I)
-HTML_SECTION_RE = re.compile(
-    r"class=[\"'][^\"']*(?:usecase-(?:unnumbered|section|sub-section|sub-sub-section)-heading|usecase-contents)",
-    re.I,
+NOTEBOOK_HEADING_RE = re.compile(
+    r"^[ \t]*#{1,6}[ \t]+(?P<markdown>[^\n]+)"
+    r"|<(?P<tag>div|h[1-6])\b[^>]*class=[\"'][^\"']*"
+    r"usecase-(?:unnumbered|section|sub-section|sub-sub-section)-heading"
+    r"[^\"']*[\"'][^>]*>(?P<html>.*?)</(?P=tag)>"
+    r"|<h[1-6]\b[^>]*>(?P<native>.*?)</h[1-6]>",
+    re.I | re.M | re.S,
 )
 
 
@@ -239,20 +243,25 @@ def _looks_like_data_url(reference: str) -> bool:
 
 
 def _dataset_section_cells(cells: list[dict[str, Any]]) -> Iterable[tuple[int, dict[str, Any]]]:
+    """Yield only Data Sets content, including headings and links in one cell."""
     inside = False
     for index, cell in enumerate(cells, start=1):
         if cell.get("cell_type") != "markdown":
             continue
         text = _cell_text(cell)
-        plain = _clean(text).lower()
-        if not inside and re.fullmatch(r"data\s*sets?", plain):
+        headings = list(NOTEBOOK_HEADING_RE.finditer(text))
+        if not headings and re.fullmatch(r"data\s*sets?", _clean(text).strip("* _"), re.I):
             inside = True
-            yield index, cell
             continue
-        if inside and (SECTION_HEADING_RE.search(text) or HTML_SECTION_RE.search(text)):
-            break
-        if inside:
-            yield index, cell
+        start = 0
+        for heading in headings:
+            if inside and heading.start() > start:
+                yield index, {**cell, "source": text[start:heading.start()]}
+            label = heading.group("markdown") or heading.group("html") or heading.group("native")
+            inside = bool(re.fullmatch(r"data\s*sets?", _clean(label).strip("#* _"), re.I))
+            start = heading.end()
+        if inside and start < len(text):
+            yield index, {**cell, "source": text[start:]}
 
 
 def _display_name(reference: str) -> str:
@@ -261,19 +270,19 @@ def _display_name(reference: str) -> str:
     return _clean(re.sub(r"[-_]+", " ", name).title()) or "Not stated"
 
 
-def _static_dataset_ids(code: str) -> set[str]:
-    """Resolve literal dataset IDs passed to the two FINALISED API helpers."""
+def _static_dataset_ids(code: str, strings: dict[str, str] | None = None) -> set[str]:
+    """Resolve known API helper arguments without executing notebook code.
+
+    Track literal assignments in notebook order; do not treat function-local
+    variables, unrelated strings or dynamically calculated values as datasets.
+    """
     try:
         tree = ast.parse(code)
     except SyntaxError:
         return set()
 
-    strings: dict[str, str] = {}
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Assign) and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
-            for target in node.targets:
-                if isinstance(target, ast.Name):
-                    strings[target.id] = node.value.value
+    if strings is None:
+        strings = {}
 
     def value_of(node: ast.AST) -> str | None:
         if isinstance(node, ast.Constant) and isinstance(node.value, str):
@@ -283,16 +292,37 @@ def _static_dataset_ids(code: str) -> set[str]:
         return None
 
     dataset_ids: set[str] = set()
-    for node in ast.walk(tree):
-        if not isinstance(node, ast.Call):
+    helpers = {
+        "fetch_melbourne_dataset": 0,
+        "fetch_data": 1,
+        "collect_data": 0,
+        "api_unlimited": 0,
+        "fetch_geojson_dataset_api": 0,
+    }
+    for statement in tree.body:
+        if not isinstance(statement, (ast.Assign, ast.AnnAssign, ast.Expr)):
             continue
-        name = node.func.id if isinstance(node.func, ast.Name) else ""
-        argument_index = 0 if name == "fetch_melbourne_dataset" else 1 if name == "fetch_data" else -1
-        if argument_index < 0 or len(node.args) <= argument_index:
-            continue
-        value = value_of(node.args[argument_index])
-        if value and re.fullmatch(r"[a-z0-9][a-z0-9-]+", value, re.I):
-            dataset_ids.add(value.lower())
+        for node in ast.walk(statement):
+            if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name):
+                continue
+            argument_index = helpers.get(node.func.id.lower())
+            if argument_index is None:
+                continue
+            argument = node.args[argument_index] if len(node.args) > argument_index else next(
+                (item.value for item in node.keywords if item.arg in {"dataset_id", "datasetname"}),
+                None,
+            )
+            value = value_of(argument) if argument is not None else None
+            if value and re.fullmatch(r"[a-z0-9][a-z0-9-]+", value, re.I):
+                dataset_ids.add(value.lower())
+        if isinstance(statement, (ast.Assign, ast.AnnAssign)):
+            targets = statement.targets if isinstance(statement, ast.Assign) else [statement.target]
+            value = value_of(statement.value) if statement.value is not None else None
+            for target in targets:
+                if isinstance(target, ast.Name):
+                    strings.pop(target.id, None)
+                    if value is not None:
+                        strings[target.id] = value
     return dataset_ids
 
 
@@ -363,6 +393,7 @@ def scan_notebook(notebook: dict[str, str], config: BuildConfig) -> list[dict[st
         for url, label in HTML_LINK_RE.findall(text):
             candidates[_normalise_url(url)] = _clean(label)
 
+    strings: dict[str, str] = {}
     for cell in cells:
         if cell.get("cell_type") != "code":
             continue
@@ -370,7 +401,7 @@ def scan_notebook(notebook: dict[str, str], config: BuildConfig) -> list[dict[st
         for dataset_id in MOP_CALL_RE.findall(text):
             url = f"{CITY_CATALOGUE_API}/{dataset_id.lower()}"
             candidates.setdefault(url, dataset_id.replace("-", " ").title())
-        for dataset_id in _static_dataset_ids(text):
+        for dataset_id in _static_dataset_ids(text, strings):
             url = f"{CITY_CATALOGUE_API}/{dataset_id}"
             candidates.setdefault(url, dataset_id.replace("-", " ").title())
         for reference in READ_RE.findall(text):
@@ -657,14 +688,22 @@ def _bars(title: str, values: dict[str, int], colour: str) -> str:
     return f'<section class="chart bar-chart"><h2>{html.escape(title)}</h2>{items}</section>'
 
 
-def _render_insights(records: list[dict[str, Any]], domains: dict[str, str]) -> str:
+def _render_insights(
+    records: list[dict[str, Any]], domains: dict[str, str], finalised_use_cases: set[str],
+) -> str:
     selected = [record for record in records if record["used_by"]]
     mop_selected = [record for record in selected if record["kind"] == "mop"]
     external_selected = [record for record in selected if record["kind"] != "mop"]
     all_mop = [record for record in records if record["kind"] == "mop"]
-    finalised_use_cases = {
+    detected_use_cases = {
         use["code"] for record in selected for use in record["used_by"]
     }
+    missing = sorted(finalised_use_cases - detected_use_cases)
+    coverage = (
+        '<p class="scope-note" role="status">No dataset references identified for: '
+        + html.escape(", ".join(missing))
+        + '. These use cases are included in the FINALISED total but not the dataset statistics.</p>'
+    ) if missing else ""
     adoption = len(mop_selected) / len(all_mop) * 100 if all_mop else 0
     mop_share = len(mop_selected) / len(selected) * 100 if selected else 0
 
@@ -739,7 +778,7 @@ def _render_insights(records: list[dict[str, Any]], domains: dict[str, str]) -> 
         f'<article><span>Used MOP datasets</span><strong>{len(mop_selected)}</strong></article>'
         f'<article><span>External datasets</span><strong>{len(external_selected)}</strong></article>'
         f'<article><span>MOP adoption rate</span><strong>{adoption:.1f}%</strong></article>'
-        '</div><div class="insight-grid"><section class="chart">'
+        '</div>' + coverage + '<div class="insight-grid"><section class="chart">'
         '<h2>MOP vs external datasets</h2><div class="donut-wrap">'
         f'<div class="donut" style="background:conic-gradient(#0f766e 0 {mop_share:.1f}%,'
         f'#f59e0b {mop_share:.1f}% 100%)"><span>{len(selected)}</span></div>'
@@ -774,6 +813,7 @@ def _write_html(
     path: Path,
     domains: dict[str, str],
     logo_file: Path,
+    finalised_use_cases: set[str],
 ) -> None:
     cell = lambda value: html.escape(str(value))
     source_options = "".join(
@@ -873,7 +913,7 @@ renderPage();
         'onclick="setMode(\'insights\')">Data Usage Dashboard</button>'
         '<button data-mode="catalogue" onclick="setMode(\'catalogue\')">Data Catalogue</button></nav>'
         f'<div class="header-copy">{subtitles}</div></div></header>'
-        + _render_insights(records, domains)
+        + _render_insights(records, domains, finalised_use_cases)
         + '<div id="table-shell" hidden><div id="filters" class="filters">'
         '<select id="scope" onchange="filterRows()" aria-label="Filter by dataset scope">'
         '<option value="all">All Datasets</option>'
@@ -913,11 +953,17 @@ def build(config: BuildConfig | None = None) -> dict[str, Any]:
     config.output_dir.mkdir(parents=True, exist_ok=True)
 
     notebooks = list_finalised_notebooks(config)
-    findings = [
-        finding
+    finalised_use_cases = {
+        match.group(0).upper() if (match := USE_CASE_RE.search(notebook["path"]))
+        else PurePosixPath(notebook["path"]).stem
         for notebook in notebooks
-        for finding in scan_notebook(notebook, config)
-    ]
+    }
+    findings = []
+    notebook_dataset_counts = {}
+    for notebook in notebooks:
+        extracted = scan_notebook(notebook, config)
+        findings.extend(extracted)
+        notebook_dataset_counts[notebook["path"]] = len({row["asset_key"] for row in extracted})
     city_catalogue = fetch_city_catalogue()
     records = build_records(findings, city_catalogue, _load_overrides(config.overrides_file))
     _assign_asset_ids(records, config.asset_ids_file)
@@ -926,20 +972,25 @@ def build(config: BuildConfig | None = None) -> dict[str, Any]:
     html_path = config.output_dir / "MOP Data Dashboard.html"
     domains = resolve_use_case_domains(config)
     _write_csv(records, csv_path)
-    _write_html(records, html_path, domains, config.logo_file)
+    _write_html(records, html_path, domains, config.logo_file, finalised_use_cases)
 
     used = [record for record in records if record["used_by"]]
     use_case_codes = {item["code"] for row in used for item in row["used_by"]}
     summary = {
         "source": f"github.com/{config.github_owner}/{config.github_repository}/{config.github_branch}/{config.finalised_path}",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "notebooks_scanned": len(notebooks),
-        "use_cases": len(use_case_codes),
-        "unclassified_use_cases": sorted(use_case_codes - domains.keys()),
+        "use_cases": len(finalised_use_cases),
+        "use_cases_with_datasets": len(use_case_codes),
+        "use_cases_without_datasets": sorted(finalised_use_cases - use_case_codes),
+        "notebook_dataset_counts": notebook_dataset_counts,
+        "unclassified_use_cases": sorted(finalised_use_cases - domains.keys()),
         "catalogue_datasets": len(city_catalogue),
         "used_assets": len(used),
         "html": str(html_path),
         "csv": str(csv_path),
     }
+    (config.output_dir / "build-summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
     return summary
 

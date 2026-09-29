@@ -28,22 +28,31 @@ jobs:
     env:
       MOP_GITHUB_OWNER: ${{ github.repository_owner }}
       MOP_GITHUB_REPOSITORY: ${{ github.event.repository.name }}
-      MOP_GITHUB_BRANCH: master
+      MOP_GITHUB_BRANCH: ${{ github.sha }}
     steps:
-      - name: Check out master
+      - name: Check out the selected revision
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: ${{ github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      - name: Test dataset extraction and counts
+        run: python3 -m unittest discover -s 'usecases/MOP_Data_Dashboard' -p 'test_*.py'
+
       - name: Regenerate the dashboard
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: python3 'usecases/MOP_Data_Dashboard/data_dashboard.py'
 
       - name: Preserve stable IDs and the domain cache
+        if: github.ref == 'refs/heads/master'
+        # master is protected in the organisation repository. A rejected cache
+        # update must not prevent the newly built dashboard from deploying.
+        continue-on-error: true
         run: |
           git add 'usecases/MOP_Data_Dashboard/asset_id_registry.csv'
           git add 'usecases/MOP_Data_Dashboard/use_case_domains.csv'
@@ -53,12 +62,13 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'CI: refresh dashboard registries [skip ci]'
-          git push
+          git push origin HEAD:master
 
       - name: Prepare the published site
         run: |
           mkdir -p _site
           cp 'usecases/MOP_Data_Dashboard/MOP Data Dashboard.html' _site/index.html
+          cp 'usecases/MOP_Data_Dashboard/build-summary.json' _site/build-summary.json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -66,6 +76,7 @@ jobs:
           path: _site
 
   deploy:
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     environment:
