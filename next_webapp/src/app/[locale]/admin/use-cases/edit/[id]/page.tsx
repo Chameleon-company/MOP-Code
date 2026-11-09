@@ -204,7 +204,7 @@ export default function EditUseCasePage() {
           title,
           description,
           cover_img: coverImgUrl,
-          category_id: categoryId ? Number(categoryId) : null,
+          category_id: categoryId || null,
           ...(updatedContent !== undefined ? { content: updatedContent } : {}),
           tags,
         }),
