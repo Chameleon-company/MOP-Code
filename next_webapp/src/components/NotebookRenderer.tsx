@@ -1,8 +1,13 @@
 "use client";
 
+import {
+  sanitizeNotebookHtml,
+  sanitizeNotebookSvg,
+} from "../lib/sanitizeNotebook";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -72,29 +77,74 @@ function CellOutput({ output }: { output: NotebookOutput }) {
       );
     }
     if (data["image/svg+xml"]) {
+      const safeSvg = sanitizeNotebookSvg(
+        join(data["image/svg+xml"])
+      );
+      
       return (
         <div
           className="overflow-x-auto"
-          dangerouslySetInnerHTML={{ __html: join(data["image/svg+xml"]) }}
+          dangerouslySetInnerHTML={{ __html: safeSvg }}
         />
       );
     }
+
     if (data["text/html"]) {
       // Strip URL-based src from iframes (e.g. IPython.display.IFrame embeds)
       // to prevent page-in-page renders like "Use case not found".
       // data: URIs are preserved so Folium/Plotly maps still render.
+
       const rawHtml = join(data["text/html"]);
-      const safeHtml = rawHtml.replace(
-        /(<iframe\b[^>]*?)\s+src="(?!data:)[^"]*"/gi,
-        "$1"
-      );
+
+      const requiresIsolation =
+        /<\s*(script|iframe)\b/i.test(rawHtml);
+
+      if (requiresIsolation) {
+        const isolatedHtml = `
+          <!doctype html>
+          <html>
+            <head>
+              <meta
+                http-equiv="Content-Security-Policy"
+                content="
+                  default-src 'none';
+                  script-src 'unsafe-inline';
+                  style-src 'unsafe-inline';
+                  img-src data: blob:;
+                  font-src data:;
+                  frame-src data:;
+                  connect-src 'none';
+                  form-action 'none';
+                  base-uri 'none';
+                "
+              />
+            </head>
+            <body>${rawHtml}</body>
+          </html>
+        `;
+
+        return (
+          <iframe
+            title="Notebook interactive visualization"
+            srcDoc={isolatedHtml}
+            sandbox="allow-scripts"
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            className="h-[600px] w-full rounded-lg border"
+          />
+        );
+      }
+
       return (
         <div
           className="overflow-x-auto text-gray-800 dark:text-gray-200 [&_*]:dark:!text-gray-200 [&_h1]:dark:!text-white [&_h2]:dark:!text-white [&_h3]:dark:!text-white [&_h4]:dark:!text-white [&_strong]:dark:!text-white"
-          dangerouslySetInnerHTML={{ __html: safeHtml }}
+          dangerouslySetInnerHTML={{
+            __html: sanitizeNotebookHtml(rawHtml),
+          }}
         />
       );
     }
+
     if (data["text/plain"]) {
       return (
         <pre className="overflow-x-auto rounded-lg bg-gray-50 p-4 text-sm text-gray-800 dark:bg-gray-900 dark:text-gray-200">
@@ -188,7 +238,7 @@ export default function NotebookRenderer({ content }: { content: string }) {
                 key={i}
                 className="prose prose-gray max-w-none text-gray-800 dark:text-gray-200 dark:prose-invert [&_*]:dark:!text-gray-200 [&_h1]:dark:!text-white [&_h2]:dark:!text-white [&_h3]:dark:!text-white [&_h4]:dark:!text-white [&_h5]:dark:!text-white [&_h6]:dark:!text-white [&_strong]:dark:!text-white [&_a]:dark:!text-green-400"
               >
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSanitize]}>
                   {join(cell.source)}
                 </ReactMarkdown>
               </div>
