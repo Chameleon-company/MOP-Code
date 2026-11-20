@@ -445,7 +445,7 @@ export default function AddUseCasePage() {
           description,
           cover_img: coverImgUrl,
           content: notebookContent ?? null,
-          category_id: categoryId ? Number(categoryId) : null,
+          category_id: categoryId || null,
           created_by: userId,
           tags,
         }),
