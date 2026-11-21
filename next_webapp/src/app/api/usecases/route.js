@@ -12,6 +12,7 @@ import {
   validateNotebookContent,
   uploadNotebookToGridFS,
   tryDeleteGridFSFile,
+  InvalidCategoryRefError,
 } from "./_shared";
 
 // GridFS/streaming needs the Node runtime (mongoose, node:stream) — not edge.
@@ -81,9 +82,13 @@ export async function POST(request) {
 
     // Resolve category/tags/created_by (pure Mongo reads + tag upserts)
     // before touching GridFS if any of these throw, nothing has been
-    // uploaded yet, so there's nothing to clean up.
-    const [categoryRef, createdByRef, tagRefs] = await Promise.all([
-      resolveCategoryRef(category_id),
+    // uploaded yet, so there's nothing to clean up. Category is resolved 
+    // first and on its own - resolveTagRefs upserts Tag documents, so
+    // running it in parallel would let a an invalid category_id return
+    // 400 while still creating new tags - this makes it so a rejected
+    // request writes nothing.
+    const categoryRef = await resolveCategoryRef(category_id);
+    const [createdByRef, tagRefs] = await Promise.all([
       resolveCreatedBy(userId),
       resolveTagRefs(tags),
     ]);
@@ -118,6 +123,9 @@ export async function POST(request) {
       { status: 201 },
     );
   } catch (error) {
+    if (error instanceof InvalidCategoryRefError) {
+      return errorResponse(error.message, 400, "INVALID_CATEGORY_ID", request, userId); // Invalid category_id (ex. NaN) -> client error, not a 500
+    }
     if (error instanceof Error && error.name === "ValidationError") {
       return errorResponse(error.message, 400, "VALIDATION_ERROR", request, userId);
     }

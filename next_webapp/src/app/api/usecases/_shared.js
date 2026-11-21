@@ -14,6 +14,27 @@ import { getGridFSBucket } from "@/lib/gridfs";
 // multi-byte characters in the notebook (cell text, unicode in outputs, etc).
 export const MAX_NOTEBOOK_BYTES = 60 * 1024 * 1024; // 60 MB
 
+
+// The error to be thrown by resolveCategoryRef when a non-accepted value is 
+// entered for the category_id. The route files are set to catch this error
+// and return HTTP error 400 (INVALID_CATEGORY_ID).
+export class InvalidCategoryRefError extends Error {
+  constructor(received) {
+    const shown = String(received).slice(0,50);
+    super(
+      `Invalid category_id "${shown}": expected a 24-character ObjectId or a numeric legacy ID`
+    );
+    this.name = "InvalidCategoryRefError";
+    this.received = shown;
+  }
+}
+
+
+// A short allowlist to determine the acceptable values for category_id.
+const OBJECT_ID_RE = /^[a-fA-F0-9]{24}$/; // This is for MongoDB ObjectId's (24 characters, hexadecimal)
+const LEGACY_ID_RE = /^\d+$/; // This is for legacy Supabase ID's (numeric)
+
+
 // Resolve an embedded category ref from an incoming category_id. The admin
 // add/edit forms still source category_id from /api/categories, which is
 // still Supabase-backed (a Postgres numeric id) — there is no live Mongo
@@ -28,7 +49,21 @@ export async function resolveCategoryRef(categoryId) {
   if (categoryId === undefined || categoryId === null || categoryId === "") {
     return null;
   }
+
+  // Only strings, finite numbers, and ObjectIds can be used as IDs.
+  const isString = typeof categoryId === "string";
+  const isFiniteNumber = typeof categoryId === "number" && Number.isFinite(categoryId);
+  const isObjectId = categoryId instanceof mongoose.Types.ObjectId;
+  if (!isString && !isFiniteNumber && !isObjectId){
+    throw new InvalidCategoryRefError(categoryId);
+  }
+
+  // Deliberately NOT trimmed. Trimming the ID could change which legacy_id
+  // values match.
   const idStr = String(categoryId);
+  if (!OBJECT_ID_RE.test(idStr) && !LEGACY_ID_RE.test(idStr)){
+    throw new InvalidCategoryRefError(idStr);
+  }
 
   let category = null;
   if (mongoose.Types.ObjectId.isValid(idStr)) {
