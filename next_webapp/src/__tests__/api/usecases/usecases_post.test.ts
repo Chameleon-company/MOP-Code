@@ -55,14 +55,24 @@ jest.mock('@/app/api/library/errorResponse', () => ({
   ),
 }));
 
-jest.mock('../../../app/api/usecases/_shared', () => ({
-  resolveCategoryRef: jest.fn(),
-  resolveCreatedBy: jest.fn(),
-  resolveTagRefs: jest.fn(),
-  validateNotebookContent: jest.fn(),
-  uploadNotebookToGridFS: jest.fn(),
-  tryDeleteGridFSFile: jest.fn(),
-}));
+jest.mock('../../../app/api/usecases/_shared', () => {
+  class InvalidCategoryRefError extends Error {
+    constructor(message?: string) {
+      super(message);
+      this.name = 'InvalidCategoryRefError';
+    }
+  }
+
+  return {
+    InvalidCategoryRefError,
+    resolveCategoryRef: jest.fn(),
+    resolveCreatedBy: jest.fn(),
+    resolveTagRefs: jest.fn(),
+    validateNotebookContent: jest.fn(),
+    uploadNotebookToGridFS: jest.fn(),
+    tryDeleteGridFSFile: jest.fn()
+  };
+});
 
 import { POST } from '../../../app/api/usecases/route';
 import dbConnect from '@/lib/dbConnect';
@@ -75,6 +85,7 @@ import {
   validateNotebookContent,
   uploadNotebookToGridFS,
   tryDeleteGridFSFile,
+  InvalidCategoryRefError,
 } from '../../../app/api/usecases/_shared';
 
 const ADMIN_ID = '507f1f77bcf86cd799439011';
@@ -448,6 +459,26 @@ describe('POST /api/usecases - failures and cleanup', () => {
 
     expect(response.status).toBe(500);
     expect(body.code).toBe('INTERNAL_ERROR');
+    expect(UseCase.create).not.toHaveBeenCalled();
+  });
+});
+
+describe('POST /api/usecases - invalid category_id', () => {
+  test('returns 400 - INVALID_CATEGORY_ID and writes nothing', async() => {
+    (resolveCategoryRef as jest.Mock).mockRejectedValue(
+      new InvalidCategoryRefError('Invalid category_id: "NaN"')
+    );
+
+    const response = await POST(makeRequest({title: 'Bad Category', category_id: 'NaN', tags: ['new-tag'], content: '{"cells":[]}'}));
+
+    const body = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_CATEGORY_ID');
+    expect(resolveCategoryRef).toHaveBeenCalledWith('NaN');
+    // verify that nothing else runs (creating unneeded tags, notebook pages, or usecases) after the category fails
+    expect(resolveTagRefs).not.toHaveBeenCalled();
+    expect(uploadNotebookToGridFS).not.toHaveBeenCalled();
     expect(UseCase.create).not.toHaveBeenCalled();
   });
 });
