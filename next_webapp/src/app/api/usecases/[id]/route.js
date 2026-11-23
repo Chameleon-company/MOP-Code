@@ -11,16 +11,16 @@ import {
   validateNotebookContent,
   uploadNotebookToGridFS,
   tryDeleteGridFSFile,
+  InvalidCategoryRefError
 } from '../_shared';
 
 // GridFS/streaming needs the Node runtime (mongoose, node:stream) — not edge.
 export const runtime = 'nodejs';
 
 // Basic field validation for PUT — mirrors the old Supabase-backed PUT's
-// validateUseCaseUpdate, minus the category_id integer check (category_id
-// can now be either a Mongo ObjectId string or a legacy Postgres numeric
-// id — see resolveCategoryRef in ../_shared — so it's not validated as a
-// type here, matching how POST already treats it just as permissively).
+// validateUseCaseUpdate. category_id is now validated inside resolveCategoryRef()
+// (accepts ObjectId or numeric legacy Supabase ID only), with invalid values
+// now returning 400 - INVALID_CATEGORY_ID
 function validateBasicFields(body) {
   const errors = [];
 
@@ -172,13 +172,13 @@ export async function PUT(request, { params }) {
 
     // Step 2: resolve category/tags (pure Mongo reads + tag upserts) BEFORE
     // touching GridFS — only for fields actually provided, preserving
-    // partial-update semantics. Nothing uploaded yet, so a failure here has
+    // partial-update semantics. Category is resolved FIRST before
+    // the tag, to avoid creating a tag in the event of an invalid 
+    // category_id. Nothing uploaded yet, so a failure here has
     // nothing to clean up. created_by is NOT resolved or editable here —
     // authorship is immutable after creation (see PUT's comment below).
-    const [categoryRef, tagRefs] = await Promise.all([
-      category_id !== undefined ? resolveCategoryRef(category_id) : undefined,
-      tags !== undefined ? resolveTagRefs(tags) : undefined,
-    ]);
+    const categoryRef = category_id !== undefined ? await resolveCategoryRef(category_id): undefined;
+    const tagRefs = tags !== undefined ? await resolveTagRefs(tags): undefined;
 
     // Step 3: mint a new GridFS file for the replacement notebook — the old
     // file (if any) is left completely alone until the doc save below
@@ -235,6 +235,9 @@ export async function PUT(request, { params }) {
 
     return NextResponse.json({ success: true, data: toUseCaseDTO(saved.toObject()) });
   } catch (error) {
+    if (error instanceof InvalidCategoryRefError) {
+      return errorResponse(error.message, 400, 'INVALID_CATEGORY_ID', request, userId); // Invalid category_id (ex. NaN) -> client error, not a 500
+    }
     if (error instanceof Error && error.name === 'ValidationError') {
       return errorResponse(error.message, 400, 'VALIDATION_ERROR', request, userId);
     }
