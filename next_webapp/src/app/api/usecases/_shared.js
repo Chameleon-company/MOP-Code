@@ -52,9 +52,9 @@ export async function resolveCategoryRef(categoryId) {
 
   // Only strings, finite numbers, and ObjectIds can be used as IDs.
   const isString = typeof categoryId === "string";
-  const isFiniteNumber = typeof categoryId === "number" && Number.isFinite(categoryId);
+  const isIntegerNumber = typeof categoryId === "number" && Number.isSafeInteger(categoryId);
   const isObjectId = categoryId instanceof mongoose.Types.ObjectId;
-  if (!isString && !isFiniteNumber && !isObjectId){
+  if (!isString && !isIntegerNumber && !isObjectId){
     throw new InvalidCategoryRefError(categoryId);
   }
 
