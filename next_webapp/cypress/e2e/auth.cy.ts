@@ -279,6 +279,64 @@ describe('Forgot Password Page', () => {
     // Mapped error message from ERROR_MESSAGES
     cy.contains('Please enter a valid email address').should('be.visible');
   });
+  it('shows a rate-limit error and allows the user to retry later', () => {
+    // Mock the API response when the rate limit is exceeded
+    cy.intercept('POST', '/api/auth/forgot-password', {
+      statusCode: 429,
+      body: {
+        code: 'RATE_LIMIT_EXCEEDED',
+        message: 'Too many requests, please try again later',
+      },
+    }).as('forgotRateLimited');
+
+    // Submit a valid email address
+    cy.get('input[type="email"]').type('user@example.com');
+    cy.get('button[type="submit"]').click();
+
+    // Verify the API returns HTTP 429
+    cy.wait('@forgotRateLimited')
+      .its('response.statusCode')
+      .should('eq', 429);
+
+    // Verify the rate-limit error is displayed
+    cy.contains(/too many requests|try again later/i)
+      .should('be.visible');
+
+    // Verify no misleading success message is displayed
+    cy.contains('If this email exists, a temporary password has been sent')
+      .should('not.exist');
+
+    // Verify the user remains on the forgot-password page
+    cy.url().should('include', '/forgot-password');
+
+    // Verify the form remains available for a retry
+    cy.get('input[type="email"]')
+      .should('have.value', 'user@example.com');
+    cy.get('button[type="submit"]').should('be.enabled');
+
+    // Simulate a later request after the rate limit has cleared
+    cy.intercept('POST', '/api/auth/forgot-password', {
+      statusCode: 200,
+      body: {
+        success: true,
+        message: 'If this email exists, a temporary password has been sent',
+      },
+    }).as('forgotRetrySuccess');
+
+    cy.get('button[type="submit"]').click();
+
+    cy.wait('@forgotRetrySuccess')
+      .its('response.statusCode')
+      .should('eq', 200);
+
+    // Verify successful recovery from the rate-limit error
+    cy.contains('If this email exists, a temporary password has been sent')
+      .should('be.visible');
+
+    cy.contains(/too many requests|try again later/i)
+      .should('not.exist');
+  });
+
 
   it('shows a success message when the email is accepted', () => {
     cy.intercept('POST', '/api/auth/forgot-password', {
