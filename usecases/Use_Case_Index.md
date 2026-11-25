@@ -60,7 +60,8 @@ Index of all MOP data science use cases, including domain, trimester, GitHub loc
 | Use Case Name | Use Case Location | Domain | Data Collection Method | Author |
 | :---: | :---: | :---: | :---: | :---: |
 | UC00007_Population_and_Accidents | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Safety_and_Security/2023/T2/UC00007_Population_and_Accidents) | Safety and Security | `requests.get()` | Kruthi Shetty |
-| UC00008_Self_Designed_Walking_Tour | [File Link](https://github.com/Chameleon-company/MOP-Code/tree/504ad63b31c4432400d9cfcafd280529df2e3f0d/datascience/usecases/READY%20TO%20PUBLISH/Tourism_and_Hospitality/2023/UC00008_Self_Designed_Walking_Tour) | Tourism and Hospitality | `requests.get()` | Amy Tran |
+| UC00008_Self_Designed_Walking_Tour | [File Link](https://github.com/Chameleon-company/MOP-Code/blob/uc00008-ovin-update/usecases/FINALISED/UC00008_Self_Designed_Walking_Tour.ipynb) | Tourism and Hospitality | `requests.get()` | Amy Tran |
+
 
 
 #### T3 2023
