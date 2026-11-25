@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "用户案例",
     "All categories": "所有类别",
+    "Category filter": "类别",
+    "Loading categories": "正在加载类别…",
+    "Categories unavailable": "无法加载类别。您仍然可以搜索。",
+    "No categories": "没有可用的类别。",
+    "Use cases unavailable": "无法加载用例。请重试。",
+    "No category results": "没有符合这些筛选条件的用例。请尝试其他搜索词或选择所有类别。",
     "Search by title": "按标题搜索",
     "Internet": "互联网",
     "EV": "电动车",

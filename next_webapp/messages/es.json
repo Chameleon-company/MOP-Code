@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "Casos de Usuario",
     "All categories": "Todas las categorías",
+    "Category filter": "Categoría",
+    "Loading categories": "Cargando categorías…",
+    "Categories unavailable": "No se pudieron cargar las categorías. Aún puedes buscar.",
+    "No categories": "No hay categorías disponibles.",
+    "Use cases unavailable": "No se pudieron cargar los casos de uso. Inténtalo de nuevo.",
+    "No category results": "Ningún caso de uso coincide con estos filtros. Prueba otra búsqueda o selecciona Todas las categorías.",
     "Search by title": "Buscar por título",
     "Internet": "Internet",
     "EV": "VE (Vehículo Eléctrico)",

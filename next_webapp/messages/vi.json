@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "Trường hợp người dùng",
     "All categories": "Tất cả các danh mục",
+    "Category filter": "Danh mục",
+    "Loading categories": "Đang tải danh mục…",
+    "Categories unavailable": "Không tải được danh mục. Bạn vẫn có thể tìm kiếm.",
+    "No categories": "Không có danh mục nào.",
+    "Use cases unavailable": "Không tải được các trường hợp sử dụng. Vui lòng thử lại.",
+    "No category results": "Không có trường hợp sử dụng nào phù hợp với các bộ lọc này. Hãy thử tìm kiếm khác hoặc chọn Tất cả danh mục.",
     "Search by title": "Tìm kiếm theo tiêu đề",
     "Internet": "Internet",
     "EV": "EV",

@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "Use Cases",
     "All categories": "All categories",
+    "Category filter": "Category",
+    "Loading categories": "Loading categories…",
+    "Categories unavailable": "Could not load categories. You can still search.",
+    "No categories": "No categories available.",
+    "Use cases unavailable": "Could not load use cases. Please try again.",
+    "No category results": "No use cases match these filters. Try a different search or select All categories.",
     "Search by title": "Search by title",
     "Internet": "Internet",
     "EV": "EV",
