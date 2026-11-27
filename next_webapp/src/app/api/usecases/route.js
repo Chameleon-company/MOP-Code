@@ -203,6 +203,30 @@ export async function GET(request) {
       );
     }
 
+    // Validate sorting parameters
+    const sortBy = url.searchParams.get("sortBy")?.trim() || "created_at";
+    const sortOrder = url.searchParams.get("sortOrder")?.trim().toLowerCase() || "desc";
+
+    const allowedSortFields = ["created_at", "updated_at", "title"];
+
+    if (!allowedSortFields.includes(sortBy)) {
+      return errorResponse(
+        "sortBy must be one of: created_at, updated_at, title",
+        400,
+        "INVALID_SORT_BY",
+        request,
+      );
+    }
+
+    if (!["asc", "desc"].includes(sortOrder)) {
+      return errorResponse(
+        "sortOrder must be asc or desc",
+        400,
+        "INVALID_SORT_ORDER",
+        request,
+      );
+    }
+
     await dbConnect();
 
     const filter = {};
@@ -280,7 +304,7 @@ export async function GET(request) {
     const [total, docs] = await Promise.all([
       UseCase.countDocuments(filter),
       UseCase.find(filter)
-        .sort({ created_at: -1 })
+        .sort({ [sortBy]: sortOrder === "asc" ? 1 : -1 })
         .skip(from)
         .limit(pageSize)
         .lean(),
