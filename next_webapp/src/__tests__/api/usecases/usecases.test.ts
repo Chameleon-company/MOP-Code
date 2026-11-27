@@ -318,3 +318,64 @@ describe('GET /api/usecases - embedded tag filtering', () => {
     expect(chain.limit).toHaveBeenCalledWith(5);
   });
 });
+
+describe('GET /api/usecases - sorting', () => {
+  test.each([
+    ['oldest first', 'sortBy=created_at&sortOrder=asc', { created_at: 1 }],
+    ['title A-Z', 'sortBy=title&sortOrder=asc', { title: 1 }],
+    ['title Z-A', 'sortBy=title&sortOrder=desc', { title: -1 }],
+    ['recently updated', 'sortBy=updated_at&sortOrder=desc', { updated_at: -1 }],
+    ['case-insensitive direction', 'sortBy=title&sortOrder=ASC', { title: 1 }],
+  ])('supports %s', async (_label, params, expectedSort) => {
+    const chain = setupMongoResult([UC_1], 1);
+
+    const response = await GET(
+      makeRequest(`http://localhost/api/usecases?${params}`),
+    );
+
+    expect(response.status).toBe(200);
+    expect(chain.sort).toHaveBeenCalledWith(expectedSort);
+  });
+
+  test('rejects an unsupported sorting field', async () => {
+    const response = await GET(
+      makeRequest('http://localhost/api/usecases?sortBy=password'),
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_SORT_BY');
+    expect(dbConnect).not.toHaveBeenCalled();
+    expect(UseCase.find).not.toHaveBeenCalled();
+  });
+
+  test('rejects an unsupported sorting direction', async () => {
+    const response = await GET(
+      makeRequest('http://localhost/api/usecases?sortOrder=random'),
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(body.code).toBe('INVALID_SORT_ORDER');
+    expect(dbConnect).not.toHaveBeenCalled();
+    expect(UseCase.find).not.toHaveBeenCalled();
+  });
+
+  test('applies sorting alongside category filtering and pagination', async () => {
+    const chain = setupMongoResult([UC_1], 12);
+
+    const response = await GET(
+      makeRequest(
+        'http://localhost/api/usecases?category_id=1&sortBy=title&sortOrder=asc&page=2&pageSize=5',
+      ),
+    );
+
+    expect(response.status).toBe(200);
+    expect(UseCase.find).toHaveBeenCalledWith({
+      'category.legacy_id': '1',
+    });
+    expect(chain.sort).toHaveBeenCalledWith({ title: 1 });
+    expect(chain.skip).toHaveBeenCalledWith(5);
+    expect(chain.limit).toHaveBeenCalledWith(5);
+  });
+});
