@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "Casi utente",
     "All categories": "Tutte le categorie",
+    "Category filter": "Categoria",
+    "Loading categories": "Caricamento delle categorie…",
+    "Categories unavailable": "Impossibile caricare le categorie. Puoi comunque cercare.",
+    "No categories": "Nessuna categoria disponibile.",
+    "Use cases unavailable": "Impossibile caricare i casi d’uso. Riprova.",
+    "No category results": "Nessun caso d’uso corrisponde a questi filtri. Prova un’altra ricerca o seleziona Tutte le categorie.",
     "Search by title": "Cerca per titolo",
     "Internet": "Internet",
     "EV": "VE",

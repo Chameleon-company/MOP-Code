@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "उपयोगकर्ता मामले",
     "All categories": "सभी श्रेणियाँ",
+    "Category filter": "श्रेणी",
+    "Loading categories": "श्रेणियाँ लोड हो रही हैं…",
+    "Categories unavailable": "श्रेणियाँ लोड नहीं हो सकीं। आप अब भी खोज सकते हैं।",
+    "No categories": "कोई श्रेणी उपलब्ध नहीं है।",
+    "Use cases unavailable": "उपयोग के मामले लोड नहीं हो सके। कृपया फिर से कोशिश करें।",
+    "No category results": "इन फ़िल्टर से कोई उपयोग मामला नहीं मिला। दूसरी खोज आज़माएँ या सभी श्रेणियाँ चुनें।",
     "Search by title": "शीर्षक से खोजें",
     "Internet": "इंटरनेट",
     "EV": "ईवी",

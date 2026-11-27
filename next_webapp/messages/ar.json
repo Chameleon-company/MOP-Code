@@ -171,6 +171,12 @@
   "usecases": {
     "User Cases": "حالات المستخدم",
     "All categories": "جميع الفئات",
+    "Category filter": "الفئة",
+    "Loading categories": "جارٍ تحميل الفئات…",
+    "Categories unavailable": "تعذّر تحميل الفئات. لا يزال بإمكانك البحث.",
+    "No categories": "لا توجد فئات متاحة.",
+    "Use cases unavailable": "تعذّر تحميل حالات الاستخدام. يُرجى المحاولة مجددًا.",
+    "No category results": "لا توجد حالات استخدام تطابق عوامل التصفية هذه. جرّب بحثًا آخر أو اختر جميع الفئات.",
     "Search by title": "البحث عن طريق العنوان",
     "Internet": "الإنترنت",
     "EV": "EV",
