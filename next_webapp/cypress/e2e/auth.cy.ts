@@ -302,6 +302,60 @@ describe('Forgot Password Page', () => {
     cy.contains('Network error - please check your connection and try again.').should('be.visible');
   });
 
+  // F4: Forgot-password rate-limit UI test
+  it('shows a rate-limit error and allows the user to retry', () => {
+    let requestCount = 0;
+
+    cy.intercept('POST', '/api/auth/forgot-password', (req) => {
+      requestCount += 1;
+
+      if (requestCount === 1) {
+        req.reply({
+          statusCode: 429,
+          body: {
+            code: 'RATE_LIMIT_EXCEEDED',
+            message: 'Too many requests, please try again later',
+          },
+        });
+      } else {
+        req.reply({
+          statusCode: 200,
+          body: {
+            success: true,
+            message: 'If this email exists, a temporary password has been sent',
+          },
+        });
+      }
+    }).as('forgotPasswordRequest');
+
+    // Submit the first request.
+    cy.get('input[type="email"]').type('user@example.com');
+    cy.get('button[type="submit"]').click();
+
+    // Verify the rate-limit response and message.
+    cy.wait('@forgotPasswordRequest')
+      .its('response.statusCode')
+      .should('eq', 429);
+
+    cy.contains('Too many requests, please try again later')
+      .should('be.visible');
+
+    // The form should allow the user to submit another request.
+    cy.get('button[type="submit"]').should('be.enabled');
+
+    // Retry the request.
+    cy.get('button[type="submit"]').click();
+
+    // Verify that the retry succeeds.
+    cy.wait('@forgotPasswordRequest')
+      .its('response.statusCode')
+      .should('eq', 200);
+
+    cy.contains(
+      'If this email exists, a temporary password has been sent. Please check your inbox and follow the link in the email to reset your password.'
+    ).should('be.visible');
+  });
+
   it('has a "Back to Sign In" link that navigates to /login', () => {
     // Use contains('a', ...) to scope to the actual <a> element
     cy.contains('a', 'Back to Sign In').should('be.visible');
